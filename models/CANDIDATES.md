@@ -35,7 +35,7 @@ Sydenham 1854+ are different buildings — never blend their evidence
 | 18 | Sydenham Medieval/Gothic court arch fragment (SCENE-BUILD-PLAN Wave 3.13) | Court views in `references/muse-drive/images/` + 1856 guide Medieval Court text | Medium — arch form from views; a repeatable bay fragment, not a room | **Taken — Muse (round-2 builder), building now** → `models/sy-gothic-arch-fragment/` |
 
 | 19 | Sydenham terrace step + balustrade run (SCENE-BUILD-PLAN Wave 3.14) | 1856 guide garden text + dated park views; round-2 S61/S68 (upper terrace + 1878 plan) | Medium — baluster profile from views; terrace levels partly unresolved | **Taken — Muse (round-2 builder), building now** → `models/sy-terrace-step-and-balustrade/` |
-| 20 | Sydenham great fountain basin (SCENE-BUILD-PLAN Wave 3.15) | Round-2 S60 date fix (fountains first played 18 Jun 1856; CP042 window c.1856–57) + dated basin views in `references/muse-drive/images/` | Medium — basin form from views; no dimensioned drawing in the collection | **Taken — Muse (round-2 builder), building now** → `models/sy-fountain-basin/` |
+| 20 | Sydenham great fountain basin (SCENE-BUILD-PLAN Wave 3.15) | Round-2 S60 date fix (fountains first played 18 Jun 1856; CP042 window c.1856–57) + dated basin views in `references/muse-drive/images/` | Medium — basin form from views; no dimensioned drawing in the collection | **Built** — `models/sy-fountain-basin/` on main (19,768 tris; west basin of the MM pair; outline from two plans, scale adopted from the surveyed c.1862 map — the 1856 foldout implies ~249 m and is documented as conflicting; ±20% flagged; operating state c.1856–57+ only) |
 
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
