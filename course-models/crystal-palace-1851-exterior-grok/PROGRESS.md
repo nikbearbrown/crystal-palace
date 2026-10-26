@@ -129,3 +129,7 @@ Claude's frame is used as-is: metres, origin at the crossing, X east, Y north. H
   - A carriage nearer the camera.
   - Ortho exposure/contrast pass.
   - People on the NE strip.
+
+## Backlog (parked 2026-10-26)
+- x07 parked by Professor Bear's instruction: polish rounds now give diminishing returns; work moved to unbuilt sets (HP-SITE, MOVE+K-JOINT).
+- Parked x07 items: darker drive; nearer carriage; ortho contrast pass; NE strip people.
