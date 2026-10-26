@@ -26,6 +26,9 @@ Sydenham 1854+ are different buildings — never blend their evidence
 | 12 | Great elm tree (SCENE-BUILD-PLAN Wave 1.5) | Transept interior views in `references/muse-drive/images/commons/` and `main-article/` | Medium — procedural; ships labelled generic, never as a named tree | **Built** — `models/hp-great-elm/` on main (45,712 tris instanced; height 22.0 m measured from the Talbot 1851 transept photograph against the 102 ft 2 in vault crown; generic, stylised foliage — a distance/background tree, not a hero asset) |
 | 13 | Packing crate + exhibition display case (SCENE-BUILD-PLAN Wave 1.6) | Dickinson plates in `references/muse-drive/images/commons/` (e.g. plate XXIV, CC0) | Medium — sizes guessed, not dimensioned; NOTES must say so | **Built** — `models/hp-crate-and-display-case/` on main (2,278 tris; case form read from Dickinson plate XXIV, all sizes guessed and labelled; crate is generic period construction — no crate image exists in the collection) |
 
+| 14 | Sydenham High Level subway vault bay (SCENE-BUILD-PLAN Wave 3.9) | Round-2 S87 material (branch muse-round2): OS 25-inch plan 1895; ILN 1865 station engraving; conservation photos 2016/2023/2025 of the vaults themselves | High for the vault geometry (surviving fabric, photographed during restoration); station-to-entry layout still unplotted — bay only, no route claims | **Taken — Muse (round-2 builder), building now** → `models/sy-subway-vault-bay/` |
+| 15 | Sydenham Egyptian Court column pair (SCENE-BUILD-PLAN Wave 3.10) | Court plan 0226 + dated court views in `references/muse-drive/images/`; 1856 guide plan 0205 for position only | Medium-high — views + plan; polychromy partly unverified | **Taken — Muse (round-2 builder), building now** → `models/sy-egyptian-column-pair/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
