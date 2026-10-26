@@ -23,6 +23,9 @@ Sydenham 1854+ are different buildings — never blend their evidence
 
 | 11 | HP roof furrow bay — full 24 ft bay: both slopes, ridge piece, Paxton gutters (companion to row 7's single row) | `references/downes-1852/source-scans/plates/plate-012.jpg` (Plate XII Figs. 1/3/10; bar chain sums to exactly 288 in); plates XIII, XIV, XVIII consulted | High — printed chain + sections | **Built** — `models/hp-roof-furrow-bay/` on main (2,388 tris) |
 
+| 12 | Great elm tree (SCENE-BUILD-PLAN Wave 1.5) | Transept interior views in `references/muse-drive/images/commons/` and `main-article/` | Medium — procedural; ships labelled generic, never as a named tree | **Taken — Muse (round-2 builder), building now** → `models/hp-great-elm/` |
+| 13 | Packing crate + exhibition display case (SCENE-BUILD-PLAN Wave 1.6) | Dickinson plates in `references/muse-drive/images/commons/` (e.g. plate XXIV, CC0) | Medium — sizes guessed, not dimensioned; NOTES must say so | **Taken — Muse (round-2 builder), building now** → `models/hp-crate-and-display-case/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
