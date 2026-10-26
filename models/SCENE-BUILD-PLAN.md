@@ -167,6 +167,13 @@ a usable bay, interior and exhibition.
   "prove" transept clearance.
 
 ### 6. `hp-crate-and-display-case` — packing crate + exhibition vitrine
+- **Status:** Built and QC-passed 2026-10-26. 30 objects, 360
+  triangles. Crate 1.0 × 0.8 × 0.8 m slatted, vitrine glass box
+  1.2 × 0.6 × 1.0 m on a 0.9 m plinth — all sizes guessed, no
+  crate/case dimension was found; vitrine form follows the
+  Dickinson plates. Side view is slightly offset so the crate
+  is not hidden behind the vitrine. See
+  `hp-crate-and-display-case/NOTES.md`.
 - **Scenes:** CP019 (the world arrives in cases), CP024 (machinery
   section dressing — case/barrier, not the machine itself),
   CP025 (jewel case — case only, no invented diamond sparkle or
