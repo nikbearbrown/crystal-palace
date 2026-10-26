@@ -1,0 +1,977 @@
+{
+  "course_repo": "https://github.com/nikbearbrown/csye-7270-building-virtual-environments",
+  "course_commit": "cbdcdce9d8263ef512671e685f108e35856b7a8f",
+  "date": "2026-10-23",
+  "operation": "verified copies; sources preserved",
+  "muse_attribution": "not established; location clarification requested",
+  "files": [
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/BUILD_NOTES.md",
+      "destination": "course-models/crystal-palace-1851-claude/BUILD_NOTES.md",
+      "bytes": 10901,
+      "sha256": "0c31413c76fc316b830d9031d670b2607bb7f90fa82622c6bb564566bc334055",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/DEPARTURES-LEDGER.md",
+      "destination": "course-models/crystal-palace-1851-claude/DEPARTURES-LEDGER.md",
+      "bytes": 15204,
+      "sha256": "cae58dfdfe33e235a7a38d023dab7630f618ebb261aeb5d4c297145ee3b4bf79",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/README.md",
+      "destination": "course-models/crystal-palace-1851-claude/README.md",
+      "bytes": 16557,
+      "sha256": "879d33ebfbe0986f45b9e17c0f82a9cdc80bee7d1b054cf0a0325a956d4855f2",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/checks/controls.json",
+      "destination": "course-models/crystal-palace-1851-claude/checks/controls.json",
+      "bytes": 28230,
+      "sha256": "8996e1459f7c27386d35cc8d9ade2b425bef0a88c468d9fd0b33a285fba310d3",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/checks/gate-west-03_v001.json",
+      "destination": "course-models/crystal-palace-1851-claude/checks/gate-west-03_v001.json",
+      "bytes": 13869,
+      "sha256": "a16b7c9a483bc08d716d53bc11cfb2668abca962caf67a0e5cd2b884759ad142",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/checks/scene-counts.json",
+      "destination": "course-models/crystal-palace-1851-claude/checks/scene-counts.json",
+      "bytes": 1550,
+      "sha256": "70f72f97151c3d93bc08ca75d2410834ada623020b341809be5f4bf813ae0e69",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/section_full_stacked_vs_plateVI.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/section_full_stacked_vs_plateVI.jpg",
+      "bytes": 455899,
+      "sha256": "a9c9ae12f011cc45dc2b962223e2437153740a2a15897a39f86a329a38f599b2",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/section_left_half_vs_plateVI.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/section_left_half_vs_plateVI.jpg",
+      "bytes": 231970,
+      "sha256": "f8df48cab7c0ea4a8ee9063a431d12e08a0e15415199ff8827ab3df5a83da136",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/section_overlay_plateVI.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/section_overlay_plateVI.jpg",
+      "bytes": 359946,
+      "sha256": "27a4017c20ec57912e9d273a979786bd77a9f677b95bef91043631f4be14497d",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/stair_section_overlay_plateXV.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/stair_section_overlay_plateXV.jpg",
+      "bytes": 631622,
+      "sha256": "81a2e870aa37aa188f7a60cf623ecf57d5523980544fc672a73467f246d62c6e",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/stair_section_vs_plateXV.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/stair_section_vs_plateXV.jpg",
+      "bytes": 921261,
+      "sha256": "6b0dd2480b6706859142288efe4127d1e1d9ee3365bea9bf153000ec97868706",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/web/section_full_stacked_vs_plateVI.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/web/section_full_stacked_vs_plateVI.jpg",
+      "bytes": 145832,
+      "sha256": "791054fb7b2811b1f2a0639cffeed779e7a607ff4d740fbba4a7586d82003e38",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/web/section_left_half_vs_plateVI.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/web/section_left_half_vs_plateVI.jpg",
+      "bytes": 72694,
+      "sha256": "e78af39b7a4a4ad7cfe52d34e22a5f180e1c168b82b6613b3b6c822c8f7aba05",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/web/section_overlay_plateVI.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/web/section_overlay_plateVI.jpg",
+      "bytes": 106228,
+      "sha256": "905d08cad856de50a1424f13c1e035aea30e215d831e06eaadb35779deb03c2d",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/web/stair_section_overlay_plateXV.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/web/stair_section_overlay_plateXV.jpg",
+      "bytes": 242658,
+      "sha256": "7e173c364b31f2fdf77691f12a84465f9324046aad6cdf21a63a8c5be664cd9d",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/compare/web/stair_section_vs_plateXV.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/compare/web/stair_section_vs_plateXV.jpg",
+      "bytes": 123439,
+      "sha256": "abf0c3e35df421a6896b64de321965788b4a262baed396418c24485b9f8e184c",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/crystal-palace-1851.blend",
+      "destination": "course-models/crystal-palace-1851-claude/crystal-palace-1851.blend",
+      "bytes": 1027166,
+      "sha256": "2340bf3cbb748c50e700994722d553ee02d3011f65ed3b0e5175b8d7af05ec80",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/crystal-palace-1851.glb",
+      "destination": "course-models/crystal-palace-1851-claude/crystal-palace-1851.glb",
+      "bytes": 3020196,
+      "sha256": "5c59b4daeddac4636ccb1da602e265acf7db8b5cddd39d3b6cdca6a9c3306929",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/index.html",
+      "destination": "course-models/crystal-palace-1851-claude/index.html",
+      "bytes": 1593146,
+      "sha256": "8f103d7476939818f35de8968923ec9a7eea8cb8c3e189951e249edbe2c0b91c",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/gallery.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/gallery.png",
+      "bytes": 3253448,
+      "sha256": "bb011fb46eaf54f9154c29d9601d7e85af41ef3733d8503607fc77302c66200d",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/iso.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/iso.png",
+      "bytes": 2549014,
+      "sha256": "4383b5da67e797cd9f5cd9e55a67f3a67696150923ca7b52b3529c183f82658b",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/joint.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/joint.png",
+      "bytes": 3059622,
+      "sha256": "02c1d5a5746b84d846e3430388aca1ba3a36a64f63db18440f55225d4548e2aa",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/nave.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/nave.png",
+      "bytes": 3214613,
+      "sha256": "f838f5a4f65ca03a25fcb52192cf7faec55d3fa58261b7f5baecea3a77a3bc2f",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/overview.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/overview.png",
+      "bytes": 3265162,
+      "sha256": "5b0da10e9df1125f77adde3b3dca120719fb0c8d42d1a1cd7a419b4cbe15b354",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/section.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/section.png",
+      "bytes": 2363511,
+      "sha256": "98a5fcf0fd141fc548f9019f24008d28cfa40a3fa2fb476b94c1bae3f9b33b9c",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/section_flat.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/section_flat.png",
+      "bytes": 1037041,
+      "sha256": "81920bca910dd151ac3e4144a5231fda91d17de2b09a2dfb6d5bdb0cb8eb38e4",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/stairgal.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/stairgal.png",
+      "bytes": 3083138,
+      "sha256": "6b5691bb9e236b09ebbd96152a68a94ea2eaa244e187892d558bad77c9fe16fc",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/stairs.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/stairs.png",
+      "bytes": 3191667,
+      "sha256": "f06d4a1aba6b47950aaac50ee48ea6548a6fd91f7f1faab180be47d8dbaba10f",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/stairsec_flat.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/stairsec_flat.png",
+      "bytes": 1595111,
+      "sha256": "00261a46503e43f25258b933d5e2949034b35dd67e225c282a248f9403f5bef0",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/voidend.png",
+      "destination": "course-models/crystal-palace-1851-claude/renders/voidend.png",
+      "bytes": 3217111,
+      "sha256": "b7f450b3bae54b022c4acf170bee8fc9412771c658b13cb04b364a2375cb81a8",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/gallery.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/gallery.jpg",
+      "bytes": 191438,
+      "sha256": "db9f3f8bc99942222ced34e39e84fcccfe9e074b36c67305f6b4de6f27061f3c",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/iso.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/iso.jpg",
+      "bytes": 92569,
+      "sha256": "83715b0e6b425fc5e8354662bdfe0f4c2f8924a8e06885249d51c856f649729b",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/joint.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/joint.jpg",
+      "bytes": 107768,
+      "sha256": "437fd1656d17e6bec6be565edf0d078de5d964148d4c277afa3404d922219c35",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/nave.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/nave.jpg",
+      "bytes": 190943,
+      "sha256": "ab17d4a09dd2678fe818ed705c44e16fa239eef1744593165438bbf094ebdedf",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/overview.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/overview.jpg",
+      "bytes": 77471,
+      "sha256": "ccf76a0ddcd1baf37f5c7d29cb5d42da883a48cbcc9b102c04bd08e6a5e4700e",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/section.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/section.jpg",
+      "bytes": 36996,
+      "sha256": "722483e3e643f2a069f82ee752154008b5f083a5d6c68de88491cbf3c402c5bf",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/stairgal.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/stairgal.jpg",
+      "bytes": 113909,
+      "sha256": "bb08758b833834ad7e65e64367f671bd6913dd29fd4bb4ac836c280bfe11b77a",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/stairs.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/stairs.jpg",
+      "bytes": 128036,
+      "sha256": "531fd3a32aaa32e8c49baf3e79d32455111c36c8787ca873ad55c876eed7e02b",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/stairsec_flat.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/stairsec_flat.jpg",
+      "bytes": 101144,
+      "sha256": "d66c30fca847d2459d7d66f3f0c93997ae518cae85832498bfabe4462c77a188",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/renders/web/voidend.jpg",
+      "destination": "course-models/crystal-palace-1851-claude/renders/web/voidend.jpg",
+      "bytes": 199858,
+      "sha256": "804cdf74c1dbd7ac2209839a91fb24fd59e22bfd73456d6a2ee85c14e863df0a",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/build_slice.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/build_slice.py",
+      "bytes": 15230,
+      "sha256": "003a8e3bc547c5d183292e3f66d6b23c57a132c2556ce480eb48472b8c7bdbce",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/compare_plate_vi.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/compare_plate_vi.py",
+      "bytes": 2466,
+      "sha256": "b409c8e73a060777bec9afd075bef5b5b1c4e6533182415b5f4e77a654e8461f",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/compare_plate_xv.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/compare_plate_xv.py",
+      "bytes": 2850,
+      "sha256": "6f6bcc072a27aaac77baad687e3c150ee6c7fafac197fa91262b79863d958b9c",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/count_scene.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/count_scene.py",
+      "bytes": 2911,
+      "sha256": "f891027448eb791da91f96342d6197a7fc07e5cfe6ccde52e6aadce38b51d1c6",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/make_compare.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/make_compare.py",
+      "bytes": 5127,
+      "sha256": "cfdd946724177caf54eb6bb42c8ce636ef91f7f7e1888d244b57319f8c4d52d5",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/make_pages.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/make_pages.py",
+      "bytes": 26878,
+      "sha256": "7e25de5487f46b297b98314583dcbfce88b9644254c07dfc1275d196689eed4f",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/part_signature.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/part_signature.py",
+      "bytes": 1364,
+      "sha256": "0fba4378cae9659bcc825bc0012702def98120b7f032e2a52955f11f43be4404",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/parts.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/parts.py",
+      "bytes": 17372,
+      "sha256": "2543d7adef45b5cb6166f4f3a2fcef4b9fd0242bf4c55c2807b0da0df979153c",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/publish_assets.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/publish_assets.py",
+      "bytes": 8427,
+      "sha256": "a836e5b76911cc64432019f715b795aa9016cfbd862943e00db14165664e0230",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/render_preview.py",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/render_preview.py",
+      "bytes": 8829,
+      "sha256": "be38f8f751f1761457773627b5c4b2664d74c734e107876c0c66fdd09496cc12",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/csye-7270-building-virtual-environments/blender/crystal-palace-1851-claude/scripts/viewer_template.html",
+      "destination": "course-models/crystal-palace-1851-claude/scripts/viewer_template.html",
+      "bytes": 7564,
+      "sha256": "1b05c8bcb944128bcb193eb52238e7b3b0b3379a4901f4f2e528f90ec19cfbc8",
+      "category": "complete linked course package"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/CONTROL-DIMENSIONS.md",
+      "destination": "references/downes-1852/crystal-palace-1851/CONTROL-DIMENSIONS.md",
+      "bytes": 18839,
+      "sha256": "aa84e96417fa41064defd48468472f3b858b6f6fa1ecb34c8de6d57c8f63953f",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/DEPARTURES-LEDGER.md",
+      "destination": "references/downes-1852/crystal-palace-1851/DEPARTURES-LEDGER.md",
+      "bytes": 15204,
+      "sha256": "cae58dfdfe33e235a7a38d023dab7630f618ebb261aeb5d4c297145ee3b4bf79",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/HANDOFF.md",
+      "destination": "references/downes-1852/crystal-palace-1851/HANDOFF.md",
+      "bytes": 15272,
+      "sha256": "239d9d21591c3d4d9982763a50890229787cec2bcc2b1ef8e5578619048b32a4",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/MEASUREMENTS.md",
+      "destination": "references/downes-1852/crystal-palace-1851/MEASUREMENTS.md",
+      "bytes": 16275,
+      "sha256": "a1f26b57353f7ae1c4077a07bc47d954c8c4e9149befc2195a8f9ce74e74b1b4",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/PLATE-INDEX.md",
+      "destination": "references/downes-1852/crystal-palace-1851/PLATE-INDEX.md",
+      "bytes": 3497,
+      "sha256": "b78c5a0d74263f36890ad254eee3065143200eddef7a6108b304ee509a2aea84",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/README.md",
+      "destination": "references/downes-1852/crystal-palace-1851/README.md",
+      "bytes": 8716,
+      "sha256": "35073249071307a6d550bf7b0b216ddbdf4b56e1a641c1d84d2663bd9151f58e",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/SAVE-STATE.md",
+      "destination": "references/downes-1852/crystal-palace-1851/SAVE-STATE.md",
+      "bytes": 1560,
+      "sha256": "e9ecd5da1290e94510c962b900c2eeadedf5cb2b8488db3c9876d48624c54b11",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/SOURCES.md",
+      "destination": "references/downes-1852/crystal-palace-1851/SOURCES.md",
+      "bytes": 2400,
+      "sha256": "3b59be7a06c73185bbc60e34ac3b1b5d01bd5d9bb323b5c44b88e486796a8538",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/controls.json",
+      "destination": "references/downes-1852/crystal-palace-1851/controls.json",
+      "bytes": 28230,
+      "sha256": "8996e1459f7c27386d35cc8d9ade2b425bef0a88c468d9fd0b33a285fba310d3",
+      "category": "measurement and source documentation"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/text/downes-1852-ocr-fulltext.txt",
+      "destination": "references/downes-1852/crystal-palace-1851/text/downes-1852-ocr-fulltext.txt",
+      "bytes": 198839,
+      "sha256": "d75c43f759aa6e0da17dcce89cd4b431b567da7fa32394b313ab2d0974efadaf",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/common.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/common.py",
+      "bytes": 2976,
+      "sha256": "4bf4ebe5c6a7a9920cfed8694a5c8fd511d4a251f79810cf174c402762b9a583",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/gen_figma_sheets.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/gen_figma_sheets.py",
+      "bytes": 43723,
+      "sha256": "0a3e9382c4788934bf332d859116825d7302414c5bc3590f7add1734c9cf6758",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/gridcrop.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/gridcrop.py",
+      "bytes": 1592,
+      "sha256": "d98c7af3d36436ba130d630d83ef50a0d506c47dd1611d394a72661b88992492",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_i.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_i.py",
+      "bytes": 6142,
+      "sha256": "b197b2466d14533e68d699f844b7ddd22a9261c3b5ba251736aa73a3fb53d693",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_ii.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_ii.py",
+      "bytes": 7365,
+      "sha256": "b02596abba9f5e92ffe6a73dd965a02cc9569857fe5b34dc0255218e13c516c3",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_vi.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_vi.py",
+      "bytes": 6968,
+      "sha256": "63f35b46322ebb5c4896ac314526d9e092aa13a26035a9b66d3e3488d00b126f",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_x.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_x.py",
+      "bytes": 3341,
+      "sha256": "e4f3ae17b2b027c512601706554e61a8dc9afe692eaef320caf32f70b94503ba",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_xv.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_xv.py",
+      "bytes": 6016,
+      "sha256": "6d72a5efd75a885598df27fed3af8ba5e1c94bc1468947b970ebf71e371e3fde",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_xviii.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_xviii.py",
+      "bytes": 3627,
+      "sha256": "e870a80b77ab36c363e7622174404a46c1483b77eb167242c9f23427e18a1f34",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/measure_plate_xx.py",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/measure_plate_xx.py",
+      "bytes": 3230,
+      "sha256": "3ce84c4c2846baa2d4310417372a31a912744ccd351e64d8d26a70a3db52dfaa",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/output/run-2026-10-17.txt",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/output/run-2026-10-17.txt",
+      "bytes": 8477,
+      "sha256": "d76640a43c21f8cc755747ef928bee9cc4e09f752def2f466f6002b36abb93d2",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/tools/run_all.sh",
+      "destination": "references/downes-1852/crystal-palace-1851/tools/run_all.sh",
+      "bytes": 1026,
+      "sha256": "f1334d8f0f732487a6842b0687de61fb5bec0f1789d245af87f70ad1fb4fdf91",
+      "category": "OCR and plate measurement tools"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/index.json",
+      "destination": "references/downes-1852/source-scans/plates/index.json",
+      "bytes": 2858,
+      "sha256": "cc7da334be44acd25bcde329ee515fbc31fe869ebb3f5d5f2bb9cf74d726033b",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-001.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-001.jpg",
+      "bytes": 3100094,
+      "sha256": "73fea05d3933e6110137929f314d6278ea98da05335f824e8aa9d86ac894cce6",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-002.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-002.jpg",
+      "bytes": 3946841,
+      "sha256": "28bdce70b358a6a4c6b32553fe2c76b0ae4078fccd9a44cfe323280ac8a2f24d",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-003.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-003.jpg",
+      "bytes": 4152522,
+      "sha256": "9bbd4e1047ebdb872c5a4af5283c76afe3f1f226b5cb206c4b8da282ac53c1f1",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-004.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-004.jpg",
+      "bytes": 6789689,
+      "sha256": "f99524bd44f029ae97bbfd74bf5f72b024778740d0af4f9ce93b3b86820b8d84",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-005.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-005.jpg",
+      "bytes": 4886781,
+      "sha256": "318cf254c910d86701424bc98409a0ff2f1ecfecfd35aa0b2bfced2dc645a68b",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-006.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-006.jpg",
+      "bytes": 4840048,
+      "sha256": "c27aa50ac1d0421b2fcb58455138585506c220ec3fc7718f5ed36a4e904e816e",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-007.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-007.jpg",
+      "bytes": 6299415,
+      "sha256": "c43f6c6ce300c61a82503b6eace98d819a4e129017b9e5504931acc79b52e7e7",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-008.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-008.jpg",
+      "bytes": 3161219,
+      "sha256": "fd2cde56d3842d3182073ec5687cb2f8d3bf7b9f2122cc03eb738f68ed2f18c7",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-009.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-009.jpg",
+      "bytes": 2167352,
+      "sha256": "288b337f29beddf3a85a9cb5e7f834f67dfdb9acc8735afaf4c4b8c4385a8e50",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-010.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-010.jpg",
+      "bytes": 2199332,
+      "sha256": "d751799f01da2fd658ef2f2ac9d1dbee7fc00042ec123a9302d45b09e8457dc4",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-011.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-011.jpg",
+      "bytes": 3590815,
+      "sha256": "1408f6b6f2ef889fe9ac931c3c77b9a7a60e8e14d2e6af0b9487f9aee2ede3bc",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-012.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-012.jpg",
+      "bytes": 3126958,
+      "sha256": "302346f7f7c757553b0f9e9c9a9db30032ebc383a253014c2bd7883a04f99135",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-013.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-013.jpg",
+      "bytes": 3895402,
+      "sha256": "26f0bdc5e1b310300b95439d4afd496e768384e2b86a71e4a5eb202fd36767de",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-014.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-014.jpg",
+      "bytes": 3625050,
+      "sha256": "0d411b965e0767eb847807517cbb252dc3e5c6f213531c71ccec2439d6490596",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-015.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-015.jpg",
+      "bytes": 3528962,
+      "sha256": "27d779c2bb2d517e7d9caa3e3bfaa53226e89f2168157ed38816f3ee34ef429b",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-016.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-016.jpg",
+      "bytes": 2922216,
+      "sha256": "a745f215aed0098ab798246fc9a21df26887f4a82f9a644a6be443b026d53984",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-017.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-017.jpg",
+      "bytes": 2675376,
+      "sha256": "ce5fae576146c55cbd787ec09fdf9b4c7e7adb14fa1489bf0517c4562e6f4df4",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-018.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-018.jpg",
+      "bytes": 4508243,
+      "sha256": "025f7e1a3f621feb828956da4a79035745467f16f47b7154ed3087eaa56263e3",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-019.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-019.jpg",
+      "bytes": 3951249,
+      "sha256": "bd145565f2a3cd780f281ebf2d22b591d593c992ce1bac07f961a68651e40320",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-020.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-020.jpg",
+      "bytes": 2398811,
+      "sha256": "0ca9eb5572572fcf6dcc684aa7b10b5cca2cb0652b15bc6205d7545ed361e6bf",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-020a.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-020a.jpg",
+      "bytes": 1427504,
+      "sha256": "41546f1049d00f2b2a0243e66328f01032beec393b93798135b4e604a1b0f2d4",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-021.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-021.jpg",
+      "bytes": 4161054,
+      "sha256": "a2e9a0936bf76aa0782f4c44723c8cc74987d171d513943ce27cc9257b1a216b",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-022.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-022.jpg",
+      "bytes": 2678365,
+      "sha256": "9a926c939b49f716c5f8f31f4885e565944d7b12d33bee2813944032fb736008",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-023.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-023.jpg",
+      "bytes": 1152117,
+      "sha256": "9a5617df1ac664b56daef09fa77f245e60d59b35e9944e0c26b5a3bf6d6da36a",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-024.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-024.jpg",
+      "bytes": 2627453,
+      "sha256": "d4bd185f41e9a57b3652f73fa41af44c8dafd3944266c19520a4869ff939ec49",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-025.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-025.jpg",
+      "bytes": 3687188,
+      "sha256": "49f2e64027f4194df6d56c7209783b33b729f592bab772addc1203249c5e0e39",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-026.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-026.jpg",
+      "bytes": 3636916,
+      "sha256": "226c0fb6d9be01ff19ce5e54795561b14a2c548f7d940d12a2e75fe6b7994849",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/plates/plate-027.jpg",
+      "destination": "references/downes-1852/source-scans/plates/plate-027.jpg",
+      "bytes": 3020388,
+      "sha256": "dc2afb86c3b81bd24b65fee789955bc0e5c6ea6b92176cd40702ccce0e084029",
+      "category": "full-resolution working plates"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/jp2.zip",
+      "destination": "references/downes-1852/source-scans/jp2.zip",
+      "bytes": 110081473,
+      "sha256": "13c97af032cbdfd57903b34fa09d96b1ddf9177b114d391ae213d4688090854c",
+      "category": "original scan archive and metadata"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/source-scans/scandata.xml",
+      "destination": "references/downes-1852/source-scans/scandata.xml",
+      "bytes": 137673,
+      "sha256": "a96679a81138590510153f6d65908468bc2119b8a8fb99e6f09517807878950e",
+      "category": "original scan archive and metadata"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/rbsc_building-erected-hyde-park_folioNA6750L6D71852.epub",
+      "destination": "references/downes-1852/rbsc_building-erected-hyde-park_folioNA6750L6D71852.epub",
+      "bytes": 42471819,
+      "sha256": "245981386f0fa1eb0034ecc93e29bcd74d5fe6a884b194ac9d70b68ea8612857",
+      "category": "original EPUB, incomplete plate imagery"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/BUILD-LOG.md",
+      "destination": "references/downes-1852/crystal-palace-1851/model/BUILD-LOG.md",
+      "bytes": 12387,
+      "sha256": "74f8be018bf010830d88cec8e225553d2f5885c0b2f51140b98071f9dd8887d1",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/build_slice.py",
+      "destination": "references/downes-1852/crystal-palace-1851/model/build_slice.py",
+      "bytes": 15230,
+      "sha256": "003a8e3bc547c5d183292e3f66d6b23c57a132c2556ce480eb48472b8c7bdbce",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/compare_plate_vi.py",
+      "destination": "references/downes-1852/crystal-palace-1851/model/compare_plate_vi.py",
+      "bytes": 2466,
+      "sha256": "b409c8e73a060777bec9afd075bef5b5b1c4e6533182415b5f4e77a654e8461f",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/compare_plate_xv.py",
+      "destination": "references/downes-1852/crystal-palace-1851/model/compare_plate_xv.py",
+      "bytes": 2850,
+      "sha256": "6f6bcc072a27aaac77baad687e3c150ee6c7fafac197fa91262b79863d958b9c",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/crystal-palace-west-03_v001.blend",
+      "destination": "references/downes-1852/crystal-palace-1851/model/crystal-palace-west-03_v001.blend",
+      "bytes": 1023486,
+      "sha256": "019860993d175147f3bfa1f4ac2ba5547cb6b5ab4779ebd3ad6737c4f54eae14",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/part_signature.py",
+      "destination": "references/downes-1852/crystal-palace-1851/model/part_signature.py",
+      "bytes": 1364,
+      "sha256": "0fba4378cae9659bcc825bc0012702def98120b7f032e2a52955f11f43be4404",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/parts.py",
+      "destination": "references/downes-1852/crystal-palace-1851/model/parts.py",
+      "bytes": 17372,
+      "sha256": "2543d7adef45b5cb6166f4f3a2fcef4b9fd0242bf4c55c2807b0da0df979153c",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/architecture/crystal-palace-1851/model/render_preview.py",
+      "destination": "references/downes-1852/crystal-palace-1851/model/render_preview.py",
+      "bytes": 8829,
+      "sha256": "be38f8f751f1761457773627b5c4b2664d74c734e107876c0c66fdd09496cc12",
+      "category": "working source model and build scripts"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/bbavxsgbdux.jpg",
+      "destination": "references/image-leads/bbavxsgbdux.jpg",
+      "bytes": 137151,
+      "sha256": "707fd0ba4f2090d7b00aee23167e93d7f974dccc2179a2ade6f07f1c2deb2351",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/bgkwczwkfdt.jpeg",
+      "destination": "references/image-leads/bgkwczwkfdt.jpeg",
+      "bytes": 31847,
+      "sha256": "a0e725c757feeeea239066817c8eda7f4ea2d552f91a0a84ce72f8067f96a076",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/ewyhnbitacd.jpeg",
+      "destination": "references/image-leads/ewyhnbitacd.jpeg",
+      "bytes": 55300,
+      "sha256": "e98baabb39eb57c6212572239e68f509ec8740075433b7229221f65317374d97",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/fztcloyktkj.jpg",
+      "destination": "references/image-leads/fztcloyktkj.jpg",
+      "bytes": 91610,
+      "sha256": "b7b4f40558472d5681b2785e33b7d5c68b0775bcb24c99fdd285b8cb5df06f40",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/ihqicdbcawr.jpg",
+      "destination": "references/image-leads/ihqicdbcawr.jpg",
+      "bytes": 100927,
+      "sha256": "c7e6efe381f67c5f254ef8c631686b38abd75b49165b99c3d19dca5f0b714c55",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/ikhdvpsnrro.jpeg",
+      "destination": "references/image-leads/ikhdvpsnrro.jpeg",
+      "bytes": 24104,
+      "sha256": "60280525bd7f50a2bd1e924ee6ca16e4e71d46e9ce323a216e63d76007b86912",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/kqcwezntfip.jpg",
+      "destination": "references/image-leads/kqcwezntfip.jpg",
+      "bytes": 150644,
+      "sha256": "75eef2816555df99242cef02965135d998270cb4bad594c5dd856a7b7492194d",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/latxydwresx.jpg",
+      "destination": "references/image-leads/latxydwresx.jpg",
+      "bytes": 117780,
+      "sha256": "2afb57d0215578e12df4c15a293b1d5cc18368dc0b375b176b850e3ccea17583",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/lwoietjctpl.jpeg",
+      "destination": "references/image-leads/lwoietjctpl.jpeg",
+      "bytes": 73222,
+      "sha256": "6a254358dfc8a5cfeee129a1418104404d40b0244d47ab1025ad17eb700b5f03",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/mykqcyktibt.jpg",
+      "destination": "references/image-leads/mykqcyktibt.jpg",
+      "bytes": 83856,
+      "sha256": "9a8873fd6f8ae5a8e50d6029c7f779aa154a611157c6a701d77336b86ec44c80",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/qhdniqyfzdk.jpg",
+      "destination": "references/image-leads/qhdniqyfzdk.jpg",
+      "bytes": 76088,
+      "sha256": "a849dcf2fba767c0688adc3bf533f52f5a8cddc0778348610f8415b12aacf70b",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/rvbzzdoivfj.jpg",
+      "destination": "references/image-leads/rvbzzdoivfj.jpg",
+      "bytes": 156758,
+      "sha256": "376a9aeef29bda57745f86cbe87a8964933be00e458c5b0971fa2a9073948b5c",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/tnuowsocmgl.png",
+      "destination": "references/image-leads/tnuowsocmgl.png",
+      "bytes": 361026,
+      "sha256": "982e25424d0983f76a7c82da04626ece784a9d83facf54eb45a2ea03a28adc7c",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/uxqanywewcl.jpg",
+      "destination": "references/image-leads/uxqanywewcl.jpg",
+      "bytes": 188129,
+      "sha256": "d03589be6ea8e15375ed0f31f2a77af414d0d43c32551419f40e28e038d14c9d",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/vixqoezbyfh.jpg",
+      "destination": "references/image-leads/vixqoezbyfh.jpg",
+      "bytes": 62075,
+      "sha256": "100a8d349e8b097e05b83b35089811bb9953488ea2f0c6330dd821665607b6e3",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/vmijueeqqkx.jpg",
+      "destination": "references/image-leads/vmijueeqqkx.jpg",
+      "bytes": 126302,
+      "sha256": "f399d858644df4eb08b809828d3c9a1ae23de2c3c8aac3bf985ce32f058f2954",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/vzkjciempnl.jpg",
+      "destination": "references/image-leads/vzkjciempnl.jpg",
+      "bytes": 60797,
+      "sha256": "26e748ef9869d12a920091c2dcac329129ecdb2fc5ed67aea9fbd13e5e3404f0",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/wvqecdwjjmh.jpg",
+      "destination": "references/image-leads/wvqecdwjjmh.jpg",
+      "bytes": 70951,
+      "sha256": "f76fc458e870add9310f88091b6cd05d2c269d0b5d9a83fd739407582230e244",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/wxntwlndswh.jpg",
+      "destination": "references/image-leads/wxntwlndswh.jpg",
+      "bytes": 81661,
+      "sha256": "b0711e8bd60960bc0f7f7ec3d633365ae84e9b3f4db196629e3b6c75ae113b13",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/wzgosnrdxbh.jpg",
+      "destination": "references/image-leads/wzgosnrdxbh.jpg",
+      "bytes": 182165,
+      "sha256": "11598df84ffd9daa9e908ebd6d7067c03cb721d1899e08e894d4679dbf8df077",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/ybtjccjwtze.jpg",
+      "destination": "references/image-leads/ybtjccjwtze.jpg",
+      "bytes": 94842,
+      "sha256": "e52227743f1cb9cd509d521842b6e7da5661a144c2b7ea537b49e9432428cc3c",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/Users/bear/Downloads/crystal/znrtoltrrhm.jpg",
+      "destination": "references/image-leads/znrtoltrrhm.jpg",
+      "bytes": 79068,
+      "sha256": "c7603d452b897463c854251c7e3457844c1b0e53883cb8c33754e5ec887f3dc2",
+      "category": "unverified image lead; source/date/rights not established"
+    },
+    {
+      "source": "/tmp/crystal-palace-build/historical-reference-contact.jpg",
+      "destination": "references/image-leads/contact-sheet.jpg",
+      "bytes": 303597,
+      "sha256": "ef348c215f699cd428cb26b99a14043386a28febbe55f19b9fca0bd54d999dfb",
+      "category": "generated contact sheet of local reference images"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/walker-crystal-palace/research/NOTES-HISTORY.md",
+      "destination": "references/walker-research-notes/NOTES-HISTORY.md",
+      "bytes": 13639,
+      "sha256": "e5b953fe11f2954ab77c59a7f6c597c57f534cc51398a5c08c643de5a34545f4",
+      "category": "unverified research notes / schema"
+    },
+    {
+      "source": "/Users/bear/Documents/CoWork/bear-textbooks/books/walker-crystal-palace/research/CLAIM-SCHEMA.md",
+      "destination": "references/walker-research-notes/CLAIM-SCHEMA.md",
+      "bytes": 2234,
+      "sha256": "56b5e8c8db7c4dbedbd71700cbeca0d6ffb054495e899a686742dc072cda3515",
+      "category": "unverified research notes / schema"
+    }
+  ],
+  "count": 138,
+  "bytes": 295251211
+}

@@ -1,0 +1,12 @@
+Crystal Palace research for Nik Bear Brown — reviewed 24 October 2026
+
+Open review/index.html for the searchable offline gallery.
+Read review/REVIEW.md for findings, corrections and limitations.
+Read review/MODEL-AND-FILM-PLAN.md for the two-building reconstruction plan.
+
+The original Muse README and data files are preserved unchanged.
+Some of their counts, plate numbers and architectural claims need correction;
+use the separate review rather than importing them directly into a model.
+
+Scope: Hyde Park 1851, the move and rebuilding, and Sydenham from 1854.
+No non-Blender 3D models were restored. This pass adds research, not a new model or film.
