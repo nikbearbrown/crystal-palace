@@ -95,6 +95,11 @@ These are the props that turn the column from a single object into
 a usable bay, interior and exhibition.
 
 ### 1. `hp-glazing-and-sash-panel` — timber sash bars + glass panel
+- **Status:** Built and QC-passed 2026-10-26. 5 panes between 6
+  sash bars, 1.364 × 1.245 m, 13 objects, 156 triangles; renders
+  viewed (face, edge, three-quarter). Bar centres 10½ in (Plate
+  XII), glass length 49 in (printed p.15); bar section and glass
+  thickness guessed — see `hp-glazing-and-sash-panel/NOTES.md`.
 - **Scenes:** CP013 (iron, glass — and timber), CP016 (glazing at
   construction speed), CP052 (glazier repair, Sydenham-era reuse of
   the *technique*, not the HP panel as SY evidence).
