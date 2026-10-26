@@ -1,0 +1,20 @@
+{
+  "native_reopen": "PASS",
+  "native_version": "5.1.2",
+  "glb_bytes": 19952044,
+  "glb_meshes": 11,
+  "glb_materials": 16,
+  "glb_images": 10,
+  "extensions_used": [
+    "KHR_draco_mesh_compression",
+    "KHR_materials_transmission",
+    "KHR_materials_ior"
+  ],
+  "extensions_required": [
+    "KHR_draco_mesh_compression"
+  ],
+  "external_resources": false,
+  "reimport_objects": 11,
+  "reimport_meshes": 11,
+  "glb_reimport": "PASS"
+}

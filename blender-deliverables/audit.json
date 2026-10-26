@@ -1,0 +1,363 @@
+{
+  "blender": "5.1.2",
+  "texture_assignments": [
+    {
+      "material": "CONCRETE",
+      "map": "Archexterior01_08_Concrete.jpg",
+      "role": "color",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "CONCRETE",
+      "map": "Archexterior01_08_Concrete_NRM.jpg",
+      "role": "normal",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "Sandstone",
+      "map": "5a6be048f658.jpg",
+      "role": "color",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "white stone",
+      "map": "000005750421_C - copia - copia.png",
+      "role": "color",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "stone",
+      "map": "b74a5c4e2346.jpg",
+      "role": "color",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "Material #56597",
+      "map": "Grass0138_1_seamless_L.jpg",
+      "role": "color",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "Material #56597",
+      "map": "02 Cesped con astillas BW.jpg",
+      "role": "bump",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "WOOD FLOOR BOARDS",
+      "map": "OAK WOOD BOARDS/wood-floorboards-oak_0150-01_1860mm-by-189mm_colormatched_01_cg-source.jpg",
+      "role": "color",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "METAL",
+      "map": "metal_glossiness.jpg",
+      "role": "gloss",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "METAL",
+      "map": "OXIDO2 BUMP.jpg",
+      "role": "bump",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "GREY METAL",
+      "map": "metal_glossiness.jpg",
+      "role": "gloss",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "GREY METAL",
+      "map": "OXIDO2 BUMP.jpg",
+      "role": "bump",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "BROWN METAL",
+      "map": "metal_glossiness.jpg",
+      "role": "gloss",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "BROWN METAL",
+      "map": "OXIDO2 BUMP.jpg",
+      "role": "bump",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "BLUE METAL",
+      "map": "metal_glossiness.jpg",
+      "role": "gloss",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "BLUE METAL",
+      "map": "OXIDO2 BUMP.jpg",
+      "role": "bump",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "YELLOW METAL",
+      "map": "metal_glossiness.jpg",
+      "role": "gloss",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    },
+    {
+      "material": "YELLOW METAL",
+      "map": "OXIDO2 BUMP.jpg",
+      "role": "bump",
+      "basis": "inferred from material name and map appearance; FBX had no texture links"
+    }
+  ],
+  "mesh_objects": 11,
+  "vertices": 2032048,
+  "polygons": 2040388,
+  "materials": 16,
+  "images": 11,
+  "objects": [
+    {
+      "name": "GRASS",
+      "vertices": 133,
+      "triangles": 101,
+      "dimensions": [
+        133.6185302734375,
+        33.14262390136719,
+        5.2489237785339355
+      ],
+      "bounds": [
+        [
+          -69.03358459472656,
+          -47.75761032104492,
+          1.1996955871582031
+        ],
+        [
+          64.58494567871094,
+          -14.614985466003418,
+          6.448619365692139
+        ]
+      ]
+    },
+    {
+      "name": "EXTERIOR FLOOR",
+      "vertices": 508,
+      "triangles": 796,
+      "dimensions": [
+        154.564453125,
+        80.61076354980469,
+        6.84705114364624
+      ],
+      "bounds": [
+        [
+          -79.50898742675781,
+          -53.96073532104492,
+          0.430356502532959
+        ],
+        [
+          75.05546569824219,
+          26.650028228759766,
+          7.277407646179199
+        ]
+      ]
+    },
+    {
+      "name": "STAIRS",
+      "vertices": 90570,
+      "triangles": 175972,
+      "dimensions": [
+        132.4918212890625,
+        15.605409622192383,
+        10.448347091674805
+      ],
+      "bounds": [
+        [
+          -68.47364807128906,
+          -29.518054962158203,
+          -1.6011366844177246
+        ],
+        [
+          64.01817321777344,
+          -13.91264533996582,
+          8.847210884094238
+        ]
+      ]
+    },
+    {
+      "name": "WOOD PLANKS  FLOOR",
+      "vertices": 137388,
+      "triangles": 206082,
+      "dimensions": [
+        123.525390625,
+        36.25,
+        0.0635385513305664
+      ],
+      "bounds": [
+        [
+          -63.33027648925781,
+          -12.652142524719238,
+          8.15313720703125
+        ],
+        [
+          60.19511413574219,
+          23.597858428955078,
+          8.216675758361816
+        ]
+      ]
+    },
+    {
+      "name": "GLASS",
+      "vertices": 78925,
+      "triangles": 152866,
+      "dimensions": [
+        123.33009338378906,
+        36.27534484863281,
+        32.10694885253906
+      ],
+      "bounds": [
+        [
+          -63.23847961425781,
+          -12.826838493347168,
+          8.111759185791016
+        ],
+        [
+          60.091617584228516,
+          23.448505401611328,
+          40.21870803833008
+        ]
+      ]
+    },
+    {
+      "name": "STRUCTURE",
+      "vertices": 1528788,
+      "triangles": 1197927,
+      "dimensions": [
+        123.9970703125,
+        36.8203125,
+        34.67311477661133
+      ],
+      "bounds": [
+        [
+          -63.337890625,
+          -13.0859375,
+          5.872623443603516
+        ],
+        [
+          60.6591796875,
+          23.734375,
+          40.545738220214844
+        ]
+      ]
+    },
+    {
+      "name": "GARDENS_001",
+      "vertices": 52842,
+      "triangles": 102828,
+      "dimensions": [
+        119.32421875,
+        33.7578125,
+        0.4455986022949219
+      ],
+      "bounds": [
+        [
+          -61.2158203125,
+          -10.7578125,
+          7.939999580383301
+        ],
+        [
+          58.1083984375,
+          23.0,
+          8.385598182678223
+        ]
+      ]
+    },
+    {
+      "name": "FLOOR SLABS",
+      "vertices": 75080,
+      "triangles": 181884,
+      "dimensions": [
+        123.525390625,
+        36.29296875,
+        15.168048858642578
+      ],
+      "bounds": [
+        [
+          -63.330078125,
+          -12.69921875,
+          7.212339401245117
+        ],
+        [
+          60.1953125,
+          23.59375,
+          22.380388259887695
+        ]
+      ]
+    },
+    {
+      "name": "Plane001",
+      "vertices": 4,
+      "triangles": 2,
+      "dimensions": [
+        234.57943725585938,
+        184.42367553710938,
+        8.106231689453125e-06
+      ],
+      "bounds": [
+        [
+          -117.60124206542969,
+          -101.71339416503906,
+          0.7755708694458008
+        ],
+        [
+          116.97819519042969,
+          82.71028137207031,
+          0.7755789756774902
+        ]
+      ]
+    },
+    {
+      "name": "FOUNTAINS_044",
+      "vertices": 33905,
+      "triangles": 62486,
+      "dimensions": [
+        1.47076416015625,
+        1.4707584381103516,
+        4.509698867797852
+      ],
+      "bounds": [
+        [
+          -38.708770751953125,
+          5.836252689361572,
+          8.244646072387695
+        ],
+        [
+          -37.238006591796875,
+          7.307011127471924,
+          12.754344940185547
+        ]
+      ]
+    },
+    {
+      "name": "FOUNTAINS_371",
+      "vertices": 33905,
+      "triangles": 62486,
+      "dimensions": [
+        1.47076416015625,
+        1.4707584381103516,
+        4.509698867797852
+      ],
+      "bounds": [
+        [
+          34.018280029296875,
+          5.836252689361572,
+          8.244646072387695
+        ],
+        [
+          35.489044189453125,
+          7.307011127471924,
+          12.754344940185547
+        ]
+      ]
+    }
+  ],
+  "triangles": 2143430
+}

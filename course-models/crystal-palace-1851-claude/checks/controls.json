@@ -1,0 +1,770 @@
+{
+  "DRAFT": true,
+  "status": "DRAFT flag kept until the whole palace is modelled. The stated values come from CONTROL-DIMENSIONS.md and are final. The tolerance policy and the part naming below are DECIDED (Bear, 2026-10-17); what is left open is listed in decisions_needed. Run against real models since 2026-10-17: slice 01 (17 of 17), the first six bays (19 of 19) and the first twelve bays (25 gated pass, 4 text controls reported); the controls for the transept, trusses, vault and north strip have no parts to test yet.",
+  "building": "Crystal Palace, Hyde Park 1851 (Downes 1852)",
+  "source": "crystal-palace-1851/CONTROL-DIMENSIONS.md and MEASUREMENTS.md, 2026-10-17",
+  "run": "blender --background crystal-palace.blend --python-exit-code 1 --python scripts/blender/check_controls.py -- --controls controls.json   (from books/walker/)",
+  "unit": "ft",
+  "default_tolerance_pct": 0.5,
+  "require_props": [
+    "part_id",
+    "part_kind"
+  ],
+  "decided": [
+    {
+      "what": "Truss controls D19a and D19b",
+      "by": "Bear",
+      "date": "2026-10-17",
+      "decision": "D19a is the truss face to face, stated 71.2 ft, tolerance 0.4 ft, plate-checked (the 72 ft centre to centre is D08); D19b stays plate-printed at 6.0 ft, tolerance 0.1 ft."
+    },
+    {
+      "what": "Tolerance policy",
+      "by": "Bear",
+      "date": "2026-10-17",
+      "decision": "Keep as drafted (see tolerance_policy)."
+    },
+    {
+      "what": "Part naming and custom properties",
+      "by": "Bear",
+      "date": "2026-10-17",
+      "decision": "part_id is the unique ID and part_kind the kind; column_shaft is split from column_base; single-part controls select a 'sample' property, not a name; plan rows are whole-word 'tags' read with the tag selector; require_props makes an untagged part an error; the origin is the centre of the nave and transept crossing."
+    }
+  ],
+  "model_conventions": {
+    "units": "metres, scene unit scale 1.0 (BLENDER.md); this file states feet, the script converts",
+    "axes": "X = length of the building (east-west, +X east), Y = width (south to north, +Y north; the 48 ft strip is on +Y), Z = up",
+    "origin": "the centre of the nave and transept crossing, at floor level. The controls use only differences, so the origin does not affect them. Plate I puts the crossing about mid-length (924 ft from either end); confirm that when modelling. The north strip runs from 216 ft to 1152 ft from the west end (Plate I's chain 216 + 936 + 696)",
+    "floor": "the ground floor slab's top face is at z = 0",
+    "parts": "A part is a mesh object, or an empty that instances a collection (ARCHITECTURE.md section 6). Each part carries the custom properties below. The collections that are only instance sources must be unlinked from the scene, or they would be measured as parts at their own location",
+    "column_shaft": "the column above the floor: B's top 3 3/4 in above the floor plus A (18 ft 8 in), so its top is 18 ft 11 3/4 in above the floor and it is 8 in across. Its origin and bounding box are centred on the column axis, so the centre of the part is the column centreline. Everything that is not symmetric about the axis (the flare and base plate, below the floor) is a separate column_base part",
+    "tier": "tier = the tier a girder, connecting piece or ridge serves (a connecting piece carries the girders of its tier); top_tier = the highest tier a column reaches. Gallery floors use level instead (1 = the gallery at 22 ft 11 in)"
+  },
+  "naming": {
+    "custom properties on every placed part": {
+      "part_id": "unique ID, the same as the object name (BLENDER.md section 4)",
+      "part_kind": "column_shaft | column_upper | column_base | connecting_piece | girder | truss | gallery_floor | balustrade | floor_ground | ridge | vault_rib | stair_flight | stair_landing | stair_column",
+      "tier": "1 | 2 | 3 (girders, connecting pieces, ridges)",
+      "level": "1 (gallery floors and balustrades: the gallery at 22 ft 11 in)",
+      "top_tier": "1 | 2 | 3 (columns only)",
+      "block": "main | north (columns only; north = the 936 x 48 ft strip; the strip's inner row of columns belongs to main)",
+      "tags": "space-separated whole words: nave_edge (the two column rows bounding the 72 ft nave), avenue_A1 (the two rows bounding one 48 ft avenue), north_strip_edge (the two rows bounding the strip's 48 ft depth, along its 936 ft); west_end (the columns on the west end line), avenue_void_end (the columns on the line where the avenue voids begin, 24 ft in), nave_void_end (the line where the nave void begins, 72 ft in), stair_gap_west and stair_gap_east (the two lines either side of a 24 ft stair bay, 192 and 216 ft in). A part may carry several",
+      "span_ft": "24 | 48 | 72 (girders and trusses: the bay they carry)",
+      "sample": "marks the one part a single-part control measures: shaft_a (D13), girder_24_x (D10b), stair_landing (D27, D28, D31), stair_column (D30), stair_flight (D32), cross_gallery (D33, D34)",
+      "stage": "lower | upper (stair flights: from the floor to the landing, or from the landing to the gallery)",
+      "avenue": "N | S (stair parts: which avenue void the staircase is in)"
+    },
+    "object names": {
+      "column_shaft": "COLS_X{i:02d}_Y{j:02d}",
+      "column_base": "COLF_X{i:02d}_Y{j:02d}",
+      "column_upper": "COLU_T{tier}_X{i:02d}_Y{j:02d} (the 16 ft 7 1/2 in column standing on the connecting piece of the tier below; added when slice 01 was built)",
+      "connecting_piece": "COLC_T{tier}_X{i:02d}_Y{j:02d}",
+      "girder": "GIRX_T{tier}_X{i:02d}_Y{j:02d} (runs along X) or GIRY_T{tier}_X{i:02d}_Y{j:02d} (along Y); the grid cell is the girder's midpoint",
+      "truss": "TRS72_{k:02d}",
+      "gallery_floor": "GFLR_L1_X{i:02d}_Y{j:02d} (one 24 x 24 ft panel per cell, j the lower row)",
+      "balustrade": "BAL_L1_X{i:02d}_Y{j:02d} (one 24 ft run along a void edge; added when the gallery was built)",
+      "floor_ground": "FLOOR_ground",
+      "ridge": "RIDGE_T3_{k:03d}",
+      "vault_rib": "RIB_{k:02d}",
+      "stair parts (added with the first staircases)": "XGAL_{N|S}_X{bay} cross gallery (part_kind gallery_floor, level 1); STLD_{N|S}_X{bay} landing; STCL_{N|S}_X{bay}_{ix}{iy} landing column; STFL_{N|S}_X{bay}_{W|E} ground flight; STFU_{N|S}_X{bay}_{IN|OUT} upper flight; STRL_{N|S}_X{bay}_{E|F}{k} landing railing (part_kind balustrade, level landing); BALY_L1_X{line}_Y{j} cross railing at a void end"
+    },
+    "instance sources (collections, not linked to the scene)": "PART_ColumnShaft, PART_ColumnUpper, PART_ColumnBase, PART_ConnectingPiece, PART_Girder24, PART_GalleryPanel, PART_Balustrade24, PART_Truss72, PART_Ridge, PART_Rib, PART_Balustrade8, PART_StairFlight, PART_StairLanding, PART_StairColumn, PART_CrossGallery",
+    "rules": "Names use letters, digits and underscores only, under 63 characters, with zero-padded indices so no .001 suffix appears (BLENDER.md section 5). Controls never select by name: a rename must not break a control. Group the parts by kind in collections for the Outliner; the selectors do not use collections. ARCHITECTURE.md section 6 also asks for unit, erection_order, source_sheet and ledger_row on every part; this file does not need them"
+  },
+  "tolerance_policy": "DECIDED by Bear, 2026-10-17. plate-printed controls: the plate prints the figure and the model is built to it, so the tolerance is a tight modelling tolerance (a few hundredths of a foot). plate-checked controls: the figure is a reading off a plate, so the tolerance is the larger of 0.5% and the sheet's scale-bar scatter (0.7% on Plates VI and XVIII), as ARCHITECTURE.md section 4 item 2 says. Exceptions, each stated in its own tolerance_basis: D19b (plate-printed, but 0.1 ft, because the plate drawing resolves no better) and D18 (plate-checked, but its printed pieces sum exactly, so the 0.5% floor is looser than the evidence; reclassify D18 as plate-printed if a tight gate is wanted).",
+  "decisions_needed": [],
+  "not_included": [
+    {
+      "id": "D16",
+      "why": "base plates come in four sizes (2 x 1, 2 x 1.5, 3 x 1.5, 3 x 2 ft) on column_base parts, but the table does not say which columns take which, or which side is the length. Add per-variant controls with sample properties once the variants are modelled."
+    },
+    {
+      "id": "D17",
+      "why": "concrete depth is a range (1 to 4 ft varying with load), and this script compares to a single value."
+    },
+    {
+      "id": "D21",
+      "why": "consistent with D20 but not an independent measurement."
+    },
+    {
+      "id": "D22",
+      "why": "the 108 ft louvre run is on no plate; the text figure is not a control."
+    }
+  ],
+  "controls": [
+    {
+      "id": "D01",
+      "what": "Length of the three tiers, centre to centre of columns (1848 ft)",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        }
+      },
+      "stated": 1848,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I"
+    },
+    {
+      "id": "D02",
+      "what": "Width of the lowest tier, outer column to outer column (408 ft)",
+      "type": "span",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft",
+          "block": "main"
+        }
+      },
+      "stated": 408,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I, VI"
+    },
+    {
+      "id": "D03",
+      "what": "Width of the second tier: outermost columns that reach tier 2 or 3 (264 ft)",
+      "type": "span",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft",
+          "block": "main",
+          "top_tier": [
+            2,
+            3
+          ]
+        }
+      },
+      "stated": 264,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate VI scale-bar scatter",
+      "status": "plate-checked",
+      "sheet": "Plate VI"
+    },
+    {
+      "id": "D04",
+      "what": "Width of the third tier: columns that reach tier 3 (120 ft)",
+      "type": "span",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft",
+          "block": "main",
+          "top_tier": 3
+        }
+      },
+      "stated": 120,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate VI scale-bar scatter",
+      "status": "plate-checked",
+      "sheet": "Plate VI"
+    },
+    {
+      "id": "D05a",
+      "what": "North strip, length along its columns (936 ft)",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft",
+          "block": "north"
+        }
+      },
+      "stated": 936,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I"
+    },
+    {
+      "id": "D05b",
+      "what": "North strip, depth between its two bounding column rows (48 ft)",
+      "type": "span",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "tag": "north_strip_edge"
+      },
+      "stated": 48,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I"
+    },
+    {
+      "id": "D06",
+      "what": "Bay pitch along the length: every column spacing is 24 ft",
+      "type": "pitch",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        }
+      },
+      "stated": 24,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I, VI, X"
+    },
+    {
+      "id": "D07",
+      "what": "One 48 ft avenue, between its bounding column rows",
+      "type": "span",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "tag": "avenue_A1"
+      },
+      "stated": 48,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I"
+    },
+    {
+      "id": "D08",
+      "what": "The 72 ft nave, between its bounding column rows",
+      "type": "span",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "tag": "nave_edge"
+      },
+      "stated": 72,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate I"
+    },
+    {
+      "id": "D09",
+      "what": "Ridge-and-valley roof: gutter pitch across the width (8 ft)",
+      "type": "pitch",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "ridge",
+          "tier": 3
+        }
+      },
+      "stated": 8,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate VI scale-bar scatter",
+      "status": "plate-checked",
+      "sheet": "Plate VI"
+    },
+    {
+      "id": "D10a",
+      "what": "Cast-iron girder depth, tier 1 (3 ft)",
+      "type": "extent",
+      "axis": "Z",
+      "select": {
+        "prop": {
+          "part_kind": "girder",
+          "tier": 1
+        }
+      },
+      "stated": 3,
+      "tolerance_abs": 0.02,
+      "tolerance_basis": "printed figure (Plate VIII); modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate VIII, X"
+    },
+    {
+      "id": "D10b",
+      "what": "One 24 ft girder, face to face (23 ft 3 1/4 in)",
+      "type": "extent",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "girder",
+          "sample": "girder_24_x"
+        }
+      },
+      "stated": 23.2708,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure (Plate X); modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate X"
+    },
+    {
+      "id": "D11a",
+      "what": "Top of the tier-1 girders above the ground floor (22 ft 2 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "girder",
+          "tier": 1
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 22.1667,
+      "tolerance_abs": 0.02,
+      "tolerance_basis": "Plate VIII prints 19 ft 2 in + 3 ft 0 in; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate VIII"
+    },
+    {
+      "id": "D11b",
+      "what": "Top of the tier-2 girders above the ground floor (42 ft 2 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "girder",
+          "tier": 2
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 42.1667,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate VI scale-bar scatter (about 0.3 ft)",
+      "status": "plate-checked",
+      "sheet": "Plate VI"
+    },
+    {
+      "id": "D11c",
+      "what": "Top of the tier-3 girders above the ground floor (62 ft 2 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "girder",
+          "tier": 3
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 62.1667,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate VI scale-bar scatter (about 0.4 ft)",
+      "status": "plate-checked",
+      "sheet": "Plate VI"
+    },
+    {
+      "id": "D12",
+      "what": "Gallery floor surface above the ground floor (22 ft 11 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "gallery_floor",
+          "level": 1
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 22.9167,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate VI scale-bar scatter (about 0.16 ft); the printed page gives 22 ft 11 in",
+      "status": "plate-checked",
+      "sheet": "Plate VI, p. 31"
+    },
+    {
+      "id": "D13",
+      "what": "Column external diameter, one sample shaft, stated in inches (8 in)",
+      "type": "extent",
+      "axis": "X",
+      "unit": "in",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft",
+          "sample": "shaft_a"
+        }
+      },
+      "stated": 8,
+      "tolerance_abs": 0.1,
+      "tolerance_basis": "printed figure (Plate VIII Fig. 13, printed page); modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate VIII, p. 4"
+    },
+    {
+      "id": "D14",
+      "what": "Top of the column above the ground floor (18 ft 11 3/4 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 18.9792,
+      "tolerance_abs": 0.02,
+      "tolerance_basis": "19 ft 2 in - 2 1/4 in, both printed on Plate VIII; modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate VIII, p. 4"
+    },
+    {
+      "id": "D15",
+      "what": "Connecting piece length, tier 1 (3 ft 4 1/2 in)",
+      "type": "extent",
+      "axis": "Z",
+      "select": {
+        "prop": {
+          "part_kind": "connecting_piece",
+          "tier": 1
+        }
+      },
+      "stated": 3.375,
+      "tolerance_abs": 0.02,
+      "tolerance_basis": "printed page; 2 1/4 in + 3 ft 0 in + 2 1/4 in on Plate VIII",
+      "status": "plate-printed",
+      "sheet": "Plate VIII, p. 4"
+    },
+    {
+      "id": "D18",
+      "what": "Top of the tier-3 connecting piece above the ground floor (62 ft 4 1/4 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "connecting_piece",
+          "tier": 3
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 62.3542,
+      "tolerance_pct": 0.5,
+      "tolerance_basis": "policy floor of 0.5% (about 0.3 ft); no scale bar is involved, the pieces are printed figures that sum exactly, so the evidence would support +/- 0.02 ft (see tolerance_policy)",
+      "status": "plate-checked",
+      "sheet": "Plate VIII, p. 4"
+    },
+    {
+      "id": "D19a",
+      "what": "72 ft truss across the nave, face to face (the 72 ft is centre to centre of columns, tested as D08)",
+      "type": "extent",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "truss",
+          "span_ft": 72
+        }
+      },
+      "stated": 71.2,
+      "tolerance_abs": 0.4,
+      "tolerance_basis": "0.4 ft is 0.56%, above the 0.5% floor. 71.2 is the midpoint of four independent estimates, 70.8 to 71.6 ft, and is NOT a printed figure: Plate XX scaled by its 8 ft panels gives 70.84-71.06; Plate XX scaled by its own printed 36 ft gives 71.18-71.60; 72 ft less an 8 in column across gives 71.33; 72 ft less the cast girders' 4 3/8 in end gap (Plate X prints 23 ft 3 1/4 in face to face for 24 ft) gives 71.27. Tolerance decided by Bear, 2026-10-17",
+      "status": "plate-checked",
+      "sheet": "Plate XX, X"
+    },
+    {
+      "id": "D19b",
+      "what": "72 ft truss depth (6 ft)",
+      "type": "extent",
+      "axis": "Z",
+      "select": {
+        "prop": {
+          "part_kind": "truss",
+          "span_ft": 72
+        }
+      },
+      "stated": 6,
+      "tolerance_abs": 0.1,
+      "tolerance_basis": "the printed 6 ft runs from the top of the top rail to the underside of the bottom rail, so it is outer to outer: the arrow tips read 5.93 ft and the rail bands 6.10 ft; the truss part must have no protruding plates or rivet heads. 0.1 ft is about what the plate drawing resolves, so this is an exception to 'a few hundredths of a foot'. Decided by Bear, 2026-10-17",
+      "status": "plate-printed",
+      "sheet": "Plate XX"
+    },
+    {
+      "id": "D23",
+      "what": "Plate II: the avenue voids start 24 ft from the west end (west-end line to the line where the void begins)",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "tag": [
+          "west_end",
+          "avenue_void_end"
+        ]
+      },
+      "stated": 24,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure (Plate II prints 24.0); modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate II"
+    },
+    {
+      "id": "D24",
+      "what": "Plate II: the nave void starts 72 ft from the west end",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "tag": [
+          "west_end",
+          "nave_void_end"
+        ]
+      },
+      "stated": 72,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure (Plate II prints 72.0); modelling tolerance",
+      "status": "plate-printed",
+      "sheet": "Plate II"
+    },
+    {
+      "id": "D25",
+      "what": "Plate II: the first avenue voids run 168 ft (line where they begin to the stair bay)",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "name": "COLS_X0[18]_Y??"
+      },
+      "stated": 168,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure (Plate II prints 168.0); modelling tolerance; name-scoped to lines 1 and 8 (first avenue void span only)",
+      "status": "plate-printed",
+      "sheet": "Plate II"
+    },
+    {
+      "id": "D26",
+      "what": "Plate II: the stair bay between the two avenue voids is 24 ft",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "column_shaft"
+        },
+        "name": "COLS_X0[89]_Y??"
+      },
+      "stated": 24,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed figure (Plate II prints 24.0); modelling tolerance; name-scoped to lines 8 and 9 (first stair bay only)",
+      "status": "plate-printed",
+      "sheet": "Plate II"
+    },
+    {
+      "id": "D27",
+      "what": "Stair landing width (8 ft), one sample landing",
+      "type": "extent",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "stair_landing",
+          "sample": "stair_landing"
+        }
+      },
+      "stated": 8,
+      "tolerance_abs": 0.15,
+      "tolerance_basis": "printed text (page 31); on the Plate XV plan the two rows of landing columns stand 8.0 ft apart (read by eye on a gridded crop, about 0.1 ft; not scripted)",
+      "status": "plate-checked",
+      "sheet": "Plate XV, p. 31"
+    },
+    {
+      "id": "D28",
+      "what": "Stair landing length (24 ft), one sample landing",
+      "type": "extent",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "stair_landing",
+          "sample": "stair_landing"
+        }
+      },
+      "stated": 24,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed text only (page 31); no plate prints the length itself (the columns are 22 ft 7 in apart, D29)",
+      "status": "text",
+      "sheet": "p. 31"
+    },
+    {
+      "id": "D29",
+      "what": "Landing columns, outermost to outermost along the landing: 7 ft 1 in + 8 ft 5 in + 7 ft 1 in = 22 ft 7 in",
+      "type": "span",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "stair_column"
+        },
+        "name": "STCL_N_X08_??"
+      },
+      "stated": 22.5833,
+      "tolerance_abs": 0.02,
+      "tolerance_basis": "printed on Plate XVII Fig. 1 (7' 1\", 8' 5\", 7' 1\") and in the text, page 32; modelling tolerance; name-scoped to N-avenue bay 8 landing only",
+      "status": "plate-printed",
+      "sheet": "Plate XVII Fig. 1, p. 32"
+    },
+    {
+      "id": "D30",
+      "what": "Top of a landing column above the floor (10 ft 8 in)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "stair_column",
+          "sample": "stair_column"
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 10.6667,
+      "tolerance_abs": 0.02,
+      "tolerance_basis": "printed text only (page 33: 13 ft 1 in in all, 10 ft 8 in above the floor); the Plate XVI Fig. 4 dimensions were not read",
+      "status": "text",
+      "sheet": "p. 33"
+    },
+    {
+      "id": "D31",
+      "what": "Landing surface above the ground floor (11 ft 5 1/2 in, half of the 22 ft 11 in gallery)",
+      "type": "offset",
+      "axis": "Z",
+      "feature": "max",
+      "select": {
+        "prop": {
+          "part_kind": "stair_landing",
+          "sample": "stair_landing"
+        }
+      },
+      "datum": {
+        "select": {
+          "prop": {
+            "part_kind": "floor_ground"
+          }
+        },
+        "feature": "max"
+      },
+      "stated": 11.4583,
+      "tolerance_abs": 0.12,
+      "tolerance_basis": "no plate prints it. tools/measure_plate_xv.py reads the landing beam top at 11.55 ft by the plate's scale bar (73.67 px/ft, ground line tilt-corrected) and at 0.499 of the plate's own gallery floor line (half = 0.500); the model is built to half of the printed 22 ft 11 in, 0.09 ft under the bar reading",
+      "status": "plate-checked",
+      "sheet": "Plate XV"
+    },
+    {
+      "id": "D32",
+      "what": "Stair flight run, floor to landing (20 treads of 1 ft; the landing is the 21st step), one sample flight",
+      "type": "extent",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "stair_flight",
+          "sample": "stair_flight"
+        }
+      },
+      "stated": 20,
+      "tolerance_abs": 0.3,
+      "tolerance_basis": "tools/measure_plate_xv.py: the plan's riser lines are 0.995 ft apart and the 21 lines span 19.90 ft over 20 intervals at the plate's scale bar (73.67 px/ft); the text prints 21 steps in each flight",
+      "status": "plate-checked",
+      "sheet": "Plate XV, p. 32"
+    },
+    {
+      "id": "D33",
+      "what": "Cross gallery over a staircase, length across the avenue void (48 ft)",
+      "type": "extent",
+      "axis": "Y",
+      "select": {
+        "prop": {
+          "part_kind": "gallery_floor",
+          "sample": "cross_gallery"
+        }
+      },
+      "stated": 48,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed text only (page 31); it also equals the 48 ft avenue void of Plate II",
+      "status": "text",
+      "sheet": "p. 31"
+    },
+    {
+      "id": "D34",
+      "what": "Cross gallery over a staircase, width (24 ft)",
+      "type": "extent",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "gallery_floor",
+          "sample": "cross_gallery"
+        }
+      },
+      "stated": 24,
+      "tolerance_abs": 0.05,
+      "tolerance_basis": "printed text only (page 31); it also equals the 24 ft stair bay of Plate II (D26)",
+      "status": "text",
+      "sheet": "p. 31"
+    },
+    {
+      "id": "D20",
+      "what": "Transept vault: extrados diameter of the arched ribs (74 ft 4 in)",
+      "type": "extent",
+      "axis": "X",
+      "select": {
+        "prop": {
+          "part_kind": "vault_rib"
+        }
+      },
+      "stated": 74.3333,
+      "tolerance_pct": 0.7,
+      "tolerance_basis": "Plate XVIII scale-bar scatter +/-0.7%; the plate reads 74.14 ft (-0.26%) and the printed page gives 74 ft 4 in",
+      "status": "plate-checked",
+      "sheet": "Plate XVIII, p. 37"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+.DS_Store
+# GitHub rejects files over 100 MB; these stay local
+maps.zip
+crystal-palace-full.blend
+crystal/crystal-palace.mp3
+references/downes-1852/source-scans/jp2.zip
+references/muse-drive/extra-work/guidetogreatexhi00grea/guidetogreatexhi00grea_jp2.zip
+*.zip

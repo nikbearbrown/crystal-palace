@@ -1,0 +1,94 @@
+{
+  "version": "5.1.2",
+  "meshes": 11,
+  "polygons": 6832098,
+  "packed_images": 10,
+  "images": [
+    {
+      "name": "000005750421_C - copia - copia.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "02 Cesped con astillas BW.jpg",
+      "size": [
+        1500,
+        1500
+      ],
+      "packed": true
+    },
+    {
+      "name": "5a6be048f658.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Archexterior01_08_Concrete.jpg",
+      "size": [
+        3000,
+        3000
+      ],
+      "packed": true
+    },
+    {
+      "name": "Archexterior01_08_Concrete_NRM.jpg",
+      "size": [
+        3000,
+        3000
+      ],
+      "packed": true
+    },
+    {
+      "name": "b74a5c4e2346.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grass0138_1_seamless_L.jpg",
+      "size": [
+        3000,
+        3000
+      ],
+      "packed": true
+    },
+    {
+      "name": "metal_glossiness.jpg",
+      "size": [
+        1200,
+        1223
+      ],
+      "packed": true
+    },
+    {
+      "name": "OXIDO2 BUMP.jpg",
+      "size": [
+        3426,
+        1634
+      ],
+      "packed": true
+    },
+    {
+      "name": "wood-floorboards-oak_0150-01_1860mm-by-189mm_colormatched_01_cg-source.jpg",
+      "size": [
+        14760,
+        1500
+      ],
+      "packed": true
+    }
+  ],
+  "cameras": [
+    "01 | Garden overview",
+    "02 | Front elevation",
+    "03 | Entrance and ironwork",
+    "04 | Reverse overview"
+  ]
+}

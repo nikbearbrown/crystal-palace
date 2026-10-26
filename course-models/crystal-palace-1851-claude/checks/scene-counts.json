@@ -1,0 +1,75 @@
+{
+ "blender": "5.1.2",
+ "parts": 7757,
+ "kinds": {
+  "balustrade": 274,
+  "connecting_piece": 1368,
+  "column_shaft": 684,
+  "column_upper": 684,
+  "floor_ground": 1,
+  "gallery_floor": 169,
+  "girder": 2586,
+  "ridge": 1887,
+  "stair_column": 64,
+  "stair_flight": 32,
+  "stair_landing": 8
+ },
+ "library_collections": 12,
+ "library_mesh_objects": 164,
+ "library_triangles": {
+  "PART_Balustrade24": 468,
+  "PART_ConnectingPiece": 276,
+  "PART_ColumnShaft": 92,
+  "PART_ColumnUpper": 92,
+  "PART_GalleryPanel": 12,
+  "PART_Girder24": 144,
+  "PART_RoofUnit": 24,
+  "PART_StairColumn": 92,
+  "PART_StairFlight": 1016,
+  "PART_StairLanding": 12,
+  "PART_Balustrade8": 204,
+  "PART_CrossGallery": 36
+ },
+ "instances_per_collection": {
+  "PART_Balustrade24": 242,
+  "PART_ConnectingPiece": 1368,
+  "PART_ColumnShaft": 684,
+  "PART_ColumnUpper": 684,
+  "(mesh object)": 1,
+  "PART_GalleryPanel": 161,
+  "PART_Girder24": 2586,
+  "PART_RoofUnit": 1887,
+  "PART_StairColumn": 64,
+  "PART_StairFlight": 32,
+  "PART_StairLanding": 8,
+  "PART_Balustrade8": 32,
+  "PART_CrossGallery": 8
+ },
+ "triangles_instanced_total": 1081608,
+ "materials": 4,
+ "material_names": [
+  "MAT_Floor",
+  "MAT_Glass",
+  "MAT_Iron",
+  "MAT_Wood"
+ ],
+ "extent_ft": {
+  "x": [
+   -924.5832948859908,
+   -23.999999514402052
+  ],
+  "y": [
+   -204.58332822704566,
+   204.58332822704566
+  ],
+  "z": [
+   -0.5000000061794841,
+   63.76666972643434
+  ],
+  "length": 900.5832953715887,
+  "width": 409.1666564540913,
+  "height": 64.26666973261382
+ },
+ "unit_scale": 1.0,
+ "objects_total": 7921
+}

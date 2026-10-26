@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{TITLE}}</title>
+<style>
+/* layout: a stage with view buttons, a thumbnail strip, then reference-vs-render panels (same layout as the other builders' viewers) */
+:root{--bg:#eceeed;--fg:#15262b;--mut:#51636a;--card:#fff;--line:#d2d8d8;--acc:#1e6a73;--on:#fff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101719;--fg:#e5eeee;--mut:#9db0b4;--card:#182124;--line:#2a393d;--acc:#6cc2cc;--on:#08181a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101719;--fg:#e5eeee;--mut:#9db0b4;--card:#182124;--line:#2a393d;--acc:#6cc2cc;--on:#08181a;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Georgia,serif;padding-inline:max(16px,env(safe-area-inset-left))}
+main{max-width:1040px;margin:0 auto;padding-block:20px 60px}img{max-width:100%}a{color:var(--acc)}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+h1{font-size:1.8rem;margin:.1em 0;text-wrap:balance}h2{font-size:1.3rem;margin:2.2em 0 .4em;border-bottom:1px solid var(--line);padding-bottom:4px}h3{font-size:1.05rem;margin:.2em 0}
+.st{color:var(--mut);font:13px/1.4 ui-monospace,Menlo,monospace}
+nav.toc{font:13px ui-monospace,Menlo,monospace;margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.stage{background:var(--card);border:1px solid var(--line);margin-top:14px;text-align:center}.stage img{max-width:100%;max-height:78vh;display:block;margin:0 auto}
+.bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}button{font:inherit;font-size:.92rem;padding:6px 12px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;border-radius:3px}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}button[aria-pressed=true]{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.cap{padding:8px 12px;color:var(--mut);font-size:.9rem;text-align:left}.cap b{color:var(--fg)}
+.strip{display:flex;gap:8px;overflow-x:auto;margin-top:12px;padding-bottom:4px}.strip img{height:90px;border:2px solid transparent;cursor:pointer;flex:none}.strip img.on{border-color:var(--acc)}
+.cmp{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}.cmp figure{margin:0;background:var(--card);border:1px solid var(--line);min-width:0}.cmp img{width:100%;display:block}
+.as{background:var(--card);border:1px solid var(--line);padding:10px 14px}.asg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.film{background:var(--card);border:1px dashed var(--line);padding:18px;text-align:center}.film .ph{font:600 1.1rem ui-monospace,Menlo,monospace}
+.film iframe,.film video{width:100%;aspect-ratio:16/9;border:0;display:block}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:.92rem}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{color:var(--mut);font-weight:normal}td.n{white-space:nowrap;font-family:ui-monospace,Menlo,monospace}
+code{font:.88em ui-monospace,Menlo,monospace}
+#theme{white-space:nowrap}
+@media(max-width:640px){.asg{grid-template-columns:1fr}h1{font-size:1.45rem}.strip img{height:64px}table,thead,tbody,tr,td,th{display:block}thead{display:none}tr{border-bottom:1px solid var(--line)}td{border:0;padding:3px 8px}td.n{padding-top:8px}}
+</style></head><body>
+<main>
+<header><div><h1>{{H1}}</h1><div class="st">{{STATS}}</div></div><button id="theme" type="button" aria-label="Switch colour theme">Theme: auto</button></header>
+<p>{{BLURB}}</p>
+<nav class="toc"><a href="#views">Views</a><a href="#compare">Compare with references</a><a href="#assess">Assessment</a><a href="#built">Built by</a><a href="#film">Film</a><a href="#download">Download</a><a href="#import">Import into Blender</a><a href="#limits">Limitations</a><a href="{{FOLDER_URL}}">GitHub folder</a></nav>
+
+<h2 id="views">Views</h2>
+<div class="bar" id="bar" role="toolbar" aria-label="Views"></div><div class="stage"><img id="big" alt=""><div class="cap" id="cap"></div></div><div class="strip" id="strip"></div>
+
+<h2 id="compare">Compare with references</h2>
+<p class="cap" style="padding:0">{{COMPARE_INTRO}}</p>
+<div class="cmp" id="cmp"></div>
+
+<h2 id="assess">Assessment and human review</h2>
+<div class="asg"><div class="as"><h3>Assessment</h3><p>{{ASSESS}}</p></div><div class="as"><h3>Human review</h3><p>Pending (Professor Bear).</p></div></div>
+
+<h2 id="built">Built by</h2>
+<ul>{{BUILT}}</ul>
+
+<h2 id="film">Film</h2>
+<div class="film" id="filmbox"><div class="ph">Companion film: coming soon</div></div>
+
+<h2 id="download">Download</h2>
+<p>Click a file to download it. To get everything, clone the repo or download the <a href="{{ZIP}}">whole repo as a ZIP</a>.</p>
+<table><thead><tr><th>File</th><th>Size</th><th>What it is</th></tr></thead><tbody id="dl"></tbody></table>
+<p class="cap" style="padding:6px 0"></p>
+
+<h2 id="import">How to import into Blender</h2>
+<ol>{{IMPORT}}</ol>
+<p>The GLB carries <b>flat colours only</b>.</p>
+
+<h2>Stats and what was checked</h2>
+<ul>{{STATLIST}}</ul><p>{{CHECKED}}</p>
+
+<h2 id="limits">Honest limitations</h2>
+<ul>{{LIMITS}}</ul>
+<p class="cap" style="padding:0">Built by Claude. Full technical record in <a href="{{NOTES_URL}}">BUILD_NOTES.md</a>.</p>
+</main>
+<script>
+// Paste the companion film link here (YouTube URL or a direct .mp4 URL). Leave empty to show "coming soon". (FILM_URL marker)
+const FILM_URL = "";
+{{DATA}}
+let i=0;const $=id=>document.getElementById(id);
+D.forEach((d,k)=>{const b=document.createElement('button');b.type='button';b.textContent=d.name;b.onclick=()=>show(k);b.id='b'+k;$('bar').appendChild(b);
+ const t=document.createElement('img');t.src=d.src;t.alt=d.name;t.onclick=()=>show(k);t.id='t'+k;$('strip').appendChild(t)});
+function show(k){i=(k+D.length)%D.length;$('big').src=D[i].src;$('big').alt=D[i].name;
+ $('cap').innerHTML='<b>'+D[i].name+'</b> ('+(i+1)+'/'+D.length+', arrow keys) &middot; '+D[i].cap;
+ D.forEach((_,j)=>{$('b'+j).setAttribute('aria-pressed',j==i);$('t'+j).className=j==i?'on':''});
+ const t=$('t'+i);if(t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'nearest'})}
+document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;if(e.key=='ArrowRight')show(i+1);if(e.key=='ArrowLeft')show(i-1)});show(0);
+$('cmp').innerHTML=C.map(c=>'<figure><img src="'+c.src+'" alt="'+c.name+': render and reference side by side"><div class="cap"><b>'+c.name+'.</b> '+c.cap+'</div></figure>').join('');
+$('dl').innerHTML=DL.map(d=>'<tr><td class="n"><a href="'+d.url+'" download>'+d.file+'</a></td><td class="n">'+d.size+'</td><td>'+d.purpose+'</td></tr>').join('');
+if(FILM_URL){const y=FILM_URL.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+ $('filmbox').innerHTML=y?'<iframe src="https://www.youtube.com/embed/'+y[1]+'" title="Companion film" allowfullscreen></iframe>':(/\.(mp4|webm)(\?|$)/i.test(FILM_URL)?'<video controls src="'+FILM_URL+'"></video>':'<a href="'+FILM_URL+'">Watch the companion film</a>')}
+const modes=['auto','light','dark'];let m='auto';try{m=localStorage.getItem('viewerTheme')||'auto'}catch(e){}
+function setTheme(v){m=v;if(v=='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',v);$('theme').textContent='Theme: '+v;try{localStorage.setItem('viewerTheme',v)}catch(e){}}
+setTheme(m);$('theme').onclick=()=>setTheme(modes[(modes.indexOf(m)+1)%3]);
+</script></body></html>

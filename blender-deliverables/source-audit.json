@@ -1,0 +1,1595 @@
+{
+  "version": "5.1.2",
+  "objects": 13,
+  "meshes": 11,
+  "vertices": 4538403,
+  "polygons": 6832098,
+  "bounds": [
+    [
+      -117.60124206542969,
+      -101.71339416503906,
+      -1.6011372804641724
+    ],
+    [
+      116.97819519042969,
+      82.71028137207031,
+      40.54573440551758
+    ]
+  ],
+  "materials": [
+    {
+      "name": "BLUE METAL",
+      "color": [
+        0.458823561668396,
+        0.5882353186607361,
+        0.5882353186607361,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.458823561668396,
+              0.5882353186607361,
+              0.5882353186607361,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "BROWN METAL",
+      "color": [
+        0.20784315466880798,
+        0.16862745583057404,
+        0.16078431904315948,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.20784315466880798,
+              0.16862745583057404,
+              0.16078431904315948,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "CONCRETE",
+      "color": [
+        0.5879999995231628,
+        0.5879999995231628,
+        0.5879999995231628,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5879999995231628,
+              0.5879999995231628,
+              0.5879999995231628,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "FOUNTAIN GLASS",
+      "color": [
+        0.5882353186607361,
+        0.5882353186607361,
+        0.5882353186607361,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5882353186607361,
+              0.5882353186607361,
+              0.5882353186607361,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 1.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "FOUNTAIN GLASS.001",
+      "color": [
+        0.5882353186607361,
+        0.5882353186607361,
+        0.5882353186607361,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5882353186607361,
+              0.5882353186607361,
+              0.5882353186607361,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 1.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GLASS",
+      "color": [
+        0.5882353186607361,
+        0.5882353186607361,
+        0.5882353186607361,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5882353186607361,
+              0.5882353186607361,
+              0.5882353186607361,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 1.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GREY METAL",
+      "color": [
+        0.5879999995231628,
+        0.5879999995231628,
+        0.5879999995231628,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5879999995231628,
+              0.5879999995231628,
+              0.5879999995231628,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Material #56597",
+      "color": [
+        0.15294118225574493,
+        0.250980406999588,
+        0.11372549831867218,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.15294118225574493,
+              0.250980406999588,
+              0.11372549831867218,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "METAL",
+      "color": [
+        0.5879999995231628,
+        0.5879999995231628,
+        0.5879999995231628,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5879999995231628,
+              0.5879999995231628,
+              0.5879999995231628,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sandstone",
+      "color": [
+        0.7098039388656616,
+        0.6392157077789307,
+        0.5607843399047852,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.7098039388656616,
+              0.6392157077789307,
+              0.5607843399047852,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "stone",
+      "color": [
+        0.6666666865348816,
+        0.6078431606292725,
+        0.545098066329956,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.6666666865348816,
+              0.6078431606292725,
+              0.545098066329956,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Water Clear",
+      "color": [
+        0.5879999995231628,
+        0.5879999995231628,
+        0.5879999995231628,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5879999995231628,
+              0.5879999995231628,
+              0.5879999995231628,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "WHITE PAINT",
+      "color": [
+        0.7764706611633301,
+        0.7764706611633301,
+        0.7764706611633301,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.7764706611633301,
+              0.7764706611633301,
+              0.7764706611633301,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "white stone",
+      "color": [
+        0.6941176652908325,
+        0.6509804129600525,
+        0.6117647290229797,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.6941176652908325,
+              0.6509804129600525,
+              0.6117647290229797,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "WOOD FLOOR BOARDS",
+      "color": [
+        0.2039215862751007,
+        0.16862745583057404,
+        0.14901961386203766,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.2039215862751007,
+              0.16862745583057404,
+              0.14901961386203766,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.858578622341156,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "YELLOW METAL",
+      "color": [
+        0.5882353186607361,
+        0.5882353186607361,
+        0.32156863808631897,
+        1.0
+      ],
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.5882353186607361,
+              0.5882353186607361,
+              0.32156863808631897,
+              1.0
+            ],
+            "Metallic": 1.0,
+            "Roughness": 0.5527864098548889,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.0,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null,
+          "inputs": {
+            "Thickness": 0.0
+          }
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "largest": [
+    [
+      "STRUCTURE",
+      5989637,
+      [
+        123.9970703125,
+        36.8203125,
+        34.67311096191406
+      ]
+    ],
+    [
+      "FLOOR SLABS",
+      181884,
+      [
+        123.525390625,
+        36.29296875,
+        15.168049812316895
+      ]
+    ],
+    [
+      "STAIRS",
+      175972,
+      [
+        132.4918212890625,
+        15.605408668518066,
+        10.448347091674805
+      ]
+    ],
+    [
+      "GLASS",
+      152866,
+      [
+        123.33009338378906,
+        32.10694885253906,
+        36.27534103393555
+      ]
+    ],
+    [
+      "WOOD PLANKS  FLOOR",
+      103041,
+      [
+        123.525390625,
+        36.25,
+        0.06353718787431717
+      ]
+    ],
+    [
+      "GARDENS_001",
+      102828,
+      [
+        119.32421875,
+        33.7578125,
+        0.4455986022949219
+      ]
+    ],
+    [
+      "FOUNTAINS_044",
+      62486,
+      [
+        1.47076416015625,
+        1.4707584381103516,
+        4.509698867797852
+      ]
+    ],
+    [
+      "FOUNTAINS_371",
+      62486,
+      [
+        1.47076416015625,
+        1.4707584381103516,
+        4.509698867797852
+      ]
+    ],
+    [
+      "EXTERIOR FLOOR",
+      796,
+      [
+        154.564453125,
+        80.61076354980469,
+        6.847053050994873
+      ]
+    ],
+    [
+      "GRASS",
+      101,
+      [
+        133.6185302734375,
+        33.14262390136719,
+        5.248924255371094
+      ]
+    ],
+    [
+      "Plane001",
+      1,
+      [
+        234.57943725585938,
+        184.42367553710938,
+        0.0
+      ]
+    ]
+  ]
+}
