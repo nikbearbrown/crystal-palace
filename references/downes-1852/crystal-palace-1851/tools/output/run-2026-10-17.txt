@@ -1,0 +1,114 @@
+# Crystal Palace plate measurements, run 2026-10-17 18:47
+python 3.14.6 | numpy 2.3.5 | opencv 4.12.0 | Pillow 12.3.0
+# plate checksums (sha256, first 16)
+plate-001.jpg  73fea05d3933e611
+plate-006.jpg  c27aa50ac1d0421b
+plate-010.jpg  d751799f01da2fd6
+plate-015.jpg  27d779c2bb2d517e
+plate-018.jpg  025f7e1a3f621feb
+plate-020.jpg  0ca9eb5572572fcf
+
+## measure_plate_vi.py
+scale bar: 24.74 px/ft from 7 ticks; per-10-ft spread 24.55-24.90 px/ft (+/-0.7%)
+D02 tier 1 width: stated 408 ft, measured 405.8 ft (-0.53%)
+D03 tier 2 width: stated 264 ft, measured 262.8 ft (-0.47%)
+D04 tier 3 width: stated 120 ft, measured 119.6 ft (-0.33%)
+D06 bay pitch (tier 3): gaps [588.3, 594.1, 591.0, 597.5, 587.8] px, mean 591.7 px = 23.92 ft (stated 24)
+floor line: y = 2697.0 (thickest of [(2697.0, 7), (2708.5, 2), (2730.0, 3)])
+tier 3 girder top: stated 62 ft 2 in; chosen y=1154.8 (width 6) -> 62.34 ft; candidates [(1139.5, 2, 62.96), (1154.8, 6, 62.34), (1165.0, 3, 61.93)]
+tier 2 girder top: stated 42 ft 2 in; chosen y=1650.5 (width 4) -> 42.30 ft; candidates [(1650.5, 4, 42.3), (1659.0, 1, 41.96)]
+tier 1 girder top: stated 22 ft 2 in; chosen y=2140.5 (width 2) -> 22.50 ft [nearest to the tier-2 + tier-spacing prediction y=2146.2, so it assumes 20 ft spacing]; candidates [(2127.7, 3, 23.01), (2140.5, 2, 22.5), (2153.0, 1, 21.99)]
+gallery floor: stated 22 ft 11 in; chosen y=2127.7 (width 3) -> 23.01 ft; candidates [(2116.0, 3, 23.49), (2127.7, 3, 23.01), (2140.5, 2, 22.5), (2153.0, 1, 21.99)]
+tier 3 -> tier 2 girder-top spacing: 20.04 ft (20 ft expected)
+D10 girder depth (tier 3): lines 2.4-3.6 ft below the top flange [(1220.0, 1, 2.63), (1230.0, 3, 3.04), (1236.0, 3, 3.28)]  (3 ft stated; lines are candidates, not a single reading)
+D09 gutter pitch: autocorrelation peak at 197 px = 7.96 ft (8 ft stated)
+pads: tier-1 column pitch 590.5 px = 23.87 ft (24 ft expected, 17 bays)
+pads, all columns (k, top below floor, bottom below floor, thickness, width), in ft:
+   0 [1.74, 3.19, 1.46, 1.58]
+   1 [1.9, 7.07, 5.17, 2.47]
+   2 [4.37, 4.69, 0.32, 6.1]
+   3 [1.74, 5.98, 4.24, 2.55]
+   4 [1.74, 5.21, 3.48, 2.51]
+   5 [2.79, 2.87, 0.08, 7.24]
+   6 [1.74, 3.48, 1.74, 3.64]
+   7 [1.74, 4.81, 3.07, 3.72]
+   8 [8.85, 9.86, 1.01, 5.86]
+   9 [8.97, 9.94, 0.97, 6.35]
+   10 [1.74, 4.28, 2.55, 3.64]
+   11 [1.74, 4.33, 2.59, 3.64]
+   12 [1.94, 2.1, 0.16, 7.24]
+   13 [1.86, 3.6, 1.74, 2.79]
+   14 [2.02, 3.27, 1.25, 2.83]
+   15 [2.47, 2.63, 0.16, 7.24]
+   16 [1.74, 4.04, 2.3, 2.75]
+   17 [1.74, 3.52, 1.78, 2.79]
+D17 clean readings (top 1.2-2.1 ft below floor, thickness 1-3.5 ft, width 1.4-4 ft): 10 columns; thickness 1.25-3.48 ft, width 1.58-3.72 ft (text: depth 1 to 4 ft)
+(exit 0)
+
+## measure_plate_i.py
+column dots found: 659
+dot pitch (24 ft): global mean 118.0 px from 282 pairs; by 1000-px bin [(500, 119.0), (1500, 117.4), (2500, 115.6), (3500, 118.6), (4500, 117.6), (5500, 118.2), (6500, 117.7), (7500, None), (8500, 119.3), (9500, None)]
+end walls: west x [505, 517] (strength [0.91, 1.0]), east x [9569, 9581] (strength [0.96, 0.96])
+D01 length at y 1300-1600: 9064 px = 1845 ft with local pitch (-0.17% vs 1848); with the global mean pitch 1843 ft
+D01 length at y 2300-2600: 9064 px = 1845 ft with local pitch (-0.17% vs 1848); with the global mean pitch 1843 ft
+north addition end walls: west x=1563 (strength 1.00), east x=6144 (strength 1.00)
+D05 addition length: 4581 px = 936 ft with local pitch (+0.04% vs 936); with the global mean pitch 931 ft
+posts down the addition's west end: y = [816, 861, 900, 941, 978, 1020, 1055] -> 6 intervals, spacing [45, 39, 41, 37, 42, 35] px; depth 48 ft at 8 ft per interval (48 ft stated)
+dot pairs on one row near 24 ft: 10 pairs, median 24.1 ft (+0.5%), range 23.6-24.9
+dot pairs on one row near 48 ft: 8 pairs, median 48.0 ft (-0.1%), range 46.5-49.1
+dot pairs on one row near 72 ft: 7 pairs, median 72.4 ft (+0.6%), range 71.7-75.8
+(exit 0)
+
+## measure_plate_x.py
+dashed centre lines x = 138 and 5430; printed 24 ft between them -> 220.5 px/ft
+girder face to face: x 218..5345 = 23.25 ft = 23 ft 3.0 in (printed 23 ft 3 1/4 in = 23.27 ft; -0.08%)
+top flange lines: [(1776, 8), (1787, 5)]
+bottom flange lines: [(2442, 1), (2450, 2), (2464, 3), (2474, 4)]  (lines between 2410 and 2425 belong to the web)
+depth for each top/bottom pair (ft): [(2.97, 1787, 2442), (3.01, 1787, 2450), (3.02, 1776, 2442), (3.06, 1776, 2450), (3.07, 1787, 2464), (3.11, 1787, 2474), (3.12, 1776, 2464), (3.16, 1776, 2474)]
+D10 depth: between the inner flange lines 2.97 ft (-1.0% vs 3 ft, the stated bearing-surface depth); overall between the outer lines 3.16 ft (flanges included)
+ratio girder face-to-face length / inner depth = 7.83 (23.27 / 3 = 7.76 expected)
+(exit 0)
+
+## measure_plate_xv.py
+plate-015.jpg 8510 x 3838 px
+scale bar ticks (x px, dark fraction): 0 ft (1572, 0.2) | 10 ft (836, 0.84) | 20 ft (3047, 0.55)
+scale bar: 0-10 ft = 73.60 px/ft; 0-20 ft = 73.75 px/ft; used below: 73.67 px/ft (the two baselines differ by 0.2%)
+ground-floor line, x 5000-5500: rows [(2361.5, 2)]
+ground-floor line, x 6500-7000: rows [(2366.5, 2)]
+ground-floor line, x 7200-7700: rows [(2369.5, 2)]
+ground line: row = 0.00359 x + 2342.6 (tilt 0.21 deg); row 2358.3 at the first column, 2364.7 at the landing, 2371.1 at the third
+landing beam lines at the landing (row, z above ground ft): [(1514.0, np.float64(11.55)), (1517.5, np.float64(11.5)), (1520.0, np.float64(11.46)), (1564.5, np.float64(10.86)), (1566.5, np.float64(10.83))]
+main gallery floor lines left of the first column (row, z ft): [(654.5, np.float64(23.12)), (662.0, np.float64(23.02)), (701.0, np.float64(22.49)), (708.5, np.float64(22.38)), (734.0, np.float64(22.04))]
+landing beam top 11.55 ft, gallery floor top 23.12 ft: ratio 0.499 (half = 0.500); printed gallery surface 22 ft 11 in = 22.92 ft
+  column window 4300-4450: lines at [4351.5, 4366.5, 4384.5, 4398.5]  centre 4375.0
+  column window 6100-6230: lines at [6138.5, 6151.5, 6171.5, 6185.0]  centre 6161.8
+  column window 7900-8010: lines at [7921.0, 7935.5, 7956.0, 7970.0]  centre 7945.5
+main column spacings: 1787 and 1784 px = 24.25 and 24.21 ft by the bar; if 24 ft, 74.4 and 74.3 px/ft (horizontal stretch +1.0%)
+plan riser lines found in rows 1700-1950, x 100-1750: 20
+  x: [156, 220, 292, 362, 436, 512, 586, 662, 734, 808, 884, 960, 1034, 1106, 1180, 1254, 1326, 1398, 1478, 1548]
+  spacing mean 73.3 px (min 64, max 79) = 0.995 ft; first to last 1392 px = 18.90 ft over 19 intervals
+  (the 21st line, the landing edge, is dashed on the plate and is not found; with it the 21 lines span 19.90 ft over 20 intervals)
+(exit 0)
+
+## measure_plate_xviii.py
+scale bar: 0/10/20/30 ft ticks at x = [2960, 3543, 4127, 4718] -> 58.57 px/ft; per-10-ft spread 58.25-59.10 px/ft (+/-0.7%); sub-scale 1-ft ticks give 58.0 px/ft
+springing axis (dashed line): y = 2603 (candidates [(2592, 3), (2603, 11), (2648, 2)])
+crown: horizontal lines at the centre line, below the sheet border: [(432, 4), (442, 2), (450, 2), (472, 4), (477, 1), (489, 1), (516, 3), (526, 4)]
+D20 extrados radius: (2603 - 432) = 2171 px = 37.07 ft -> diameter 74.14 ft (stated 74 ft 4 in = 74.33 ft; -0.26%); 37-ft radius (D21): +0.19%
+  sensitivity: using the next candidate lines as the crown gives [74.14, 73.82, 73.54, 72.79] ft diameter
+rib depth (1 ft 6 in stated): lines 1.3-1.7 ft below the extrados: [(516, 3, 1.43), (526, 4, 1.61)] (candidates, not a single reading)
+(exit 0)
+
+## measure_plate_xx.py
+posts at x = [1247, 2422, 3603, 4790]; gaps [1174, 1181, 1187] px; 8 ft per panel -> 147.6 px/ft (spread 146.8-148.3)
+centre line of the truss: x = 5381; last post to the centre line 4.01 ft; first post to the centre line 28.01 ft (28 ft if the first post stands 8 ft from the column centre line)
+  from the left-edge line at x=93: 35.83 ft (-0.5% vs 36 ft printed)
+  from the left-edge line at x=108: 35.72 ft (-0.8% vs 36 ft printed)
+  from the left-edge line at x=136: 35.53 ft (-1.3% vs 36 ft printed)
+  from the left-edge line at x=153: 35.42 ft (-1.6% vs 36 ft printed)
+  from the left-edge line at x=174: 35.28 ft (-2.0% vs 36 ft printed)
+  from the left-edge line at x=185: 35.20 ft (-2.2% vs 36 ft printed)
+  from the left-edge line at x=208: 35.04 ft (-2.7% vs 36 ft printed)
+top rail band [(767, 95)]; bottom rail lines [(1538, 15), (1562, 6), (1575, 13), (1612, 18)]
+D19 depth: outer edge of top rail (720) to outer edge of bottom rail (1620) = 6.10 ft (+1.7% vs 6 ft printed); rail centre to rail centre about 5.47 ft
+(exit 0)
