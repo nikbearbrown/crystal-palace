@@ -104,3 +104,28 @@ Claude's frame is used as-is: metres, origin at the crossing, X east, Y north. H
 - Reframe EXT_SE_34.
 - Wall value contrast.
 - Railings and carriages on Rotten Row.
+
+## x06 — checkpoint (render queued after r10)
+- EX30: south-wall relief. The infill and louvres are set back 0.9/0.6 ft, and the boarding and louvres are darker.
+- EX31: the PLATE_IV south trees are thinned (one row, TREES 97).
+- EX32: 1,266 park people and 16 carriages.
+- EX33: EXT_SE_34 reframed (35 mm), with a carriage drive and footpath.
+- Checks x06 31/31.
+
+## x06 — FINAL
+- Renders: renders/x06 (9 frames plus _contact_x06.jpg). Checks 31/31.
+- Self-score: 7.5/10.
+- Wins:
+  - EXT_SE_34 now reads as a populated Hyde Park scene, with leading paths and the whole south front plus the SE corner.
+  - The wall bays have shadow relief.
+  - The PLATE_IV elevation is no longer screened by trees.
+- Misses:
+  - The carriages are small and far off.
+  - The drive reads pale, close in value to the footpath.
+  - The ortho plates are washed out (low contrast).
+  - EXT_NE_strip is still sparse.
+- Next x07:
+  - Darker drive gravel.
+  - A carriage nearer the camera.
+  - Ortho exposure/contrast pass.
+  - People on the NE strip.

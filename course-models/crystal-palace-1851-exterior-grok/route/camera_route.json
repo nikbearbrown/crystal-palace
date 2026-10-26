@@ -3,18 +3,18 @@
  "shots": [
   {
    "id": "EXT_SE_34",
-   "lens_mm": 28,
-   "use": "three-quarter from the south-east lawn at eye height: south front east half + east end (Plates IV, V); x04 about 40% closer (EX23)",
+   "lens_mm": 35,
+   "use": "three-quarter from the south-east lawn at eye height: south front east half + east end (Plates IV, V); x06 EX33 reframed from beyond the SE corner so both faces read and the lawn carries park people",
    "start": {
     "pos_ft": [
-     902,
-     -350,
+     1112,
+     -488,
      5.25
     ],
     "look_ft": [
-     560,
-     -170,
-     24
+     850,
+     -215,
+     30
     ]
    }
   },

@@ -153,7 +153,7 @@ else:                  # neutral, to sit beside Claude's preview frame
     IRON_COL = IRON_GIR = IRON
 FAN = mat_principled("GT_FanIron", (0.10, 0.11, 0.11), 0.5) if COLOUR != "owen" else oj_material("GT_Fan_OJ", "plain")
 WOOD = mat_principled("GT_Timber", (0.72, 0.66, 0.56), 0.7)
-WOODDARK = mat_principled("GT_Boarding", (0.62, 0.55, 0.45), 0.8)
+WOODDARK = mat_principled("GT_Boarding", (0.50, 0.45, 0.37), 0.8)   # x06 EX30: more value contrast with the light iron (was 0.62)
 LEAD = mat_principled("GT_Lead", (0.42, 0.44, 0.46), 0.5, 0.3)
 GLASS = mat_glass("GT_Glass")
 GLASS_PLAIN = mat_glass("GT_GlassPlain", tint=(0.62, 0.68, 0.68), bars=False)
@@ -452,6 +452,11 @@ new_obj("EGROUND_PARK", finish(bm, "ground", GRASS), C["GROUND"], props={"part_k
 bm = bmesh.new(); bm_box(bm, ft(-960), ft(960), ft(-240), ft(290), -0.02, -0.005)
 GRAVEL = mat_principled("GT_Gravel", (0.50, 0.46, 0.38), 0.95)
 new_obj("EGRAVEL_APRON", finish(bm, "gravel", GRAVEL), C["GROUND"], props={"part_kind": "ground"})
+# x06 EX33: carriage drive south of the building (Kensington Road side) with a branch to the east end and a footpath across the
+# south-east lawn toward the SE corner: ground value and leading lines for EXT_SE_34 (layout inferred, DEPARTURES EX33)
+bm = bmesh.new(); bm_box(bm, ft(-1000), ft(1060), ft(-452), ft(-428), -0.02, -0.01); bm_box(bm, ft(1036), ft(1060), ft(-428), ft(-240), -0.02, -0.01)
+bm_bar(bm, (ft(1160), ft(-560), -0.0175), (ft(962), ft(-246), -0.0175), ft(10), 0.01)   # top 5 mm under the drive: no coplanar overlap
+new_obj("EGRAVEL_DRIVE", finish(bm, "gravel_drive", mat_principled("GT_GravelDrive", (0.36, 0.33, 0.27), 0.95)), C["GROUND"], props={"part_kind": "ground"})
 
 # ---------------- walls (Plate XXI ground tier; Plates IV, V upper tiers) ----------------
 DOOR = mat_principled("GT_DoorPaint", (0.20, 0.17, 0.13), 0.7)
@@ -492,7 +497,7 @@ def mesh_louvre():
     for k in range(4):
         z = 0.3 + 0.55 * k
         bm_bar(bm, (ft(-12), -inch(2), ft(z)), (ft(12), inch(2), ft(z) + inch(4)), inch(5), inch(0.5))
-    return finish(bm, "wall_louvre", IRON)
+    return finish(bm, "wall_louvre", mat_principled("GT_LouvreShade", (0.24, 0.24, 0.23), 0.6))   # x06 EX30: blades read as dark slots
 LIBM["louv"] = mesh_louvre()
 def mesh_doors():
     bm = bmesh.new()
@@ -502,7 +507,7 @@ def mesh_doors():
     return finish(bm, "doors24", DOOR)
 LIBM["doors"] = mesh_doors()
 walls = []
-def wall_run(x0, y0, x1, y1, z0, z1, boarded, tag, louvre=None, doors=()):
+def wall_run(x0, y0, x1, y1, z0, z1, boarded, tag, louvre=None, doors=(), inset=0.0):
     """infill between column lines (x0,y0)->(x1,y1) in 24 ft bays from z0 to z1 ft. Ground-tier boarding has louvre
     bands at the bottom and top (Plate XXI); glazed tiers have a louvre band at the top."""
     louvre = boarded if louvre is None else louvre
@@ -512,9 +517,12 @@ def wall_run(x0, y0, x1, y1, z0, z1, boarded, tag, louvre=None, doors=()):
     key = f"w{H:.2f}{boarded}"
     if key not in LIBM: LIBM[key], LIBM[key + "f"] = mesh_wall_bay(24, H, boarded)
     rot = math.pi / 2 if abs(x1 - x0) < 1e-6 else 0.0
+    # x06 EX30: the boarding / glass infill and louvres set back behind the posts, arches and columns so they throw shadow lines (relief)
+    ix, iy = ((-math.copysign(inset, x0), 0.0) if rot else (0.0, -math.copysign(inset, y0))) if inset else (0.0, 0.0)
     for k in range(n):
         xa = x0 + (x1 - x0) * (k + 0.5) / n; ya = y0 + (y1 - y0) * (k + 0.5) / n
-        place(key, f"EWALL_{tag}_{k}", C["WALLS"], xa, ya, z0 + lo, rot, part_kind="wall", tag=tag)
+        place(key, f"EWALL_{tag}_{k}", C["WALLS"], xa, ya, z0 + lo, rot, part_kind="wall", tag=tag)   # frame stays on the column line
+        xa += ix; ya += iy                                                                           # fill and louvres set back
         is_door = k in doors
         if is_door:
             place("doors", f"EDOOR_{tag}_{k}", C["WALLS"], xa, ya, 0, rot, part_kind="door", tag=tag)
@@ -532,9 +540,9 @@ for s, tag in ((-1, "S"), (1, "N")):
     Y = s * Y_HALF
     runs = [(-X_END, -X_ARM), (X_ARM, X_END)] if s < 0 else [(-X_END, STRIP_X0), (STRIP_X1, X_END)]
     for xa, xb in runs:
-        wall_run(xa, Y, xb, Y, *T1, True, f"{tag}1_{xa:+.0f}")
+        wall_run(xa, Y, xb, Y, *T1, True, f"{tag}1_{xa:+.0f}", inset=0.9)
     for xa, xb in ((-X_END, -X_ARM), (X_ARM, X_END)):
-        wall_run(xa, s * 132, xb, s * 132, *T2, False, f"{tag}2_{xa:+.0f}", louvre=True)
+        wall_run(xa, s * 132, xb, s * 132, *T2, False, f"{tag}2_{xa:+.0f}", louvre=True, inset=0.6)
     for xa, xb in ((-X_END, -X_LF), (X_LF, X_END)):
         wall_run(xa, s * 60, xb, s * 60, *T3, False, f"{tag}3_{xa:+.0f}", louvre=True)
 # north strip outer walls
@@ -684,7 +692,7 @@ _route = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 _sight = [((s["start"]["pos_ft"][0], s["start"]["pos_ft"][1]), (s["start"]["look_ft"][0], s["start"]["look_ft"][1]))
           for s in _route["shots"] if "ortho_m" not in s]
 trees = skipped = 0; rt = random.Random(SEED + 7)
-for yrow in (345.0, 395.0, -470.0, -530.0):
+for yrow in (345.0, 395.0, -520.0):        # x06 EX31: one thinned south row (was -470 and -530 at 52-68 ft)
     x = -1300.0 + rt.uniform(0, 30)
     while x < 1300:
         p = (x, yrow + rt.uniform(-12, 12))
@@ -693,8 +701,71 @@ for yrow in (345.0, 395.0, -470.0, -530.0):
         else:
             new_obj(f"ETREE_{trees:03d}", TREEM[trees % 3], TREEC, (ft(p[0]), ft(p[1]), 0), rt.uniform(0, 6.28),
                     {"part_kind": "park_tree"}); trees += 1
-        x += rt.uniform(52, 68)
+        x += rt.uniform(52, 68) if yrow > 0 else rt.uniform(115, 150)
 print("FLAGS", flags, "TREES", trees, "SKIPPED", skipped)
+
+# ---------------- x06 EX32: park people and carriages (reuses the transept crowd figures, figures.py, read-only import) ----------------
+sys.path.insert(0, "/workspace/crystal-palace/course-models/crystal-palace-1851-transept-grok/scripts")
+import figures as FG
+PEOPLEC = coll("PARK_PEOPLE", ROOT)
+_M = lambda n, c: mat_principled("GT_Park_" + n, c, 0.85)
+_coats = [_M("coat_black", (0.025, 0.025, 0.03)), _M("coat_brown", (0.10, 0.06, 0.04)), _M("coat_navy", (0.03, 0.04, 0.09)), _M("coat_grey", (0.2, 0.19, 0.18))]
+_trou = [_M("trou_grey", (0.25, 0.24, 0.22)), _M("trou_fawn", (0.42, 0.36, 0.26))]
+_sk = [_M("skirt_crimson", (0.32, 0.05, 0.06)), _M("skirt_plum", (0.2, 0.07, 0.17)), _M("skirt_blue", (0.18, 0.22, 0.32)), _M("skirt_tan", (0.45, 0.36, 0.24)),
+       _M("skirt_lilac", (0.42, 0.35, 0.48)), _M("skirt_white", (0.7, 0.68, 0.62)), _M("skirt_green", (0.08, 0.18, 0.10))]
+_bod = [_M("bod_black", (0.03, 0.03, 0.035)), _M("bod_brown", (0.15, 0.09, 0.06))]
+_skin = _M("skin", (0.70, 0.52, 0.41)); _hat = _M("hat_black", (0.02, 0.02, 0.02)); _bon = _M("bonnet_straw", (0.65, 0.55, 0.35))
+_trim = [_M("trim_white", (0.75, 0.74, 0.70)), _M("shawl_paisley", (0.45, 0.18, 0.10)), _M("shawl_cream", (0.68, 0.62, 0.50))]
+PP = [FG.person_mesh(f"PARK_man_{j}", "man", [_coats[j % 4], _trou[j % 2], _skin, _hat, _trim[0]],
+                     style={"hat": ("top", "top", "low", "top", "cap", "top")[j], "frock": j % 3 != 2, "cravat": j % 2 == 0, "cane": j in (1, 4)}) for j in range(6)]
+PP += [FG.person_mesh(f"PARK_woman_{j}", "woman", [_sk[j], _bod[j % 2], _skin, _bon, _trim[1 + j % 2]], style={"skirt_w": (0.9, 1.05, 1.15, 0.95, 1.1, 1.0, 0.88)[j], "shawl": j % 2 == 1}) for j in range(7)]
+PP += [FG.person_mesh(f"PARK_girl_{j}", "girl", [_sk[(5, 2)[j]], _bod[0], _skin, _bon, _trim[2]]) for j in range(2)]
+HORSE = _M("horse_bay", (0.12, 0.06, 0.03)); CARR = _M("carriage_body", (0.04, 0.05, 0.06)); CARRW = _M("carriage_wheel", (0.30, 0.20, 0.08))
+def mesh_carriage(open_):
+    bm = bmesh.new(); f_ = []
+    bm_box(bm, ft(-3.2), ft(3.2), ft(-2.4), ft(2.4), ft(2.4), ft(5.0 if open_ else 6.8)); f_.append(1)
+    if open_: bm_box(bm, ft(-3.2), ft(-1.8), ft(-2.4), ft(2.4), ft(5.0), ft(6.0))                     # folded hood
+    for wx, r in ((-2.2, 2.3), (2.4, 1.7)):
+        for sy in (-1, 1): bm_cyl_y = bmesh.ops.create_cone(bm, cap_ends=True, segments=14, radius1=ft(r), radius2=ft(r), depth=ft(0.25),
+                                       matrix=Matrix.Translation((ft(wx), ft(sy * 2.6), ft(r))) @ Matrix.Rotation(math.pi / 2, 4, 'X'))
+    nb = len(bm.faces)
+    bm_box(bm, ft(5.0), ft(11.0), ft(-1.1), ft(1.1), ft(3.4), ft(5.6))                                  # horse body
+    bm_bar(bm, (ft(10.4), 0, ft(5.2)), (ft(12.4), 0, ft(7.6)), ft(0.9), ft(0.8))                        # neck and head
+    for lx in (5.5, 10.4):
+        for ly in (-0.7, 0.7): bm_box(bm, ft(lx - 0.25), ft(lx + 0.25), ft(ly - 0.25), ft(ly + 0.25), 0, ft(3.5))
+    bm_bar(bm, (ft(3.2), ft(-1.4), ft(3.2)), (ft(10.0), ft(-1.4), ft(4.2)), ft(0.2), ft(0.2)); bm_bar(bm, (ft(3.2), ft(1.4), ft(3.2)), (ft(10.0), ft(1.4), ft(4.2)), ft(0.2), ft(0.2))
+    me = finish(bm, "park_carriage_" + ("open" if open_ else "closed"), CARR, [CARRW, HORSE])
+    for p in me.polygons:
+        if p.index >= nb: p.material_index = 2
+        elif abs(p.center.y) > ft(2.45) and p.center.z < ft(4.7): p.material_index = 1
+    return me
+CARM = [mesh_carriage(True), mesh_carriage(False)]
+rp = random.Random(SEED + 61); _cams = [a for a, b in _sight]
+def _clear(x, y, r):
+    return all(_seg_d((x, y), a, b) > r for a, b in _sight) and all(math.hypot(x - c[0], y - c[1]) > 25 for c in _cams)
+people = carriages = 0
+def crowd_area(x0, x1, y0, y1, n_groups):
+    global people
+    for g in range(n_groups):
+        gx, gy = rp.uniform(x0, x1), rp.uniform(y0, y1); hd = rp.uniform(0, 6.28)
+        for m in range(rp.choice([1, 2, 2, 2, 3, 3, 4, 5])):
+            x, y = gx + rp.uniform(-2.5, 2.5) * (m > 0), gy + rp.uniform(-2.5, 2.5) * (m > 0)
+            if not _clear(x, y, 4.0): continue
+            ob = new_obj(f"EPERSON_{people:04d}", PP[rp.randrange(len(PP))], PEOPLEC, (ft(x), ft(y), 0), hd + rp.uniform(-0.5, 0.5), {"part_kind": "park_person"})
+            k_ = rp.uniform(0.94, 1.06); ob.scale = (k_, k_, k_); people += 1
+crowd_area(-900, 920, -300, -214, 220)          # the south promenade along the front
+crowd_area(140, 900, -420, -300, 70)            # the lawn between front and the Kensington Road drive
+crowd_area(930, 1010, -200, 200, 50)            # outside the east end doors
+crowd_area(940, 1150, -470, -230, 40)           # the south-east lawn (EXT_SE_34 middle ground)
+crowd_area(-900, 140, -420, -300, 60)
+crowd_area(1040, 1140, -520, -440, 16)          # x06: foreground strollers on the south-east lawn / footpath
+for (x, y, r) in ((1048, -330, math.pi / 2), (1048, -478 + 60, -math.pi / 2)):
+    if _clear(x, y, 10): new_obj(f"ECARRIAGE_{carriages:02d}", CARM[carriages % 2], PEOPLEC, (ft(x), ft(y), 0), r, {"part_kind": "carriage"}); carriages += 1
+for k in range(16):                             # carriages on the drive south of the building (Kensington Road side)
+    x = -880 + k * 118 + rp.uniform(-30, 30); y = -440 + rp.choice([-6, 6])
+    if not _clear(x, y, 12): continue
+    new_obj(f"ECARRIAGE_{carriages:02d}", CARM[k % 2], PEOPLEC, (ft(x), ft(y), 0), 0.0 if y < -440 else math.pi, {"part_kind": "carriage"}); carriages += 1
+print("PARK_PEOPLE", people, "CARRIAGES", carriages, flush=True)
 
 # ---------------- cameras (storyboard v001 grammar) ----------------
 CAMS = bpy.data.collections.new("CAMERAS_GROK"); scene.collection.children.link(CAMS)
