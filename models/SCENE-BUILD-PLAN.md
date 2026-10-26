@@ -275,6 +275,13 @@ a usable bay, interior and exhibition.
   hierarchy of civilisations.
 
 ### 14. `sy-terrace-step-and-balustrade` — terrace step + balustrade section
+- **Status:** Built and QC-passed 2026-10-26 (second render
+  pass: steps made solid blocks after QC caught air gaps
+  under 0.12 m slabs). 27 objects, 324 triangles, 6 steps
+  0.30 m going / 0.15 m rise, 3.0 m wide — all sizes guessed,
+  no surveyed terrace dimension used; no specific terrace
+  level or fountain state asserted. See
+  `sy-terrace-step-and-balustrade/NOTES.md`.
 - **Scenes:** CP042 (the landscape performs — terrace descent,
   balustrade stop), CP073 (the steps and the sphinxes — present-
   day terrace, same prop family in modern condition).
