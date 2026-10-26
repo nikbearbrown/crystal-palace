@@ -1,0 +1,112 @@
+[
+  {
+    "dimension": "main_building_length",
+    "phase": "Hyde Park 1851",
+    "feet": 1848,
+    "inches": 0,
+    "metres": 563.2704,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "main_building_length",
+    "phase": "Sydenham as described in 1856",
+    "feet": 1608,
+    "inches": 0,
+    "metres": 490.1184,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "greatest_width",
+    "phase": "Hyde Park 1851",
+    "feet": 456,
+    "inches": 0,
+    "metres": 138.9888,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "greatest_width",
+    "phase": "Sydenham as described in 1856",
+    "feet": 384,
+    "inches": 0,
+    "metres": 117.0432,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "general_width",
+    "phase": "Hyde Park 1851",
+    "feet": 408,
+    "inches": 0,
+    "metres": 124.3584,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "general_width",
+    "phase": "Sydenham as described in 1856",
+    "feet": 312,
+    "inches": 0,
+    "metres": 95.0976,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "nave_height_from_ground_floor",
+    "phase": "Hyde Park 1851",
+    "feet": 64,
+    "inches": 9,
+    "metres": 19.7358,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "nave_height_from_ground_floor",
+    "phase": "Sydenham as described in 1856",
+    "feet": 110,
+    "inches": 3,
+    "metres": 33.6042,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "transept_height_from_ground_floor",
+    "phase": "Hyde Park 1851",
+    "feet": 102,
+    "inches": 2,
+    "metres": 31.1404,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "transept_height_from_ground_floor",
+    "phase": "Sydenham as described in 1856",
+    "feet": 174,
+    "inches": 3,
+    "metres": 53.1114,
+    "status": "Transcribed visually from one contemporary source; not an independently measured control",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  },
+  {
+    "dimension": "transept_height_from_basement",
+    "phase": "Sydenham as described in 1856",
+    "feet": 197,
+    "inches": 10,
+    "metres": 60.2996,
+    "status": "Transcribed visually from one contemporary source; ground-floor datum differs",
+    "source_gallery_id": "0214",
+    "printed_page": 35
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-24",
+  "destination": "/Users/bear/Documents/CoWork/bear-textbooks/books/the-crystal-palace/references/muse-drive",
+  "source_files_verified": 1416,
+  "source_bytes": 2434899457,
+  "sha256_mismatches": [],
+  "broken_catalogue_links": [],
+  "blend_files": [
+    "crystal-palace-full.blend",
+    "blender-deliverables/crystal-palace.blend",
+    "course-models/crystal-palace-1851-claude/crystal-palace-1851.blend",
+    "references/downes-1852/crystal-palace-1851/model/crystal-palace-west-03_v001.blend"
+  ],
+  "non_blender_models": []
+}

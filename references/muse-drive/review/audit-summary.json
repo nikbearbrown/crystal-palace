@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-24",
+  "files": 1416,
+  "bytes": 2434899457,
+  "images": 1398,
+  "size_mismatches": [],
+  "validation_errors": [],
+  "exact_duplicate_groups": [
+    [
+      "images/main-article/Crystal_Palace_Destroyed_1936.jpg",
+      "images/main-article/Crystal_Palace_Destoyed_1936.jpg"
+    ]
+  ]
+}

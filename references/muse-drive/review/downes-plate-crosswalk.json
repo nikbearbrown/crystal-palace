@@ -1,0 +1,198 @@
+[
+  {
+    "printed_plate": "1",
+    "scan_page": "p0062",
+    "subject": "Ground floor",
+    "muse_high_res_number": 1,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-001.jpg"
+  },
+  {
+    "printed_plate": "2",
+    "scan_page": "p0066",
+    "subject": "Galleries",
+    "muse_high_res_number": 2,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-002.jpg"
+  },
+  {
+    "printed_plate": "3",
+    "scan_page": "p0070",
+    "subject": "Above galleries",
+    "muse_high_res_number": 3,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-003.jpg"
+  },
+  {
+    "printed_plate": "4",
+    "scan_page": "p0074",
+    "subject": "South elevation",
+    "muse_high_res_number": 4,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-004.jpg"
+  },
+  {
+    "printed_plate": "5",
+    "scan_page": "p0078",
+    "subject": "East elevation",
+    "muse_high_res_number": 5,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-005.jpg"
+  },
+  {
+    "printed_plate": "6",
+    "scan_page": "p0082",
+    "subject": "Transverse section",
+    "muse_high_res_number": 6,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-006.jpg"
+  },
+  {
+    "printed_plate": "7",
+    "scan_page": "p0086",
+    "subject": "Longitudinal section",
+    "muse_high_res_number": 7,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-007.jpg"
+  },
+  {
+    "printed_plate": "8",
+    "scan_page": "p0090",
+    "subject": "Columns",
+    "muse_high_res_number": 8,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-008.jpg"
+  },
+  {
+    "printed_plate": "9",
+    "scan_page": "p0094",
+    "subject": "Vertical diagonal bracing",
+    "muse_high_res_number": null,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-009.jpg"
+  },
+  {
+    "printed_plate": "10",
+    "scan_page": "p0098",
+    "subject": "Wood trusses and cast iron",
+    "muse_high_res_number": null,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-010.jpg"
+  },
+  {
+    "printed_plate": "11",
+    "scan_page": "p0102",
+    "subject": "Wrought-iron roof trusses",
+    "muse_high_res_number": 9,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-011.jpg"
+  },
+  {
+    "printed_plate": "12",
+    "scan_page": "p0105",
+    "subject": "Glass roof and Paxton gutters",
+    "muse_high_res_number": 10,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-012.jpg"
+  },
+  {
+    "printed_plate": "13",
+    "scan_page": "p0109",
+    "subject": "Main gutters",
+    "muse_high_res_number": 11,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-013.jpg"
+  },
+  {
+    "printed_plate": "14",
+    "scan_page": "p0113",
+    "subject": "Gallery and ornamental bands",
+    "muse_high_res_number": 12,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-014.jpg"
+  },
+  {
+    "printed_plate": "15",
+    "scan_page": "p0117",
+    "subject": "Stair plans",
+    "muse_high_res_number": 13,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-015.jpg"
+  },
+  {
+    "printed_plate": "16",
+    "scan_page": "p0121",
+    "subject": "Stair details",
+    "muse_high_res_number": 14,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-016.jpg"
+  },
+  {
+    "printed_plate": "17",
+    "scan_page": "p0125",
+    "subject": "Stair railing",
+    "muse_high_res_number": 15,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-017.jpg"
+  },
+  {
+    "printed_plate": "18",
+    "scan_page": "p0129",
+    "subject": "Transept roof",
+    "muse_high_res_number": 16,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-018.jpg"
+  },
+  {
+    "printed_plate": "19",
+    "scan_page": "p0131",
+    "subject": "Lead flats",
+    "muse_high_res_number": 17,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-019.jpg"
+  },
+  {
+    "printed_plate": "20",
+    "scan_page": "p0135",
+    "subject": "Wrought-iron transept trusses",
+    "muse_high_res_number": null,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-020.jpg"
+  },
+  {
+    "printed_plate": "20a",
+    "scan_page": "p0139",
+    "subject": "Cast-iron standards",
+    "muse_high_res_number": null,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-020a.jpg"
+  },
+  {
+    "printed_plate": "21",
+    "scan_page": "p0143",
+    "subject": "Outer walls",
+    "muse_high_res_number": 18,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-021.jpg"
+  },
+  {
+    "printed_plate": "22",
+    "scan_page": "p0147",
+    "subject": "Outer-wall details",
+    "muse_high_res_number": 19,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-022.jpg"
+  },
+  {
+    "printed_plate": "23",
+    "scan_page": "p0151",
+    "subject": "Panels and joint plates",
+    "muse_high_res_number": null,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-023.jpg"
+  },
+  {
+    "printed_plate": "24",
+    "scan_page": "p0155",
+    "subject": "External semicircular head",
+    "muse_high_res_number": null,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-024.jpg"
+  },
+  {
+    "printed_plate": "25",
+    "scan_page": "p0159",
+    "subject": "Internal semicircular head",
+    "muse_high_res_number": 20,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-025.jpg"
+  },
+  {
+    "printed_plate": "26",
+    "scan_page": "p0163",
+    "subject": "Head and pedestal details",
+    "muse_high_res_number": 21,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-026.jpg"
+  },
+  {
+    "printed_plate": "27",
+    "scan_page": "p0167",
+    "subject": "Louvre machinery",
+    "muse_high_res_number": 22,
+    "canonical_original": "../../downes-1852/source-scans/plates/plate-027.jpg"
+  }
+]
