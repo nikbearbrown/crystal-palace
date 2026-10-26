@@ -29,6 +29,9 @@ Sydenham 1854+ are different buildings — never blend their evidence
 | 14 | Sydenham High Level subway vault bay (SCENE-BUILD-PLAN Wave 3.9) | Round-2 S87 material (branch muse-round2): OS 25-inch plan 1895; ILN 1865 station engraving; conservation photos 2016/2023/2025 of the vaults themselves | High for the vault geometry (surviving fabric, photographed during restoration); station-to-entry layout still unplotted — bay only, no route claims | **Taken — Muse (round-2 builder), building now** → `models/sy-subway-vault-bay/` |
 | 15 | Sydenham Egyptian Court column pair (SCENE-BUILD-PLAN Wave 3.10) | Court plan 0226 + dated court views in `references/muse-drive/images/`; 1856 guide plan 0205 for position only | Medium-high — views + plan; polychromy partly unverified | **Built** — `models/sy-egyptian-column-pair/` on main (10,264 tris; Hall of Karnak pair from the 1856 guide woodcut + court plan; absolute height 6.32 m derived, ±20% flagged; NO Delamotte photo of this court exists — guide woodcuts are the dated evidence) |
 
+| 16 | Sydenham Alhambra Court ornament panel (SCENE-BUILD-PLAN Wave 3.11) | `references/muse-drive/images/` Alhambra Court views + Owen Jones Alhambra publications (round 1) | Medium — pattern from views/publications; flat panel asset, not room geometry | **Taken — Muse (round-2 builder), building now** → `models/sy-alhambra-ornament-panel/` |
+| 17 | Sydenham classical court cast base / plinth (SCENE-BUILD-PLAN Wave 3.12) | Court views in `references/muse-drive/images/` + statue bases in round-1 sculpture galleries (0228) | Medium — plinth profiles from views | **Taken — Muse (round-2 builder), building now** → `models/sy-classical-cast-base/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
