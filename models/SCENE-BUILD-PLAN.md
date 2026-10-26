@@ -109,6 +109,15 @@ a usable bay, interior and exhibition.
   sash is explicit — no all-metal roof depiction.
 
 ### 2. `hp-floor-boards` — open-boarded floor section
+- **Status:** Built and QC-passed 2026-10-26 by the parallel
+  Muse stream (not this builder — a duplicate staging of mine
+  with guessed dimensions was deliberately NOT pushed, because
+  theirs is better evidenced). 15 boards, 7 joists, 2 sleepers,
+  24 objects, 288 triangles, section 16 × 12 ft. Boards 1½ in
+  thick, ½ in gaps, joists 7 × 2½ in, sleepers 13 × 3¼ in at
+  8 ft — all printed in the Official Catalogue (1851) p.62;
+  board width (9 in) and joist spacing (2 ft) inferred and
+  labelled. See `hp-floor-boards/NOTES.md` on main.
 - **Scenes:** CP020 (preparing for feet and crowds — narrow spaces
   between boards for cleaning), CP028 (daily work / cleaning).
 - **Evidence to use:** Downes floor evidence; storyboard CP020 flag
@@ -116,6 +125,10 @@ a usable bay, interior and exhibition.
 - **Build note:** A short section with gaps, not a full floor slab.
 
 ### 3. `hp-gallery-stair` — stair flight + gallery rail section
+- **Status:** Taken by the parallel Muse stream (CANDIDATES.md
+  row 9, 2026-10-26) — do NOT duplicate. A local stair script
+  and NOTES draft exist in this builder's workspace but must
+  not be pushed while the row is taken.
 - **Scenes:** CP027 (another level of visitors — stair shown from
   the bottom, explicit cut to landing, never floating through a
   floor), CP023 (nave / gallery context).
@@ -126,6 +139,8 @@ a usable bay, interior and exhibition.
   stay unmodelled until confirmed.
 
 ### 4. `hp-louvre-and-blind` — opening louvre + canvas blind unit
+- **Status:** Taken by the parallel Muse stream (CANDIDATES.md
+  row 10, 2026-10-26) — do NOT duplicate.
 - **Scenes:** CP015 (keeping a glass hall habitable — shading and
   ventilation), CP028 (shading / ventilation as daily work).
 - **Evidence to use:** Downes plate XXVII.
