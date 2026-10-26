@@ -21,6 +21,8 @@ Sydenham 1854+ are different buildings — never blend their evidence
 | 9 | HP gallery stair + rail section (SCENE-BUILD-PLAN Wave 1.3) | `references/downes-1852/source-scans/plates/` plates II, XV–XVII | Medium-high — plates + course-model dimensions as starting point only | **Taken — Muse (round-2 builder), building now** → `models/hp-gallery-stair/` |
 | 10 | HP louvre + canvas blind unit (SCENE-BUILD-PLAN Wave 1.4) | `references/downes-1852/source-scans/plates/` plate XXVII | Medium-high — mechanism plate | **Taken — Muse (round-2 builder), building now** → `models/hp-louvre-and-blind/` |
 
+| 11 | HP roof furrow bay — full 24 ft bay: both slopes, ridge piece, Paxton gutters (companion to row 7's single row) | `references/downes-1852/source-scans/plates/plate-012.jpg` (Plate XII Figs. 1/3/10; bar chain sums to exactly 288 in); plates XIII, XIV, XVIII consulted | High — printed chain + sections | **Built** — `models/hp-roof-furrow-bay/` on main (2,388 tris) |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
