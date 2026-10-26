@@ -1,0 +1,85 @@
+[
+  {
+    "slug": "downes-1852-working-drawings",
+    "item": "McGillLibrary-rbsc_building-erected-hyde-park_folioNA6750L6D71852-21979",
+    "item_url": "https://archive.org/details/McGillLibrary-rbsc_building-erected-hyde-park_folioNA6750L6D71852-21979",
+    "ia_title": "The building erected in Hyde Park for the Great Exhibition of the works of industry of all nations, 1851 : Illustrated by twenty-eight large plates, embracing plans, elevations, sections, and details, laid down to a large scale from the working drawings of the contractors, Messrs. Fox, Henderson, and Co.",
+    "ia_creator": "Downes, Charles, author, draftsman",
+    "jp2_pages": 187,
+    "status": "ok",
+    "converted_pages": 187,
+    "output_mb": 269.1
+  },
+  {
+    "slug": "routledge-1851-guide",
+    "item": "guidetogreatexhi00grea",
+    "item_url": "https://archive.org/details/guidetogreatexhi00grea",
+    "ia_title": "A Guide to the Great Exhibition : containing a description of every principal object of interest : with a plan, pointing out the easiest and most systematic way of examining the contents of the Crystal Palace",
+    "ia_creator": [
+      "Great Exhibition (1851 : London, England)",
+      "G. Routledge & Co., publisher",
+      "Cox and Wyman, printer"
+    ],
+    "jp2_pages": 272,
+    "status": "ok",
+    "converted_pages": 272,
+    "output_mb": 319.8
+  },
+  {
+    "slug": "tallis-history-v1",
+    "item": "tallisshistoryde01tall",
+    "item_url": "https://archive.org/details/tallisshistoryde01tall",
+    "ia_title": "Tallis's history and description of the Crystal palace, and the Exhibition of the world's industry in 1851;",
+    "ia_creator": [
+      "Tallis, John, 1815 or 6-1876",
+      "Strutt, Jacob George, 1790-1864"
+    ],
+    "jp2_pages": 232,
+    "status": "ok",
+    "converted_pages": 232,
+    "output_mb": 206.9
+  },
+  {
+    "slug": "tallis-history-v4",
+    "item": "tallisshistoryde04tall",
+    "item_url": "https://archive.org/details/tallisshistoryde04tall",
+    "ia_title": "Tallis's history and description of the Crystal palace, and the Exhibition of the world's industry in 1851;",
+    "ia_creator": [
+      "Tallis, John, 1815 or 6-1876",
+      "Strutt, Jacob George, 1790-1864"
+    ],
+    "jp2_pages": 172,
+    "status": "ok",
+    "converted_pages": 172,
+    "output_mb": 152.6
+  },
+  {
+    "slug": "new-york-crystal-palace",
+    "item": "newyorkcrystalp00carsa",
+    "item_url": "https://archive.org/details/newyorkcrystalp00carsa",
+    "ia_title": "New York Crystal Palace : illustrated description of the building",
+    "ia_creator": "Carstensen, Georg, 1812-1857",
+    "jp2_pages": 114,
+    "status": "ok",
+    "converted_pages": 114,
+    "output_mb": 124.6
+  },
+  {
+    "slug": "va-paxton-sketches",
+    "item_url": "https://collections.vam.ac.uk/item/O18167/the-great-exhibition-building-architectural-sketch-paxton-joseph-sir/",
+    "status": "ok",
+    "images": 3
+  },
+  {
+    "slug": "architectuul-crystal-palace",
+    "item_url": "https://architectuul.com/architecture/the-crystal-palace",
+    "status": "ok",
+    "images": 34
+  },
+  {
+    "slug": "iln-1850",
+    "item_url": "https://iln.org.uk/iln_years/year/1850greatex.html",
+    "status": "ok",
+    "images": 9
+  }
+]
