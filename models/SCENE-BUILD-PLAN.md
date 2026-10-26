@@ -377,6 +377,14 @@ Small, clearly-labelled interpretive props. None of these is a
 palace component, and none pretends to be a surveyed room.
 
 ### 20. `chatsworth-glasshouse-rib-bay` — glasshouse rib bay
+- **Status:** Built and QC-passed 2026-10-26 (second render
+  pass: side walls moved from the bay ends to the rib
+  springing lines — first pass left them floating beside
+  the structure). 67 objects, 804 triangles. Three curved
+  ribs, 5 purlins, glass panes, two low side walls — all
+  sizes guessed, labelled illustrative, Palace rib figures
+  deliberately not reused. See
+  `chatsworth-glasshouse-rib-bay/NOTES.md`.
 - **Scenes:** CP003 (a gardener's workshop — glasshouse interior,
   plants and structure sharing the frame), CP004 (learning to
   repeat — repeated glass and ribs receding, 50 mm detail on two
