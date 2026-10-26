@@ -80,3 +80,27 @@ Claude's frame is used as-is: metres, origin at the crossing, X east, Y north. H
 ## Next (x05)
 - Render-time ridge-and-furrow proxy for Claude's roof units: an instanced copy of our roof unit, placed only in our combined/assembly scenes.
 - EXT_SE_34 reframed. Wall value contrast. Railings and a few carriages on Rotten Row.
+
+## x05 (checks 31/31 in checks/x05; renders renders/x05 at 1280x720, 48 spp, with transept r09; compare/x05_*.jpg)
+**Changes:**
+- Render-time furrow roofs across Claude's units and ours (EX27; `FURROW_SWAP objects 2179`).
+- ROOFGLASS tuning.
+- combine `show_with_claude`.
+- CP023_into_nave_full, the authoritative CP023 walk on the combined scene with the r09 HP51 dressing.
+
+**Self-score x05: 8.1/10**
+
+**Good:**
+- The interior east nave now reads as one ridge-and-furrow roof receding to the east end.
+- CP023 shows the dressed nave (locomotive, statuary, banners, crowd) with real nave columns.
+
+**Misses:**
+- EXT_SE_34 is still lawn-heavy.
+- The south-wall value contrast is unchanged.
+- There are no park people or carriages.
+- The PLATE_IV ortho is still dominated by the Rotten Row tree line, as in x04.
+
+## Next (x06)
+- Reframe EXT_SE_34.
+- Wall value contrast.
+- Railings and carriages on Rotten Row.
