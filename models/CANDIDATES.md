@@ -32,6 +32,8 @@ Sydenham 1854+ are different buildings — never blend their evidence
 | 16 | Sydenham Alhambra Court ornament panel (SCENE-BUILD-PLAN Wave 3.11) | `references/muse-drive/images/` Alhambra Court views + Owen Jones Alhambra publications (round 1) | Medium — pattern from views/publications; flat panel asset, not room geometry | **Taken — Muse (round-2 builder), building now** → `models/sy-alhambra-ornament-panel/` |
 | 17 | Sydenham classical court cast base / plinth (SCENE-BUILD-PLAN Wave 3.12) | Court views in `references/muse-drive/images/` + statue bases in round-1 sculpture galleries (0228) | Medium — plinth profiles from views | **Taken — Muse (round-2 builder), building now** → `models/sy-classical-cast-base/` |
 
+| 18 | Sydenham Medieval/Gothic court arch fragment (SCENE-BUILD-PLAN Wave 3.13) | Court views in `references/muse-drive/images/` + 1856 guide Medieval Court text | Medium — arch form from views; a repeatable bay fragment, not a room | **Taken — Muse (round-2 builder), building now** → `models/sy-gothic-arch-fragment/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
