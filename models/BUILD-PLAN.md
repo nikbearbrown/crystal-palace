@@ -183,11 +183,19 @@ own, flagged in nearly every scene.
 
 ## 7. Evidence gates (do not build as fact until resolved)
 
-- **Transept heights conflict:** the book rounds to ~108 ft / ~168 ft; the
-  1856-guide review reports 102 ft 2 in / 174 ft 3 in from ground floor,
-  with a separate Sydenham basement datum. Resolve endpoints and datums
-  before either shell is dimensioned. (Round 2 is hunting a second dated
-  source.)
+- **Transept heights conflict — corrected 2026-10-26 (round 2):**
+  the book rounds to ~108 ft / ~168 ft. The 1856-guide table
+  (ground-floor datum) gives Sydenham nave 110 ft 3 in and central
+  transept 174 ft 3 in, and 197 ft 10 in from the basement; the
+  102 ft 2 in figure in the review table is the Hyde Park transept,
+  not a Sydenham height (an earlier wording here conflated the two
+  columns of that table). Round 2's cross-check
+  (references/muse-round2/review/GAPS-FOUND.md) found two
+  independent 1854 sources agreeing on the drawing-supported pair —
+  nave crown 104 ft, central transept 168 ft — against the 1856
+  table; the ~6 ft difference is unresolved. Resolve endpoints and
+  datums before either shell is dimensioned; where a height is
+  unavoidable, use 104 ft / 168 ft with datums stated.
 - **Court adjacency and routes** (CP036–CP041): must be plotted from the
   1856 plan before interiors are laid out; unresolved adjacencies get
   labelled location cuts in the film, and no fabricated doors in the models.
