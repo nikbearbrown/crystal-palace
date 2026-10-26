@@ -4,17 +4,17 @@
     {
       "id": "EXT_SE_34",
       "lens_mm": 28,
-      "use": "three-quarter from the south-east lawn at eye height: south front east half + east end (Plates IV, V)",
+      "use": "three-quarter from the south-east lawn at eye height: south front east half + east end (Plates IV, V); x04 about 40% closer (EX23)",
       "start": {
         "pos_ft": [
-          1130,
-          -470,
+          902,
+          -350,
           5.25
         ],
         "look_ft": [
           560,
           -170,
-          36
+          24
         ]
       }
     },
@@ -38,17 +38,17 @@
     {
       "id": "EXT_NE_strip",
       "lens_mm": 35,
-      "use": "north side from the north-east: north strip (D05) and the stepped tiers behind",
+      "use": "north side from the north-east: north strip (D05) and the stepped tiers behind; x04 about 40% closer (EX23)",
       "start": {
         "pos_ft": [
-          520,
-          760,
+          264,
+          552,
           5.25
         ],
         "look_ft": [
           -120,
           240,
-          28
+          20
         ]
       }
     },
