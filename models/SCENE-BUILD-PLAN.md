@@ -148,6 +148,12 @@ a usable bay, interior and exhibition.
   (two states of the same prop, not two props).
 
 ### 5. `hp-great-elm` — procedural elm tree, instancing-friendly
+- **Status:** Built and QC-passed 2026-10-26 (second render
+  pass: rounder foliage blobs, wider framing so no blob clips).
+  27 objects, 628 triangles, 18 m — all sizes guessed, no
+  dimensioned elm exists in the references; generic silhouette
+  only, never a particular transept elm. See
+  `hp-great-elm/NOTES.md`.
 - **Scenes:** CP008 (build around the trees), CP017 (the park
   remains inside — elms under the transept vault), CP022 (trees
   behind the fountain).
