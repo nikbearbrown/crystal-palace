@@ -8,10 +8,23 @@ def append(path, name):
         dst.collections = [c for c in src.collections if c == name]
     for c in dst.collections:
         if c: sc.collection.children.link(c); return c
+def claude_roof_glass(base):
+    """EX26: Claude's roof mesh has no (usable) UVs, so the UV-driven sash-bar mask of GT_RoofGlassExt reads 0 everywhere
+    and the whole sheet renders as bar paint (the white x04 seam). This copy drives the same bar lines from object
+    coordinates in feet instead."""
+    m = bpy.data.materials.get("GT_RoofGlassExt_CL")
+    if m: return m
+    m = base.copy(); m.name = "GT_RoofGlassExt_CL"; nt = m.node_tree
+    for tc in [x for x in nt.nodes if x.type == 'TEX_COORD']:
+        for dst in [lk.to_socket for lk in tc.outputs["UV"].links]:
+            sc = nt.nodes.new("ShaderNodeVectorMath"); sc.operation = 'SCALE'; sc.inputs["Scale"].default_value = 1 / FT
+            nt.links.new(tc.outputs["Object"], sc.inputs[0]); nt.links.new(sc.outputs[0], dst)   # replaces the UV link
+    return m
 def override_claude_roofs():
-    """EX24: Claude's appended roof units (PART_RoofUnit 'roof' mesh, MAT_Glass) get Grok's exterior roof glass."""
-    rg = bpy.data.materials.get("GT_RoofGlassExt"); n = 0
-    if not rg: print("NO GT_RoofGlassExt"); return 0
+    """EX24/EX26: Claude's appended roof units (PART_RoofUnit 'roof' mesh, MAT_Glass) get Grok's exterior roof glass."""
+    base = bpy.data.materials.get("GT_RoofGlassExt"); n = 0
+    if not base: print("NO GT_RoofGlassExt"); return 0
+    rg = claude_roof_glass(base)
     for c in bpy.data.collections:
         if c.name.startswith("PART_RoofUnit") and c.library is None:
             for ob in c.all_objects:
