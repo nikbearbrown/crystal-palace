@@ -148,12 +148,6 @@ a usable bay, interior and exhibition.
   (two states of the same prop, not two props).
 
 ### 5. `hp-great-elm` — procedural elm tree, instancing-friendly
-- **Status:** Built and QC-passed 2026-10-26 (second render
-  pass: rounder foliage blobs, wider framing so no blob clips).
-  27 objects, 628 triangles, 18 m — all sizes guessed, no
-  dimensioned elm exists in the references; generic silhouette
-  only, never a particular transept elm. See
-  `hp-great-elm/NOTES.md`.
 - **Scenes:** CP008 (build around the trees), CP017 (the park
   remains inside — elms under the transept vault), CP022 (trees
   behind the fountain).
@@ -167,13 +161,6 @@ a usable bay, interior and exhibition.
   "prove" transept clearance.
 
 ### 6. `hp-crate-and-display-case` — packing crate + exhibition vitrine
-- **Status:** Built and QC-passed 2026-10-26. 30 objects, 360
-  triangles. Crate 1.0 × 0.8 × 0.8 m slatted, vitrine glass box
-  1.2 × 0.6 × 1.0 m on a 0.9 m plinth — all sizes guessed, no
-  crate/case dimension was found; vitrine form follows the
-  Dickinson plates. Side view is slightly offset so the crate
-  is not hidden behind the vitrine. See
-  `hp-crate-and-display-case/NOTES.md`.
 - **Scenes:** CP019 (the world arrives in cases), CP024 (machinery
   section dressing — case/barrier, not the machine itself),
   CP025 (jewel case — case only, no invented diamond sparkle or
@@ -275,13 +262,6 @@ a usable bay, interior and exhibition.
   hierarchy of civilisations.
 
 ### 14. `sy-terrace-step-and-balustrade` — terrace step + balustrade section
-- **Status:** Built and QC-passed 2026-10-26 (second render
-  pass: steps made solid blocks after QC caught air gaps
-  under 0.12 m slabs). 27 objects, 324 triangles, 6 steps
-  0.30 m going / 0.15 m rise, 3.0 m wide — all sizes guessed,
-  no surveyed terrace dimension used; no specific terrace
-  level or fountain state asserted. See
-  `sy-terrace-step-and-balustrade/NOTES.md`.
 - **Scenes:** CP042 (the landscape performs — terrace descent,
   balustrade stop), CP073 (the steps and the sphinxes — present-
   day terrace, same prop family in modern condition).
@@ -317,13 +297,6 @@ reuses a Wave 0–3 prop family so the change reads as change.
   block and call it done.
 
 ### 17. `sy36-ruin-fragment` — twisted / collapsed iron fragment
-- **Status:** Built and QC-passed 2026-10-26 (second render
-  pass: girder flanges added so the fallen member reads as an
-  I-beam, not a wall block; framing tightened). 9 objects,
-  204 triangles. Column diameter and girder depth reused from
-  the column prop; break height, kink angle, flange width and
-  fallen lengths guessed; generic ruin, never an intact
-  component. See `sy36-ruin-fragment/NOTES.md`.
 - **Scenes:** CP062 (morning between the towers — twisted remains
   on the ridge, towers standing beyond the missing roof), CP063
   (clearance — debris secured, damaged members removed).
@@ -508,12 +481,20 @@ needed (narration, caption, cut, or existing asset suffices).
 5. CP042 waterworks completion date (Wave 3, item 15).
 6. Post-1866 closure-wall form (Wave 4, item 16).
 7. Tower demolition dates / causes, individually (Wave 4, item 18).
-8. Transept vault geometry: the storyboard notes the book rounds
-   heights to ~108 ft / 168 ft while the 1856-guide review reports
-   102 ft 2 in / 174 ft 3 in from ground floor, with a separate
-   Sydenham basement datum (197 ft 10 in). No prop in this plan
-   narrates or models a precise transept height until datums and
-   endpoints are resolved.
+8. Transept vault geometry — CORRECTED 2026-10-26 (round 2): the
+   1856 guide table (ground-floor datum) gives Sydenham nave
+   110 ft 3 in and central transept 174 ft 3 in, and 197 ft 10 in
+   from the basement; the 102 ft 2 in figure in the review table is
+   the HYDE PARK transept, not a Sydenham height (an earlier wording
+   of this gate conflated the two columns of that table). Round 2's
+   cross-check (references/muse-round2/review/GAPS-FOUND.md) found
+   two independent 1854 sources agreeing on the drawing-supported
+   pair — nave crown 104 ft, central transept 168 ft — against the
+   1856 table; the ~6 ft difference is unresolved (a possible datum
+   shift that no source states). No prop in this plan narrates or
+   models a precise Sydenham height without naming its datum and
+   endpoint; where a height is unavoidable, use 104 ft / 168 ft
+   and say so.
 9. A sculptor for dinosaurs, sphinxes and named statuary.
 
 ## Status at writing (26 October 2026)
