@@ -64,7 +64,7 @@ foundry pattern.
 
 | Dimension | Value | Basis |
 |---|---|---|
-| Overall (model bounding box) | 1.92 × 0.65 × 0.89 m | as built |
+| Overall (model bounding box) | 1.90 × 0.64 × 0.87 m | as built |
 | Slat length | 1.90 m | period-typical garden bench length (range ~1.8–2.0 m) |
 | Seat height (top of slats) | 0.46 m | period-typical |
 | Seat depth (slatted) | 0.46 m | period-typical |
@@ -78,7 +78,7 @@ stands in a measurable relation to any bench in it.
 - Blender 4.2, fully procedural: `scripts/build_park_bench.py` builds the
   scene, saves the .blend, exports the .glb and renders all three views on
   one fixed neutral-grey rig (same sun/fill/backdrop for every view).
-- 44 mesh objects, **5,132 triangles** (bench only; ground plane excluded).
+- 31 mesh objects, **5,220 triangles** (bench only; ground plane excluded).
 - Real-world units (metres), origin at base centre, scale applied.
 - Renders: `renders/front.png`, `renders/side.png`,
   `renders/three-quarter.png`; `renders/compare.jpg` pairs an upscaled
