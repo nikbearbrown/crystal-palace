@@ -247,6 +247,16 @@ a usable bay, interior and exhibition.
   originals and not a neutral account of an entire culture.
 
 ### 11. `sy-alhambra-ornament-panel` — Alhambra Court ornament panel
+- **Status:** Built and QC-passed 2026-10-26 (second render
+  pass: frieze diamonds pulled inside the 4 m panel —
+  first pass placed them to ±3.5 m, floating past both
+  edges). 50 objects, 696 triangles. Pointed arch,
+  slender columns, stepped muqarnas stylisation, diamond
+  frieze — from the single in-repo Owen Jones entrance
+  view only (plan's cited plan 0246 / lead 0108 did not
+  resolve to files in hand); arch profile, muqarnas and
+  colours are approximations, labelled as such. See
+  `sy-alhambra-ornament-panel/NOTES.md`.
 - **Scenes:** CP041 (the Alhambra Court — geometric ornament and
   colour, 50 mm insert on one surface).
 - **Evidence to use:** Alhambra plan 0246 and image lead 0108.
