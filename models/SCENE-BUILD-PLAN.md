@@ -317,6 +317,13 @@ reuses a Wave 0–3 prop family so the change reads as change.
   block and call it done.
 
 ### 17. `sy36-ruin-fragment` — twisted / collapsed iron fragment
+- **Status:** Built and QC-passed 2026-10-26 (second render
+  pass: girder flanges added so the fallen member reads as an
+  I-beam, not a wall block; framing tightened). 9 objects,
+  204 triangles. Column diameter and girder depth reused from
+  the column prop; break height, kink angle, flange width and
+  fallen lengths guessed; generic ruin, never an intact
+  component. See `sy36-ruin-fragment/NOTES.md`.
 - **Scenes:** CP062 (morning between the towers — twisted remains
   on the ridge, towers standing beyond the missing roof), CP063
   (clearance — debris secured, damaged members removed).
