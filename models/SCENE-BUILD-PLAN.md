@@ -333,6 +333,13 @@ reuses a Wave 0–3 prop family so the change reads as change.
   the morning after.
 
 ### 18. `sy-tower-study` — water-tower massing study (shell-builder aid)
+- **Status:** Built and QC-passed 2026-10-26 (second render
+  pass: cameras pulled back from 120 m to 200 m — the
+  100 m tower span overflowed the first frame and the
+  tops were cut). 4 objects, 48 triangles. Two plain
+  20 m square × 70 m masses, 80 m apart, flat caps —
+  every size guessed, no form or height asserted, no
+  demolition narrative. See `sy-tower-study/NOTES.md`.
 - **Scenes:** CP042 (towers only in a date-supported state),
   CP062 (towers survive the fire), CP064 (skyline loses its last
   markers — before/after by explicit time cuts, no speculative
