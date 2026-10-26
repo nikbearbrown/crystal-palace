@@ -41,6 +41,9 @@ Sydenham 1854+ are different buildings — never blend their evidence
 
 | 22 | Sydenham Italian (Renaissance) Court arch fragment (SCENE-BUILD-PLAN Wave 3.13, second of the pair) | Italian Court stereograph (round 1, per the Gothic builder's report) + 1856 guide Italian Court section | Medium — form from the stereograph/guide; paired with item 13's Gothic fragment | **Taken — Muse (round-2 builder), building now** → `models/sy-renaissance-arch-fragment/` |
 
+| 23 | Sydenham post-1866 closure state (SCENE-BUILD-PLAN Wave 4.16) | Round-2 S47/S66–68 material: 1878 post-fire plan (north transept void), ILN ruins plates, 1856 "gigantic curtain" Tropical End note | Medium — states work; the ruined NORTH END as closed/shored dressing, not a full ruin model | **Taken — Muse (round-2 builder), building now** → `models/sy-post66-closure/` |
+| 24 | Sydenham 1936 ruin fragment (SCENE-BUILD-PLAN Wave 4.17) | Post-fire photographs in `references/muse-drive/images/` + round-1 fire galleries | Medium — a fragment (twisted iron + fallen glazing bay wreckage), condition dressing only | **Taken — Muse (round-2 builder), building now** → `models/sy36-ruin-fragment/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
