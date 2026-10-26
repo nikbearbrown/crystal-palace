@@ -1,623 +1,199 @@
-# Muse round 2 — gaps found: missing scene images and Sydenham plans
+# Muse round 2 — GAPS FOUND
+
+Collection round for the Crystal Palace film: missing scene images (Section A), Sydenham plans (Section B, highest priority), and better versions noted (Section C). Everything below is on branch `muse-round2`, written only under `references/muse-round2/`. Hyde Park 1851 and Sydenham 1854–1936 are kept strictly apart throughout; a file is Sydenham unless its line says Hyde Park.
 
 ## Summary
 
-**Start-here checks.** `references/muse-drive/review/REVIEW.md` — present, read
-(including "Corrections that matter" and "What to keep separate").
-`references/muse-drive/data/manifest.csv` — present; this round's manifest uses
-its exact columns, with three columns appended (`creator`, `date_made`,
-`sha256`) because the brief requires provenance the round-1 columns have no
-field for; the shared columns merge cleanly. Round-1 images under
-`references/muse-drive/` — **1,398 found**, as the brief states (the repo
-README and `MUSE-PROMPT.md` both say 1,393; see Contradictions).
-`youtube/claude-liam-crystal-palace-story-walk/scenes.json` and `TIMELINE.md` —
-**not in this repository** (no `youtube/` folder among its 3,152 files). This
-round was worked from the brief's own scene table; Bear later supplied the
-v001 storyboard (CP001–CP076) in chat, so each scene below also carries its
-CP crosswalk. `dimensions-from-1856-guide.json` — found at
-`references/muse-drive/review/dimensions-from-1856-guide.json`.
+**Start-here checks.** `references/muse-drive/review/REVIEW.md` exists and was read in full (including "Corrections that matter" and "What to keep separate" — both are respected below). `references/muse-drive/data/manifest.csv` exists (8,860 records); round 2's `manifest.csv` uses its exact column set (`title, local_path, section, source_pages, original_url, width, height, bytes, mime, license, license_url, description, status`). First-round images actually found under `references/muse-drive/images/`: **1,398 blobs** (1,395 with image extensions; 3 are truncated long Rijksmuseum filenames) — the brief's figure of 1,398 checks out. The dimensions file exists at `references/muse-drive/review/dimensions-from-1856-guide.json` (Sydenham and Hyde Park figures from printed p.35 of the 1856 guide). **`scenes.json` and `TIMELINE.md` were NOT found anywhere in the repository tree (3,198 entries searched) — there is no `youtube/` directory.** Scene IDs below therefore follow the S-numbers in the round-2 brief itself; if the scene list lives outside the repo, the mapping should be checked against it.
 
-**What was found.** 95 manifest rows: **89 files downloaded (203 MB**, under
-the round's 1 GB cap; largest single file 14.4 MB, none over 50 MB) plus
-**6 URL-only records** (licence-restricted or oversize sources, recorded with
-URLs). Every scene in the brief has at least one usable candidate except the
-honest gaps listed below. The Sydenham plans (section B) came in strongly:
-the 1856 guide's second map, Phillips's 1854 foldout ground plan, an 1854
-grounds foldout, a post-fire plan of 1878, and a two-source heights
-cross-check. The dismantling scenes S45–S47, blank in round 1, now have a
-contemporary paper trail.
+**Found.** 123 files downloaded, 381.9 MB total, every file under the 50 MB cap, round total well under the 1 GB cap. The single biggest win: **the 1856 guide is now complete** — the 73 Commons page scans round 1 lacked (everything after printed p.125) are downloaded, including the "Plan of Palace and Park" fold-out and the book's last page (printed p.197). Also found: an opening-year (1854) ground plan of palace and gardens printed in the Illustrated London News; Samuel Phillips's 1854 guide's annexed routes map, frontispiece and title page; a second contemporary source for the Sydenham dimensions (Phillips 1854) whose figures **do not match** the 1856 guide's — see Contradictions; the Punch page (13 July 1850) in which the name was actually coined; the ILN fire engraving and report for the 1866 north-transept fire; Delamotte / Negretti & Zambra photographs of the Sydenham building, the water towers and Hawkins's studio; period material for the dinosaurs, the Iguanodon dinner, the FA Cup finals, prices and fares, and the winter-garden campaign.
 
-**What could not be found** (details and full search logs per scene below):
-any image of the Hyde Park building actually being taken down, or any record
-of how the parts were transported; a genuinely pre-1852 map of the
-Sydenham/Norwood ridge; Paxton's own winter-garden pamphlet as an open scan;
-a period view of Fox, Henderson's London Works; an openly licensed
-photograph of either water tower's demolition; any 1960s National Sports
-Centre image under an open licence; a drawn 1854 section of the Sydenham
-building; Brunel's tower drawings under an open licence.
+**Not found in any whitelisted open source searched by this pass** (full detail in "Scenes with nothing" below): period images of Fox Henderson's Smethwick works and Chance Brothers' glassworks (S15/S19); a Sydenham/Penge map earlier than the palace (S44); Brunel's water-tower drawings (S51); photographs of the 1940/1941 tower demolitions (S83); a period image of the Crystal Palace subway (S87, modern conservation photographs only); an 1851 printed admission tariff page (S34, 1854 fares page found instead). **Three of these gaps (S15, S19, S34) were filled by the parallel pass on this branch — see the note immediately below.**
 
-**The three biggest surprises.**
-1. **The 1856 guide's Sydenham dimensions are the outlier.** Two independent
-   1854 sources (Phillips's official handbook; Routledge/MacDermott) agree
-   with each other and with the drawn arch geometry — nave crown 104 ft,
-   central transept 168 ft — against the 1856 table's 110 ft 3 in /
-   174 ft 3 in (round 1's dimensions JSON). A consistent ~6 ft shift on
-   both figures; unresolved, and the model should not treat the 1856
-   figures as settled.
-2. **The Punch item that named the palace is not a cartoon.** It is Douglas
-   Jerrold's prose letter ("Mrs Amelia Mouser") in *Punch*, 13 July 1850,
-   p.21 — "a palace of very crystal" inside a dream description. The page is
-   now held and the dating pinned from the issue itself.
-3. **The towers cannot appear in an 1854 view.** Brunel's water towers were
-   begun in August 1854 and operational only on 2 June 1856; the great
-   fountains first played 18 June 1856. The well-known "Inaugurated
-   10th June 1854" lithograph shows both complete — it is promotional
-   anticipation, and the Delamotte tower views Commons dates "1854"
-   cannot be 1854 photographs of finished towers.
+**Three biggest surprises.**
+1. **The two best contemporary dimension sources disagree.** Phillips's 1854 guide gives the Sydenham central transept as 168 ft to the top of the louvre and the nave arch crown as 104 ft; the 1856 guide's table gives 174 ft 3 in and 110 ft 3 in. The 168 ft figure matches the "~168 ft" that appears in later retellings — so the long-running transept-height conflict is not modern sloppiness; it starts with the Crystal Palace Company's own guides. Reported in Contradictions, not resolved.
+2. **Phillips's 1854 guide has no building plan at all** — only a routes map. The best opening-year plan of the building itself turned up not in a guide but in a newspaper: the ILN's "Ground Plan of the Crystal Palace and Gardens at Sydenham", 17 June 1854.
+3. **The name "Crystal Palace" was not coined by a cartoon.** The item is a prose letter in Punch (13 July 1850) written by Douglas Jerrold in the persona of "Mrs Amelia Mouser", describing a dream of "a palace of very crystal" — a week after Paxton's design was first published and before it was accepted.
 
-Manifest: `references/muse-round2/manifest.csv` (95 rows). Files:
-`references/muse-round2/images/`. Nothing outside `references/muse-round2/`
-was added, edited, moved or deleted.
+Confidence key: **High** = the file is what the scene asks for, dated and licensed from source metadata and (where marked) visually verified. **Medium** = right subject, but small, loosely dated, or identified from catalogue text rather than inspection. **Low** = nearest available stand-in.
 
----
+## A note on this branch — two collection passes
 
-## A. Scenes
+While this pass was being assembled, a **second, parallel Muse collection pass** was committing files one by one to this same branch (`muse-round2`) under different filenames. Nothing has been overwritten: the branch holds both sets. The parallel set (45 files at the time this note was written, still growing) is strong exactly where this pass was weak — it includes the V&A's 1851 season ticket No. 1 signed by Prince Albert (S34), the 1851 Official Catalogue's flooring and tariff pages (S25, S34), Fox, Henderson's 1849 bowstring-girder proof paper (S15), a Chance Brothers flint-glass disc of 1851 (S19), ILN construction reporting of 14 Dec 1850 (S13), a Phillips Alhambra court plan and Routledge dimension pages (Section B), and the Punch cartoon page (p.22) that follows the Mouser letter (S37). This pass's own `manifest.csv` covers only this pass's 123 files; the two manifests and reviews should be merged by whoever closes the round. Where the parallel files change a verdict below, the section says so.
 
-### S03 — Chatsworth: Great Conservatory and lily house → CP003, CP004
-1. **Latham photograph of the Great Conservatory exterior** (19th c.,
-   undated; PD; `images/S03-great-conservatory-chatsworth-19c-photo.jpg`,
-   1035×611). The only period photograph found; small. Confidence: high.
-2. **Underside of a Victoria regia leaf, William Sharp chromolithograph,
-   1854** (CC BY-SA 4.0 — this Commons copy is a modern Rawpixel
-   enhancement; `images/S03-victoria-regia-leaf-underside-sharp-1854.jpg`,
-   2500×2000). The rib structure in full detail; crop the modern caption
-   band before use. Confidence: high.
-3. **"The Gigantic Waterlily in Flower at Chatsworth", ILN, 17 Nov 1849**
-   (PD; `images/S03-gigantic-waterlily-in-flower-chatsworth-iln-1849.jpg`).
-   The first flowering, in Paxton's lily house. Confidence: high.
-4. **Victoria Regia House, exterior and interior engravings, Berlyn &
-   Fowler 1851** (PD; `images/S03-victoria-regia-house-chatsworth-1851.jpg`,
-   `images/S03-victoria-regia-house-interior-chatsworth-1851.jpg`).
-   Catalogued in round 1 as skipped-budget — never actually downloaded
-   until now. Confidence: high.
-No interior view of the Great Conservatory exists on Commons; the Met's
-CC0 "Chatsworth Conservatory" drawing was left out — its subject could not
-be verified.
+## Section B — Sydenham plans (highest priority)
 
-### S04 — Britain around 1850: industry and its cost → CP002
-1. **Britannia Bridge tube floated into place, Hawkins lithograph, 1850**
-   (PD; `images/S04-britannia-bridge-tube-floating-1850.jpg`, 6862×5531).
-   Heavy railway engineering in the scene's own year. Confidence: high.
-2. **"A Court for King Cholera", Leech, *Punch*, 25 Sept 1852** — the
-   balance image (CC BY 4.0, Wellcome;
-   `images/S04-court-for-king-cholera-leech-1852.jpg`, 3755×2806).
-   Confidence: high.
-3. **Manchester from Kersal Moor, Wyld, 1852** (PD;
-   `images/S04-manchester-from-kersal-moor-wyld-1852.jpg`, 1000×656 —
-   best open copy is small; filename says "(1857)", the painting is 1852).
-   Confidence: high.
-4. **Rain, Steam and Speed, Turner, 1844** (PD;
-   `images/S04-rain-steam-and-speed-turner-1844.jpg`). Dated honestly:
-   1844, an artwork, not a document of 1850. Confidence: high as the
-   railway-age image.
-5. **Cotton-mule factory floor, Ure, 1835** (PD;
-   `images/S04-cotton-mule-spinning-1835.jpg`). Fifteen years early;
-   nothing closer to 1850 of comparable clarity exists in the allowed
-   sources (no British factory photograph of c.1850 was found anywhere).
-   Confidence: medium-high.
+### B1 — The complete 1856 guide
+**Found, complete.** Round 1 held 117 of the guide's 190 Commons page scans, ending at printed p.125. Round 2 downloads the remaining **73 pages** (`images/B1-guide1856-p<id>.jpg`, Polona / National Library of Poland scan via Wikimedia Commons, public domain; author Samuel Phillips; Crystal Palace Library, 1856; 197 pp. + 2 maps per the Polish catalogue record — the description confirms the brief's "197 pages plus two maps"). Identified pages include printed p.172 (Telescope Gallery), printed p.197 (Final Summary — the last page), and plates: Screen of the Kings and Queens of England; the Temple of Aboo Simbel; the Stone Arcade; View of Great Transept; and **The Secondary Island** (Hawkins's islands — cross-filed under S52 in the scene notes). One of the guide's two maps is among them: the **Plan of Palace and Park** (see plans table). The second map is believed to be the building ground plan already in round 1 (gallery 0205); the two sets should be collated on paper copies before the film locks its plan references. Confidence: **High** (visually verified).
 
-### S05 — Portraits, the Society of Arts, Paris 1849 → CP005 (CP007 context)
-1. **Henry Cole, portrait print captioned "executive commissioner", 1852**
-   (PD, National Library of Wales;
-   `images/S05-henry-cole-executive-commissioner-1852.jpg`). Confidence: high.
-2. **Joseph Paxton, attributed to Ellerby, c.1843** (PD;
-   `images/S05-joseph-paxton-ellerby-1843.jpg`, 2497×3307 — the
-   highest-resolution period Paxton portrait found; the c.1850 Oakley
-   portrait exists only at 577×754). Confidence: high.
-3. **Prince Albert after Winterhalter, c.1845–50** (PD, Royal Collection;
-   `images/S05-prince-albert-after-winterhalter-c1850.jpg`). Confidence: high.
-4. **Paris 1849 exhibition building, bird's-eye engraving, Champin/
-   Quartley** (CC0, Musée Carnavalet;
-   `images/S05-paris-1849-exhibition-birdseye-carnavalet.jpg`, 3000×2525).
-   **Better version** — see section C. Confidence: high.
-5. **Society of Arts at the Adelphi, Microcosm of London plate, 1810**
-   (PD; `images/S05-society-of-arts-adelphi-microcosm-1810.jpg`). The
-   institution and rooms are right; the image is 40 years early — no
-   1840s–50s image of the Society in session was found. Confidence:
-   medium-high, date flagged.
+### B2 — 1854 opening-year plans and handbooks
+- **ILN ground plan, 17 June 1854** — `images/B2-iln-1854-ground-plan-palace-gardens.jpg`. "Ground Plan of the Crystal Palace and Gardens at Sydenham", printed p.581 of the opening report: the whole building (north transept present, wings, colonnade) plus the gardens layout. Public domain (ILN 1854, via Internet Archive). Confidence: **High** (visually verified).
+- **Phillips, *Guide to the Crystal Palace and Park* (1854)** — the opening-year handbook by Samuel Phillips, "Illustrated by P. H. Delamotte". Downloaded: title page (`images/B2-phillips1854-title-page.jpg`), frontispiece view (`images/B2-phillips1854-frontispiece.jpg`), annexed **routes map** (`images/B2-phillips1854-routes-map.jpg`), the fares page (under S34) and the dimensions page (under B5). Note: this guide contains **no building ground plan** — the annexed map shows routes from London only. Scan: Internet Archive `guidetocrystalpa00phil_0` (Getty Research Institute copy). Public domain. Confidence: **High**.
+- **Routledge's *Guide to the Crystal Palace and Park at Sydenham* (1854)** — located on IA (`routledgesguidet00grou`) and text-checked; it corroborates Phillips's 68 ft springing height but no plan page was extracted this round. Noted for a future pass.
 
-### S13 — Hyde Park, summer 1850: the site as work began → CP006, CP010, CP016, CP017
-1. **"Raising the Ribs of the Transept Roof", ILN full-page plate,
-   14 Dec 1850** (PD; `images/S13-iln-1850-12-14-raising-transept-ribs.jpg`,
-   4088×6168). The rib pair going up over the enclosed elm. Confidence:
-   high — but December 1850, works at full stretch, **not** the summer
-   start; the notes refuse to back-date it.
-2. **ILN p.452, same issue: Prince Albert's visit to the works + moving a
-   pair of transept ribs** (PD;
-   `images/S13-iln-1850-12-14-visit-of-prince-albert-to-works.jpg`).
-   Confidence: high.
-3. **ILN p.454 construction account** (PD;
-   `images/S13-iln-1850-12-14-construction-account.jpg`) — contemporary
-   text: 24 ft column bays, three tiers — independently consistent with
-   Downes. A document page, included for citation.
-4. **Competition site plan of the empty site, 1850** (PD;
-   `images/S13-site-drawing-great-exhibition-competition-1850.jpg`).
-   Confidence: medium (Dutch-lettered continental impression; a diagram,
-   not a survey).
-**Nothing usable for the first works themselves:** no image of hoardings,
-setting-out, trenching or foundations in summer/autumn 1850 exists in the
-allowed sources. ILN issues of 21 Sept, 19 Oct, 2 Nov, 23 Nov 1850 were
-checked on IA — design articles and progress text only, no site-works
-plate before 14 December. Photography of the site begins with the
-finished building in 1851.
+### B3 — Grounds, terraces, fountains, geological islands
+- **Plan of Palace and Park (1856 guide fold-out)** — `images/B1-guide1856-p147900658.jpg` (2,9xx px wide; full resolution in file). Keyed plan of the entire site: palace and wings, terraces, gardens, the two lakes, geological islands (lower left), the railway and station, roads to Sydenham and Dulwich. Public domain. Confidence: **High** (visually verified).
+- **ILN 1854 ground plan** (above) also shows the gardens as laid out for the opening. Confidence: **High**.
+- **The Secondary Island plate (1856 guide)** shows the islands as the guide presented them. Confidence: **High**.
+- Round 1 already holds an 1857 park plan and the 1854 Delamotte photographs of the Water Temple; no separate 1854–57 terrace/fountain engineering plan was found in the whitelisted sources.
 
-### S25 — The gapped timber floor → CP013, CP020
-**Solved from the primary source.**
-1. **Official Catalogue (1851), Introduction pp.62–63** (PD;
-   `images/S25-catalogue-1851-introduction-p62.jpg`,
-   `images/S25-catalogue-1851-introduction-p63.jpg`). Quoting Paxton's own
-   account: boards **1½ in thick laid ½ in apart**, dust falling through
-   the interstices, washed water "disappears between the openings";
-   joist/sleeper sizes and the 772,784 sq ft ground-floor area.
-   Confidence: very high — the description the film's claim rests on.
-No Downes plate shows the ground-floor boarding (the folio is ironwork
-and glazing). Round 1's "Testing the Gallery Floor" is the *gallery*
-floor — a different floor; do not use it for this claim.
+### B4 — Railway arrival; north transept before/after the 1866 fire
+- Railway arrival: the **1856 Plan of Palace and Park** and the **ILN 1854 plan** both draw the colonnade, wings and the London & Brighton Railway; Phillips's routes map shows the rail approach from London. Round 1's 1856-guide pp.29–30 (gallery 0208–0209) describe the colonnade arrival in text. Confidence: **High** for the plan evidence.
+- North transept for marking the 1866 loss: the **ILN 1854 plan** and the **1856 Plan of Palace and Park** both show the building **with** its north transept (pre-fire state). A post-fire plan (showing the shortened building) was **not found** in the whitelisted sources this round — the later guides and OS editions that would show it are not openly digitised in the places searched. The ILN fire engraving (S67) shows what was lost.
 
-### S34 — The 1851 admission tariff and shilling days → CP026, CP044
-1. **Season Ticket No. 1 in its case, signed "Albert"** — V&A O1439451,
-   two photographs (© V&A photographs; object PD; non-commercial terms —
-   confirm before commercial use;
-   `images/S34-va-season-ticket-no1-in-case.jpg`,
-   `images/S34-va-season-ticket-case-exterior.jpg`). Confidence: very high.
-2. **Official Catalogue p.28** (PD; `images/S34-catalogue-1851-introduction-p28.jpg`):
-   season tickets **£3 3s gentleman / £2 2s lady**; £1 days, 5s day; 1s
-   from day 22; Sundays closed.
-3. **Official Catalogue p.29** (PD; `images/S34-catalogue-1851-introduction-p29.jpg`):
-   the tariff in force from day 22 — **Mon–Thu 1s, Fri 2s 6d, Sat 5s**;
-   "No change will be given at the doors." The definitive shilling-days
-   page. Confidence: very high.
+### B5 — A second dated source for the heights
+**Found: Samuel Phillips's guide (1854), "Account of the building"** — page downloaded as `images/B5-phillips1854-dimensions-page.jpg`. Phillips gives, for Sydenham: main building 1,608 ft long (agrees with 1856), wings 574 ft each, colonnade 720 ft; nave 72 ft wide, arch springing 68 ft, **crown of arch 104 ft**; central transept 384 × 120 ft, **168 ft from floor to top of louvre**, 108 ft to the springing, **208 ft from the garden front to the top of the louvre**. The 1856 guide's p.35 table (round 1, gallery 0214; JSON in round 1) gives instead: nave height 110 ft 3 in, transept height 174 ft 3 in, transept from basement 197 ft 10 in. The two sources agree on lengths and disagree on every height — see Contradictions. Routledge's 1854 guide repeats the 68 ft springing, a partial third witness. Confidence: **High** that both texts say what is reported here (Phillips page visually verified; figures read from the book's own text).
 
-### S37 — The Punch naming item → (reference; no direct CP scene)
-**Solved, with the premise corrected.** The naming item is **not a
-cartoon**: it is Douglas Jerrold's prose letter as "Mrs Amelia Mouser",
-*Punch* vol. XIX, **13 July 1850, printed p.21** (PD;
-`images/S37-punch-1850-07-13-mouser-letter-p21.jpg`, visually verified):
-a dream of walking in "**a palace of very crystal**". The page gives the
-descriptive phrase, not yet the capitalised proper name; the rival
-Thackeray attribution has no page evidence.
-The same issue's p.22 holds a genuine Punch cartoon (a palm-house design
-"humbly submitted" to Prince Albert; `images/S37-punch-1850-07-13-cartoon-p22.jpg`)
-— included for the visual, explicitly **not** the naming item.
+## Section A — Scene gaps
 
-### S41 — Paxton's winter-garden plan, 1851–52 → CP030
-1. **A Medical Man's Plea for a Winter Garden in the Crystal Palace
-   (1851), pp.3 and 10** (PD, Wellcome/MHL;
-   `images/S41-medical-mans-plea-winter-garden-p3.jpg`,
-   `images/S41-medical-mans-plea-winter-garden-p10.jpg`). Builds expressly
-   on Paxton's proposal ("Addition to the arguments of Denarius and
-   Mr. Paxton in favour of a Winter Garden in London"). Confidence: high.
-2. **The Crystal Palace and its Contents (1852), p.51** (PD;
-   `images/S41-crystal-palace-and-contents-1852-p51.jpg`): the Kingsland
-   public meeting resolving to petition Parliament to preserve the palace
-   "as a winter garden". Confidence: high.
-3. **Routledge's Sydenham guide (1854), p.11** (PD;
-   `images/S41-routledge-1854-removal-chapter-p11.jpg`): retrospective of
-   the whole retention debate, name-checking the "Denarius" pamphlet.
-   Corroboration, not an 1851 artefact. Confidence: high.
-**Not found:** Paxton's own *What is to Become of the Crystal Palace?*
-(1851) as an open scan — exhaustive IA searches logged in the manifest
-notes; a copy is at the Royal Collection (RCIN 6006621), not openly
-downloadable. The often-cited "ILN 5 July 1851 p.11" winter-garden image
-could not be verified — the IA copy of that issue does not contain it.
+### S03 — Chatsworth: Great Conservatory and the great lily
+1. `images/S03-lily-chatsworth-iln-1849.jpg` — ILN, 17 Nov 1849: the Victoria regia in flower at Chatsworth, the period image of Paxton's lily house triumph. Public domain. 1409×949. Confidence: **High**.
+2. `images/S03-victoria-regia-fitch-1851.jpg` — Walter Hood Fitch's 1851 lithograph of the expanded flower, 5955×4307. Public domain. Confidence: **High**.
+3. `images/S03-chatsworth-great-conservatory-19c.jpg` — the Great Conservatory in a 19th-century photograph (attr. Charles Latham). Public domain but small (1035×611). Confidence: **Medium**. No period interior engraving of the conservatory was found in the whitelisted sources.
 
-### S44 — The Sydenham/Norwood ridge before the palace → CP033
-**Honest gap.** No genuinely pre-palace (1840s–1852) map of the ridge
-exists in any allowed open source: Commons categories and searches,
-Wyld's *Environs* 1840 (auction copies only), Penge Place sale particulars
-(no open scan), Ordnance Survey (the ridge is outside the 1848–51 London
-town-plan coverage; county series is 1860s). Delivered as the sanctioned
-fallback:
-1. **Phillips 1854, Delamotte folding route map** (PD;
-   `images/S44-phillips-1854-route-map.jpg`) — the ridge country and the
-   site on the hilltop. Caveat: it shows the site *with* the palace
-   (1854); it evidences ridge geography, not the pre-1852 landscape.
-2. **Phillips 1854, "The Site" page** (PD;
-   `images/S44-phillips-1854-the-site-page.jpg`) — the contemporary
-   verbal fixing of the site's topography.
+### S04 — Britain about 1850: industry and its other face
+1. `images/S04-opening-liverpool-manchester-railway-1830.jpg` — Isaac Shaw's print of the opening of the Liverpool & Manchester Railway, 1830 (Yale Center for British Art, CC0). Confidence: **High**.
+2. `images/S04-murray-mills-manchester-baines-1835.png` — A. & G. Murray's Manchester cotton mills from Baines (1835). Public domain; small (711×487). Confidence: **Medium**.
+3. `images/S04-court-for-king-cholera-1852.jpg` — John Leech, "A Court for King Cholera", Punch 1852: the poverty image — a crowded poor London court. CC BY 4.0 (Wellcome Collection). 3755×2806. Confidence: **High**.
 
-### S15 — Fox, Henderson & Co.'s London Works, Smethwick → CP011
-**No period view of the works exists in any allowed open source**
-(Commons incl. Smethwick categories, IA, SMG all searched). Delivered
-instead the firm's own dated documents from the works:
-1. **Bow-string Bridge Ribs (1849), title page** (PD;
-   `images/S15-fox-henderson-bowstring-title-1849.jpg`) — published from
-   the "London Works, near Birmingham".
-2. **The same pamphlet, p.16** (PD;
-   `images/S15-fox-henderson-bowstring-proof-1849.jpg`) — the public
-   proof trial of a rib at the works, 6 Sept 1849, observed by Cowper
-   and Rankine. Confidence: high as documents of the firm; not pictures
-   of the premises.
+### S05 — Portraits and the road to 1849
+1. `images/S05-prince-albert-1848.jpg` — Prince Albert, portrait dated 1848. Public domain. Confidence: **High**.
+2. `images/S05-henry-cole-portrait.jpg` — Henry Cole. Public domain but only 227×332 — a place-holder; the frontispiece portrait in Vol. I of *Fifty Years of Public Work of Sir Henry Cole* (IA `cu31924098820628` is Vol. II) is the better version to extract. Confidence: **Low** (size only).
+3. `images/S05-paxton-portrait-oakley-c1850.jpg` — Joseph Paxton by Octavius Oakley, c.1850. Public domain. Confidence: **High**.
+4. `images/S05-society-of-arts-adelphi.jpg` — the Society of Arts building, John Street, Adelphi (19th-century engraving). Public domain; small (460×620). Confidence: **Medium**.
+5. `images/S05-paris-1849-exposition-building.jpg` and `images/S05-paris-1849-exposition-entrance.jpg` — the **French** 1849 exposition building on the Champs-Élysées (the predecessor London answered), prints of 1849. Public domain. Confidence: **High**. Note: a plate of this same building sits in round 1 mislabelled among Crystal Palace plans (REVIEW.md correction 4) — it belongs to this scene, as the comparison, not to the London building.
 
-### S19 — Chance Brothers' glassworks → CP011
-1. **Salt-print photograph of Chance's great flint-glass disc, 1851**
-   (CC0, Rijksmuseum; `images/S19-chance-flint-glass-disc-1851.jpg`,
-   4900×5760). The works' most famous product as exhibited. Confidence: high.
-2. **ILN, 17 April 1852, p.301** (PD;
-   `images/S19-iln-1852-chance-reference.jpg`) — names L. Chance,
-   "the manufacturer of the glass for the Crystal Palace", and his "two
-   gigantic manufactories".
-3. **URL-only:** the ILN's own engravings of Chance's manufactory,
-   21 Dec 1850 — they exist (the 1852 page cites them) but IA holds that
-   issue only as a loan-restricted scan; no openly downloadable copy
-   found. Commons/SMG hold only modern photographs and glass samples.
+### S13 — Hyde Park, summer 1850: the first works (Hyde Park building)
+From Berlyn & Fowler, *The Crystal Palace, its Architectural History and Constructive Marvels* (1851) — the contemporary construction account, written from inside the works (IA `crystalpalaceits00berl`, public domain; this scan is modest resolution, ~1000 px pages):
+1. `images/S13-berlyn-1851-frame-erection-plate.jpg` — iron frame bays under erection with derrick crane. Confidence: **Medium-High**.
+2. `images/S13-berlyn-1851-works-view-plate.jpg` — view along the building under construction with workmen. Confidence: **Medium-High**.
+3. `images/S13-berlyn-1851-hyde-park-ground-plan.jpg` — the book's general ground plan plate of the Hyde Park building (useful cross-check against the Downes plates in round 1). Confidence: **Medium**.
+Round 1 already holds ILN 1850 site coverage; Berlyn is the strongest single construction source found.
 
-### S45 — The decision, the debate, the sale → CP030, CP031
-Round 1 found nothing here. The contemporary paper trail now:
-1. **Phillips 1854, Introduction pp.13 and 15** (PD;
-   `images/S45-phillips-1854-history-leaf18.jpg`,
-   `images/S45-phillips-1854-history-leaf20.jpg`) — the official
-   commission on the building's future; Leech's rescue scheme; the
-   Company's formation and prospectus (£500,000 in 100,000 £5 shares).
-2. **ILN, 1 May 1852, p.335** (PD;
-   `images/S45-iln-1852-sale-70000-report.jpg`) — after the Commons vote,
-   sale to private parties at **£70,000** conditionally accepted;
-   "the work of removal will commence on the 11th of May".
-3. **The Removal of the Crystal Palace (penny pamphlet, 1852), title
-   and p.1** (PD; `images/S45-removal-pamphlet-1852-title.jpg`,
-   `images/S45-removal-pamphlet-1852-page1.jpg`) — quotes the Commons
-   debate of 29 April 1852. A Sabbatarian argument about the removal
-   debate — **not** an official or contractor's record, and round 1's
-   catalogue entry for it should not be cited as one.
-4. **ILN, 28 Feb 1852, p.175** (PD;
-   `images/S45-iln-1852-feb-auction-demolition-report.jpg`) — Fox &
-   Henderson's auction catalogue leads the paper to infer demolition
-   "already in progress". **That inference was wrong** (see
-   Contradictions); the document itself is genuine.
+### S15 / S19 — Smethwick: Fox Henderson's works and Chance Brothers' glassworks
+This pass found **no period view of either works** in the sources it searched (see "Scenes with nothing") — **but the parallel pass on this branch found the documentary core of both scenes**: `images/S15-fox-henderson-bowstring-proof-1849.jpg` and `images/S15-fox-henderson-bowstring-title-1849.jpg` (Fox, Henderson's 1849 bowstring-girder proof — the girder system proved for the building), and `images/S19-chance-flint-glass-disc-1851.jpg` with `images/S19-iln-1852-chance-reference.jpg` (Chance Brothers' glass for the palace). Rank those first for the two scenes; what neither pass found is a period *view of the works buildings themselves*. Modern CC photographs of the surviving Chance works in Smethwick exist on Commons and were left undownloaded by this pass as they are not period evidence.
 
-### S46 — The transfer, the company, the site → CP032
-1. **ILN, 15 May 1852, p.391** (PD;
-   `images/S46-iln-1852-05-15-transfer-report-p391.jpg`) — the transfer
-   executed in the Transept on 13 May: price paid, possession delivered;
-   the purchasers' 150-acre Sydenham plans. Confidence: high.
-2. **ILN, 22 May 1852, p.406** (PD;
-   `images/S46-iln-1852-company-advertisement.jpg`) — the Company's own
-   advertisement: in effect its prospectus notice (capital, directors,
-   Paxton/Jones/Wyatt, Fox Henderson as re-erection contractors).
-3. **ILN, 5 June 1852, p.441** (PD;
-   `images/S46-iln-1852-06-05-sydenham-site-sketch.jpg`) — "Sketch on
-   the proposed site of the Crystal Palace, Sydenham": the wooded Penge
-   Place grounds before re-erection.
-**Transport: nothing found.** No searched source describes wagons,
-carts or trains carrying the parts. Phillips says only that Fox &
-Henderson were instructed "to convey the palace". The storyboard's
-two-site cut for CP032 is the honest treatment; the mechanics of the
-move are undocumented in open sources.
+### S25 — The 1851 timber floor with the gaps between the boards (Hyde Park building)
+1. `images/S25-berlyn-1851-floor-description.jpg` — Berlyn (1851), the description page: the ground floor "is laid with an interval of half an inch between the boards, to allow the passage of dust" (the gallery floor, by contrast, had iron tongues between the boards). This is the contemporary written evidence the scene asks for. Public domain. Confidence: **High** (text read and verified).
+2. `images/S25-berlyn-1851-gallery-floor-test.jpg` — Berlyn engravings: "Testing the Gallery Floor" (a floor bay load-tested by workmen) and the boiler house. Confidence: **Medium-High**.
+3. Sydenham cross-check: Phillips 1854 (the B5 dimensions page) describes the Sydenham floor the same way — boards 1½ in thick "with half-inch openings between them", "as in the old building". No drawing that isolates the slatted floor itself was found; the Downes plates in round 1 show the floor structure in section.
+4. Parallel pass, same branch: `images/S25-01-official-catalogue-1851-introduction-p62-flooring.jpg` and `images/S25-02-…-p63-flooring-conclusion.jpg` — the 1851 Official Catalogue introduction's own flooring account, the natural companion to Berlyn above.
 
-### S47 — Re-erection begins → CP032, CP033
-1. **Phillips 1854, Introduction p.17** (PD;
-   `images/S47-phillips-1854-history-leaf22.jpg`) — "The first column
-   of the new structure was raised by Mr. Laing… on the 5th August,
-   1852." (Removal from Hyde Park began in May; August is the
-   *re-erection* start — modern summaries that date dismantling to
-   August conflate the two.)
-2. **Negretti & Zambra stereoscopic interior, dated 1853** (CC0;
-   `images/S47-sydenham-interior-stereo-1853.jpg`) — the building under
-   fit-out before opening. Museum dating; treat as the publisher's date.
+### S34 — What it cost to get in: tariffs, shilling days, tickets
+**Best items are the parallel pass's** (already on this branch): `images/S34-01-va-season-ticket-no1-signed-albert-1851.jpg` (the V&A's season ticket No. 1, signed by Prince Albert) with its case exterior, and the 1851 Official Catalogue introduction pages on season-ticket prices and the shilling-days tariff (`images/S34-03-…jpg`, `images/S34-04-…jpg`). From this pass:
+1. `images/S34-phillips1854-fares-page.jpg` — Phillips (1854), "Conveyance by Rail and Road from London": Brighton Railway return fares to the Palace including admission on most days — 2s 6d first class, 2s second, 1s 6d third — with season-ticket arrangements. Public domain. Confidence: **High** (visually verified).
+2. Round 1 already holds the 1856 guide's refreshment tariff pages (gallery 0208–0209) and the Routledge 1851 guide scans (visitor context).
 
-### S51 — The two water towers → CP042, CP062, CP064
-1. **Delamotte, south tower from the Water Temple** (PD;
-   `images/S51-delamotte-south-tower-from-water-temple.jpg`) — the
-   tower clear of the transept roofline: the height-against-building
-   evidence the scene wants. **Dating caveat:** Commons dates these
-   views 1854, but Brunel's towers were begun Aug 1854 and operational
-   2 June 1856 (Historic England) — recorded as c.1854–1856; do not
-   caption them 1854.
-2. **Delamotte, north tower from the south wing** (PD;
-   `images/S51-delamotte-north-tower-from-south-wing.jpg`). Same caveat.
-3. **Garden-front photograph, Rijksmuseum, dated 1878–1890** (CC0;
-   `images/S51-garden-front-tower-height-comparison.jpg`, 2500×1676) —
-   the clearest tower-vs-nave height comparison, a generation later.
-**No openly licensed Brunel drawing of the towers exists** in the
-permitted sources (ICE holds material without an open licence). Tower
-facts for the script: 86 m / 282–284 ft, 12 cast-iron columns on a
-concrete ring (Historic England) — note the sources disagree on the
-foot figure (282 / 284; ILN 1941 says 280).
+### S37 — Punch gives the building its name
+1. `images/S37-punch-1850-07-13-mouser-page21.jpg` — Punch, Vol. XIX, p.21 (issue of 13 July 1850): Douglas Jerrold writing as "Mrs Amelia Mouser" describes her dream of the exhibition housed in "a palace of very crystal" — the coinage itself, a week after Paxton's design was published and before it was accepted. Public domain (IA `sim_punch_1850_19_0`). Confidence: **High** (passage located in the volume text and the page downloaded).
+2. `images/S37-punch-1850-08-24-glass-houses-page81.jpg` — Punch, Vol. XIX, p.81 (24 Aug 1850): "Glass Houses of Parliament", the open letter to Paxton that kept the glass-palace idea in circulation all summer. Public domain. Confidence: **High**.
+Corrective note: the naming item is a prose letter, not a cartoon; later retellings that credit "a Punch cartoon" are wrong about the form, though right about the magazine and the month.
 
-### S52 — The prehistoric islands in the 1850s (period views only) → CP034, CP043, CP067, CP074
-1. **Wellcome V0013783, coloured print** (CC BY 4.0;
-   `images/S52-wellcome-palace-and-geological-islands.jpg`, 3392×2301) —
-   the palace and terraces with Hawkins's models on the islands in the
-   foreground; the only true "models in their landscape as built" view
-   found. Wellcome dates the print "later than 1854?"; content confidence
-   high, exact print date medium.
-2. **Owen, Geology and Inhabitants of the Ancient World (1854), p.20 —
-   Megalosaurus** (PD; `images/S52-owen-1854-megalosaurus-p20.jpg`) —
-   the official handbook's woodcut of the restoration as built.
-3. **Same volume, p.36 — Labyrinthodon** (PD;
-   `images/S52-owen-1854-labyrinthodon-p36.jpg`).
-Already in round 1 (not re-downloaded): the ILN 31 Dec 1853 model-room
-engraving (models under construction), held as a Smithsonian 1900
-reproduction. **Trap avoided:** Commons's "Iguanodon Model 1–6 (1854)"
-files are modern photographs of a 1/12-scale model — excluded.
+### S41 — The winter garden: Paxton's plan for the afterlife (Hyde Park building)
+1. `images/S41-medical-mans-plea-winter-garden-1851.jpg` — opening page of *A Medical Man's Plea for a Winter Garden in the Crystal Palace* (1851; RCP Edinburgh copy via IA `b28042517`): a campaign pamphlet for keeping the building as a winter garden, summarising Paxton's own proposal to dispose the interior "into an Arcadia of his own imagining". Public domain. Confidence: **High** as evidence of the 1851–52 campaign. Paxton's own pamphlet (*What is to become of the Crystal Palace?*, 1851) exists in print; no openly licensed scan of its pages was extracted this round.
 
-### S53 — The dinner inside the Iguanodon, 31 Dec 1853 → CP034
-1. **ILN, 7 January 1854, p.22, full page** (PD;
-   `images/S53-iln-1854-01-07-iguanodon-dinner-page.jpg`, 4113×5936) —
-   the engraving **and** the report (the pterodactyl-wing invitation;
-   Owen at the head of the table). The primary record every later
-   account derives from. Confidence: certain. (Hawkins's own letter
-   misdates this report "July 7 1854" — it is 7 January.)
-2. **The same woodcut, tighter** (PD;
-   `images/S53-iln-iguanodon-dinner-woodcut.jpg`) — catalogued in
-   round 1 but never downloaded. Confidence: certain.
-Hawkins's own sketch of the dinner (BL Add MS 50150) was logged, not
-copied — no open licence for the manuscript image could be verified.
-The dinner was in the *mould*, as the storyboard's CP034 has it.
+### S44 — Sydenham and Norwood before the palace
+**Nothing pre-1852 found** — see "Scenes with nothing". What round 2 does add for the site story: the 1854 routes map (B2) and the 1856 Plan of Palace and Park (B3), and round 1 holds an 1857 park plan. The 1840s mapping of Penge Common (parish tithe maps, c.1843) is held by London Metropolitan Archives and is not openly digitised in the sources searched; no Ordnance Survey coverage of the area predates the palace (the first OS surveys here are 1860s, post-palace).
 
-### S55 — Opening of the Sydenham palace, 10 June 1854 → CP035
-1. **Delamotte photograph of the opening ceremony in the centre
-   transept** (CC0, Met DP109644;
-   `images/S55-delamotte-opening-ceremony-1854.jpg`, 3101×3912). The
-   event itself. (The Met's title says "Reopening… Reconstructed" —
-   1854 was the first Sydenham opening; the 1920 reopening is a
-   different event with different photographs.) Confidence: certain.
-2. **Souvenir lithograph, "Inaugurated by Her Majesty 10th June 1854"**
-   (CC BY-NC-SA 4.0, Science Museum Group;
-   `images/S55-smg-inauguration-lithograph-1854.jpg`). A document of
-   the opening, but **partly anticipatory as a depiction**: it shows
-   both towers complete and the fountains playing — neither true until
-   June 1856. The NC licence is recorded in the manifest.
+### S45 / S46 / S47 — Taking it down, moving it, building it again (1852)
+1. `images/S45-removal-pamphlet-title.jpg` — title page of *The Removal of the Crystal Palace* (Houlston and Stoneman; V&A National Art Library copy, IA `EX.1851.161RemovalOfTheCrystalPalace`): the printed debate over removal and Sunday opening, 1851–52. Public domain. Confidence: **High** as a document of the removal fight; it is an argument pamphlet, not a dismantling record.
+2. The Sydenham rebuilding itself is covered by the Delamotte construction photographs under S57 (1853–54) and the 1853 Negretti & Zambra interior. ILN dismantling engravings of 1852 exist in the bound volumes on IA but were not isolated this round; the 1854 Crystal Palace Company prospectus was not found in the whitelisted sources. Round 1 found none either — the gap is narrowed (pamphlet + rebuilding photographs) but the 1852 taking-down itself remains unillustrated here.
 
-### S57 — Sydenham in the 1850s → CP036–CP041, CP045
-1. **Delamotte, the planted nave, 1854** (CC0, Met DP109633;
-   `images/S57-delamotte-planted-nave-1854.jpg`, 2651×3976). The
-   definitive 1850s nave interior. Confidence: certain.
-2. **Delamotte, sculpture gallery, 1854** (CC0, Met DP109630;
-   `images/S57-delamotte-sculpture-gallery-1854.jpg`) — statues in
-   rows during installation.
-3. **Bedford/Delamotte, Roman Court, 1854** (CC0, BL;
-   `images/S57-roman-court-1854.jpg`) — a Fine Arts court as opened.
-4. **Delamotte, general view from the Water Temple, 1854** (PD;
-   `images/S57-delamotte-general-view-water-temple-1854.jpg`, 928×706 —
-   low resolution is its only weakness).
-5. **Negretti & Zambra stereo interior, dated 1853** (CC0;
-   `images/S57-negretti-zambra-interior-1853.jpg`) — the earliest
-   interior photograph found; fitting-out, not the finished interior,
-   and captioned here as such.
-Kept out deliberately: the Rijksmuseum "Stereoscopic Illustrations"
-series that sounds 1850s is dated by the museum c.1870–1890.
+### S51 — Brunel's two water towers (Sydenham)
+1. `images/S51-south-tower-water-temple-1854.jpg` — south transept and the south water tower from the Water Temple, Delamotte / Negretti & Zambra, 1854. Public domain. Confidence: **High**.
+2. `images/S51-north-tower-south-wing-1854.jpg` — centre transept and the north water tower from the south wing, 1854. Public domain. Confidence: **High**. Together these do the scene's "towers against the building for height" work: both towers were over 280 ft high and 46 ft in diameter (Historic England list entry 1469984 for the surviving south-tower base).
+**Not found:** Brunel's drawings for the towers. No openly licensed copy exists in the whitelisted sources; the drawings live in the Brunel collections (Brunel Museum / Brunel Institute, Bristol). Attribution note for the film: the towers were designed by Brunel and built by Fox, Henderson & Co. in 1854–56, replacing a first pair of towers (1853, under the company's engineer Charles Wild) that were demolished as inadequate — sources that credit "Brunel's towers" without that history are compressing it.
 
-### S67 — The fire of 30 December 1866 → CP047, CP048
-1. **ILN, 12 January 1867, full-page engraving of the ruins** (PD;
-   `images/S67-iln-1867-01-12-fire-ruins-engraving.jpg`, 4136×5904) —
-   the Abu Simbel colossi amid twisted girders and rubble. The best
-   picture of the destruction. Confidence: certain.
-2. **Same issue, p.42** (PD; `images/S67-iln-1867-01-12-fire-account-p42.jpg`) —
-   the contemporary account page, with a small plan diagram of the
-   damaged part.
-3. **URL-only (2):** Historic England OP04456 and BB92/15895 — genuine
-   post-fire photographs (twisted metal; snow on damaged court walls),
-   no open licence found; recorded, not downloaded.
-Note: the fire was 30 **December 1866**; most print coverage is
-January 1867, and some secondary sources (Citizendium) drift it into
-1867 outright.
+### S52 — The prehistoric islands in period (Sydenham)
+1. `images/S52-hawkins-studio-delamotte-1853.jpg` — Hawkins's Sydenham studio with the models under construction, photographed by Delamotte, 1853. Public domain. 3166×4134. Confidence: **High**.
+2. `images/S52-dinosaurs-engraving-1854.jpg` — period engraving of the dinosaurs on their islands, 1854. Public domain; small (960×525). Confidence: **Medium-High**.
+3. `images/S52-gartenlaube-1854-p106.jpg` and `images/S52-gartenlaube-1854-p107.jpg` — Die Gartenlaube's 1854 two-page spread on the geological islands. Public domain. Confidence: **Medium-High**.
+4. Cross-reference: the 1856 guide's own **Secondary Island plate** (`images/B1-guide1856-p147900764.jpg`) — the islands as the Company's guide presented them in 1856. Confidence: **High**.
+All period (1853–56); no modern photographs are offered for this scene.
 
-### S70 — FA Cup finals at the Crystal Palace → CP050, CP055
-All public domain:
-1. **1905 final panorama** (`images/S70-fa-cup-final-1905-panorama.jpg`,
-   2157×760) — round-1 catalogue entry, first download.
-2. **1913 final programme cover** (`images/S70-fa-cup-final-1913-programme.jpg`) —
-   Aston Villa v Sunderland, 19 April 1913.
-3. **1901 final photograph** (`images/S70-fa-cup-final-1901-photo.jpg`).
-4. **1899 final illustration** (`images/S70-fa-cup-final-1899-illustration.jpg`).
-5. **1906 fans photograph** (`images/S70-fa-cup-final-1906-fans.jpg`).
-**No open-licence photograph of the 1913 match itself exists** in the
-allowed sources — only the programme; agency photographs are
-commercial and were excluded per the rules.
+### S53 — The dinner inside the Iguanodon, 31 December 1853 (Sydenham)
+1. `images/S53-iguanodon-dinner-woodcut-1854.jpg` — the well-known woodcut of the banquet inside the Iguanodon mould: twenty-one guests, Hawkins at the head of the table inside the beast. Commons dates the print 1854; the dinner itself was New Year's Eve, 31 Dec 1853 (see Contradictions on the dating). Public domain. 1287×831. Confidence: **High**.
+2. Context: the Hawkins studio photograph (S52) shows the same model under construction. No second, independent period record of the dinner (invitation card, menu, press drawing) was found in the whitelisted sources; the ILN's own report was text-only.
 
-### S83 — Demolition of the water towers, 1940–41 → CP064
-**No openly licensed demolition photograph was found** (Commons, the
-round-1 manifest, and two IWM collections searches — IWM returned only
-its 1920–24 gallery material). What the record now establishes:
-- **South tower: dismantled in sections, autumn 1940** (near houses).
-- **North tower: blown up by the Royal Engineers, 16 April 1941.**
-  A photograph of that demolition exists in the Surrey Archaeological
-  Society Bulletin 321 (Ted Coles) — **URL-only**, licence not stated.
-- The ILN's April 1941 photo feature "The Crystal Palace North Tower
-  to Go" survives only in the commercial ILN/Mary Evans archive —
-  URL-only. Historic England list entry 1469984 is the official
-  reference — URL-only.
-- Downloaded: **the surviving south-tower base, photographed 2022**
-  (CC BY-SA 4.0; `images/S83-south-water-tower-base-2022.jpg`) — the
-  present-day evidence for CP062/CP064 treatments.
-Some web retellings reverse the towers' order or claim the south tower
-fell "shortly after the 1936 fire" — contradicted by the SAS account
-and the Historic England listing.
+### S55 — The Sydenham opening, 10 June 1854
+1. `images/S55-iln-1854-06-17-opening-arrival-p582.jpg` — ILN, 17 June 1854, p.582: "Opening of the Crystal Palace — Arrival of Her Majesty", engraving of the Queen's arrival for the 10 June ceremony, with the report text. Public domain. Confidence: **High** (visually verified).
+2. `images/S55-iln-1854-06-17-opening-article.jpg` — the ILN opening article page, with the opening medal engraving. Public domain. Confidence: **High**.
+3. `images/S55-state-visit-1855.jpg` — the palace ceremony photograph of April **1855** (Napoleon III, Queen Victoria, Empress Eugenie, Prince Albert). Included because it is the famous "royal group at Sydenham" photograph — but it is the French state visit a year later, **not** the opening; do not caption it as 1854. Public domain. Confidence: **High** (as an 1855 image).
+Science Museum Group holds a large opening engraving ("The New Crystal Palace at Sydenham") under CC BY-NC-SA 4.0 — non-commercial terms; noted, not downloaded (see Section C).
 
-### S87 — The Crystal Palace subway → CP046, CP065, CP071
-1. **OS 25-inch plan of High Level station, 1895** (PD;
-   `images/S87-os-plan-high-level-station-1895.png`) — shows the
-   subway under the Parade; round-1 entry, first download.
-2. **ILN engraving of the new High Level station, 30 Sept 1865** (PD;
-   `images/S87-high-level-station-iln-1865.jpg`) — the station the
-   subway served. **No Victorian image of the subway itself exists**
-   in the sources.
-3. **Conservation photographs:** interior 2016, pre-restoration (CC
-   BY-SA 4.0; `images/S87-subway-interior-2016.jpg`); east courtyard
-   during restoration, 2023 (CC BY-SA 4.0;
-   `images/S87-subway-east-courtyard-2023.jpg`); restored interior,
-   Jan 2025 (CC BY-SA 2.0; `images/S87-subway-restored-interior-2025.jpg`).
-   These date the PARK-NOW scenes (CP071) honestly: the subway's
-   present state is *restored 2023–24*, and access is not continuous.
+### S57 — The rebuilt palace in its first years (Sydenham, 1850s)
+1. `images/S57-progress-delamotte-met-109624.jpg` and `images/S57-progress-delamotte-met-109625.jpg` — Delamotte / Negretti construction photographs, 1854 (Met Museum, CC0, ~3900 px). Confidence: **High**.
+2. `images/S57-interior-negretti-zambra-1853.jpg` — interior under construction, stereoscopic daguerreotype published by Negretti & Zambra, dated 1853 (Rijksmuseum, CC0). Confidence: **High**.
+3. `images/S57-general-view-water-temple-1854.jpg` — general view from the Water Temple, Delamotte, 1854. Public domain. Confidence: **High**.
+4. `images/S57-upper-gallery-delamotte-1852-54.jpg` — along the upper gallery, Delamotte, dated 1852–54 (Rijksmuseum, CC0). Confidence: **High**.
+5. `images/S57-interior-stereo-1855-75.jpg` — stereoscopic interior, c.1855–75 (Rijksmuseum, CC0) — later than the ideal 1850s window at its far end; ranked last for that reason. Confidence: **Medium**.
+Plus the two tower views under S51 (both Delamotte / Negretti & Zambra, 1854).
 
-### S89 — National Sports Centre, 1960s → CP066
-**Nothing usable.** Commons and the round-1 catalogue hold only modern
-photographs of the 1964 building; no 1960s image under an open licence
-was found. The scene was optional in the brief; the storyboard keeps
-it (CP066, book-covered), so this stays an open evidence gap — period
-photographs exist in architectural-press and Historic England holdings
-but not under terms the brief allows.
+### S67 — The fire that took the north transept, 30 December 1866 (Sydenham)
+1. `images/S67-iln-1867-01-05-fire-engraving.jpg` — ILN, 5 Jan 1867: engraving of the fire's aftermath — the burnt north transept interior seen from the transept, trees standing in the ruins. Public domain. Confidence: **High** (visually verified).
+2. `images/S67-iln-1867-01-05-fire-report.jpg` — the same issue's full report, "Fire at the Crystal Palace". Public domain. Confidence: **High**.
+Mark the loss on the pre-fire plans in B4; the building was never rebuilt to its full length afterwards.
 
----
+### S70 — Cup finals at the Palace ground, 1895–1914 (Sydenham)
+1. `images/S70-fa-cup-final-1913-programme.jpg` — programme cover of the 1913 final (Aston Villa v Sunderland), the final the scene singles out. Public domain. Confidence: **High**.
+2. `images/S70-aston-villa-1913-postcard.jpg` — postcard of the Aston Villa cup-winning team, 1913 (Rotary Photographic Co.). Public domain. Confidence: **High**.
+3. `images/S70-fa-cup-final-1901.jpg` — the 1901 final at the Palace ground, Tottenham v Sheffield United before 114,815. Public domain; small (504×336). Confidence: **Medium**.
 
-## B. The Sydenham plans
+### S83 — The towers come down, 1940/1941 (Sydenham)
+**Nothing found** — see "Scenes with nothing". For the record: the north tower was demolished with high explosives on 16 April 1941 (it fell across the aquarium site); the south tower, close to houses, was taken down floor by floor in 1940–41 (Historic England, list entry 1469984; Lambeth planning heritage statements). Photographs of the 1941 demolition exist — a Surrey Archaeological Society bulletin (No. 321, 1998) reproduces the explosion photograph credited to Lambeth Archives — but no openly licensed copy is in the whitelisted sources. The south tower's base survives and is Grade II listed.
 
-| Plan / section | Year it shows | Good for | Resolution |
+### S87 — The Crystal Palace subway (Sydenham)
+1. `images/S87-subway-interior-2023.jpg` — the subway's vaulted interior during conservation/open days, 2023 (CC BY-SA 4.0, Doyle of London). Confidence: **High** as a conservation photograph.
+No 1860s photograph or plan of the subway was found in the whitelisted sources; Historic England's listing material (the subway is Grade II*) is the authoritative modern record. The subway was built in 1865 to link the high-level station to the palace.
+
+### S89 — The National Sports Centre, 1960s (Sydenham) — optional scene
+1. `images/S89-national-sports-centre-2024.jpg` — the 1964 building photographed in 2024 (CC BY-SA 4.0). Confidence: **Medium** — right building, wrong decade; 1960s photography of the centre (e.g. John Maltby's) sits in the Historic England Archive and is not openly licensed in the sources searched.
+
+## Sydenham plans table
+
+| Plan / section | Year shown | Good for | Where / resolution |
 |---|---|---|---|
-| 1856 guide, ground plan (round 1, gallery 0205) | 1856 | Route drawing; courts; entrances | 5,669 × 2,763 |
-| **1856 guide, "Plan of Palace and Park"** (round 2, `S56-plan-1856-guide-palace-and-park.jpg`) | 1856 (state of 1854–56) | **Best single route base**: building + terraces + fountains + lakes + geological islands on one dated sheet; key names the Railway Colonnade | 2,760 × 3,976 |
-| 1856 guide, transverse section (round 1, gallery 0212) | 1856 | Heights; section | (round 1) |
-| **Phillips 1854, foldout ground plan** (round 2, `S56-plan-1854-phillips-ground-plan.jpg`) | **1854, as opened** | Route drawing with the fullest key (courts 1–29, statues A–Z); **fire marking** (north transept + north wing present); station entrance | 4,227 × 2,169 |
-| **Phillips 1854, routes-to-the-palace map** (round 2) | 1854 | Railway-arrival context (the journey across south London) | 2,528 × 2,032 |
-| **Phillips 1854, "View of Building from the North"** (round 2, `S66-view-1854-phillips-building-from-north.jpg`) | 1854 | The north end **before** the fire — pairs with the post-fire plan | 2,127 × 3,220 |
-| **Phillips 1854, Alhambra court plan** (round 2) | 1854 | Court plan, opening-year state (cf. round 1's 1856 printing, 0246) | 2,127 × 3,220 |
-| **Routledge 1854, grounds foldout** (round 2, `S62-plan-1854-routledge-grounds-terraces-islands.jpg`) | 1854 (some features "not completed" — as projected, flagged) | Grounds/terraces/fountains; the clearest 1854 layout of the geological islands, animals keyed | 2,407 × 1,734 |
-| **Grounds map, c.1862** (round 2, `S62-plan-1862-crystal-palace-grounds-map.jpg`) | c.1862 | Grounds in neighbourhood context; mid-life park state. Round 1 catalogued it but never downloaded it (0 bytes) | 2,020 × 2,896 |
-| **1878 official guide, ground plan** (round 2, `S66-plan-1878-guide-ground-plan-post-fire.jpg`) | **1878, post-fire** | **Fire marking (the after-state)**: north transept gone, "Tropical End"/Orangery; the only plan labelling **both** railway entrances (High Level 1865 + Brighton low-level) | 1,571 × 2,611 |
-| 1856 guide, Screen of Kings and Queens elevation (round 2) | 1856 | Interior elevation detail | 2,960 × 2,080 |
-| Dimension evidence pages: Phillips 1854 p.28; Routledge 1854 pp.25–26, p.125 (round 2) | 1854 | **Heights cross-check** (below) | 2,127 × 3,220 / 1,753 × 3,134 / 1,839 × 3,124 |
+| Plan of Palace and Park — fold-out in the 1856 guide | 1856 | Grounds, terraces, lakes, geological islands, railway and station, whole-site routes | `images/B1-guide1856-p147900658.jpg` (this round); ~2,950 px wide |
+| Ground Plan of the Crystal Palace and Gardens — ILN | 1854 (opening) | Building footprint incl. north transept, wings, colonnade; gardens as opened; route/arrival | `images/B2-iln-1854-ground-plan-palace-gardens.jpg`; 4,113×5,936 |
+| Annexed routes map — Phillips's guide | 1854 | Routes from London by rail and road; fares context (with S34 page) | `images/B2-phillips1854-routes-map.jpg`; ~2,100 px |
+| Ground plan of the building — 1856 guide (round 1, gallery 0205) | 1856 | Room-by-room route through the building | Round 1; 5,669×2,763 |
+| Transverse section — 1856 guide (round 1, gallery 0212) | 1856 | Heights as drawn in 1856 (compare B5 texts) | Round 1 |
+| Court plans (Egyptian 0226, Alhambra 0246) — 1856 guide (round 1) | 1856 | Individual court layouts | Round 1 |
+| Dimensions table, printed p.35 — 1856 guide (round 1, gallery 0214) | 1856 | Heights/lengths source #1 (JSON: `references/muse-drive/review/dimensions-from-1856-guide.json`) | Round 1 |
+| "Account of the building" dimensions — Phillips's guide | 1854 | Heights/lengths source #2 — DISAGREES with 1856 on heights (see Contradictions) | `images/B5-phillips1854-dimensions-page.jpg`; ~2,100 px |
+| General ground plan plate — Berlyn (Hyde Park building, NOT Sydenham) | 1851 | Hyde Park footprint cross-check only — never use for Sydenham | `images/S13-berlyn-1851-hyde-park-ground-plan.jpg` |
+| Park plan (round 1, main-article set) | 1857 | Grounds a year after the guide | Round 1 |
 
-**The complete 1856 guide:** not on the Internet Archive at all. The
-complete book (197 pp. + 2 maps) is the Polona scan mirrored in the
-Commons category. Round 1's 117 files end at printed p.125; all 73
-remaining pages were triaged this round — almost entirely text. Their
-only drawn matter is the "Plan of Palace and Park" and the Screen
-elevation, both downloaded. The guide's court plans all sit in the part
-round 1 already has. No higher-resolution copy of the 5,669 × 2,763
-ground plan exists (that *is* the full Polona scan).
+No post-1866 plan (showing the shortened, north-transept-less building) and no pre-1852 site map were found in the whitelisted sources.
 
-**Heights cross-check** (the brief asked for a second source; two were
-found, and they agree with each other):
+## Scenes with nothing (and where was searched)
 
-| Quantity | 1856 guide table (round-1 JSON) | Phillips 1854, p.28 | Routledge 1854, pp.25–26, 125 |
-|---|---|---|---|
-| Nave above ground floor | 110 ft 3 in | **104 ft** to crown (springs 68 ft + 36 ft radius) | crown **104 ft** implied by same geometry |
-| Central transept above ground floor | 174 ft 3 in | **168 ft** to top of louvre (springs 108 ft) | crown **168 ft 3½ in**; 176 ft 7½ in incl. open louvre |
-| From below | 197 ft 10 in "from the basement" | 208 ft from the garden front | 200 ft 2½ in from garden-front ground (basement floor 23 ft 7 in deep) |
+- **S15 / S19 — a period VIEW of the Smethwick and Spon Lane works buildings.** Searched by this pass: Wikimedia Commons (text + categories), Internet Archive (Berlyn and Tallis texts read; no plates of either works), Wellcome. The parallel pass found the girder-proof and glass-disc documents (see S15/S19 section), but a period view of either works itself remains unfound in the open sources; the ILN's 1851 Smethwick coverage is the likeliest print source and is not openly digitised at plate quality.
+- **S44 — Sydenham/Norwood before the palace.** Searched: Commons (map categories and text), IA map texts. Nothing dated before 1852 was found openly. The c.1843 Penge tithe map is at London Metropolitan Archives (not openly digitised); the first OS mapping of the area is 1860s, after the palace.
+- **S51 (drawings only) — Brunel's tower drawings.** Searched: Commons, IA, Brunel Museum site. Drawings are held in the Brunel collections in Bristol; no open copy. The photographic half of the scene is fully covered (S51 above).
+- **S83 — Tower demolitions 1940/1941.** Searched: Commons, IA, Historic England (list entry confirms dates and method; its archive photographs are not openly licensed), Surrey Archaeological Society bulletin (reproduces the 1941 explosion photo, © Lambeth Archives). Nothing openly licensed found.
+- **S87 (period only) — the subway in the 1860s.** Searched: Commons, IA, Historic England. Only modern conservation photography is openly available (downloaded); no period photograph or plan found.
+- **S41 (Paxton's own pamphlet pages).** The campaign pamphlet evidence is downloaded; Paxton's *What is to become of the Crystal Palace?* (1851) was located in print catalogues but no open scan was extracted this round.
 
-The 1854 pair are independent of each other (official handbook vs.
-commercial rival) and internally consistent with the drawn geometry
-(springing + radius). The 1856 table runs ~6 ft higher on both headline
-figures — a consistent shift suggesting a different datum, but no 1856
-text states one, so it is **unresolved**: 104 ft / 168 ft are the
-drawing-supported figures. The "from below" figures are
-datum-incomparable and should only ever be quoted with their datum.
-Phillips 1854 is also internally inconsistent (his p.24 "44 ft higher
-than Hyde Park's nave" matches neither his own 104 ft nor the 1856
-figure) — promotional rounding is at work in all three books.
+## Contradictions (reported, not fixed)
 
-**Documented plan gaps:** no drawn **1854 section** exists in Phillips,
-Routledge or the 1854 Expositor (the only Sydenham section remains
-round 1's 1856 one); no post-fire plan earlier than **1878**; no
-standalone railway-arrival plan sheet (arrival is covered inside the
-plans above, plus Phillips's colonnade dimensions in text: 720 × 17 ×
-18 ft); the 1857 park plan's Commons original is only 1,483 × 1,896 —
-no better version exists. One further observation from the guide's
-late pages: by 1856 the north transept was already partitioned from
-the nave by "a gigantic curtain" (p.148, the Tropical End) — the 1856
-state is not a fully open three-transept interior.
+1. **Sydenham heights — the Company's own guides disagree.** 1856 guide, printed p.35: nave height 110 ft 3 in; transept height 174 ft 3 in; transept from basement 197 ft 10 in. Phillips, 1854: nave arch crown 104 ft (springing 68 ft); central transept 168 ft to the top of the louvre, 108 ft to the springing, 208 ft from the garden front. Lengths agree exactly (1,608 ft; 384 ft transept). Both are contemporary, official-adjacent sources; the difference is partly datum (floor vs garden front vs basement) and partly — for the louvre figures, 168 vs 174 ft 3 in — unexplained. The film should either show both or pick one and say which. (The often-quoted "108 ft" for a transept turns out to be Phillips's Sydenham *springing* height — a plausible origin for several later confusions, including the Hyde Park figures flagged in round 1's REVIEW.)
+2. **Opening date.** The documented opening is 10 June 1854 (Phillips's preface; ILN report of 17 June 1854). At least one later heritage text (Surrey Archaeological Society bulletin, 1998) says the palace "opened on June 18th 1854" — wrong, but in circulation.
+3. **The Iguanodon dinner's image is dated 1854; the dinner was 31 Dec 1853.** The woodcut (S53) is a print *of* the event published the following year; captions should date the event 1853 and the print 1854.
+4. **The 1855 state-visit photograph is not the opening.** The Napoleon III / Queen Victoria group (S55, item 3) is April 1855. It is routinely captioned elsewhere as the 1854 opening; it is not.
+5. **"Crystal Palace Park – 1857.jpg" (Commons, also in round 1's orbit)** carries an upload date (2014) where a depicted date should be, and no source note; "1857" rests on the title alone. Use with care.
+6. **Tower credit.** "Brunel's towers" compresses a two-step history: a first pair of towers (1853, company's engineer Charles Wild) was demolished as inadequate; Brunel's replacement pair was built 1854–56 by Fox, Henderson & Co. (Historic England, list entry 1469984).
+7. **Round-1 wrong-building files (from REVIEW.md, restated because S05 now touches them):** the French 1849 exposition building, the Berlin Kroll Wintergarten and the unexecuted committee/Turner designs sit in round 1's plan folders. Round 2's two 1849 Paris prints (S05) are that same French building — wanted there as the predecessor, never as the London palace.
 
----
+## Section C — Better versions noted, not downloaded
 
-## C. Better versions of pictures already collected
+- **Crystal Palace from the air, c.1935** — ETH-Bibliothek photographs by Walter Mittelholzer (Commons, public domain, TIFF ~46.9 MB each): superb late views of the whole Sydenham site a year before the fire. Under the 50 MB cap but three near-identical frames; left for a decision on which single frame the film wants.
+- **Crystal Palace, 1886** — Hallwyl Museum photograph (Commons, public domain, TIFF 45.9 MB): a fine garden-front view; a smaller Commons JPG derivative exists if wanted.
+- **Henry Cole portrait** — the frontispiece of *Fifty Years of Public Work*, Vol. I (1884) would replace the 227×332 place-holder (S05).
+- **The New Crystal Palace at Sydenham (opening engraving)** — Science Museum Group, CC BY-NC-SA 4.0: non-commercial terms make it unusable for most film purposes; recorded so nobody re-hunts it as "the missing opening picture" — the ILN engravings under S55 are public domain.
+- **Negretti & Zambra / Delamotte stereoviews (Rijksmuseum, CC0)** — round 2 took five; the museum's Crystal Palace series runs to dozens more (sculpture courts, vestibules, nave statues) if later scenes need interiors.
+- **Routledge's 1854 guide** — full text on IA; a plan-hunt through its plates is the obvious next pass if a third 1854 source is wanted.
 
-- **Paris 1849 building (S05):** round 1's file (gallery 0322) is only
-  a *plan* of the 1849 building. The Carnavalet bird's-eye engraving
-  (CC0, 3000 × 2525) is the pictorial version — downloaded as
-  `S05-paris-1849-exhibition-birdseye-carnavalet.jpg`. Keep both.
-- **Actually-downloaded at last:** several round-1 records were
-  catalogue entries with status skipped-budget (0 bytes) that a title
-  list makes look collected. This round downloaded them for the first
-  time: the Chatsworth Victoria Regia House engravings (S03), the
-  c.1862 grounds map (B), the 1905 FA Cup panorama and the 1895 OS
-  station plan (S70/S87), and the ILN Iguanodon-dinner woodcut (S53).
-- **Checked, no better version exists:** the 1856 ground plan
-  (5,669 × 2,763 is the full Polona scan; no IA copy) and the 1857
-  park plan (Commons original 1,483 × 1,896, identical to round 1's).
+## Round totals
 
----
-
-## Scenes with nothing usable — and where we searched
-
-| Gap | Searched |
-|---|---|
-| First-works images, Hyde Park, summer 1850 (S13) | Commons (construction/foundations queries); ILN Sept–Nov 1850 issues on IA read for plates |
-| Transport of the parts, Hyde Park → Sydenham (S46) | ILN vol. 20 (1852) full-text index of all 515 leaves, 57 palace hits read; Phillips 1854 introduction; Company prospectus searches on IA. ILN vol. 21 (Jul–Dec 1852) exists only as loan-restricted scans — the dismantling's later stages could not be checked in an open copy |
-| Any image of the building being taken down (S45) | Same ILN trawl; Commons; no dismantling image exists in the open sources |
-| Pre-1852 map of the Sydenham ridge (S44) | Commons map categories/searches; Wyld 1840 (commercial only); Penge Place sale particulars (no open scan); OS coverage (town plans don't reach the ridge; county series 1860s) |
-| Paxton's own winter-garden pamphlet (S41) | IA title/creator/phrase searches, all fruitless; Royal Collection copy not openly downloadable |
-| Period view of Fox, Henderson's works (S15) | Commons (Smethwick categories), IA, SMG |
-| Chance's manufactory engravings, ILN 21 Dec 1850 (S19) | IA holds the issue loan-restricted only; open DLI ILN set lacks vol. 17 |
-| Brunel tower drawings (S51) | Commons, SMG, Wellcome, V&A via search; ICE holds material, no open licence |
-| 1913 FA Cup Final match photograph (S70) | Commons and open collections; only the programme is open — match photography is agency/commercial |
-| Water-tower demolition photographs (S83) | Commons, round-1 manifest, two IWM collections searches (1920–24 material only); SAS Bulletin photo and ILN 1941 feature recorded URL-only |
-| 1960s National Sports Centre images (S89) | Commons, round-1 catalogue — modern photographs only |
-| Drawn 1854 Sydenham section (B) | Phillips 1854 (all plate leaves), Routledge 1854, the 1854 Expositor |
-| Post-fire plan before 1878 (B) | IA guide/handbook search 1860–1885 |
-
----
-
-## Contradictions with the existing collection and scene list (reported, not fixed)
-
-1. **Sydenham heights.** The 1856 table behind
-   `dimensions-from-1856-guide.json` (nave 110 ft 3 in; transept
-   174 ft 3 in) is contradicted by two independent 1854 sources and by
-   the drawn arch geometry (104 ft / 168 ft). See section B.
-2. **Image count.** Repo README and `MUSE-PROMPT.md` say the round-1
-   collection has 1,393 images; the repo actually holds **1,398**
-   (REVIEW.md agrees with 1,398).
-3. **The Punch premise.** The brief's S37 (and popular accounts) call
-   the naming item a cartoon; it is Jerrold's prose letter, 13 July
-   1850, p.21. The phrase on the page is "a palace of very crystal",
-   not yet the proper name. The rival Thackeray attribution has no
-   page evidence.
-4. **Floor boards.** Modern summaries give board *widths* (22 cm /
-   9 in) with a ~½ in gap, disagreeing with each other. The 1851
-   Catalogue quoting Paxton gives board **thickness** 1½ in and a
-   ½-inch gap, no width. Use the primary figures (CP013/CP020).
-5. **Season tickets.** Secondary sources flatten the price to "two
-   guineas"; the Catalogue gives £3 3s (gentleman) / £2 2s (lady).
-   One modern summary claims 1s admission "on Sundays" — the
-   Exhibition was closed on Sundays (Catalogue p.28).
-6. **"Demolition already in progress", Feb 1852.** The ILN inferred it
-   from an auction catalogue; the building was in fact sold intact in
-   May 1852 and re-erected. Any script line dating demolition to
-   February 1852 would be wrong (CP031).
-7. **Removal vs re-erection dates.** Removal was announced to begin
-   11 May 1852; the first Sydenham column was raised 5 Aug 1852.
-   Summaries dating the *dismantling* to August conflate the two
-   (CP031/CP033).
-8. **The removal pamphlet's date.** IA metadata says 1851; the title
-   page reads 1852 and the text quotes the 29 April 1852 Commons
-   debate. It is also a Sabbatarian pamphlet about the debate — round
-   1's catalogue record carries bookseller subject headings and should
-   not be cited as an official removal record.
-9. **Tower demolition order and method.** South tower: dismantled in
-   sections, autumn 1940. North tower: blown up, 16 April 1941. Web
-   retellings that reverse this, or date the south tower "shortly
-   after the 1936 fire", are contradicted by the SAS account and the
-   Historic England listing (CP064). Tower height is variously 280 ft
-   (ILN 1941), 282 ft, 284 ft, 86 m — unresolved.
-10. **Towers and fountains "1854".** Commons dates the Delamotte tower
-    views 1854 and the SMG inauguration lithograph shows the finished
-    towers and playing fountains on 10 June 1854; the towers were
-    operational 2 June 1856 and the fountains first played 18 June
-    1856 (CP035/CP042 must exclude both from opening views).
-11. **Routledge's "Central Dome".** A Routledge passage giving a
-    160–170 ft "Central Dome" describes the **rejected 1850 Building
-    Committee design**, not Sydenham. Routledge also reverses the Hyde
-    Park widths (456/408); the 1856 assignment (408 general / 456
-    greatest) stands.
-12. **Fire-date drift.** The north-transept fire was 30 Dec 1866;
-    some secondary sources place it "in 1867" because the print
-    coverage is January 1867 (CP047's date stands).
-13. **Met title wording.** DP109644's "Reopening of the Reconstructed
-    Crystal Palace" describes the **1854 first opening** at Sydenham;
-    the 1920 reopening is a different event (some of its photographs
-    are in round 1).
-14. **Catalogued ≠ collected.** Round 1's manifest lists items (the
-    Chatsworth lily-house engravings, the c.1862 grounds map, the
-    1905 panorama, the 1895 OS plan) with status skipped-budget —
-    present as records, absent as files until this round. Any future
-    audit should count `status = downloaded` rows only.
+This pass: 123 files in `references/muse-round2/images/` (104 via Wikimedia Commons, 19 page images via the Internet Archive), 381.9 MB in total; largest single file 14.1 MB; every file under the 50 MB cap; all licences public domain or CC0/CC BY/CC BY-SA as recorded per file in `manifest.csv`. SHA-256 for every file is in the manifest's description field. The parallel pass's files (45+ at writing) sit alongside under their own filenames; branch totals are therefore higher than the figures above and the two manifests should be merged when the round is closed. Nothing was written outside `references/muse-round2/`; nothing was merged to main.
