@@ -27,8 +27,12 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 sc = bpy.context.scene; W, H = map(int, arg("--res", "1280x720").split("x")); sc.cycles.samples = int(arg("--samples", "48"))
 sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8")); base_exp = sc.view_settings.exposure
 _era = arg("--era", "1850"); _tod = arg("--tod", "exterior_midday")
-_look = apply_look(era=_era, time_of_day=_tod)
-base_exp = _look["exposure"]
+if "--keep-lighting" in argv:
+    print("KEEP_LIGHTING exposure", sc.view_settings.exposure, flush=True)
+    _look = {"exposure": base_exp}
+else:
+    _look = apply_look(era=_era, time_of_day=_tod)
+    base_exp = _look["exposure"]
 if arg("--exposure"): sc.view_settings.exposure = float(arg("--exposure"))
 os.makedirs(arg("--outdir"), exist_ok=True)
 cams = arg("--cams").split(",") if arg("--cams") != "ALL" else sorted(o.name for o in bpy.data.objects if o.type == 'CAMERA')
