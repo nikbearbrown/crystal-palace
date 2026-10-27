@@ -53,3 +53,9 @@ never git init inside a grok folder; commit from the worktree root
 
 ## 2026-10-27 Koh CP025
 - REJECT ribbons candidate. New CANDIDATE e02_koh_v2: no ribbons, open south, reframe 50 mm/5.25 ft, sparkle cheat (EX_KOH_*). Muse counter skipped.
+
+## 2026-10-27 hero KEEP + next hero
+- **KEEP** Koh-i-Noor v2 → promoted live `rounds/e02.blend` (`scripts/promote_koh_live.py`). Pair keep-record: survey `look/pairs_geo/CANDIDATE_CP025_koh_v2_july_start_pair.png`.
+- Sparkle polish **CANDIDATE** (clearly brighter stone): `rounds/candidates/e02_koh_sparkle.blend` + `renders/candidates/CP025_july_start_sparkle.png`. Pair: `CANDIDATE_CP025_koh_sparkle_july_start_pair.png`. Live unchanged.
+- Organ/gates gate: Willis/Gray&Davison organ only in storyboard CP045 (Sydenham); Coalbrookdale gates not in storyboard → skip.
+- Next-crudest HP hero by screen time: **Nasmyth hammer CP024 CANDIDATE** `rounds/candidates/e02_hammer.blend` + `renders/candidates/CP024_ram_start.png` (`scripts/polish_hammer_cand.py`). Pair: `CANDIDATE_CP024_hammer_ram_start_pair.png`.

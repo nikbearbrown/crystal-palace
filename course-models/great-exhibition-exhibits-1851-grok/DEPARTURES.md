@@ -30,7 +30,16 @@ Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Cont
 | ID | Topic | Call |
 |---|---|---|
 | EX_KOH_V1 | Prior CANDIDATE (ribbons + tight july crop): diamond invisible; grey pole (OSL_shaft_prisms) down cage; ribbons read as messy curved bars | **REJECT** (user). Live e02 untouched. |
-| EX_KOH_V2 | CANDIDATE `e02_koh_v2`: drop gilt ribbons; hide OSL_shaft_prisms + KOH_gas_pipes (grey pole clear); replace closed July enclosure with three-wall crimson backdrop (N/E/W + roof, south open); reframe CP025_july_start to 50 mm / eye 5.25 ft / no roll, cam (0, −10.5, 5.25) ft → cage centre so whole birdcage in frame | **CANDIDATE** (await KEEP). Live e02 untouched. |
-| EX_KOH_SPARKLE | Diamond emission mix (Fac 0.25, strength 1.8) + warm gas point (28 W) + cool skylight point (14 W) for readable sparkle under the July tent | **Cheat** (candidate v2). Not physically correct caustics; logged. |
+| EX_KOH_V2 | KEEP `e02_koh_v2` promoted into live `rounds/e02.blend`: drop gilt ribbons; hide OSL_shaft_prisms + KOH_gas_pipes; three-wall crimson backdrop (N/E/W + roof, south open); reframe CP025_july_start 50 mm / eye 5.25 ft / no roll, whole birdcage on plinth | **KEEP** (user 2026-10-27). Promoted live. |
+| EX_KOH_SPARKLE | Live (v2 promote): diamond emission Fac 0.25 / str 1.8 + warm/cool points. Stronger polish candidate `e02_koh_sparkle`: Fac 0.42 / str 4.5 + spark 55 W — brighter stone highlight under dome | **Cheat**. Stronger polish left as **CANDIDATE** (visibly brighter; not promoted). |
 | EX_KOH_SCALE | Rose-cut diamond screen scale **3.5×** true ~1.55×1.3×0.68 in so facets read at 50 mm / ~10.5 ft | **Cheat** (candidate v2). |
 | EX_KOH_COUNTER | Muse `glass-topped-display-counter` (~12 ft unit) vs ~7 ft July tent | **Skip** — does not fit without scaling. |
+
+## 2026-10-27 hero call + next hero
+| ID | Topic | Call |
+|---|---|---|
+| EX_KOH_KEEP | Koh-i-Noor v2 CP025 | **KEEP** — promote `e02_koh_v2` → live `e02`. Whole cage reads on plinth. |
+| EX_KOH_SPARKLE2 | Stronger sparkle polish | **CANDIDATE** `e02_koh_sparkle` / `CP025_july_start_sparkle.png` — brighter stone; live unchanged. |
+| EX_ORGAN | Willis 1851 / Gray & Davison | **Skip** — storyboard organ is CP045 (Sydenham 1857 music), not an HP blend shot. |
+| EX_GATES | Coalbrookdale gates | **Skip** — no storyboard shot features them. |
+| EX_HAM_CAND | Nasmyth hammer CP024 (next-crudest HP hero by screen time) | **CANDIDATE** `e02_hammer`: cyl flanges/bolts, valve chest + linkage, ram slippers, die; CP024_ram_start reframed 35 mm / ~38 ft back so full ~19 ft machine reads. Live e02 untouched. |
