@@ -44,3 +44,10 @@ Units in the scripts are feet. Coordinates: +X runs east along the lake, +Y is n
 ## set_v18 CP043 lake islands (2026-10-27)
 
 - **D-DINO-01 I** CP043 grass/rock/bank/foliage + Hawkins paint mats rebuilt with high-contrast object-space noise + bump; lake water transmission/roughness tightened for sharper reflections. `KEEP_LIGHTING` (exposure −1.4). Hero `renders/r03/r03_CAM_CP043_lake_islands_35mm.png` from `rounds/dinosaurs-1854-r03b.blend`. KEEP by eye vs r01 flat turf / soft water.
+
+## Queued next (after dinosaurs hero keep calls) — muse-round2 refs
+
+- **S67** (muse-round2): ILN ruins of the 1866–67 north transept fire +
+  fire-extent plan dated 12 Jan 1867 → set rounds for **CP047** and **CP048**.
+- **S87** (muse-round2): 1895 plan + 1908 view of the High Level station
+  → set rounds for **CP046** and **CP065**.
