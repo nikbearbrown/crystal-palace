@@ -36,8 +36,9 @@ BOARD = mat("GT_HoardingBoard", (0.22, 0.19, 0.15), 0.9); RAIL = mat("GT_RowRail
 PAINT = mat("GT_IronNew1850", (0.20, 0.19, 0.18), 0.55, 0.2)       # new castings, primed grey-black (SD13)
 TIMBERP = mat("GT_SashBarBundle", (0.70, 0.66, 0.58), 0.8); ROPE = mat("GT_Rope", (0.45, 0.40, 0.30), 0.9)
 GUTTER = mat("GT_GutterTimber", (0.55, 0.52, 0.46), 0.8); BAIZE = mat("GT_Baize", (0.10, 0.20, 0.10), 0.95)
-CARD = mat("GT_ModelCard", (0.62, 0.50, 0.40), 0.8); DOMEM = mat("GT_ModelDome", (0.50, 0.50, 0.50), 0.6)
-BRICKM = mat("GT_ModelBrick", (0.50, 0.30, 0.22), 0.85); INK = mat("GT_Ink", (0.03, 0.03, 0.04), 0.6)
+CARD = mat("GT_ModelCard", (0.55, 0.44, 0.34), 0.82); DOMEM = mat("GT_ModelDome", (0.22, 0.24, 0.26), 0.35, 0.55)
+BRICKM = mat("GT_ModelBrick", (0.32, 0.14, 0.09), 0.88); INK = mat("GT_Ink", (0.03, 0.03, 0.04), 0.6)
+GLASSM = mat("GT_ModelGlass", (0.35, 0.42, 0.48), 0.15, 0.25); BRASS = mat("GT_Brass", (0.45, 0.32, 0.12), 0.35, 0.7)
 LABEL = mat("GT_LabelCard", (0.82, 0.80, 0.72), 0.8, 0.0, 0.25)
 WIRE = mat("GT_WireStudy", (1.0, 0.55, 0.12), 0.5, 0.0, 1.6); WIRE2 = mat("GT_WireStudyLabel", (1.0, 0.72, 0.3), 0.5, 0.0, 2.2)
 HOUSE = mat("GT_DistantBrick", (0.42, 0.36, 0.30), 0.9); SLATE = mat("GT_Slate", (0.20, 0.21, 0.23), 0.8)
@@ -263,12 +264,38 @@ n0 = len(bm.faces); P.lathe(bm, [(0, 0), (Rr * 1.05, 0), (Rr * 1.05, 60 * SCL * 
 prof = [(Rr * math.cos(t), 120 * SCL * 2 + Rr * 0.75 * math.sin(t)) for t in [i * math.pi / 2 / 10 for i in range(11)]]
 n0 = len(bm.faces); P.lathe(bm, [(0, 120 * SCL * 2)] + prof, 32, M=Matrix.Translation((RX, TYc, B0))); mark(bm, n0, 2)
 for (fx, fy) in ((0.28, 0.0), (-0.32, 0.0)):          # two enclosed courts with tree tufts (as the plan)
-    for j in range(5):
-        bmesh.ops.create_icosphere(bm, subdivisions=1, radius=0.035, matrix=Matrix.Translation((TXc + fx * Lb + rnd.uniform(-0.12, 0.12), TYc + fy + rnd.uniform(-0.12, 0.12), B0 + HW * 0.55 + 0.03)))
+    for j in range(12):
+        bmesh.ops.create_icosphere(bm, subdivisions=1, radius=rnd.uniform(0.018, 0.028), matrix=Matrix.Translation((TXc + fx * Lb + rnd.uniform(-0.14, 0.14), TYc + fy + rnd.uniform(-0.14, 0.14), B0 + HW * 0.55 + rnd.uniform(0.01, 0.06))))
     for f in bm.faces:
         if f.material_index == 0 and not f.tag and len(f.verts) == 3: f.material_index = 3; f.tag = True
 obj("CM_MODEL_COMMITTEE", finish(bm, "cm_model", [BAIZE, BRICKM, DOMEM, FOL_S]), CM, part_kind="study_model", scale="1:600",
     source="Berlyn & Fowler 1851, ground plan of the Building Committee's design (Muse round-2 S13)", evidence="B plan / C massing")
+# w02 polish: glass ridge roofs over hall ranges + drafting tools on table
+bm = bmesh.new()
+for k in range(1, 12):
+    if k in (5, 6): continue
+    xx = -0.5 + k / 12.0
+    # shallow glass V-ridge along each hall
+    x0, x1 = TXc + xx * Lb - 0.04, TXc + xx * Lb + 0.04
+    y0, y1 = TYc - 0.40 * Wb, TYc + 0.40 * Wb
+    z0, z1 = B0 + HW * 0.78, B0 + HW * 0.95
+    # two roof slopes as boxes (thin)
+    box(bm, x0, (x0+x1)/2, y0, y1, z0, z1)
+    box(bm, (x0+x1)/2, x1, y0, y1, z0, z1)
+obj("CM_MODEL_GLASS", finish(bm, "cm_glass", [GLASSM]), CM, part_kind="study_model_glass")
+# drafting tools: brass compass, ink pot, quill, paperweight
+bm = bmesh.new()
+rod(bm, (TXc + 2.55, TYc - 1.15, mz + 0.02), (TXc + 2.95, TYc - 0.85, mz + 0.02), 0.025, 6)  # compass leg A
+rod(bm, (TXc + 2.55, TYc - 1.15, mz + 0.02), (TXc + 2.95, TYc - 1.35, mz + 0.02), 0.025, 6)  # compass leg B
+rod(bm, (TXc + 2.55, TYc - 1.15, mz + 0.02), (TXc + 2.55, TYc - 1.15, mz + 0.18), 0.03, 6)  # hinge post
+obj("CM_COMPASS", finish(bm, "cm_compass", [BRASS]), CM, part_kind="drafting_tool")
+bm = bmesh.new()
+rod(bm, (TXc + 2.2, TYc - 1.25, mz + 0.01), (TXc + 2.2, TYc - 1.25, mz + 0.12), 0.05, 10)  # ink pot
+rod(bm, (TXc + 2.05, TYc - 1.05, mz + 0.02), (TXc + 1.55, TYc - 0.75, mz + 0.08), 0.018, 5)  # quill
+obj("CM_INK_QUILL", finish(bm, "cm_ink", [INK]), CM, part_kind="drafting_tool")
+bm = bmesh.new()
+box(bm, TXc - 2.9, TXc - 2.55, TYc - 1.35, TYc - 1.05, mz, mz + 0.06)  # paperweight
+obj("CM_WEIGHT", finish(bm, "cm_weight", [BRASS]), CM, part_kind="drafting_tool")
 def text3d(name, c, txt, loc, rot, size, matl, align='CENTER', extrude=0.0):
     cu = bpy.data.curves.new(name, 'FONT'); cu.body = txt; cu.size = size; cu.align_x = align; cu.align_y = 'CENTER'; cu.extrude = extrude
     o = bpy.data.objects.new(name, cu); o.location = [ft(v) for v in loc]; o.rotation_euler = rot; o.scale = (FT, FT, FT)

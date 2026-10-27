@@ -35,3 +35,6 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2: revert CP006/009
+
+## s02 w02 (2026-10-27)
+KEEP CP007: committee study model glass ridge roofs + drafting tools (compass/ink/quill/weight). Best path → `CP007_start` (end cam is tree insert, near-identity). Pair `look/pairs_geo/CP007_start_pair.png`.
