@@ -95,6 +95,19 @@ lv = [o for o in obs if o.get("part_kind") == "louvre_blade" and o.animation_dat
 chk("K19", lv, "CP015 louvre opens/closes over frames 1-96", f"{len(lv)} animated blades")
 syd = [o.name for o in obs if "sydenham" in o.name.lower()]
 chk("K20", not syd, "Hyde Park 1851 only, no Sydenham content")
+# c04
+sp = [o for o in obs if o.get("part_kind") == "spoil"]
+bad = [o.name for o in sp if abs(o["heap_ft3"] + o["carted_ft3"] - o["bulked_ft3"]) > 0.6 or abs(o["bulked_ft3"] - 1.25 * o["pit_vol_ft3"]) > 0.6]
+tot = sum(o["heap_ft3"] for o in sp); bul = sum(o["bulked_ft3"] for o in sp)
+chk("K23", sp and not bad, "spoil heaps sized to their pits (heap + carted = 1.25 x pit volume)", f"{len(sp)} heaps, {tot:.0f} of {bul:.0f} ft3 bulked on site ({100 * tot / max(bul, 1):.0f} %)")
+ca = [o for o in obs if o.get("part_kind") == "cart"]; ho = [o for o in obs if o.get("part_kind") == "horse"]
+fl = [o.name for o in ca + ho if abs(o.location.z) > 0.01]
+chk("K24", len(ca) >= 3 and len(ho) == len(ca) and not fl, "carts and draught horses at the gate, standing on the ground", f"{len(ca)} carts, {len(ho)} horses")
+pn = [o for o in obs if o.get("part_kind") == "pane"]
+held = [o for o in pn if o.get("state") == "held" and abs(abs(math.degrees(o.rotation_euler.x)) - 30) < 1]
+chk("K25", len(held) >= 4, "glaziers handle 49 x 10 in panes, held at ~30 deg", f"{len(pn)} panes, {len(held)} held at 30 deg")
+cc = [o for o in obs if o.get("part_kind") == "crate" and o.get("variant") == "closed"]
+chk("K26", cc and all(o.instance_collection and "credit" in o.instance_collection for o in cc), "closed crate variant built on Muse's frame in our file, credited", f"{len(cc)} closed crates")
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w") as fh:
     fh.write(f"# construction checks {os.path.basename(bpy.data.filepath)}\n\n| id | result | check | detail |\n|---|---|---|---|\n")

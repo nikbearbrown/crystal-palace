@@ -283,17 +283,71 @@ for x, st in FOUND_STATE.items():
             if key not in BASEM: BASEM[key] = mesh_base_piece(pl, p["top"] + SOCKET_ABOVE_FLOOR, f"base_piece_{pl[0]}x{pl[1]}_t{t}")
             ob = new_obj(f"KBASE_{x:+.0f}_{y:+.0f}", BASEM[key], K["FOUNDATIONS"], (ft(x), ft(y), ft(-p["top"])), 0,
                          {"part_kind": "base_piece", "plate_L": pl[0], "plate_W": pl[1], "tier": t, "socket_top_ft": SOCKET_ABOVE_FLOOR})
-        if st == "dug":         # spoil heap beside the pit
-            bm = bmesh.new(); sphere(bm, (0, 0, 0), 1.0, 2)
-            for v in bm.verts: v.co = Vector((v.co.x * ft(3.2), v.co.y * ft(2.4), max(0, v.co.z) * ft(1.6)))
-            new_obj(f"KSPOIL_{x:+.0f}_{y:+.0f}", finish(bm, "spoil", SPOIL), K["FOUNDATIONS"], (ft(x + 9), ft(y + 3), ft(-0.05)), 0.3,
-                    {"part_kind": "spoil"})
         found.append(rec)
 # string lines along the rows in the pegged zone
 bm = bmesh.new()
 for y in ROWS: bm_bar(bm, (ft(866), ft(y), ft(1.2)), (ft(910), ft(y), ft(1.2)), inch(0.4), inch(0.4))
 for x in (876, 900): bm_bar(bm, (ft(x), ft(-210), ft(1.2)), (ft(x), ft(210), ft(1.2)), inch(0.4), inch(0.4))
 new_obj("KSTRINGLINES", finish(bm, "stringlines", ROPE), K["FOUNDATIONS"], props={"part_kind": "string_line"})
+
+# ---------------- c04: spoil heaps sized to the pits (CN27) ----------------
+# Every excavated pit not yet backfilled (dug / poured / base) keeps its spoil beside it: pit 8 x 8 ft x depth, bulked x1.25.
+# Heap = cone frustum, base radius <= 7.5 ft (fits the 16 ft clear square between four pits), side slope 34 deg (loose earth).
+# What will not fit is taken off by tip cart (one cart is loading at the 828 line); the carted share is recorded per heap.
+_route0 = json.load(open(os.path.join(HERE, "..", "route", "camera_route.json")))
+_campts = []
+for _s in _route0["shots"]:
+    _p = [_s[k]["pos_ft"] for k in ("start", "end") if k in _s]
+    _campts.append((_p[0][:2], _p[-1][:2]))
+def _segd(p, a, b):
+    ax, ay = a; bx, by = b; dx, dy = bx - ax, by - ay; L2 = dx * dx + dy * dy
+    t = 0 if L2 == 0 else max(0, min(1, ((p[0] - ax) * dx + (p[1] - ay) * dy) / L2))
+    return math.hypot(p[0] - ax - t * dx, p[1] - ay - t * dy)
+CART_KEEP = [(814, 832, -196, -188)]          # the spoil cart's stand (below), kept clear of heaps
+def _rect_hit(x, y, r):
+    return any(x0 - r < x < x1 + r and y0 - r < y < y1 + r for (x0, x1, y0, y1) in CART_KEEP)
+TAN = math.tan(math.radians(34)); RB = 7.5
+def frustum_h(V, R=RB):
+    lo, hi = 0.0, R * TAN
+    if math.pi * R * R * hi / 3 <= V: return hi, 0.0
+    for _ in range(50):
+        h = (lo + hi) / 2; r = R - h / TAN
+        if math.pi * h / 3 * (R * R + R * r + r * r) < V: lo = h
+        else: hi = h
+    return h, R - h / TAN
+used = set(); heaps = []; heap_skipped = []
+for (px, py), (st, d) in sorted(pits.items()):
+    V = 1.25 * 64.0 * d
+    h, rt = frustum_h(V)
+    Vh = math.pi * h / 3 * (RB * RB + RB * rt + rt * rt)
+    spot = None
+    for (ox, oy) in ((12, 12), (12, -12), (-12, 12), (-12, -12)):
+        cx, cy = px + ox, py + oy
+        if (cx, cy) in used or abs(cy) > 210: continue
+        if any(_segd((cx, cy), a, b) < RB + 4 for a, b in _campts): continue
+        if _rect_hit(cx, cy, RB + 1): continue
+        spot = (cx, cy); break
+    if not spot: heap_skipped.append((px, py)); continue
+    used.add(spot)
+    bm = bmesh.new(); seg = 18; rng = random.Random(int(px * 1000 + py))
+    ring0 = [bm.verts.new((ft(RB * (1 + rng.uniform(-0.06, 0.06)) * math.cos(2 * math.pi * k / seg)),
+                           ft(RB * (1 + rng.uniform(-0.06, 0.06)) * math.sin(2 * math.pi * k / seg)), 0.0)) for k in range(seg)]
+    rm = (RB + rt) / 2; hm = h * 0.55
+    ringm = [bm.verts.new((ft((rm + 0.4 * (RB - rm)) * (1 + rng.uniform(-0.08, 0.08)) * math.cos(2 * math.pi * k / seg)),
+                           ft((rm + 0.4 * (RB - rm)) * (1 + rng.uniform(-0.08, 0.08)) * math.sin(2 * math.pi * k / seg)), ft(hm))) for k in range(seg)]
+    top = bm.verts.new((0, 0, ft(h)))
+    ring1 = [bm.verts.new((ft(max(rt, 0.6) * math.cos(2 * math.pi * k / seg)), ft(max(rt, 0.6) * math.sin(2 * math.pi * k / seg)), ft(h * 0.97))) for k in range(seg)]
+    for k in range(seg):
+        k2 = (k + 1) % seg
+        bm.faces.new([ring0[k], ring0[k2], ringm[k2], ringm[k]]); bm.faces.new([ringm[k], ringm[k2], ring1[k2], ring1[k]])
+        bm.faces.new([ring1[k], ring1[k2], top])
+    ob = new_obj(f"KSPOIL_{px:+.0f}_{py:+.0f}", finish(bm, f"spoil_{px:+.0f}_{py:+.0f}", SPOIL), K["FOUNDATIONS"], (ft(spot[0]), ft(spot[1]), ft(-0.05)), 0,
+                 {"part_kind": "spoil", "pit": f"{px:+.0f},{py:+.0f}", "pit_depth_ft": round(d, 2), "pit_vol_ft3": round(64 * d, 1),
+                  "bulked_ft3": round(V, 1), "heap_ft3": round(Vh, 1), "carted_ft3": round(max(0, V - Vh), 1), "heap_h_ft": round(h, 2)})
+    for sl in []: pass
+    for f_ in ob.data.polygons: f_.use_smooth = True
+    heaps.append(ob)
+print("SPOIL heaps", len(heaps), "skipped", heap_skipped, flush=True)
 # CP010 crew: in and beside the dug pits on the far side of the walk
 worker(828, -186, -PAD[1]["top"] - PAD[1]["t"], "work", 0, "CP010")
 worker(852, -192, 0, "work", 20, "CP010"); worker(855, -195, 0, "stand", 200, "CP010")
@@ -494,8 +548,9 @@ label("Paxton gutter, rain water ->", CX - 9.5, COLTOP + 0.9, 0.7)
 label("hollow cast-iron column", CX - 9.5, 14.0, 0.7); label("= rain-water pipe", CX - 9.5, 13.1, 0.7)
 label("floor level", CX + 1.2, 0.4, 0.7)
 label("drain", CX + 1.2, DRAIN_Z - 1.2, 0.7)
-label("concrete pad", CX - 9.5, DRAIN_Z - 2.2, 0.7)
-label("explanatory cutaway, off site", CX - 9.5, -5.6, 0.55)
+LABEL_LT = mat_principled("GT_LabelLight", (0.85, 0.83, 0.78), 0.9)
+label("concrete pad", CX - 9.5, DRAIN_Z - 2.2, 0.7).data.materials[0] = LABEL_LT
+label("explanatory cutaway, off site", CX - 9.5, -5.6, 0.55).data.materials[0] = LABEL_LT
 slab_xyz("KDET_BACKDROP", CX - 40, CX + 40, CY + 30, CY + 30.5, -0.02, 40, mat_principled("GT_Backdrop", (0.30, 0.31, 0.32), 0.9), DD, part_kind="detail_backdrop")
 _al = bpy.data.lights.new("KDET_FILL", 'AREA'); _al.energy = 6000; _al.size = ft(40)
 _alo = bpy.data.objects.new("KDET_FILL", _al); DD.objects.link(_alo)
@@ -534,6 +589,111 @@ if os.path.exists(MUSE):
         e.location = (ft(x), ft(y), ft(z)); e.rotation_euler = (0, 0, rz); KC.objects.link(e)
         e["part_kind"] = "crate"; e["credit"] = "Muse"; crates.append(e)
 
+
+# ---------------- c04: glaziers with panes (CN28) ----------------
+# Glass at Hyde Park: 49 x 10 in sheets, 1/16 in (Chance), slid up the grooved sash bars from the wagon. Each "work" glazier
+# holds a pane tipped ~30 deg toward the slope; a second pane lies half-slid into the bars ahead of the wagon.
+PANE = mat_glass("GT_PaneLoose", tint=(0.52, 0.60, 0.58), bars=False, milk=0.10, milk_rgb=(0.62, 0.68, 0.66))
+def mesh_pane():
+    bm = bmesh.new(); bm_box(bm, -inch(5), inch(5), -inch(24.5), inch(24.5), -inch(0.06), inch(0.06))
+    return finish(bm, "pane_49x10", PANE)
+PANEM = mesh_pane(); panes = []
+SLOPE = math.atan2(1.6, 4.0)
+for i, yc in enumerate(WAGON_RIDGES):
+    x = WAGON_X + (0 if i % 2 == 0 else 1.5)
+    zt = GIRDER_TOP[0]
+    ob = new_obj(f"KPANE_HELD_{i}", PANEM, K["WAGONS"], (ft(x + 0.95), ft(yc + 1.45), ft(zt + 2.05 + 3.85)), 0, {"part_kind": "pane", "state": "held", "tilt_deg": 30})
+    ob.rotation_euler = (math.radians(-30), 0, 0); panes.append(ob)
+    dy = 2.6          # pane centre 2.6 ft down the south slope from the ridge: about 70 % slid in
+    ob = new_obj(f"KPANE_SLIDING_{i}", PANEM, K["WAGONS"], (ft(x + 3.4), ft(yc - dy * math.cos(SLOPE) * 0.93), ft(zt + 1.6 - dy * math.sin(SLOPE) * 0.93 + 0.12)), 0,
+                 {"part_kind": "pane", "state": "sliding", "tilt_deg": round(math.degrees(SLOPE), 1)})
+    ob.rotation_euler = (SLOPE, 0, 0); panes.append(ob)
+    worker(x + 3.4, yc - 4.6, zt + 0.15, "reach", 0, "CP016")   # man in the gutter pushing the pane up the bars
+
+# ---------------- c04: carts and horses at the gate (CN29) ----------------
+sys.path.insert(0, HERE)
+import figures
+HORSE_MAT = mat_principled("GT_DraughtHorse", (0.13, 0.08, 0.05), 0.7)
+HORSE_GREY = mat_principled("GT_DraughtHorseGrey", (0.42, 0.40, 0.37), 0.7)
+HORSES = [figures.horse_group_mesh("horse_draught_bay", 2.35, HORSE_MAT, rearing=False, rider=False, base=False),
+          figures.horse_group_mesh("horse_draught_grey", 2.35, HORSE_GREY, rearing=False, rider=False, base=False)]
+IRONTYRE = mat_principled("GT_CartTyre", (0.06, 0.06, 0.06), 0.5, 0.6)
+def mesh_cart(load):
+    """two-wheeled tip cart (tumbril): 5 ft wheels, body 7 x 4.5 x 2 ft, floor 3 ft up, shafts forward (+x)."""
+    bm = bmesh.new()
+    for sy in (-2.55, 2.55):
+        n0 = len(bm.faces)
+        cyl_axis(bm, (ft(-3.5), ft(sy - 0.17), ft(2.5)), (ft(-3.5), ft(sy + 0.17), ft(2.5)), ft(2.5), 20); faces_since(bm, n0, 2)
+        n0 = len(bm.faces); cyl_axis(bm, (ft(-3.5), ft(sy - 0.25), ft(2.5)), (ft(-3.5), ft(sy + 0.25), ft(2.5)), ft(0.45), 10); faces_since(bm, n0, 0)
+        for k in range(6):
+            a = math.pi * k / 6
+            bm_bar(bm, (ft(-3.5 - 2.3 * math.cos(a)), ft(sy), ft(2.5 - 2.3 * math.sin(a))), (ft(-3.5 + 2.3 * math.cos(a)), ft(sy), ft(2.5 + 2.3 * math.sin(a))), inch(2.2), inch(2.2))
+    cyl_axis(bm, (ft(-3.5), ft(-2.4), ft(2.5)), (ft(-3.5), ft(2.4), ft(2.5)), inch(2.5), 8)      # axle
+    bm_box(bm, ft(-7), ft(0), ft(-2.25), ft(2.25), ft(2.9), ft(3.1))                            # floor
+    for sy in (-2.25, 2.15): bm_box(bm, ft(-7), ft(0), ft(sy), ft(sy + 0.1), ft(3.1), ft(5.0))     # sides
+    for sx in (-7, -0.1): bm_box(bm, ft(sx), ft(sx + 0.1), ft(-2.25), ft(2.25), ft(3.1), ft(5.0)) # ends
+    for sy in (-1.45, 1.45):                                                                        # shafts to the collar
+        bm_bar(bm, (ft(0), ft(sy), ft(3.0)), (ft(8.5), ft(sy * 0.75), ft(3.6)), inch(3), inch(3))
+    bm_bar(bm, (ft(-1.0), ft(0), ft(0.0)), (ft(-1.0), ft(0), ft(2.9)), inch(3), inch(3))           # prop / tipping stop
+    if load == "spoil":
+        n0 = len(bm.faces); sphere(bm, (ft(-3.5), 0, ft(4.6)), 1.0, 2)
+        for v in bm.verts[-len(bm.verts):]: pass
+        faces_since(bm, n0, 3)
+    elif load == "columns":
+        n0 = len(bm.faces)
+        for sy in (-1.2, -0.4, 0.4, 1.2): cyl_axis(bm, (ft(-9.5), ft(sy), ft(3.5)), (ft(3.0), ft(sy), ft(3.5)), inch(4), 12)
+        faces_since(bm, n0, 4)
+    me = finish(bm, f"tip_cart_{load}", WAGONT, [WOODDARK, IRONTYRE, SPOIL, PRIMER])
+    if load == "spoil":      # flatten the sphere into a heaped load inside the body
+        for v in me.vertices:
+            if v.co.z > ft(4.0) and abs(v.co.x - ft(-3.5)) < ft(1.05) and abs(v.co.y) < ft(1.05):
+                v.co.x = ft(-3.5) + (v.co.x - ft(-3.5)) * 3.2; v.co.y *= 2.0; v.co.z = ft(4.6) + (v.co.z - ft(4.6)) * 0.8
+    return me
+CARTM = {k: mesh_cart(k) for k in ("spoil", "columns", "empty")}
+KCART = coll("CARTS", ROOT); carts = []
+def cart(name, x, y, rz_deg, load, horse=0, carter=True):
+    a = math.radians(rz_deg); ca, sa = math.cos(a), math.sin(a)
+    ob = new_obj(f"KCART_{name}", CARTM[load], KCART, (ft(x), ft(y), 0), a, {"part_kind": "cart", "load": load, "credit": "Grok"})
+    hx, hy = x + 5.0 * ca, y + 5.0 * sa
+    h = new_obj(f"KHORSE_{name}", HORSES[horse], KCART, (ft(hx), ft(hy), 0), a, {"part_kind": "horse", "height_withers_ft": 5.6})
+    carts.append(ob)
+    if carter:
+        wx, wy = x + 8.6 * ca + 2.4 * sa, y + 8.6 * sa - 2.4 * ca
+        worker(wx, wy, 0, "stand", rz_deg - 90, "CARTS")
+    return ob
+cart("gate_in", 615, -303, 90, "columns", 0)                # entering by the gate in the south hoarding with columns
+cart("gate_crates", 549, -224, 0, "empty", 1)               # unloaded beside the Muse crates (CP012 foreground left)
+cart("spoil_828", 829, -192, 180, "spoil", 0)               # tip cart taking off surplus spoil (CN27)
+worker(832.5, -189.0, 0, "work", 90, "CP010")               # shovelling into it
+cart("road", 690, -318, 180, "empty", 1)                    # outside the hoarding on the site road
+
+# ---------------- c04: closed glass crates and darker crate timber (CN30) ----------------
+if crates:
+    for m in {sl.material for o in MC.objects for sl in o.material_slots if sl.material}:
+        if not m.name.endswith("_dk"):
+            bsdf = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None) if m.node_tree else None
+            if bsdf:
+                c = bsdf.inputs["Base Color"].default_value; bsdf.inputs["Base Color"].default_value = (c[0] * 0.55, c[1] * 0.55, c[2] * 0.55, 1)
+            m.diffuse_color = (m.diffuse_color[0] * 0.55, m.diffuse_color[1] * 0.55, m.diffuse_color[2] * 0.55, 1)
+            m.name = m.name + "_by_Muse_dk"
+    tim = next((sl.material for o in MC.objects for sl in o.material_slots if sl.material and sl.material.name.startswith("Timber_")), WOOD)
+    bm = bmesh.new()                       # our sheathing boards over Muse's frame: 6 x 5 in boards, 1/4 in gaps, lid with 2 battens
+    for k in range(5):
+        z0 = 0.03 + k * 0.152; z1 = z0 + 0.146
+        bm_box(bm, -1.905, -0.895, -0.405, -0.395, z0, z1); bm_box(bm, -1.905, -0.895, 0.395, 0.405, z0, z1)
+        bm_box(bm, -1.905, -1.895, -0.395, 0.395, z0, z1); bm_box(bm, -0.905, -0.895, -0.395, 0.395, z0, z1)
+    for k in range(6): bm_box(bm, -1.905 + k * 0.1683, -1.905 + k * 0.1683 + 0.162, -0.41, 0.41, 0.80, 0.82)
+    for sx in (-1.75, -1.05): bm_box(bm, sx - 0.04, sx + 0.04, -0.41, 0.41, 0.82, 0.845)
+    sheath = bpy.data.objects.new("CRATE_closed_sheathing_Grok", finish(bm, "crate_closed_sheathing", tim)); sheath["credit"] = "Grok"
+    MCC = bpy.data.collections.new("CRATE_closed_on_Muse_frame")
+    MCC["credit"] = "Muse crate frame (models/hp-crate-and-display-case, appended read-only) + Grok sheathing and lid"
+    MCC.instance_offset = (-1.4, 0.0, 0.0)
+    for o in MC.objects: MCC.objects.link(o)
+    MCC.objects.link(sheath)
+    for e in crates:
+        if e.location.x < ft(420) and e.location.y < ft(-210):     # the glass crates by the glazing bays
+            e.instance_collection = MCC; e["variant"] = "closed"
+
 # ---------------- cameras ----------------
 CAMS = bpy.data.collections.new("CAMERAS_CONSTRUCTION"); scene.collection.children.link(CAMS)
 def cam(name, loc_ft, look_ft, lens, ortho=None):
@@ -554,7 +714,8 @@ scene.camera = bpy.data.objects.get("CP012_bay_start")
 scene.frame_start, scene.frame_end = 1, 96; scene.render.fps = 24
 
 info = {"columns": len(cols), "girders": ngir, "roof_units": nroof, "roof_states": roof_states, "workers": len(workers),
-        "foundations": len(found), "louvre_blades": len(louvres), "parts": len(parts), "muse_crates": len(crates)}
+        "foundations": len(found), "louvre_blades": len(louvres), "parts": len(parts), "muse_crates": len(crates), "spoil_heaps": len(heaps), "panes": len(panes), "carts": len(carts),
+        "closed_crates": sum(1 for e in crates if e.get("variant") == "closed")}
 scene["grok_construction_build"] = json.dumps(info)
 scene["foundations"] = json.dumps(found); scene["nbars"] = NBARS
 os.makedirs(os.path.dirname(OUT), exist_ok=True)

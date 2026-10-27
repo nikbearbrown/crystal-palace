@@ -31,6 +31,30 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
   - Timber hoarding with a gate on the south side (CN25).
   - Checks 22/22 (checks/c03; new K21 credited props, K22 hoarding). Renders in renders/c03; compare sheets in compare/c03_*.jpg.
 
+- **c04 (2026-10-26):**
+  - Spoil heaps sized to their pits: 86 heaps, 88% of the bulked spoil on site, the rest carted (CN27).
+  - Glaziers with panes held at 30°, plus a pane sliding up the bars at each wagon (CN28).
+  - 4 tip carts with draught horses and carters at and near the gate (CN29).
+  - Closed crate variant on Muse's frame; darker crate timber in our copy (CN30).
+  - CP014 section reframed (CN31).
+  - Checks 26/26 (checks/c04; new K23 heaps, K24 carts, K25 panes, K26 closed crates). Renders in renders/c04.
+
+## Self-score c04: 7.3/10
+**Good:**
+- CP010 now reads as a dug site: the heaps match the pit volumes, with a cart taking the surplus.
+- The gate has traffic. The section is legible top to bottom.
+
+**Misses:**
+- The heaps are smooth frustums, with no clods or tool marks.
+- The horses are soft metaball forms, with no harness or collar.
+- The panes are hard to see at 50 mm against the sky (thin glass).
+- The CP012 cart sits just outside the 28 mm frame.
+
+## Next (c05)
+- Harness and collars. Rough heap displacement.
+- CP012 camera yaw 5° left to catch the crate cart.
+- Pane edges catching light (a putty or edge band).
+
 ## Self-score c03: 7.0/10
 **Good:**
 - The roof bars now satisfy the pane arithmetic.
