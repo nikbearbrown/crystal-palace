@@ -1,0 +1,45 @@
+alias_filename,alias_branch_local_path,alias_section,kept_filename,kept_section,kept_source_set,mismatch,notes
+B1-guide1856-p147900658.jpg,images/B1-guide1856-p147900658.jpg,B1-guide1856,1856-guide-147900658.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+B1-guide1856-p147900716.jpg,images/B1-guide1856-p147900716.jpg,B1-guide1856,1856-guide-147900716.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+B1-guide1856-p147900764.jpg,images/B1-guide1856-p147900764.jpg,B1-guide1856,1856-guide-147900764.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+B2-phillips1854-routes-map.jpg,images/B2-phillips1854-routes-map.jpg,B2-phillips1854,1854-phillips-guide-railway-routes-map-leaf6.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+PLAN-1854-phillips-dimensions-p28.jpg,images/PLAN-1854-phillips-dimensions-p28.jpg,PLAN heights evidence,B5-phillips1854-dimensions-page.jpg,B5-heights,branch,no,section tag differs from kept row (B5-heights)
+PLAN-1854-phillips-routes-to-palace-map.jpg,images/PLAN-1854-phillips-routes-to-palace-map.jpg,PLAN railway arrival,1854-phillips-guide-railway-routes-map-leaf6.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+PLAN-1856-guide-screen-of-kings-queens-elevation.jpg,images/PLAN-1856-guide-screen-of-kings-queens-elevation.jpg,PLAN 1856 guide plate,B1-guide1856-p147900542.jpg,B1-guide1856,branch,no,section tag differs from kept row (B1-guide1856)
+S03-chatsworth-great-conservatory-19c.jpg,images/S03-chatsworth-great-conservatory-19c.jpg,S03,chatsworth-great-conservatory-19th-century.jpg,S03,both,no,
+S03-gigantic-waterlily-in-flower-chatsworth-iln-1849.jpg,images/S03-gigantic-waterlily-in-flower-chatsworth-iln-1849.jpg,S03,victoria-regia-iln-1849.jpg,S03,both,no,
+S03-great-conservatory-chatsworth-19c-photo.jpg,images/S03-great-conservatory-chatsworth-19c-photo.jpg,S03,chatsworth-great-conservatory-19th-century.jpg,S03,both,no,
+S03-lily-chatsworth-iln-1849.jpg,images/S03-lily-chatsworth-iln-1849.jpg,S03,victoria-regia-iln-1849.jpg,S03,both,no,
+S03-victoria-regia-fitch-1851.jpg,images/S03-victoria-regia-fitch-1851.jpg,S03,victoria-regia-expanded-flower-1851.jpg,S03,both,no,
+S04-court-for-king-cholera-1852.jpg,images/S04-court-for-king-cholera-1852.jpg,S04,king-cholera-1852.jpg,S04,both,no,
+S04-court-for-king-cholera-leech-1852.jpg,images/S04-court-for-king-cholera-leech-1852.jpg,S04,king-cholera-1852.jpg,S04,both,no,
+S05-henry-cole-executive-commissioner-1852.jpg,images/S05-henry-cole-executive-commissioner-1852.jpg,S05,henry-cole-1852.jpg,S05,both,no,
+S05-joseph-paxton-ellerby-1843.jpg,images/S05-joseph-paxton-ellerby-1843.jpg,S05,paxton-ellerby-c1843.jpg,S05,both,no,
+S05-paxton-portrait-oakley-c1850.jpg,images/S05-paxton-portrait-oakley-c1850.jpg,S05,paxton-oakley-c1850.jpg,S05,both,no,
+S05-prince-albert-1848.jpg,images/S05-prince-albert-1848.jpg,S05,prince-albert-1848.jpg,S05,both,no,
+S19-chance-flint-glass-disc-1851.jpg,images/S19-chance-flint-glass-disc-1851.jpg,S19,s19-chance-flint-glass-disc-1851.jpg,S19,both,no,
+S37-01-punch-1850-07-13-p21-mouser-palace-of-very-crystal.jpg,images/S37-01-punch-1850-07-13-p21-mouser-palace-of-very-crystal.jpg,S37,S37_punch-1850-vol19-p21-mouser-palace-of-very-crystal.jpg,S37,both,no,
+S41-01-medical-mans-plea-1851-p3-addition-to-paxton.jpg,images/S41-01-medical-mans-plea-1851-p3-addition-to-paxton.jpg,S41,S41_haden-1851-paxton-winter-garden-arcadia.jpg,S41,both,no,
+S41-medical-mans-plea-winter-garden-1851.jpg,images/S41-medical-mans-plea-winter-garden-1851.jpg,S41,S41_haden-1851-paxton-winter-garden-arcadia.jpg,S41,both,no,
+S44-01-phillips-guide-1854-route-map-to-the-crystal-palace.jpg,images/S44-01-phillips-guide-1854-route-map-to-the-crystal-palace.jpg,S44,1854-phillips-guide-railway-routes-map-leaf6.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+S45-removal-pamphlet-title.jpg,images/S45-removal-pamphlet-title.jpg,S45-47,S45-removal-pamphlet-1852-page1.jpg,S45,branch,yes,section tag differs from kept row (S45); STAGE-19 MISMATCH: row is NAMED title but holds the pamphlet page-1 text content (byte-identical to kept page-1 file); the actual title page is a separate S45-row file
+S47-sydenham-interior-stereo-1853.jpg,images/S47-sydenham-interior-stereo-1853.jpg,S47,s57-negretti-zambra-interior-1853-rijks.jpg,S57,both,no,section tag differs from kept row (S57); cross-section alias: same interior filed under S47 here and S57 on the kept row
+S51-01_delamotte_south-transept-south-tower_water-temple_1854.jpg,images/S51-01_delamotte_south-transept-south-tower_water-temple_1854.jpg,S51,s51-south-transept-south-tower-water-temple.jpg,S51,both,no,
+S51-02_delamotte_centre-transept-north-tower_south-wing_1854.jpg,images/S51-02_delamotte_centre-transept-north-tower_south-wing_1854.jpg,S51,s51-centre-transept-north-tower-south-wing.jpg,S51,both,no,
+S51-north-tower-south-wing-1854.jpg,images/S51-north-tower-south-wing-1854.jpg,S51,s51-centre-transept-north-tower-south-wing.jpg,S51,both,no,
+S51-south-tower-water-temple-1854.jpg,images/S51-south-tower-water-temple-1854.jpg,S51,s51-south-transept-south-tower-water-temple.jpg,S51,both,no,
+S53-01_iguanodon-dinner_ILN-woodcut_1854.jpg,images/S53-01_iguanodon-dinner_ILN-woodcut_1854.jpg,S53,s53-iguanodon-dinner-woodcut.jpg,S53,both,no,
+S53-02_iln-1854-01-07_p22_dinner-page.jpg,images/S53-02_iln-1854-01-07_p22_dinner-page.jpg,S53,s53-iln-1854-01-07-p22-dinner.jpg,S53,both,no,
+S53-iguanodon-dinner-woodcut-1854.jpg,images/S53-iguanodon-dinner-woodcut-1854.jpg,S53,s53-iguanodon-dinner-woodcut.jpg,S53,both,no,
+S55-01_delamotte_opening-ceremony_MET-DP109644.jpg,images/S55-01_delamotte_opening-ceremony_MET-DP109644.jpg,S55,s55-queen-victoria-reopening-delamotte-1854.jpg,S55,both,no,
+S56-plan-1856-guide-palace-and-park.jpg,images/S56-plan-1856-guide-palace-and-park.jpg,S56-S66 route plan,1856-guide-147900658.jpg,B-plans,both,no,section tag differs from kept row (B-plans)
+S57-02_roman-court_views-1854_plate-viii_BL.jpg,images/S57-02_roman-court_views-1854_plate-viii_BL.jpg,S57,s57-roman-court-plate-viii-1854.jpg,S57,both,no,
+S57-05_negretti-zambra_interior-stereo_RP-F-F14420_1853.jpg,images/S57-05_negretti-zambra_interior-stereo_RP-F-F14420_1853.jpg,S57,s57-negretti-zambra-interior-1853-rijks.jpg,S57,both,no,
+S57-general-view-water-temple-1854.jpg,images/S57-general-view-water-temple-1854.jpg,S57,S57-01_delamotte_general-view_water-temple_1854.jpg,S57,branch,no,
+S57-interior-negretti-zambra-1853.jpg,images/S57-interior-negretti-zambra-1853.jpg,S57,s57-negretti-zambra-interior-1853-rijks.jpg,S57,both,no,
+S66-view-1854-phillips-building-from-north.jpg,images/S66-view-1854-phillips-building-from-north.jpg,S66 north transept / fire context,B2-phillips1854-frontispiece.jpg,B2-phillips1854,branch,no,section tag differs from kept row (B2-phillips1854)
+S70-fa-cup-final-1899-illustration.jpg,images/S70-fa-cup-final-1899-illustration.jpg,S70,s70-1899-fa-cup-final-illustration.jpg,S70,both,no,
+S70-fa-cup-final-1901.jpg,images/S70-fa-cup-final-1901.jpg,S70,S70-fa-cup-final-1901-photo.jpg,S70,branch,no,
+S70-fa-cup-final-1905-panorama.jpg,images/S70-fa-cup-final-1905-panorama.jpg,S70,s70-1905-fa-cup-final-panorama.jpg,S70,both,no,
+S70-fa-cup-final-1913-programme.jpg,images/S70-fa-cup-final-1913-programme.jpg,S70,s70-1913-fa-cup-final-programme.jpg,S70,both,no,
+S87-os-plan-high-level-station-1895.png,images/S87-os-plan-high-level-station-1895.png,S87,s87-high-level-station-plan-1895.png,S87,both,no,
