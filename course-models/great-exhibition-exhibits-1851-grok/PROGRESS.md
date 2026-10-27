@@ -20,3 +20,9 @@ Misses: the stone itself is a few pixels in CP025_case (period-correct, but a 50
 
 ## e02 (2026-10-27): Osler glass faceted prisms + sparkle
 - glass(sparkle=True) Coat/Emission; 6-sided prism drops. DEPARTURES EX20. Checks 19/19.
+
+## e02 remainder (2026-10-27): July crimson Koh-i-Noor + steam on hammer blows
+- Parked e02 remainder cleared.
+- July enclosure: crimson panels, 6 gas jets, diamond emit (EX10 B). Steam puffs on ram impacts (EX13 C).
+- Route: `CP025_july`; lean renders include `CP025_july_start.png`, `CP024_ram_start_f025.png`.
+- Checks: 19/19. COVERAGE best paths → july / ram_f025.
