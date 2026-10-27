@@ -34,3 +34,6 @@ Misses: the stone itself is a few pixels in CP025_case (period-correct, but a 50
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## people/material 2026-10-27
+- people v3.1 keep CP024; revert CP025; lib 3.1

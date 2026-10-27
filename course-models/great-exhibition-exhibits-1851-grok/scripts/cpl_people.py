@@ -1,4 +1,4 @@
-"""Shim: import people v2 from this folder or the survey people/ tree."""
+"""Shim: import people v3 from this folder or the survey people/ tree."""
 from __future__ import annotations
 import sys
 from pathlib import Path
