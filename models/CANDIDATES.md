@@ -47,6 +47,10 @@ Sydenham 1854+ are different buildings — never blend their evidence
 | 26 | Sydenham water tower massing study (SCENE-BUILD-PLAN Wave 4.18) | Round-2 S51 findings (Brunel towers: begun Aug 1854, operational 2 Jun 1856; heights from the 1856 guide table vs 104/168 ft cross-check) | Medium — MASSING ONLY (the plan's rule): silhouette + height stated with datum; no detail claims | **Taken — Muse (round-2 builder), building now** → `models/sy-tower-study/` |
 | 27 | Crystal Palace park plateau marker, present day (SCENE-BUILD-PLAN Wave 4.19) | Modern park photographs (round 1 + round-2 S61/S73) — the surviving terrace/plateau edge and sphinx-less plinths as they stand | Medium — present-day state only | **Taken — Muse (round-2 builder), building now** → `models/park-now-plateau-marker/` |
 
+| 28 | Chatsworth Great Stove rib bay (SCENE-BUILD-PLAN Wave 5.20) | Chatsworth glasshouse views/sections in `references/muse-drive/images/` (Paxton's ridge-and-furrow precedent, 1836–40) | Medium — one rib bay from published sections; ancestor study for CP005, never dressed as the Palace itself | **Taken — Muse (round-2 builder), building now** → `models/chatsworth-glasshouse-rib-bay/` |
+| 29 | 1850 committee brick model (SCENE-BUILD-PLAN Wave 5.21) | The rejected brick scheme's model — ILN/period accounts of the Building Committee's brick design and its model (round 1) | Medium-low — the famous foil for CP007; form from period descriptions/engravings only | **Taken — Muse (round-2 builder), building now** → `models/committee-brick-model/` |
+| 30 | Hawkins dinosaur mould + work table (SCENE-BUILD-PLAN Wave 5.22) | Round-2 S53 recovery: ILN 7 Jan 1854 (the Hawkins dinner in the Iguanodon mould) + workshop accounts | Medium — the MOULD and table as workshop props; the dinosaurs themselves are sculptor work, never procedural | **Taken — Muse (round-2 builder), building now** → `models/hawkins-mould-and-table/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
