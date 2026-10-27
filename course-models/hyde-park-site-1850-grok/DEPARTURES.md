@@ -33,3 +33,6 @@ Frame: HP1851 crossing origin, X east, Y north, feet. Hyde Park 1850 only (no Sy
 | SD25 | Muse S13 refs read with `git show origin/muse-round2:…` into /workspace/tmp only; no Muse/Claude/Codex files edited | — | rule |
 | SD26 | s02: CP009 four-wheeled dray (2.4 ft wheels, 12 ft bed) with one 18 ft column being unloaded, draught horse + carter; dray form interpretive, not from a specific print | I | Downes/ILN show carted ironwork, no specific vehicle drawing used |
 | SD27 | s02: CP009 columns were already flat on bearers in s01; the "upright" read came from the row of 8 connecting pieces, so the fix is a camera retarget (end look → [182,-230.5,2.2]) + the dray rather than a re-stack | C | |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
