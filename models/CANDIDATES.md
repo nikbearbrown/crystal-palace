@@ -55,6 +55,8 @@ Sydenham 1854+ are different buildings — never blend their evidence
 
 | 32 | Sydenham water tower massing, photo-derived (Wave 4.18, evidence version) | Round-2 S51 photographs (Delamotte + Rijksmuseum) + Historic England (12-column lattice frame) | Medium — proportions photo-measured on two independent photos (agree ~1%); height 86 m adopted from the 280/282/284 ft record spread, datum unrecorded and stated | **Built** — `models/sy-water-tower-massing/` on main (8,472 tris) |
 
+| 33 | Sydenham concert organ front (SCENE-BUILD-PLAN Wave 5.23) | Round-1 gallery leads 0032/0057/0595 + Handel Festival / concert hall views in `references/muse-drive/images/` | Gated on the leads resolving to the organ's actual form (Gray & Davison organ for the central transept concerts); research-first build — spike report instead of a model if the evidence is thin | **Taken — Muse (round-2 builder), building now** → `models/sy-concert-organ-front/` |
+
 Notes for other builders:
 - Do NOT use `references/image-leads/contact-sheet.jpg` as primary evidence
   (provenance not established, mixed buildings/periods).
