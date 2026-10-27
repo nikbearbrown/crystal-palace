@@ -1,0 +1,253 @@
+{
+ "state": "dismantle",
+ "zones": {
+  "state": "dismantle",
+  "R": 9,
+  "G": 108,
+  "G_glass_slots": 0,
+  "vault": 16,
+  "girder": 1
+ },
+ "rows": [
+  {
+   "id": "K01",
+   "check": "CP031_joint_detail_start lens",
+   "target": "50",
+   "measured": "50.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "CP031_joint_detail_start no roll (camera X axis z)",
+   "target": "0",
+   "measured": "-0.0",
+   "ok": true
+  },
+  {
+   "id": "K03",
+   "check": "CP031_joint_detail_start eye height above standing surface (ft)",
+   "target": "5.25",
+   "measured": "5.25",
+   "ok": true
+  },
+  {
+   "id": "K04",
+   "check": "CP031_joint_detail_start clearance to nearest visible mesh (ft)",
+   "target": ">= 3",
+   "measured": "3.00 (EROOF1_t1-1_+192_-144)",
+   "ok": true
+  },
+  {
+   "id": "K01",
+   "check": "CP031_lateral_start lens",
+   "target": "35",
+   "measured": "35.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "CP031_lateral_start no roll (camera X axis z)",
+   "target": "0",
+   "measured": "-0.0",
+   "ok": true
+  },
+  {
+   "id": "K03",
+   "check": "CP031_lateral_start eye height above standing surface (ft)",
+   "target": "5.25",
+   "measured": "5.25",
+   "ok": true
+  },
+  {
+   "id": "K04",
+   "check": "CP031_lateral_start clearance to nearest visible mesh (ft)",
+   "target": ">= 3",
+   "measured": "5.24 (EFLOOR_BOARDS)",
+   "ok": true
+  },
+  {
+   "id": "K01",
+   "check": "CP031_lateral_end lens",
+   "target": "35",
+   "measured": "35.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "CP031_lateral_end no roll (camera X axis z)",
+   "target": "0",
+   "measured": "0.0",
+   "ok": true
+  },
+  {
+   "id": "K03",
+   "check": "CP031_lateral_end eye height above standing surface (ft)",
+   "target": "5.25",
+   "measured": "5.25",
+   "ok": true
+  },
+  {
+   "id": "K04",
+   "check": "CP031_lateral_end clearance to nearest visible mesh (ft)",
+   "target": ">= 3",
+   "measured": "5.24 (EFLOOR_BOARDS)",
+   "ok": true
+  },
+  {
+   "id": "K05",
+   "check": "CP031_lateral move length (m)",
+   "target": "<= 10 m",
+   "measured": "9.75",
+   "ok": true
+  },
+  {
+   "id": "K01",
+   "check": "REV_dismantle_aerial_start lens",
+   "target": "35",
+   "measured": "35.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "REV_dismantle_aerial_start no roll (camera X axis z)",
+   "target": "0",
+   "measured": "0.0",
+   "ok": true
+  },
+  {
+   "id": "K06",
+   "check": "rounds/d02_empty.blend size (MB)",
+   "target": "< 90",
+   "measured": "17.6",
+   "ok": true
+  },
+  {
+   "id": "K06",
+   "check": "rounds/d02_dismantle.blend size (MB)",
+   "target": "< 90",
+   "measured": "18.1",
+   "ok": true
+  },
+  {
+   "id": "K07",
+   "check": "no Sydenham-named data (Hyde Park 1851 only)",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'crowd' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'banners' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'sculpture' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'textiles' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'machinery' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'planters' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K09",
+   "check": "Muse plinths and benches cleared",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K10",
+   "check": "Muse crates present and credited",
+   "target": "> 0, credited",
+   "measured": "12, credited=True",
+   "ok": true
+  },
+  {
+   "id": "K11",
+   "check": "DISMANTLE: all vitrines gone",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K14",
+   "check": "home girder hidden while lowered",
+   "target": "all hidden",
+   "measured": "[True]",
+   "ok": true
+  },
+  {
+   "id": "K15",
+   "check": "lowered girder between floor and its seat (ft)",
+   "target": "0 < z < 19.17",
+   "measured": "7.00-10.00",
+   "ok": true
+  },
+  {
+   "id": "K16",
+   "check": "lowered girder clear of its columns (x, ft)",
+   "target": "156.4 < x < 179.6 (column faces)",
+   "measured": "156.60-179.40",
+   "ok": true
+  },
+  {
+   "id": "K17",
+   "check": "shores bear on the neighbour girder (top vs girder soffit, ft)",
+   "target": "19.17 +/- 0.15",
+   "measured": "19.17",
+   "ok": true
+  },
+  {
+   "id": "K18",
+   "check": "sheer-leg head above the girder line (ft)",
+   "target": "> 22.17 + 10",
+   "measured": "38.13",
+   "ok": true
+  },
+  {
+   "id": "K19",
+   "check": "zone R stripped / zone G glass-off units",
+   "target": "> 0 / > 0",
+   "measured": "9 / 108",
+   "ok": true
+  },
+  {
+   "id": "K20",
+   "check": "joint keys at the column head (ft from joint)",
+   "target": "< 3",
+   "measured": "0.55",
+   "ok": true
+  }
+ ],
+ "passed": 34,
+ "total": 34
+}

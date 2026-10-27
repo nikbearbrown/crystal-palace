@@ -22,16 +22,16 @@
    "end": {
     "pos_ft": [
      64,
-     -22,
+     -12,
      5.25
     ],
     "look_ft": [
-     96,
-     -36,
-     9
+     112,
+     -30,
+     8
     ]
    },
-   "use": "CP030 HP-EMPTY: the CP023 position, walk 29 ft (8.9 m) east toward the familiar nave column at (84,-36); packing cases where the machinery stood, porters"
+   "use": "CP030 HP-EMPTY: from the CP023 position, walk 24.7 ft (7.5 m) east into the emptied nave past the boxed locomotive (d02: end reframed off the packing case)"
   },
   {
    "id": "CP030_empty_aisle",
@@ -41,12 +41,12 @@
    ],
    "start": {
     "pos_ft": [
-     52,
+     56,
      -34,
      5.25
     ],
     "look_ft": [
-     45,
+     48,
      -150,
      4
     ]
