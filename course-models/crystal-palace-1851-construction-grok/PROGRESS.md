@@ -149,3 +149,6 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2: revert CP012 (exposure regression)
+
+## c09 (2026-10-27)
+KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, canvas rolls on floor; exposure match (gain~1.27). Source c04 → c09 via `polish_cp015_c09.py`. Pair `look/pairs_geo/CP015_blinds_start_pair.png`.
