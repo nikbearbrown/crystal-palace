@@ -1045,6 +1045,9 @@ if STATE in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54', 'LATE11', 'WAR', 'SY60')
     if STATE == 'SY60': exec(open(os.path.join(_sd, 'high_level.py')).read())   # r15 CP046
     if STATE in ('EARLY', 'CONCERT57', 'OPEN54') and not os.environ.get('SY_NO_COURTS') and os.path.exists(os.path.join(_sd, 'courts2.py')): exec(open(os.path.join(_sd, 'courts2.py')).read())
     if STATE == 'EARLY' and os.path.exists(os.path.join(_sd, 'waterworks.py')): exec(open(os.path.join(_sd, 'waterworks.py')).read())
+# r16 coverage audit cams
+if STATE in ('EARLY', 'LATE11') and os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'coverage_cams.py')):
+    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'coverage_cams.py')).read())
 # r15 CLEARANCE dressing (after states.py, which already ran above)
 if STATE == 'CLEARANCE':
     _sd = os.path.dirname(os.path.abspath(__file__))

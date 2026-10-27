@@ -8,11 +8,17 @@
 import math, random, bmesh
 from mathutils import Vector, Matrix
 WWC = coll('SY56_waterworks_running__18Jun1856')
-WSP = mat('water_spray_running', (0.93, 0.95, 0.98), 0.25)
+# r16: spray/foam read as running water — higher transmission, soft emission, slight roughness variation
+WSP = mat('water_spray_running', (0.88, 0.94, 0.98), 0.15)
 _b = WSP.node_tree.nodes['Principled BSDF']
-_b.inputs['Alpha'].default_value = 0.8; _b.inputs['Transmission Weight'].default_value = 0.3
-_b.inputs['Emission Color'].default_value = (0.92, 0.96, 1.0, 1); _b.inputs['Emission Strength'].default_value = 0.25
-FOAM = mat('water_foam_running', (0.86, 0.89, 0.90), 0.8)
+_b.inputs['Alpha'].default_value = 0.55; _b.inputs['Transmission Weight'].default_value = 0.85
+_b.inputs['IOR'].default_value = 1.33
+_b.inputs['Emission Color'].default_value = (0.85, 0.93, 1.0, 1); _b.inputs['Emission Strength'].default_value = 0.45
+FOAM = mat('water_foam_running', (0.95, 0.97, 0.99), 0.55)
+_f = FOAM.node_tree.nodes['Principled BSDF']
+_f.inputs['Alpha'].default_value = 0.92; _f.inputs['Transmission Weight'].default_value = 0.35
+_f.inputs['Emission Color'].default_value = (0.98, 0.99, 1.0, 1); _f.inputs['Emission Strength'].default_value = 0.8
+_f.inputs['Roughness'].default_value = 0.55
 SP = MB('waterworks_spray', WWC, WSP); FO = MB('waterworks_foam', WWC, FOAM); DR = MB('waterworks_drops', WWC, WSP)
 R13 = random.Random(18061856)
 def drop(x, y, z, s):
@@ -79,24 +85,27 @@ for dx in (420, 662):
         t = 2*math.pi*k/40; ex = math.copysign(abs(math.cos(t))**0.5, math.cos(t)); ey = math.copysign(abs(math.sin(t))**0.5, math.sin(t))
         p0 = (x_ + 372*ex, yM + 202*ey, zM + 3.5); p1 = (x_ + 330*ex, yM + 170*ey, zw)
         arc(p0, p1, 16, 0.45, 0.3); FO.cyl(p1[0], p1[1], zw - 0.05, zw + 0.12, 3.0, 2.0, seg=8)
-# --- cascades (L) running: white-water sheet falling off each step + foam where it lands; temple outfalls ---
+# --- cascades (L) running: thicker white-water sheets + vertical ribbons + foam (r16 quality) ---
 for dx in (500, 582):
     x_ = mdx(dx); ya_, yb_ = mdy(560), mdy(690); nstep = 16
     for i in range(nstep):
         y0_ = ya_ + (yb_-ya_)*i/nstep; y1_ = ya_ + (yb_-ya_)*(i+1)/nstep; z_ = zs((y0_+y1_)/2)
         zn = zs((y1_ + (y1_ - y0_)/2)) if i < nstep - 1 else zM + 2.9
-        # sheet over the lip (y1_ edge) falling to the next step's water level, slight forward curve
-        bmv = FO.bm
-        A = [(x_-11, y1_, z_ + 1.25), (x_+11, y1_, z_ + 1.25)]
-        B = [(x_-11, y1_ - 1.6, zn + 1.2), (x_+11, y1_ - 1.6, zn + 1.2)]
-        FO.poly([A[0], A[1], (x_+11, y1_ - 0.9, (z_ + zn)/2 + 1.3), (x_-11, y1_ - 0.9, (z_ + zn)/2 + 1.3)])
-        FO.poly([(x_-11, y1_ - 0.9, (z_ + zn)/2 + 1.3), (x_+11, y1_ - 0.9, (z_ + zn)/2 + 1.3), B[1], B[0]])
-        FO.box(x_-11, x_+11, y1_ - 4.5, y1_ - 1.2, zn + 1.2, zn + 1.45)                     # churned foam at the foot
-        for j in range(20): drop(x_ + R13.uniform(-11, 11), y1_ - R13.uniform(0.5, 4), zn + 1.2 + R13.uniform(0, 2.2), 0.22)
+        # wider sheet over the lip + mid ribbon so it reads as falling water from the side
+        A = [(x_-14, y1_, z_ + 1.35), (x_+14, y1_, z_ + 1.35)]
+        B = [(x_-14, y1_ - 2.4, zn + 1.15), (x_+14, y1_ - 2.4, zn + 1.15)]
+        midy = y1_ - 1.1; midz = (z_ + zn)/2 + 1.35
+        FO.poly([A[0], A[1], (x_+14, midy, midz), (x_-14, midy, midz)])
+        FO.poly([(x_-14, midy, midz), (x_+14, midy, midz), B[1], B[0]])
+        # vertical spray ribbons (falling streaks)
+        for sx in (-10, -5, 0, 5, 10):
+            SP.strut((x_ + sx, y1_ - 0.2, z_ + 1.4), (x_ + sx + R13.uniform(-0.4, 0.4), y1_ - 2.2, zn + 1.3), 0.55, 0.35)
+        FO.box(x_-14, x_+14, y1_ - 5.5, y1_ - 1.0, zn + 1.05, zn + 1.55)                     # churned foam at the foot
+        for j in range(40): drop(x_ + R13.uniform(-13, 13), y1_ - R13.uniform(0.3, 5), zn + 1.1 + R13.uniform(0, 2.8), 0.28)
     yJ = mdy(560); zJ = zs(yJ)
-    for cx_ in (-8, 0, 8):                                                                 # outfall spouts at the temple front
-        arc((x_ + cx_, yJ - 6, zJ + 3.6), (x_ + cx_, yJ - 14, zs(yJ - 14) + 1.3), 1.5, 1.2, 0.9, n=8)
-        FO.cyl(x_ + cx_, yJ - 14, zs(yJ - 14) + 1.2, zs(yJ - 14) + 1.4, 3.0, 2.0, seg=10)
+    for cx_ in (-10, -5, 0, 5, 10):                                                                 # denser outfall spouts
+        arc((x_ + cx_, yJ - 6, zJ + 3.6), (x_ + cx_, yJ - 14, zs(yJ - 14) + 1.3), 1.5, 1.4, 1.0, n=8)
+        FO.cyl(x_ + cx_, yJ - 14, zs(yJ - 14) + 1.2, zs(yJ - 14) + 1.45, 3.2, 2.2, seg=10)
 SP.done(); FO.done(); DR.done()
 bpy.data.objects['waterworks_spray']['great_centres_ft'] = [mdx(420), yM, mdx(662), yM]   # r14: for the jet-height D-check
 
@@ -127,6 +136,7 @@ for i in range(160):
 cam('CAM_CP042_terrace_overlook_35mm', (20, yU - 2, UT + EYE), (300, yM, zM + 60), 35)   # head of the centre flight
 cam('CAM_CP042_terrace_basin_35mm', (150, YPC + 40, LT + EYE), (231, YPC - 10, LT + 34), 35)
 cam('CAM_CP042_great_basins_35mm', (150, yM + 420, zs(yM + 420) + EYE), (560, yM - 40, zM + 70), 35)
-cam('CAM_CP042_cascade_50mm', (mdx(500) + 40, mdy(694), zs(mdy(694)) + EYE), (mdx(500), mdy(640), zs(mdy(640)) + 8), 50)
+# r16: side-on mid cascade — sheets + foam fill frame (prior south look-through framed palace/pool)
+cam('CAM_CP042_cascade_50mm', (mdx(500) + 55, mdy(625), zs(mdy(625)) + EYE + 4), (mdx(500), mdy(625), zs(mdy(625)) + 6), 50)
 people('ppl57_waterworks_visitors', WWC, VP)
 print('WATERWORKS visitors', len(VP))

@@ -109,3 +109,14 @@
 - Rebuilt SY60 + CLEARANCE after subway lights + approach cam fix.
 - Checks: r15_sy60 / r15_clearance — 0 FAIL.
 - Renders: r15_sy60 CP046 ×4, r15_clearance CP063 ×4 (re-render).
+
+## Checkpoint crystal-palace-sydenham-1856-grok quality round
+- Patched scripts for quality pass; rebuilds pending lean hero renders.
+
+## r16 (2026-10-27) — quality + coverage fill
+- EARLY `sydenham-1856-r16.blend` (~18.5 MB): waterworks + CP037/CP044 coverage.
+- LATE11 `sydenham-late11-r16.blend` (~13.5 MB): CP051/052/054.
+- OPEN54 `sydenham-open54-r16.blend` (~15 MB): densified crowds ~38k.
+- Lean heroes 1280×720 / 28 spp → `renders/r16/r16_CAM_CP{037,042,044,035,051,052,054}_*.png`.
+- Soft cam-block hints: none on park; 7 ft clear zone kept.
+- Local commit. NOT pushed.

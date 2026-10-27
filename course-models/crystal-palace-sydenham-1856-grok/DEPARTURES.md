@@ -297,3 +297,15 @@ New scripts: `scripts/eras.py` (BUILD53 / OPEN54 / LATE11 / WAR dressing), `scri
 - **D-R15-S-LIGHT I**: subway AREA lights along vault (cream tungsten); sun alone left CP046 black underground.
 - **D-R15-S-CAM I**: `CAM_CP046_hl_approach_28mm` moved to Parade looking north at booking/shed (was inside shed facing S wall).
 - **D-R15-S-EXIT I**: subway exit lookat retargeted toward palace GF emergence.
+
+## r16 quality (2026-10-27)
+- D-R16-O1 R: OPEN54 densified toward ~40k via people() instancing (nave/galleries/terrace/park lawn)
+- D-R16-W1 I: cascade sheets thicker + vertical spray ribbons; FOAM/WSP higher transmission/emission
+- D-R16-W2 I: CAM_CP042_cascade_50mm side-on mid-cascade (was look-through to palace/pool)
+- D-R16-P1 I: people57 taller top hats, broader frock coats, wider crinolines; hero ring outside 7 ft clear zone
+
+## r16 coverage + quality (2026-10-27)
+- **D-R16-C1 I** `scripts/coverage_cams.py`: EARLY CP037 taller nave cam; CP044 pay desks / guidebook stall / refreshment counter + clerks (south aisle placement U).
+- **D-R16-C2 I** LATE11 CP051 electric pendant fittings + warm POINT lights + tech cabinets; CP052 scaffold towers + reglazing gang on garden-front glazing; CP054 1913 Plymouth rescue flags + terrace crowd (~2200).
+- **D-R16-C3 R** OPEN54 densify: people 20983 + terrace 8118 + park 9117 (~38k toward 40k storyboard).
+- **D-R16-W3 I** Cascade water materials already boosted in waterworks.py (transmission/emission); side-on CP042 cascade hero.

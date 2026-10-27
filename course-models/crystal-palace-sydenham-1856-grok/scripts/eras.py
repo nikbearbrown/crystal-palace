@@ -297,34 +297,44 @@ if STATE == 'OPEN54':
         x = -120 - k*6; pts.append((x, -5, 0, TIDX['yeoman'] if k % 3 else TIDX['courtier_blk'], face_rot(1, 0), 1.0)); pts.append((x, 5, 0, TIDX['yeoman'] if k % 3 else TIDX['courtier_scar'], face_rot(1, 0), 1.0))
     for k, t in enumerate(('courtier_blk', 'courtier_scar', 'courtier_blk', 'courtier_blk', 'courtier_scar', 'woman_st_1', 'woman_st_5', 'man_st_3')):
         pts.append((-232 - (k // 2)*7, -3 + (k % 2)*6, 0, TIDX[t], face_rot(1, 0), 1.0))
-    # crowds lining the nave behind barriers, in the transept stands, the galleries (D-R14-O2: ~40,000 present R; modelled ~10k)
-    for x0 in range(-780, -60, 3):
+    # crowds lining the nave behind barriers, in the transept stands, the galleries
+    # r16 quality: densify via people() instancing toward ~40,000 present (R); prior ~8.8k
+    for x0 in range(-780, -40, 1):
         for sy in (-1, 1):
-            for j in range(6):
-                y = sy * (14 + j * 2.6 + R_.uniform(-0.6, 0.6)); x = x0 + R_.uniform(-1, 1)
-                if R_.random() < 0.85: pts.append((x, y, 0, public(R_), face_rot(0, -sy) + R_.uniform(-0.5, 0.5), R_.uniform(0.95, 1.04)))
+            for j in range(9):
+                y = sy * (12 + j * 2.2 + R_.uniform(-0.5, 0.5)); x = x0 + R_.uniform(-0.4, 0.4)
+                if R_.random() < 0.92: pts.append((x, y, 0, public(R_), face_rot(0, -sy) + R_.uniform(-0.5, 0.5), R_.uniform(0.95, 1.04)))
     for sy in (-1, 1):
-        for k in range(10):
-            yy = sy*(40 + k*7) + (sy*3.5 if sy > 0 else -3.5); zz = 1.2 + k*2.0
-            for xx in [a for a in [i_ * 2.6 - 54 for i_ in range(42)]]:
-                if R_.random() < 0.9: pts.append((xx + R_.uniform(-0.4, 0.4), yy, zz, public(R_, seated=True), face_rot(0, -sy), 1.0))
+        for k in range(12):
+            yy = sy*(38 + k*6.5) + (sy*3.2 if sy > 0 else -3.2); zz = 1.0 + k*1.85
+            for xx in [a for a in [i_ * 2.0 - 56 for i_ in range(58)]]:
+                if R_.random() < 0.93: pts.append((xx + R_.uniform(-0.35, 0.35), yy, zz, public(R_, seated=True), face_rot(0, -sy), 1.0))
     for k in range(14):
         zz = 2 + k*2.6; xx = 70 + k*6.5 + 3
         for yy in [i_ * 2.4 - 102 for i_ in range(86)]:
-            t = TIDX['chorus_w_0' if (yy < 0) else 'chorus_m_0'] if k > 3 else R_.choice((TIDX['band_violin'], TIDX['band_cello'], TIDX['band_wind'], TIDX['band_brass']))
-            pts.append((xx, yy, zz, t, face_rot(-1, 0), 1.0))
+            tt = TIDX['chorus_w_0' if (yy < 0) else 'chorus_m_0'] if k > 3 else R_.choice((TIDX['band_violin'], TIDX['band_cello'], TIDX['band_wind'], TIDX['band_brass']))
+            pts.append((xx, yy, zz, tt, face_rot(-1, 0), 1.0))
     pts.append((64, 0, 1.5, TIDX['conductor'], face_rot(1, 0), 1.0))
-    for x0 in range(-790, 790, 4):          # gallery fronts both sides of the nave
+    for x0 in range(-790, 790, 2):          # denser gallery fronts
         if abs(x0) < 100: continue
         for sy in (-1, 1):
-            for j in range(2): pts.append((x0 + R_.uniform(-1, 1), sy*(38 + j*2.6), GALLERY_FLOOR, public(R_), face_rot(0, -sy), 1.0))
-    for x0 in range(-96, 97, 3):            # transept galleries
+            for j in range(3): pts.append((x0 + R_.uniform(-0.8, 0.8), sy*(36 + j*2.4), GALLERY_FLOOR, public(R_), face_rot(0, -sy), 1.0))
+    for x0 in range(-96, 97, 2):            # denser transept galleries
         for sy in (-1, 1):
-            for j in range(2): pts.append((x0, sy*(158 - j*2.6), GALLERY_FLOOR, public(R_), face_rot(0, -sy), 1.0))
+            for j in range(3): pts.append((x0, sy*(158 - j*2.4), GALLERY_FLOOR, public(R_), face_rot(0, -sy), 1.0))
+    # nave aisle fill (standing behind first rows)
+    for x0 in range(-760, -80, 2):
+        for sy in (-1, 1):
+            for j in range(3):
+                if R_.random() < 0.7:
+                    pts.append((x0 + R_.uniform(-0.5, 0.5), sy*(4.5 + j*2.0), 0, public(R_), face_rot(0, -sy), R_.uniform(0.95, 1.03)))
     PP = people('ppl54_opening_day', O, pts)
-    ext = crowd_pts(R_, (-700, 700, yU + 6, -175), 1800, lambda x, y: UT, lambda r: public(r), lambda x, y: face_rot(0, 1))
+    # terrace + park lawn densify (opening-day grounds packed R)
+    ext = crowd_pts(R_, (-700, 700, yU + 6, -175), 8000, lambda x, y: UT, lambda r: public(r), lambda x, y: face_rot(0, 1))
     PE = people('ppl54_terrace_crowd', O, ext)
-    print('OPEN54 people', PP['people_count'], 'terrace', PE['people_count'])
+    park = crowd_pts(R_, (-650, 650, yU - BANK - 80, yU - BANK - 8), 9000, lambda x, y: LT, lambda r: public(r), lambda x, y: face_rot(0, 1))
+    PK = people('ppl54_park_lawn_crowd', O, park)
+    print('OPEN54 people', PP['people_count'], 'terrace', PE['people_count'], 'park', PK['people_count'])
     exec(open(os.path.join(_sd14, 'station.py')).read())
 
 # =====================================================================================================================
