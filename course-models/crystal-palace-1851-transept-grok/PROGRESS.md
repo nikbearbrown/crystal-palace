@@ -58,3 +58,21 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
     - Good: Talbot composition now reads (railing foreground, fountain on axis, elm behind, statues lining the nave edge); Owen set unchanged and stable.
     - Misses: the fountain is now too near/large in the Talbot frame (the photo puts it ~60 ft further south); the south end fan still reads light, not as the dark radiating lunette; REV_combo still clips the roofs to white on BOTH halves. Part of this is exposure in the transept scene. Part is a real override bug (RL03, found in exterior x04): Claude's roof mesh has no UVs, so our UV sash-bar mask painted his whole sheet as bar. Fixed in render_views.py, and REV_combo was re-rendered as r07b with the exterior roof-glass recipe (RL04), so the roofs now read grey glass, but Claude's flat 2-poly sheets still look flat; no exhibits or plants under the galleries.
 - Next (r08): move the REF_talbot camera north ~40 ft along the axis (or a 35 mm with a lower target) so the fountain sits at mid-ground; darken the lunette sash bars and add the radial fan glazing bars; give REV_combo its own exposure (-0.6 like the exterior EX10) so the seam check is meaningful; exhibit and plant proxies under the galleries.
+- r08 (scripts/build_transept.py, checks 44/44 in checks/r08; new PROPS_muse check). Renders: renders/r08 (1280x720, 48 spp); compare sheets compare/r08_*.jpg. No Owen set this round.
+  - Changes:
+    - Exhibit proxies appended read-only from Muse's models/ on origin/main adb0d2c, credited to Muse on each collection and instance (MC03, MC08): 48 vitrines (hp-crate-and-display-case), paired per bay down both aisles under the galleries; 12 display plinths (display-plinth) on the aisle line; 4 benches (park-bench) in the transept.
+    - REV_combo uses its own exposure (−0.6) and the exterior roof-glass recipe on both halves (RL04).
+  - Self-score r08: 8.0/10.
+    - Good: the aisles now read as an exhibition, with cases in rhythm with the bays. The combined review roofs read as glass, not white.
+    - Misses:
+      - The Talbot framing is unchanged (fountain still too near; C06 constraint).
+      - The south lunette fan is still light.
+      - Muse's ebonised plinths read as black boxes in CP017 and are empty.
+      - There are no plants under the galleries.
+      - Claude's roofs are still flat sheets in REV_combo.
+- Next (r09):
+  - A ridge-and-furrow proxy for the combined-review roofs, instanced from Muse's hp-roof-furrow-bay (credited).
+  - Statue proxies on the Muse plinths, or plinths moved under our statues.
+  - Darken the lunette bars.
+  - A Talbot camera with a lower target.
+  - Planter proxies.

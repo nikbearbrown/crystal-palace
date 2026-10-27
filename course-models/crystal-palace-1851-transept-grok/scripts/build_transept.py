@@ -916,6 +916,41 @@ except TypeError:
     pass
 scene.view_settings.exposure = -0.25
 
+# ---------------- r08: exhibit proxies appended from Muse's models/ (read-only extract, origin/main adb0d2c; MC03) ----------------
+MUSE_DIR = "/workspace/models-main-ro/models"
+def muse_prop(fname, keep, offset, cname):
+    path = os.path.join(MUSE_DIR, fname, fname + ".blend")
+    if not os.path.exists(path): return None
+    with bpy.data.libraries.load(path, link=False) as (src, dst):
+        dst.objects = [n for n in src.objects if keep(n)]
+    mc = bpy.data.collections.new(cname); mc.instance_offset = offset
+    mc["credit"] = f"Muse, models/{fname} (origin/main adb0d2c), appended read-only"
+    for o in dst.objects:
+        if o and o.type == 'MESH': mc.objects.link(o)
+    return mc
+EXC = coll("EXHIBITS", ROOT); exhibits = []
+def put(mc, name, x, y, rz, kind):
+    e = bpy.data.objects.new(name, None); e.instance_type = 'COLLECTION'; e.instance_collection = mc
+    e.location = (ft(x), ft(y), 0); e.rotation_euler = (0, 0, rz); EXC.objects.link(e)
+    e["part_kind"] = kind; e["credit"] = "Muse"; exhibits.append(e)
+CASE = muse_prop("hp-crate-and-display-case", lambda n: n.startswith("Case"), (1.4, 0.0, 0.0), "MUSE_DisplayCase_by_Muse")
+BENCH = muse_prop("park-bench", lambda n: n not in ("Ground", "Backdrop"), (0.0, 0.0, 0.0), "MUSE_Bench_by_Muse")
+PLINTH = muse_prop("display-plinth", lambda n: n == "DisplayPlinth", (0.0, 0.0, 0.0), "MUSE_Plinth_by_Muse")
+if CASE:   # paired vitrines down both transept aisles under the galleries (|x| 36-60), one pair per 24 ft bay
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for j in range(6):
+                yc = sy * (48 + 24 * j)
+                for dy in (-5.5, 5.5): put(CASE, f"EXH_CASE_{sx:+d}{sy:+d}_{j}_{dy:+.0f}", sx * 46.5, yc + dy, math.pi / 2, "exhibit_case")
+if PLINTH:  # empty plinths along the aisle line facing the transept (sculpture to follow; plinths stand where Talbot shows statues)
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for j in range(3): put(PLINTH, f"EXH_PLINTH_{sx:+d}{sy:+d}_{j}", sx * 37.5, sy * (60 + 48 * j), -sx * math.pi / 2, "exhibit_plinth")
+if BENCH:   # benches in the transept, east side near the fountain and west side to the north
+    for (x, y, rz) in ((22, -46, -math.pi / 2), (22, 46, -math.pi / 2), (-22, 116, math.pi / 2), (-22, 158, math.pi / 2)):   # seat front (Muse -y) faces the axis
+        put(BENCH, f"EXH_BENCH_{x:+d}_{y:+d}", x, y, rz, "bench")
+print("MUSE_EXHIBITS", len(exhibits), flush=True)
+
 # ---------------- cameras (storyboard v001 grammar) ----------------
 CAMS = bpy.data.collections.new("CAMERAS_GROK"); scene.collection.children.link(CAMS)
 def cam(name, loc_ft, look_ft, lens, ortho=None, sensor=36.0):
