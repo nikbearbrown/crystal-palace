@@ -36,3 +36,7 @@
 
 ## r17 WEAK→OK done (2026-10-27 04:22 UTC)
 - CP065/066/073 promoted ≥7. Heroes r17k. Subway seal + stadium track + sphinx framing. Local commit. NOT pushed.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root
