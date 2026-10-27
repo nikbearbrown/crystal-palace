@@ -17,3 +17,10 @@ Branch `grok-workshop-1850` (worktree /workspace/crystal-palace-workshop). Commi
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## w02 (2026-10-27) — belts, shavings, glass-house depth (CP011)
+- Built `rounds/w02_workshop.blend` from `build_workshop.py`: drive belts on sash/gutter machines; floor shaving clumps; 6 split cylinders by kiln; stronger glory/kiln bloom; greener sheet glass; darker glass-house world (0.22).
+- Route: added `CP011_loading` cam.
+- `render_views.py`: `--keep-lighting` support.
+- Keep-lighting lean: `renders/w02/CP011_shop_start.png`, `CP011_loading_start.png`.
+- Honest pair keep-better: **KEEP** CP011 (belts + shavings + darker glass house read clearly).

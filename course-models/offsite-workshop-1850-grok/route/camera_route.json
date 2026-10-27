@@ -86,6 +86,24 @@
     ]
    },
    "note": "columns and a girder on wagons at the siding"
+  },
+  {
+   "id": "CP011_loading",
+   "storyboard": "CP011",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     -2.0,
+     -22.0,
+     5.25
+    ],
+    "look_ft": [
+     -20.0,
+     -8.0,
+     6.0
+    ]
+   },
+   "note": "w02: interior from loading door toward sash machines / belt runs"
   }
  ]
 }

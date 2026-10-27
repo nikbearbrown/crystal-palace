@@ -26,3 +26,13 @@ Grades:
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## w02 polish (2026-10-27)
+
+| id | decision | evidence | grade |
+|---|---|---|---|
+| W17 | Drive belts from line shaft to sash-bar and gutter machines (3 belt runs) | Line-shaft works practice; prior build had shaft but no belts | C |
+| W18 | Wood shaving clumps under benches (48) | Machining debris staging | C |
+| W19 | Six split cylinders staged by the flattening kiln | Cylinder process (split before flatten) | B |
+| W20 | Darker glass-house world strength 0.22; stronger glory/kiln emission; greener sheet glass | Glass house blew bright / sheets read chalky | C |
+| W21 | CP011_loading camera from loading-door interior toward siding | Preview backlog: interior wagon/loading view | C |
