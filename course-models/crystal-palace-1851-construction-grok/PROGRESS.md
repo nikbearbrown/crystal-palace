@@ -143,3 +143,6 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## people/material 2026-10-27
+- people v3.1 keep CP012; lib 3.1
