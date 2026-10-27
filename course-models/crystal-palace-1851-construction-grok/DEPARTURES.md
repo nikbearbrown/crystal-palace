@@ -68,3 +68,12 @@ inference from a period image; C = staging judgement for the film (labelled as s
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## c08 CP013 polish (2026-10-27)
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| CN43 | Iron joinery straps at ridge ends of bars in CP013_sash view + ridge bolts | Bare timber ridges; Paxton joinery straps inferred | C |
+| CN44 | Underside condensation grooves on near-cam sash bars | Downes/Paxton sash-bar grooves; prior bars read smooth | B |
+| CN45 | Platform dressing: putty barrels/pats, loose 49×10 panes, sash-bar offcut bundles | Glazing stage empty next to CP013 cams | C |
+| CN46 | GT_Timber noise grit + greener GT_RoofGlassBuild milk | Cream plastic timber; glass too chalky | C |
