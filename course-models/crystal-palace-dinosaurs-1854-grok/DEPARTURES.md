@@ -51,3 +51,15 @@ Units in the scripts are feet. Coordinates: +X runs east along the lake, +Y is n
   fire-extent plan dated 12 Jan 1867 → set rounds for **CP047** and **CP048**.
 - **S87** (muse-round2): 1895 plan + 1908 view of the High Level station
   → set rounds for **CP046** and **CP065**.
+
+## r05 CANDIDATE (dinosaurs only; trees/water = r03 KEEP)
+
+- **D-DINO-02 I** Both park Iguanodon slots use Muse `models/iguanodon` (append-only).
+  Recumbent = original sprawl pose; standing slot = mirrored re-posed copy of the same
+  Muse animal (not an upright quadruped). Logged because a convincing procedural standing
+  build was not achievable after r04 rejection. Credit: Muse package on main.
+- CP043b reframed 50 mm / eye ~1.65 m as Muse-iguanodon hero; lake/island edge behind.
+- Megalosaurus / Hylaeosaurus / plesiosaurs / ichthyosaurs: stone/sage Voronoi paint only
+  (r03 meshes). Trees and `lake_water_still` untouched.
+- CP043b cam: north of Muse looking south so lake/island edge is behind; 50 mm, eye ~1.85 m; shift_y −0.06 to reduce empty foreground grass. Full Muse length kept in frame.
+- Muse `IguanodonHide` weathered in-cand toward stone-grey/sage (Voronoi dirt + mix); Muse mesh untouched (append-only).
