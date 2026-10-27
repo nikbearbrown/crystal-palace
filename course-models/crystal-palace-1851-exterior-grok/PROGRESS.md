@@ -141,3 +141,11 @@ Claude's frame is used as-is: metres, origin at the crossing, X east, Y north. H
 - Rebuild of x07 with the parked backlog items (boards albedo already in).
 - Build: `rounds/x07.blend`. Checks: 31/31.
 - Lean renders: `renders/x07` — EXT_SE_34, EXT_NE_strip, PLATE_V_east_ortho (24 spp).
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root

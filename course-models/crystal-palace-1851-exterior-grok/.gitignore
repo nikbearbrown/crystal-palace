@@ -1,2 +1,6 @@
 *.blend1
 *.glb
+__pycache__/
+*.blend1
+*.glb
+.DS_Store
