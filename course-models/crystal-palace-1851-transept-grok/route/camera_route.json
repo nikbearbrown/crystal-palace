@@ -1,237 +1,237 @@
 {
- "units": "feet for pos_ft and look_ft (x east, y north, z up, origin at the crossing, floor 0); ortho_m in metres",
- "grammar": "storyboard v001: eye height 1.6 m = 5.25 ft; 28 mm interiors, 35 mm approaches, 50 mm details on a 36 mm sensor; level walks 0.7-1.0 m/s, no roll, no wall or branch penetration",
- "shots": [
-  {
-   "id": "REV_ext34",
-   "use": "review render: exterior three-quarter from the south-east",
-   "lens_mm": 35,
-   "start": {
-    "pos_ft": [
-     260,
-     -470,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     -90,
-     46
-    ]
-   }
-  },
-  {
-   "id": "REV_south",
-   "use": "review render: south facade straight on at eye level",
-   "lens_mm": 28,
-   "start": {
-    "pos_ft": [
-     0,
-     -420,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     -204,
-     46
-    ]
-   }
-  },
-  {
-   "id": "PLATE_IV_south_ortho",
-   "use": "compare with Downes Plate IV (south elevation, shortened drawing) and the transept end of Plate VII; the model is only the 264 ft transept block",
-   "lens_mm": 50,
-   "ortho_m": 86,
-   "start": {
-    "pos_ft": [
-     0,
-     -700,
-     52
-    ],
-    "look_ft": [
-     0,
-     0,
-     52
-    ]
-   }
-  },
-  {
-   "id": "CP017_park_inside",
-   "use": "CP017: walk south down the west transept aisle toward the south elm, stop 20 ft short of the canopy edge (tree line), look up: canopy, canopy-to-vault gap and the dark south fan in one frame (r06 re-stage, see DEPARTURES C-row)",
-   "lens_mm": 28,
-   "speed_mps": 0.85,
-   "start": {
-    "pos_ft": [
-     -28,
-     -30,
-     5.25
-    ],
-    "look_ft": [
-     -28,
-     -140,
-     5.25
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     -28,
-     -84,
-     5.25
-    ],
-    "look_ft": [
-     4,
-     -122,
-     66
-    ]
-   }
-  },
-  {
-   "id": "CP008_build_around",
-   "use": "CP008: walk 5 m toward the south elm, stop, tilt up",
-   "lens_mm": 28,
-   "speed_mps": 0.8,
-   "start": {
-    "pos_ft": [
-     -6,
-     -84,
-     5.25
-    ],
-    "look_ft": [
-     3,
-     -128,
-     8
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     -4.5,
-     -100.4,
-     5.25
-    ],
-    "look_ft": [
-     4,
-     -128,
-     58
-    ]
-   }
-  },
-  {
-   "id": "REF_talbot",
-   "use": "matched to Talbot 'Transept looking south' 1851 (portrait)",
-   "lens_mm": 35,
-   "start": {
-    "pos_ft": [
-     0,
-     70,
-     9
-    ],
-    "look_ft": [
-     0,
-     -204,
-     34
-    ]
-   }
-  },
-  {
-   "id": "REF_absolon",
-   "use": "matched to Absolon 'The Transept from the South Gallery'",
-   "lens_mm": 28,
-   "start": {
-    "pos_ft": [
-     -14,
-     -176,
-     28.4
-    ],
-    "look_ft": [
-     0,
-     120,
-     34
-    ]
-   }
-  },
-  {
-   "id": "REF_elm_north",
-   "use": "matched to the empty-transept photograph looking north at the elm",
-   "lens_mm": 28,
-   "start": {
-    "pos_ft": [
-     8,
-     -30,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     204,
-     44
-    ]
-   }
-  },
-  {
-   "id": "REV_combo",
-   "use": "review render: transept with Claude's west frame appended",
-   "lens_mm": 35,
-   "start": {
-    "pos_ft": [
-     -470,
-     -560,
-     190
-    ],
-    "look_ft": [
-     -170,
-     0,
-     30
-    ]
-   }
-  },
-  {
-   "id": "OPEN_gallery",
-   "use": "opening day CP020/CP021: from the north cross gallery looking south over the crossing (fountain not yet built)",
-   "lens_mm": 28,
-   "start": {
-    "pos_ft": [
-     -28,
-     192,
-     28.5
-    ],
-    "look_ft": [
-     0,
-     -60,
-     14
-    ]
-   }
-  },
-  {
-   "id": "REV_int_up",
-   "use": "review render: interior looking up the transept under the vault with the elms",
-   "lens_mm": 28,
-   "start": {
-    "pos_ft": [
-     -20,
-     -40,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     160,
-     60
-    ]
-   }
-  },
-  {
-   "id": "DET_fountain",
-   "use": "detail: the Osler crystal fountain at the crossing, 50 mm",
-   "lens_mm": 50,
-   "start": {
-    "pos_ft": [
-     -30,
-     -52,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     0,
-     12
-    ]
-   }
-  }
- ]
+  "units": "feet for pos_ft and look_ft (x east, y north, z up, origin at the crossing, floor 0); ortho_m in metres",
+  "grammar": "storyboard v001: eye height 1.6 m = 5.25 ft; 28 mm interiors, 35 mm approaches, 50 mm details on a 36 mm sensor; level walks 0.7-1.0 m/s, no roll, no wall or branch penetration",
+  "shots": [
+    {
+      "id": "REV_ext34",
+      "use": "review render: exterior three-quarter from the south-east",
+      "lens_mm": 35,
+      "start": {
+        "pos_ft": [
+          260,
+          -470,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          -90,
+          46
+        ]
+      }
+    },
+    {
+      "id": "REV_south",
+      "use": "review render: south facade straight on at eye level",
+      "lens_mm": 28,
+      "start": {
+        "pos_ft": [
+          0,
+          -420,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          -204,
+          46
+        ]
+      }
+    },
+    {
+      "id": "PLATE_IV_south_ortho",
+      "use": "compare with Downes Plate IV (south elevation, shortened drawing) and the transept end of Plate VII; the model is only the 264 ft transept block",
+      "lens_mm": 50,
+      "ortho_m": 86,
+      "start": {
+        "pos_ft": [
+          0,
+          -700,
+          52
+        ],
+        "look_ft": [
+          0,
+          0,
+          52
+        ]
+      }
+    },
+    {
+      "id": "CP017_park_inside",
+      "use": "CP017: walk south down the west transept aisle toward the south elm, stop 20 ft short of the canopy edge (tree line), look up: canopy, canopy-to-vault gap and the dark south fan in one frame (r06 re-stage, see DEPARTURES C-row)",
+      "lens_mm": 28,
+      "speed_mps": 0.85,
+      "start": {
+        "pos_ft": [
+          -28,
+          -30,
+          5.25
+        ],
+        "look_ft": [
+          -28,
+          -140,
+          5.25
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          -28,
+          -84,
+          5.25
+        ],
+        "look_ft": [
+          4,
+          -122,
+          66
+        ]
+      }
+    },
+    {
+      "id": "CP008_build_around",
+      "use": "CP008: walk 5 m toward the south elm, stop, tilt up",
+      "lens_mm": 28,
+      "speed_mps": 0.8,
+      "start": {
+        "pos_ft": [
+          -6,
+          -84,
+          5.25
+        ],
+        "look_ft": [
+          3,
+          -128,
+          8
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          -4.5,
+          -100.4,
+          5.25
+        ],
+        "look_ft": [
+          4,
+          -128,
+          58
+        ]
+      }
+    },
+    {
+      "id": "REF_talbot",
+      "use": "matched to Talbot 'Transept looking south' 1851 (portrait); r07: raised to the gallery-rail sightline (24 ft) with a level look. It could not move back 30 ft, because ELM_NORTH2's crown starts at y=76 (C06)",
+      "lens_mm": 35,
+      "start": {
+        "pos_ft": [
+          -6,
+          70,
+          24
+        ],
+        "look_ft": [
+          -6,
+          -204,
+          24
+        ]
+      }
+    },
+    {
+      "id": "REF_absolon",
+      "use": "matched to Absolon 'The Transept from the South Gallery'",
+      "lens_mm": 28,
+      "start": {
+        "pos_ft": [
+          -14,
+          -176,
+          28.4
+        ],
+        "look_ft": [
+          0,
+          120,
+          34
+        ]
+      }
+    },
+    {
+      "id": "REF_elm_north",
+      "use": "matched to the empty-transept photograph looking north at the elm",
+      "lens_mm": 28,
+      "start": {
+        "pos_ft": [
+          8,
+          -30,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          204,
+          44
+        ]
+      }
+    },
+    {
+      "id": "REV_combo",
+      "use": "review render: transept with Claude's west frame appended",
+      "lens_mm": 35,
+      "start": {
+        "pos_ft": [
+          -470,
+          -560,
+          190
+        ],
+        "look_ft": [
+          -170,
+          0,
+          30
+        ]
+      }
+    },
+    {
+      "id": "OPEN_gallery",
+      "use": "opening day CP020/CP021: from the north cross gallery looking south over the crossing (fountain not yet built)",
+      "lens_mm": 28,
+      "start": {
+        "pos_ft": [
+          -28,
+          192,
+          28.5
+        ],
+        "look_ft": [
+          0,
+          -60,
+          14
+        ]
+      }
+    },
+    {
+      "id": "REV_int_up",
+      "use": "review render: interior looking up the transept under the vault with the elms",
+      "lens_mm": 28,
+      "start": {
+        "pos_ft": [
+          -20,
+          -40,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          160,
+          60
+        ]
+      }
+    },
+    {
+      "id": "DET_fountain",
+      "use": "detail: the Osler crystal fountain at the crossing, 50 mm",
+      "lens_mm": 50,
+      "start": {
+        "pos_ft": [
+          -30,
+          -52,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          0,
+          12
+        ]
+      }
+    }
+  ]
 }

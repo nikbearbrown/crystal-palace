@@ -664,20 +664,47 @@ prof = [(0, 1.0), (5.2, 1.0), (5.2, 2.4), (4.4, 2.6), (4.4, 3.6), (3.6, 3.8), (2
         (2.0, 12.6), (5.2, 13.5), (5.6, 14.3), (1.0, 14.0), (0.8, 15.2), (1.5, 15.6), (3.2, 16.6), (3.4, 17.2),
         (0.7, 17.0), (0.6, 18.4), (1.0, 18.9), (0.5, 19.5), (0.45, 21.0), (0.85, 21.5), (0.4, 22.0), (0.35, 23.6),
         (0.7, 24.1), (0.3, 24.6), (0.25, 26.2), (0.55, 26.6), (0.0, 27.0)]
+prof = [(r * (1.45 if z > 10.0 else 1.15), z) for (r, z) in prof]   # r07 F03: Talbot/ILN read a much fuller body than r06
 new_obj("FOUNTAIN_GLASS", lathe(prof, "f_glass", CRYSTAL, 48), FC, props={"part_kind": "fountain", "height_ft": 27.0})
 # hanging prism fringes on the bowls and the spiked crown on the middle bowl
 bm = bmesh.new()
-for (rr, z0, n, L) in ((8.2, 9.4, 64, 1.6), (5.4, 13.6, 44, 1.1), (3.3, 16.7, 28, 0.8)):
+for (rr, z0, n, L) in ((8.2 * 1.15, 9.4, 64, 1.6), (5.4 * 1.45, 13.6, 44, 1.1), (3.3 * 1.45, 16.7, 28, 0.8)):
     for k in range(n):
         a = 2 * math.pi * k / n
         bm_cyl(bm, inch(0.9), ft(z0 - L), ft(z0), 5, ft(rr) * math.cos(a), ft(rr) * math.sin(a))
 for k in range(18):
     a = 2 * math.pi * k / 18
-    bm_bar(bm, (ft(4.6) * math.cos(a), ft(4.6) * math.sin(a), ft(14.2)), (ft(4.9) * math.cos(a), ft(4.9) * math.sin(a), ft(16.2)), inch(2.5), inch(2.5))
+    bm_bar(bm, (ft(6.7) * math.cos(a), ft(6.7) * math.sin(a), ft(14.2)), (ft(7.1) * math.cos(a), ft(7.1) * math.sin(a), ft(16.2)), inch(2.5), inch(2.5))
 new_obj("FOUNTAIN_PRISMS", finish(bm, "f_prisms", CRYSTAL), FC, props={"part_kind": "fountain"})
 # the water: a jet from the finial and a sheet falling from each bowl (thin glassy shells)
 new_obj("FOUNTAIN_JET", lathe([(0.05, 26.9), (0.12, 29.5), (0.6, 30.6), (1.6, 30.2), (2.6, 28.0)], "f_jet", WATER, 24), FC, props={"part_kind": "fountain_water"})
 # (r06: falling water sheets dropped; they read as solid chrome cylinders. Logged F-row.)
+
+# ---------------- r07: statue and railing stand-ins (Talbot foreground; grades in DEPARTURES ST02/RL01) ----------------
+SC = coll("STATUES", ROOT)
+MARBLE = mat_principled("GT_Marble", (0.86, 0.85, 0.81), 0.45)
+def statue(name, x, y, h=7.0, plinth=4.5):
+    """plinth + a lathe figure stand-in (robed standing figure); not a likeness of any exhibited work"""
+    bm = bmesh.new(); bm_box(bm, ft(x - 2.2), ft(x + 2.2), ft(y - 2.2), ft(y + 2.2), 0, ft(plinth))
+    me_p = finish(bm, name + "_plinth", STONE); new_obj(name + "_PLINTH", me_p, SC, props={"part_kind": "statue"})
+    z = plinth; f = [(0.0, z), (1.3, z), (1.2, z + 0.25 * h), (0.85, z + 0.55 * h), (1.05, z + 0.72 * h), (0.45, z + 0.80 * h),
+                     (0.38, z + 0.84 * h), (0.55, z + 0.92 * h), (0.0, z + h)]
+    new_obj(name + "_FIGURE", lathe(f, name + "_fig", MARBLE, 16, x, y), SC, props={"part_kind": "statue"})
+# along both sides of the transept floor, clear of the fountain basin, the elms and the camera stops
+for k, (x, y) in enumerate([(-14, -40), (14, -40), (-14, -72), (14, -72), (-30, -108), (30, -108), (-24, 40), (24, 40),
+                             (-30, 108), (30, 108), (-46, -20), (46, -20), (-46, 20), (46, 20)]):
+    statue(f"STATUE_{k:02d}", x, y)
+# curved iron railing round the fountain (the scrolled railing in the Talbot foreground), r = 22 ft, 4 gaps
+bm = bmesh.new(); Rr = 22.0; nseg = 96
+for k in range(nseg):
+    a0 = 2 * math.pi * k / nseg; a1 = 2 * math.pi * (k + 1) / nseg
+    if (k % 24) in (0, 1, 23): continue    # 4 openings on the axes
+    for zr in (0.4, 3.2, 3.5):
+        bm_bar(bm, (ft(Rr * math.cos(a0)), ft(Rr * math.sin(a0)), ft(zr)), (ft(Rr * math.cos(a1)), ft(Rr * math.sin(a1)), ft(zr)), inch(1.5), inch(1.5))
+    for j in range(3):
+        a = a0 + (a1 - a0) * j / 3
+        bm_bar(bm, (ft(Rr * math.cos(a)), ft(Rr * math.sin(a)), 0), (ft(Rr * math.cos(a)), ft(Rr * math.sin(a)), ft(3.5)), inch(0.75), inch(0.75))
+new_obj("FOUNTAIN_RAILING", finish(bm, "f_rail", FAN if COLOUR != "owen" else IRON), FC, props={"part_kind": "railing"})
 
 # ---------------- semicircular end screens (Plates VII, XXIV-XXVI) ----------------
 def build_end_screen(sy):
@@ -883,6 +910,11 @@ try:
     scene.view_settings.view_transform = 'AgX'
 except TypeError:
     scene.view_settings.view_transform = 'Filmic'
+try:
+    scene.view_settings.look = 'AgX - Medium High Contrast'   # r07 V08: r06 read flat and washed out
+except TypeError:
+    pass
+scene.view_settings.exposure = -0.25
 
 # ---------------- cameras (storyboard v001 grammar) ----------------
 CAMS = bpy.data.collections.new("CAMERAS_GROK"); scene.collection.children.link(CAMS)
