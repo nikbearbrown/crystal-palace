@@ -27,3 +27,11 @@ d01 CP030_empty_walk_end looked straight into the locomotive packing case at ~6 
 | DM16 | CP031 dusk variant | Storyboard asks for a quieter end-of-day dismantling beat. A late-afternoon sun in winter 1851–52 is low in the south-west. | Sun at 5° elevation from the WSW (lamp rot 22), warm colour (1, 0.58, 0.32), energy 2.4, 1° angle, sky matched, background 0.3, exposure +0.2 on the dusk frames (`dusk_exposure`). Rendered with `--dusk` as `_dusk` frames. The season and hour are illustrative. | C |
 | DM17 | CP031_key_strike close-up | Wrought-iron keys and wedges held the girder ends in the column-head connection pieces. They were driven out with a maul and drift (the reverse of 1850 erection). | A light trestle stage (x 180.75–182.35, y −153.9…−152.1, deck 16 ft, ladder on the east face) sits west of the shore's raker and north of the head tree. A dark-coated smith (`D_STAFF_STRIKER`, within 4 ft of the joint, check K23) is shown at the top of the swing at the half-driven key at (180.64, −156, 21.9). A mate holds a drift bar. The 50 mm camera is at (192.2, −148.4, 18.75), the eye 5.25 ft above the 13.5 ft scaffold deck. The previous deck striker was removed so he does not duplicate the action. | C |
 | DM18 | Figure facing | `figures.person_mesh` faces −Y at rz 0 | `man()` in build_dismantle.py now uses rz = face + 90°. In d01/d02 every porter was turned 90° off his task. | Bug fix |
+
+## d04 (2026-10-27) — parked backlog
+| ID | Grade | Decision | Why |
+|---|---|---|---|
+| DM20 | B | CP031 dusk: replace Sky Texture with warm Background (1.0, 0.55, 0.32)×0.55; softer warmer sun | Daylight-blue through stripped roof voids broke the dusk beat. |
+| DM21 | B | Maul: distinct cast-iron barrel+peen head; raised two-handed strike pose | Stick-and-ball tool did not read as a striking maul at 50 mm. |
+| DM22 | C | Horse trolley shifted ty−12 ft so the horse stands clear of the lowered girder | Overlap with the hanging girder mass. |
+| DM23 | C | Workmen use r10-style person_mesh styles (cap/frock/cravat/belt) + TRIM slot | Flat coat silhouettes; keep shared low-poly kit. |

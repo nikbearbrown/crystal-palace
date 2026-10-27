@@ -81,6 +81,7 @@ WCOAT = [mat("GT_WorkCoat_dk", (0.05, 0.05, 0.06), 0.85), mat("GT_WorkCoat_brn",
          mat("GT_WorkSmock", (0.62, 0.60, 0.52), 0.9), mat("GT_WorkShirt", (0.74, 0.72, 0.66), 0.85)]
 WTROU = [mat("GT_WorkTrou_fawn", (0.36, 0.31, 0.23), 0.85), mat("GT_WorkTrou_dk", (0.10, 0.09, 0.08), 0.85)]
 HATS = [mat("GT_WorkCap", (0.08, 0.07, 0.06), 0.85), mat("hat_black_D", (0.02, 0.02, 0.02), 0.8)]
+TRIM = mat("GT_WorkTrim", (0.70, 0.68, 0.62), 0.85)   # d04: r10-style cravat/belt slot
 POLICE = mat("GT_PoliceBlue", (0.03, 0.04, 0.08), 0.8)
 info = {"state": STATE, "credits": []}
 
@@ -152,10 +153,22 @@ STRAWM = straw_mesh()
 def straw(x, y, rz=0.0): return obj(f"D_STRAW_{x:+.0f}_{y:+.0f}", STRAWM, "LITTER", (x, y, 0.005), rz, part_kind="litter")
 
 # ---------------- people: workmen and an attendant (figures.person_mesh, Grok r09) ----------------
+# d04: r10 figure styles for workmen (caps, frock coats, cravats, belts)
 PM = []
+_STYLES = [
+    {"hat": "cap", "frock": True, "cravat": True},
+    {"hat": "low", "frock": True, "cravat": False},
+    {"hat": "cap", "frock": False, "belt": True},
+    {"hat": "top", "frock": True, "cravat": True},
+    {"hat": "cap", "frock": True, "cane": False},
+    {"hat": "low", "frock": False, "cravat": True},
+]
 for j in range(6):
-    PM.append(figures.person_mesh(f"PERSON_workman_{j}", "man", [WCOAT[j % 4], WTROU[j % 2], SK[j % 2], HATS[j % 2]]))
-PM_POLICE = figures.person_mesh("PERSON_policeman", "man", [POLICE, POLICE, SK[0], HATS[1]])
+    PM.append(figures.person_mesh(f"PERSON_workman_{j}", "man",
+              [WCOAT[j % 4], WTROU[j % 2], SK[j % 2], HATS[0 if _STYLES[j]["hat"] == "cap" else 1], TRIM],
+              style=_STYLES[j]))
+PM_POLICE = figures.person_mesh("PERSON_policeman", "man", [POLICE, POLICE, SK[0], HATS[1], TRIM],
+                                style={"hat": "top", "frock": True})
 staff = []
 def man(x, y, face_deg, role="workman", z=0.0, k=None):
     me = PM_POLICE if role == "police" else PM[(len(staff) if k is None else k) % len(PM)]
@@ -338,15 +351,27 @@ if STATE == "dismantle":
     obj("D_TRESTLE_STAGE", finish(bm, "trestle_stage_D", POLE, [PLANK]), "SUPPORT", part_kind="scaffold", deck_ft=tz)
     kx, ky, kz = jx + 0.64, jy, 21.9                          # key head
     sx_, sy_ = 181.65, -152.95
-    hand = Vector((sx_ - 0.35, sy_ - 0.55, tz + 4.1)); head = Vector((kx + 0.45, ky + 0.55, kz + 0.1))
-    bm = bmesh.new(); rod(bm, tuple(hand), tuple(head), 0.07, 6)
-    dd = (head - hand).normalized(); hz = Vector((kx - head.x, ky - head.y, 0)).normalized()
-    rod(bm, tuple(head - hz * 0.4), tuple(head + hz * 0.35), 0.2, 8)        # maul head, face toward the key
-    lat = Vector((-(ky - sy_), kx - sx_, 0)).normalized()
+    # d04: maul with a distinct cast-iron head (barrel + peen) and raised two-handed strike pose
+    hand = Vector((sx_ - 0.25, sy_ - 0.45, tz + 4.55)); head = Vector((kx + 0.35, ky + 0.4, kz + 0.15))
+    bm = bmesh.new(); rod(bm, tuple(hand), tuple(head), 0.065, 8)             # ash helve
+    dd = (head - hand).normalized(); hz = Vector((kx - head.x, ky - head.y, 0))
+    if hz.length < 1e-6: hz = Vector((1, 0, 0))
+    hz.normalize()
+    # barrel head ~10 in long x 5 in dia, peen on the far side
+    rod(bm, tuple(head - hz * 0.55), tuple(head + hz * 0.35), 0.28, 12)
+    rod(bm, tuple(head + hz * 0.35), tuple(head + hz * 0.55), 0.14, 10)       # peen
+    lat = Vector((-(ky - sy_), kx - sx_, 0))
+    if lat.length < 1e-6: lat = Vector((0, 1, 0))
+    lat.normalize()
     n0 = len(bm.faces)
-    for sgn in (-1, 1): rod(bm, (sx_ + sgn * 0.55 * lat.x, sy_ + sgn * 0.55 * lat.y, tz + 4.35), tuple(hand + dd * (0.25 if sgn < 0 else 0.7)), 0.17, 8)   # raised arms
+    # raised arms: shoulders → elbows high → hands on the helve (pose reads as a swing)
+    for sgn in (-1, 1):
+        sh = Vector((sx_ + sgn * 0.6 * lat.x, sy_ + sgn * 0.6 * lat.y, tz + 4.55))
+        el = Vector((sx_ + sgn * 0.35 * lat.x - 0.15 * dd.x, sy_ + sgn * 0.35 * lat.y - 0.15 * dd.y, tz + 5.35))
+        rod(bm, tuple(sh), tuple(el), 0.16, 8)
+        rod(bm, tuple(el), tuple(hand + dd * (0.15 if sgn < 0 else 0.55)), 0.14, 8)
     mark(bm, n0, 1)
-    obj("D_MAUL", finish(bm, "maul_D", CAST, [WCOAT[0]]), "SUPPORT", part_kind="tool", pose="striking")
+    obj("D_MAUL", finish(bm, "maul_D", CAST, [WCOAT[0]]), "SUPPORT", part_kind="tool", pose="striking", head_dia_in=5.0)
     st = man(sx_, sy_, math.degrees(math.atan2(ky - sy_, kx - sx_)), z=tz, k=0, role="striker")
     st.name = "D_STAFF_STRIKER"
     man(dx0 + 1.0, dy1 - 1.0, 230, z=dk, k=1)                   # mate on the deck with the drift and bar, watching (behind the 50 mm camera)
@@ -393,7 +418,9 @@ if STATE == "dismantle":
     obj("D_PANE_BOX_LOWERING", finish(bm, "pane_box_D", CRATEW), "LIFT", part_kind="pane_box", state="lowering")
     man(px + 1.5, py + 2.6, 200, k=2)
     # 5. a timber-wheeled trolley at the stack with two horses' worth of girders goes to Sydenham? no: a cart, held (CP032 is separate)
-    tx, ty, trz = zinfo["trolley"]; trolley(tx, ty, trz, "columns")
+    tx, ty, trz = zinfo["trolley"]
+    # d04: pull the horse clear of the lowered girder in CP031_lateral_end (was half-hidden behind it)
+    trolley(tx, ty - 12.0, trz, "columns")
     info["lift"] = {"girder": G.name, "bottom_ft": gz0, "apex_ft": list(APEX)}
 
 # ---------------- cameras from route/camera_route.json (storyboard grammar; no roll) ----------------

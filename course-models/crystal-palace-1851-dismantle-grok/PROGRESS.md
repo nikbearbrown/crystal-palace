@@ -45,3 +45,8 @@ Branch grok-dismantle-1851, from transept r09 (0b64c06) plus a merge of exterior
 ## Backlog (parked 2026-10-26)
 - d04 parked by Professor Bear's instruction: polish rounds now give diminishing returns; work moved to unbuilt sets (HP-SITE, MOVE+K-JOINT).
 - Parked d04 items: warm dusk world colour; maul head/arm pose; horse clear of girder; r10 figure styles for workmen.
+
+## d04 (2026-10-27): warm dusk, maul head/pose, horse clear, r10 workmen styles
+- Parked d04 backlog cleared.
+- Build: `rounds/d04_empty.blend`, `rounds/d04_dismantle.blend`. Checks: empty 32/32, dismantle 43/43.
+- Lean renders: `renders/d04` — CP031_key_strike, CP031_lateral (+ dusk), CP030_empty_walk (24 spp).

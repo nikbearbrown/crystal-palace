@@ -71,14 +71,18 @@ def fix_floor_seam():
     print("FLOOR_SEAM", n, flush=True); return n
 import math
 def dusk():
-    """DM16: CP031 dusk variant, render time only: sun 5 deg above the WSW horizon, warm, sky to match."""
+    """DM16 + d04: CP031 dusk — warm world colour (sky no longer daylight-blue through the roof)."""
     sun = bpy.data.objects.get("GT_Sun"); elev, rot = 5.0, 22.0
     if sun:
         sun.rotation_euler = (math.radians(90 - elev), 0, math.radians(rot - 180 + 90))
-        sun.data.energy = 2.4; sun.data.color = (1.0, 0.58, 0.32); sun.data.angle = math.radians(1.0)
-    w = bpy.context.scene.world
-    for nd in w.node_tree.nodes:
-        if nd.type == 'TEX_SKY':
-            try: nd.sun_elevation = math.radians(elev); nd.sun_rotation = math.radians(rot)
-            except AttributeError: pass
-        if nd.type == 'BACKGROUND': nd.inputs[1].default_value = 0.3
+        sun.data.energy = 2.0; sun.data.color = (1.0, 0.52, 0.28); sun.data.angle = math.radians(1.2)
+    w = bpy.context.scene.world; nt = w.node_tree; n = nt.nodes; l = nt.links
+    # d04: replace Sky Texture with a warm dusk Background so roof voids read amber, not noon blue
+    for nd in list(n):
+        if nd.type == 'TEX_SKY': n.remove(nd)
+    bg = next((nd for nd in n if nd.type == 'BACKGROUND'), None)
+    if bg is None:
+        bg = n.new("ShaderNodeBackground"); out = next(nd for nd in n if nd.type == 'OUTPUT_WORLD')
+        l.new(bg.outputs[0], out.inputs[0])
+    bg.inputs[0].default_value = (1.0, 0.55, 0.32, 1.0)   # warm dusk amber
+    bg.inputs[1].default_value = 0.55
