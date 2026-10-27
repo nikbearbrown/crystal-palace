@@ -149,8 +149,3 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2: revert CP012 (exposure regression)
-
-## c08 (2026-10-27) — CP013 sash geometry/materials polish
-- Script `scripts/polish_cp013_c08.py` on c07 → `rounds/c08.blend`: iron ridge straps/bolts; underside sash-bar condensation grooves; putty barrels + pats; loose panes leaning in bars; timber bar offcuts on platform; GT_Timber grit noise; greener roof-glass nudge.
-- Keep-lighting lean: `renders/c08/CP013_sash_start.png`, `CP013_platform_start.png`.
-- Honest pair keep-better: **KEEP** CP013 (loose panes + putty/offcuts + timber grit read on platform and sash).
