@@ -43,18 +43,18 @@
    "fstop": 5.6,
    "start": {
     "pos_ft": [
-     -2.0,
-     -2.85,
+     -3.3,
+     -5.9,
      5.25
     ],
     "look_ft": [
-     -0.85,
+     -0.9,
      0.0,
-     4.3
+     4.2
     ],
     "abs_z": true
    },
-   "note": "the W girder drawn back 9 in at the top joint: projection R, the empty snug groove and the knocked-out keys on the stool beyond"
+   "note": "the W girder drawn back 9 in at the top joint: projection R, the empty snug groove and the knocked-out keys on the stool beyond; m02: pulled back to ~6.4 ft so the whole W joint, the 9 in gap and the stool read; N girder and its oak keys hidden for this shot"
   },
   {
    "id": "KJ_oak",

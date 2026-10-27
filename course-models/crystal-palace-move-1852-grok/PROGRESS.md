@@ -6,8 +6,13 @@
 - Final renders `renders/m01/` (1920×1080, 96 spp) + `contact_sheet_m01.jpg`.
 - Self-score 7/10. Misses: KJ_exploded cluttered/too close; Muse elms read cyan-lollipop; ARR slope reads only subtly; locator Thames is very schematic.
 
+## Checkpoint m02 (2026-10-26)
+- Move fix 1 only (Professor Bear): KJ_exploded pulled back, N girder + oak keys hidden per-camera (MV12).
+- `rounds/m02.blend`; D-checks `checks/m02_checks.json`: **25/25 pass**.
+- Final renders `renders/m02/` (1920×1080, 96 spp) + contact sheet (`scripts/render_m02.sh`, detached).
+
 ## Next
-1. KJ_exploded: pull back to 50 mm at ~4 ft, hide second girder.
+1. ~~KJ_exploded pull back, hide second girder~~ (m02 done).
 2. Elm leaf tint (warmer, less cyan) on appended Muse elms.
 3. ARR: steeper grade + a stake line to make the slope read.
 

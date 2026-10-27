@@ -15,3 +15,4 @@ Grades: **A** documented (Downes 1852 / dated source) · **B** documented in out
 | MV09 | Sky sun disc off (Nishita disc fails silently in Blender 5.1); sun lamp carries direct light | D | technical |
 | MV10 | Muse elm/props appended read-only with credit (Muse round-2 models); Claude/Codex folders untouched | — | reuse rule |
 | MV11 | Figures: generic Grok PPL-1851 workmen/clerks; no named individuals | C | |
+| MV12 | m02: KJ_exploded pulled back to (-3.3,-5.9,5.25 ft) looking at the W joint; north girder + its oak keys hidden for this camera only via `grok_states` (still in the scene for other shots) | C | camera fix only; joint geometry unchanged |

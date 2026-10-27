@@ -1,0 +1,233 @@
+{
+ "set": "MOVE+K-JOINT",
+ "blend": "/workspace/crystal-palace-move/course-models/crystal-palace-move-1852-grok/rounds/m02.blend",
+ "passed": 25,
+ "total": 25,
+ "checks": [
+  {
+   "id": "K1",
+   "check": "connecting piece length 3 ft 4 1/2 in (Downes)",
+   "pass": true,
+   "value": 3.375,
+   "note": ""
+  },
+  {
+   "id": "K2",
+   "check": "column 8 in outside",
+   "pass": true,
+   "value": 8.0,
+   "note": "inches"
+  },
+  {
+   "id": "K3",
+   "check": "girder 3 ft deep; top at conn bottom + GIRDER_TOP_IN_CP",
+   "pass": true,
+   "value": {
+    "bbox_h": 3.1667,
+    "top": 4.8875
+   },
+   "note": "bbox includes U lugs 1 in above and below"
+  },
+  {
+   "id": "K4",
+   "check": "girder bottom flange bears on the bottom snug",
+   "pass": true,
+   "value": 0.1875,
+   "note": ""
+  },
+  {
+   "id": "K5",
+   "check": "snug groove 2 in wide x 1/2 in deep",
+   "pass": true,
+   "value": {
+    "groove_w_in": 2.0,
+    "groove_d_in": 0.5
+   },
+   "note": "built from parts1851 constants (cheeks at +-1 to 1.5 in)"
+  },
+  {
+   "id": "K6",
+   "check": "girder end clearance to the column face 1/4 in",
+   "pass": true,
+   "value": 0.25,
+   "note": "inches"
+  },
+  {
+   "id": "K7",
+   "check": "key T gap between snug tip and U (in)",
+   "pass": true,
+   "value": 0.75,
+   "note": "T taper 0.55-0.95 in; head end stands proud above U"
+  },
+  {
+   "id": "K8",
+   "check": "exploded W girder drawn back 9 in",
+   "pass": true,
+   "value": 9.0,
+   "note": "inches drawn back"
+  },
+  {
+   "id": "C-CP032_arrival_end",
+   "check": "eye 5.25, lens 35 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP032_arrival_start",
+   "check": "eye 5.25, lens 35 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP032_departure_end",
+   "check": "eye 5.25, lens 35 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP032_departure_start",
+   "check": "eye 5.25, lens 35 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": -0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP032_locator_start",
+   "check": "locator ortho insert (grammar exception MV)",
+   "pass": true,
+   "value": {
+    "ortho_ft": 21.8
+   },
+   "note": ""
+  },
+  {
+   "id": "C-KJ_bottom_start",
+   "check": "eye 5.25, lens 50 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": -0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-KJ_exploded_start",
+   "check": "eye 5.25, lens 50 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-KJ_hero_end",
+   "check": "eye 5.25, lens 50 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-KJ_hero_start",
+   "check": "eye 5.25, lens 50 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "C-KJ_oak_start",
+   "check": "eye 5.25, lens 50 mm, no roll",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": 0.0
+   },
+   "note": ""
+  },
+  {
+   "id": "F1",
+   "check": "no figure intersects a part / prop / tree trunk (AABB)",
+   "pass": true,
+   "value": [],
+   "note": ""
+  },
+  {
+   "id": "F2",
+   "check": "arrival figures stand on the slope",
+   "pass": true,
+   "value": [
+    -0.0,
+    0.0,
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "M1",
+   "check": "two sites ~7 mi apart (caption)",
+   "pass": true,
+   "value": 6.97,
+   "note": "straight line; Hyde Park 1851 site to Sydenham 1852 site"
+  },
+  {
+   "id": "M2",
+   "check": "no route drawn on the locator",
+   "pass": true,
+   "value": true,
+   "note": ""
+  },
+  {
+   "id": "S1",
+   "check": "blend < 90 MB",
+   "pass": true,
+   "value": 7.81,
+   "note": ""
+  },
+  {
+   "id": "S2",
+   "check": "Muse models untouched (read-only checkout clean)",
+   "pass": true,
+   "value": "clean",
+   "note": ""
+  },
+  {
+   "id": "S3",
+   "check": "no linked libraries left (appended, not linked)",
+   "pass": true,
+   "value": [],
+   "note": ""
+  }
+ ]
+}

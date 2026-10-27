@@ -399,6 +399,7 @@ cams = cameras(os.path.join(ROOTDIR, "route", "camera_route.json"), ROOT,
                zfun=lambda x, y: zarr(x, y) if 1250 < y < 1950 else 0.0)
 info.update({"stack_dep": stats_dep, "stack_arr": stats_arr, "staff": len(staff), "cams": [c.name for c in cams],
              "objects": len(bpy.data.objects)})
+t = bpy.data.texts.new("grok_states"); t.write(json.dumps({"KJ_exploded": {"hide": ["K_GIRDER_N_oakkeys", "K_KEYS_OAK_N"]}}))   # m02: declutter
 sc["grok_move"] = json.dumps(info)
 print("MOVE_INFO", json.dumps(info), flush=True)
 os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
