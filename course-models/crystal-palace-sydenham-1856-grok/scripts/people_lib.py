@@ -1,4 +1,5 @@
-"""crystal-palace-people v3.1 — HBM base humans + period-correct modelled garments.
+"""crystal-palace-people v3.3 — HBM base humans + period-correct modelled garments.
+# Sydenham: never swap CastBase_Figure / FIG_* sandstone facade; 1930s darker mid-tone coats.
 
 Drop-in API (compatible with v2 callers):
   person_mesh(name, kind, mats, FT=0.3048, style=None, pose=None, lod=None, seed=None)
@@ -9,6 +10,8 @@ decimated LODs under people/vendor/bases/. Garments are modelled shells
 (frock coat with tails, top hat, crinoline, bodice, bonnet, shawl, smock,
 police tunic) — not lathe primitives. Proportions: head ~1/7.5 height;
 1850s crowd height 5'0"–5'10". Matte period colours; no white hats.
+Crowd mix: ~42% ladies; crinoline hem ~0.9–1.0 m with waist taper; mid-tone skirts.
+Exclude statues/sculptures/busts and any figure on a plinth or pedestal (keep authored marble/bronze).
 """
 from __future__ import annotations
 import hashlib, math, os, random
@@ -19,7 +22,7 @@ import bpy
 import bmesh
 from mathutils import Matrix, Vector, Euler
 
-PEOPLE_VERSION = "3.1"
+PEOPLE_VERSION = "3.3"
 PEOPLE_TAG = "cpl_people_v3"
 
 _HERE = Path(__file__).resolve().parent
@@ -85,6 +88,12 @@ _COATS = [
     (0.10, 0.08, 0.07), (0.06, 0.06, 0.08), (0.11, 0.05, 0.05),
     (0.07, 0.07, 0.06), (0.08, 0.08, 0.09),
 ]
+# 1930s day coats / bodices — darker mid-tones (readable brown/navy/grey, not chalk)
+_COATS_1930 = [
+    (0.10, 0.09, 0.10), (0.12, 0.10, 0.08), (0.08, 0.09, 0.12),
+    (0.11, 0.08, 0.08), (0.09, 0.09, 0.08), (0.13, 0.11, 0.09),
+    (0.08, 0.10, 0.12), (0.11, 0.09, 0.07),
+]
 _SKIRTS = [
     (0.52, 0.34, 0.36), (0.38, 0.44, 0.55), (0.55, 0.48, 0.38),
     (0.42, 0.48, 0.40), (0.50, 0.36, 0.44), (0.54, 0.46, 0.34),
@@ -102,7 +111,16 @@ def _mats_for(seed: int, role: str) -> Dict[str, bpy.types.Material]:
     rng = random.Random(seed)
     i = rng.randrange(8)
     skin = _ensure_mat(f"CPL3_skin_{seed % 4}", _SKINS[seed % 4], 0.55)
-    if "lady" in role or "girl" in role or role.endswith("_f") or "woman" in role:
+    if role.startswith("1930") and ("woman" in role or "lady" in role):
+        # 1930s day coat = darker mid-tone main; bodice same family; normal skin
+        main = _ensure_mat(f"CPL3_coat1930_{i}", _COATS_1930[i], 0.72)
+        sec = _ensure_mat(f"CPL3_bodice1930_{i}", _COATS_1930[(i + 3) % 8], 0.7)
+        hat = _ensure_mat(f"CPL3_hat_{i % 4}", _HATS[i % 4], 0.7)
+    elif role == "1930s_man":
+        main = _ensure_mat(f"CPL3_coat1930m_{i}", _COATS_1930[i], 0.7)
+        sec = _ensure_mat(f"CPL3_trou_{i % 3}", _TROUS[i % 3], 0.75)
+        hat = _ensure_mat(f"CPL3_hat_{i % 4}", _HATS[i % 4], 0.65)
+    elif "lady" in role or "girl" in role or role.endswith("_f") or "woman" in role:
         main = _ensure_mat(f"CPL3_skirt_{i}", _SKIRTS[i], 0.75)
         sec = _ensure_mat(f"CPL3_bodice_{i}", _COATS[(i + 3) % 8], 0.7)
         hat = _ensure_mat(f"CPL3_bonnet_{i % 4}", _BONNETS[i % 4], 0.8)
@@ -134,7 +152,8 @@ def _mats_for(seed: int, role: str) -> Dict[str, bpy.types.Material]:
 # ---------------------------------------------------------------------------
 
 def _sex_for(role: str) -> str:
-    if any(k in role for k in ("lady", "girl", "woman", "_f")):
+    # endswith("_f") only — bare "_f" would false-match 1930s_fireman
+    if any(k in role for k in ("lady", "girl", "woman")) or role.endswith("_f"):
         return "female"
     return "male"
 
@@ -608,12 +627,12 @@ def build_smock(bm, L, shoulder_w, mat=0, seg=12):
 
 
 def build_bodice(bm, L, shoulder_w, mat=0, seg=12):
-    """Fitted women's bodice — shoulder to waist, not a bell."""
+    """Fitted women's bodice — clear shoulder → chest → pinched waist."""
     sw = shoulder_w * 0.52
     profile = [
-        (sw * 0.5, sw * 0.4, L["shoulder"] + 0.01),
-        (sw * 0.95, sw * 0.7, L["chest"]),
-        (sw * 0.72, sw * 0.58, L["waist"] + 0.02),
+        (sw * 0.48, sw * 0.38, L["shoulder"] + 0.01),
+        (sw * 0.92, sw * 0.68, L["chest"]),
+        (sw * 0.58, sw * 0.48, L["waist"] + 0.02),  # strong waist taper
     ]
     _lathed_shell(bm, profile, seg=seg, mat=mat)
     for sign in (-1.0, 1.0):
@@ -637,17 +656,16 @@ def build_sleeves_only(bm, L, shoulder_w, mat=0, seg=6, length=0.85):
 
 
 def build_crinoline(bm, L, mat=0, seg=16):
-    """Full 1850s bell crinoline: waist to floor, wide elliptical hem."""
+    """1850s crinoline: pinched waist → A-line → ~0.9–1.0 m hem (not a squat blob)."""
     z0 = L["waist"]
     z1 = max(L["z0"] + 0.01, L["ankle"] - 0.01)  # floor-length
-    waist_rx, waist_ry = 0.14, 0.12
-    # Full bell ~1.1–1.2 m across at hem
-    hem_rx, hem_ry = 0.47, 0.42
-    mid_z = z0 + 0.45 * (z1 - z0)
+    waist_rx, waist_ry = 0.12, 0.10
+    # ~0.9–1.0 m across at hem
+    hem_rx, hem_ry = 0.48, 0.42
     profile = [
         (waist_rx, waist_ry, z0),
-        (waist_rx * 1.8, waist_ry * 1.6, z0 + 0.18 * (z1 - z0)),
-        (hem_rx * 0.88, hem_ry * 0.88, mid_z),
+        (waist_rx * 1.35, waist_ry * 1.25, z0 + 0.22 * (z1 - z0)),  # hip
+        (hem_rx * 0.78, hem_ry * 0.78, z0 + 0.55 * (z1 - z0)),      # mid flare
         (hem_rx, hem_ry, z1),
     ]
     rings = _lathed_shell(bm, profile, seg=seg, mat=mat)
@@ -772,7 +790,8 @@ def _paint_body_materials(obj, L, mats, role):
     hand_x = shoulder_w * 0.72
     is_lady = any(k in role for k in ("lady", "girl", "woman")) or role.endswith("_f")
     is_worker = any(k in role for k in ("workman", "navvy", "fireman"))
-    is_gent = (not is_lady) and (not is_worker) and ("police" not in role) and ("sailor" not in role)
+    is_1930 = role.startswith("1930")
+    is_gent = (not is_lady) and (not is_worker) and ("police" not in role) and ("sailor" not in role) and (not is_1930)
     for p in me.polygons:
         zs = [me.vertices[i].co.z for i in p.vertices]
         xs = [me.vertices[i].co.x for i in p.vertices]
@@ -782,6 +801,16 @@ def _paint_body_materials(obj, L, mats, role):
             p.material_index = 0
             continue
         # hands only: hanging-arm band (hip..chest), far from centreline — never legs
+        if is_1930:
+            # coat/bodice covers torso + shoulders/arms; trousers/skirt below;
+            # skin only on head (already handled) and true hands — never bare shoulders
+            if xc > hand_x and zc < (L["waist"] + L["chest"]) * 0.5:
+                p.material_index = 0  # hands / lower forearm only
+            elif zc >= L["waist"] - 0.02:
+                p.material_index = 1  # coat / bodice — covers shoulders
+            else:
+                p.material_index = 2  # trousers / lower
+            continue
         if L["hip"] + 0.02 < zc < L["chest"] - 0.05 and xc > hand_x:
             p.material_index = 0
             continue
@@ -993,9 +1022,11 @@ def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
     # garment mat slots: 0=main, 1=sec, 2=hat, 3=trim
     if is_lady:
         if is_1930:
-            # mid-calf 1930s coat / day dress — no crinoline
-            add_shell(L["ankle"] + 0.05, L["shoulder"] + 0.03, 0.022, 1.08, 0)
-            build_sleeves_only(bm, L, sw, mat=0, seg=max(6, seg // 2), length=0.7)
+            # mid-calf 1930s coat / day dress — no crinoline; solid coat+bodice over shoulders
+            add_shell(L["ankle"] + 0.05, L["hip"] + 0.02, 0.022, 1.08, 0)  # skirt/coat lower
+            build_bodice(bm, L, sw * 1.05, mat=1, seg=seg)  # fitted bodice (sec)
+            add_shell(L["hip"] - 0.02, L["shoulder"] + 0.06, 0.040, 1.18, 0)  # thick coat over shoulders
+            build_sleeves_only(bm, L, sw * 1.05, mat=0, seg=max(6, seg // 2), length=0.8)
             build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)  # cloche stand-in
             build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
         elif is_1890:
@@ -1034,9 +1065,9 @@ def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
         build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_1930:
-        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.014, 1.06, 1)  # trousers
-        add_shell(L["hip"] - 0.04 * L["h"], L["shoulder"] + 0.03, 0.022, 1.08, 0)  # mid-thigh coat
-        build_sleeves_only(bm, L, sw, mat=0, seg=max(6, seg // 2), length=0.7)
+        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.016, 1.08, 1)  # trousers
+        add_shell(L["hip"] - 0.04 * L["h"], L["shoulder"] + 0.06, 0.040, 1.18, 0)  # thick mid-thigh coat covers shoulders
+        build_sleeves_only(bm, L, sw * 1.05, mat=0, seg=max(6, seg // 2), length=0.8)
         build_trilby(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_today:
@@ -1173,16 +1204,133 @@ def catalogue():
 # ---------------------------------------------------------------------------
 
 _FIGURE_PREFIXES = (
-    "CROWD", "VIS_", "PERSON", "FIG_", "FIGURE", "PEOPLE", "GENT", "LADY",
+    "CROWD", "VIS_", "PERSON", "PEOPLE", "GENT", "LADY",
     "MAN_", "WOMAN", "CHILD", "BOY_", "GIRL", "POLICE", "SAILOR", "SOLDIER",
     "KWORKER", "WORKER", "NAVY", "FIRE", "GUEST", "STAFF",
     "FB_HERO", "FB_VAR", "PV57_", "CROWD36", "LFB_",
 )
+# Note: bare "FIGURE" removed — it false-matched STATUE_*_FIGURE names.
+# Note: "FIG_" removed — Sydenham sandstone facade allegories (FIG_Centre_*, etc.).
 _FIGURE_KINDS = {"figure", "worker", "crowd", "person", "human", "visitor"}
+_STATUE_KINDS = {"statue", "sculpture", "sculpt", "bust", "plinth", "pedestal",
+                 "monument", "equestrian", "relief", "ornament"}
+_STATUE_NAME_TOKENS = (
+    "STATUE", "SCULPT", "SCULPTURE", "EQUEST", "BUST_", "_BUST",
+    "MONUMENT", "RELIEF_", "MARBLE_FIG", "BRONZE_FIG",
+)
+_STATUE_MAT_TOKENS = ("gt_marble", "gt_bronze", "marble", "bronze")
+_CLOTHING_MAT_TOKENS = ("coat", "dress", "skirt", "trou", "skin", "hat", "bonnet",
+                        "shawl", "bodice", "smock", "shirt", "waist")
+_PLINTH_NAME_TOKENS = ("PLINTH", "PEDESTAL", "PEDEST")
+
+
+def _mats_blob(ob: bpy.types.Object) -> str:
+    if ob.type != "MESH" or not ob.data:
+        return ""
+    return " ".join((m.name or "").lower() for m in (ob.data.materials or []) if m)
+
+
+def _name_is_statue(name: str) -> bool:
+    n = name.upper()
+    if any(tok in n for tok in _STATUE_NAME_TOKENS):
+        return True
+    # sculpture groups (equestrian / marble groups) — not crowd
+    if n.startswith("GROUP_") and any(t in n for t in ("HORSE", "EQUEST", "M38", "SCULPT", "STATUE")):
+        return True
+    return False
+
+
+def _has_statue_material(ob: bpy.types.Object) -> bool:
+    mats = _mats_blob(ob)
+    if not mats:
+        return False
+    if any(c in mats for c in _CLOTHING_MAT_TOKENS):
+        return False
+    return any(t in mats for t in _STATUE_MAT_TOKENS)
+
+
+_PLINTH_CACHE = None  # list[(obj, loc, top_z)] rebuilt per swap
+
+
+def _plinth_cache():
+    global _PLINTH_CACHE
+    if _PLINTH_CACHE is not None:
+        return _PLINTH_CACHE
+    out = []
+    for p in bpy.data.objects:
+        if p.type != "MESH":
+            continue
+        pn = p.name.upper()
+        if not any(t in pn for t in _PLINTH_NAME_TOKENS):
+            continue
+        pl = p.matrix_world.translation
+        out.append((p, pl, pl.z + max(p.dimensions.z, 0.05)))
+    _PLINTH_CACHE = out
+    return out
+
+
+def _rests_on_plinth(ob: bpy.types.Object) -> bool:
+    """True if parent/name is a plinth/pedestal, or a plinth sits under the object's feet."""
+    n = ob.name.upper()
+    if any(t in n for t in _PLINTH_NAME_TOKENS):
+        # the plinth mesh itself is not a crowd figure
+        return True
+    parent = ob.parent
+    if parent is not None:
+        pn = parent.name.upper()
+        if any(t in pn for t in _PLINTH_NAME_TOKENS) or _name_is_statue(parent.name):
+            return True
+    # geometric: plinth within 2.5 m XY whose top is near object origin Z
+    loc = ob.matrix_world.translation
+    for p, pl, top_z in _plinth_cache():
+        if p is ob:
+            continue
+        dxy = (pl.x - loc.x) ** 2 + (pl.y - loc.y) ** 2
+        if dxy > 6.25:  # 2.5^2
+            continue
+        if abs(top_z - loc.z) < 0.75 or (pl.z < loc.z and (loc.z - top_z) < 0.4):
+            return True
+    return False
+
+
+def _is_statue_or_plinth_figure(ob: bpy.types.Object) -> bool:
+    """Authored marble/bronze statues and any figure standing on a plinth/pedestal."""
+    if ob.type != "MESH":
+        return False
+    pk = (ob.get("part_kind") or ob.get("kind") or "").lower()
+    if pk in _STATUE_KINDS:
+        return True
+    if _name_is_statue(ob.name):
+        return True
+    if _has_statue_material(ob) and (
+        _rests_on_plinth(ob) or ob.matrix_world.translation.z > 1.0
+    ):
+        return True
+    # crowd/person proxies that were placed on a plinth must stay authored
+    if _rests_on_plinth(ob) and pk in _FIGURE_KINDS.union({"", "statue"}):
+        # Only treat as statue if elevated / marble-ish / statue-named sibling
+        if ob.matrix_world.translation.z > 0.9 or _has_statue_material(ob):
+            return True
+    return False
+
+
+def _is_facade_or_castbase(ob: bpy.types.Object) -> bool:
+    """CastBase pedestals and FIG_* sandstone facade parts must never become people."""
+    n = ob.name.upper()
+    if n.startswith("CASTBASE") or n.startswith("BASEFIGURES") or n.startswith("PANELFIGURE"):
+        return True
+    if n.startswith("FIG_"):
+        return True  # Sydenham facade allegories (Sandstone / SandstoneBand)
+    return False
 
 
 def _is_figure(ob: bpy.types.Object) -> bool:
     if ob.type != "MESH":
+        return False
+    if _is_facade_or_castbase(ob):
+        return False
+    # Never swap statues, sculptures, or figures on plinths/pedestals
+    if _is_statue_or_plinth_figure(ob):
         return False
     if ob.get("cpl_people") in (PEOPLE_TAG, "cpl_people_v2", "cpl_people_v1"):
         return True
@@ -1223,6 +1371,8 @@ def _infer_pose(ob, seed: int) -> str:
 def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
                       max_hero: int = 10, max_mid: int = 60) -> Dict[str, Any]:
     """Replace baked lathe/v2 figures with v3 HBM+garment people. Does not save."""
+    global _PLINTH_CACHE
+    _PLINTH_CACHE = None  # rebuild for this blend
     figs = [o for o in bpy.data.objects if _is_figure(o)]
     if not figs:
         return {"swapped": 0, "version": PEOPLE_VERSION}
@@ -1250,11 +1400,11 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
         # 1850s Victorian crowd: force ≥40% ladies when figure is anonymous "man"
         era_l = (era or "").lower()
         if kind == "man" and ("1850" in era_l or era_l in ("1851", "1850s")):
-            # deterministic: ~45% ladies from name hash
-            if (rng_seed % 100) < 45:
+            # deterministic: ~42% ladies (40–45%); rest gentlemen / workmen
+            if (rng_seed % 100) < 42:
                 kind = "lady"
-            elif (rng_seed % 100) >= 85:
-                kind = "workman"  # ~15% workmen in anonymous crowd
+            elif (rng_seed % 100) >= 88:
+                kind = "workman"  # ~12% workmen in anonymous crowd
         pose = _infer_pose(ob, rng_seed)
         role = resolve_role(kind, {}, era=era)
         # preserve transform

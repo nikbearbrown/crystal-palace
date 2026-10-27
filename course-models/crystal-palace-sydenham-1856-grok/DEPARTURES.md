@@ -341,3 +341,22 @@ Adopt `/workspace/crystal-palace-survey/people/` v3.1 into Sydenham crowd shots 
 - **Lighting rule:** any after with mean luminance < 0.97× before, or visually darker/emptier grade, is reverted (CP035/045/050/055 among others).
 
 Verdicts: `people_v31/verdicts_v31_crowds.json`. Previews: `people_v31/previews/CP*_v31_before_after.jpg`.
+
+## People library v3.3 adopt (2026-10-27) — Sydenham crowds
+
+Canonical `people_lib` PEOPLE_VERSION **3.3** under `/workspace/crystal-palace-survey/people/` (vendored into `scripts/people_lib.py`). Drop bare `FIGURE` match; exclude statues/sculptures/plinth/pedestal; never turn `CastBase_*` / `FIG_*` sandstone facade / PanelFigure into people. `--keep-lighting` preserves authored sun/world/exposure (no look override). CP058 1930s coats: darker mid-tone `_COATS_1930`, paint coats before hand-skin, thicker coat shells; `_sex_for` endswith(`_f`) so `1930s_fireman` stays male.
+
+Honest keep-better by viewing each before/after pair (not lum alone):
+
+| Shot | Era | Verdict | Note |
+|---|---|---|---|
+| CP035 open54 gallery | 1850s | KEEP | white clay placeholders → mid-tone crowd; grade held |
+| CP036 covered way | 1850s | REVERT | broken multi-arm/sunk meshes; washout ~1.95× |
+| CP037 taller nave | 1850s | REVERT | washout ~1.49×; no people gain in frame |
+| CP045 concert gallery | 1850s | REVERT | darker/emptier (~0.82×); mid-stand thinner |
+| CP049 garden front | 1910s | KEEP | articulated crowd; lum ~1.00 exact hold |
+| CP051 electric nave | 1910s | REVERT | double-head artifact; washout ~1.26× |
+| CP058 1936 parade | 1930s | KEEP | coats/bodices darker mid-tones + normal skin; bare shoulders fixed |
+
+Prior v3.1 KEPT still held: CP044, CP054, CP060 (not re-batched this round).
+Pairs: `people_v33/previews/CP*_pair.jpg`. Verdicts: `people_v33/verdicts_v33_crowds.json`.
