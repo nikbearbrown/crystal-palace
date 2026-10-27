@@ -65,9 +65,9 @@ import bmesh
 from mathutils import Vector as V
 def mat(n, c, r=0.7, m=0.0, emit=None):
     return G.mat(n, c, r, m, emit)
-M_grass = mat("Pitch", (0.12, 0.28, 0.08), 0.92)
+M_grass = mat("Pitch", (0.07, 0.18, 0.05), 0.92)
 M_line = mat("Line", (0.78, 0.78, 0.72), 0.75)
-M_bank = mat("Bank", (0.22, 0.26, 0.12), 0.96)
+M_bank = mat("Bank", (0.14, 0.18, 0.07), 0.96)
 M_dirt = mat("Dirt", (0.30, 0.22, 0.12), 0.96)
 M_wood = mat("Wood", (0.40, 0.28, 0.16), 0.8)
 M_iron = mat("Iron", (0.10, 0.10, 0.11), 0.5, 0.3)
@@ -172,9 +172,9 @@ def make_figure_variant(name, body_col, hat=True):
 
 VARIANTS = G.coll("FB_VARIANTS", ROOT)
 cols = [
-    mat("C1", (0.12, 0.12, 0.14), 0.9), mat("C2", (0.25, 0.18, 0.12), 0.9),
-    mat("C3", (0.15, 0.20, 0.28), 0.9), mat("C4", (0.40, 0.12, 0.12), 0.9),
-    mat("C5", (0.20, 0.22, 0.18), 0.9), mat("C6", (0.08, 0.08, 0.08), 0.9),
+    mat("C1", (0.05, 0.05, 0.07), 0.9), mat("C2", (0.12, 0.07, 0.04), 0.9),
+    mat("C3", (0.06, 0.10, 0.18), 0.9), mat("C4", (0.28, 0.05, 0.05), 0.9),
+    mat("C5", (0.08, 0.12, 0.07), 0.9), mat("C6", (0.02, 0.02, 0.02), 0.9),
 ]
 variants = []
 for i, c in enumerate(cols):
@@ -309,6 +309,11 @@ for s in route["shots"]:
     p = s["start"]["pos_ft"]  # actually metres despite the key name
     if "bank" in s["id"]:
         p[2] = bank_z(p[1]) + 1.6
+        if s["id"] == "CP055_bank_1913":
+            # dud-fix: higher bank vantage, look down for crowd depth
+            p[1] = -708.0
+            p[2] = bank_z(p[1]) + 1.6
+            s["start"]["look_ft"] = [-158.0, -560.0, -46.0]
     elif "pavilion" in s["id"]:
         # stand on pavilion floor (x inside CX±25, y on floor band)
         p[0] = CX + 20.0

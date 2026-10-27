@@ -42,14 +42,14 @@
       "note": "1913 Cup Final: packed natural bank, palace on skyline (~120k)",
       "start": {
         "pos_ft": [
-          -158,
-          -685,
-          -41.8
+          -158.0,
+          -708.0,
+          -29.5
         ],
         "look_ft": [
-          -158,
-          -560,
-          -35
+          -158.0,
+          -560.0,
+          -46.0
         ]
       }
     },
