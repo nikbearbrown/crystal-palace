@@ -63,3 +63,18 @@ Units in the scripts are feet. Coordinates: +X runs east along the lake, +Y is n
   (r03 meshes). Trees and `lake_water_still` untouched.
 - CP043b cam: north of Muse looking south so lake/island edge is behind; 50 mm, eye ~1.85 m; shift_y −0.06 to reduce empty foreground grass. Full Muse length kept in frame.
 - Muse `IguanodonHide` weathered in-cand toward stone-grey/sage (Voronoi dirt + mix); Muse mesh untouched (append-only).
+
+## r05b KEEP / promote (2026-10-27) — CP043 + CP043b
+
+Judge: CP043 r05 KEEP (modest gain, far figures more animal) — promote.
+CP043b r05 KEEP with fixes — Muse Iguanodon reads as Hawkins sculpture; then promote.
+
+Fixes before promote (CP043b + shared scene cleanup):
+- Removed stray brown diagonal trunk/stick behind Muse head (parkland bark / prior CycadTrunk support).
+- Removed floating grey hook at far-left edge (`shore_rocks_and_bases` left-edge verts; `plesiosaur_3` relocated off-frame).
+- CP043b camera: NW of Muse, looking south so lake waterline / island edge reads behind the body; 50 mm; eye ~2.5 m; shift_y +0.08; full Muse in frame; less empty grass-shadow foreground.
+- Trees/water (`lake_water_still`) still r03b KEEP (untouched).
+
+Live: `rounds/dinosaurs-1854-r05.blend` (= fixed r05b-cand).
+Pairs: `compare/r05b_cand/pair_CP043.jpg`, `pair_CP043b.jpg`, `pair_CP043_vs_r03.jpg`.
+Renders: `renders/r05b_cand/`.
