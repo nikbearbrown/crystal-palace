@@ -65,10 +65,10 @@ import bmesh
 from mathutils import Vector as V
 def mat(n, c, r=0.7, m=0.0, emit=None):
     return G.mat(n, c, r, m, emit)
-M_grass = mat("Pitch", (0.18, 0.32, 0.12), 0.9)
-M_line = mat("Line", (0.85, 0.85, 0.80), 0.7)
-M_bank = mat("Bank", (0.28, 0.30, 0.18), 0.95)
-M_dirt = mat("Dirt", (0.35, 0.28, 0.18), 0.95)
+M_grass = mat("Pitch", (0.12, 0.28, 0.08), 0.92)
+M_line = mat("Line", (0.78, 0.78, 0.72), 0.75)
+M_bank = mat("Bank", (0.22, 0.26, 0.12), 0.96)
+M_dirt = mat("Dirt", (0.30, 0.22, 0.12), 0.96)
 M_wood = mat("Wood", (0.40, 0.28, 0.16), 0.8)
 M_iron = mat("Iron", (0.10, 0.10, 0.11), 0.5, 0.3)
 M_cloth = mat("Cloth", (0.55, 0.12, 0.12), 0.85)
@@ -332,7 +332,42 @@ for shot in route["shots"]:
         co.rotation_euler = (q - p).to_track_quat('-Z', 'Y').to_euler(); CAMS.objects.link(co)
 sc.camera = CAMS.objects[0]
 
-G.world_sky(elev=35, rot=180, strength=0.4, sun_energy=3.0, sun_rot=(45, 0, 30), sun_col=(1.0, 0.95, 0.88))
+# FB04: denser hero figures near bank / pavilion / pitch cameras
+import figures as FG
+HEROES = G.coll("FB_HEROES", ROOT)
+fm = [M_coat, mat("TrouserH", (0.10, 0.10, 0.12), 0.9), M_skin, M_hat, mat("ShirtH", (0.72, 0.70, 0.62), 0.8)]
+fw = [mat("SkirtH", (0.32, 0.10, 0.12), 0.85), mat("BodiceH", (0.18, 0.16, 0.20), 0.85), M_skin, M_hat, mat("BlouseH", (0.68, 0.64, 0.56), 0.8)]
+me_m = FG.person_mesh("fb_man", "man", fm, FT=0.3048, style={"hat": "low", "frock": True})
+me_w = FG.person_mesh("fb_woman", "woman", fw, FT=0.3048, style={"hat": "low"})
+me_b = FG.person_mesh("fb_boy", "boy", fm, FT=0.3048, style={"hat": "cap"})
+_R = __import__("random").Random(1895)
+info["heroes"] = 0
+def _hero(name, me, x, y, z, rz):
+    ob = bpy.data.objects.new(name, me); ob.location = (x, y, z); ob.rotation_euler = (0, 0, rz)
+    HEROES.objects.link(ob); info["heroes"] += 1
+for i, (dx, dy, kind) in enumerate([
+    (-4, -2, "m"), (3, -1, "w"), (-1, 3, "m"), (6, 2, "b"), (-7, 1, "w"),
+    (2, -4, "m"), (-5, -5, "w"), (8, -3, "m"), (-9, 4, "m"), (1, 5, "w"),
+    (-2, -6, "b"), (5, 6, "m"), (-8, -1, "w"), (4, -7, "m"), (-3, 7, "m"),
+    (7, -5, "m"), (-6, 3, "w"), (0, -3, "m"), (9, 1, "w"), (-10, -4, "m"),
+]):
+    y = -678.0 + dy; _hero(f"FB_Hero_bank_{i}", {"m": me_m, "w": me_w, "b": me_b}[kind], CX + dx, y, bank_z(y), _R.uniform(-0.5, 0.5))
+for i, (dx, dy, kind) in enumerate([
+    (-3, 1, "m"), (2, -1, "w"), (5, 2, "m"), (-6, 0, "w"), (1, 3, "b"), (-2, -2, "m"), (4, -3, "w"), (-5, 2, "m"),
+]):
+    _hero(f"FB_Hero_pav_{i}", {"m": me_m, "w": me_w, "b": me_b}[kind], CX + 18 + dx, CY + PL / 2 + 8 + dy, CZ + 0.3, 3.0 + _R.uniform(-0.4, 0.4))
+for i, (dx, dy, kind) in enumerate([
+    (-8, -2, "m"), (5, 1, "w"), (-2, 4, "m"), (10, -3, "b"), (-12, 2, "m"), (3, -5, "w"), (-6, -6, "m"), (8, 3, "w"),
+]):
+    _hero(f"FB_Hero_pitch_{i}", {"m": me_m, "w": me_w, "b": me_b}[kind], CX + 16 + dx, CY - 8 + dy, CZ, _R.uniform(-0.3, 0.3))
+# turf strip: darker grass patch under pitch (albedo contrast)
+import bmesh as _bm
+_bm2 = _bm.new(); x0, x1 = CX - PW / 2 + 0.3, CX + PW / 2 - 0.3; y0, y1 = CY - PL / 2 + 0.3, CY + PL / 2 - 0.3
+_vs = [_bm2.verts.new(v) for v in [(x0, y0, CZ + 0.03), (x1, y0, CZ + 0.03), (x1, y1, CZ + 0.03), (x0, y1, CZ + 0.03)]]
+_bm2.faces.new(_vs); _me = bpy.data.meshes.new("FB_Turf"); _bm2.to_mesh(_me); _bm2.free()
+_me.materials.append(M_grass); ROOT.objects.link(bpy.data.objects.new("FB_Turf", _me))
+
+G.world_sky(elev=35, rot=180, strength=0.35, sun_energy=2.6, sun_rot=(45, 0, 30), sun_col=(1.0, 0.93, 0.82))
 G.render_settings(exposure=0.0)
 # save — file may be large due to Sydenham append; compress
 sc["grok_build"] = json.dumps({"set": f"G-FOOTBALL {STATE}", "seed": SEED, "info": info})

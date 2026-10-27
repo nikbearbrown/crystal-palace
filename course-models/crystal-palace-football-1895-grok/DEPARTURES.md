@@ -10,3 +10,9 @@
 | FB06 | Build flag `--state 1895|1913` (default 1913 for the Cup Final hero shot) | Two story beats, one script. | B |
 | FB07 | Sink `park_slope` −20 m over the south basin; clear basin water/stone/sprays by bound-box centre (not origin) | Sydenham park_slope lids the basin at ~−45.9 above the pitch; origin-based delete missed world-baked meshes. | B |
 | FB08 | check_set skips non-route (Sydenham) cameras and FB_Var/Crowd hits; 1895 state zeros crowd_1913 min | Appended shell otherwise fails eye/roll matching. | B |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| FB04 | 36 hero figures near bank/pavilion/pitch cams; darker turf/bank albedo; turf strip on pitch | Sparse near-camera figures; flat green | B |

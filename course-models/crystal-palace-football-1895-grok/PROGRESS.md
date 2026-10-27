@@ -6,3 +6,7 @@
 - **1913** `rounds/fb01.blend`: crowd_1913=121000, 16.5 MB, checks **22/22**.
 - **1895** `rounds/fb01_1895.blend`: crowd_1895≈7873, 14.8 MB, checks **22/22**.
 - Finals: `renders/fb01/` (CP055), `renders/fb01_1895/` (CP050).
+
+## fb02 (2026-10-27): quality pass — denser heroes, turf/bank
+- 36 hero figures near bank/pavilion/pitch cams (FT=0.3048); darker turf/bank albedo; turf strip.
+- DEPARTURES FB04. Renders/fb02/.

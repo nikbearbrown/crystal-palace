@@ -1,0 +1,159 @@
+{
+ "set": "G-FOOTBALL 1913",
+ "checks": [
+  {
+   "id": "CP050_bank_1895_start.eye",
+   "check": "eye 1.6 over the surface below (FB_NaturalBank)",
+   "target": "1.6 m",
+   "measured": 1.6,
+   "pass": true
+  },
+  {
+   "id": "CP050_bank_1895_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP050_bank_1895_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP050_bank_1895_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 2.83,
+   "pass": true
+  },
+  {
+   "id": "CP050_pavilion_1895_start.eye",
+   "check": "eye 1.6 over the surface below (FB_Pavilion_floor)",
+   "target": "1.6 m",
+   "measured": 1.6,
+   "pass": true
+  },
+  {
+   "id": "CP050_pavilion_1895_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP050_pavilion_1895_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP050_pavilion_1895_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.22,
+   "pass": true
+  },
+  {
+   "id": "CP055_bank_1913_start.eye",
+   "check": "eye 1.6 over the surface below (FB_NaturalBank)",
+   "target": "1.6 m",
+   "measured": 1.6,
+   "pass": true
+  },
+  {
+   "id": "CP055_bank_1913_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP055_bank_1913_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP055_bank_1913_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.19,
+   "pass": true
+  },
+  {
+   "id": "CP055_pitch_1913_start.eye",
+   "check": "eye 1.6 over the surface below (FB_Turf)",
+   "target": "1.6 m",
+   "measured": 1.57,
+   "pass": true
+  },
+  {
+   "id": "CP055_pitch_1913_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP055_pitch_1913_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP055_pitch_1913_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.15,
+   "pass": true
+  },
+  {
+   "id": "FB.palace",
+   "check": "Sydenham shell appended (read-only source)",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "FB.no_north",
+   "check": "north transept (lost 1866) removed",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "FB.pitch",
+   "check": "pitch marked",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "FB.crowd_1913",
+   "check": "1913 crowd ~120k on banks",
+   "target": ">= 100000",
+   "measured": 121000,
+   "pass": true
+  },
+  {
+   "id": "FB.crowd_1895",
+   "check": "1895 crowd present or empty ground state",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "FILE.size",
+   "check": "round .blend under 90 MB",
+   "target": "< 90 MB",
+   "measured": 16.5,
+   "pass": true
+  }
+ ]
+}
