@@ -123,3 +123,8 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
 - Checks 32/32 (new K32: spacing 96 ft, no clashes, 12/14 heads visible from the camera).
 - Renders: renders/c06/CP010_extent_start.png and CP010_extent_end.png (1280x720, 48 spp).
 - Backlog (parked, not started): the remaining c06 list above.
+
+## k01 (2026-10-27): K-DRAIN CP014 labelled cutaway
+- KD01–KD06: ridge → Paxton gutter → box gutter → hollow column → base pipe → drain; studio diagrams + live details.
+- Checks: see checks/k01_checks.md.
+- Renders: renders/k01/CP014_drain_{whole,roof,gutter,base}_start.png.

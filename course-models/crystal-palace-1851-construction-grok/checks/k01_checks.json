@@ -1,0 +1,138 @@
+{
+ "set": "K-DRAIN k01",
+ "checks": [
+  {
+   "id": "CP014_drain_base_start.eye",
+   "check": "eye 5.25 ft over the surface below (KD_Ground)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_base_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_base_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 50,
+   "measured": 50.0,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_base_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_gutter_start.eye",
+   "check": "eye 5.25 ft over the surface below (KD_Scaffold_board)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_gutter_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_gutter_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 50,
+   "measured": 50.0,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_gutter_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 2.81,
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_roof_start.diagram",
+   "check": "diagram camera (labelled cutaway; eye grammar n/a), no roll",
+   "target": "",
+   "measured": "ORTHO",
+   "pass": true
+  },
+  {
+   "id": "CP014_drain_whole_start.diagram",
+   "check": "diagram camera (labelled cutaway; eye grammar n/a), no roll",
+   "target": "",
+   "measured": "ORTHO",
+   "pass": true
+  },
+  {
+   "id": "KD.water",
+   "check": "water strips along the whole path",
+   "target": ">= 6",
+   "measured": 6,
+   "pass": true
+  },
+  {
+   "id": "KD.arrows",
+   "check": "flow arrows",
+   "target": ">= 8",
+   "measured": 13,
+   "pass": true
+  },
+  {
+   "id": "KD.labels",
+   "check": "3D text labels (whole + roof diagrams)",
+   "target": ">= 12",
+   "measured": 21,
+   "pass": true
+  },
+  {
+   "id": "KD.paxton",
+   "check": "Paxton gutters with rain channel + 2 condensation grooves",
+   "target": ">= 2",
+   "measured": 2,
+   "pass": true
+  },
+  {
+   "id": "KD.sash",
+   "check": "sash bars (10 in spacing) carrying condensation grooves",
+   "target": ">= 40",
+   "measured": 64,
+   "pass": true
+  },
+  {
+   "id": "KD.path",
+   "check": "water path falls monotonically ridge -> sewer (z never rises)",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "KD.column",
+   "check": "hollow column shown cut (inner bore visible)",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "KD.figure",
+   "check": "scale figure at the column foot",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "FILE.size",
+   "check": "round .blend under 90 MB",
+   "target": "< 90 MB",
+   "measured": 0.2,
+   "pass": true
+  }
+ ]
+}

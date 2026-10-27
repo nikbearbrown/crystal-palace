@@ -1,0 +1,129 @@
+{
+ "set": "K-DRAIN (CP014) detail",
+ "units": "ft",
+ "shots": [
+  {
+   "id": "CP014_drain_whole",
+   "lens_mm": 50,
+   "diagram": true,
+   "ortho_m": 11.278,
+   "res": "720x1280",
+   "note": "labelled orthographic cutaway, ridge to sewer, portrait",
+   "start": {
+    "pos_ft": [
+     -69.356,
+     -126.498,
+     41.399
+    ],
+    "look_ft": [
+     3.5,
+     1.0,
+     10.8
+    ]
+   }
+  },
+  {
+   "id": "CP014_drain_roof",
+   "lens_mm": 50,
+   "diagram": true,
+   "ortho_m": 5.334,
+   "note": "labelled orthographic cutaway of the roof end: glass, sash bars, Paxton gutter, box gutter, column head",
+   "start": {
+    "pos_ft": [
+     -79.729,
+     -113.877,
+     73.704
+    ],
+    "look_ft": [
+     0.6,
+     2.6,
+     23.9
+    ]
+   }
+  },
+  {
+   "id": "CP014_drain_gutter",
+   "lens_mm": 50,
+   "note": "50 mm detail from a glazier's scaffold board: Paxton gutter discharging into the box gutter over the column head",
+   "start": {
+    "pos_ft": [
+     -5.0,
+     -7.5,
+     26.6
+    ],
+    "look_ft": [
+     0.9,
+     1.2,
+     23.7
+    ]
+   }
+  },
+  {
+   "id": "CP014_drain_base",
+   "lens_mm": 50,
+   "note": "50 mm detail standing at the trench edge: column foot, base-piece outlet, pipe to the drain",
+   "start": {
+    "pos_ft": [
+     -1.0,
+     -11.0,
+     5.25
+    ],
+    "look_ft": [
+     3.2,
+     0.3,
+     -2.4
+    ]
+   }
+  }
+ ],
+ "contents": [
+  {
+   "id": "KD.water",
+   "what": "water strips along the whole path",
+   "prefix": "KD_Water",
+   "min": 6
+  },
+  {
+   "id": "KD.arrows",
+   "what": "flow arrows",
+   "info": "arrows",
+   "min": 8
+  },
+  {
+   "id": "KD.labels",
+   "what": "3D text labels (whole + roof diagrams)",
+   "info": "labels",
+   "min": 12
+  },
+  {
+   "id": "KD.paxton",
+   "what": "Paxton gutters with rain channel + 2 condensation grooves",
+   "info": "paxton_gutters",
+   "min": 2
+  },
+  {
+   "id": "KD.sash",
+   "what": "sash bars (10 in spacing) carrying condensation grooves",
+   "info": "sash_bars",
+   "min": 40
+  },
+  {
+   "id": "KD.path",
+   "what": "water path falls monotonically ridge -> sewer (z never rises)",
+   "info": "path_monotone",
+   "min": 1
+  },
+  {
+   "id": "KD.column",
+   "what": "hollow column shown cut (inner bore visible)",
+   "prefix": "KD_Column",
+   "min": 1
+  },
+  {
+   "id": "KD.figure",
+   "what": "scale figure at the column foot",
+   "info": "figures",
+   "min": 1
+  }
+ ]
+}

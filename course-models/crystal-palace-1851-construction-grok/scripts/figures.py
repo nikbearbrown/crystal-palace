@@ -1,5 +1,4 @@
-"""Copied from the transept branch (scripts/figures.py, Grok Bot); construction adds base=False for live horses.
-Sculpture and crowd stand-ins for the HP51 dressing (r09). Generic forms, not likenesses of any catalogued work.
+"""Sculpture and crowd stand-ins for the HP51 dressing (r09). Generic forms, not likenesses of any catalogued work.
 Statues: metaball figures evaluated to meshes, so limbs blend into one carved mass with a classical support strut,
 drapery and an integral base. Crowd: low-poly lathe people in 1851 dress (frock coat + top hat; full skirt + bonnet)."""
 import bpy, bmesh, math
@@ -126,7 +125,7 @@ def horse_group_mesh(name, length_m, mat, rearing=False, rider=True, base=True):
                ("ell", (0.0, -0.1, z0 - 0.05), (0.13, 0.1, 0.16)),                # skirt / cloak falling on the near side
                ("cap", (0.0, -0.06, z0 + 0.18), (0.12, -0.08, z0 + 0.12), 0.025), ("cap", (0.0, 0.03, z0 + 0.18), (0.1, 0.06, z0 + 0.1), 0.025)]
     me = _mb_mesh(name, body + fl + hind + tail + rid, length_m)
-    if base: _join(me, [(-0.5, 0.55, -0.2, 0.2, -0.0, 0.05)], length_m)
+    if base: _join(me, [(-0.5, 0.55, -0.2, 0.2, -0.0, 0.05)], length_m)   # base=False: live horse (construction/dismantle carts)
     me.materials.append(mat); return me
 
 # ---- crowd (feet) ----
@@ -137,9 +136,12 @@ def _lathe(bm, prof, seg, cx=0.0, cy=0.0, ox=0.0):
     if prof[-1][0] > 0: bm.faces.new(rings[-1])
     return len(prof)
 
-def person_mesh(name, kind, mats, FT=0.3048):
-    """kind 'man' | 'woman' | 'girl'; mats = [main, second, skin, hat]. One mesh with 4 slots, metres."""
-    bm = bmesh.new(); f = FT
+def person_mesh(name, kind, mats, FT=0.3048, style=None):
+    """kind 'man' | 'woman' | 'girl' | 'boy'; mats = [main, second, skin, hat(, trim)]. One mesh, metres.
+    r10 style (all optional, defaults = r09 figure): man/boy: hat 'top'|'low'|'cap'|'shako', frock (knee-length skirts),
+    cravat, cane, belt; woman/girl: skirt_w (crinoline width factor), shawl. Trim parts use slot 4 (mats[4])."""
+    st = dict(style or {}); bm = bmesh.new(); f = FT
+    if kind == "boy": kind = "man"; st.setdefault("hat", "cap"); st["_k"] = 0.72
     slots = []   # (faces_before, mat_index)
     def mark(i):
         for fa in bm.faces:
@@ -153,17 +155,36 @@ def person_mesh(name, kind, mats, FT=0.3048):
             _lathe(bm, [(0.16 * f, 3.0 * f), (0.18 * f, 4.4 * f), (0.0, 4.5 * f)], 6, ox=s * f)
         mark(0)
         _lathe(bm, [(0.0, 4.75 * f), (0.3 * f, 4.85 * f), (0.36 * f, 5.15 * f), (0.3 * f, 5.42 * f), (0.0, 5.5 * f)], 10); mark(2)
-        _lathe(bm, [(0.0, 5.32 * f), (0.48 * f, 5.32 * f), (0.48 * f, 5.38 * f), (0.3 * f, 5.38 * f), (0.32 * f, 6.0 * f), (0.0, 6.0 * f)], 10); mark(3)
+        hat = st.get("hat", "top")
+        if hat == "top": _lathe(bm, [(0.0, 5.32 * f), (0.48 * f, 5.32 * f), (0.48 * f, 5.38 * f), (0.3 * f, 5.38 * f), (0.32 * f, 6.0 * f), (0.0, 6.0 * f)], 10)
+        elif hat == "low": _lathe(bm, [(0.0, 5.3 * f), (0.55 * f, 5.3 * f), (0.55 * f, 5.35 * f), (0.33 * f, 5.38 * f), (0.3 * f, 5.72 * f), (0.0, 5.75 * f)], 10)
+        elif hat == "shako": _lathe(bm, [(0.0, 5.3 * f), (0.36 * f, 5.3 * f), (0.38 * f, 6.05 * f), (0.0, 6.05 * f)], 10)
+        else:
+            _lathe(bm, [(0.0, 5.28 * f), (0.38 * f, 5.28 * f), (0.42 * f, 5.42 * f), (0.0, 5.5 * f)], 10)
+            _box(bm, -0.22 * f, 0.22 * f, -0.62 * f, -0.3 * f, 5.27 * f, 5.32 * f)        # cap peak (front -y)
+        mark(3)
+        if st.get("frock"):
+            _lathe(bm, [(0.0, 1.35 * f), (0.62 * f, 1.35 * f), (0.66 * f, 1.95 * f), (0.0, 1.97 * f)], 10); mark(0)
+        if st.get("cravat"): _box(bm, -0.13 * f, 0.13 * f, -0.44 * f, -0.3 * f, 4.4 * f, 4.78 * f); mark(4)
+        if st.get("belt"):
+            _lathe(bm, [(0.0, 2.92 * f), (0.63 * f, 2.92 * f), (0.62 * f, 3.08 * f), (0.0, 3.08 * f)], 10); mark(4)
+            for sx_ in (-1, 1): _box(bm, -0.06 * f + sx_ * 0.18 * f, 0.06 * f + sx_ * 0.18 * f, -0.66 * f, -0.56 * f, 3.1 * f, 4.4 * f)
+            mark(4)
+        if st.get("cane"): _lathe(bm, [(0.04 * f, 0.0), (0.04 * f, 3.05 * f), (0.0, 3.1 * f)], 6, ox=0.8 * f, cy=-0.25 * f); mark(3)
     else:
         sc = 1.0 if kind == "woman" else 0.68
-        _lathe(bm, [(0.0, 0.02 * f), (1.25 * sc * f, 0.02 * f), (1.2 * sc * f, 0.5 * sc * f), (0.95 * sc * f, 1.6 * sc * f), (0.6 * sc * f, 2.8 * sc * f), (0.4 * sc * f, 3.25 * sc * f), (0.0, 3.25 * sc * f)], 14); mark(0)
+        w_ = st.get("skirt_w", 1.0)
+        _lathe(bm, [(0.0, 0.02 * f), (1.25 * w_ * sc * f, 0.02 * f), (1.2 * w_ * sc * f, 0.5 * sc * f), (0.95 * w_ * sc * f, 1.6 * sc * f), (0.6 * sc * f, 2.8 * sc * f), (0.4 * sc * f, 3.25 * sc * f), (0.0, 3.25 * sc * f)], 14); mark(0)
         _lathe(bm, [(0.4 * sc * f, 3.2 * sc * f), (0.48 * sc * f, 3.9 * sc * f), (0.55 * sc * f, 4.25 * sc * f), (0.3 * sc * f, 4.45 * sc * f), (0.0, 4.5 * sc * f)], 10); mark(1)
         _lathe(bm, [(0.0, 4.45 * sc * f), (0.27 * sc * f, 4.55 * sc * f), (0.33 * sc * f, 4.82 * sc * f), (0.27 * sc * f, 5.08 * sc * f), (0.0, 5.12 * sc * f)], 10); mark(2)
+        if st.get("shawl"):
+            _lathe(bm, [(0.0, 4.5 * sc * f), (0.52 * sc * f, 4.32 * sc * f), (0.72 * sc * f, 3.75 * sc * f), (0.62 * sc * f, 3.6 * sc * f), (0.0, 3.6 * sc * f)], 12); mark(4)
         if kind == "woman":   # bonnet: a hood open to the front (-y)
             _lathe(bm, [(0.0, 4.72 * f), (0.38 * f, 4.78 * f), (0.42 * f, 5.05 * f), (0.3 * f, 5.25 * f), (0.0, 5.3 * f)], 10, cy=0.06 * f); mark(3)
         for s in (-0.55, 0.55):
             _lathe(bm, [(0.14 * sc * f, 2.9 * sc * f), (0.15 * sc * f, 4.2 * sc * f), (0.0, 4.3 * sc * f)], 6, ox=s * sc * f)
         mark(1)
+    if st.get("_k"): bmesh.ops.scale(bm, vec=(st["_k"],) * 3, verts=bm.verts)
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
     for m in mats: me.materials.append(m)
     return me
