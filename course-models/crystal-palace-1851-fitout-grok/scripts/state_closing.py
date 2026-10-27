@@ -44,6 +44,17 @@ GT = GALLERY_TOP
 extra_g = spawn([((37.3, 40.0, 40, 178), 1), ((-40.0, -37.3, 40, 178), 1), ((37.3, 40.0, -152, -40), 1), ((-40.0, -37.3, -152, -40), 1),
                  ((40.5, 44.0, -152, 178), 1.4), ((-44.0, -40.5, -152, 178), 1.4), ((-34, 34, -162, -157), 0.6)], 260, GT, "CLG", None,
                 seg_r=6, cone_d=14, cone_a=12, face=face_dais)
+# FT40 (c02): drop spectators standing within 18 ft in front of a closing camera (CP029_gallery had one filling the left foreground)
+_cl_cams = [((-39.5, -44.0), (0.0, 48.0))]   # gallery cam only; the dais shot keeps its floor foreground
+_drop = 0
+for _o in list(bpy.data.objects):
+    if not _o.name.startswith("CROWD_") or not _o.get("person"): continue
+    _x, _y = _o.location.x / FT, _o.location.y / FT
+    for (_cx, _cy), (_lx, _ly) in _cl_cams:
+        _dx, _dy = _x - _cx, _y - _cy; _vx, _vy = _lx - _cx, _ly - _cy
+        if math.hypot(_dx, _dy) < 18 and (_dx * _vx + _dy * _vy) > 0 and abs(_o.location.z / FT - (22.92 if _cx < -30 else 0)) < 1:
+            bpy.data.objects.remove(_o); _drop += 1; break
+info["cam_foreground_dropped"] = _drop
 info["ceremony_crowd"] = [extra, extra_g]
 # FT34: October -- the elms' leaves turning (interpretive), a lower afternoon sun
 LEAF = bpy.data.materials.get("GT_ElmLeaf")

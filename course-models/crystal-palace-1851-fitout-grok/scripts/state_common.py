@@ -109,3 +109,12 @@ def open_south_doors():
             k.box(0, xh - 0.08, xh + 0.08, -204.0 + 0.2, -204.0 + 3.0, 0.1, 14.0)
     ob = new_obj("SOUTH_DOORS_OPEN", k.done("south_doors_open"), C["WALLS"], props={"part_kind": "door", "state": "open"})
     return 6
+
+# FT39 (f02/h02/c02): the boarded end walls blew out white in sunlit exteriors -> tone the timber down ~25 %
+# (state rounds only; the base transept build is unchanged). Weathered painted deal, not new white board.
+for _mn, _rgb in (("GT_Timber", (0.54, 0.495, 0.42)), ("GT_Boarding", (0.45, 0.40, 0.325))):
+    _m = bpy.data.materials.get(_mn)
+    if _m and _m.use_nodes:
+        _b = _m.node_tree.nodes.get("Principled BSDF")
+        if _b and not _b.inputs["Base Color"].is_linked: _b.inputs["Base Color"].default_value = (*_rgb, 1)
+        _m.diffuse_color = (*_rgb, 1)

@@ -49,3 +49,6 @@ Grades:
 | FT36 | The fountain stays in place for the closing. | It stood until dismantling | B |
 | FT37 | The closing gallery camera moved to the west gallery because the elm canopy blocked the east view. | clearance | - |
 | FT38 | Sunlit exteriors (CP019_dray, CP026_shilling_ext) are re-rendered at render-time exposure -0.7 because the wall boards blew out white. This is a review override only; the .blend is unchanged. | render review | C |
+| FT39 | **Pale exterior boards** (f02/h02/c02): GT_Timber Base Color (0.54, 0.495, 0.42) and GT_Boarding (0.45, 0.40, 0.325) — weathered painted deal instead of new white board, so sunlit exteriors (CP019, CP026) stop blowing out. | Review: boards read as white sheets even at exposure −0.7. | B |
+| FT40 | **CP029 gallery foreground filter** (c02): drop CROWD_* persons within 18 ft in front of the gallery cam at (−39.5, −44) on the gallery floor (z ≈ 22.92). Dais shot unchanged. | Review: a spectator filled the left foreground of CP029_gallery. | B |
+| FT41 | **CP028 louvre camera tilt** (h02): pos (24, 156, 5.25) → look (24, 203, 15), 50 mm. The Muse louvre band sits at z ≈ 16.67 ft; the previous look left it low in frame. | Review: louvres were under-framed. | B |

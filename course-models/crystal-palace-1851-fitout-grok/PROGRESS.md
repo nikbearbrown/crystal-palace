@@ -21,3 +21,9 @@ Branch `grok-fitout-1851` (worktree /workspace/crystal-palace-fitout). Local com
   - The CP029 gallery shot has a spectator in the left foreground: add a cam_conflict filter on gallery spawns.
   - Half-painted columns read faintly: make the paint cut a sharper band and add drips and drop cloths.
   - The CP019 doors shot needs more crates in transit.
+
+## f02 / h02 / c02 (2026-10-27): quick fixes 1, 2, 4
+- FT39 pale exterior timber/boarding tone; FT40 CP029 gallery foreground filter; FT41 CP028 louvre camera tilt.
+- Parked as backlog: sharper half-paint bands with drips; workshop belts and shavings / shop lighting / loading-door view (fitout next 3 and 5).
+- Checks: f02 40/40 dims + 48/48 state; h02 39/39 + 38/38; c02 35/35 + 15/15.
+- Renders: renders/f02/CP019_dray_start; renders/h02/CP026_shilling_ext_start, CP028_louvre_start; renders/c02/CP029_gallery_start, CP029_dais_start.
