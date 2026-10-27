@@ -203,3 +203,10 @@ Sources used: Wikipedia "The Crystal Palace" (fire 30 Nov 1936; towers survived;
 | RUINS41: both towers removed, brick bases kept | RUINS41 | R (south base excavated 1985) / I north base | |
 | Railway colonnade kept in all later states | 1936–RUINS41 | U | its demolition date not researched |
 | Storyboard cameras CP001, CP057, CP059, CP061, CP062, CP064, CP072, CP073 created in every state (identical objects → matched pairs) | all | I positions | 36 mm sensor, 1.6 m eye, no roll; 28 interior / 35 exterior / 50 detail |
+
+### r11b polish
+| Change | State | Grade | Note |
+|---|---|---|---|
+| FIRE flames re-done as emissive *surface* tongues: opacity = facing-ratio core × stretched world noise × per-vertex height fade (`hfac` attribute), blackbody 1150–2300 K. Replaces r11 volume cones that read as solid spikes. `SY_FLAMEVOL=1` restores r11 volumes | FIRE | I (look, not physics) | per-tongue volume objects tried and abandoned: 600 volume objects did not finish one 60 % frame in 24 min |
+| Alhambra arch outlines: real-geometry "sebka" lace, 3 staggered rows of faceted lozenge studs following each arch profile on both faces (`SY_LACE`, default on) | EARLY/POST66 | I (pattern) / R that the arch outlines carried dense pierced/relief lace (0108) | stud size 0.32–0.52 × 0.2–0.3 ft, 0.12 ft proud; not a copy of any specific Owen Jones panel |
+| 0108 comparison exposure raised from −1.0 to −0.3 EV (`EXPO` env in render.py, per render only) | EARLY | — | presentation only; scene file exposure unchanged |
