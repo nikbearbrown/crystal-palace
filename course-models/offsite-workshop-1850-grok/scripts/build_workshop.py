@@ -43,7 +43,7 @@ BRASS = mat("brass", (0.70, 0.52, 0.22), 0.3, 1.0); EARTH = mat("earth_floor", (
 GRAVEL = mat("yard", (0.33, 0.30, 0.26), 0.95); LEATHER = mat("belt", (0.22, 0.12, 0.06), 0.6)
 GLOW = mat("furnace_glow", (1.0, 0.5, 0.15), 0.5, 0, ((1.0, 0.42, 0.10), 40.0)); EMBER = mat("kiln_glow", (0.9, 0.35, 0.1), 0.5, 0, ((1.0, 0.32, 0.08), 12.0))
 GLASS = mat_glass("cylinder_glass", (0.80, 0.90, 0.84)); HOT = mat("hot_glass", (1.0, 0.55, 0.2), 0.3, 0, ((1.0, 0.45, 0.12), 6.0))
-RL = mat_rooflight(); GLASS_PANE = mat_glass("sheet_glass", (0.72, 0.82, 0.78), rough=0.04)  # w02: greener sheet so panes read through
+RL = mat_rooflight(); GLASS_PANE = mat_glass("sheet_glass", (0.85, 0.92, 0.88))
 SKIN = [mat("skin_a", (0.72, 0.53, 0.42), 0.6), mat("skin_b", (0.60, 0.43, 0.33), 0.6)]
 WK = [mat("fustian", (0.30, 0.24, 0.16), 0.9), mat("cord", (0.36, 0.30, 0.20), 0.9), mat("moleskin", (0.33, 0.31, 0.27), 0.9),
       mat("shirt", (0.70, 0.68, 0.62), 0.9), mat("jacket_blue", (0.08, 0.10, 0.18), 0.9)]
@@ -174,36 +174,6 @@ def machine(name, x, y, L, kind):
     return m.done(name, CO["SHOP"], x, y, 0, 0, part_kind="machine", machine=kind)
 machine("MACHINE_SASHBAR", -30.0, -7.0, 14.0, "sash"); machine("MACHINE_SASHBAR_2", -30.0, -15.0, 14.0, "sash")
 machine("MACHINE_GUTTER", -22.0, 9.0, 26.0, "gutter")
-# w02: flat leather belts from line shaft down to each machine (was a thin vertical bar only)
-belt = Kit([LEATHER, IRON])
-for (mx, my, half_w) in ((-30.0, -7.0, 0.55), (-30.0, -15.0, 0.55), (-22.0, 9.0, 0.7)):
-    # open belt loop: shaft pulley at (mx, 0, SHAFT_Z) → machine pulley at (mx, my+2.0, 4.2)
-    top = (mx, 0.0, SHAFT_Z - 0.1)
-    bot = (mx, my + 2.0, 4.6)
-    # two strands of the belt (tight / slack)
-    for dx in (-half_w * 0.15, half_w * 0.15):
-        belt.bar(0, (top[0] + dx, top[1], top[2]), (bot[0] + dx, bot[1], bot[2]), 0.12, 0.025)
-    # shaft-side pulley face
-    belt.cyl(1, (mx, -0.35, SHAFT_Z), (mx, 0.35, SHAFT_Z), 0.85, 14)
-    # floor drip pans under belt runs
-    belt.box(1, mx - 0.8, mx + 0.8, min(0, my + 2) - 0.4, max(0, my + 2) + 0.4, 0.02, 0.08)
-belt.done("SHOP_BELTS", CO["SHOP"], part_kind="belt")
-# w02: wood shavings / deal chips on the shop floor near sash machines
-sh = Kit([TIMB_NEW, TIMB])
-Rsh = R
-for i in range(48):
-    x = -34.0 + Rsh.uniform(0, 18); y = -18.0 + Rsh.uniform(0, 14)
-    z = 0.01 + Rsh.uniform(0, 0.04)
-    L = Rsh.uniform(0.15, 0.55); w = Rsh.uniform(0.03, 0.09); h = Rsh.uniform(0.01, 0.035)
-    sh.box(0 if i % 3 else 1, x, x + L, y, y + w, z, z + h)
-# larger curled shaving piles
-for (px, py) in ((-28.0, -10.5), (-26.5, -16.0), (-18.0, 7.5), (-32.0, -5.0)):
-    for j in range(8):
-        sh.cyl(0, (px + Rsh.uniform(-0.4, 0.4), py + Rsh.uniform(-0.4, 0.4), 0.02),
-               (px + Rsh.uniform(-0.3, 0.3), py + Rsh.uniform(-0.3, 0.3), 0.15 + Rsh.uniform(0, 0.2)),
-               Rsh.uniform(0.04, 0.12), 6, True, Rsh.uniform(0.02, 0.06))
-sh.done("SHOP_SHAVINGS", CO["SHOP"], part_kind="shavings")
-INFO["belts"] = 3; INFO["shaving_clumps"] = 48
 # output: sash bars (49 in x 1 x 1.5 in) stacked on trestles; gutters (24 ft) stacked; scantling stack
 st = Kit([TIMB_NEW, TIMB])
 for tx in (-14.0, -9.5):
@@ -262,19 +232,6 @@ for j, (px, py) in enumerate(pits):
     blowers.append((bx, by + 0.4, STZ))
 cy.done("CYLINDERS", CO["GLASSHOUSE"], part_kind="glass_cylinders")
 INFO["cylinders"] = ncyl + 3
-# w02: split cylinders (opened for flattening) racked by the kiln mouth
-sp = Kit([GLASS, IRON, TIMB, HOT])
-for j in range(6):
-    xx = KX - 5.5 + (j % 3) * 2.2; yy = KY - 6.5 - (j // 3) * 1.8; zz = 0.4
-    # half-cylinder as thin curved shell approx: two quarter slabs + edge
-    sp.box(0, xx - CYL_L / 2, xx + CYL_L / 2, yy - 0.05, yy + 0.05, zz, zz + CYL_R * 2.0)
-    sp.box(0, xx - CYL_L / 2, xx + CYL_L / 2, yy - CYL_R * 0.15, yy + CYL_R * 1.7, zz, zz + 0.08)
-    # iron stilts
-    for sx in (-1, 1):
-        sp.box(1, xx + sx * CYL_L / 2 - 0.1, xx + sx * CYL_L / 2 + 0.1, yy - 0.2, yy + 1.5, 0.0, zz)
-sp.box(2, KX - 6.5, KX + 1.5, KY - 8.5, KY - 5.8, 0.0, 0.25)  # board runway to kiln
-sp.done("SPLIT_CYLINDERS", CO["GLASSHOUSE"], part_kind="split_cylinder")
-INFO["split_cylinders"] = 6
 # ---------------- railway siding: track, two wagons with a 24 ft girder and columns, shear legs (W12-W14) ----------------
 rk = Kit([IRON, TIMB, CAST, TIMB_NEW])
 TY = -40.0; G2 = 4.708 / 2
@@ -360,14 +317,10 @@ except AttributeError: pass
 world.node_tree.links.new(sky.outputs[0], bg.inputs[0]); bg.inputs[1].default_value = 0.30
 sun = bpy.data.lights.new("WS_Sun", 'SUN'); sun.energy = 3.0; sun.angle = math.radians(1.5); sun.color = (1.0, 0.92, 0.82)
 so = bpy.data.objects.new("WS_Sun", sun); ROOT.objects.link(so); so.rotation_euler = (math.radians(62), 0, math.radians(30))
-for j, (gx, gy) in enumerate(glory):   # w02: brighter glory bloom + secondary spill
-    L = bpy.data.lights.new(f"WS_Glory_{j}", 'POINT'); L.energy = 1600; L.color = (1.0, 0.48, 0.16); L.shadow_soft_size = 0.45
+for j, (gx, gy) in enumerate(glory):   # furnace light spilling out of the glory holes
+    L = bpy.data.lights.new(f"WS_Glory_{j}", 'POINT'); L.energy = 900; L.color = (1.0, 0.5, 0.18); L.shadow_soft_size = 0.3
     o = bpy.data.objects.new(f"WS_Glory_{j}", L); o.location = (ft(gx + (gx - FX) * 0.12), ft(gy + (gy - FY) * 0.12), ft(5.0)); ROOT.objects.link(o)
-    L2 = bpy.data.lights.new(f"WS_GlorySpill_{j}", 'POINT'); L2.energy = 400; L2.color = (1.0, 0.55, 0.25); L2.shadow_soft_size = 1.2
-    o2 = bpy.data.objects.new(f"WS_GlorySpill_{j}", L2); o2.location = (ft(gx + (gx - FX) * 0.55), ft(gy + (gy - FY) * 0.55), ft(4.2)); ROOT.objects.link(o2)
-L = bpy.data.lights.new("WS_Kiln", 'POINT'); L.energy = 900; L.color = (1.0, 0.42, 0.12); o = bpy.data.objects.new("WS_Kiln", L); o.location = (ft(KX), ft(KY - 5.5), ft(3.3)); ROOT.objects.link(o)
-# w02: darker glass-house ambient (world a touch gloomier so bloom reads)
-bg.inputs[1].default_value = 0.22
+L = bpy.data.lights.new("WS_Kiln", 'POINT'); L.energy = 500; L.color = (1.0, 0.45, 0.15); o = bpy.data.objects.new("WS_Kiln", L); o.location = (ft(KX), ft(KY - 5.5), ft(3.3)); ROOT.objects.link(o)
 scene.render.engine = 'CYCLES'; scene.cycles.device = 'CPU'; scene.cycles.samples = 64; scene.cycles.use_denoising = True
 scene.cycles.max_bounces = 6; scene.cycles.transparent_max_bounces = 16
 scene.render.resolution_x = 1280; scene.render.resolution_y = 720

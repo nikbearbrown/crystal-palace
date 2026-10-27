@@ -1,35 +1,63 @@
-"""Render named cameras of a built round.
-blender -b rounds/X.blend -P render_views.py -- --cams A,B --outdir renders/X --res 1280x720 --samples 48 [--exposure E] [--keep-lighting]"""
+"""Render named cameras from a transept .blend.
+blender -b rounds/rNN.blend -P render_views.py -- --cams A,B --outdir renders/rNN --res 960x540 --samples 48 [--portrait A] [--claude path.blend [--no-furrow]]"""
 import bpy, sys, os
 argv = sys.argv[sys.argv.index("--") + 1:]
 def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
-cams = arg("--cams").split(","); outdir = arg("--outdir"); W, H = map(int, arg("--res", "1280x720").split("x"))
+cams = arg("--cams").split(","); outdir = arg("--outdir"); W, H = map(int, arg("--res", "960x540").split("x"))
+portrait = set((arg("--portrait", "") or "").split(","))
 sc = bpy.context.scene; sc.cycles.samples = int(arg("--samples", "48"))
-sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8")); base_exp = sc.view_settings.exposure
-# --keep-lighting: preserve blend world/sun/exposure (geometry/material passes)
-if "--keep-lighting" in argv:
-    print("KEEP_LIGHTING exposure", sc.view_settings.exposure, flush=True)
-    base_exp = sc.view_settings.exposure
-else:
-    try:
-        from cpl_look import apply_look, era_for_scene, tod_for_scene
-        _era = arg("--era") or era_for_scene(sc); _tod = arg("--tod") or tod_for_scene(sc)
-        _look = apply_look(era=_era, time_of_day=_tod); base_exp = _look["exposure"]
-    except Exception as e:
-        print("LOOK_FALLBACK", e, flush=True)
-if arg("--exposure"): sc.view_settings.exposure = float(arg("--exposure"))
+if arg("--exposure"): sc.view_settings.exposure = float(arg("--exposure"))   # review-only override (REV_combo seam check)
+sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8"))
+claude = arg("--claude")
+if claude:   # append Claude's model collection read-only (never saved)
+    with bpy.data.libraries.load(claude, link=False) as (src, dst):
+        dst.collections = [c for c in src.collections if c == "MODEL"]
+    for c in dst.collections:
+        if c: sc.collection.children.link(c)
+    # hide our duplicates on Claude's line 37 (x = -36 ft)
+    for ob in bpy.data.objects:
+        if ob.get("claude_line37") or ob.get("claude_overlap"): ob.hide_render = True
+        if ob.get("show_with_claude"): ob.hide_render = False   # r09: Muse Una at its catalogue cell S29 (Claude's zone)
+        elif ob.get("part_kind") in ("column", "girder", "roof") and ob.location.x < -0.3048 * 36.5: ob.hide_render = True
+    # RL02: Claude's appended roof units get our roof glass at render time (seam match); his file is never saved
+    rg = bpy.data.materials.get("GT_Glass"); n = 0
+    if rg:   # RL03: Claude's roof mesh has no usable UVs -> drive any UV-based bar mask from object coords (ft)
+        cl = rg.copy(); cl.name = "GT_Glass_CL"
+        for tc in [x for x in cl.node_tree.nodes if x.type == 'TEX_COORD']:
+            for dst in [lk.to_socket for lk in tc.outputs["UV"].links]:
+                v = cl.node_tree.nodes.new("ShaderNodeVectorMath"); v.operation = 'SCALE'; v.inputs["Scale"].default_value = 1 / 0.3048
+                cl.node_tree.links.new(tc.outputs["Object"], v.inputs[0]); cl.node_tree.links.new(v.outputs[0], dst)
+        rg = cl
+    def roofglass(m):   # RL04: exterior roof-glass recipe (EX19: tint .58/.64/.64, milk .025 @ .55) for the combined review
+        for nd in m.node_tree.nodes:
+            if nd.type == 'BSDF_TRANSPARENT': nd.inputs[0].default_value = (0.58, 0.64, 0.64, 1)
+            if nd.type == 'BSDF_DIFFUSE' and nd.inputs[0].default_value[0] > 0.85: nd.inputs[0].default_value = (0.55, 0.58, 0.58, 1)
+            if nd.type == 'MIX_SHADER' and not nd.inputs[0].is_linked and abs(nd.inputs[0].default_value - 0.06) < 1e-3: nd.inputs[0].default_value = 0.025
+        return m
+    if rg: roofglass(rg)
+    own = {}
+    for ob in bpy.data.objects:   # our own flat roof units in the combined review get the same recipe
+        if ob.get("part_kind") == "roof" and ob.type == 'MESH':
+            for sl in ob.material_slots:
+                if sl.material and sl.material.name in ("GT_Glass", "GT_RoofGlass"):
+                    if "r" not in own: own["r"] = roofglass(sl.material.copy()); own["r"].name = "GT_Glass_ROOFREV"
+                    sl.link = 'OBJECT'; sl.material = own["r"]
+    for c in bpy.data.collections:
+        if c.name.startswith("PART_RoofUnit") and c.library is None:
+            for ob in c.all_objects:
+                for sl in ob.material_slots:
+                    if rg and sl.material and sl.material.name.startswith("MAT_Glass"): sl.material = rg; n += 1
+    print("CLAUDE_ROOF_OVERRIDE slots", n, flush=True)
+    if "--no-furrow" not in argv:   # RL05: flat roof units (his and ours) -> Muse's furrow bay, instanced, render time only
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import furrow; furrow.swap_flat_roofs()
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
-    if not cam:
-        # try _start suffix
-        cam = bpy.data.objects.get(c if c.endswith("_start") or c.endswith("_end") else c + "_start")
     if not cam: print("NO CAM", c); continue
     sc.camera = cam
-    sc.render.resolution_x, sc.render.resolution_y = W, H
-    sc.view_settings.exposure = float(arg("--exposure")) if arg("--exposure") else base_exp
-    sc.render.filepath = os.path.join(outdir, (c if c.endswith(".png") else cam.name) + ("" if cam.name.endswith(".png") else ""))
-    # normalize filename to camera object name
-    sc.render.filepath = os.path.join(outdir, cam.name + ".png")
+    if c in portrait: sc.render.resolution_x, sc.render.resolution_y = H * 3 // 4, int(H * 1.0)
+    else: sc.render.resolution_x, sc.render.resolution_y = W, H
+    sc.render.filepath = os.path.join(outdir, c + ".png")
     bpy.ops.render.render(write_still=True)
     print("WROTE", sc.render.filepath, flush=True)
