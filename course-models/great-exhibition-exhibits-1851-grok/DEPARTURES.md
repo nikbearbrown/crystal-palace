@@ -22,3 +22,6 @@ Grades: **A** = documented, **B** = derived from a surviving object / close anal
 | ID | Change | Why | Grade |
 |---|---|---|---|
 | EX20 | Crystal glass sparkle (coat + faint emission); 6-sided prism drops and festoon cones | Osler candelabrum flat glass | B |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
