@@ -58,3 +58,10 @@ inference from a period image; C = staging judgement for the film (labelled as s
 | ID | Change | Why | Grade |
 |---|---|---|---|
 | CN35 | Draught horse coats darker (bay 0.06/0.035/0.02); harness straps (bridle/breast/girth/traces) as second material GT_HorseHarness | Pale coats; no harness | B |
+
+## c06 (2026-10-27) — parked remainder
+| ID | Grade | Decision | Why |
+|---|---|---|---|
+| CN40 | C | Spoil heaps: radial sin displacement on frustum verts | Smooth cones read as CGI; still volume-correct (K23). |
+| CN41 | C | Pane edge band (emissive rim GT_PaneEdge) on 49×10 sheets | Sheets vanished at 50 mm against sky; rim catches light. |
+| CN42 | B | CP016_wheels cam on roof-edge scaffold (deck 24, eye 29.25) looking at SW wagon wheel | Close-up of Muse 0174 tyre/spoke; K15/K16 require scaffold standing surface. |

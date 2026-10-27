@@ -1,336 +1,365 @@
 {
- "frame": "Claude's frame: metres, origin at the crossing, X east, Y north; route values in feet. Eye 1.6 m = 5.25 ft. Hyde Park 1851 only.",
- "shots": [
-  {
-   "id": "CP010_foundations",
-   "lens_mm": 35,
-   "note": "walk alongside two foundation positions (x 852 and 828: pits, then poured pads), row y -180",
-   "start": {
-    "pos_ft": [
-     858,
-     -168,
-     5.25
-    ],
-    "look_ft": [
-     780,
-     -186,
-     0.5
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     838,
-     -168,
-     5.25
-    ],
-    "look_ft": [
-     760,
-     -186,
-     0.5
-    ]
-   }
-  },
-  {
-   "id": "CP010_extent",
-   "lens_mm": 35,
-   "start": {
-    "pos_ft": [
-     -800,
-     -214,
-     5.25
-    ],
-    "look_ft": [
-     -560,
-     -190,
-     1.0
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     -780,
-     -216,
-     5.25
-    ],
-    "look_ft": [
-     -540,
-     -192,
-     1.0
-    ]
-   },
-   "note": "c05: 'small foundations, immense extent' - eye-level walk along the south row from the pegged west end; dug pits, poured pads and base pieces recede ~1,700 ft to the rising frame (CN32)"
-  },
-  {
-   "id": "CP010_base_insert",
-   "lens_mm": 50,
-   "note": "50 mm insert: base plate and base piece on its pad in an open pit (x 756, y -156)",
-   "start": {
-    "pos_ft": [
-     764,
-     -147,
-     5.25
-    ],
-    "look_ft": [
-     756,
-     -156,
-     -1.4
-    ]
-   }
-  },
-  {
-   "id": "CP011_yard",
-   "lens_mm": 35,
-   "note": "OFFSITE, illustrative: 6 m (20 ft) down a workshop aisle between stacked members",
-   "start": {
-    "pos_ft": [
-     3000,
-     -40,
-     5.25
-    ],
-    "look_ft": [
-     3000,
-     60,
-     4
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     3000,
-     -20,
-     5.25
-    ],
-    "look_ft": [
-     3000,
-     80,
-     4
-    ]
-   }
-  },
-  {
-   "id": "CP012_bay",
-   "lens_mm": 28,
-   "note": "walk beside one 24 ft bay under erection, ending outside the lifting zone (sheer legs at x 552, y -168)",
-   "start": {
-    "pos_ft": [
-     600,
-     -222,
-     5.25
-    ],
-    "look_ft": [
-     514.0,
-     -157.2,
-     14
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     580,
-     -232,
-     5.25
-    ],
-    "look_ft": [
-     507.4,
-     -172.8,
-     14
-    ]
-   },
-   "note_c05": "yaw 5 deg left (look rotated CCW) to hold the horse haul and the cart; gin pole beyond on the right; end key a further 6 deg CCW so the whole haul horse is in frame (c05 preview)"
-  },
-  {
-   "id": "CP012_joint_insert",
-   "lens_mm": 50,
-   "note": "50 mm insert: girder end meeting the connecting piece on a column (x 516, y -180, tier 1) from the scaffold deck",
-   "start": {
-    "pos_ft": [
-     508,
-     -186,
-     23.5
-    ],
-    "look_ft": [
-     516,
-     -180,
-     20.5
-    ]
-   }
-  },
-  {
-   "id": "CP013_sash",
-   "lens_mm": 50,
-   "note": "detail slide across timber sash bars on unglazed roof units (tier 1 roof, x 360-384), from the roof-edge work platform",
-   "start": {
-    "pos_ft": [
-     376,
-     -210,
-     29.25
-    ],
-    "look_ft": [
-     366,
-     -196,
-     22.6
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     364,
-     -210,
-     29.25
-    ],
-    "look_ft": [
-     354,
-     -196,
-     22.6
-    ]
-   }
-  },
-  {
-   "id": "CP013_platform",
-   "lens_mm": 28,
-   "note": "28 mm held view from the documented-type work platform along the roof edge: iron frame, timber gutters, sash bars and boards",
-   "start": {
-    "pos_ft": [
-     420,
-     -212,
-     29.25
-    ],
-    "look_ft": [
-     330,
-     -170,
-     22
-    ]
-   }
-  },
-  {
-   "id": "CP013_layers",
-   "lens_mm": 28,
-   "start": {
-    "pos_ft": [
-     288,
-     -144,
-     5.25
-    ],
-    "look_ft": [
-     380,
-     -150,
-     22.0
-    ]
-   },
-   "note": "c05: iron + timber + glass layering seen from the floor: boards end at x 300 over bare joists; overhead the tier-1 roof runs glazed -> sash bars only -> Paxton gutters only on the iron girders (CN36)"
-  },
-  {
-   "id": "CP014_gutter",
-   "lens_mm": 35,
-   "note": "HP-DETAIL on site: from the roof-edge platform (deck 24 ft), rain water in the Paxton gutters of a glazed bay running to the column-head (c02)",
-   "start": {
-    "pos_ft": [
-     308,
-     -213,
-     29.25
-    ],
-    "look_ft": [
-     320,
-     -188,
-     22.2
-    ]
-   }
-  },
-  {
-   "id": "CP014_section",
-   "lens_mm": 50,
-   "ortho_m": 10.0,
-   "note": "labelled sectional view: hollow column as drain (orthographic, cut plane y = 200) | c04 reframe: ortho 10 m, centred x CX-2 / z 9.8 ft so the gutter label (z 24) and the pad/cutaway labels (z -5.6) both sit inside the frame",
-   "start": {
-    "pos_ft": [
-     3122.0,
-     150,
-     9.8
-    ],
-    "look_ft": [
-     3122.0,
-     200,
-     9.8
-    ]
-   },
-   "res": "720x1280 portrait"
-  },
-  {
-   "id": "CP015_blinds",
-   "lens_mm": 28,
-   "note": "28 mm static interior under canvas-shaded tier-1 roof (x 228-300) with a louvre wall bay",
-   "start": {
-    "pos_ft": [
-     270,
-     -150,
-     5.25
-    ],
-    "look_ft": [
-     250,
-     -204,
-     14
-    ]
-   }
-  },
-  {
-   "id": "CP015_louvre",
-   "lens_mm": 50,
-   "note": "50 mm mechanism insert: louvre blades opening and closing (frames 1-96)",
-   "start": {
-    "pos_ft": [
-     246,
-     -192,
-     5.25
-    ],
-    "look_ft": [
-     240,
-     -204,
-     14.5
-    ]
-   }
-  },
-  {
-   "id": "CP016_trolley",
-   "lens_mm": 50,
-   "note": "50 mm side view from a fixed work platform: glazing wagons on the tier-1 roof gutters, glazed bays behind, an unglazed bay ahead",
-   "start": {
-    "pos_ft": [
-     330,
-     -214,
-     29.25
-    ],
-    "look_ft": [
-     330,
-     -172,
-     23.5
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     338,
-     -214,
-     29.25
-    ],
-    "look_ft": [
-     338,
-     -172,
-     23.5
-    ]
-   },
-   "note_c05": "8 ft follow along the roof-edge platform within the evidenced glazing segment (x 324-348)"
-  },
-  {
-   "id": "REV_site_aerial",
-   "lens_mm": 35,
-   "note": "review only: the construction front from the south-east",
-   "start": {
-    "pos_ft": [
-     1150,
-     -620,
-     240
-    ],
-    "look_ft": [
-     560,
-     -110,
-     10
-    ]
-   }
-  }
- ]
+  "frame": "Claude's frame: metres, origin at the crossing, X east, Y north; route values in feet. Eye 1.6 m = 5.25 ft. Hyde Park 1851 only.",
+  "shots": [
+    {
+      "id": "CP010_foundations",
+      "lens_mm": 35,
+      "note": "walk alongside two foundation positions (x 852 and 828: pits, then poured pads), row y -180",
+      "start": {
+        "pos_ft": [
+          858,
+          -168,
+          5.25
+        ],
+        "look_ft": [
+          780,
+          -186,
+          0.5
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          838,
+          -168,
+          5.25
+        ],
+        "look_ft": [
+          760,
+          -186,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "CP010_extent",
+      "lens_mm": 35,
+      "start": {
+        "pos_ft": [
+          -800,
+          -214,
+          5.25
+        ],
+        "look_ft": [
+          -560,
+          -190,
+          1.0
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          -780,
+          -216,
+          5.25
+        ],
+        "look_ft": [
+          -540,
+          -192,
+          1.0
+        ]
+      },
+      "note": "c05: 'small foundations, immense extent' - eye-level walk along the south row from the pegged west end; dug pits, poured pads and base pieces recede ~1,700 ft to the rising frame (CN32)"
+    },
+    {
+      "id": "CP010_base_insert",
+      "lens_mm": 50,
+      "note": "50 mm insert: base plate and base piece on its pad in an open pit (x 756, y -156)",
+      "start": {
+        "pos_ft": [
+          764,
+          -147,
+          5.25
+        ],
+        "look_ft": [
+          756,
+          -156,
+          -1.4
+        ]
+      }
+    },
+    {
+      "id": "CP011_yard",
+      "lens_mm": 35,
+      "note": "OFFSITE, illustrative: 6 m (20 ft) down a workshop aisle between stacked members",
+      "start": {
+        "pos_ft": [
+          3000,
+          -40,
+          5.25
+        ],
+        "look_ft": [
+          3000,
+          60,
+          4
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          3000,
+          -20,
+          5.25
+        ],
+        "look_ft": [
+          3000,
+          80,
+          4
+        ]
+      }
+    },
+    {
+      "id": "CP012_bay",
+      "lens_mm": 28,
+      "note": "walk beside one 24 ft bay under erection, ending outside the lifting zone (sheer legs at x 552, y -168)",
+      "start": {
+        "pos_ft": [
+          600,
+          -222,
+          5.25
+        ],
+        "look_ft": [
+          514.0,
+          -157.2,
+          14
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          580,
+          -232,
+          5.25
+        ],
+        "look_ft": [
+          507.4,
+          -172.8,
+          14
+        ]
+      },
+      "note_c05": "yaw 5 deg left (look rotated CCW) to hold the horse haul and the cart; gin pole beyond on the right; end key a further 6 deg CCW so the whole haul horse is in frame (c05 preview)"
+    },
+    {
+      "id": "CP012_joint_insert",
+      "lens_mm": 50,
+      "note": "50 mm insert: girder end meeting the connecting piece on a column (x 516, y -180, tier 1) from the scaffold deck",
+      "start": {
+        "pos_ft": [
+          508,
+          -186,
+          23.5
+        ],
+        "look_ft": [
+          516,
+          -180,
+          20.5
+        ]
+      }
+    },
+    {
+      "id": "CP013_sash",
+      "lens_mm": 50,
+      "note": "detail slide across timber sash bars on unglazed roof units (tier 1 roof, x 360-384), from the roof-edge work platform",
+      "start": {
+        "pos_ft": [
+          376,
+          -210,
+          29.25
+        ],
+        "look_ft": [
+          366,
+          -196,
+          22.6
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          364,
+          -210,
+          29.25
+        ],
+        "look_ft": [
+          354,
+          -196,
+          22.6
+        ]
+      }
+    },
+    {
+      "id": "CP013_platform",
+      "lens_mm": 28,
+      "note": "28 mm held view from the documented-type work platform along the roof edge: iron frame, timber gutters, sash bars and boards",
+      "start": {
+        "pos_ft": [
+          420,
+          -212,
+          29.25
+        ],
+        "look_ft": [
+          330,
+          -170,
+          22
+        ]
+      }
+    },
+    {
+      "id": "CP013_layers",
+      "lens_mm": 28,
+      "start": {
+        "pos_ft": [
+          288,
+          -144,
+          5.25
+        ],
+        "look_ft": [
+          380,
+          -150,
+          22.0
+        ]
+      },
+      "note": "c05: iron + timber + glass layering seen from the floor: boards end at x 300 over bare joists; overhead the tier-1 roof runs glazed -> sash bars only -> Paxton gutters only on the iron girders (CN36)"
+    },
+    {
+      "id": "CP014_gutter",
+      "lens_mm": 35,
+      "note": "HP-DETAIL on site: from the roof-edge platform (deck 24 ft), rain water in the Paxton gutters of a glazed bay running to the column-head (c02)",
+      "start": {
+        "pos_ft": [
+          308,
+          -213,
+          29.25
+        ],
+        "look_ft": [
+          320,
+          -188,
+          22.2
+        ]
+      }
+    },
+    {
+      "id": "CP014_section",
+      "lens_mm": 50,
+      "ortho_m": 10.0,
+      "note": "labelled sectional view: hollow column as drain (orthographic, cut plane y = 200) | c04 reframe: ortho 10 m, centred x CX-2 / z 9.8 ft so the gutter label (z 24) and the pad/cutaway labels (z -5.6) both sit inside the frame",
+      "start": {
+        "pos_ft": [
+          3122.0,
+          150,
+          9.8
+        ],
+        "look_ft": [
+          3122.0,
+          200,
+          9.8
+        ]
+      },
+      "res": "720x1280 portrait"
+    },
+    {
+      "id": "CP015_blinds",
+      "lens_mm": 28,
+      "note": "28 mm static interior under canvas-shaded tier-1 roof (x 228-300) with a louvre wall bay",
+      "start": {
+        "pos_ft": [
+          270,
+          -150,
+          5.25
+        ],
+        "look_ft": [
+          250,
+          -204,
+          14
+        ]
+      }
+    },
+    {
+      "id": "CP015_louvre",
+      "lens_mm": 50,
+      "note": "50 mm mechanism insert: louvre blades opening and closing (frames 1-96)",
+      "start": {
+        "pos_ft": [
+          246,
+          -192,
+          5.25
+        ],
+        "look_ft": [
+          240,
+          -204,
+          14.5
+        ]
+      }
+    },
+    {
+      "id": "CP016_trolley",
+      "lens_mm": 50,
+      "note": "50 mm side view from a fixed work platform: glazing wagons on the tier-1 roof gutters, glazed bays behind, an unglazed bay ahead",
+      "start": {
+        "pos_ft": [
+          330,
+          -214,
+          29.25
+        ],
+        "look_ft": [
+          330,
+          -172,
+          23.5
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          338,
+          -214,
+          29.25
+        ],
+        "look_ft": [
+          338,
+          -172,
+          23.5
+        ]
+      },
+      "note_c05": "8 ft follow along the roof-edge platform within the evidenced glazing segment (x 324-348)"
+    },
+    {
+      "id": "REV_site_aerial",
+      "lens_mm": 35,
+      "note": "review only: the construction front from the south-east",
+      "start": {
+        "pos_ft": [
+          1150,
+          -620,
+          240
+        ],
+        "look_ft": [
+          560,
+          -110,
+          10
+        ]
+      }
+    },
+    {
+      "id": "CP016_wheels",
+      "lens_mm": 50,
+      "note": "c06 close-up of CP016 glazing-wagon wheels from the roof-edge platform (Muse 0174 tyre/spoke)",
+      "start": {
+        "pos_ft": [
+          328.1,
+          -212.0,
+          29.25
+        ],
+        "look_ft": [
+          328.1,
+          -196.0,
+          22.5
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          330.5,
+          -212.0,
+          29.25
+        ],
+        "look_ft": [
+          328.5,
+          -196.0,
+          22.4
+        ]
+      }
+    }
+  ]
 }

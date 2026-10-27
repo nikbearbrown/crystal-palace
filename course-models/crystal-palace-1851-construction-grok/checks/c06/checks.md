@@ -16,7 +16,7 @@
 | K21 | PASS | props appended from models/ are credited to their maker | 20 Muse crates |
 | K22 | PASS | site hoarding ~8 ft high, south of the works (y < -290 ft) | 1 hoarding objects |
 | K12 | PASS | worker stand-ins 5'4"-5'10" (standing) | 70 workers; standing heights 5.67-5.67 ft |
-| K13 | PASS | lenses 28/35/50 mm on 36 mm sensor | 21 cameras |
+| K13 | PASS | lenses 28/35/50 mm on 36 mm sensor | 23 cameras |
 | K14 | PASS | no roll | 0 |
 | K15 | PASS | eye height 1.6 m (5.25 ft) above ground or the work-platform deck the camera stands on | all on ground or deck |
 | K16 | PASS | camera clearance >= 1 ft from every object (never inside scaffold, girders, columns) | all clear |

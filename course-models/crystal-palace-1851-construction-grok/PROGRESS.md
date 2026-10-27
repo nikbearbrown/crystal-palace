@@ -131,3 +131,7 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
 
 ## c07 (2026-10-27): horse harness + darker coats
 - Bay/grey coats darkened; harness straps (bridle/breast/girth/traces) GT_HorseHarness. DEPARTURES CN35.
+
+## c06 (2026-10-27): rough spoil, pane edge catchlights, CP016 wheel close-up
+- Build: `rounds/c06.blend`. Checks: 32/32.
+- Lean renders: `renders/c06` — CP010_foundations, CP016_trolley, CP016_wheels (24 spp).

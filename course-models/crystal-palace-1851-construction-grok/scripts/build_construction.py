@@ -341,10 +341,17 @@ for (px, py), (st, d) in sorted(pits.items()):
         k2 = (k + 1) % seg
         bm.faces.new([ring0[k], ring0[k2], ringm[k2], ringm[k]]); bm.faces.new([ringm[k], ringm[k2], ring1[k2], ring1[k]])
         bm.faces.new([ring1[k], ring1[k2], top])
+    # c06: rough spoil — irregular radial displacement so heaps are not smooth frustums
+    for v in bm.verts:
+        if v.co.z <= 0.001: continue
+        ang = math.atan2(v.co.y, v.co.x); rr = math.hypot(v.co.x, v.co.y)
+        bump = 0.08 * math.sin(3 * ang + px * 0.01) + 0.05 * math.sin(5 * ang - py * 0.02)
+        bump += 0.04 * math.sin(7.3 * rr / max(FT, 1e-6) + h)
+        v.co.x *= (1 + bump); v.co.y *= (1 + bump)
+        v.co.z *= (1 + 0.06 * math.sin(4 * ang + rr * 3))
     ob = new_obj(f"KSPOIL_{px:+.0f}_{py:+.0f}", finish(bm, f"spoil_{px:+.0f}_{py:+.0f}", SPOIL), K["FOUNDATIONS"], (ft(spot[0]), ft(spot[1]), ft(-0.05)), 0,
                  {"part_kind": "spoil", "pit": f"{px:+.0f},{py:+.0f}", "pit_depth_ft": round(d, 2), "pit_vol_ft3": round(64 * d, 1),
-                  "bulked_ft3": round(V, 1), "heap_ft3": round(Vh, 1), "carted_ft3": round(max(0, V - Vh), 1), "heap_h_ft": round(h, 2)})
-    for sl in []: pass
+                  "bulked_ft3": round(V, 1), "heap_ft3": round(Vh, 1), "carted_ft3": round(max(0, V - Vh), 1), "heap_h_ft": round(h, 2), "rough": True})
     for f_ in ob.data.polygons: f_.use_smooth = True
     heaps.append(ob)
 print("SPOIL heaps", len(heaps), "skipped", heap_skipped, flush=True)
@@ -594,9 +601,28 @@ if os.path.exists(MUSE):
 # Glass at Hyde Park: 49 x 10 in sheets, 1/16 in (Chance), slid up the grooved sash bars from the wagon. Each "work" glazier
 # holds a pane tipped ~30 deg toward the slope; a second pane lies half-slid into the bars ahead of the wagon.
 PANE = mat_glass("GT_PaneLoose", tint=(0.52, 0.60, 0.58), bars=False, milk=0.10, milk_rgb=(0.62, 0.68, 0.66))
+# c06: light-catching pane edge band (bright rim so 49x10 sheets read at 50 mm against the sky)
+PANE_EDGE = mat_principled("GT_PaneEdge", (0.85, 0.92, 0.95), 0.15, 0.35)
+try:
+    _be = PANE_EDGE.node_tree.nodes["Principled BSDF"]
+    _be.inputs["Emission Color"].default_value = (0.75, 0.85, 0.95, 1)
+    _be.inputs["Emission Strength"].default_value = 0.35
+except Exception:
+    pass
 def mesh_pane():
-    bm = bmesh.new(); bm_box(bm, -inch(5), inch(5), -inch(24.5), inch(24.5), -inch(0.06), inch(0.06))
-    return finish(bm, "pane_49x10", PANE)
+    bm = bmesh.new()
+    bm_box(bm, -inch(5), inch(5), -inch(24.5), inch(24.5), -inch(0.05), inch(0.05))
+    n0 = len(bm.faces)
+    e = inch(0.18); tt = inch(0.12)
+    bm_box(bm, -inch(5) - e, inch(5) + e, -inch(24.5) - e, -inch(24.5), -tt, tt)
+    bm_box(bm, -inch(5) - e, inch(5) + e, inch(24.5), inch(24.5) + e, -tt, tt)
+    bm_box(bm, -inch(5) - e, -inch(5), -inch(24.5), inch(24.5), -tt, tt)
+    bm_box(bm, inch(5), inch(5) + e, -inch(24.5), inch(24.5), -tt, tt)
+    me = finish(bm, "pane_49x10", PANE, [PANE_EDGE])
+    for i, f_ in enumerate(me.polygons):
+        if i >= n0:
+            f_.material_index = 1
+    return me
 PANEM = mesh_pane(); panes = []
 SLOPE = math.atan2(1.6, 4.0)
 for i, yc in enumerate(WAGON_RIDGES):
@@ -853,6 +879,7 @@ for shot in route["shots"]:
         if key in shot:
             ob = cam(f"{shot['id']}_{key}", shot[key]["pos_ft"], shot[key]["look_ft"], shot["lens_mm"], shot.get("ortho_m"))
             ob["shot"] = shot["id"]
+# c06: CP016_wheels close-up is in route/camera_route.json (roof-edge scaffold, eye 5.25 above deck 24)
 scene.camera = bpy.data.objects.get("CP012_bay_start")
 scene.frame_start, scene.frame_end = 1, 96; scene.render.fps = 24
 
