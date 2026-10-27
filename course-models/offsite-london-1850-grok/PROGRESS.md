@@ -14,3 +14,11 @@
 - Built `rounds/ln03_southken.blend` via `scripts/build_southken_today.py`.
 - Cams: `CP069_street`, `CP069_rah`, `CP069_museums` (appended to route).
 - Renders: `renders/ln03/` (lean). Logged **optional** in DEPARTURES LN04.
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root
