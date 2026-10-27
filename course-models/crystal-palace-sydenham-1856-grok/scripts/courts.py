@@ -250,6 +250,7 @@ arch_screen((ax(253), yA), (ax(308), yA), [0, ax(308)-ax(253)], z_spr=SPR+3, z_c
 # --- Hall of Justice ceiling (flat, coffered stalactite vaults not modelled: miss) ---
 AST.box(ax(70), ax(490), yB, yA, AL_WALL, AL_WALL+1.2)
 AST.box(ax(70), ax(490), yA, ay(203), AL_WALL, AL_WALL+1.2)
+AST.box(ax(70), ax(490), ay(518), yB, ATOP, ATOP+0.8)          # r08b: arcade-walk ceiling between Lions colonnade and pier row B (I)
 # --- pier row B (py ~471): T piers + columns ---
 pier(70, 118, 465, 478); pier(70, 82, 432, 512); pier(175, 253, 465, 478); pier(207, 220, 432, 465)
 pier(308, 388, 465, 478); pier(343, 356, 432, 465); pier(440, 490, 465, 478); pier(478, 490, 432, 512)
@@ -303,6 +304,7 @@ arch_screen((ax(118), ay(739)), (ax(175), ay(739)), [0, ax(130)-ax(118), ax(158)
 arch_screen((ax(390), ay(739)), (ax(442), ay(739)), [0, ax(395)-ax(390), ax(425)-ax(390), ax(442)-ax(390)])
 # central entrance (px 255-310): taller horseshoe-cusped arch screen
 arch_screen((ax(255), ay(739)), (ax(310), ay(739)), [0, ax(310)-ax(255)], z_spr=SPR+2, z_crown=CROWN+3.5, top=ATOP+3, depth=1.8)
+bmesh.ops.remove_doubles(AST.bm, verts=AST.bm.verts, dist=0.0005)   # r08b: weld spandrel strips (crack leaks showed as black seams)
 for mb_ in (AST, ADA, AMA, AGO, AFL, AWA, APL, APA, ALN): mb_.done()
 
 # ---------------- court cameras (36 mm sensor, 1.6 m eye, no roll) ----------------
@@ -318,4 +320,4 @@ xa_ = (ax(255) + ax(310)) / 2
 anim_cam('CAM_CP041_alhambra_entry_28mm', (xa_, 52.0, EYE), (xa_, 52.0 + DX, EYE), (xa_, 150, EYE + 3.0), 28)
 cam('CAM_CP041_alhambra_hold_28mm', (xa_, 52.0 + DX, EYE), (xa_, 150, EYE + 3.0), 28)
 cam('CAM_CP041_insert_spandrel_50mm', (xa_ - 6, cy0 + 22, EYE), (cx0 + (cx1-cx0)*0.25, cy0, 12.5), 50)
-cam('CAM_compare_0108_alhambra', (cx1 - 2.0, cy1 + 8.0, EYE), (ocx - 2, ocy - 2, 5.5), 28)
+cam('CAM_compare_0108_alhambra', (ax(302), yB + 5.0, EYE), (ocx - 3.0, ocy, 6.5), 28)   # r08b: from the Hall of Justice through its central arch (row B), fountain left of centre (0108; I)
