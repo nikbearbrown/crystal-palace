@@ -1,5 +1,5 @@
 """Render named cameras from a transept .blend.
-blender -b rounds/rNN.blend -P render_views.py -- --cams A,B --outdir renders/rNN --res 960x540 --samples 48 [--portrait A] [--claude path.blend]"""
+blender -b rounds/rNN.blend -P render_views.py -- --cams A,B --outdir renders/rNN --res 960x540 --samples 48 [--portrait A] [--claude path.blend [--no-furrow]]"""
 import bpy, sys, os
 argv = sys.argv[sys.argv.index("--") + 1:]
 def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
@@ -17,6 +17,7 @@ if claude:   # append Claude's model collection read-only (never saved)
     # hide our duplicates on Claude's line 37 (x = -36 ft)
     for ob in bpy.data.objects:
         if ob.get("claude_line37") or ob.get("claude_overlap"): ob.hide_render = True
+        if ob.get("show_with_claude"): ob.hide_render = False   # r09: Muse Una at its catalogue cell S29 (Claude's zone)
         elif ob.get("part_kind") in ("column", "girder", "roof") and ob.location.x < -0.3048 * 36.5: ob.hide_render = True
     # RL02: Claude's appended roof units get our roof glass at render time (seam match); his file is never saved
     rg = bpy.data.materials.get("GT_Glass"); n = 0
@@ -38,7 +39,7 @@ if claude:   # append Claude's model collection read-only (never saved)
     for ob in bpy.data.objects:   # our own flat roof units in the combined review get the same recipe
         if ob.get("part_kind") == "roof" and ob.type == 'MESH':
             for sl in ob.material_slots:
-                if sl.material and sl.material.name == "GT_Glass":
+                if sl.material and sl.material.name in ("GT_Glass", "GT_RoofGlass"):
                     if "r" not in own: own["r"] = roofglass(sl.material.copy()); own["r"].name = "GT_Glass_ROOFREV"
                     sl.link = 'OBJECT'; sl.material = own["r"]
     for c in bpy.data.collections:
@@ -47,6 +48,9 @@ if claude:   # append Claude's model collection read-only (never saved)
                 for sl in ob.material_slots:
                     if rg and sl.material and sl.material.name.startswith("MAT_Glass"): sl.material = rg; n += 1
     print("CLAUDE_ROOF_OVERRIDE slots", n, flush=True)
+    if "--no-furrow" not in argv:   # RL05: flat roof units (his and ours) -> Muse's furrow bay, instanced, render time only
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import furrow; furrow.swap_flat_roofs()
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)

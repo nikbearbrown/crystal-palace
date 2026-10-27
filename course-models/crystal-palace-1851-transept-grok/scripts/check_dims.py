@@ -96,7 +96,7 @@ for cam in [o for o in objs if o.type == 'CAMERA']:
     p = cam.matrix_world.translation
     d = min((t.find_nearest(p)[3] for t in trees if t.find_nearest(p)[0] is not None), default=1e9) / FT
     xa = cam.matrix_world.to_3x3().col[0]; roll = abs(math.asin(max(-1, min(1, xa.z))))
-    walk = cam.name.startswith(("CP0", "REV_int", "REF_elm"))
+    walk = cam.name.startswith(("CP0", "REV_int", "REF_elm", "REF_talbot"))
     ok = d >= 1.0 and roll < 1e-3 and (not walk or abs(p.z - 1.6) < 0.01)
     res.append({"id": "CAM_" + cam.name, "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
                 "measured": {"branch_clearance_ft": round(d, 2), "roll_rad": round(roll, 5), "z_m": round(p.z, 3)}, "pass": ok})
@@ -106,6 +106,27 @@ near = min((((c.matrix_world.translation - e.matrix_world.translation).length) /
 okx = bool(ex) and all(e.instance_collection and e.instance_collection.get("credit", "").startswith("Muse") for e in ex) and near > 3.0
 res.append({"id": "PROPS_muse", "check": "appended models/ props credited to their maker (Muse); no camera within 3 ft of a prop",
             "measured": {"props": len(ex), "nearest_camera_ft": round(near, 1)}, "pass": okx})
+# r09 dressing: no camera inside or within 3 ft of any dressing object's box; every Muse plinth carries a bust; counts
+dress = [o for o in objs if o.get("dress_kind") and o.type == 'MESH' and not o.hide_render]
+def box_dist(o, p):
+    bb = [o.matrix_world @ Vector(c) for c in o.bound_box]
+    lo = [min(v[i] for v in bb) for i in range(3)]; hi = [max(v[i] for v in bb) for i in range(3)]
+    return math.sqrt(sum(max(lo[i] - p[i], 0, p[i] - hi[i]) ** 2 for i in range(3)))
+worst = (1e9, "", "")
+for c in cams_:
+    if abs(c.location.x) / FT > 300 or abs(c.location.y) / FT > 300 or c.data.type == 'ORTHO': continue
+    for o in dress:
+        d = box_dist(o, c.matrix_world.translation) / FT
+        if d < worst[0]: worst = (d, c.name, o.name)
+res.append({"id": "DRESS_cam", "check": "no interior camera inside or within 3 ft of a dressing object (statues, machines, crowd, planters, textiles)",
+            "measured": {"nearest_ft": round(worst[0], 2), "camera": worst[1], "object": worst[2]}, "pass": worst[0] > 3.0})
+pl = [o for o in objs if o.get("part_kind") == "exhibit_plinth"]
+busts = [o for o in objs if o.name.startswith("BUST_")]
+res.append({"id": "DRESS_plinths", "check": "no empty display plinth: one bust per Muse plinth", "measured": {"plinths": len(pl), "busts": len(busts)}, "pass": len(pl) == len(busts) and len(pl) > 0})
+from collections import Counter
+cnt = Counter(o["dress_kind"] for o in dress)
+res.append({"id": "DRESS_counts", "check": "HP51 dressing present (crowd >= 250, sculpture, machinery >= 6, banners, textiles)", "measured": dict(cnt),
+            "pass": cnt.get("crowd", 0) >= 250 and cnt.get("machinery", 0) >= 6 and cnt.get("banners", 0) > 0 and cnt.get("textiles", 0) > 0 and cnt.get("sculpture", 0) > 20})
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 json.dump(res, open(OUT + ".json", "w"), indent=1)
 with open(OUT + ".md", "w") as f:

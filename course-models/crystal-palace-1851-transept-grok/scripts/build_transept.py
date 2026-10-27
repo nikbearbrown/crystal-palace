@@ -71,7 +71,7 @@ def mat_principled(name, rgb, rough=0.6, metal=0.0):
     m.diffuse_color = (*rgb, 1)
     return m
 
-def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True):
+def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True, ridge=False):
     """Thin sheet glass: fresnel-weighted gloss over a tinted transparent, shadow rays pass (so sun reaches the
     floor), optional procedural diagonal sash-bar lines from the UVs (1 UV unit = 1 ft)."""
     m = bpy.data.materials.new(name); m.use_nodes = True
@@ -88,10 +88,14 @@ def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True):
     last = mx2.outputs[0]
     if bars:
         uv = n.new("ShaderNodeTexCoord"); sep = n.new("ShaderNodeSeparateXYZ"); l.new(uv.outputs["UV"], sep.inputs[0])
-        add = n.new("ShaderNodeMath"); add.operation = 'ADD'; l.new(sep.outputs[0], add.inputs[0]); l.new(sep.outputs[1], add.inputs[1])
-        mul = n.new("ShaderNodeMath"); mul.operation = 'MULTIPLY'; mul.inputs[1].default_value = 1 / 0.85; l.new(add.outputs[0], mul.inputs[0])
+        mul = n.new("ShaderNodeMath"); mul.operation = 'MULTIPLY'
+        if ridge:   # EX27/RL05: Paxton sash bars run down the slope, square to the ridge (X), at 10.5 in (0.875 ft) centres
+            mul.inputs[1].default_value = 1 / 0.875; l.new(sep.outputs[0], mul.inputs[0]); thr = 0.12   # ~1.25 in bar / 10.5 in
+        else:       # legacy diagonal mask (vault / sash glazing)
+            add = n.new("ShaderNodeMath"); add.operation = 'ADD'; l.new(sep.outputs[0], add.inputs[0]); l.new(sep.outputs[1], add.inputs[1])
+            mul.inputs[1].default_value = 1 / 0.85; l.new(add.outputs[0], mul.inputs[0]); thr = 0.07
         frc = n.new("ShaderNodeMath"); frc.operation = 'FRACT'; l.new(mul.outputs[0], frc.inputs[0])
-        lt = n.new("ShaderNodeMath"); lt.operation = 'LESS_THAN'; lt.inputs[1].default_value = 0.07; l.new(frc.outputs[0], lt.inputs[0])
+        lt = n.new("ShaderNodeMath"); lt.operation = 'LESS_THAN'; lt.inputs[1].default_value = thr; l.new(frc.outputs[0], lt.inputs[0])
         bar = n.new("ShaderNodeBsdfDiffuse"); bar.inputs[0].default_value = (0.82, 0.8, 0.74, 1)
         mx3 = n.new("ShaderNodeMixShader"); l.new(lt.outputs[0], mx3.inputs[0]); l.new(last, mx3.inputs[1]); l.new(bar.outputs[0], mx3.inputs[2])
         last = mx3.outputs[0]
@@ -153,6 +157,7 @@ WOODDARK = mat_principled("GT_Boarding", (0.62, 0.55, 0.45), 0.8)
 LEAD = mat_principled("GT_Lead", (0.42, 0.44, 0.46), 0.5, 0.3)
 GLASS = mat_glass("GT_Glass")
 GLASS_PLAIN = mat_glass("GT_GlassPlain", tint=(0.62, 0.68, 0.68), bars=False)
+GLASS_END = mat_glass("GT_GlassEndScreen", tint=(0.42, 0.47, 0.47), bars=False)   # r09 L02: darker so the fan bars read
 BARK = mat_principled("GT_Bark", (0.075, 0.065, 0.055), 0.95)
 GRASS = mat_principled("GT_Grass", (0.16, 0.24, 0.08), 0.9)
 
@@ -451,6 +456,7 @@ for s in (-1, 1):
     new_obj(f"SILL_{'W' if s < 0 else 'E'}", finish(bm, "sill", WOOD), C["LEAD_FLATS"], props={"part_kind": "sill"})
 
 # ---------------- flat ridge-and-furrow roofs of the tier-2 arms (60..132, |y| 60..204) ----------------
+ROOFGLASS_T = mat_glass("GT_RoofGlass", ridge=True)   # RL05: ridge-normal bars at 10.5 in
 def mesh_roof_unit():
     bm = bmesh.new(); uvl = bm.loops.layers.uv.new()
     L = ft(24); W = ft(8); rise = ft(1.6)
@@ -459,7 +465,7 @@ def mesh_roof_unit():
     for f in ([v[0], v[1], v[2], v[3]], [v[3], v[2], v[5], v[4]]):
         ff = bm.faces.new(f)
         for lp in ff.loops: lp[uvl].uv = (lp.vert.co.x / FT, lp.vert.co.y / FT * 1.3)
-    return finish(bm, "roof_unit", GLASS)
+    return finish(bm, "roof_unit", ROOFGLASS_T)
 LIBM["roof"] = mesh_roof_unit()
 for sx in (-1, 1):
     for xb in (72, 96, 120):
@@ -690,10 +696,7 @@ def statue(name, x, y, h=7.0, plinth=4.5):
     z = plinth; f = [(0.0, z), (1.3, z), (1.2, z + 0.25 * h), (0.85, z + 0.55 * h), (1.05, z + 0.72 * h), (0.45, z + 0.80 * h),
                      (0.38, z + 0.84 * h), (0.55, z + 0.92 * h), (0.0, z + h)]
     new_obj(name + "_FIGURE", lathe(f, name + "_fig", MARBLE, 16, x, y), SC, props={"part_kind": "statue"})
-# along both sides of the transept floor, clear of the fountain basin, the elms and the camera stops
-for k, (x, y) in enumerate([(-14, -40), (14, -40), (-14, -72), (14, -72), (-30, -108), (30, -108), (-24, 40), (24, 40),
-                             (-30, 108), (30, 108), (-46, -20), (46, -20), (-46, 20), (46, 20)]):
-    statue(f"STATUE_{k:02d}", x, y)
+# r09: the r07 lathe stand-ins read as mannequins; replaced by scripts/dressing.py (figures.py classical stand-ins on moulded pedestals)
 # curved iron railing round the fountain (the scrolled railing in the Talbot foreground), r = 22 ft, 4 gaps
 bm = bmesh.new(); Rr = 22.0; nseg = 96
 for k in range(nseg):
@@ -728,14 +731,14 @@ def build_end_screen(sy):
     for r in rings:
         pts = arc_pts(ft(r), 64)
         for (xa, za), (xb, zb) in zip(pts, pts[1:]):
-            bm_bar(bm, (xa, Y, ft(zc) + za), (xb, Y, ft(zc) + zb), inch(6), inch(5))
-    spokes = [(rings[0], rings[1], 16), (rings[1], rings[2], 16), (rings[2], rings[3], 16), (rings[3], R - 1.5, 24)]
+            bm_bar(bm, (xa, Y, ft(zc) + za), (xb, Y, ft(zc) + zb), inch(9), inch(6))   # r09 L02: heavier, they vanished against the sky
+    spokes = [(rings[0], rings[1], 16), (rings[1], rings[2], 16), (rings[2], rings[3], 16), (rings[3], R - 1.5, 48)]   # r09: 48 outer spokes
     for (ra, rb, n) in spokes:
         for k in range(1, n):
             a = math.pi * k / n
-            bm_bar(bm, (ft(ra)*math.cos(a), Y, ft(zc) + ft(ra)*math.sin(a)), (ft(rb)*math.cos(a), Y, ft(zc) + ft(rb)*math.sin(a)), inch(4), inch(5))
+            bm_bar(bm, (ft(ra)*math.cos(a), Y, ft(zc) + ft(ra)*math.sin(a)), (ft(rb)*math.cos(a), Y, ft(zc) + ft(rb)*math.sin(a)), inch(6), inch(6))
     # petal heads: small arcs between spokes on the outer rings
-    for (ra, rb, n) in spokes[1:]:
+    for (ra, rb, n) in spokes[1:3] + [(spokes[3][0], spokes[3][1], 24)]:
         for k in range(n):
             a0, a1 = math.pi * k / n, math.pi * (k + 1) / n; am = (a0 + a1) / 2
             rr = rb - (rb - ra) * 0.12
@@ -748,7 +751,7 @@ def build_end_screen(sy):
                 rad = rr - pr * 0.6 * (1 - math.sin(t))
                 pts.append((ft(rad) * math.cos(ca), ft(zc) + ft(rad) * math.sin(ca)))
             for (xa, za), (xb, zb) in zip(pts, pts[1:]):
-                bm_bar(bm, (xa, Y, za), (xb, Y, zb), inch(2.5), inch(3))
+                bm_bar(bm, (xa, Y, za), (xb, Y, zb), inch(4), inch(4))
     # columns of the screen: the semi-elliptical wooden columns B rise with the arch (approximated as 2 mullions per 24 ft)
     new_obj(f"ENDSCREEN_FRAME_{tag}", finish(bm, f"endscreen_{tag}", FAN), C["END_SCREENS"], props={"part_kind": "end_screen"})
     # glass disc
@@ -759,7 +762,7 @@ def build_end_screen(sy):
     for a, b in zip(vs, vs[1:]):
         f = bm.faces.new([c, a, b])
         for lp in f.loops: lp[uvl].uv = (lp.vert.co.x / FT * 0.01, lp.vert.co.z / FT * 0.01)
-    new_obj(f"ENDSCREEN_GLASS_{tag}", finish(bm, f"endglass_{tag}", GLASS_PLAIN), C["END_SCREENS"], props={"part_kind": "end_glass"})
+    new_obj(f"ENDSCREEN_GLASS_{tag}", finish(bm, f"endglass_{tag}", GLASS_END), C["END_SCREENS"], props={"part_kind": "end_glass"})
 for sy in (-1, 1): build_end_screen(sy)
 
 # south entrance: doors and pedestals (Plate XXVI) -- simple timber door leaves in the central bay
@@ -924,7 +927,7 @@ def muse_prop(fname, keep, offset, cname):
     with bpy.data.libraries.load(path, link=False) as (src, dst):
         dst.objects = [n for n in src.objects if keep(n)]
     mc = bpy.data.collections.new(cname); mc.instance_offset = offset
-    mc["credit"] = f"Muse, models/{fname} (origin/main adb0d2c), appended read-only"
+    mc["credit"] = f"Muse, models/{fname} (origin/main 549fd0c), appended read-only"
     for o in dst.objects:
         if o and o.type == 'MESH': mc.objects.link(o)
     return mc
@@ -950,6 +953,7 @@ if BENCH:   # benches in the transept, east side near the fountain and west side
     for (x, y, rz) in ((22, -46, -math.pi / 2), (22, 46, -math.pi / 2), (-22, 116, math.pi / 2), (-22, 158, math.pi / 2)):   # seat front (Muse -y) faces the axis
         put(BENCH, f"EXH_BENCH_{x:+d}_{y:+d}", x, y, rz, "bench")
 print("MUSE_EXHIBITS", len(exhibits), flush=True)
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dressing.py")).read())
 
 # ---------------- cameras (storyboard v001 grammar) ----------------
 CAMS = bpy.data.collections.new("CAMERAS_GROK"); scene.collection.children.link(CAMS)
