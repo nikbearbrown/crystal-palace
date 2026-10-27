@@ -8,3 +8,10 @@
 | LN04 | Plan sheets as PIL-generated textures (nave plan, south elevation, gutter detail, OJ colour board), packed into the .blend | Readable stand-ins for Fox & Henderson / Paxton drawings. | C |
 | LN05 | Samples on the table: glass pane, sash-bar length, short hollow column section | The three materials of the Palace. | A |
 | LN06 | Industry at origin, room at x=300 ft in one .blend | Same pattern as Chatsworth (two sets, one file). | B |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| LN02 | Darker brick/soot/slate albedos; soot rear wall + brick wing walls inside each viaduct arch | Black arch voids; peachy brick | B |
+| LN03 | Denser loco smoke plume (7 translucent stacks); dimmer hazy world | Train smoke thin/absent | B |

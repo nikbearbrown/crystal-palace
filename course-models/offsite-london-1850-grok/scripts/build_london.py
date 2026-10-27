@@ -12,13 +12,13 @@ SEED = 1850; R = random.Random(SEED); sc = G.reset("LN_")
 ROOT = G.coll("LONDON_LN01"); IND = G.coll("INDUSTRY", ROOT); ROOM = G.coll("PLANNING_ROOM", ROOT)
 info = {}; TEX = os.path.join(HERE, "..", "textures")
 M = dict(
-    brick=G.mat("Brick", (0.42, 0.22, 0.14), 0.9), brickd=G.mat("BrickDark", (0.28, 0.14, 0.10), 0.9),
-    stone=G.mat("Stone", (0.50, 0.48, 0.42), 0.85), iron=G.mat("Iron", (0.08, 0.08, 0.09), 0.5, 0.4),
-    soot=G.mat("Soot", (0.06, 0.06, 0.06), 0.95), slate=G.mat("Slate", (0.18, 0.20, 0.22), 0.7),
+    brick=G.mat("Brick", (0.34, 0.16, 0.10), 0.92), brickd=G.mat("BrickDark", (0.18, 0.09, 0.06), 0.93),
+    stone=G.mat("Stone", (0.38, 0.36, 0.32), 0.88), iron=G.mat("Iron", (0.06, 0.06, 0.07), 0.45, 0.5),
+    soot=G.mat("Soot", (0.035, 0.035, 0.035), 0.97), slate=G.mat("Slate", (0.12, 0.13, 0.15), 0.75),
     cobble=G.mat("Cobble", (0.35, 0.33, 0.30), 0.95), mud=G.mat("Mud", (0.28, 0.22, 0.14), 0.95),
     wood=G.mat("Wood", (0.40, 0.28, 0.16), 0.8), paint=G.mat("Paint", (0.70, 0.68, 0.60), 0.7),
     glass=G.mat_thin_glass("Glass", (0.75, 0.82, 0.85), 0.15),
-    smoke=G.mat("Smoke", (0.35, 0.35, 0.35), 0.9, 0, ((0.4, 0.4, 0.4), 0.3), alpha=0.35),
+    smoke=G.mat("Smoke", (0.42, 0.42, 0.40), 0.95, 0, ((0.55, 0.55, 0.52), 0.45), alpha=0.42),
     plaster=G.mat("Plaster", (0.78, 0.74, 0.66), 0.9), carpet=G.mat("Carpet", (0.35, 0.12, 0.10), 0.95),
     oak=G.mat("Oak", (0.38, 0.26, 0.14), 0.65), paper=G.mat("Paper", (0.85, 0.82, 0.72), 0.9),
     brass=G.mat("Brass", (0.55, 0.42, 0.18), 0.35, 0.7), cloth=G.mat("Cloth", (0.20, 0.22, 0.35), 0.9),
@@ -53,6 +53,11 @@ for i in range(8):
         vk.bar(I("brick"), (p0[0], 5, p0[2]), (p1[0], 5, p1[2]), 1.2, 1.5)
     # spandrel fill
     vk.box(I("brick"), x0 + 1.5, x0 + ARCH_W - 1.5, -6, 6, ARCH_H, DECK)
+    # LN02: fill black arch voids — soot rear wall + brick wing walls so arches read as tunnels, not holes
+    cx = x0 + ARCH_W / 2
+    vk.box(I("soot"), x0 + 2.0, x0 + ARCH_W - 2.0, -5.2, -4.6, 0.2, ARCH_H - 0.5)
+    vk.box(I("brickd"), x0 + 1.6, x0 + 2.4, -5.5, 5.5, 0.0, ARCH_H - 0.2)
+    vk.box(I("brickd"), x0 + ARCH_W - 2.4, x0 + ARCH_W - 1.6, -5.5, 5.5, 0.0, ARCH_H - 0.2)
     info["viaduct_arches"] += 1
 vk.box(I("stone"), -12, -10 + 8 * ARCH_W + 2, -7, 7, DECK, DECK + 1.5)  # parapet deck
 vk.box(I("iron"), -12, -10 + 8 * ARCH_W + 2, -1.5, 1.5, DECK + 1.5, DECK + 1.7)  # rails
@@ -65,6 +70,9 @@ for i, dx in enumerate(range(0, 70, 14)):
     if i == 0:  # loco chimney
         tk.cyl(I("soot"), (x + 3, 0, DECK + 8.7), (x + 3, 0, DECK + 14), 0.6, 10)
         tk.box(I("iron"), x + 8, x + 11, -2, 2, DECK + 7, DECK + 10)  # cab
+        for s in range(7):  # LN03: denser train smoke plume downwind
+            tk.cyl(I("smoke"), (x + 3 + s * 2.2, s * 0.4, DECK + 14 + s * 2.8),
+                   (x + 4 + s * 2.2, s * 0.4, DECK + 17 + s * 2.8), 1.4 + s * 0.55, 8, True, 2.0 + s * 0.7)
     for wy in (-2.2, 2.2):
         for wx in (x + 2, x + 10):
             tk.cyl(I("iron"), (wx, wy - 0.3, DECK + 1.7), (wx, wy + 0.3, DECK + 1.7), 1.1, 12)
@@ -188,7 +196,7 @@ for s in route["shots"]:
                 s[key]["pos_ft"][0] += RX; s[key]["look_ft"][0] += RX
 tmp = "/tmp/ln_route.json"; json.dump(route, open(tmp, "w"))
 CAMS = G.coll("CAMERAS"); G.cameras(tmp, CAMS)
-G.world_sky(elev=28, rot=200, strength=0.25, sun_energy=2.2, sun_rot=(55, 0, -40), sun_col=(1.0, 0.88, 0.72), haze=(1.4, 0.6))
+G.world_sky(elev=26, rot=200, strength=0.18, sun_energy=1.6, sun_rot=(58, 0, -40), sun_col=(1.0, 0.82, 0.62), haze=(1.8, 0.75))
 # room needs interior light
 G.point("LN_RoomLamp", (RX, 0, 10), 400, (1.0, 0.92, 0.8), 1.5, 'AREA')
 G.render_settings(exposure=-0.1)
