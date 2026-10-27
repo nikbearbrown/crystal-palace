@@ -3,8 +3,8 @@
 # DEPARTURES.md r11. Feet throughout.
 import random
 rs = random.Random(1936)
-LATE = STATE in ('1936', 'FIRE', 'AFTER', 'RUINS', 'RUINS41')
-SHELL_GONE = STATE in ('AFTER', 'RUINS', 'RUINS41')
+LATE = STATE in ('1936', 'FIRE', 'AFTER', 'RUINS', 'RUINS41', 'CLEARANCE')  # r15
+SHELL_GONE = STATE in ('AFTER', 'RUINS', 'RUINS41', 'CLEARANCE')  # r15
 
 def emis_mat(name, temp_lo=1300, temp_hi=2100, strength=30.0, alpha_noise=True, scale=0.25):
     """flame emitter: blackbody colour from noise, cut by a noise alpha so cones don't read as solids (I)."""
@@ -298,7 +298,7 @@ if STATE == 'AFTER':
     ell(SW, -80, 20, 120, 300, 160, 120, 16, 10); ell(SW, 250, 60, 260, 360, 200, 150, 16, 10)
     SW.done(); bpy.data.objects['smouldering_smoke'].visible_shadow = False
 
-if STATE in ('RUINS', 'RUINS41'):
+if STATE in ('RUINS', 'RUINS41', 'CLEARANCE'):  # r15 CLEARANCE shares RUINS footing pads + towers
     # Cleared by Thos. W. Ward Ltd (Wikipedia, R that the site was dismantled); state of the plateau c.1937-40 U.
     # Kept: basement garden-front arcade and garden stairs (survive today as the upper-terrace wall: refs CPupperterraces
     # 01-04, R), basement walls/tunnel as foundations, terraces, sphinxes, dry basins. Column footings as low pads (I).
@@ -308,7 +308,7 @@ if STATE in ('RUINS', 'RUINS41'):
         for y_ in COL_Y:
             if rs.random() < 0.7: FP.box(x_ - 2, x_ + 2, y_ - 2, y_ + 2, gz(y_), gz(y_) + rs.uniform(0.6, 1.6))
     FP.done()
-    if STATE == 'RUINS':
+    if STATE in ('RUINS', 'CLEARANCE'):  # towers still standing during late-1930s clearance
         # towers into dated sub-collections; the dates conflict between sources (DEPARTURES r11)
         for nm, label in (('south', 'SY-RUINS_south_water_tower__dismantled_autumn1940-1941'), ('north', 'SY-RUINS_north_water_tower__demolished_16Apr1941')):
             tc_ = coll(label, parent=C['SY56_water_towers__dated'])

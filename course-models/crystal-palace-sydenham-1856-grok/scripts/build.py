@@ -124,9 +124,10 @@ ROOTS = {'EARLY': 'SY-EARLY_c1856', 'POST66': 'SY-POST66_c1868', '1936': 'SY-193
          'RUINS': 'SY-RUINS_c1937-40', 'RUINS41': 'SY-RUINS_post1941',
          'CONCERT57': 'SY-CONCERT57_HandelFestival_Jun1857',   # r13: pre-1866 fabric + the 1857 festival (scripts/concert57.py)
          'BUILD53': 'SY-BUILD_c1853_construction', 'OPEN54': 'SY54_OpeningDay_10Jun1854',      # r14 (scripts/eras.py, station.py)
-         'LATE11': 'SY-LATE_FestivalOfEmpire_1911', 'WAR': 'SY-WAR_HMS_CrystalPalace_c1915'}
+         'LATE11': 'SY-LATE_FestivalOfEmpire_1911', 'WAR': 'SY-WAR_HMS_CrystalPalace_c1915',
+         'SY60': 'SY60_HighLevel_c1865', 'CLEARANCE': 'SY-CLEARANCE_late1930s'}  # r15
 assert STATE in ROOTS, STATE
-POST66 = STATE not in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54')
+POST66 = STATE not in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54', 'SY60')  # r15: 1865 still has north transept
 root = bpy.data.collections.new(ROOTS[STATE]); sc.collection.children.link(root)
 def coll(name, parent=root):
     c = bpy.data.collections.new(name); parent.children.link(c); return c
@@ -1036,13 +1037,18 @@ sc.view_settings.exposure = -1.0
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'states.py')).read())   # r11 later states + sphinxes
 # r13: Victorian people (GN-instanced), the 1857 Handel Festival, courts2 (Pompeian / Greek+Roman / Medieval), running
 # waterworks (CP042). Pre-1866 states only.
-if STATE in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54', 'LATE11', 'WAR'):
+if STATE in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54', 'LATE11', 'WAR', 'SY60'):
     _sd = os.path.dirname(os.path.abspath(__file__))
     exec(open(os.path.join(_sd, 'people57.py')).read())
     if STATE == 'CONCERT57': exec(open(os.path.join(_sd, 'concert57.py')).read())
     if STATE in ('BUILD53', 'OPEN54', 'LATE11', 'WAR'): exec(open(os.path.join(_sd, 'eras.py')).read())   # r14
+    if STATE == 'SY60': exec(open(os.path.join(_sd, 'high_level.py')).read())   # r15 CP046
     if STATE in ('EARLY', 'CONCERT57', 'OPEN54') and not os.environ.get('SY_NO_COURTS') and os.path.exists(os.path.join(_sd, 'courts2.py')): exec(open(os.path.join(_sd, 'courts2.py')).read())
     if STATE == 'EARLY' and os.path.exists(os.path.join(_sd, 'waterworks.py')): exec(open(os.path.join(_sd, 'waterworks.py')).read())
+# r15 CLEARANCE dressing (after states.py, which already ran above)
+if STATE == 'CLEARANCE':
+    _sd = os.path.dirname(os.path.abspath(__file__))
+    exec(open(os.path.join(_sd, 'clearance.py')).read())
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 tri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
 print('BUILD_OK', OUT, 'objects', len(bpy.data.objects), 'faces', tri)

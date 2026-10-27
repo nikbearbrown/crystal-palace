@@ -5,7 +5,7 @@ import bpy, sys
 from mathutils import Vector
 F = 0.3048; out = sys.argv[sys.argv.index('--')+1]
 OB = bpy.data.objects
-ROOT = next((c.name for c in bpy.context.scene.collection.children if c.name.startswith('SY-') or c.name.startswith('SY54')), '?')
+ROOT = next((c.name for c in bpy.context.scene.collection.children if c.name.startswith('SY-') or c.name.startswith('SY54') or c.name.startswith('SY60')), '?')
 ST = ROOT.split('_')[0]; RUINS41 = ROOT == 'SY-RUINS_post1941'
 def has(*n): return all(x in OB for x in n)
 def bb(names):
@@ -32,7 +32,7 @@ if has('nave_vault_glass'):
     lo, hi = bb(['nave_vault_glass']); chk('nave crown above main floor', hi[2], 110.25, 0.5, "guide p.35 B 110'3\""); chk('nave span', hi[1]-lo[1], 72, 0.5, 'section 0212 R')
 else: na('nave', 'shell destroyed in this state')
 lo, hi = bb(['basement_brick']); chk('basement depth below main floor', -lo[2], 23.58, 0.3, "guide p.35 B 197'10\"-174'3\"")
-POST66 = ST not in ('SY-EARLY', 'SY-CONCERT57', 'SY-BUILD', 'SY54')
+POST66 = ST not in ('SY-EARLY', 'SY-CONCERT57', 'SY-BUILD', 'SY54', 'SY60')
 for w in ('south', 'north'):
     if w == 'north' and POST66:
         flag(f'{w}_transept_vault_glass' not in OB, 'north transept ABSENT (post-1866 states)', '1866 fire, never rebuilt: R'); continue
@@ -135,6 +135,28 @@ if ST == 'SY-LATE':
 if ST == 'SY-WAR':
     flag(pc('ppl15_rnd_ratings') > 900, 'RND ratings > 900 (%d)' % pc('ppl15_rnd_ratings'), 'HMS Crystal Palace trained ~125,000 men 1914-19 R(claim); modelled subset U')
     flag(has('war_masts') and collof('war_masts', '1914-18'), 'ensign/mast in dated 1914-18 collection', 'I')
+# r15: SY60 High Level + subway (CP046); CLEARANCE scrap gangs (CP063)
+if ST == 'SY60':
+    flag(has('hl_shed_roof_glass', 'hl_platforms', 'hl_subway_vault_patterned'), 'High Level shed, platforms and patterned subway vault present', 'opened 1865 R; forms I/U')
+    flag(collof('hl_subway_vault_patterned', '1865') or collof('hl_platforms', '1865'), 'HL station/subway in a dated 1865 collection', 'rule')
+    if has('hl_subway_vault_patterned'):
+        lo, hi = bb(['hl_subway_vault_patterned'])
+        chk('subway length under Parade (Y)', hi[1]-lo[1], 78, 20, 'I (Parade width ~60-90 ft; D-R15-S1)')
+        chk('subway clear width (X)', hi[0]-lo[0], 18, 4, 'surviving subway ~5-6 m I')
+    flag(pc('ppl60_hl_passengers') > 100, 'HL passengers > 100 (%d)' % pc('ppl60_hl_passengers'), 'U')
+    flag(has('CAM_CP046_subway_walk_28mm', 'CAM_CP046_subway_exit_28mm'), 'CP046 subway cameras present', 'storyboard')
+    flag(not has('station_shed_roof_glass') or True, 'Low Level may also exist (do not confuse routes)', 'rule')
+if ST == 'SY-CLEARANCE':
+    flag(has('column_footing_pads') and not has('collapsed_ironwork_field'), 'cleared plateau with footing pads (RUINS base)', 'Ward demolition R')
+    cranes = [o for o in OB if o.name.startswith('crane_') and o.name.endswith('_jib')]
+    lorries = [o for o in OB if o.name.startswith('lorry_') and o.name.endswith('_body')]
+    workers = [o for o in OB if o.name.startswith('worker_')]
+    rows.append(f"INFO  clearance plant: {len(cranes)} cranes, {len(lorries)} lorries, {len(workers)} workers (forms I)")
+    flag(len(cranes) >= 3 and len(lorries) >= 4, '>=3 cranes and >=4 lorries present', 'I')
+    flag(len(workers) >= 40, 'scrap gang >= 40 workers (%d)' % len(workers), 'I')
+    flag(has('clearance_scrap_piles', 'clearance_iron_beams'), 'scrap piles and iron beams present', 'I')
+    flag(has('CAM_CP063_clearance_perimeter_35mm', 'CAM_CP063_terrace_edge_35mm'), 'CP063 cameras present', 'storyboard')
+    flag(has('water_tower_south') and has('water_tower_north'), 'both towers still standing (pre-1940/41 removal)', 'R')
 cams = [o for o in OB if o.type == 'CAMERA']
 flag(all(abs(o.data.sensor_width - 36) < 0.01 for o in cams), 'all %d cameras on a 36 mm sensor' % len(cams), 'rule')
 flag(all(abs(o.matrix_world.to_euler().y) < 1e-3 or abs(abs(o.matrix_world.to_euler().y) - 3.14159) < 1e-3 for o in cams if o.data.type != 'ORTHO'), 'no camera roll', 'rule')

@@ -1,0 +1,31 @@
+00:00.787  blend            | Read blend: "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/rounds/sydenham-clearance-r15.blend"
+STATE  root collection = SY-CLEARANCE_late1930s
+N/A   main building length / width                   (shell destroyed in this state)
+N/A   central transept                               (collapsed (FIRE) / destroyed)
+N/A   nave                                           (shell destroyed in this state)
+PASS  basement depth below main floor                model    23.58 ft  target    23.58 ft  tol 0.3  [guide p.35 B 197'10"-174'3"]
+N/A   south transept                                 (shell destroyed)
+PASS  north transept ABSENT (post-1866 states)                     [1866 fire, never rebuilt: R]
+N/A   wings                                          (not modelled / gone)
+PASS  railway colonnade length                       model   720.00 ft  target   720.00 ft  tol 1  [guide p.35 B]
+PASS  south water tower present                                    [survived the fire R (Wikipedia/HE)]
+PASS  south tower top above main floor               model   284.00 ft  target   284.00 ft  tol 6  [Brunel 284 ft (B, common figure)]
+PASS  north water tower present                                    [survived the fire R (Wikipedia/HE)]
+PASS  north tower top above main floor               model   284.00 ft  target   284.00 ft  tol 6  [Brunel 284 ft (B, common figure)]
+INFO  sphinx clusters along x (10 ft bins): 8 bins, bbox x -551..551 ft
+PASS  sphinx body length (first sphinx, x=-54.5)     model    15.56 ft  target    15.75 ft  tol 0.8  [ArtUK SE19_JK_S106 D 480 cm R]
+PASS  sphinx body height above plinth                model     5.95 ft  target     5.90 ft  tol 0.6  [ArtUK H 180 cm R]
+PASS  sphinx count                                   model     6.00 ft  target     6.00 ft  tol 0  [Park Trust: six, in pairs at three flights R]
+PASS  sphinx r12: sculpted head/nemes above 5 ft over plinth (311 verts) [surviving CP sphinxes, photographs R; form I]
+PASS  cleared plateau with footing pads (RUINS base)               [Ward demolition R]
+INFO  clearance plant: 3 cranes, 6 lorries, 63 workers (forms I)
+PASS  >=3 cranes and >=4 lorries present                           [I]
+PASS  scrap gang >= 40 workers (63)                                [I]
+PASS  scrap piles and iron beams present                           [I]
+PASS  CP063 cameras present                                        [storyboard]
+PASS  both towers still standing (pre-1940/41 removal)             [R]
+PASS  all 32 cameras on a 36 mm sensor                             [rule]
+PASS  no camera roll                                               [rule]
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 02:18:37)
+
+Blender quit

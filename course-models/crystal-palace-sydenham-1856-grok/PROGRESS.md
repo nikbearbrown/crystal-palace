@@ -98,3 +98,14 @@
 - Best: CP035 procession nave 28 mm (opening crowds, yeomen, banners, vault) and CP036 platform arrival 28 mm (station shed, train, visitors).
 - Misses: 1913 national purchase not modelled; pavilion forms U; All-Red Route path I; White Ensign is banded approximation; BUILD53 outdoor dressing reads thin from some cams (tramway/spoil present on slope-up); opening crowd ~8k of ~40k; cascade look still from r13.
 - Local commit ee5b670 (rounds + scripts + BUILD53 renders); renders/sheets follow-up commit. NOT pushed.
+
+## r15 (2026-10-27) — SY60 + SY-CLEARANCE; park-modern spun out
+- `SY_STATE=SY60` → High Level station + patterned brick subway under the Parade (CP046). Round `sydenham-sy60-r15.blend` (~9 MB). Check `r15_sy60.txt` 0 FAIL.
+- `SY_STATE=CLEARANCE` → late-1930s scrap gangs, cranes, lorries on the RUINS plateau (CP063). Round `sydenham-clearance-r15.blend` (~5.6 MB). Check `r15_clearance.txt` 0 FAIL.
+- Park modern work moved to branch `grok-park-modern` / folder `crystal-palace-park-modern-grok` (PARK54/PARK60/PARK-NOW).
+- NOT pushed.
+
+## r15b checkpoint (2026-10-27 02:14 UTC)
+- Rebuilt SY60 + CLEARANCE after subway lights + approach cam fix.
+- Checks: r15_sy60 / r15_clearance — 0 FAIL.
+- Renders: r15_sy60 CP046 ×4, r15_clearance CP063 ×4 (re-render).

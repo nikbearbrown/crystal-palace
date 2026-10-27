@@ -278,3 +278,22 @@ New scripts: `scripts/eras.py` (BUILD53 / OPEN54 / LATE11 / WAR dressing), `scri
 | D-R14-L3 | CP049 worn garden front 35 mm; CP053 festival 35 mm + pavilions wide 35 mm; Edwardian crowd ~5k | LATE11 | I | |
 | D-R14-W1 | HMS Crystal Palace: White Ensign approx. (banded) on the transept + mast/yard on the terrace at (0, −250); 8 companies of 6×16 ratings on the upper terrace + nave/lower-terrace squads (1,164 figures) | WAR | R that the RND depot trained here (~125,000 men claim); formations I/U; ensign I | |
 | D-R14-W2 | CP056 cameras: terrace drill 35 mm, nave drill gallery 28 mm, ranks 50 mm | WAR | I | |
+
+## r15 — SY60 High Level/subway (CP046) + SY-CLEARANCE (CP063)
+
+### D-R15-S* High Level station and subway (SY60, c.1865)
+- **D-R15-S1 U/I** Station/subway layout: no measured High Level plans or vault surveys in the repo (BUILD-PLAN gap). Placed on the Parade (+Y) side beyond y≈200 ft: shed x=-220..220, y=300..400; booking hall y=260..300; subway under Parade y=190..268, width 18 ft, floor z=-14 ft, vault crown z=-2 ft. Parade road deck at z=+4 ft. Grades: existence of HL station (opened 1 Aug 1865, LCDR) and brick-vaulted subway under Crystal Palace Parade **R**; dimensions/placement **I/U**.
+- **D-R15-S2 I** Patterned vault: cream ground with red/black geometric bands via object-space shader (Byzantine/Italianate look of the surviving subway in period/modern photos **R** existence; exact motif **U**).
+- **D-R15-S3 I** Two-span glazed shed, three platforms, two roads — form parallel to Low Level stand-in; do **not** confuse with CP036 Low Level (garden/−Y side, 1854).
+- **D-R15-S4 U** Passenger counts (200 modelled) and dress (Victorian people57 templates).
+- **D-R15-S5 B** North transept still present (1865 is pre-30 Dec 1866 fire).
+
+### D-R15-C* Clearance (SY-CLEARANCE, late 1930s)
+- **D-R15-C1 I** Dresses the RUINS cleared-plateau state (footing pads, terraces, sphinxes, both Brunel towers still standing — towers removed 1940–41 **R**).
+- **D-R15-C2 U/I** Three lattice mobile cranes, six 1930s tipper lorries, 63 scrap-gang workers, scrap piles and twisted beams — no dated clearance photo set in repo; plant/forms stand-ins.
+- **D-R15-C3 I** Intact terrace edge kept as the CP063 visual anchor (storyboard).
+
+## r15 follow-up (CP046 lighting / approach)
+- **D-R15-S-LIGHT I**: subway AREA lights along vault (cream tungsten); sun alone left CP046 black underground.
+- **D-R15-S-CAM I**: `CAM_CP046_hl_approach_28mm` moved to Parade looking north at booking/shed (was inside shed facing S wall).
+- **D-R15-S-EXIT I**: subway exit lookat retargeted toward palace GF emergence.
