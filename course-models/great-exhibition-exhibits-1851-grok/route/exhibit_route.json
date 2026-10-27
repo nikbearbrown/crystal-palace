@@ -1,0 +1,132 @@
+{
+ "note": "showroom preview cameras; eye 5.25 ft, no roll; 50 mm details, 35 mm approaches (exhibits are details, not interiors). Showroom coords: Koh-i-Noor (0,0), Osler (48,0) on a 0.5 ft dais, Nasmyth (96,0).",
+ "shots": [
+  {
+   "id": "CP025_case",
+   "lens_mm": 50,
+   "fstop": 5.6,
+   "start": {
+    "pos_ft": [
+     1.6,
+     -7.7,
+     5.25
+    ],
+    "look_ft": [
+     0,
+     0,
+     4.25
+    ]
+   },
+   "note": "over the rail at a visitor's eye: stone on velvet under the glass bell inside the gilded bars"
+  },
+  {
+   "id": "CP025_visitors",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     10.0,
+     -21.0,
+     5.25
+    ],
+    "look_ft": [
+     0,
+     0,
+     4.4
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     7.0,
+     -17.0,
+     5.25
+    ],
+    "look_ft": [
+     0,
+     0,
+     4.4
+    ]
+   },
+   "note": "the cage with the crowd and policeman at the rail"
+  },
+  {
+   "id": "EX_osler",
+   "lens_mm": 50,
+   "start": {
+    "pos_ft": [
+     57.0,
+     -27.0,
+     5.25
+    ],
+    "look_ft": [
+     48,
+     0,
+     4.6
+    ]
+   },
+   "note": "Osler candelabrum, 8 ft, 15 lights | e01: pulled back so foot and crown both read; crimson drape behind (showroom preview only)"
+  },
+  {
+   "id": "CP024_approach",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     86.0,
+     -48.0,
+     5.25
+    ],
+    "look_ft": [
+     96,
+     0,
+     9.2
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     91.0,
+     -33.0,
+     5.25
+    ],
+    "look_ft": [
+     96,
+     0,
+     9.2
+    ]
+   },
+   "note": "approach to the steam hammer; whole 19 ft frame in at the end key"
+  },
+  {
+   "id": "CP024_ram",
+   "lens_mm": 50,
+   "start": {
+    "pos_ft": [
+     97.0,
+     -24.0,
+     5.25
+    ],
+    "look_ft": [
+     96,
+     0,
+     3.6
+    ]
+   },
+   "note": "insert: ram, dies and anvil block (frame 1 = ram down, frame 12 ~ top of stroke) | e01: pulled back from 15 to 25 ft so ram, dies and anvil read as one detail ; through the gap between visitor pairs, label moved to the left sole plate"
+  },
+  {
+   "id": "EX_lineup",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     -26.0,
+     -58.0,
+     5.25
+    ],
+    "look_ft": [
+     50,
+     0,
+     6.0
+    ]
+   },
+   "note": "all three assets on the preview stand, for scale"
+  }
+ ]
+}
