@@ -128,3 +128,7 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
   - Floor albedo down about 10%.
   - Figure heads and arms refined.
   - Gallery crowd up again.
+
+## Backlog (parked 2026-10-26)
+- r11 parked by Professor Bear's instruction: polish rounds now give diminishing returns; work moved to unbuilt sets (HP-SITE, MOVE+K-JOINT).
+- Parked r11 items: fountain glass; floor albedo -10%; figure heads/arms; more gallery crowd.
