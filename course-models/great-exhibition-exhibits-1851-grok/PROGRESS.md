@@ -59,3 +59,9 @@ never git init inside a grok folder; commit from the worktree root
 - Sparkle polish **CANDIDATE** (clearly brighter stone): `rounds/candidates/e02_koh_sparkle.blend` + `renders/candidates/CP025_july_start_sparkle.png`. Pair: `CANDIDATE_CP025_koh_sparkle_july_start_pair.png`. Live unchanged.
 - Organ/gates gate: Willis/Gray&Davison organ only in storyboard CP045 (Sydenham); Coalbrookdale gates not in storyboard → skip.
 - Next-crudest HP hero by screen time: **Nasmyth hammer CP024 CANDIDATE** `rounds/candidates/e02_hammer.blend` + `renders/candidates/CP024_ram_start.png` (`scripts/polish_hammer_cand.py`). Pair: `CANDIDATE_CP024_hammer_ram_start_pair.png`.
+
+## 2026-10-27 Koh sparkle REJECT + hammer court CANDIDATE
+- **REJECT** Koh sparkle — no visible difference; keep v2 live. Pair → `REJECTED_CP025_koh_sparkle_july_start_pair.png`.
+- **KEEP** Nasmyth hammer MODEL → promoted live `rounds/e02.blend` (`scripts/promote_hammer_live.py`).
+- Setting wrong (outdoor sea horizon): **CANDIDATE** Machinery Court `rounds/candidates/e02_hammer_court.blend` + `renders/candidates/CP024_ram_start.png` (`scripts/polish_hammer_court.py`). Pair: survey `look/pairs_geo/CANDIDATE_CP024_hammer_court_ram_start_pair.png`.
+- HP interior sea-horizon audit (report only): see commit message / agent report.
