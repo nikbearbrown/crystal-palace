@@ -1,0 +1,180 @@
+{
+ "set": "MOVE + K-JOINT (CP032), Grok",
+ "units": "feet; pos z = eye height above local ground unless abs_z",
+ "grammar": "eye 5.25 ft, 50 mm details, 35 mm approaches, no roll; the locator is an ortho insert (MV: grammar exception logged)",
+ "shots": [
+  {
+   "id": "KJ_hero",
+   "storyboard": "CP032",
+   "lens_mm": 50,
+   "fstop": 5.6,
+   "start": {
+    "pos_ft": [
+     2.7,
+     -2.5,
+     5.25
+    ],
+    "look_ft": [
+     0.35,
+     0.05,
+     4.65
+    ],
+    "abs_z": true
+   },
+   "end": {
+    "pos_ft": [
+     2.95,
+     -2.05,
+     5.25
+    ],
+    "look_ft": [
+     0.35,
+     0.05,
+     4.65
+    ],
+    "abs_z": true
+   },
+   "note": "iron keys S/T driven at the +X girder top joint; push-in 0.5 ft"
+  },
+  {
+   "id": "KJ_exploded",
+   "storyboard": "CP032",
+   "lens_mm": 50,
+   "fstop": 5.6,
+   "start": {
+    "pos_ft": [
+     -2.0,
+     -2.85,
+     5.25
+    ],
+    "look_ft": [
+     -0.85,
+     0.0,
+     4.3
+    ],
+    "abs_z": true
+   },
+   "note": "the W girder drawn back 9 in at the top joint: projection R, the empty snug groove and the knocked-out keys on the stool beyond"
+  },
+  {
+   "id": "KJ_oak",
+   "storyboard": "CP032",
+   "lens_mm": 50,
+   "fstop": 5.6,
+   "start": {
+    "pos_ft": [
+     2.6,
+     2.9,
+     5.25
+    ],
+    "look_ft": [
+     0.05,
+     0.6,
+     4.55
+    ],
+    "abs_z": true
+   },
+   "note": "oak keys on the N girder (the intermediate runs)"
+  },
+  {
+   "id": "KJ_bottom",
+   "storyboard": "CP032",
+   "lens_mm": 50,
+   "fstop": 5.6,
+   "start": {
+    "pos_ft": [
+     2.4,
+     -1.9,
+     5.25
+    ],
+    "look_ft": [
+     0.45,
+     -0.1,
+     1.95
+    ],
+    "abs_z": true
+   },
+   "note": "bottom keys T and projection R in the lower snug"
+  },
+  {
+   "id": "CP032_departure",
+   "storyboard": "CP032",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     42,
+     594,
+     5.25
+    ],
+    "look_ft": [
+     -8,
+     602,
+     3.0
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     31,
+     594,
+     5.25
+    ],
+    "look_ft": [
+     -8,
+     602,
+     3.0
+    ]
+   },
+   "note": "Hyde Park 1852: the departure stack, the stripped frame beyond; 11 ft move"
+  },
+  {
+   "id": "CP032_arrival",
+   "storyboard": "CP032",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     -42,
+     1606,
+     5.25
+    ],
+    "look_ft": [
+     -8,
+     1598,
+     3.0
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     -31,
+     1606,
+     5.25
+    ],
+    "look_ft": [
+     -8,
+     1598,
+     3.0
+    ]
+   },
+   "note": "Sydenham 1852: the receiving stack on the slope; matched 11 ft move, opposite heading"
+  },
+  {
+   "id": "CP032_locator",
+   "storyboard": "CP032",
+   "lens_mm": 50,
+   "ortho_ft": 21.8,
+   "start": {
+    "pos_ft": [
+     0.0,
+     -400.0,
+     60.0
+    ],
+    "look_ft": [
+     0.0,
+     -400.0,
+     0.0
+    ],
+    "abs_z": true
+   },
+   "note": "two-site schematic locator, top-down insert"
+  }
+ ]
+}
