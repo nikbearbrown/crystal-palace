@@ -72,3 +72,6 @@
 - Rounds `rounds/sydenham-1856-r13.blend` (18.4 MB) and `rounds/sydenham-concert57-r13.blend` (15.1 MB).
 - Checks: `checks/r13_1856.txt` 25 PASS / 0 FAIL; `checks/r13_concert57.txt` 28 PASS / 0 FAIL (new: performer count, audience, organ/rostrum/royal box, dated tiers, orchestra width, the three courts, waterworks dated + visitors). `dimension_check.py` POST66 now excludes CONCERT57 (north transept present).
 - Previews in `/workspace/syd_scratch/r13/` (c57b_sheet, e13a_sheet, b_sheet). Finals rendering detached at 1280×720/32 spp → `renders/r13_*` via `/workspace/syd_scratch/r13/render_r13.sh`.
+- 01:04 r13 finals DONE: 18 renders `renders/r13_{concert57,1856}_*.png` (1280×720, 32 spp; Pompeian atrium/wall at +1.5 EV, presentation only). Sheets: `compare/r13_CP045_concert57.jpg`, `compare/r13_CP039_CP040_courts.jpg`, `compare/r13_CP042_waterworks.jpg`.
+- Best: CP045 floor aisle 28 mm (organ, orchestra tiers, choir, audience) and CP042 terrace basin 35 mm (plume, veil, rim jets).
+- Known misses for r14: gallery-level diagonal bracing crosses the CP045 gallery cameras and the CP040 Mediaeval Court view (pick new positions); the cascade reads as white steps more than water; Greek interior under-lit; Graces/Farnese not framed by any camera yet; the waterworks INFO line reports jet top vs main floor (64 ft), not jet height above the water.
