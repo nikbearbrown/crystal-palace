@@ -43,3 +43,7 @@ Heroes left at pre-adopt PNGs. Pairs under `people_v33/previews/`.
 ## People library v3.4 — close-up gate (2026-10-27)
 
 Synced people_lib 3.4 (`CLOSE_UP_FRAME_FRAC`). No football keeps this round (CP050/055 already reverted).
+
+## set_v18 CP050 bank set attempt (2026-10-27)
+
+- **D-FB-01 I** CP050 pitch/bank/boards/goal mats rebuilt (fb03 → fb03b: thin chalk stripes, bank mottling, stand roof). `KEEP_LIGHTING` (exposure 0). Pair `set_v18/previews/CP050_set_fb02_vs_fb03.jpg`. **REVERT by eye** — AFTER washed terrain/trees toward clay beige; not clearly better. Best remains `renders/fb02_1895/CP050_bank_1895_start.png`.
