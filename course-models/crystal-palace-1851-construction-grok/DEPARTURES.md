@@ -90,6 +90,7 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 ## Muse kit apply (2026-10-27 follow-up)
 | ID | Topic | Call |
 |---|---|---|
-| MK03b | **Adopt** Muse `paxton-gutter` profile into K-DRAIN | CANDIDATE `rounds/candidates/k01_gutter.blend`: hide KD_PaxtonGutters (KD03 stand-in); append Muse Paxton_Gutter_24ft + Main_Gutter_24ft (Downes XII/XIII printed: depth 6 in, base 5 in, cheek ~5.7 in, notches 10½ in). Credit on objects. Live k01 untouched until KEEP. |
+| MK03b | CANDIDATE Muse Paxton gutter into K-DRAIN (`k01_gutter.blend`) | **REJECT** (user 2026-10-27): red-highlighted Paxton gutter end (teaching point) disappeared; stray pale beam cut bottom-left. Keep live KD03 stand-in. |
+| MK03c | Muse printed sash-bar / gutter notch pitch **10½ in** (Plate XII Fig.3 chain; Muse `paxton-gutter`) vs our staging ~10 in (CN18) / UV 10.5 in glass | **Departure note only** — do not retarget live K-DRAIN/K-ROOF this round. Prefer 10½ in when next rebuilding K-ROOF geometry. |
 | MK01 | Girder depth 3.0 ft vs Muse ~3.17 ft | **Remain departure** — not adopted. |
 | MK04 | Gallery rail H 3.06 ft vs Muse 3 ft 1⅞ in | **Remain departure** — not adopted. |

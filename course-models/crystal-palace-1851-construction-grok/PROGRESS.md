@@ -162,3 +162,7 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 
 ## 2026-10-27 Muse gutter
 - CANDIDATE k01_gutter: adopt Muse Paxton gutter (MK03b). MK01 girder depth + MK04 rail height remain departures.
+
+## 2026-10-27 Muse gutter REJECT
+- **REJECT** Muse Paxton gutter adopt (MK03b / `k01_gutter`): red teaching-point gutter end disappeared; stray pale beam bottom-left. Keep live KD03. Pair: survey `look/pairs_geo/REJECTED_CP014_gutter_muse_pair.png`.
+- Muse 10½ in sash-bar / gutter notch pitch logged as **departure note only** (MK03c) — do not retarget live this round.
