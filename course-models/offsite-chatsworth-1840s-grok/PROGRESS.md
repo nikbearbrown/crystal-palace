@@ -18,3 +18,6 @@
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## people/material 2026-10-27
+- material paint/iron/brick grit keep-better CP003/004; people_lib 3.1 vendored
