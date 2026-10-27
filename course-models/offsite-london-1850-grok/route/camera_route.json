@@ -86,6 +86,72 @@
      3.1
     ]
    }
+  },
+  {
+   "id": "CP069_street",
+   "storyboard": "CP069",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     0.0,
+     -140.0,
+     5.25
+    ],
+    "look_ft": [
+     60.0,
+     50.0,
+     70.0
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     0.0,
+     -110.0,
+     5.25
+    ],
+    "look_ft": [
+     70.0,
+     80.0,
+     80.0
+    ]
+   },
+   "note": "Exhibition Road looking NNE toward RAH dome"
+  },
+  {
+   "id": "CP069_rah",
+   "storyboard": "CP069",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     20.0,
+     -160.0,
+     5.25
+    ],
+    "look_ft": [
+     95.0,
+     90.0,
+     90.0
+    ]
+   },
+   "note": "RAH full dome from further SW"
+  },
+  {
+   "id": "CP069_museums",
+   "storyboard": "CP069",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     5.0,
+     20.0,
+     5.25
+    ],
+    "look_ft": [
+     -120.0,
+     20.0,
+     22.0
+    ]
+   },
+   "note": "museum fronts from road centre looking west (clear of street trees)"
   }
  ],
  "contents": [

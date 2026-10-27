@@ -15,3 +15,5 @@
 |---|---|---|---|
 | LN02 | Darker brick/soot/slate albedos; soot rear wall + brick wing walls inside each viaduct arch | Black arch voids; peachy brick | B |
 | LN03 | Denser loco smoke plume (7 translucent stacks); dimmer hazy world | Train smoke thin/absent | B |
+| LN04 | CP069 South Kensington ‘today’ block-out (`ln03_southken`): Exhibition Road + RAH dome amphitheatre + three museum front blocks (V&A / Science / NHM massing). **OPTIONAL** — real footage may replace | C | storyboard OFFSITE South Ken; institutional legacy of 1851 profits, not a claim every museum was built by the exhibition |
+| LN05 | CP069 lean 28-sample / 1280×720; RAH is faceted ellipse rings not a surveyed survey | D | box busy; block-out only |
