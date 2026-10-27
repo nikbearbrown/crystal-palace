@@ -40,3 +40,7 @@
 
 - **D-PM-23 R** CP071 ceiling replaced with Muse `sy-subway-vault-bay` fan/groin vaults (refs S87-subway-restored-interior-2025 / S87-subway-interior-2016; HE 1385457). 3×6 octagonal cream-brick columns, polychrome red+cream brick soffits, stone ribs/capitals; vaults terminate in brick end wall. PARK-NOW dirt/wear on mats + dirty floor; modern AREA lamps (aimed at soffits) + LED uplights retained/adjusted. Terrain boolean-cut so park ground no longer caps the corridor. Cam nudged to aisle x=PITCH/2 so it is not inside a column. `KEEP_LIGHTING` (exposure −0.8; no sun/world rewrite).
 - **D-PM-24 I** Hero `renders/r19_parknow_CAM_CP071_subway_interior_28mm.png` from `rounds/parknow-r19.blend`. KEEP by eye vs r18 flat olive slab + box ribs.
+
+## set_v18 CP071 octagonal columns (2026-10-27)
+
+- **D-PM-25 R** CP071 column shafts + base drums rebuilt as true flat-sided octagons (COL_FLATS 0.73 / BASE 0.82) with EdgeSplit + dark vertical corner arrises so the Byzantine-Italianate octagon reads at a glance. Vaults, polychrome soffits, dirt/wear, modern lamps, exposure −0.8 held. Hero `renders/r20_parknow_CAM_CP071_subway_interior_28mm.png` from `rounds/parknow-r20.blend`. KEEP by eye vs r19 cylindrical-looking shafts.
