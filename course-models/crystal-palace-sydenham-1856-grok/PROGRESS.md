@@ -8,7 +8,7 @@
 - r06 outputs: renders/r06final_*.png (1920x1080, 128 spp), compare/r06_vs_0074.jpg, compare/r06_vs_0007.jpg, compare/r06_section_vs_0212.jpg, compare/r06_plan_overlay.jpg.
 - r07 (rebuild: SY_NO_COURTS=1 blender -b -P scripts/build.py -- rounds/sydenham-1856-r07.blend): ribbed vault + arched bands, tower bracing, octagonal Brunel towers with lantern, grass banks, ornate basins + jets, 1857 park paths/beds, 0007 cam re-aim, ground slope + basement piers + cut floor in section. 271k faces / 5.1 MB. Dimension checks in checks/r07_dimension_check.txt.
 - r07 outputs: renders/r07final_*.png (0074 128 spp; others 32–64 spp), compare/r07_vs_0074.jpg, r07_vs_0007.jpg, r07_section_vs_0212.jpg, r07_plan_overlay.jpg.
-- r08 (IN PROGRESS): courts (scripts/courts.py, exec'd at end of build.py unless SY_NO_COURTS) — Egyptian 0226 and Alhambra 0246.
+- r08 (IN PROGRESS, built OK 288,808 faces / 5.6 MB): courts (scripts/courts.py, exec'd at end of build.py unless SY_NO_COURTS) — Egyptian 0226 + Alhambra 0246 collections; finals renders/r08final_* rendering detached (log /workspace/syd_scratch/r08final.log). Next: compare/r08_alhambra_vs_0108.jpg, r08 plan overlay + checks, commit.
 - Commands:
   - Rebuild: /workspace/blender5/blender -b -P scripts/build.py -- rounds/<name>.blend
   - Render: blender -b rounds/X.blend -P scripts/render.py -- renders <tag> <pct> <spp> <cams...>
