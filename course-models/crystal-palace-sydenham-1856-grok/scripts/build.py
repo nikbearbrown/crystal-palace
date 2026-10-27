@@ -122,9 +122,11 @@ STATE = os.environ.get('SY_STATE', 'EARLY').upper() or 'EARLY'
 ROOTS = {'EARLY': 'SY-EARLY_c1856', 'POST66': 'SY-POST66_c1868', '1936': 'SY-1936_Nov1936_preFire',
          'FIRE': 'SY-1936FIRE_30Nov1936_night', 'AFTER': 'SY-1936AFTER_Dec1936_morning',
          'RUINS': 'SY-RUINS_c1937-40', 'RUINS41': 'SY-RUINS_post1941',
-         'CONCERT57': 'SY-CONCERT57_HandelFestival_Jun1857'}   # r13: pre-1866 fabric + the 1857 festival (scripts/concert57.py)
+         'CONCERT57': 'SY-CONCERT57_HandelFestival_Jun1857',   # r13: pre-1866 fabric + the 1857 festival (scripts/concert57.py)
+         'BUILD53': 'SY-BUILD_c1853_construction', 'OPEN54': 'SY54_OpeningDay_10Jun1854',      # r14 (scripts/eras.py, station.py)
+         'LATE11': 'SY-LATE_FestivalOfEmpire_1911', 'WAR': 'SY-WAR_HMS_CrystalPalace_c1915'}
 assert STATE in ROOTS, STATE
-POST66 = STATE not in ('EARLY', 'CONCERT57')
+POST66 = STATE not in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54')
 root = bpy.data.collections.new(ROOTS[STATE]); sc.collection.children.link(root)
 def coll(name, parent=root):
     c = bpy.data.collections.new(name); parent.children.link(c); return c
@@ -191,7 +193,7 @@ ORCH_VOIDS = [(60, 172, -108.5, 108.5)] if STATE == 'CONCERT57' else []
 # r13 courts2.py: the Medieval Court (garden side, plan 0205 x392-490 y-116..-44) rises above gallery level as in the
 # Rijksmuseum stereo 'The French and Italian Medieval Vestibule' (catalogue 0042; glass roof seen over the arcades): gallery floor and the
 # tier-1/2 girders omitted over it, columns kept (I, D-R13-F05). Only the pre-1866 states carry courts2.
-GAL_VOIDS13 = [(392, 490, -116, -44)] if (STATE in ('EARLY', 'CONCERT57') and not os.environ.get('SY_NO_COURTS')) else []
+GAL_VOIDS13 = [(392, 490, -116, -44)] if (STATE in ('EARLY', 'CONCERT57', 'OPEN54') and not os.environ.get('SY_NO_COURTS')) else []
 def in_orch(x, y, t): return t < 50 and any(x0 < x < x1 and y0 <= y <= y1 for x0, x1, y0, y1 in ORCH_VOIDS + GAL_VOIDS13)
 # ---------- main frame: columns + girders on the 24 ft grid ----------
 frame = {}
@@ -1034,11 +1036,12 @@ sc.view_settings.exposure = -1.0
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'states.py')).read())   # r11 later states + sphinxes
 # r13: Victorian people (GN-instanced), the 1857 Handel Festival, courts2 (Pompeian / Greek+Roman / Medieval), running
 # waterworks (CP042). Pre-1866 states only.
-if STATE in ('EARLY', 'CONCERT57'):
+if STATE in ('EARLY', 'CONCERT57', 'BUILD53', 'OPEN54', 'LATE11', 'WAR'):
     _sd = os.path.dirname(os.path.abspath(__file__))
     exec(open(os.path.join(_sd, 'people57.py')).read())
     if STATE == 'CONCERT57': exec(open(os.path.join(_sd, 'concert57.py')).read())
-    if not os.environ.get('SY_NO_COURTS') and os.path.exists(os.path.join(_sd, 'courts2.py')): exec(open(os.path.join(_sd, 'courts2.py')).read())
+    if STATE in ('BUILD53', 'OPEN54', 'LATE11', 'WAR'): exec(open(os.path.join(_sd, 'eras.py')).read())   # r14
+    if STATE in ('EARLY', 'CONCERT57', 'OPEN54') and not os.environ.get('SY_NO_COURTS') and os.path.exists(os.path.join(_sd, 'courts2.py')): exec(open(os.path.join(_sd, 'courts2.py')).read())
     if STATE == 'EARLY' and os.path.exists(os.path.join(_sd, 'waterworks.py')): exec(open(os.path.join(_sd, 'waterworks.py')).read())
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 tri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')

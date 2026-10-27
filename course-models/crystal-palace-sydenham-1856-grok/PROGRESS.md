@@ -75,3 +75,21 @@
 - 01:04 r13 finals DONE: 18 renders `renders/r13_{concert57,1856}_*.png` (1280×720, 32 spp; Pompeian atrium/wall at +1.5 EV, presentation only). Sheets: `compare/r13_CP045_concert57.jpg`, `compare/r13_CP039_CP040_courts.jpg`, `compare/r13_CP042_waterworks.jpg`.
 - Best: CP045 floor aisle 28 mm (organ, orchestra tiers, choir, audience) and CP042 terrace basin 35 mm (plume, veil, rim jets).
 - Known misses for r14: gallery-level diagonal bracing crosses the CP045 gallery cameras and the CP040 Mediaeval Court view (pick new positions); the cascade reads as white steps more than water; Greek interior under-lit; Graces/Farnese not framed by any camera yet; the waterworks INFO line reports jet top vs main floor (64 ft), not jet height above the water.
+
+## r14 (01:04–) — r14 fixes + SY-BUILD / SY54 / G-STATION / SY-LATE / SY-WAR
+- Quick fixes: gallery + Mediaeval cameras moved off braces; Graces/Farnese 50 mm cams; Greek fill lights; jet-height check measures above water.
+- New states via `scripts/eras.py` + `scripts/station.py`:
+  - BUILD53 `SY-BUILD_c1853_construction` (CP033)
+  - OPEN54 `SY54_OpeningDay_10Jun1854` (CP035) + Low Level station/covered way (CP036)
+  - LATE11 `SY-LATE_FestivalOfEmpire_1911` (CP049–53)
+  - WAR `SY-WAR_HMS_CrystalPalace_c1915` (CP056)
+- people57: navvy / courtier / queen / yeoman / Edwardian / rating templates (indices after conductor unchanged).
+- Rounds (all < 20 MB, no `.blend1`, no push):
+  - `rounds/sydenham-build53-r14.blend` (2.4 MB)
+  - `rounds/sydenham-open54-r14.blend` (14.7 MB)
+  - `rounds/sydenham-1856-r14.blend` (18.4 MB)
+  - `rounds/sydenham-concert57-r14.blend` (15.1 MB)
+  - `rounds/sydenham-late11-r14.blend` (13.4 MB)
+  - `rounds/sydenham-war-r14.blend` (13.3 MB)
+- Checks `checks/r14_*.txt` all 0 FAIL: BUILD53 13P, OPEN54 27P, EARLY 29P, CONCERT57 30P, LATE11 25P, WAR 24P.
+- Renders 1280×720 / 32 spp detached via `/workspace/syd_scratch/r14/render_r14.sh` → `renders/r14_*`.

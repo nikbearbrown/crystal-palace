@@ -20,9 +20,14 @@ PV = [_pm('pv57_black_cloth', (0.022, 0.021, 0.022), 0.8), _pm('pv57_dark_brown'
       _pm('pv57_silk_blue', (0.08, 0.12, 0.27), 0.45), _pm('pv57_silk_fawn', (0.38, 0.28, 0.17), 0.5),
       _pm('pv57_silk_grey', (0.26, 0.25, 0.25), 0.5), _pm('pv57_muslin_white', (0.85, 0.84, 0.8), 0.75),
       _pm('pv57_straw_bonnet', (0.55, 0.45, 0.28), 0.8), _pm('pv57_varnish_wood', (0.25, 0.1, 0.04), 0.35),
-      _pm('pv57_paisley_shawl', (0.42, 0.12, 0.06), 0.8), _pm('pv57_brass', (0.62, 0.45, 0.16), 0.3, 1.0)]
+      _pm('pv57_paisley_shawl', (0.42, 0.12, 0.06), 0.8), _pm('pv57_brass', (0.62, 0.45, 0.16), 0.3, 1.0),
+      # r14 additions (indices 16-23): scarlet, gold lace, moleskin, rust flannel, cream, boater straw, khaki-ish drab, pink silk
+      _pm('pv57_scarlet', (0.42, 0.03, 0.025), 0.6), _pm('pv57_gold_lace', (0.7, 0.52, 0.18), 0.35, 1.0),
+      _pm('pv57_moleskin', (0.2, 0.17, 0.12), 0.9), _pm('pv57_rust_flannel', (0.3, 0.1, 0.06), 0.9),
+      _pm('pv57_cream', (0.7, 0.66, 0.55), 0.7), _pm('pv57_boater_straw', (0.66, 0.56, 0.36), 0.8),
+      _pm('pv57_drab', (0.22, 0.2, 0.14), 0.85), _pm('pv57_pink_silk', (0.6, 0.38, 0.38), 0.45)]
 (V_BLK, V_BRN, V_GRY, V_NAVY, V_SKIN, V_LIN, V_GRN, V_PLUM, V_BLUE, V_FAWN, V_SGRY, V_MUS, V_STRAW, V_WOOD, V_SHAWL,
- V_BRASS) = range(16)
+ V_BRASS, V_SCAR, V_GOLD, V_MOLE, V_RUST, V_CREAM, V_BOAT, V_DRAB, V_PINK) = range(24)
 
 def _lathe(bm, prof, seg, mi, cx=0.0, cy=0.0, sx=1.0, sy=1.0):
     rings = [[bm.verts.new((FTM*(cx + sx*r*math.cos(2*math.pi*k/seg)), FTM*(cy + sy*r*math.sin(2*math.pi*k/seg)), FTM*z)) for k in range(seg)] for r, z in prof]
@@ -116,9 +121,68 @@ for k in ('violin', 'cello', 'wind', 'brass'):
     _t(f'band_{k}', lambda bm, k=k: strings_player(bm, k))
 _t('band_bass', bass_player)
 _t('conductor', conductor)
+
+# ---- r14 period templates (appended so r13 indices stay stable) ----
+def navvy(bm, shirt, tool):
+    for s_ in (-0.26, 0.26): _lathe(bm, [(0.22, 0.0), (0.21, 1.3), (0.24, 2.75), (0.0, 2.8)], 6, V_MOLE, cx=s_)   # moleskin trousers
+    _lathe(bm, [(0.0, 2.7), (0.6, 2.7), (0.55, 3.4), (0.64, 4.3), (0.66, 4.5), (0.4, 4.75), (0.0, 4.78)], 10, shirt)  # flannel shirt
+    _lathe(bm, [(0.0, 3.3), (0.6, 3.3), (0.62, 4.3), (0.0, 4.32)], 10, V_BRN)                                      # waistcoat
+    _arm(bm, -0.7, 3.0, 4.45, shirt); _box(bm, 0.55, 0.85, -0.55, -0.25, 3.3, 4.45, shirt)                         # one arm forward
+    _head(bm, 4.72)
+    _lathe(bm, [(0.0, 5.3), (0.5, 5.32), (0.5, 5.38), (0.33, 5.42), (0.32, 5.75), (0.0, 5.78)], 10, V_DRAB)        # wideawake hat
+    if tool == 'shovel':
+        _box(bm, 0.66, 0.74, -0.9, -0.82, 1.2, 4.0, V_WOOD); _box(bm, 0.45, 0.95, -0.95, -0.88, 0.2, 1.3, V_GRY)
+    elif tool == 'pick':
+        _box(bm, 0.66, 0.74, -0.75, -0.67, 2.2, 5.6, V_WOOD); _box(bm, 0.2, 1.2, -0.76, -0.66, 5.4, 5.6, V_GRY)
+def courtier(bm, coat, sash=None):
+    man_standing(bm, coat, hat=False, shirt=True)
+    if sash is not None: _box(bm, -0.5, 0.5, -0.66, -0.58, 3.8, 4.0, sash)
+    for s_ in (-0.5, 0.5): _box(bm, s_-0.18, s_+0.18, -0.2, 0.2, 4.5, 4.62, V_GOLD)                                # epaulettes / lace
+def queen(bm):
+    woman_standing(bm, V_PINK, V_PINK, bonnet=False, crin=2.0)
+    _box(bm, -0.55, 0.55, -0.48, -0.42, 3.6, 3.75, V_BLUE)                                                         # Garter riband
+    _lathe(bm, [(0.0, 5.12), (0.24, 5.12), (0.24, 5.3), (0.0, 5.32)], 8, V_GOLD)                                   # diadem (form only)
+def yeoman(bm):
+    man_standing(bm, V_SCAR, hat=False)
+    _box(bm, -0.45, 0.45, -0.68, -0.6, 3.2, 4.4, V_GOLD)
+    _lathe(bm, [(0.0, 5.32), (0.55, 5.34), (0.4, 5.45), (0.36, 5.8), (0.0, 5.85)], 10, V_BLK)                      # Tudor bonnet
+    _box(bm, 0.75, 0.82, -0.3, -0.23, 0.0, 7.2, V_WOOD); _box(bm, 0.6, 0.98, -0.31, -0.22, 7.0, 7.8, V_GRY)        # partisan
+def ed_man(bm, coat, hat):
+    for s_ in (-0.24, 0.24): _lathe(bm, [(0.19, 0.0), (0.18, 1.3), (0.21, 2.75), (0.0, 2.8)], 6, coat, cx=s_)
+    _lathe(bm, [(0.0, 2.6), (0.6, 2.6), (0.56, 3.4), (0.62, 4.3), (0.64, 4.52), (0.38, 4.75), (0.0, 4.78)], 10, coat)   # lounge suit
+    _box(bm, -0.12, 0.12, -0.62, -0.55, 4.2, 4.65, V_LIN)
+    for s_ in (-0.68, 0.68): _arm(bm, s_, 3.0, 4.45, coat)
+    _head(bm, 4.72)
+    if hat == 'boater': _lathe(bm, [(0.0, 5.3), (0.55, 5.32), (0.55, 5.36), (0.34, 5.38), (0.34, 5.6), (0.0, 5.62)], 12, V_BOAT)
+    else: _lathe(bm, [(0.0, 5.3), (0.45, 5.32), (0.42, 5.38), (0.33, 5.42), (0.36, 5.7), (0.2, 5.82), (0.0, 5.84)], 10, V_BLK)   # bowler
+def ed_woman(bm, dress, hat):
+    _lathe(bm, [(0.0, 0.0), (0.95, 0.0), (0.8, 0.6), (0.55, 2.0), (0.42, 3.0), (0.0, 3.05)], 12, dress)               # long gored skirt (c.1908-13)
+    _lathe(bm, [(0.0, 2.95), (0.42, 2.95), (0.36, 3.3), (0.52, 4.0), (0.36, 4.42), (0.0, 4.48)], 9, V_CREAM if dress != V_CREAM else V_LIN)  # blouse
+    for s_ in (-0.6, 0.6): _arm(bm, s_, 3.0, 4.3, V_CREAM, r=0.13)
+    _head(bm, 4.38)
+    _lathe(bm, [(0.0, 4.95), (1.1, 4.98), (1.1, 5.04), (0.4, 5.1), (0.38, 5.4), (0.0, 5.45)], 14, hat)                # picture hat
+def rating(bm, white_top=False):
+    for s_ in (-0.25, 0.25): _lathe(bm, [(0.24, 0.0), (0.22, 1.3), (0.22, 2.75), (0.0, 2.8)], 6, V_NAVY, cx=s_)      # bell-bottoms
+    _lathe(bm, [(0.0, 2.6), (0.58, 2.6), (0.55, 3.4), (0.62, 4.35), (0.64, 4.5), (0.38, 4.75), (0.0, 4.78)], 10, V_LIN if white_top else V_NAVY)  # jumper
+    _box(bm, -0.55, 0.55, -0.05, 0.6, 4.3, 4.72, V_NAVY if white_top else V_SGRY)                                 # square collar
+    for s_ in (-0.68, 0.68): _arm(bm, s_, 3.0, 4.45, V_LIN if white_top else V_NAVY)
+    _head(bm, 4.72)
+    _lathe(bm, [(0.0, 5.3), (0.36, 5.32), (0.42, 5.5), (0.42, 5.56), (0.0, 5.58)], 10, V_LIN)                      # white-topped cap
+    _box(bm, 0.72, 0.8, -0.12, -0.04, 1.5, 5.6, V_WOOD)                                                          # rifle at the slope/order (I)
+for k_, fn_ in (('navvy_shovel', lambda bm: navvy(bm, V_RUST, 'shovel')), ('navvy_pick', lambda bm: navvy(bm, V_LIN, 'pick')),
+                ('navvy_plain', lambda bm: navvy(bm, V_RUST, None)), ('courtier_blk', lambda bm: courtier(bm, V_BLK, V_BLUE)),
+                ('courtier_scar', lambda bm: courtier(bm, V_SCAR, V_BLUE)), ('queen_1854', queen), ('yeoman', yeoman),
+                ('ed_man_0', lambda bm: ed_man(bm, V_GRY, 'boater')), ('ed_man_1', lambda bm: ed_man(bm, V_NAVY, 'bowler')),
+                ('ed_man_2', lambda bm: ed_man(bm, V_BRN, 'bowler')), ('ed_woman_0', lambda bm: ed_woman(bm, V_CREAM, V_BLK)),
+                ('ed_woman_1', lambda bm: ed_woman(bm, V_NAVY, V_BOAT)), ('ed_woman_2', lambda bm: ed_woman(bm, V_SGRY, V_PLUM)),
+                ('ed_woman_3', lambda bm: ed_woman(bm, V_GRN, V_CREAM)), ('rating_blue', lambda bm: rating(bm)),
+                ('rating_white', lambda bm: rating(bm, True))):
+    _t(k_, fn_)
 TIDX = {k: i for i, (k, _) in enumerate(TEMPLATES)}
 MEN_ST = [TIDX[f'man_st_{i}'] for i in range(4)]; WOM_ST = [TIDX[f'woman_st_{i}'] for i in range(6)]
 MEN_SE = [TIDX[f'man_se_{i}'] for i in range(3)]; WOM_SE = [TIDX[f'woman_se_{i}'] for i in range(4)]
+NAVVY = [TIDX[k] for k in ('navvy_shovel', 'navvy_pick', 'navvy_plain')]; ED_M = [TIDX[f'ed_man_{i}'] for i in range(3)]; ED_W = [TIDX[f'ed_woman_{i}'] for i in range(4)]
+def public11(r, wfrac=0.5): return r.choice(ED_W) if r.random() < wfrac else r.choice(ED_M)
 
 PPL_TC = bpy.data.collections.new('PPL57_templates__instanced_not_rendered'); sc.collection.children.link(PPL_TC)
 for i, (k, fn) in enumerate(TEMPLATES):

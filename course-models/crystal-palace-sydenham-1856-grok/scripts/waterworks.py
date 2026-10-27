@@ -98,6 +98,7 @@ for dx in (500, 582):
         arc((x_ + cx_, yJ - 6, zJ + 3.6), (x_ + cx_, yJ - 14, zs(yJ - 14) + 1.3), 1.5, 1.2, 0.9, n=8)
         FO.cyl(x_ + cx_, yJ - 14, zs(yJ - 14) + 1.2, zs(yJ - 14) + 1.4, 3.0, 2.0, seg=10)
 SP.done(); FO.done(); DR.done()
+bpy.data.objects['waterworks_spray']['great_centres_ft'] = [mdx(420), yM, mdx(662), yM]   # r14: for the jet-height D-check
 
 # --- visitors: terraces and walks, people(); figures face the water (U numbers) ---
 VP = []

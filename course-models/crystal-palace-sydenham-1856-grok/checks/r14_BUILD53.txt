@@ -1,0 +1,20 @@
+STATE  root collection = SY-BUILD_c1853_construction
+N/A   main building length / width                   (under construction: floor laid only to x=+150 (D-R14-B1))
+N/A   central transept                               (collapsed (FIRE) / destroyed)
+N/A   nave                                           (shell destroyed in this state)
+PASS  basement depth below main floor                model    23.58 ft  target    23.58 ft  tol 0.3  [guide p.35 B 197'10"-174'3"]
+PASS  south transept centre x (plan 0205)            model  -528.00 ft  target  -528.00 ft  tol 8  [plan 0205 R: -529/+523]
+N/A   north transept                                 (not yet glazed (1853))
+N/A   wings                                          (south wing frame only, north wing not begun (D-R14-B1))
+PASS  south water tower ABSENT (built 1855-56)                     [tower dates R: DEPARTURES TOWER_DATE]
+PASS  north water tower ABSENT (built 1855-56)                     [tower dates R: DEPARTURES TOWER_DATE]
+PASS  terrace sphinxes ABSENT (set up for the 1854 opening)        [Park Trust R (1854); BUILD date c.1853 I]
+PASS  glazing only south of x=-350 (max x -352)                    [erection front U (D-R14-B1)]
+PASS  frame present but partial                                    [I]
+PASS  no vault glazing yet                                         [I]
+PASS  earthworks, tramways and scaffolding present                 [Paxton park works 1852-54 R; forms I]
+PASS  navvies/erectors > 600 figures (737)                         [workforce up to ~6,400 in 1853-54 R(claim); modelled subset U]
+PASS  construction dressing in a dated 1853 collection             [rule]
+PASS  all 33 cameras on a 36 mm sensor                             [rule]
+PASS  no camera roll                                               [rule]
+INFO  gallery floor area modelled 134,784 sq ft vs guide 261,568 sq ft (B) -> 52%; remainder = galleries not yet modelled (outer tiers, transept galleries)

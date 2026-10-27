@@ -315,7 +315,14 @@ for i in range(24):
 cam('CAM_CP040_greek_roman_fronts_28mm', (300, 12, EYE), (400, 80, 13), 28)
 cam('CAM_CP040_greek_interior_28mm', (284, 70, EYE), (360, 140, 7), 28)
 cam('CAM_CP040_doric_detail_50mm', (316, 40, EYE), (326, FY, 17.5), 50)
+cam('CAM_CP040_three_graces_50mm', (336, 94, EYE), (336, 120, 4.8), 50)                     # r14
+cam('CAM_CP040_farnese_bull_50mm', (424, 86, EYE), (432, 120, 6.5), 50)                      # r14
 people('ppl57_greekroman_visitors', GC, gp)
+# r14: fill light under the gallery floor (the real courts took light from the nave and the glazed roof above the
+# galleries; our gallery deck blocks it). Presentation lighting, I.
+for _lx in ((GX0 + GX1)/2, (GX1 + RX1)/2):
+    _ld = bpy.data.lights.new('court_fill_greekroman', 'AREA'); _ld.shape = 'RECTANGLE'; _ld.size = f(90); _ld.size_y = f(86); _ld.energy = 9000
+    _ld.color = (1.0, 0.96, 0.9); _lo = bpy.data.objects.new('court_fill_greekroman', _ld); GC.objects.link(_lo); _lo.location = (f(_lx), f(107), f(21.0))
 
 # ---------------------------------------------------------------------------------------------------------------------
 # 3. MEDIAEVAL COURT (Digby Wyatt) - plan 0205 x 392-490, y -116..-44, garden side. English section (west) with the
@@ -417,7 +424,7 @@ for i in range(36):
     mp.append((x, y, 0.05, public(PRNG2), PRNG2.uniform(-math.pi, math.pi)))
 for i in range(16):
     mp.append((PRNG2.uniform(MX0, MX1), PRNG2.uniform(-34, -14), 0, public(PRNG2), PRNG2.uniform(-math.pi, math.pi)))
-cam('CAM_CP040_mediaeval_court_28mm', (484, -50, EYE), (398, -90, 13), 28)
+cam('CAM_CP040_mediaeval_court_28mm', (452, -50, EYE), (398, -96, 13), 28)   # r14: out of the north-transept braced stack (x 468-492)
 cam('CAM_CP040_rochester_door_50mm', (RCX + 3, -84, EYE), (RCX, MY0, 9.5), 50)
 cam('CAM_CP040_mediaeval_front_28mm', (446, -6, EYE), (410, -46, 14), 28)   # r13b: moved off a nave pier
 people('ppl57_mediaeval_visitors', MC, mp)

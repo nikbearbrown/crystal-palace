@@ -134,8 +134,8 @@ for k, (r, z) in enumerate(ROWS):
 pts.append((PX + 20.5, 0, Z0 + 0.5, TIDX['conductor'], face_rot(1, 0)))       # Michael Costa (form only; no likeness)
 N_PERF = len(pts) - 1
 # --- cameras (CP045), defined before the crowds so people() keeps a clear zone round each lens ---
-cam('CAM_CP045_gallery_wide_28mm', (-63, 46, GALLERY_FLOOR + EYE), (110, -10, 30), 28)
-cam('CAM_CP045_gallery_wide_b_28mm', (-72, -38, GALLERY_FLOOR + EYE), (110, 8, 30), 28)   # r13b: mid-bay at the gallery front, clear of the bracing
+cam('CAM_CP045_gallery_wide_28mm', (-98, 40, GALLERY_FLOOR + EYE), (110, -12, 30), 28)   # r14: out of the braced tower stack (x 60-84)
+cam('CAM_CP045_gallery_wide_b_28mm', (-98, -40, GALLERY_FLOOR + EYE), (110, 12, 30), 28)   # r14: out of the braced tower stack (x 60-84)
 cam('CAM_CP045_floor_aisle_28mm', (-48, 0, EYE), (120, 0, 30), 28)
 cam('CAM_CP045_from_organ_gallery_28mm', (140, 0, 70 + EYE), (-120, 0, 0), 28)   # r13b: on axis above the top tiers in front of the organ (Negretti reverse view, I)
 cam('CAM_CP045_conductor_detail_50mm', (36, -30, Z0 + EYE), (62, 4, Z0 + 5), 50)

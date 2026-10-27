@@ -250,3 +250,31 @@ New scripts: `scripts/people57.py` (Victorian-dress figure templates, GN-instanc
 | D-R13-W6 | Water as mesh (tapered columns, parabolic bar arcs, tetrahedral droplets) with a semi-opaque emissive white "spray" material | EARLY | I (look, not physics) | particles not used, so files stay small |
 | D-R13-W7 | 2,420 visitors round the basins, terrace balustrades and walks | EARLY | U numbers / I positions | |
 | D-R13-W8 | CP042 cameras: terrace basin 35 mm (hero), head of the centre flight 35 mm, great basins 35 mm, cascade 50 mm | EARLY | I | |
+
+### r14 — camera/lighting/jet fixes; SY-BUILD (CP033), SY54 opening (CP035), G-STATION (CP036), SY-LATE (CP049–54), SY-WAR (CP056)
+New scripts: `scripts/eras.py` (BUILD53 / OPEN54 / LATE11 / WAR dressing), `scripts/station.py` (Low Level station + covered way, exec'd from eras OPEN54). `scripts/people57.py` gains navvy / court / queen / yeoman / Edwardian / rating templates. `scripts/build.py` ROOTS + POST66 / GAL_VOIDS13 / exec wiring. `checks/dimension_check.py` state-aware for SY-BUILD / SY54 (and ROOT match for `SY54_*`).
+| ID | Change | State | Grade | Note |
+|---|---|---|---|---|
+| D-R14-F1 | CP045 gallery cameras moved out of the braced tower stacks: (−98, ±40, GF+EYE) looking at (110, ∓12, 30) | CONCERT57 | I | braces occupy x ±60–84 central and x 468–492 north |
+| D-R14-F2 | CP040 Mediaeval Court camera moved to (452, −50, EYE) looking at (398, −96, 13) | EARLY/OPEN54 | I | was blocked by a diagonal brace |
+| D-R14-F3 | New CP040 cameras on the Three Graces (336, 94 → 336, 120) and Farnese Bull (424, 86 → 432, 120), 50 mm | EARLY/OPEN54 | I | Muse casts already placed in r13 |
+| D-R14-F4 | Greek/Roman interior brightened: two area fills `court_fill_greekroman` (size 90×86 ft, energy 9000) over the court | EARLY/OPEN54 | I | r13 under-lit |
+| D-R14-F5 | Jet-height check now measures spray-vertex max−min z above water at each great-basin centre (`great_centres_ft` custom prop), target 200 ± 20 ft | EARLY | — | was reporting jet top vs main floor |
+| D-R14-B1 | Erection front c. autumn 1853: glazing complete to x=−350; frame to tier 3 to x=+150; to tier 1 to x=+450; basement only beyond; central transept kept whole; north wing not begun; south wing frame kept | BUILD53 | U | no single dated elevation of the rising frame; Paxton park works 1852–54 R |
+| D-R14-B2 | Ground recoloured raw clay; meadow for y < −1300; terraces stone clipped for x > 40 | BUILD53 | I | |
+| D-R14-B3 | Earth wedges with cut faces, 22 spoil heaps, 3 tramways (sleepers/rails/tip wagons), horses and carts | BUILD53 | I | tramways typical of the works; route I |
+| D-R14-B4 | Timber scaffolding round the transept (x ±72/96), shear-legs, column/girder stacks, huts; 737+ navvies/erectors | BUILD53 | I form / U numbers | workforce claim ~6,400 R(claim); modelled subset |
+| D-R14-B5 | CP033 cameras: slope-up 35 mm, terrace-cut 35 mm, frame-rising 35 mm, transept-ribs 28 mm | BUILD53 | I | |
+| D-R14-O1 | Dais + throne + canopy at x −46..−14 facing **north** to the choir stand (x 70..172); crimson cloth and gilt | OPEN54 | U orientation | ILN 17 Jun 1854 shows a dais in the transept; facing chosen so the procession approaches from the south nave |
+| D-R14-O2 | Opening-day figures: ~6,080 inside (royal party, yeomen, procession, nave lining, stands, choir/band, galleries) + 1,796 terrace; ~40,000 present R(press) | OPEN54 | R attendance / I–U density | modelled subset |
+| D-R14-O3 | Roof flags of many nations along the nave + Royal-Standard-ish at the central-transept crown; gallery banners | OPEN54 | I | engravings show a line of flags |
+| D-R14-O4 | Water towers ABSENT (built 1855–56); park fountains/cascades and terrace jets not playing | OPEN54 | R towers/fountains dates; U terrace-fountain state on the day | |
+| D-R14-O5 | CP035 cameras: transept gallery 28 mm, procession nave 28 mm, dais 50 mm, garden-front flags 35 mm | OPEN54 | I | |
+| D-R14-S1 | Old flat colonnade killed; glazed covered way rebuilt bay-by-bay following `gzp`, ≤ 6 ft drop/bay, steps, glass sides, pitched glass roof, brick dado; length 720 ft, drop ~65 ft | OPEN54 | I (was floating ~70 ft above the park at its south end in r01–r13) | guide 720 ft B |
+| D-R14-S2 | Low Level station: shed x −1130..−650, y −1350..−1440; two glazed pitched spans; 3 platforms, 2 tracks, tank engine + 9 carriages; collection `SY54_LowLevel_station_and_covered_way__1854` | OPEN54 | R that the station opened 10 Jun 1854 / U plan and form | |
+| D-R14-S3 | CP036 cameras: platform arrival 28 mm, covered way 28 mm, station exterior 35 mm; 969 arriving visitors | OPEN54 | I | |
+| D-R14-L1 | Wear: transparent BSDF darkened ×0.62; 3.5 % of panes swapped to zinc-board material | LATE11/WAR | I | |
+| D-R14-L2 | Festival of Empire 1911: replica pavilions Canada (−520, −1300), Australia (520, −1300), South Africa (−300, −1560), New Zealand (300, −1560); All-Red Route elliptical rail loop (r 760×300 at y −1420) with cars | LATE11 | R festival / All-Red Route existed; sites and forms I/U | 1913 national purchase not modelled (MISS) |
+| D-R14-L3 | CP049 worn garden front 35 mm; CP053 festival 35 mm + pavilions wide 35 mm; Edwardian crowd ~5k | LATE11 | I | |
+| D-R14-W1 | HMS Crystal Palace: White Ensign approx. (banded) on the transept + mast/yard on the terrace at (0, −250); 8 companies of 6×16 ratings on the upper terrace + nave/lower-terrace squads (1,164 figures) | WAR | R that the RND depot trained here (~125,000 men claim); formations I/U; ensign I | |
+| D-R14-W2 | CP056 cameras: terrace drill 35 mm, nave drill gallery 28 mm, ranks 50 mm | WAR | I | |
