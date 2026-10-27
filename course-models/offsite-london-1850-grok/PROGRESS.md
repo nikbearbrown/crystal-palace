@@ -25,3 +25,8 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people/material 2026-10-27
 - material grit pass keep-better CP002/005/069; people_lib 3.1 vendored
+
+## ln03 w02 polish (2026-10-27) — CP069 set geometry
+- Rebuilt `rounds/ln03_southken.blend`: RAH frieze band, window ring + iron mullions, iron balcony, glazed lantern + dome ribs; museum iron frames; street rails/lamps/bollards; multi-lobe trees + iron tree guards.
+- Keep-lighting lean 1280×720 / 28 spp: `renders/ln03/CP069_street_start.png`, `CP069_rah_start.png`.
+- Honest pair keep-better: **KEEP** CP069 (geometry/dressing visibly better than prior block-out).

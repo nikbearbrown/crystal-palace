@@ -20,3 +20,11 @@
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## ln03 w02 polish (2026-10-27)
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| LN06 | RAH: mosaic frieze strip, arched window recesses + iron mullions (3 floors × 36), SW iron balcony rail, glazed lantern ring + radial dome ribs | Prior massing was blank peach cylinder + faceted dome | C |
+| LN07 | Museum blocks: iron window frames on street façades | Blank stone slabs | C |
+| LN08 | Street: iron rails, lamps, bollards; multi-lobe tree canopies + iron tree-guard cages | Bare road / single-cone trees | C |

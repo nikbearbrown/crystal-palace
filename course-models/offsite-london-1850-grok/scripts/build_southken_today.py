@@ -13,7 +13,7 @@ SEED = 2026; R = random.Random(SEED); sc = G.reset("SK_")
 ROOT = G.coll("SOUTHKEN_TODAY"); STREET = G.coll("EXHIBITION_ROAD", ROOT)
 RAH = G.coll("ROYAL_ALBERT_HALL", ROOT); MUS = G.coll("MUSEUMS", ROOT)
 info = {"scene": "CP069", "state": "today", "optional": True,
-        "note": "simple present-day block-out; real footage may replace (DEPARTURES)"}
+        "note": "w02: RAH frieze/windows/iron balcony/lantern; museum frames; street iron dressing; real footage may still replace"}
 
 M = dict(
     asphalt=G.mat("Asphalt", (0.18, 0.18, 0.17), 0.92),
@@ -42,27 +42,82 @@ gk.box(I("pavement"), -32, -18, -200, 220, -0.05, 0.08)      # W pavement (museu
 gk.box(I("pavement"), 18, 36, -200, 220, -0.05, 0.08)        # E pavement
 gk.done("SK_Road", STREET)
 
-# street trees as simple cylinders (lean)
+# street trees — multi-lobe canopy + iron tree guards (w02 polish)
 for i, y in enumerate(range(-180, 200, 40)):
     for x in (-26, 28):
         tk = K()
-        tk.cyl(I("stone_d"), (x, y, 0.1), (x, y, 12), 0.6, 8)
-        tk.cyl(I("grass"), (x, y, 12), (x, y, 22), 5.0, 10, True, 0.5)
+        tk.cyl(I("stone_d"), (x, y, 0.1), (x, y, 14), 0.55, 10)
+        # layered canopy lobes (not a single cone)
+        for j, (dx, dy, h0, h1, r0, r1) in enumerate((
+            (0, 0, 12, 22, 4.2, 1.2), (2.2, 1.0, 14, 20, 3.0, 0.8),
+            (-2.0, -1.2, 13, 19, 2.8, 0.7), (0.5, -2.0, 15, 21, 2.5, 0.6),
+        )):
+            tk.cyl(I("grass"), (x + dx, y + dy, h0), (x + dx, y + dy, h1), r0, 12, True, r1)
+        # iron tree-guard cage
+        for a in range(0, 360, 45):
+            import math as _m
+            rr = 1.6; ax = x + rr * _m.cos(_m.radians(a)); ay = y + rr * _m.sin(_m.radians(a))
+            tk.cyl(I("iron"), (ax, ay, 0.05), (ax, ay, 3.2), 0.06, 6)
+        tk.cyl(I("iron"), (x, y, 3.1), (x, y, 3.25), 1.65, 16, True, 1.55)
         tk.done(f"SK_Tree_{i}_{x}", STREET)
 
-# ---- Royal Albert Hall (east of Exhibition Rd) — simple cylinder + dome block-out ----
-# Centre ~X=95, Y=90. Camera-safe: solid massing without thick wall ring that swallowed cams.
+# ---- Royal Albert Hall — w02: frieze band, window ring, iron balcony, glazed lantern ----
 CX, CY = 95.0, 90.0
 rk = K()
 rk.box(I("stone"), CX - 130, CX + 130, CY - 150, CY + 150, 0.0, 3.5)   # podium
-rk.cyl(I("terracotta"), (CX, CY, 3.5), (CX, CY, 48), 110, 28, True, 110)  # amphitheatre body
-rk.cyl(I("stone"), (CX, CY, 48), (CX, CY, 52), 112, 28, True, 108)        # cornice
-rk.cyl(I("dome"), (CX, CY, 52), (CX, CY, 95), 95, 24, True, 70)
-rk.cyl(I("dome"), (CX, CY, 95), (CX, CY, 125), 70, 20, True, 28)
-rk.cyl(I("dome"), (CX, CY, 125), (CX, CY, 138), 28, 16, True, 6)
-rk.cyl(I("iron"), (CX, CY, 138), (CX, CY, 148), 8, 12, True, 4)
+# amphitheatre body with slight entasis feel via two stacked rings
+rk.cyl(I("terracotta"), (CX, CY, 3.5), (CX, CY, 28), 110, 36, True, 110)
+rk.cyl(I("terracotta"), (CX, CY, 28), (CX, CY, 48), 110, 36, True, 108)
+# mosaic frieze band (darker stone strip)
+rk.cyl(I("stone_d"), (CX, CY, 40), (CX, CY, 46), 111.2, 36, True, 111.2)
+# cornice + attic
+rk.cyl(I("stone"), (CX, CY, 48), (CX, CY, 52), 112, 36, True, 108)
+rk.cyl(I("stone"), (CX, CY, 52), (CX, CY, 58), 108, 32, True, 100)
+# arched window recesses around the drum (shallow glass + iron mullions)
+import math as _m
+for i in range(36):
+    a = _m.radians(i * 10 + 5)
+    wx = CX + 109.2 * _m.cos(a); wy = CY + 109.2 * _m.sin(a)
+    # outward normal box for glass
+    nx, ny = _m.cos(a), _m.sin(a)
+    for floor_z in (8.0, 18.0, 30.0):
+        xa, xb = sorted([wx - 1.8 * ny - 0.3 * nx, wx + 1.8 * ny + 0.15 * nx])
+        ya, yb = sorted([wy + 1.8 * nx - 0.3 * ny, wy - 1.8 * nx + 0.15 * ny])
+        # thin radial thickness along normal
+        xa2, xb2 = sorted([wx - 0.2 * nx, wx + 0.35 * nx])
+        ya2, yb2 = sorted([wy - 0.2 * ny, wy + 0.35 * ny])
+        # glass as small radial slab
+        rk.box(I("glass"),
+               min(wx - 1.6 * abs(ny) - 0.15 * abs(nx), wx + 1.6 * abs(ny) + 0.15 * abs(nx)),
+               max(wx - 1.6 * abs(ny) - 0.15 * abs(nx), wx + 1.6 * abs(ny) + 0.15 * abs(nx)),
+               min(wy - 1.6 * abs(nx) - 0.15 * abs(ny), wy + 1.6 * abs(nx) + 0.15 * abs(ny)),
+               max(wy - 1.6 * abs(nx) - 0.15 * abs(ny), wy + 1.6 * abs(nx) + 0.15 * abs(ny)),
+               floor_z, floor_z + 6.5)
+        rk.cyl(I("iron"), (wx + 0.25 * nx, wy + 0.25 * ny, floor_z),
+               (wx + 0.25 * nx, wy + 0.25 * ny, floor_z + 6.5), 0.08, 6)
+# iron balcony rail at podium edge (camera-facing SW arc)
+for i in range(20):
+    a0 = _m.radians(200 + i * 4); a1 = _m.radians(200 + (i + 1) * 4)
+    for a in (a0, a1):
+        px = CX + 118 * _m.cos(a); py = CY + 118 * _m.sin(a)
+        rk.cyl(I("iron"), (px, py, 3.5), (px, py, 6.0), 0.07, 6)
+    # rail top
+    x0, y0 = CX + 118 * _m.cos(a0), CY + 118 * _m.sin(a0)
+    x1, y1 = CX + 118 * _m.cos(a1), CY + 118 * _m.sin(a1)
+    rk.cyl(I("iron"), (x0, y0, 5.9), (x1, y1, 5.9), 0.06, 6)
+# dome tiers + glazed lantern
+rk.cyl(I("dome"), (CX, CY, 58), (CX, CY, 95), 95, 28, True, 70)
+rk.cyl(I("dome"), (CX, CY, 95), (CX, CY, 125), 70, 24, True, 28)
+rk.cyl(I("glass"), (CX, CY, 125), (CX, CY, 136), 28, 20, True, 10)  # glazed lantern ring
+rk.cyl(I("iron"), (CX, CY, 136), (CX, CY, 148), 10, 14, True, 4)
+# radial iron ribs on lower dome (visible silhouette)
+for i in range(16):
+    a = _m.radians(i * 22.5)
+    x0 = CX + 92 * _m.cos(a); y0 = CY + 92 * _m.sin(a)
+    x1 = CX + 68 * _m.cos(a); y1 = CY + 68 * _m.sin(a)
+    rk.cyl(I("iron"), (x0, y0, 60), (x1, y1, 92), 0.35, 6)
 rk.done("SK_RAH", RAH)
-info["rah"] = {"cx_ft": CX, "cy_ft": CY, "note": "block-out cylinder amphitheatre + dome"}
+info["rah"] = {"cx_ft": CX, "cy_ft": CY, "note": "w02 frieze+windows+iron balcony+glazed lantern"}
 
 
 # Albert Memorial suggestion (further NE, lean obelisk/canopy stub) — skip to keep lean
@@ -82,6 +137,10 @@ def museum_block(tag, x0, x1, y0, y1, h, mat_wall, portico=True):
         for floor in (8, 18, 28):
             if floor + 6 < h:
                 mk.box(I("glass"), wx - 2.5, wx + 2.5, face_y - 0.4, face_y + 0.4, floor, floor + 5.5)
+                # iron window frame + mullion
+                mk.box(I("iron"), wx - 2.6, wx + 2.6, face_y - 0.55, face_y - 0.35, floor - 0.15, floor + 0.1)
+                mk.box(I("iron"), wx - 2.6, wx + 2.6, face_y - 0.55, face_y - 0.35, floor + 5.4, floor + 5.65)
+                mk.box(I("iron"), wx - 0.08, wx + 0.08, face_y - 0.55, face_y - 0.3, floor, floor + 5.5)
     if portico:
         mid = (y0 + y1) / 2
         # columned portico toward the road (east face at x1)
@@ -98,6 +157,31 @@ museum_block("VA", -160, -34, -40, 80, 42, "stone", portico=True)          # V&A
 museum_block("SCIENCE", -150, -34, 100, 180, 38, "stone_d", portico=True)   # Science Museum-ish
 museum_block("NHM", -170, -36, -180, -60, 48, "terracotta", portico=True)  # NHM-ish terracotta
 info["museums"] = ["VA_block", "Science_block", "NHM_block"]
+
+# Iron area railings along museum forecourts + Exhibition Rd lamps / bollards (set dressing)
+dk = K()
+import math as _m
+for y in range(-170, 190, 12):
+    # west railing (museum side)
+    dk.cyl(I("iron"), (-33.5, y, 0.05), (-33.5, y, 3.4), 0.05, 6)
+    if y % 24 == 0:
+        dk.box(I("iron"), -34.0, -33.0, y - 0.15, y + 0.15, 3.2, 3.5)
+for y in range(-170, 190, 24):
+    dk.cyl(I("iron"), (-33.5, y, 3.35), (-33.5, y + 12, 3.35), 0.04, 6)
+# east plaza railing toward RAH
+for y in range(-40, 160, 10):
+    dk.cyl(I("iron"), (34.5, y, 0.05), (34.5, y, 3.2), 0.05, 6)
+for y in range(-160, 200, 50):
+    # lamp posts
+    for x in (-22, 24):
+        dk.cyl(I("iron"), (x, y, 0.05), (x, y, 14), 0.22, 8)
+        dk.cyl(I("iron"), (x, y, 14), (x, y, 15.2), 0.55, 8, True, 0.15)
+        dk.box(I("glass"), x - 0.45, x + 0.45, y - 0.45, y + 0.45, 13.2, 14.6)
+# bollards at road edge near RAH approach
+for y in (40, 55, 70, 85):
+    dk.cyl(I("iron"), (17.2, y, 0.0), (17.2, y, 2.8), 0.35, 10, True, 0.28)
+dk.done("SK_StreetDress", STREET)
+info["dressing"] = "iron rails, lamps, bollards, tree guards"
 
 # Imperial College / Albert Hall plaza grass strip between road and RAH
 gk2 = K()
