@@ -17,6 +17,14 @@ if claude:   # append Claude's model collection read-only (never saved)
     for ob in bpy.data.objects:
         if ob.get("claude_line37") or ob.get("claude_overlap"): ob.hide_render = True
         elif ob.get("part_kind") in ("column", "girder", "roof") and ob.location.x < -0.3048 * 36.5: ob.hide_render = True
+    # RL02: Claude's appended roof units get our roof glass at render time (seam match); his file is never saved
+    rg = bpy.data.materials.get("GT_Glass"); n = 0
+    for c in bpy.data.collections:
+        if c.name.startswith("PART_RoofUnit") and c.library is None:
+            for ob in c.all_objects:
+                for sl in ob.material_slots:
+                    if rg and sl.material and sl.material.name.startswith("MAT_Glass"): sl.material = rg; n += 1
+    print("CLAUDE_ROOF_OVERRIDE slots", n, flush=True)
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
