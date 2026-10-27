@@ -17,12 +17,20 @@ sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8"))
 combine(arg("--claude"), arg("--dismantle"), roof_override=True, furrow=True)
 for o in bpy.data.objects:          # flags struck after the closing (DM09)
     if o.get("part_kind") == "flag": o.hide_render = True; o.hide_viewport = True
-zones.apply(state)
+zones.apply(state); zones.fix_floor_seam()
+import json
+ROUTE = {s["id"]: s for s in json.load(open(os.path.join(HERE, "..", "route", "camera_route.json")))["shots"]}
+DUSK = "--dusk" in argv
+if DUSK: zones.dusk()
+BASE_EXP = sc.view_settings.exposure
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
     if not cam: print("NO CAM", c); continue
     sc.camera = cam; sc.render.resolution_x, sc.render.resolution_y = W, H
-    sc.render.filepath = os.path.join(outdir, c + ".png")
+    shot = ROUTE.get(cam.get("shot", c.rsplit("_", 1)[0]), {})
+    sc.view_settings.exposure = shot.get("dusk_exposure" if DUSK else "exposure", BASE_EXP)
+    print("EXPOSURE", c, sc.view_settings.exposure, flush=True)
+    sc.render.filepath = os.path.join(outdir, c + ("_dusk" if DUSK else "") + ".png")
     bpy.ops.render.render(write_still=True)
     print("WROTE", sc.render.filepath, flush=True)

@@ -74,6 +74,7 @@ PLANK = mat("GT_ScaffoldPlank", (0.40, 0.34, 0.26), 0.85)
 IRON = bpy.data.materials.get("GT_Iron") or mat("GT_Iron", (0.30, 0.42, 0.60), 0.5, 0.2)
 CAST = mat("GT_CastIronBare", (0.13, 0.13, 0.14), 0.55, 0.4)
 TIMBERP = mat("GT_SashBarBundle", (0.70, 0.66, 0.58), 0.8)
+REDLEAD = mat("GT_RedLeadPrimer", (0.40, 0.10, 0.05), 0.7)       # d03 DM13
 STENCIL = mat("GT_CaseStencil", (0.05, 0.04, 0.03), 0.9)
 SK = [mat("GT_Skin_a", (0.72, 0.53, 0.42), 0.6), mat("GT_Skin_b", (0.60, 0.43, 0.33), 0.6)]
 WCOAT = [mat("GT_WorkCoat_dk", (0.05, 0.05, 0.06), 0.85), mat("GT_WorkCoat_brn", (0.14, 0.10, 0.07), 0.85),
@@ -158,7 +159,8 @@ PM_POLICE = figures.person_mesh("PERSON_policeman", "man", [POLICE, POLICE, SK[0
 staff = []
 def man(x, y, face_deg, role="workman", z=0.0, k=None):
     me = PM_POLICE if role == "police" else PM[(len(staff) if k is None else k) % len(PM)]
-    o = obj(f"D_STAFF_{len(staff):02d}_{role}", me, "STAFF", (x, y, z), math.radians(face_deg), part_kind="figure", role=role)
+    # figures.person_mesh faces -Y at rz 0 (r09 bonnet convention), so facing direction face_deg needs rz = face_deg + 90 (d03 fix, DM18)
+    o = obj(f"D_STAFF_{len(staff):02d}_{role}", me, "STAFF", (x, y, z), math.radians(face_deg + 90), part_kind="figure", role=role, face_deg=face_deg)
     staff.append(o); return o
 # a two-man crate carry on poles and a sack truck
 def carry(x, y, face_deg):
@@ -177,6 +179,28 @@ def sack_truck(x, y, face_deg, loaded=True):
     if loaded:
         n0 = len(bm.faces); box(bm, -0.2, 2.0, -1.1, 1.1, 0.1, 2.4); mark(bm, n0, 1)
     obj(f"D_SACKTRUCK_{x:+.0f}_{y:+.0f}", finish(bm, "sack_truck", CAST, [CRATEW]), "STAFF", (x, y, 0), math.radians(face_deg), part_kind="handling")
+
+def trolley(tx, ty, trz, load="columns", tag=""):
+    """four-wheeled timber trolley (pole wagon) 16 ft with a draught horse and carter (Grok)"""
+    HORSE = mat("GT_DraughtHorse", (0.13, 0.08, 0.05), 0.7)
+    hm = bpy.data.meshes.get("horse_draught_bay_D") or figures.horse_group_mesh("horse_draught_bay_D", 2.35, HORSE, rearing=False, rider=False, base=False)
+    bm = bmesh.new()
+    for sx in (-6.0, 6.0):
+        for sy in (-2.6, 2.6): rod(bm, (sx, sy - 0.2, 1.8), (sx, sy + 0.2, 1.8), 1.8, 18)
+    box(bm, -8, 8, -2.2, 2.2, 2.6, 3.0); beam(bm, (8, 0, 2.6), (14, 0, 3.2), 0.3, 0.3)
+    n0 = len(bm.faces)
+    if load == "columns":
+        for k in range(2): box(bm, -7.5, 7.5, -0.6 + k * 1.2 - 0.35, -0.6 + k * 1.2 + 0.35, 3.0, 5.6)
+        mark(bm, n0, 1)
+    else:                                                    # packing cases, roped
+        box(bm, -7.5, -1.0, -2.0, 2.0, 3.0, 7.2); box(bm, -0.5, 4.5, -1.8, 1.8, 3.0, 6.0); box(bm, 5.0, 7.6, -1.5, 1.5, 3.0, 5.4)
+        mark(bm, n0, 2); n0 = len(bm.faces)
+        for x in (-5.5, -3.0, 2.0): box(bm, x - 0.06, x + 0.06, -2.08, 2.08, 3.0, 7.25)
+        mark(bm, n0, 3)
+    obj(f"D_TROLLEY{tag}", finish(bm, "trolley_D" + tag, CRATEW_D, [CAST, CRATEW, ROPE]), "STACKS", (tx, ty, 0), math.radians(trz), part_kind="cart", load=load)
+    a = math.radians(trz)
+    obj(f"D_HORSE{tag}", hm, "STACKS", (tx + 16.5 * math.cos(a), ty + 16.5 * math.sin(a), 0), a, part_kind="horse")
+    man(tx + 19 * math.cos(a) + 2.5 * math.sin(a), ty + 19 * math.sin(a) - 2.5 * math.cos(a), trz - 90, k=0)
 
 # ---------------- HP-EMPTY: crates at former exhibit positions, dust sheets, straw, staff ----------------
 # east nave machinery footprints from transept dressing.py (r09): the exhibitors' cases now stand where the machines did
@@ -212,6 +236,14 @@ if STATE == "empty":
     man(88, -44, 0, k=0); man(92, -45, 20, k=3)                  # nailing the press case
     man(-10, 60, 270, k=2); man(12, -70, 90, k=4); man(-40, -100, 0, k=1)
     carry(20, 120, 270); sack_truck(42, 96, 90, loaded=False)
+    # d03: more porters and a mid-distance cart (CP030 walk looks east down the nave; aisle looks south)
+    trolley(112, -21, 0, load="cases", tag="_E")                     # loading for the east doors, horse to the east
+    man(106, -26.2, 90, k=1); man(110, -26.4, 100, k=4); man(116, -25.8, 80, k=2)   # lifting a case up on the off side
+    pcase(109, -29.5, 4, 3.5, 3.5, rz=0.1)
+    carry(94, -18, 10); carry(124, -8, 180)
+    man(132, -38, 160, k=5); man(134, -36, 200, k=3)
+    carry(50, -84, 270); man(45, -104, 80, k=2); sack_truck(52, -118, 90); man(54.6, -118, 270, k=1)
+    carry(44, -136, 90); man(40, -60, 300, k=4)
 
 # ---------------- HP-DISMANTLE: the work zone (DM03-DM08) ----------------
 if STATE == "dismantle":
@@ -230,6 +262,11 @@ if STATE == "dismantle":
     zl = gm.vertices[0].co.z
     zmin = min(v.co.z for v in gm.vertices) / FT
     GR = math.radians(zinfo.get("lift_cant_deg", 15.0))        # canted by the tag lines to clear the column shafts
+    gmr = bpy.data.meshes.get("girder24_redlead_D")
+    if gmr is None:
+        gmr = gm.copy(); gmr.name = "girder24_redlead_D"
+        for i in range(len(gmr.materials)): gmr.materials[i] = REDLEAD
+    gm = gmr          # DM13: lowered + stacked girders shown in red-lead primer (paint scraped at the bearings; reads off the white)
     G = obj("D_GIRDER_LOWERING", gm, "LIFT", (gx, gy, gz0 - zmin), GR, part_kind="girder", state="lowering",
             home=zinfo["lift_girder_name"], credit="Grok (girder mesh from the transept)")
     APEX = zinfo["apex_ft"]
@@ -286,9 +323,35 @@ if STATE == "dismantle":
     box(bm, jx + 0.55, jx + 0.72, jy - 0.07, jy + 0.07, 20.9, 23.0)
     box(bm, dx0 + 1.0, dx0 + 2.1, dy0 + 0.8, dy0 + 0.95, dk, dk + 0.12); box(bm, dx0 + 1.3, dx0 + 2.4, dy0 + 1.3, dy0 + 1.45, dk, dk + 0.12)
     obj("D_JOINT_KEYS", finish(bm, "joint_keys_D", CAST), "SUPPORT", part_kind="joint_key", state="released")
-    bm = bmesh.new(); rod(bm, (0, 0, 0), (0, 0, 2.6), 0.07, 6); box(bm, -0.35, 0.35, -0.22, 0.22, 2.4, 2.9)  # maul
-    obj("D_MAUL", finish(bm, "maul_D", CAST), "SUPPORT", (dx0 + 2.3, dy1 - 2.0, dk), 0.4, part_kind="tool")
-    man(dx0 + 1.5, dy1 - 1.2, 215, z=dk, k=2)                  # striker on the deck, frame left of the 50 mm camera
+    # d03 (DM17): the key strike. A light trestle stage on the floor N of the girder line, west of the shore braces;
+    # the smith stands on it at 16 ft and swings the maul at the half-driven key; mate holds a drift on the deck.
+    TS = (180.75, 182.35, -153.9, -152.1, 16.0)
+    tx0, tx1, ty0, ty1, tz = TS
+    bm = bmesh.new()
+    for x in (tx0 + 0.15, tx1 - 0.15):
+        for y in (ty0 + 0.15, ty1 - 0.15): rod(bm, (x, y, 0), (x, y, tz), 0.13, 8)
+    for z in (5.0, 10.5):
+        for y in (ty0 + 0.15, ty1 - 0.15): beam(bm, (tx0, y, z), (tx1, y, z), 0.25, 0.25)
+    beam(bm, (tx0 + 0.15, ty0 + 0.15, 0.3), (tx0 + 0.15, ty1 - 0.15, tz - 0.3), 0.2, 0.2)
+    n0 = len(bm.faces); box(bm, tx0, tx1, ty0, ty1, tz - 0.2, tz); mark(bm, n0, 1)
+    for k in range(13): box(bm, tx1 + 0.05, tx1 + 0.25, ty0 + 0.4, ty1 - 0.4, k * tz / 13 + 0.6, k * tz / 13 + 0.75)   # ladder on the E face
+    obj("D_TRESTLE_STAGE", finish(bm, "trestle_stage_D", POLE, [PLANK]), "SUPPORT", part_kind="scaffold", deck_ft=tz)
+    kx, ky, kz = jx + 0.64, jy, 21.9                          # key head
+    sx_, sy_ = 181.65, -152.95
+    hand = Vector((sx_ - 0.35, sy_ - 0.55, tz + 4.1)); head = Vector((kx + 0.45, ky + 0.55, kz + 0.1))
+    bm = bmesh.new(); rod(bm, tuple(hand), tuple(head), 0.07, 6)
+    dd = (head - hand).normalized(); hz = Vector((kx - head.x, ky - head.y, 0)).normalized()
+    rod(bm, tuple(head - hz * 0.4), tuple(head + hz * 0.35), 0.2, 8)        # maul head, face toward the key
+    lat = Vector((-(ky - sy_), kx - sx_, 0)).normalized()
+    n0 = len(bm.faces)
+    for sgn in (-1, 1): rod(bm, (sx_ + sgn * 0.55 * lat.x, sy_ + sgn * 0.55 * lat.y, tz + 4.35), tuple(hand + dd * (0.25 if sgn < 0 else 0.7)), 0.17, 8)   # raised arms
+    mark(bm, n0, 1)
+    obj("D_MAUL", finish(bm, "maul_D", CAST, [WCOAT[0]]), "SUPPORT", part_kind="tool", pose="striking")
+    st = man(sx_, sy_, math.degrees(math.atan2(ky - sy_, kx - sx_)), z=tz, k=0, role="striker")
+    st.name = "D_STAFF_STRIKER"
+    man(dx0 + 1.0, dy1 - 1.0, 230, z=dk, k=1)                   # mate on the deck with the drift and bar, watching (behind the 50 mm camera)
+    bm = bmesh.new(); rod(bm, (dx0 + 0.5, dy1 - 1.5, dk + 3.6), (dx0 - 0.4, dy1 - 2.3, dk + 4.6), 0.05, 6)
+    obj("D_DRIFT_BAR", finish(bm, "drift_D", CAST), "SUPPORT", part_kind="tool")
     man(dx1 + 2.6, dy0 - 1.6, 135, k=5)                        # mate at the ladder foot
     # 4. component stack: columns, girders, sash-bar bundles, gutters, closed glass crates (DM07)
     (cx0, cx1, cy0, cy1) = zinfo["stack_rect"]
@@ -330,20 +393,7 @@ if STATE == "dismantle":
     obj("D_PANE_BOX_LOWERING", finish(bm, "pane_box_D", CRATEW), "LIFT", part_kind="pane_box", state="lowering")
     man(px + 1.5, py + 2.6, 200, k=2)
     # 5. a timber-wheeled trolley at the stack with two horses' worth of girders goes to Sydenham? no: a cart, held (CP032 is separate)
-    HORSE = mat("GT_DraughtHorse", (0.13, 0.08, 0.05), 0.7)
-    hm = figures.horse_group_mesh("horse_draught_bay_D", 2.35, HORSE, rearing=False, rider=False, base=False)
-    bm = bmesh.new()                                          # four-wheeled timber trolley (pole wagon) 16 ft
-    for sx in (-6.0, 6.0):
-        for sy in (-2.6, 2.6): rod(bm, (sx, sy - 0.2, 1.8), (sx, sy + 0.2, 1.8), 1.8, 18)
-    box(bm, -8, 8, -2.2, 2.2, 2.6, 3.0); beam(bm, (8, 0, 2.6), (14, 0, 3.2), 0.3, 0.3)
-    n0 = len(bm.faces)
-    for k in range(2): box(bm, -7.5, 7.5, -0.6 + k * 1.2 - 0.35, -0.6 + k * 1.2 + 0.35, 3.0, 5.6)   # two columns-bundles on it
-    mark(bm, n0, 1)
-    tx, ty, trz = zinfo["trolley"]
-    obj("D_TROLLEY", finish(bm, "trolley_D", CRATEW_D, [CAST]), "STACKS", (tx, ty, 0), math.radians(trz), part_kind="cart", load="columns")
-    a = math.radians(trz)
-    obj("D_HORSE", hm, "STACKS", (tx + 16.5 * math.cos(a), ty + 16.5 * math.sin(a), 0), a, part_kind="horse")
-    man(tx + 19 * math.cos(a) + 2.5 * math.sin(a), ty + 19 * math.sin(a) - 2.5 * math.cos(a), trz - 90, k=0)
+    tx, ty, trz = zinfo["trolley"]; trolley(tx, ty, trz, "columns")
     info["lift"] = {"girder": G.name, "bottom_ft": gz0, "apex_ft": list(APEX)}
 
 # ---------------- cameras from route/camera_route.json (storyboard grammar; no roll) ----------------

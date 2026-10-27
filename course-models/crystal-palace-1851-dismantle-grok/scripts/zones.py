@@ -59,3 +59,26 @@ def apply(state):
         if o.name.split(".")[0] == ZONE["lift_girder_name"]: _hide(o); out["girder"] += 1
     print("ZONES", out, flush=True)
     return out
+
+def fix_floor_seam():
+    """DM15: the transept's FLOOR_BOARDS and the exterior's EFLOOR_BOARDS are coplanar where they overlap (x ~133-143),
+    and Cycles shades coplanar overlaps black (each sheet shadows the other). At render time only, drop the transept
+    floor 0.03 ft (9 mm) so the exterior boards lie on top. Nothing saved."""
+    n = 0
+    for o in bpy.data.objects:
+        if o.type == 'MESH' and o.name.split(".")[0] == "FLOOR_BOARDS" and not o.get("floor_seam_fixed"):
+            o.location.z -= 0.03 * FT; o["floor_seam_fixed"] = True; n += 1
+    print("FLOOR_SEAM", n, flush=True); return n
+import math
+def dusk():
+    """DM16: CP031 dusk variant, render time only: sun 5 deg above the WSW horizon, warm, sky to match."""
+    sun = bpy.data.objects.get("GT_Sun"); elev, rot = 5.0, 22.0
+    if sun:
+        sun.rotation_euler = (math.radians(90 - elev), 0, math.radians(rot - 180 + 90))
+        sun.data.energy = 2.4; sun.data.color = (1.0, 0.58, 0.32); sun.data.angle = math.radians(1.0)
+    w = bpy.context.scene.world
+    for nd in w.node_tree.nodes:
+        if nd.type == 'TEX_SKY':
+            try: nd.sun_elevation = math.radians(elev); nd.sun_rotation = math.radians(rot)
+            except AttributeError: pass
+        if nd.type == 'BACKGROUND': nd.inputs[1].default_value = 0.3

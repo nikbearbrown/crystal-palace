@@ -13,7 +13,7 @@ FT = 0.3048; state = arg("--state"); DB = arg("--dismantle")
 combine(arg("--claude"), DB, roof_override=True, furrow=True)
 for o in bpy.data.objects:
     if o.get("part_kind") == "flag": o.hide_render = True
-zinfo = zones.apply(state); Z = zones.ZONE
+zinfo = zones.apply(state); nseam = zones.fix_floor_seam(); Z = zones.ZONE
 rows = []
 def chk(i, what, target, measured, ok): rows.append(dict(id=i, check=what, target=str(target), measured=str(measured), ok=bool(ok)))
 route = json.load(open(os.path.join(ROOTDIR, "route", "camera_route.json")))
@@ -91,6 +91,17 @@ else:
     keys = bpy.data.objects.get("D_JOINT_KEYS"); jx, jy = Z["joint_xy"]
     kp = keys and min(((keys.matrix_world @ Vector(c)).xy - Vector((jx * FT, jy * FT))).length for c in keys.bound_box) / FT
     chk("K20", "joint keys at the column head (ft from joint)", "< 3", round(kp or 99, 2), keys and kp < 3)
+fb = [o for o in bpy.data.objects if o.name.split(".")[0] == "FLOOR_BOARDS"]; eb = [o for o in bpy.data.objects if o.name.split(".")[0] == "EFLOOR_BOARDS"]
+if fb and eb:
+    dz = (max((eb[0].matrix_world @ Vector(c)).z for c in eb[0].bound_box) - max((fb[0].matrix_world @ Vector(c)).z for c in fb[0].bound_box)) / FT
+    chk("K21", "floor seam: exterior boards above transept boards where they overlap (ft)", "0.01-0.05", round(dz, 3), 0.01 <= dz <= 0.05)
+if state == "dismantle":
+    g = bpy.data.objects["D_GIRDER_LOWERING"]; mn = {s.material.name for s in g.material_slots if s.material}
+    chk("K22", "lowered + stacked girders in red-lead primer", "GT_RedLeadPrimer", sorted(mn), mn == {"GT_RedLeadPrimer"})
+    st = bpy.data.objects.get("D_STAFF_STRIKER"); keys = bpy.data.objects.get("D_JOINT_KEYS")
+    if st:
+        d = ((st.matrix_world.translation.xy - Vector((Z["joint_xy"][0] * FT, Z["joint_xy"][1] * FT))).length) / FT
+        chk("K23", "key striker within maul reach of the joint (ft, horizontal)", "< 4", round(d, 2), d < 4)
 out = arg("--out"); os.makedirs(os.path.dirname(os.path.join(ROOTDIR, out)), exist_ok=True)
 P = sum(r["ok"] for r in rows)
 with open(os.path.join(ROOTDIR, out + ".json"), "w") as f: json.dump(dict(state=state, zones=zinfo, rows=rows, passed=P, total=len(rows)), f, indent=1)
