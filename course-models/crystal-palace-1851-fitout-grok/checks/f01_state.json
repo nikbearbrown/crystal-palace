@@ -1,0 +1,367 @@
+{
+ "state": "fitout",
+ "checks": [
+  {
+   "id": "CP018_cradle_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP018_cradle_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "22.92",
+   "measured": 22.92,
+   "pass": true
+  },
+  {
+   "id": "CP018_cradle_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP018_cradle_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 50,
+   "measured": 50.0,
+   "pass": true
+  },
+  {
+   "id": "CP018_cradle_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 4.17,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_end.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_end.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_end.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_end.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_end.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP018_paint_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "CP019_doors_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP019_doors_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP019_doors_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP019_doors_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP019_doors_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 4.38,
+   "pass": true
+  },
+  {
+   "id": "CP019_dray_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP019_dray_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.02,
+   "pass": true
+  },
+  {
+   "id": "CP019_dray_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP019_dray_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP019_dray_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.23,
+   "pass": true
+  },
+  {
+   "id": "CP020_floor_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP020_floor_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": -0.12,
+   "pass": true
+  },
+  {
+   "id": "CP020_floor_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP020_floor_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP020_floor_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.37,
+   "pass": true
+  },
+  {
+   "id": "CP020_gaps_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP020_gaps_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": -0.12,
+   "pass": true
+  },
+  {
+   "id": "CP020_gaps_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP020_gaps_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 50,
+   "measured": 50.0,
+   "pass": true
+  },
+  {
+   "id": "CP020_gaps_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.37,
+   "pass": true
+  },
+  {
+   "id": "CP020_sweep_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP020_sweep_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP020_sweep_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP020_sweep_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 50,
+   "measured": 50.0,
+   "pass": true
+  },
+  {
+   "id": "CP020_sweep_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "FT.fountain",
+   "check": "fountain absent (FT02)",
+   "target": "",
+   "measured": "removed (FT02)",
+   "pass": true
+  },
+  {
+   "id": "FT.paint",
+   "check": "painted, half-painted and primed members all present",
+   "target": "",
+   "measured": {
+    "painted": 479,
+    "half": 8,
+    "primer": 313
+   },
+   "pass": true
+  },
+  {
+   "id": "FT.painters",
+   "check": "painters on ladders and cradles",
+   "target": "",
+   "measured": [
+    14,
+    2,
+    6
+   ],
+   "pass": true
+  },
+  {
+   "id": "FT.crates",
+   "check": "crates/cases arriving (dray, skids, trucks, stacks)",
+   "target": "",
+   "measured": [
+    13,
+    9,
+    12
+   ],
+   "pass": true
+  },
+  {
+   "id": "FT.floor",
+   "check": "unboarded patch: Muse floor tiles + loose boards",
+   "target": "",
+   "measured": [
+    18,
+    {
+     "unboarded_patch_ft": [
+      84.0,
+      132.0,
+      -36.0,
+      36.0
+     ],
+     "loose_boards": 32
+    }
+   ],
+   "pass": true
+  },
+  {
+   "id": "FT.sweep",
+   "check": "sweeping machine + sprinkler hand-engine present",
+   "target": "",
+   "measured": [
+    true,
+    true
+   ],
+   "pass": true
+  },
+  {
+   "id": "FT.exhibits",
+   "check": "no exhibits installed (FT01)",
+   "target": "",
+   "measured": "",
+   "pass": true
+  },
+  {
+   "id": "FILE.size",
+   "check": "round .blend under 90 MB",
+   "target": "< 90 MB",
+   "measured": 18.4,
+   "pass": true
+  }
+ ]
+}
