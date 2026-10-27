@@ -121,3 +121,11 @@ REVIEW.md checks: #3 (a publication year is not the depicted year) — 0226/0246
 | Alhambra colour: Owen Jones blue/red/gold diaper on stucco, zellige checker dado, gilt capitals | Alhambra materials | I | Jones' scheme documented (external), patterns procedural (not his drawings): **colour placement I, motifs U** |
 | Muqarnas (stalactite) arches and ceilings replaced by cusped arch outlines | courts | — | MISS (0108 shows deep muqarnas) |
 | CP038 / CP041 cameras: 28 mm, 1.6 m eye, 6 m (19.7 ft) push-in over frames 1–120 + hold; CP041 50 mm spandrel insert; CAM_compare_0108_alhambra portrait (RES=1080x1371) | cameras | I | storyboard paths I |
+| r08b: arcade-walk ceiling at ATOP between the Lions colonnade and pier row B | courts | I | 0108 shows a ceiled arcade |
+| r08b: CAM_compare_0108_alhambra re-solved from the Hall of Justice through the central row-B arch | cameras | I | engraving viewpoint inferred |
+
+## Self-review r08/r08b
+- Better: both courts sit on their plan-0205 footprints (overlay); Egyptian hall of papyrus columns with OJ banding reads as a set at 1.6 m eye; Alhambra arcades, Lions fountain and the 0108 arch-framed view work as a composition.
+- MISS: no muqarnas/stalactite work, no carved stucco relief (pattern is procedural diaper only); Divans dome missing; lions and colossi are massing blocks; cypresses are cones; Lions court shows the palace iron roof overhead (correct for Sydenham but the engraving idealises sky).
+- MISS: CP038 entry frame 1 is dominated by the plain door jambs of the ~4 ft door; nave-front screen walls lack painted relief.
+- U: court heights, colour placement, column treatment inside the court voids.
