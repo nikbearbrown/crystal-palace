@@ -38,7 +38,7 @@ legible in the photograph, so the model's label plate is left blank.
 
 Overall assembly: **3.14 m high**; footprint 1.64 × 0.94 m (pedestal
 foot). Origin at base centre; built in metres, scale applied.
-**36,424 triangles**, 5 objects (figure, lion skin, slab, pedestal,
+**36,276 triangles**, 5 objects (figure, lion skin, slab, pedestal,
 label plate).
 
 **Ratios are measured from the photograph; the absolute scale is the
