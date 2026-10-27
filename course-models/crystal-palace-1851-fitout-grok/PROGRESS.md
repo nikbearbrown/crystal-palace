@@ -47,3 +47,6 @@ Branch `grok-fitout-1851` (worktree /workspace/crystal-palace-fitout). Local com
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## people/material 2026-10-27
+- people v3.1 keep CP018-022/027; revert CP028; lib 3.1

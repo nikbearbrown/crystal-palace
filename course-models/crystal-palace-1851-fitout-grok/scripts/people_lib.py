@@ -9,6 +9,7 @@ decimated LODs under people/vendor/bases/. Garments are modelled shells
 (frock coat with tails, top hat, crinoline, bodice, bonnet, shawl, smock,
 police tunic) — not lathe primitives. Proportions: head ~1/7.5 height;
 1850s crowd height 5'0"–5'10". Matte period colours; no white hats.
+Crowd mix: ~58% ladies (wide crinoline) so silhouettes read at mid-distance.
 """
 from __future__ import annotations
 import hashlib, math, os, random
@@ -86,9 +87,9 @@ _COATS = [
     (0.07, 0.07, 0.06), (0.08, 0.08, 0.09),
 ]
 _SKIRTS = [
-    (0.22, 0.10, 0.12), (0.10, 0.14, 0.22), (0.28, 0.24, 0.18),
-    (0.14, 0.16, 0.12), (0.20, 0.12, 0.18), (0.24, 0.20, 0.12),
-    (0.12, 0.12, 0.14), (0.30, 0.26, 0.22),
+    (0.28, 0.12, 0.14), (0.12, 0.18, 0.28), (0.34, 0.28, 0.20),
+    (0.16, 0.20, 0.14), (0.26, 0.14, 0.22), (0.30, 0.24, 0.14),
+    (0.14, 0.14, 0.18), (0.36, 0.30, 0.24),
 ]
 _TROUS = [(0.08, 0.08, 0.10), (0.12, 0.11, 0.10), (0.06, 0.07, 0.10)]
 _SKINS = [(0.62, 0.46, 0.38), (0.48, 0.34, 0.28), (0.70, 0.55, 0.44), (0.40, 0.28, 0.22)]
@@ -641,8 +642,8 @@ def build_crinoline(bm, L, mat=0, seg=16):
     z0 = L["waist"]
     z1 = max(L["z0"] + 0.01, L["ankle"] - 0.01)  # floor-length
     waist_rx, waist_ry = 0.14, 0.12
-    # Full bell ~1.1–1.2 m across at hem
-    hem_rx, hem_ry = 0.52, 0.44
+    # Full bell ~1.2–1.3 m across at hem (reads at mid-distance)
+    hem_rx, hem_ry = 0.58, 0.50
     mid_z = z0 + 0.45 * (z1 - z0)
     profile = [
         (waist_rx, waist_ry, z0),
@@ -1231,11 +1232,11 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
         # 1850s Victorian crowd: force ≥40% ladies when figure is anonymous "man"
         era_l = (era or "").lower()
         if kind == "man" and ("1850" in era_l or era_l in ("1851", "1850s")):
-            # deterministic: ~45% ladies from name hash
-            if (rng_seed % 100) < 45:
+            # deterministic: ~58% ladies so crinolines read at mid-distance
+            if (rng_seed % 100) < 58:
                 kind = "lady"
-            elif (rng_seed % 100) >= 85:
-                kind = "workman"  # ~15% workmen in anonymous crowd
+            elif (rng_seed % 100) >= 88:
+                kind = "workman"  # ~12% workmen in anonymous crowd
         pose = _infer_pose(ob, rng_seed)
         role = resolve_role(kind, {}, era=era)
         # preserve transform
