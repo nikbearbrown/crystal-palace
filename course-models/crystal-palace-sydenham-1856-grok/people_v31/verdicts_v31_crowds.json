@@ -1,0 +1,74 @@
+{
+  "version": "3.1",
+  "steering": "keep prior lighting/grade; crinoline hem 0.9-1.0m; light mid-tone skirts; ~40-45% women; revert darker/emptier",
+  "verdicts": {
+    "CP035": {
+      "verdict": "REVERT",
+      "reason": "after darker (lum ratio ~0.97); keep prior lighting/grade"
+    },
+    "CP036": {
+      "verdict": "REVERT",
+      "reason": "mesh corruption / clay figures"
+    },
+    "CP037": {
+      "verdict": "REVERT",
+      "reason": "no readable crowd gain; washout lighting"
+    },
+    "CP044": {
+      "verdict": "KEEP",
+      "reason": "grade matched; Victorian frock/top-hat figure improved"
+    },
+    "CP045": {
+      "verdict": "REVERT",
+      "reason": "after much darker (ratio ~0.82); keep prior grade"
+    },
+    "CP049": {
+      "verdict": "REVERT",
+      "reason": "floating heads / broken geometry"
+    },
+    "CP051": {
+      "verdict": "REVERT",
+      "reason": "foreground double-face garment glitch"
+    },
+    "CP054": {
+      "verdict": "KEEP",
+      "reason": "1911 terrace: light 0.9\u20131.0m hems, ~40% women, grade held; 1890s bustle stand-in (DEPARTURES)"
+    },
+    "CP058": {
+      "verdict": "KEEP",
+      "reason": "1936 parade: shorter coats/trilbies, light mid-tones, grade held"
+    },
+    "CP060": {
+      "verdict": "KEEP",
+      "reason": "1936after fire crowd: denser 1930s dress, light fabrics, grade held"
+    },
+    "CP050": {
+      "verdict": "REVERT",
+      "reason": "mid-ground stand reads darker/muddier band vs before"
+    },
+    "CP055": {
+      "verdict": "REVERT",
+      "reason": "overall grade brighter/washed vs before; pavilion darker"
+    }
+  },
+  "changed": [
+    "CP044",
+    "CP054",
+    "CP058",
+    "CP060"
+  ],
+  "reverted": [
+    "CP035",
+    "CP036",
+    "CP037",
+    "CP045",
+    "CP049",
+    "CP051",
+    "CP050",
+    "CP055"
+  ],
+  "best_comparisons": [
+    "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v31/previews/CP054_v31_before_after.jpg",
+    "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v31/previews/CP058_v31_before_after.jpg"
+  ]
+}

@@ -315,3 +315,29 @@ New scripts: `scripts/eras.py` (BUILD53 / OPEN54 / LATE11 / WAR dressing), `scri
 - **D-R17-C2 I** CP062/064 elevated cams (absolute Z) + horizon grass/haze fill (`states.py` r17q); heroes `r17q_ruins_*`.
 - **D-R17-C3 I** CP063 lowered lookat among scrap + yellow crane FG (`clearance.py`); hero `r17q_clearance_*`.
 - **D-R17-W1 I** Nishita hard blue band: aerosol bump + sky-matched haze card (shared look preset NOT adopted).
+
+## People library v3.1 adopt (2026-10-27) — Sydenham crowds
+
+Adopt `/workspace/crystal-palace-survey/people/` v3.1 into Sydenham crowd shots via `adopt_people_v31` (PPL57 templates + merged `crowd36_`/`lfb_`/`police_line_` blocks). Keep-better before/after; revert darker/emptier or broken; preserve each scene’s prior lighting/grade.
+
+| Shot | Era dress | Verdict | Note |
+|---|---|---|---|
+| CP035 open54 gallery | 1850s | REVERT | after darker vs before |
+| CP036 covered way | 1850s | REVERT | mesh corruption / clay |
+| CP037 taller nave | 1850s | REVERT | no crowd gain; washout |
+| CP044 pay desks | 1850s | KEEP | Victorian frock/top-hat; grade matched |
+| CP045 concert57 | 1850s | REVERT | after much darker |
+| CP049 late11 garden | 1910s→1890s stand-in | REVERT | floating heads / broken hats |
+| CP051 late11 nave | 1910s→1890s stand-in | REVERT | foreground double-face glitch |
+| CP054 late11 terrace | 1910s→1890s stand-in | KEEP | light 0.9–1.0 m hems, ~40% women, grade held |
+| CP058 1936 parade | 1930s | KEEP | shorter coats/trilbies; mats fixed; grade held |
+| CP060 1936after crowd | 1930s | KEEP | denser 1930s dress; light mid-tones; grade held |
+
+### Dress / library departures
+- **1911 (late11):** no dedicated 1910s garment set — `ERA_ROLES["1910s"]` maps to 1890s gentleman/lady (bustle + boater). Logged; CP049/051 reverted on geometry, CP054 kept with this stand-in.
+- **1936:** `_build_person` lady branch now prefers `is_1930` (mid-calf coat, no crinoline) before Victorian paths; men get trousers + mid-thigh coat + trilby. Merged-block rebuild assigns materials **before** `bmesh.to_mesh` (else all faces clamp to skin/clay).
+- **Crinoline hem:** reduced from ~1.2 m to **0.9–1.0 m** diameter (`hem_rx, hem_ry = 0.47, 0.42`); skirt albedos lightened to mid-tones so crowds don’t read as dark blobs (HP steering).
+- **Mix:** template names already ~40% women; merged blocks use `lady` fraction **0.42**.
+- **Lighting rule:** any after with mean luminance < 0.97× before, or visually darker/emptier grade, is reverted (CP035/045/050/055 among others).
+
+Verdicts: `people_v31/verdicts_v31_crowds.json`. Previews: `people_v31/previews/CP*_v31_before_after.jpg`.
