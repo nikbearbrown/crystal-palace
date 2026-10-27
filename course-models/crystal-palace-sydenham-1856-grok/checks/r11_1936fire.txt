@@ -1,0 +1,22 @@
+STATE  root collection = SY-1936FIRE_30Nov1936_night
+PASS  main building length (end walls)               model  1608.00 ft  target  1608.00 ft  tol 1  [guide p.35 B]
+PASS  general width                                  model   312.00 ft  target   312.00 ft  tol 1  [guide p.35 B]
+N/A   central transept                               (collapsed (FIRE) / destroyed)
+PASS  central transept COLLAPSED -> debris pile present            [LFB/Wikipedia R that it fell; pile form I]
+PASS  nave crown above main floor                    model   110.25 ft  target   110.25 ft  tol 0.5  [guide p.35 B 110'3"]
+PASS  nave span                                      model    72.00 ft  target    72.00 ft  tol 0.5  [section 0212 R]
+PASS  basement depth below main floor                model    23.58 ft  target    23.58 ft  tol 0.3  [guide p.35 B 197'10"-174'3"]
+PASS  south transept centre x (plan 0205)            model  -528.00 ft  target  -528.00 ft  tol 8  [plan 0205 R: -529/+523]
+PASS  north transept ABSENT (post-1866 states)                     [1866 fire, never rebuilt: R]
+PASS  wing length (N-S direction, each)              model   574.00 ft  target   574.00 ft  tol 1  [guide p.35 B]
+PASS  railway colonnade length                       model   720.00 ft  target   720.00 ft  tol 1  [guide p.35 B]
+PASS  south water tower present                                    [survived the fire R (Wikipedia/HE)]
+PASS  south tower top above main floor               model   284.00 ft  target   284.00 ft  tol 6  [Brunel 284 ft (B, common figure)]
+PASS  north water tower present                                    [survived the fire R (Wikipedia/HE)]
+PASS  north tower top above main floor               model   284.00 ft  target   284.00 ft  tol 6  [Brunel 284 ft (B, common figure)]
+PASS  Baird mast on south tower (1933-)                            [R existence, U size]
+INFO  sphinx clusters along x (10 ft bins): 8 bins, bbox x -551..551 ft
+PASS  sphinx body length (first sphinx, x=-54.5)     model    15.80 ft  target    15.75 ft  tol 0.8  [ArtUK SE19_JK_S106 D 480 cm R]
+PASS  sphinx body height above plinth                model     5.90 ft  target     5.90 ft  tol 0.6  [ArtUK H 180 cm R]
+PASS  sphinx count                                   model     6.00 ft  target     6.00 ft  tol 0  [Park Trust: six, in pairs at three flights R]
+INFO  gallery floor area modelled 263,808 sq ft vs guide 261,568 sq ft (B) -> 101%; remainder = galleries not yet modelled (outer tiers, transept galleries)

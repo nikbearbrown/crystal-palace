@@ -172,3 +172,34 @@ Evidence: north-transept fire 30 Dec 1866. Crystal Palace Park Trust: the north 
 | North garden stairs removed with the transept | I | |
 | Alhambra kept (restored); its wall lowered to 21.4 ft to sit under the aisle roof now the transept vault is gone; transept-floor void kept for the court | I | |
 | CP047 (north end from the upper terrace, 35 mm) and CP048 (terrace walk 7 m + hold, 35 mm) — identical camera objects in both states for the matched before/after pair | cameras | I | storyboard viewpoints I |
+
+## r11 — later states from one script: `SY_STATE=1936 | FIRE | AFTER | RUINS | RUINS41` (`scripts/states.py`, exec'd at the end of `build.py`)
+Root collections: `SY-1936_Nov1936_preFire`, `SY-1936FIRE_30Nov1936_night`, `SY-1936AFTER_Dec1936_morning`, `SY-RUINS_c1937-40`, `SY-RUINS_post1941`. All later states start from the POST66 build (no north transept, R), so 1866 losses carry through.
+Sources used: Wikipedia "The Crystal Palace" (fire 30 Nov 1936; towers survived; "a section of the north end of the main nave" left standing; site cleared); London Fire Brigade history page (start near the centre, high wind, timber floors, iron frame buckled/collapsed in sequence); Historic England listing text as quoted by Inside Croydon (fountains long out of use; Baird's TV mast on the South Tower from 1933; South Tower taken down autumn 1940); ADS/Archaeology Data Service grey-lit (South Tower "end of 1941"); Crystal Palace Park Trust (six sphinxes in pairs at the heads of three granite flights; repainted red 2016 "as they had been until the end of the 19th century"); ArtUK SE19_JK_S106 (sphinx H 180 × D 480 cm, 1854); refs in `references/muse-drive/images/`: 0592 fire photograph, 0587/0588 aerials "destroyed 1936", CPsphinxsteps02, CPupperterraces01-04 (the surviving arcaded basement wall).
+
+| Item | State(s) | Grade | Note |
+|---|---|---|---|
+| Six sphinxes, in pairs at the heads of three flights between the terraces | all | R count/arrangement | Park Trust |
+| Sphinx size 15.8 × 5.9 ft body on a 7.6 × 18.8 × 3 ft plinth | all | R body (ArtUK 480 × 180 cm) / I plinth | check PASS 15.80 vs 15.75 ft |
+| Sphinx form (Tanis type, built from ellipsoids + nemes boxes) | all | I | procedural; not traced from photos |
+| Sphinxes face the garden (−Y) | all | I | |
+| Sphinx colour: terracotta red to c.1900, weathered grey concrete in 1936+ | EARLY/POST66 vs later | R red early (Park Trust) / I weathered colour | |
+| Side flights at the side-transept axes x = ±528, 28 ft wide, 10 steps, cheek walls; upper balustrade opened there | all | I | positions of the outer two "great steps" not measured; on axis by analogy with the central flight |
+| Fountains dry, jets removed, basins dry silt | 1936+ | R out of use / I which basins and their state | the football ground / motor-racing use of the basin area is NOT modelled (MISS) |
+| Courts and interiors kept as in POST66 | 1936/FIRE | I | 1936 interior state (exhibitions, organ, etc.) not researched (MISS) |
+| Baird lattice mast on the South Tower lantern, 50 ft | 1936/FIRE/AFTER | R existence / U form and height | |
+| FIRE: whole central transept (shell + vault) removed and replaced by a collapse pile (≈520 twisted members, 35 % glowing) + 7 falling ribs | FIRE | R collapse / I pile form and timing | storyboard beat CP061 |
+| FIRE: flames as emissive blackbody volumes (≈490 cones), strongest around the centre and south nave, spreading north | FIRE | R that it spread from near the centre in high wind / I-U distribution at this instant | |
+| FIRE: smoke column as 19 noise-masked volume puffs leaning north-east, low orange underglow | FIRE | I form / U wind direction | |
+| FIRE: night sky, faint moonlight | FIRE | R night (fire c.20:00–) / U moon | |
+| Fire appliances, crowds, hoses, searchlights | FIRE/AFTER | MISS | |
+| AFTER: shell gone; ≈2600 kinked/twisted members + ≈170 column stumps over the footprint; scorched ground plane | AFTER | R wreck field (0587/0588) / I density and heights | |
+| AFTER: north-end standing fragment (4 bays of frame to the tier heights, part of the end rib) | AFTER | R that a north-end section stood / I extent | |
+| AFTER: basement garden-front arcade, garden stairs, terraces, railway colonnade, both towers standing | AFTER | R wall/towers (photos, Wikipedia) / U colonnade condition | |
+| AFTER: December morning, low east sun, smoke haze, thin smouldering volumes | AFTER | I | |
+| RUINS: wreckage cleared (Thos. W. Ward), plateau rubble/grass, column footing pads on the 24 ft grid (70 % kept) | RUINS/RUINS41 | R clearance / I pads and surface | |
+| RUINS: basement arcade wall + stairs kept as the terrace wall | RUINS/RUINS41 | R (survives today, CPupperterraces01-04) | |
+| RUINS: towers in dated sub-collections `SY-RUINS_south_water_tower__dismantled_autumn1940-1941`, `SY-RUINS_north_water_tower__demolished_16Apr1941` | RUINS | R that both went in WWII / **date conflict on the South Tower: HE autumn 1940 vs ADS end of 1941 vs Wikipedia "shortly after the fire"** — collection name carries the range | the official reason (landmark for bombers) is commonly told, U |
+| RUINS41: both towers removed, brick bases kept | RUINS41 | R (south base excavated 1985) / I north base | |
+| Railway colonnade kept in all later states | 1936–RUINS41 | U | its demolition date not researched |
+| Storyboard cameras CP001, CP057, CP059, CP061, CP062, CP064, CP072, CP073 created in every state (identical objects → matched pairs) | all | I positions | 36 mm sensor, 1.6 m eye, no roll; 28 interior / 35 exterior / 50 detail |

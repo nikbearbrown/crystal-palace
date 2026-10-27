@@ -1,0 +1,19 @@
+STATE  root collection = SY-1936AFTER_Dec1936_morning
+N/A   main building length / width                   (shell destroyed in this state)
+N/A   central transept                               (collapsed (FIRE) / destroyed)
+N/A   nave                                           (shell destroyed in this state)
+PASS  basement depth below main floor                model    23.58 ft  target    23.58 ft  tol 0.3  [guide p.35 B 197'10"-174'3"]
+N/A   south transept                                 (shell destroyed)
+PASS  north transept ABSENT (post-1866 states)                     [1866 fire, never rebuilt: R]
+N/A   wings                                          (not modelled / gone)
+PASS  railway colonnade length                       model   720.00 ft  target   720.00 ft  tol 1  [guide p.35 B]
+PASS  south water tower present                                    [survived the fire R (Wikipedia/HE)]
+PASS  south tower top above main floor               model   284.00 ft  target   284.00 ft  tol 6  [Brunel 284 ft (B, common figure)]
+PASS  north water tower present                                    [survived the fire R (Wikipedia/HE)]
+PASS  north tower top above main floor               model   284.00 ft  target   284.00 ft  tol 6  [Brunel 284 ft (B, common figure)]
+PASS  Baird mast on south tower (1933-)                            [R existence, U size]
+INFO  sphinx clusters along x (10 ft bins): 8 bins, bbox x -551..551 ft
+PASS  sphinx body length (first sphinx, x=-54.5)     model    15.80 ft  target    15.75 ft  tol 0.8  [ArtUK SE19_JK_S106 D 480 cm R]
+PASS  sphinx body height above plinth                model     5.90 ft  target     5.90 ft  tol 0.6  [ArtUK H 180 cm R]
+PASS  sphinx count                                   model     6.00 ft  target     6.00 ft  tol 0  [Park Trust: six, in pairs at three flights R]
+PASS  aftermath debris + north-end standing fragment               [Wikipedia R / extent I]

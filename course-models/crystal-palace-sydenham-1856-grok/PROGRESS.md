@@ -30,3 +30,13 @@
 - r10b: spandrel black slits fixed (tessellated spandrel faces). `rounds/sydenham-1856-r10b.blend` 588 obj / 460k faces; `checks/r10b_dimension_check.txt` 12/12 PASS.
 - SY-POST66: `SY_STATE=POST66 blender -b -P scripts/build.py -- rounds/sydenham-post66-r10.blend` → 295 obj / 432k faces; `checks/post66_r10_dimension_check.txt` 12/12 PASS (north transept ABSENT = pass in POST66).
 - Renders: `renders/r10final_*`, `renders/post66r10_*` (CP047/CP048 identical settings 50%/40 spp); compare sheets in `compare/r10_*`.
+
+## r11 (milestones) — SY-1936 / FIRE / AFTER / RUINS
+- r11 START (21:30): brief = SY-1936 pre-fire + fire/aftermath variant, SY-RUINS (terraces, sphinxes, stairs, foundations, towers dated), matched storyboard cameras + before/after sheets; optional Alhambra lace + brighter 0108.
+- New `scripts/states.py` (exec'd at end of build.py). SY_STATE → root collection:
+  EARLY `SY-EARLY_c1856` | POST66 `SY-POST66_c1868` | 1936 `SY-1936_Nov1936_preFire` | FIRE `SY-1936FIRE_30Nov1936_night` | AFTER `SY-1936AFTER_Dec1936_morning` | RUINS `SY-RUINS_c1937-40` | RUINS41 `SY-RUINS_post1941`.
+- All states: terrace sphinxes (6) + side flights (x=±528) in `SY54_terrace_sphinxes_and_side_flights__1854_extant`. 1936/FIRE/AFTER: Baird mast on south tower. FIRE: central transept deleted → collapse pile + glowing debris, volumetric flames (SY_FLAME, default 1.5), 19 smoke objects, night world. AFTER: shell removed, 2600-member collapsed ironwork field, north fragment, smoulder, low east sun + haze. RUINS: footing pads, towers in dated sub-collections (south: dismantled autumn 1940–1941; north: demolished 16 Apr 1941). RUINS41: tower bases only.
+- Build: `SY_STATE=<S> blender -b -P scripts/build.py -- rounds/sydenham-<s>-r11.blend` (1856, 1936, 1936fire, 1936after, ruins, ruins41; all < 10 MB).
+- Checks (state-aware `checks/dimension_check.py`): `checks/r11_<s>.txt` — 0 FAIL in all six (1856 19 PASS, 1936 20, fire 18, after 12, ruins 13, ruins41 9).
+- Renders: `renders/r11_<state>_<cam>.png` 960×540, 32 spp.
+- 22:15 r11b: `rounds/sydenham-1856-r11b.blend` built with Alhambra geometry lace (SY_LACE=1 default, courts.py arch_screen: 3 staggered rows of faceted lozenge studs following the arch outline, both faces). render.py accepts EXPO=<ev> per-render exposure override.

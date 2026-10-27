@@ -115,8 +115,16 @@ M['flowers'] = flowers_mat('flower_beds_bedding')
 # chronology; Norwood Soc.), north nave rebuilt over ~2 years (Park Trust), north wing only partly rebuilt (Black's guide
 # via History Hunters; crystal.dircon: 'except part of a low narrow wing'); 1928 aerial EPW021373 shows no north transept
 # and a continuous nave to an arched north end gable. See DEPARTURES D-R10-P*.
-POST66 = os.environ.get('SY_STATE', '').upper() == 'POST66'
-root = bpy.data.collections.new('SY-POST66_c1868' if POST66 else 'SY-EARLY_c1856'); sc.collection.children.link(root)
+# r11: further states share this script: 1936 (Nov 1936 pre-fire), FIRE (night of 30 Nov 1936), AFTER (morning after,
+# Dec 1936), RUINS (cleared site c.1937-40, both towers), RUINS41 (after the tower demolitions of 1940-41). All later
+# states inherit the POST66 fabric (the north transept stays missing). See scripts/states.py and DEPARTURES r11.
+STATE = os.environ.get('SY_STATE', 'EARLY').upper() or 'EARLY'
+ROOTS = {'EARLY': 'SY-EARLY_c1856', 'POST66': 'SY-POST66_c1868', '1936': 'SY-1936_Nov1936_preFire',
+         'FIRE': 'SY-1936FIRE_30Nov1936_night', 'AFTER': 'SY-1936AFTER_Dec1936_morning',
+         'RUINS': 'SY-RUINS_c1937-40', 'RUINS41': 'SY-RUINS_post1941'}
+assert STATE in ROOTS, STATE
+POST66 = STATE != 'EARLY'
+root = bpy.data.collections.new(ROOTS[STATE]); sc.collection.children.link(root)
 def coll(name, parent=root):
     c = bpy.data.collections.new(name); parent.children.link(c); return c
 C = {k: coll(k) for k in ['SY_main_frame', 'SY_main_roofs_glazing', 'SY_nave_vault', 'SY_central_transept',
@@ -633,7 +641,11 @@ for xa_, xb_ in ((-TX, -50), (50, TX)):
         S.poly([(xe_, yU-BANK, LT), (xe_, yU-2.5, LT), (xe_, yU-2.5, UT-0.6)])
 def balustrade(xa, xb, y, z, statues_every=None, gap=None):
     """plinth 0.8, balusters 0.55 wide @1.4 ft, coping 0.6 -> 3.3 ft high (I: typical Italianate terrace scale)"""
-    segs = [(xa, xb)] if not gap else [(xa, gap[0]), (gap[1], xb)]
+    if not gap: segs = [(xa, xb)]
+    else:   # r11: gap may be one (a, b) or a list of them
+        gl = sorted(gap if isinstance(gap[0], (tuple, list)) else [gap]); segs = []; xc0 = xa
+        for g0, g1 in gl: segs.append((xc0, g0)); xc0 = g1
+        segs.append((xc0, xb))
     for a_, b_ in segs:
         S.box(a_, b_, y-1.0, y+1.0, z, z+0.8); S.box(a_, b_, y-1.1, y+1.1, z+2.7, z+3.3)
         x = a_ + 0.7
@@ -649,7 +661,7 @@ def statue(x, y, z, mb, scale=1.0):
     mb.box(x-0.8, x+0.8, y-0.6, y+0.6, z+5*scale, z+(5+4.6)*scale)            # draped body
     mb.box(x-1.1, x+1.1, y-0.5, y+0.5, z+(5+4.0)*scale, z+(5+5.6)*scale)      # shoulders
     mb.box(x-0.45, x+0.45, y-0.45, y+0.45, z+(5+5.6)*scale, z+(5+6.6)*scale)  # head
-balustrade(-TX, TX, yU-1.5, UT, statues_every=96, gap=(-48, 48))
+balustrade(-TX, TX, yU-1.5, UT, statues_every=96, gap=[(-48, 48), (-ST_X-18, -ST_X+18), (ST_X-18, ST_X+18)])   # r11: side flights (sphinx steps)
 G.box(-TX, TX, yL, yU-BANK, LT-2, LT)                           # lower terrace
 balustrade(-TX, TX, yL+1, LT, statues_every=144, gap=(-30, 30))
 RUN = (BANK-2.5)/10
@@ -1008,6 +1020,7 @@ sc.render.resolution_x = 1920; sc.render.resolution_y = 1080
 sc.view_settings.view_transform = 'AgX' if 'AgX' in [i.identifier for i in sc.view_settings.bl_rna.properties['view_transform'].enum_items] else 'Filmic'
 sc.unit_settings.system = 'METRIC'
 sc.view_settings.exposure = -1.0
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'states.py')).read())   # r11 later states + sphinxes
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 tri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
 print('BUILD_OK', OUT, 'objects', len(bpy.data.objects), 'faces', tri)

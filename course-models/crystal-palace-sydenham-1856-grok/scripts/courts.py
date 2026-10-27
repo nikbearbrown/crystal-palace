@@ -252,6 +252,7 @@ def arch_profile(u0, u1, z_spr, z_crown, cusps=9, n=72, A=0.17):
         pts.append((uc - R*math.cos(t)*lob, z_spr + stilt + (z_crown - z_spr - stilt)*math.sin(t)*lob))
     pts[0] = (u0, z_spr + stilt); pts[-1] = (u1, z_spr + stilt)
     return [(u0, IMP)] + pts + [(u1, IMP)], (uc, z_spr + stilt), R
+LACE = os.environ.get('SY_LACE', '1') != '0'
 def arch_screen(p0, p1, col_us, z_spr=SPR+1.6, z_crown=CROWN, top=ATOP, depth=2.0, mb=None, hw=None, muq=False, alfiz=False):
     """arcade panel over columns between p0 and p1 (plan ft); col_us = column positions along the line; hw = per-column
     half-width of the pier/impost (paired columns wider). Spandrels as vertical quad strips, soffit quads, optional
@@ -279,6 +280,21 @@ def arch_screen(p0, p1, col_us, z_spr=SPR+1.6, z_crown=CROWN, top=ATOP, depth=2.
                 mb.poly(q)
         for (ua, za), (ub, zb) in zip(prof[:-1], prof[1:]):
             mb.poly([P(ua, za, -1), P(ub, zb, -1), P(ub, zb, 1), P(ua, za, 1)])
+        if LACE:   # r11: real-geometry sebka lace following the arch outline: 2 staggered rows of faceted lozenge studs
+            for s in (-1, 1):
+                N_ = Vector((nx*s, ny*s, 0))
+                for row, (off, j0, a_, b_) in enumerate(((0.32, 1, 0.20, 0.13), (0.72, 2, 0.26, 0.15), (1.12, 1, 0.16, 0.10))):
+                    for j in range(j0, len(prof) - 1, 2):
+                        (ua, za) = prof[j]; cv = Vector((ua - ucc, za - zc))
+                        if cv.length < 1e-3: continue
+                        rd = cv.normalized(); tg = Vector((-rd.y, rd.x)); cu, cz = ua + rd.x*off, za + rd.y*off
+                        if cz > top - 1.45 or cz < IMP + 0.2 or cu < u0 + 0.1 or cu > u1 - 0.1: continue
+                        pts = [(cu + rd.x*a_, cz + rd.y*a_), (cu + tg.x*b_, cz + tg.y*b_), (cu - rd.x*a_, cz - rd.y*a_), (cu - tg.x*b_, cz - tg.y*b_)]
+                        base = [Q(u_, z_, s*(depth/2 + 0.005)) for u_, z_ in pts]; apex = Q(cu, cz, s*(depth/2 + 0.12))
+                        for k in range(4):
+                            q = [base[k], base[(k+1) % 4], apex]
+                            if (q[1] - q[0]).cross(q[2] - q[0]).dot(N_) < 0: q = q[::-1]
+                            mb.poly([tuple(v) for v in q])
         if muq:
             curve = prof[1:-1]; n_ = len(curve)
             for tier, (step, hfac, wfac) in enumerate(((3, 1.0, 1.25), (3, 0.6, 0.9))):
