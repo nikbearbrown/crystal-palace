@@ -110,8 +110,14 @@ bx.box(I("cut"), -10, 10, 0.0, 0.02, BOX_Z0, BOX_IN)
 bx.box(I("lead"), -0.45, 0.45, 0.02, BW, BOX_IN, BOX_IN + 0.01)          # lead cesspool/outlet plate over the column
 bx.done("KD_BoxGutter", ROOT, part="box_gutter")
 # ---- Paxton gutters: rain channel + two condensation grooves, cambered, trussed underneath ----
-PROF = [(-0.21, 0), (0.21, 0), (0.21, 0.5), (0.17, 0.5), (0.17, 0.41), (0.125, 0.41), (0.125, 0.5), (0.075, 0.5), (0.075, 0.24),
-        (-0.075, 0.24), (-0.075, 0.5), (-0.125, 0.5), (-0.125, 0.41), (-0.17, 0.41), (-0.17, 0.5), (-0.21, 0.5)]
+# MK03b (2026-10-27): adopt Muse paxton-gutter printed profile on next full rebuild.
+# Printed (Downes XII Fig.10): depth 6 in, base 5 in, channel top 3 in, cheek ~5.7 in;
+# bar notches 10.5 in. Until then candidate k01_gutter appends Muse mesh.
+# Half-widths in feet (base half = 2.5 in = 0.2083 ft; cheek half ~2.85 in = 0.2375 ft; depth 0.5 ft):
+PROF = [(-0.2375, 0), (0.2375, 0), (0.2375, 0.5), (0.2083, 0.5), (0.2083, 0.25),
+        (0.125, 0.25), (0.125, 0.5), (0.0625, 0.5), (0.0625, 0.25),
+        (-0.0625, 0.25), (-0.0625, 0.5), (-0.125, 0.5), (-0.125, 0.25),
+        (-0.2083, 0.25), (-0.2083, 0.5), (-0.2375, 0.5)]  # Muse/Downes XII Fig.10 half-widths (ft)
 pxk = K(); info["paxton_gutters"] = 0
 for gx in PAX_X:
     prism_y(pxk, I("wood"), PROF, 0.0, 12.0, pax_bot, gx); prism_y(pxk, I("wood"), PROF, 12.0, Y_END, pax_bot, gx)

@@ -86,3 +86,10 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 |---|---|---|
 | MK05 | Ground-floor board gaps ½ in | **Match.** Fitout FT09/FT10 and `floor_boards` shader use 9 in boards + **½ in** gaps (pitch 9.5 in). Construction/exterior share the same shader. Muse `hp-floor-boards` NOTES: gap ½ in printed. Ground floor only — gallery floors in our builds are solid `WOOD` slabs (no open gaps), consistent with Berlyn (gallery = iron tongues). CP013/CP020 staging already references the open-board ground floor. |
 
+
+## Muse kit apply (2026-10-27 follow-up)
+| ID | Topic | Call |
+|---|---|---|
+| MK03b | **Adopt** Muse `paxton-gutter` profile into K-DRAIN | CANDIDATE `rounds/candidates/k01_gutter.blend`: hide KD_PaxtonGutters (KD03 stand-in); append Muse Paxton_Gutter_24ft + Main_Gutter_24ft (Downes XII/XIII printed: depth 6 in, base 5 in, cheek ~5.7 in, notches 10½ in). Credit on objects. Live k01 untouched until KEEP. |
+| MK01 | Girder depth 3.0 ft vs Muse ~3.17 ft | **Remain departure** — not adopted. |
+| MK04 | Gallery rail H 3.06 ft vs Muse 3 ft 1⅞ in | **Remain departure** — not adopted. |

@@ -156,3 +156,9 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 ## CP015 REVERT + CP014 CANDIDATE (2026-10-27)
 - **CP015:** REVERT c09 (canvas flaps read as mid-air brown slabs). Live remains `rounds/c04.blend` / `renders/c04/CP015_blinds_start.png`. Rejected pair: survey `look/pairs_geo/REJECTED_CP015_blinds_start_pair.png`.
 - **CP014 CANDIDATE:** `scripts/polish_cp014_cand.py` → `rounds/candidates/k01_cp014.blend` + `renders/candidates/CP014_drain_whole_start.png`. Live `k01` untouched. Pair: survey `look/pairs_geo/CANDIDATE_CP014_drain_whole_start_pair.png`.
+
+## Muse Paxton gutter CANDIDATE (2026-10-27)
+- Adopt Muse `paxton-gutter` into K-DRAIN as candidate `k01_gutter` (MK03b). Girder depth (MK01) and gallery rail height (MK04) logged as departures only.
+
+## 2026-10-27 Muse gutter
+- CANDIDATE k01_gutter: adopt Muse Paxton gutter (MK03b). MK01 girder depth + MK04 rail height remain departures.
