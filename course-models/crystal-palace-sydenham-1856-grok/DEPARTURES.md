@@ -129,3 +129,18 @@ REVIEW.md checks: #3 (a publication year is not the depicted year) — 0226/0246
 - MISS: no muqarnas/stalactite work, no carved stucco relief (pattern is procedural diaper only); Divans dome missing; lions and colossi are massing blocks; cypresses are cones; Lions court shows the palace iron roof overhead (correct for Sydenham but the engraving idealises sky).
 - MISS: CP038 entry frame 1 is dominated by the plain door jambs of the ~4 ft door; nave-front screen walls lack painted relief.
 - U: court heights, colour placement, column treatment inside the court voids.
+
+## r09 — Abu Simbel colossi appended from Muse (models/egyptian-court-colossi, origin/main 90e62cc)
+Credit: **Muse** built the colossi (`models/egyptian-court-colossi/`, commit 90e62cc "models: add Egyptian Court colossi (Muse)"). Inspected read-only after `git fetch`; the .blend is vendored unmodified at `vendor/muse-egyptian-court-colossi/` (see CREDIT.md) and appended at build time by `scripts/courts.py` (`bpy.data.libraries.load`, link=False) into the dated collection `SY56_north_transept_colossi_muse__lost1866` (child of `SY_north_transept__lost1866`). `models/` was not edited. Muse's mesh and materials are used as delivered (286 objects + 1 root empty, units already metres, scale 1).
+
+Soundness/dating check: stylised block build, clean, metre units, origin at the centre of the pedestal base; maker's notes date it SY-EARLY c.1856 (CP038) and cite Guide 1856 p.50 "the gigantic figures in the northern transept". Accepted. Maker flags the lead photo licence as unverified; that carries over.
+
+| Item | Where | Grade | Note |
+|---|---|---|---|
+| Colossi located in the **north transept**, not inside the Egyptian Court footprint | courts.py r09 | R | Guide 1856 p.50 (per Muse notes); plan 0226 shows no colossi inside the court |
+| Garden (−Y) end of the north transept, back 2 ft off the recessed end wall (y −130 ft), centred on the transept axis x 528, facing +Y toward the nave | courts.py r09 | I | which end is not fixed by my sources; the Parade half of the transept bay (x 492–564) is taken by the plan-0205-traced Alhambra Court, so only the garden end is clear |
+| Figure height 20.0 m (65.6 ft), pedestal 5.9 m; overall 86.5 ft as modelled | Muse | U | Muse took the Abu Simbel originals' height; the Sydenham casts' true height not checked by me against a period source |
+| Fit under the vault: overall 86.5 ft at ±29 ft off-axis vs vault intrados 95.6 ft there (spring 74.25 + √(36²−29²)) | check | — | ~9 ft clearance; width 58 ft inside the 72 ft span |
+| Sandstone colouring (Muse) kept; no Owen Jones polychromy added | Muse | U | period colouring of the casts not researched |
+
+**Dimension comparison with plan 0226 (Egyptian Court):** modelled court is x 180–276 (96 ft) by y 60–184 (124 ft incl. annex), with heights held ≤ 21.5 ft under the 22.17 ft tier. Muse's pair is 58 ft wide × 34.6 ft deep × 86.5 ft high — 60% of the court's width, 4× its permitted height; it cannot stand inside 0226 under the aisle tiers, and 0226 draws nothing of that size. 0226's "Model of the Abo Simbel Tomb" (plan 0205 item 12A) is therefore kept as my small 9 ft annex model (U), and the full-size colossi go where the Guide puts them: the full-height north transept. Both lost together with the north transept in the 1866 fire, hence the `__lost1866` suffix.

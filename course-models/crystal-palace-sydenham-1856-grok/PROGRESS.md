@@ -21,3 +21,4 @@
   - Checks: blender -b rounds/X.blend -P checks/dimension_check.py -- checks/<tag>.txt
 - NOT pushed. Branch grok-sydenham-1856, local commits only.
 - Next states: courts (0226/0246) → post-1866 without North Transept → 1936 fire → ruins/towers.
+- r09 (20:35): appended Muse colossi (vendored, unmodified) into SY56_north_transept_colossi_muse__lost1866 at the garden end of the north transept; 12/12 PASS; final render renders/r09final_CAM_north_transept_colossi_35mm.png

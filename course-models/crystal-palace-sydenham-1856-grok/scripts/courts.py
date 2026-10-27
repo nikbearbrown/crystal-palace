@@ -321,3 +321,22 @@ anim_cam('CAM_CP041_alhambra_entry_28mm', (xa_, 52.0, EYE), (xa_, 52.0 + DX, EYE
 cam('CAM_CP041_alhambra_hold_28mm', (xa_, 52.0 + DX, EYE), (xa_, 150, EYE + 3.0), 28)
 cam('CAM_CP041_insert_spandrel_50mm', (xa_ - 6, cy0 + 22, EYE), (cx0 + (cx1-cx0)*0.25, cy0, 12.5), 50)
 cam('CAM_compare_0108_alhambra', (ax(302), yB + 5.0, EYE), (ocx - 3.0, ocy, 6.5), 28)   # r08b: from the Hall of Justice through its central arch (row B), fountain left of centre (0108; I)
+
+# =====================================================================================================================
+# r09: Abu Simbel colossi pair (Muse, models/egyptian-court-colossi @ origin/main 90e62cc), appended unmodified.
+# Guide 1856 p.50: "the gigantic figures in the northern transept" -> placed in the north transept (lost 1866 fire), at its
+# garden (-Y) end, backs 2 ft off the recessed end wall, facing +Y up the transept toward the nave (end chosen: I;
+# the Parade half of the transept bay is occupied by the plan-0205-traced Alhambra Court, x 492-564).
+# =====================================================================================================================
+_cpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'vendor', 'muse-egyptian-court-colossi', 'egyptian-court-colossi.blend')
+if os.path.exists(_cpath):
+    CLC = coll('SY56_north_transept_colossi_muse__lost1866', parent=C['SY_north_transept__lost1866'])
+    with bpy.data.libraries.load(_cpath, link=False) as (src, dst):
+        dst.objects = list(src.objects)
+    croot = bpy.data.objects.new('colossi_root_muse', None); CLC.objects.link(croot)
+    croot.location = (f(ST_X), f(-156 + RECESS + 2) + 5.85, 0.0); croot.rotation_euler = (0, 0, math.pi)
+    for o in dst.objects:
+        if o is None: continue
+        CLC.objects.link(o)
+        if o.parent is None: o.parent = croot
+    cam('CAM_north_transept_colossi_35mm', (ST_X - 6, 40, EYE), (ST_X, -140, 40), 35)
