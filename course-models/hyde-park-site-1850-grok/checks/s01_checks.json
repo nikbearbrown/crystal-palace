@@ -1,0 +1,289 @@
+{
+ "round": "s01",
+ "pass": 25,
+ "total": 25,
+ "checks": [
+  {
+   "id": "C-CP006_end",
+   "check": "eye 5.25 above terrain, lens 35 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP006_start",
+   "check": "eye 5.25 above terrain, lens 35 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP007_end",
+   "check": "eye 5.25 above terrain, lens 50 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP007_start",
+   "check": "eye 5.25 above terrain, lens 50 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 50.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP008_end",
+   "check": "eye 5.25 above terrain, lens 28 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 28.0,
+    "roll_deg": -0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP008_start",
+   "check": "eye 5.25 above terrain, lens 28 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 28.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP008_tilt",
+   "check": "eye 5.25 above terrain, lens 28 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 28.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP009_end",
+   "check": "eye 5.25 above terrain, lens 35 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C-CP009_start",
+   "check": "eye 5.25 above terrain, lens 35 mm, no roll, clear of objects",
+   "pass": true,
+   "value": {
+    "eye": 5.25,
+    "lens": 35.0,
+    "roll_deg": 0.0,
+    "inside": []
+   },
+   "note": ""
+  },
+  {
+   "id": "C8W",
+   "check": "CP008 walk ~5 m (16.4 ft)",
+   "pass": true,
+   "value": {
+    "ft": 16.33,
+    "m": 4.98
+   },
+   "note": ""
+  },
+  {
+   "id": "C9M",
+   "check": "CP009 move <= 7 m",
+   "pass": true,
+   "value": {
+    "ft": 15.07,
+    "m": 4.59
+   },
+   "note": ""
+  },
+  {
+   "id": "SV1",
+   "check": "line pegs at 24 ft on the south building line y=-204",
+   "pass": true,
+   "value": {
+    "n": 15,
+    "gaps": [
+     24.0
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "SV2",
+   "check": "corner pegs at x +-924, y -204 / 252 (HP1851 frame)",
+   "pass": true,
+   "value": [
+    [
+     -924,
+     -204
+    ],
+    [
+     924,
+     -204
+    ],
+    [
+     -924,
+     252
+    ],
+    [
+     924,
+     252
+    ]
+   ],
+   "note": ""
+  },
+  {
+   "id": "SV3",
+   "check": "Gunter's chain 66 ft of 100 links (7.92 in)",
+   "pass": true,
+   "value": {
+    "links": 100,
+    "len": 66.0
+   },
+   "note": ""
+  },
+  {
+   "id": "SV4",
+   "check": "ranging pole 8 ft above ground",
+   "pass": true,
+   "value": 8.0,
+   "note": ""
+  },
+  {
+   "id": "E-ELM_SOUTH",
+   "check": "elm trunk at transept ELMS position",
+   "pass": true,
+   "value": {
+    "base": [
+     4.0,
+     -128.0
+    ],
+    "want": [
+     4.0,
+     -128.0
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "E-ELM_NORTH",
+   "check": "elm trunk at transept ELMS position",
+   "pass": true,
+   "value": {
+    "base": [
+     -3.0,
+     142.0
+    ],
+    "want": [
+     -3.0,
+     142.0
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "E-ELM_NORTH2",
+   "check": "elm trunk at transept ELMS position",
+   "pass": true,
+   "value": {
+    "base": [
+     12.0,
+     98.0
+    ],
+    "want": [
+     12.0,
+     98.0
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "OV1",
+   "check": "overlay: span 72 between column lines, extrados 37.17 at spring 65, 408 ft long",
+   "pass": true,
+   "value": {
+    "x_extent": 74.59,
+    "crown": 102.3,
+    "len": 408.25
+   },
+   "note": "rods r=0.13 ft"
+  },
+  {
+   "id": "OV2",
+   "check": "overlay labelled DESIGN STUDY and render-hidden outside CP008",
+   "pass": true,
+   "value": "DESIGN STUDY  -  not built\ntransept vault over the elms, developed June-July 1850",
+   "note": ""
+  },
+  {
+   "id": "F1",
+   "check": "no figure intersects a prop/part/tree (0.55 ft body core)",
+   "pass": true,
+   "value": [],
+   "note": "riders' ground check skipped (mounted)"
+  },
+  {
+   "id": "F2",
+   "check": "standing figures on terrain",
+   "pass": true,
+   "value": [],
+   "note": ""
+  },
+  {
+   "id": "S1",
+   "check": "blend < 90 MB",
+   "pass": true,
+   "value": 34.65,
+   "note": ""
+  },
+  {
+   "id": "S2",
+   "check": "worktree: nothing outside our folder modified (Muse/Claude/Codex untouched)",
+   "pass": true,
+   "value": [],
+   "note": ""
+  },
+  {
+   "id": "S3",
+   "check": "no linked libraries (props appended/copied)",
+   "pass": true,
+   "value": [],
+   "note": ""
+  }
+ ]
+}

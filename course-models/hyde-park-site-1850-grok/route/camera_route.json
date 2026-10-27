@@ -1,0 +1,12 @@
+{"units": "feet; pos z = eye height above the local ground zg unless abs_z", "frame": "HP1851 crossing origin, X east, Y north",
+ "shots": [
+  {"id": "CP006", "lens_mm": 35, "note": "approach from the south footpath to the survey line, elms held in view",
+   "start": {"pos_ft": [-34, -258, 5.25], "look_ft": [-4, -150, 17]}, "end": {"pos_ft": [-28, -236, 5.25], "look_ft": [-2, -140, 21]}},
+  {"id": "CP007", "lens_mm": 50, "note": "lateral move along the tabletop model, then back to the real trees",
+   "start": {"pos_ft": [37.2, -237.6, 5.25], "look_ft": [39.6, -232.0, 2.75]}, "end": {"pos_ft": [41.4, -237.6, 5.25], "look_ft": [6, -128, 30]}},
+  {"id": "CP008", "lens_mm": 28, "note": "walk 5 m toward the south elm, stop, tilt up into the labelled wireframe study",
+   "start": {"pos_ft": [-22, -238, 5.25], "look_ft": [2, -128, 22]}, "end": {"pos_ft": [-17.5, -222.3, 5.25], "look_ft": [2, -128, 22]},
+   "tilt": {"pos_ft": [-17.5, -222.3, 5.25], "look_ft": [2, -128, 62]}},
+  {"id": "CP009", "lens_mm": 35, "note": "drawing table to the stacked members (under 7 m), ending on the row of connecting pieces",
+   "start": {"pos_ft": [156.5, -238.2, 5.25], "look_ft": [158.6, -243.4, 2.9]}, "end": {"pos_ft": [166, -226.5, 5.25], "look_ft": [177, -217.2, 2.4]}}
+ ]}
