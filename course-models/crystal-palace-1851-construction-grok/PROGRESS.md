@@ -152,3 +152,7 @@ never git init inside a grok folder; commit from the worktree root
 
 ## c09 (2026-10-27)
 KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, canvas rolls on floor; exposure match (gain~1.27). Source c04 → c09 via `polish_cp015_c09.py`. Pair `look/pairs_geo/CP015_blinds_start_pair.png`.
+
+## CP015 REVERT + CP014 CANDIDATE (2026-10-27)
+- **CP015:** REVERT c09 (canvas flaps read as mid-air brown slabs). Live remains `rounds/c04.blend` / `renders/c04/CP015_blinds_start.png`. Rejected pair: survey `look/pairs_geo/REJECTED_CP015_blinds_start_pair.png`.
+- **CP014 CANDIDATE:** `scripts/polish_cp014_cand.py` → `rounds/candidates/k01_cp014.blend` + `renders/candidates/CP014_drain_whole_start.png`. Live `k01` untouched. Pair: survey `look/pairs_geo/CANDIDATE_CP014_drain_whole_start_pair.png`.
