@@ -64,6 +64,23 @@ if has('terrace_sphinxes'):
     chk('sphinx count', sph_n, 6, 0, 'Park Trust: six, in pairs at three flights R')
 else: flag(False, 'terrace sphinxes present', 'Park Trust six sphinxes R')
 if ST == 'SY-1936AFTER': flag(has('collapsed_ironwork_field', 'north_end_standing_fragment'), 'aftermath debris + north-end standing fragment', 'Wikipedia R / extent I')
+# r12: sculpted sphinx (nemes headdress reaches the crown) + 1936 dressing (PPL-20C)
+if has('terrace_sphinxes'):
+    head = [v for v in W if abs(v.x + 54.5) < 5 and v.z > UTz + 3.0 + 5.0]
+    flag(len(head) > 50, 'sphinx r12: sculpted head/nemes above 5 ft over plinth (%d verts)' % len(head), 'surviving CP sphinxes, photographs R; form I')
+if ST == 'SY-1936FIRE':
+    pumps = [o for o in OB if o.name.startswith('pump_')]; tls = [o for o in OB if o.name.startswith('TL_ladder_')]
+    rows.append(f"INFO  appliances modelled: {len(pumps)} pumps + {len(tls)} turntable ladders (LFB attendance 89 appliances, 438 firemen R; modelled subset I)")
+    flag(len(pumps) >= 10 and len(tls) >= 3, 'FIRE: >=10 pumps and >=3 turntable ladders present', 'LFB attendance R')
+    if has('pump_parade_00'):
+        lo, hi = bb(['pump_parade_00']); chk('LFB pump length (1930s Leyland/Dennis)', hi[0]-lo[0] if hi[0]-lo[0] > hi[1]-lo[1] else hi[1]-lo[1], 25, 3, 'typical 1930s pump ~7.5 m I')
+if ST in ('SY-1936FIRE', 'SY-1936AFTER'):
+    flag(has('police_line_parade') or has('police_line_lower_terrace'), 'police line present', 'press photos of cordons R; positions I')
+    flag(any(o.name.startswith('crowd36_') for o in OB), 'crowd stand-ins present', 'contemporary reports of ~100,000 onlookers R; density I')
+if ST == 'SY-1936AFTER' and has('collapsed_ironwork_field'):
+    m = OB['collapsed_ironwork_field'].active_material
+    bc = m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value if m and m.use_nodes else (1, 1, 1, 1)
+    flag(m is not None and 'charred' in m.name, 'AFTER stumps/ironwork use charred-black iron (%s)' % (m.name if m else None), 'aerial 0587/0588 dark wreckage R; tone I')
 if ST == 'SY-RUINS': flag(not has('collapsed_ironwork_field') and has('column_footing_pads'), 'debris cleared, footing pads only', 'Ward demolition R; pads I')
 if has('gallery_floors'):
     gal = OB['gallery_floors']; area = sum(p.area for p in gal.data.polygons if p.normal.z > 0.9)/(F*F)

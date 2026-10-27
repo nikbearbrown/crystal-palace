@@ -119,30 +119,22 @@ for xc_ in (-ST_X, ST_X):
         SF.box(xc_+sx_*14, xc_+sx_*16.5, yU-BANK, yU-2.5, LT, UT+1.0)
 SF.done()
 SX = MB('terrace_sphinxes', SPH, sphm); SP = MB('terrace_sphinx_plinths', SPH, M['stone'])
+import sys as _sys, os as _os
+_sd = _os.path.dirname(_os.path.abspath(__file__)) if '__file__' in globals() else _os.path.join(_os.getcwd(), 'scripts')
+if _sd not in _sys.path: _sys.path.insert(0, _sd)
+import sculpt as _sculpt
+_SPH_T = _sculpt.sphinx_mesh('sphinx_template_r12')   # r12: metaball lion body + hull nemes (scripts/sculpt.py), metres
 def sphinx(x, y, z, face=-1):
-    """Tanis-type sphinx, long axis on Y, head toward `face` (-1 = garden/-Y). Overall 15.7 ft long, ~5.9 ft high on a
-    3 ft plinth (ArtUK R for body dims; plinth I)."""
-    d = face
+    """Tanis-type sphinx, long axis on Y, head toward `face` (-1 = garden/-Y). Body 15.6 ft long, 5.95 ft high (ArtUK
+    H 180 x D 480 cm, R) on a 3 ft plinth with a cornice (plinth I). r12: sculpted stand-in replaces the r11 ellipsoids."""
     SP.box(x-3.4, x+3.4, y-9.0, y+9.0, z, z+2.4); SP.box(x-3.8, x+3.8, y-9.4, y+9.4, z+2.4, z+3.0)   # plinth + cornice
-    z0 = z + 3.0
-    ell(SX, x, y-d*4.2, z0+1.9, 2.3, 4.0, 1.9)          # haunches / hind body
-    ell(SX, x, y+d*0.5, z0+2.2, 2.2, 3.4, 2.1)          # chest / fore body
-    ell(SX, x, y-d*1.8, z0+2.4, 2.0, 3.6, 1.9)          # back, bridging chest and haunch
-    ell(SX, x, y+d*2.0, z0+3.4, 1.7, 1.2, 1.9)          # breast under the head
-    for sx_ in (-1, 1):
-        SX.box(x+sx_*1.55-0.55, x+sx_*1.55+0.55, *sorted((y+d*1.5, y+d*7.6)), z0, z0+0.9)   # fore paws
-        ell(SX, x+sx_*1.4, y-d*5.2, z0+1.0, 0.9, 2.4, 1.0)                                 # hind legs folded
-    ell(SX, x, y+d*2.6, z0+4.4, 1.0, 1.05, 1.25)        # head
-    SX.box(x-1.65, x+1.65, *sorted((y+d*2.0, y+d*3.0)), z0+3.0, z0+5.2)   # nemes lappets
-    SX.box(x-1.2, x+1.2, *sorted((y+d*1.6, y+d*3.1)), z0+5.0, z0+5.9)     # nemes crown
-    SX.box(x-0.25, x+0.25, *sorted((y+d*3.4, y+d*3.9)), z0+3.1, z0+3.9)   # beard
+    SP.box(x-3.45, x+3.45, y-9.05, y+9.05, z+0.9, z+1.5)                                              # hieroglyph band (blank) I
+    rot = Matrix.Identity(4) if face < 0 else Matrix.Rotation(math.pi, 4, 'Z')
+    _sculpt.append_mesh(SX.bm, _SPH_T, Matrix.Translation(Vector((f(x), f(y + 0.2), f(z + 3.0)))) @ rot)
 for xc_, half in ((0, 48), (-ST_X, 14), (ST_X, 14)):
     for sx_ in (-1, 1):
         sphinx(xc_ + sx_*(half + 6.5), yU + 12, UT)   # at the head of each flight, on the upper terrace, facing the garden
-SX.done(); SP.done()
-_o = bpy.data.objects['terrace_sphinxes']
-for pg in _o.data.polygons:   # smooth the ellipsoid faces only (boxes stay crisp)
-    nn = pg.normal; pg.use_smooth = max(abs(nn.x), abs(nn.y), abs(nn.z)) < 0.995
+SX.done(); SP.done(); bpy.data.meshes.remove(_SPH_T)
 
 # ---------------- cameras for the later states (built in every state so pairs match) ----------------
 # 36 mm sensor, 1.6 m eye, no roll; 35 mm exteriors, 28 mm interiors, 50 mm details (storyboard grammar). Positions I.
@@ -176,7 +168,20 @@ if STATE in ('1936', 'FIRE', 'AFTER'):
         mm.strut((xc - r_, yc - r_, zz), (xc + r_, yc + r_, zz + 6), 0.18, 0.18); mm.strut((xc + r_, yc - r_, zz), (xc - r_, yc + r_, zz + 6), 0.18, 0.18)
     mm.done()
 
-burnt = mat('iron_burnt_rust', (0.085, 0.075, 0.07), 0.7, 0.6)
+def charred_iron(name):
+    """r12: fire-blackened cast/wrought iron - near-black scale with sparse dull rust bloom and soot roughness (I;
+    the 1936 aftermath photographs, refs 0587/0588, show the wreckage reading black against pale ash)."""
+    m = mat(name, (0.028, 0.026, 0.024), 0.82, 0.45); nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 1.6
+    nz.inputs['Detail'].default_value = 8.0; nt.links.new(tc.outputs['Object'], nz.inputs['Vector'])
+    cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.58; cr.color_ramp.elements[1].position = 0.72
+    cr.color_ramp.elements[0].color = (0.026, 0.024, 0.022, 1); cr.color_ramp.elements[1].color = (0.11, 0.05, 0.025, 1)
+    nt.links.new(nz.outputs['Fac'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], b.inputs['Base Color'])
+    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.35
+    n2 = nt.nodes.new('ShaderNodeTexNoise'); n2.inputs['Scale'].default_value = 40.0; nt.links.new(tc.outputs['Object'], n2.inputs['Vector'])
+    nt.links.new(n2.outputs['Fac'], bp.inputs['Height']); nt.links.new(bp.outputs['Normal'], b.inputs['Normal'])
+    return m
+burnt = charred_iron('iron_charred_black_1936')
 def twisted(mb, x, y, z, L, rng, kink=True, w=0.9, flat=False):
     """a fallen girder/column length with an optional kink (I: generic ruin, never an intact component)."""
     a = rng.uniform(0, 2*math.pi); el = rng.uniform(-0.15, 0.25) if not flat else rng.uniform(-0.12, 0.12)
@@ -276,7 +281,7 @@ if STATE == 'AFTER':
         h = rs.uniform(4, 30) if rs.random() < 0.85 else rs.uniform(35, 62)
         if (x_ + 336)**2 + y_**2 < 45**2: continue
         lx, ly = rs.uniform(-0.25, 0.25)*h, rs.uniform(-0.25, 0.25)*h
-        DF.strut((x_, y_, gz(y_)), (x_ + lx, y_ + ly, gz(y_) + h), 1.2, 1.2)
+        DF.strut((x_, y_, gz(y_)), (x_ + lx, y_ + ly, gz(y_) + h), 0.8, 0.8)   # r12: 8-10 in columns, not 14 in (I)
     for x_ in [HALF - 24*k for k in range(4)]:              # north-end fragment: 3 bays of frame to the tiers, buckling
         for y_ in COL_Y:
             if abs(y_) < 37: continue
@@ -339,3 +344,6 @@ elif STATE == 'AFTER':
     sun.color = (1.0, 0.82, 0.62)
     sc.cycles.volume_step_rate = 6.0
 print('STATE', STATE, 'root', root.name)
+
+# ---------------- r12: PPL-20C 1936 dressing (appliances, hoses, crowds, police) ----------------
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dress36.py')).read())

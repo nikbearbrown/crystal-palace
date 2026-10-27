@@ -45,3 +45,22 @@
 - 23:20 r11b DONE. FIRE flames → emissive surface tongues (facing-ratio core × stretched world noise × per-vertex `hfac` tip fade); per-object volume flames tried and abandoned (too slow). `rounds/sydenham-1936fire-r11b.blend` (SY_STATE=FIRE; `SY_FLAMEVOL=1` = r11 look). `checks/r11b_1936fire.txt` 0 FAIL. Renders `renders/r11b_1936fire_*` (6 cams); sheets `compare/r11b_CP057_states.jpg`, `r11b_CP061/CP059/CP001_1936_vs_fire.jpg`, `r11b_CP062_1936_fire_after.jpg` (supersede the r11 fire sheets).
 - r11b Alhambra: geometry lace (`SY_LACE`, default on) in `rounds/sydenham-1856-r11b.blend`, `checks/r11b_1856.txt` 0 FAIL; 0108 at +0.2 EV: `RES=1080x1350 EXPO=0.2 blender -b rounds/sydenham-1856-r11b.blend -P scripts/render.py -- renders r11b_expo+0.2 100 64 CAM_compare_0108_alhambra` → `compare/r11b_alhambra_lace_vs_0108.jpg` (also −0.3 EV render kept).
 - Next (not started): sphinx sculpt (currently ellipsoid blobs, I); AFTER stump colour reads timber; fire appliances/crowds MISS.
+
+## r12 (23:00–) — sphinx, charred stumps, PPL-20C 1936 dressing
+- `scripts/sculpt.py`: the metaball sphinx (recumbent lion body, nemes hull, plinth) replaces the ellipsoid blobs. `scripts/states.py` uses it for all 6 terrace sphinxes and adds the `iron_charred_black_1936` material for AFTER stumps and wreckage.
+- `scripts/dress36.py` (exec'd from states.py for 1936/FIRE/AFTER):
+  - LFB pumps (`pump_parade_00…`) and turntable ladders (`TL_*`, `TL_ladder_*`);
+  - firemen, canvas hoses and water jets;
+  - 1930s crowds (`crowd36_*`) and police lines on the Parade and terraces;
+  - cameras CP058 and CP060.
+- Rounds `rounds/sydenham-{1856,1936,1936fire,1936after,ruins}-r12.blend`, all under 16 MB. RUINS41 is unchanged since r11.
+- Checks `checks/r12_*.txt` all have 0 FAIL:
+  - fire 23 PASS;
+  - after 16;
+  - 1936 21;
+  - ruins 14;
+  - 1856 20.
+  New r12 checks cover sphinx head height, pump/TL counts, pump length, police and crowd presence, and the charred material.
+- Renders `renders/r12_<state>_<cam>.png` at 960×540 and 32 spp, run detached by `/workspace/syd_scratch/render_r12.sh`.
+- 23:57 resume: r12b chain (CP058 camera moved inside the cordon, y 217) running detached: FIRE + 1936 rebuilt (0 FAIL), AFTER in progress. Dino branch clean at e1d59bb.
+- r12b DONE: CP058 camera moved to (-310, 217) inside the cordon (press position, graded I). Rebuilt FIRE/1936/AFTER r12; checks 23/0, 21/0, 16/0. CP058 re-rendered for all three; compare/r12_CP058_1936_fire_after.jpg regenerated. r12 milestone committed locally (no push).
