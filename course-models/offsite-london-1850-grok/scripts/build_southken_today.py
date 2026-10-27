@@ -100,92 +100,46 @@ albedo_noise(M["terracotta"], scale=30.0, lo=(0.75,0.7,0.6), hi=(1.1,1.05,0.95),
 albedo_noise(M["mosaic"], scale=80.0, lo=(0.4,0.4,0.4), hi=(1.3,1.2,1.1), strength=0.8)
 
 def london_plane(name, x, y, H=28.0, seed=1):
-    """London plane: tall trunk + visible branches + many small leaf clusters (not stacked big icospheres)."""
+    """Rounded broadleaf London plane: bark trunk + icosphere canopy lobes (exterior park-tree grammar) + leaf noise."""
     import bmesh
-    from mathutils import Matrix, Vector
+    from mathutils import Matrix
     rr = random.Random(seed)
     FT = 0.3048
     bm = bmesh.new()
-    # tall trunk (more of it showing)
-    trunk_h = H * 0.55
-    bmesh.ops.create_cone(bm, cap_ends=True, segments=12,
-                          radius1=0.85*FT, radius2=0.45*FT, depth=trunk_h*FT,
-                          matrix=Matrix.Translation((x*FT, y*FT, trunk_h*0.5*FT)))
-    # primary + secondary branches (bark cylinders as cones)
-    branch_tips = []
-    for bi in range(7):
+    # trunk as cone
+    bmesh.ops.create_cone(bm, cap_ends=True, segments=10,
+                          radius1=0.7*FT, radius2=0.5*FT, depth=H*0.42*FT,
+                          matrix=Matrix.Translation((x*FT, y*FT, H*0.21*FT)))
+    trunk_faces = set(bm.faces)
+    # canopy lobes — icospheres (reads rounded, not cone)
+    for j in range(14):
         a = rr.uniform(0, 2*math.pi)
-        elev = rr.uniform(0.35, 0.85)
-        z0 = trunk_h * (0.45 + 0.4 * (bi / 7.0))
-        L = H * rr.uniform(0.18, 0.32)
-        dx, dy = L * math.cos(a) * elev, L * math.sin(a) * elev
-        dz = L * rr.uniform(0.25, 0.55)
-        # approximate branch as thin cone along vector via translation+scale of unit cone is hard;
-        # use short overlapping cones stepping along the branch
-        steps = 4
-        for s in range(steps):
-            t0 = s / steps; t1 = (s + 1) / steps
-            cx = x + dx * (t0 + t1) * 0.5
-            cy = y + dy * (t0 + t1) * 0.5
-            cz = z0 + dz * (t0 + t1) * 0.5
-            rad = (0.28 - 0.18 * t0) * FT
-            # orient: Blender cone is Z-up; build thin upright stubs then we accept slight look;
-            # better: create_cone with matrix that maps Z to branch direction
-            direction = Vector((dx, dy, dz)).normalized()
-            up = Vector((0, 0, 1))
-            if abs(direction.dot(up)) > 0.999:
-                rot = Matrix.Identity(3)
-            else:
-                axis = up.cross(direction).normalized()
-                ang = up.angle(direction)
-                rot = Matrix.Rotation(ang, 3, axis)
-            mat = Matrix.Translation((cx*FT, cy*FT, cz*FT)).to_4x4()
-            mat = mat @ rot.to_4x4()
-            seg_len = (L / steps) * FT
-            bmesh.ops.create_cone(bm, cap_ends=True, segments=6,
-                                  radius1=rad, radius2=rad*0.7, depth=seg_len,
-                                  matrix=mat)
-        branch_tips.append((x + dx, y + dy, z0 + dz))
-    # many small leaf clusters (leaf-cluster noise) + darker underside material via z
-    for j in range(72):
-        if branch_tips and rr.random() < 0.7:
-            bx, by, bz = branch_tips[rr.randrange(len(branch_tips))]
-            a = rr.uniform(0, 2*math.pi); d = rr.uniform(0, H*0.10)
-            px = bx + d*math.cos(a); py = by + d*math.sin(a)
-            pz = bz + rr.uniform(-H*0.04, H*0.08)
-        else:
-            a = rr.uniform(0, 2*math.pi); d = rr.uniform(0, H*0.22)
-            px = x + d*math.cos(a); py = y + d*math.sin(a)
-            pz = rr.uniform(H*0.48, H*0.92)
-        r = rr.uniform(H*0.028, H*0.055)
-        bmesh.ops.create_icosphere(bm, subdivisions=1, radius=r*FT,
-            matrix=Matrix.Translation((px*FT, py*FT, pz*FT)))
+        d = rr.uniform(0, H*0.16)
+        z = rr.uniform(H*0.42, H*0.82)
+        r = rr.uniform(H*0.09, H*0.16)
+        bmesh.ops.create_icosphere(bm, subdivisions=2, radius=r*FT,
+            matrix=Matrix.Translation(((x + d*math.cos(a))*FT, (y + d*math.sin(a))*FT, z*FT)))
     me = bpy.data.meshes.new(name)
     bm.to_mesh(me); bm.free()
     me.materials.append(M["bark"]); me.materials.append(M["leaf"]); me.materials.append(M["leaf_d"])
-    trunk_z = trunk_h * 0.95 * FT
+    trunk_z = H * 0.40 * FT
     for poly in me.polygons:
         c = poly.center
-        # bark: trunk core OR any face whose normal is near-horizontal on a thin strip (branches)
-        # simpler: bark if low Z near trunk OR small radius from a bark-ish test (z below canopy + near axis)
-        dist_xy = math.sqrt((c.x - x*FT)**2 + (c.y - y*FT)**2)
-        if c.z < trunk_z and dist_xy < 1.4*FT:
-            poly.material_index = 0  # trunk
-        elif poly.normal.z < 0.15 and dist_xy < H*0.35*FT and c.z < H*0.75*FT:
-            # branch-ish: facing sideways, mid canopy height
+        # trunk: near axis and below canopy springing
+        if c.z < trunk_z and (c.x - x*FT)**2 + (c.y - y*FT)**2 < (1.2*FT)**2:
             poly.material_index = 0
-        elif poly.normal.z < -0.25:
-            poly.material_index = 2  # darker underside
         else:
-            poly.material_index = 1 if (hash(poly.index) % 3) else 2
+            poly.material_index = 1 if (poly.index % 2) else 2
     ob = bpy.data.objects.new(name, me)
     STREET.objects.link(ob)
+    # iron tree-guard as separate Kit
     gk = K()
     for a in range(0, 360, 45):
         rr2 = 1.7; ax = x + rr2 * math.cos(math.radians(a)); ay = y + rr2 * math.sin(math.radians(a))
         gk.cyl(I("iron"), (ax, ay, 0.05), (ax, ay, 3.4), 0.06, 6)
     gk.cyl(I("iron"), (x, y, 3.3), (x, y, 3.45), 1.75, 16, True, 1.65)
     gk.done(name + "_guard", STREET)
+
 
 for i, y in enumerate(range(-180, 200, 40)):
     for xi, x in enumerate((-26, 28)):
@@ -300,8 +254,8 @@ for i in range(24):
     x3 = CX + 26 * math.cos(a); y3 = CY + 26 * math.sin(a)
     rk.cyl(I("iron"), (x2, y2, 96), (x3, y3, 124), 1.05, 6)
 rk.done("SK_RAH", RAH)
-info["rah"] = {"cx_ft": CX, "cy_ft": CY, "note": "w04: deep brick/bands/dome + sash-bar arched glazing"}
-info["note"] = "w04: trees with branches+leaf clusters; sash-bar windows; exposure match; real footage may still replace"
+info["rah"] = {"cx_ft": CX, "cy_ft": CY, "note": "w04b: deep brick/bands/dome + sash-bar arched glazing; w03 trees restored"}
+info["note"] = "w04b: w03 London-plane canopy restored; keep w04 sash-bar dark glazing; exposure match; real footage may still replace"
 
 # Albert Memorial suggestion (further NE, lean obelisk/canopy stub) — skip to keep lean
 
