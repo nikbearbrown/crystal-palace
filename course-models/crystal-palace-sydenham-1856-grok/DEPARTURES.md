@@ -144,3 +144,31 @@ Soundness/dating check: stylised block build, clean, metre units, origin at the 
 | Sandstone colouring (Muse) kept; no Owen Jones polychromy added | Muse | U | period colouring of the casts not researched |
 
 **Dimension comparison with plan 0226 (Egyptian Court):** modelled court is x 180–276 (96 ft) by y 60–184 (124 ft incl. annex), with heights held ≤ 21.5 ft under the 22.17 ft tier. Muse's pair is 58 ft wide × 34.6 ft deep × 86.5 ft high — 60% of the court's width, 4× its permitted height; it cannot stand inside 0226 under the aisle tiers, and 0226 draws nothing of that size. 0226's "Model of the Abo Simbel Tomb" (plan 0205 item 12A) is therefore kept as my small 9 ft annex model (U), and the full-size colossi go where the Guide puts them: the full-height north transept. Both lost together with the north transept in the 1866 fire, hence the `__lost1866` suffix.
+
+## r10 — Alhambra / Egyptian detail pass (judged against engraving 0108)
+| Item | Where | Grade | Note |
+|---|---|---|---|
+| Polka-dot diaper replaced by procedural 8-point star / interlace relief (shader bump in `ornament.py`, not true displacement) | al_relief_mat | I / U | motifs are generic Nasrid-type geometry, not traced from Jones' plates (U); bump not displacement, so silhouettes stay flat (I) |
+| Stilted cusped arches with soffit muqarnas tiers + alfiz frame | `arch_screen` | I | 0108 R for the stilted/cusped form; muqarnas depth and tier count I |
+| Slender paired marble columns (paired at the colonnade corners and the central bays), ring-annulet shafts, cubic capitals | Lions colonnade | I | pairing rhythm read from 0108 only at the visible bays; the rest I |
+| Arcade ceiling (ATOP) at 19.5 ft | courts | I | |
+| Zellige tile dado, ivory mouldings; colour muted toward 0108's tonal values (OJ hues kept but desaturated) | materials | I | |
+| Lion fountain: 12 lions with blob-built bodies, 12-sided basin + upper bowl | courts | R arrangement / I form | |
+| Hanging planting over the arcade cornice | courts | I | 0108 shows creepers; species/extent U |
+| r10b fix: spandrel faces tessellated as one outline per side (the r08 vertical strips backtracked along the cusped profile → coplanar flipped faces → black slits) | `arch_screen` | — | geometry fix only |
+| Egyptian: lotus-bud / open-papyrus capitals, relief bands with generic hieroglyph and figure registers (bump), warmer sandstone + OJ polychromy | Egyptian court | I / U | capital types per 0226 hall I; glyph content generic U |
+| Colossi camera: target raised / fl kept at 35 mm so heads and crowns clear the frame | cameras | I | |
+| Egyptian entry frame 1 moved back to frame through the lotus portal, not the plain jambs | cameras | I | |
+| Muqarnas *domes* (Hall of Two Sisters / Divans) still not modelled | — | MISS | |
+
+## SY-POST66 (c.1868) — toggle `SY_STATE=POST66`, collection `SY-POST66_c1868`
+Evidence: north-transept fire 30 Dec 1866. Crystal Palace Park Trust: the north nave was rebuilt over ~2 years, **the north transept never rebuilt**; 1928 aerial (Historic England EPW021373, scratch-viewed, licence – not committed) shows a continuous nave running to an arched north end with no transept; crystal.dircon notes the colossi survived the fire but were not re-erected in the transept; Historic England blog: the Alhambra Court was restored after the fire. No post-fire elevation drawing found.
+| Item | Grade | Note |
+|---|---|---|
+| North transept (x 492–564) removed; that bay infilled with standard nave bays | R removal / I infill identical to standard bays | aerial shows a continuous ridge, bay detail not legible |
+| North end wall + lunette gable kept as in 1856 | I / R | aerial shows an arched end; detail I |
+| North wing length shortened to 240 ft | U | not measured from a source |
+| Colossi removed | I | they survived the fire; later fate U |
+| North garden stairs removed with the transept | I | |
+| Alhambra kept (restored); its wall lowered to 21.4 ft to sit under the aisle roof now the transept vault is gone; transept-floor void kept for the court | I | |
+| CP047 (north end from the upper terrace, 35 mm) and CP048 (terrace walk 7 m + hold, 35 mm) — identical camera objects in both states for the matched before/after pair | cameras | I | storyboard viewpoints I |

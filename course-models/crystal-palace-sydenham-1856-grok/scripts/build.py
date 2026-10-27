@@ -111,7 +111,12 @@ def flowers_mat(name):
 M['flowers'] = flowers_mat('flower_beds_bedding')
 
 # ---------- collections ----------
-root = bpy.data.collections.new('SY-EARLY_c1856'); sc.collection.children.link(root)
+# r10: SY-POST66 state toggle (env SY_STATE=POST66). Fire of 30 Dec 1866: north transept never rebuilt (Park Trust
+# chronology; Norwood Soc.), north nave rebuilt over ~2 years (Park Trust), north wing only partly rebuilt (Black's guide
+# via History Hunters; crystal.dircon: 'except part of a low narrow wing'); 1928 aerial EPW021373 shows no north transept
+# and a continuous nave to an arched north end gable. See DEPARTURES D-R10-P*.
+POST66 = os.environ.get('SY_STATE', '').upper() == 'POST66'
+root = bpy.data.collections.new('SY-POST66_c1868' if POST66 else 'SY-EARLY_c1856'); sc.collection.children.link(root)
 def coll(name, parent=root):
     c = bpy.data.collections.new(name); parent.children.link(c); return c
 C = {k: coll(k) for k in ['SY_main_frame', 'SY_main_roofs_glazing', 'SY_nave_vault', 'SY_central_transept',
@@ -151,7 +156,7 @@ class MB:
 HALF = LENGTH/2
 def in_span(x, xs):  # inside a transept span (open interior)
     return any(abs(x-c) < w/2 - 0.1 for c,w in xs)
-TSPANS = [(0, CT_SPAN), (-ST_X, ST_SPAN), (ST_X, ST_SPAN)]
+TSPANS = [(0, CT_SPAN), (-ST_X, ST_SPAN)] + ([] if POST66 else [(ST_X, ST_SPAN)])   # POST66: north transept bay rebuilt as plain nave bays (R/I)
 def tcol(x):
     if abs(x) < CT_SPAN/2+0.1: return 'SY_central_transept'
     if abs(x-ST_X) < ST_SPAN/2+0.1: return 'SY_north_transept__lost1866'
@@ -169,7 +174,7 @@ def col_h(y):
 
 # r08 courts: main-frame voids where a fine-arts court occupies the ground floor (columns/girders/gallery floor omitted
 # inside the court rectangle; Egyptian court x180-276 y60-156 per plans 0205/0226; I - the real columns' treatment is U)
-COURT_VOIDS = [] if os.environ.get('SY_NO_COURTS') else [(180, 276, 60, 156)]
+COURT_VOIDS = [] if os.environ.get('SY_NO_COURTS') else [(180, 276, 60, 156)] + ([(492, 564, 60, 156)] if POST66 else [])   # POST66: restored Alhambra keeps its void in the infilled bay (I)
 def in_court(x, y): return any(x0 < x < x1 and y0 < y < y1 for x0, x1, y0, y1 in COURT_VOIDS)
 # ---------- main frame: columns + girders on the 24 ft grid ----------
 frame = {}
@@ -347,7 +352,7 @@ def vault(name, col, axis, c, span, spring, a_lo, a_hi, rib_every=24.0, skip=Non
 vault('nave_vault', C['SY_nave_vault'], 'x', 0, NAVE_SPAN, NAVE_SPRING, -HALF, HALF, 24.0, skip=lambda t: in_span(t, TSPANS))
 CT_Y0, CT_Y1 = -156-CT_GARDEN_PROJ, 156+CT_WEST_PROJ
 vault('central_transept_vault', C['SY_central_transept'], 'y', 0, CT_SPAN, CT_SPRING, CT_Y0+RECESS, CT_Y1, 24.0, nseg=48)
-for nm, xc in (('south', -ST_X), ('north', ST_X)):
+for nm, xc in (('south', -ST_X),) + (() if POST66 else (('north', ST_X),)):
     key = 'SY_south_transept' if nm=='south' else 'SY_north_transept__lost1866'
     vault(nm+'_transept_vault', C[key], 'y', xc, ST_SPAN, NAVE_SPRING, -156+RECESS, 156, 24.0)
 
@@ -421,7 +426,7 @@ def transept(key, xc, span, spring, y0, y1, recess):
     w.done(); fr.done(); rr.done()
 transept('SY_central_transept', 0, CT_SPAN, CT_SPRING, CT_Y0, CT_Y1, RECESS)
 transept('SY_south_transept', -ST_X, ST_SPAN, NAVE_SPRING, -156, 156, RECESS)
-transept('SY_north_transept__lost1866', ST_X, ST_SPAN, NAVE_SPRING, -156, 156, RECESS)
+if not POST66: transept('SY_north_transept__lost1866', ST_X, ST_SPAN, NAVE_SPRING, -156, 156, RECESS)
 # central transept floor projections beyond general walls
 ctf = MB('central_transept_projection_floor', C['SY_central_transept'], M['floor'])
 ctf.box(-CT_SPAN/2, CT_SPAN/2, CT_Y0, -156, -1, 0); ctf.box(-CT_SPAN/2, CT_SPAN/2, 156, CT_Y1, -1, 0); ctf.done()
@@ -491,7 +496,7 @@ for xa_, xb_ in ((-HALF, -CT_SPAN/2), (CT_SPAN/2, HALF)):
 arcade(-CT_SPAN/2, CT_SPAN/2, CT_Y0, -BD, 0)
 # garden stairs from the upper terrace to the main floor at each transept front (I: positions; 0007 shows central flight)
 stt = MB('garden_stairs_to_main_floor', C['SY_basement_garden_front'], M['stone'])
-for xc_, wdt, yf in ((0, 72, CT_Y0), (-ST_X, 48, -157), (ST_X, 48, -157)):
+for xc_, wdt, yf in ((0, 72, CT_Y0), (-ST_X, 48, -157)) + (() if POST66 else ((ST_X, 48, -157),)):   # POST66: no transept door to serve (I)
     nst = 32; rise = BD/nst
     for i in range(nst):
         stt.box(xc_-wdt/2, xc_+wdt/2, yf-(nst-i)*1.25, yf-(nst-i-1)*1.25, -BD, -BD + (i+1)*rise)
@@ -500,10 +505,11 @@ for xc_, wdt, yf in ((0, 72, CT_Y0), (-ST_X, 48, -157), (ST_X, 48, -157)):
 bw.done(); stt.done(); bs.done()
 
 # ---------- wings (574 ft, toward the garden at both ends) ----------
+WING_LEN_POST66 = 240.0   # U: 'part of a low narrow wing' survived / partly rebuilt; 10 bays kept, length not evidenced
 wg = MB('wings_glass', C['SY_wings'], M['glass_wall']); wf = MB('wings_frame', C['SY_wings'], M['iron_ext']); wr = MB('wings_roof', C['SY_wings'], M['glass_roof'])
 for sx in (-1, 1):
     xc = sx*WING_CX; xa, xb = xc-WING_W/2, xc+WING_W/2
-    ya, yb = WING_Y0 - WING_LEN, WING_Y0
+    ya, yb = WING_Y0 - (WING_LEN_POST66 if (POST66 and sx > 0) else WING_LEN), WING_Y0
     top = TIERS[1]   # I: wing roof level with 2nd tier of main building; base steps down with slope (U)
     zb = -BD - 10    # I: wing lower storey below basement level (guide p.29-30: 3 storeys in South Wing)
     for (p0, p1) in (((xa,ya),(xa,yb)), ((xb,ya),(xb,yb)), ((xa,ya),(xb,ya))):
@@ -970,6 +976,13 @@ cam('CAM_compare_0074', (-340, yL+60, LT+EYE+6), (160, -157, 62), 35)       # r0
 cam('CAM_compare_0007', (60, -1500, LT+30), (-194, -157, -98), 35)  # r07: re-solved from tower/transept bearings (-21°/+8°) and H basin in the foreground; raised, looking down (I)
 cs = cam('CAM_section_cut_x-300', (-330, -20, 62), (0, -20, 62), 50, ortho=400)  # r07: true section on braced grid line x=-300 (k=21)
 cs.data.clip_start = f(24); cs.data.clip_end = f(36)  # slice x=-306..-294
+# r10 CP047/CP048 (storyboard: north end from the upper garden terrace; terrace walk). Same cameras in both states so the
+# SY-EARLY / SY-POST66 renders are a matched before/after pair (positions I).
+cam('CAM_CP047_north_end_35mm', (280, yU + 10, UT + EYE), (620, -156, 50), 35)
+_c48 = cam('CAM_CP048_terrace_walk_35mm', (380 + 7.0/F, yU + 24, UT + EYE), (760, -150, 40), 35)
+_c48.location = [f(v) for v in (380, yU + 24, UT + EYE)]; _c48.keyframe_insert('location', frame=1)
+_c48.location = [f(v) for v in (380 + 7.0/F, yU + 24, UT + EYE)]; _c48.keyframe_insert('location', frame=120)   # 7 m walk north
+cam('CAM_CP048_terrace_hold_35mm', (380 + 7.0/F, yU + 24, UT + EYE), (760, -150, 40), 35)
 sc.camera = bpy.data.objects['CAM_ext_garden_34_terrace']
 
 # ---------- r08: fine-arts courts (separate collections inside the shell) ----------

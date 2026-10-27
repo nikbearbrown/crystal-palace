@@ -22,3 +22,11 @@
 - NOT pushed. Branch grok-sydenham-1856, local commits only.
 - Next states: courts (0226/0246) → post-1866 without North Transept → 1936 fire → ruins/towers.
 - r09 (20:35): appended Muse colossi (vendored, unmodified) into SY56_north_transept_colossi_muse__lost1866 at the garden end of the north transept; 12/12 PASS; final render renders/r09final_CAM_north_transept_colossi_35mm.png
+- r10 START (20:45): brief = Alhambra detail pass (relief stucco via shader displacement, zellige dado, slender paired columns, cusped stilted/muqarnas arches, lions, planting, muted colour); Egyptian lotus capitals + relief/hieroglyph bands, warmer; colossi cam headroom; Egyptian entry frame 1; SY-POST66 state (env SY_STATE=POST66 + merged scenes) with CP047/CP048 matched before/after pairs. Evidence for post-1866: Historic England blog (north transept never rebuilt; North Nave, Alhambra, Byzantine restored), crystal.dircon chronology ("whole of the north end ... except part of a low narrow wing"), Aerofilms EPW021373 1928 ("truncated north end") — scratch copy /workspace/syd_scratch/post66/ (not committed: licence).
+
+## r10 (milestones)
+- Fixed an infinite loop in `hang()` (rr guard) that had hung the build.
+- r10a/r10b: Alhambra detail pass (relief shader, stilted cusped arches + muqarnas soffits, paired slender columns, dado, Lions fountain, planting, muted colour) + Egyptian lotus capitals/relief bands; colossi headroom and Egyptian entry frame fixed.
+- r10b: spandrel black slits fixed (tessellated spandrel faces). `rounds/sydenham-1856-r10b.blend` 588 obj / 460k faces; `checks/r10b_dimension_check.txt` 12/12 PASS.
+- SY-POST66: `SY_STATE=POST66 blender -b -P scripts/build.py -- rounds/sydenham-post66-r10.blend` → 295 obj / 432k faces; `checks/post66_r10_dimension_check.txt` 12/12 PASS (north transept ABSENT = pass in POST66).
+- Renders: `renders/r10final_*`, `renders/post66r10_*` (CP047/CP048 identical settings 50%/40 spp); compare sheets in `compare/r10_*`.

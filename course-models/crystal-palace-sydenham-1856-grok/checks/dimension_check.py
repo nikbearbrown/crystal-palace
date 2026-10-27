@@ -19,7 +19,11 @@ chk('central transept span', hi[0]-lo[0], 120, 1, 'common figure; plan reads 104
 lo, hi = bb(['nave_vault_glass']); chk('nave crown above main floor', hi[2], 110.25, 0.5, "guide p.35 B 110'3\"")
 chk('nave span', hi[1]-lo[1], 72, 0.5, 'section 0212 R')
 lo, hi = bb(['basement_brick']); chk('basement depth below main floor', -lo[2], 23.58, 0.3, "guide p.35 B 197'10\"-174'3\"")
+POST66 = any(c.name.startswith('SY-POST66') for c in bpy.data.collections)
 for w in ('south','north'):
+    if w == 'north' and POST66:
+        ok = f'{w}_transept_vault_glass' not in bpy.data.objects
+        rows.append(f"{'PASS' if ok else 'FAIL'}  north transept ABSENT (SY-POST66 state)          [1866 fire, never rebuilt: R]"); continue
     lo, hi = bb([f'{w}_transept_vault_glass']); chk(f'{w} transept centre x (plan 0205)', (lo[0]+hi[0])/2, -528 if w=='south' else 528, 8, 'plan 0205 R: -529/+523')
 lo, hi = bb(['wings_glass']); chk('wing length (N-S direction, each)', hi[1]-lo[1], 574, 1, 'guide p.35 B')
 lo, hi = bb(['colonnade_roof']); chk('railway colonnade length', hi[1]-lo[1], 720, 1, 'guide p.35 B')
