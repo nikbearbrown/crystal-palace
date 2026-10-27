@@ -33,8 +33,17 @@ cams = arg("--cams", "").split(",") if arg("--cams") else [o.name for o in bpy.d
 states = json.loads(bpy.data.texts["grok_states"].as_string()) if "grok_states" in bpy.data.texts else {}
 base = {o.name: o.hide_render for o in bpy.data.objects}
 _era = arg("--era", "1852"); _tod = arg("--tod", "exterior_midday")
-_look = apply_look(era=_era, time_of_day=_tod)
-exp0 = _look["exposure"]
+if "--keep-lighting" in argv:
+    print("KEEP_LIGHTING exposure", sc.view_settings.exposure, flush=True)
+    exp0 = float(sc.view_settings.exposure)
+    _look = {"exposure": exp0}
+else:
+    _look = apply_look(era=_era, time_of_day=_tod)
+    exp0 = _look["exposure"]
+if arg("--exposure"):
+    exp0 = float(arg("--exposure"))
+    sc.view_settings.exposure = exp0
+    print("EXPOSURE_OVERRIDE", exp0, flush=True)
 for cn in cams:
     cam = bpy.data.objects[cn]; sc.camera = cam
     if swap_scene_people is not None and "--no-people" not in argv:
