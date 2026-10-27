@@ -33,7 +33,7 @@ def override_claude_roofs():
     print("CLAUDE_ROOF_OVERRIDE slots", n, flush=True); return n
 def _hide(ob):
     ob.hide_render = True; ob.hide_viewport = True
-def combine(claude=None, transept=None, roof_override=True):
+def combine(claude=None, transept=None, roof_override=True, furrow=False):
     out = {}
     if claude:
         out["claude"] = append(claude, "MODEL")
@@ -44,10 +44,15 @@ def combine(claude=None, transept=None, roof_override=True):
             x, y, z = ob.location / FT; pk = ob.get("part_kind")
             if claude and (ob.get("claude_line37") or ob.get("claude_overlap") or (pk in ("column", "girder", "roof") and x < -36.5)):
                 _hide(ob)
+            if claude and ob.get("show_with_claude"):
+                ob.hide_render = False; ob.hide_viewport = False                # transept r09: Muse's Una at catalogue cell S29
             if ob.name.startswith(("WALL_N1_", "WALLF_N1_", "WLOUV_N1_", "WALL_NE1", "WALLF_NE1", "WLOUV_NE1")):
                 _hide(ob)                                                  # opens into the north strip (EX06)
             if pk in ("wall", "wall_fill", "louvre") and abs(abs(x) - 132) < 0.2 and abs(y) < 132:
                 _hide(ob)                                                  # arm clerestory is interior once tier 2 runs on (EX07)
         for ob in bpy.data.objects:                                        # one park plane only: the transept's (EX16)
             if ob.name.startswith("EGROUND_PARK"): _hide(ob)
+    if furrow:   # EX27: render-time only -- flat roof units (Claude's + ours) become Muse's furrow bay
+        import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import furrow as F; out["furrow"] = F.swap_flat_roofs()
     return out

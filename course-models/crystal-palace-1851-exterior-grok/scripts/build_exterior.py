@@ -71,7 +71,7 @@ def mat_principled(name, rgb, rough=0.6, metal=0.0):
     m.diffuse_color = (*rgb, 1)
     return m
 
-def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True, milk=0.06, milk_rgb=(0.9, 0.93, 0.92)):
+def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True, ridge=False, milk=0.06, milk_rgb=(0.9, 0.93, 0.92)):
     """Thin sheet glass: fresnel-weighted gloss over a tinted transparent, shadow rays pass (so sun reaches the
     floor), optional procedural diagonal sash-bar lines from the UVs (1 UV unit = 1 ft)."""
     m = bpy.data.materials.new(name); m.use_nodes = True
@@ -88,10 +88,14 @@ def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True, milk=0.06, milk_rgb=(0.9
     last = mx2.outputs[0]
     if bars:
         uv = n.new("ShaderNodeTexCoord"); sep = n.new("ShaderNodeSeparateXYZ"); l.new(uv.outputs["UV"], sep.inputs[0])
-        add = n.new("ShaderNodeMath"); add.operation = 'ADD'; l.new(sep.outputs[0], add.inputs[0]); l.new(sep.outputs[1], add.inputs[1])
-        mul = n.new("ShaderNodeMath"); mul.operation = 'MULTIPLY'; mul.inputs[1].default_value = 1 / 0.85; l.new(add.outputs[0], mul.inputs[0])
+        mul = n.new("ShaderNodeMath"); mul.operation = 'MULTIPLY'
+        if ridge:   # EX27/RL05: Paxton sash bars run down the slope, square to the ridge (X), at 10.5 in (0.875 ft) centres
+            mul.inputs[1].default_value = 1 / 0.875; l.new(sep.outputs[0], mul.inputs[0]); thr = 0.12   # ~1.25 in bar / 10.5 in
+        else:       # legacy diagonal mask (vault / sash glazing)
+            add = n.new("ShaderNodeMath"); add.operation = 'ADD'; l.new(sep.outputs[0], add.inputs[0]); l.new(sep.outputs[1], add.inputs[1])
+            mul.inputs[1].default_value = 1 / 0.85; l.new(add.outputs[0], mul.inputs[0]); thr = 0.07
         frc = n.new("ShaderNodeMath"); frc.operation = 'FRACT'; l.new(mul.outputs[0], frc.inputs[0])
-        lt = n.new("ShaderNodeMath"); lt.operation = 'LESS_THAN'; lt.inputs[1].default_value = 0.07; l.new(frc.outputs[0], lt.inputs[0])
+        lt = n.new("ShaderNodeMath"); lt.operation = 'LESS_THAN'; lt.inputs[1].default_value = thr; l.new(frc.outputs[0], lt.inputs[0])
         bar = n.new("ShaderNodeBsdfDiffuse"); bar.inputs[0].default_value = (0.82, 0.8, 0.74, 1)
         mx3 = n.new("ShaderNodeMixShader"); l.new(lt.outputs[0], mx3.inputs[0]); l.new(last, mx3.inputs[1]); l.new(bar.outputs[0], mx3.inputs[2])
         last = mx3.outputs[0]
@@ -356,7 +360,7 @@ for x in LINES_E:
 
 # ---------------- ridge-and-furrow roofs (24 x 8 ft units, ridges along X like Claude's) ----------------
 # EX19: exterior roof glass greyer and less milky than the transept glass, so 19 acres of roof read as glass, not white slabs
-ROOFGLASS = mat_glass("GT_RoofGlassExt", tint=(0.58, 0.64, 0.64), milk=0.025, milk_rgb=(0.55, 0.58, 0.58))
+ROOFGLASS = mat_glass("GT_RoofGlassExt", tint=(0.58, 0.64, 0.64), milk=0.025, milk_rgb=(0.55, 0.58, 0.58), ridge=True)
 def mesh_roof_unit():
     bm = bmesh.new(); uvl = bm.loops.layers.uv.new()
     L = ft(24); W = ft(8); rise = ft(1.6)
