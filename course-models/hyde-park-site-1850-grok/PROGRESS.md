@@ -8,8 +8,13 @@
 - Final renders `renders/s01/` (1920×1080, 96 spp), contact sheet.
 - Self-score 7/10. Misses: background park trees are lollipop clumps; CP009 columns stand upright in a row (reads more "display" than "stack"); CP009_start foreman cuts the left edge as a dark block; CP006 winter trees bare-generic; Rotten Row riders are simplified horse+rider meshes, barely visible in any shot.
 
+## Checkpoint s02 (2026-10-26)
+- Site fix 1 only (Professor Bear): CP009 dray with a column being unloaded, horse, carter; workman_1 moved off the CP009_end sightline; CP009_end retargeted onto the horizontal columns on bearers.
+- `rounds/s02.blend`; D-checks `checks/s02_checks.json`: **25/25 pass** (first build failed F1 carter vs dray by 0.05 ft; carter moved 0.7 ft south).
+- Final renders `renders/s02/` (1920×1080, 96 spp) + contact sheet (`scripts/render_s02.sh`, detached).
+
 ## Next
-1. Lay CP009 columns horizontally on bearers in a proper stack; add a cart.
+1. ~~CP009 columns on bearers + cart~~ (s02 done).
 2. Replace lollipop park trees with Muse/elm-card trees for the near 300 ft.
 3. CP006: add frost/low sun haze; a few walkers on the footpath.
 4. CP008: fade-in variant (overlay alpha ramp) for the edit.

@@ -357,6 +357,28 @@ def stack(c, tag, ox, oy, zf):
     return out
 SOX, SOY = 185.0, -222.0
 stats = stack(ST, "ST", SOX, SOY, zg)
+# timber-wheeled dray bringing one more 18 ft 8 in column to the stack (fix s02; SD26)
+CX, CY = 197.0, -228.0; cz = zg(CX, CY); WR = 2.4
+bm = bmesh.new()
+for sy in (-1, 1):                                    # two spoked wheels (rim, hub, 12 spokes)
+    yw = CY + sy * 2.75
+    for k in range(24):
+        a0, a1 = 2 * math.pi * k / 24, 2 * math.pi * (k + 1) / 24
+        rod(bm, (CX + WR * math.cos(a0), yw, cz + WR + WR * math.sin(a0)), (CX + WR * math.cos(a1), yw, cz + WR + WR * math.sin(a1)), 0.12, 6)
+    for k in range(12):
+        a = 2 * math.pi * k / 12; rod(bm, (CX, yw, cz + WR), (CX + (WR - 0.1) * math.cos(a), yw, cz + WR + (WR - 0.1) * math.sin(a)), 0.05, 5)
+    rod(bm, (CX, yw - 0.35, cz + WR), (CX, yw + 0.35, cz + WR), 0.3, 10)
+rod(bm, (CX, CY - 3.1, cz + WR), (CX, CY + 3.1, cz + WR), 0.14, 8)          # axle
+box(bm, CX - 6.0, CX + 6.0, CY - 2.2, CY + 2.2, cz + WR + 0.25, cz + WR + 0.6)   # bed
+for sy in (-1, 1):
+    box(bm, CX - 6.0, CX + 6.0, CY + sy * 2.2 - 0.2, CY + sy * 2.2 + 0.2, cz + WR + 0.6, cz + WR + 1.1)  # side rails
+    rod(bm, (CX + 5.5, CY + sy * 1.5, cz + WR + 0.4), (CX + 16.0, CY + sy * 1.25, cz + 3.4), 0.18, 6)   # shafts
+box(bm, CX - 5.6, CX - 5.0, CY - 1.0, CY - 0.4, zg(CX - 5.3, CY) , cz + WR + 0.25)      # prop leg
+obj("ST_CART", finish(bm, "st_cart", [DEAL]), ST, part_kind="cart", note="two-wheeled timber dray, interpretive (SD26)")
+o = obj("ST_CART_COLUMN", COL18, ST, (CX - 9.0, CY, cz + WR + 0.6 + P.COL_R), 0.0, part_kind="column", length_ft=18.667); o.rotation_euler = (0, math.radians(90), 0)
+hm = FG.horse_group_mesh("PM_carthorse", 2.5, HORSE, rearing=False, rider=False, base=False)
+obj("ST_CARTHORSE", hm, ST, (CX + 14.5, CY, zg(CX + 14.5, CY)), 0.0, part_kind="horse")
+person("ST_FIG_carter", ST, "man", WORK(2), {"hat": "low", "belt": True}, CX + 13.5, CY - 4.3, 150, role="carter")
 DTX, DTY = 158.0, -243.0; dz = zg(DTX, DTY)
 bm = bmesh.new()
 n0 = len(bm.faces); box(bm, DTX - 2.5, DTX + 2.5, DTY - 1.4, DTY + 1.4, dz + 2.85, dz + 2.95); mark(bm, n0, 0)
@@ -372,7 +394,7 @@ sheet("ST_DRAWING_ON_TABLE", ST, DTX - 0.4, DTY + 0.1, dz + 2.955, 3.0, 2.0, (0,
 sheet("ST_DRAWING_HANDED", ST, DTX + 2.05, DTY - 0.1, dz + 3.75, 1.5, 1.0, (math.radians(70), 0, math.radians(90)))
 person("ST_FIG_engineer", ST, "man", GENT(0), {"hat": "top", "frock": True, "cravat": True}, DTX + 3.25, DTY - 0.1, 180, role="engineer (Fox, Henderson)")
 person("ST_FIG_foreman", ST, "man", WORK(1), {"hat": "low", "belt": True}, DTX + 0.35, DTY - 2.6, 60, role="foreman")
-for k, (x, y, f) in enumerate(((178.0, -207.0, 250), (171.0, -226.0, 120), (150.0, -214.0, 300))):
+for k, (x, y, f) in enumerate(((178.0, -207.0, 250), (179.0, -230.6, 200), (150.0, -214.0, 300))):
     person(f"ST_FIG_workman_{k}", ST, "man", WORK(k), {"hat": ("cap", "low", "cap")[k]}, x, y, f, role="workman")
 info["stack"] = stats
 

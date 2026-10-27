@@ -31,3 +31,5 @@ Frame: HP1851 crossing origin, X east, Y north, feet. Hyde Park 1850 only (no Sy
 | SD23 | Engineer is "Fox, Henderson staff" — no named person; foreman + 3 workmen generic | C | |
 | SD24 | Sky sun disc off (Blender 5.1 Nishita), sun lamp at az 160 / el 36 | D | technical |
 | SD25 | Muse S13 refs read with `git show origin/muse-round2:…` into /workspace/tmp only; no Muse/Claude/Codex files edited | — | rule |
+| SD26 | s02: CP009 four-wheeled dray (2.4 ft wheels, 12 ft bed) with one 18 ft column being unloaded, draught horse + carter; dray form interpretive, not from a specific print | I | Downes/ILN show carted ironwork, no specific vehicle drawing used |
+| SD27 | s02: CP009 columns were already flat on bearers in s01; the "upright" read came from the row of 8 connecting pieces, so the fix is a camera retarget (end look → [182,-230.5,2.2]) + the dray rather than a re-stack | C | |
