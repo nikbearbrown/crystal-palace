@@ -117,3 +117,9 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
 - Timber hoarding around the site, horse-and-cart stand-ins, glass crates and girder stacks on site.
 - Spoil heaps scaled to the pit volume.
 - CP014 section reframed with a larger lower half.
+
+## c06-lite (2026-10-27): CP010 scale view only (the rest of c06 is parked as backlog)
+- CN39: 14 scale-marker figures every 96 ft along the CP010_extent view; eye height unchanged.
+- Checks 32/32 (new K32: spacing 96 ft, no clashes, 12/14 heads visible from the camera).
+- Renders: renders/c06/CP010_extent_start.png and CP010_extent_end.png (1280x720, 48 spp).
+- Backlog (parked, not started): the remaining c06 list above.

@@ -787,7 +787,13 @@ for (px, py) in ((-756, -204), (-756, -180), (-732, -204), (-708, -180), (-684, 
     worker(px + 5.6, py - 1.2, 0, "stand", 180, "CP010X")               # ganger at the pit edge
 cart("field_spoil", -716, -236, 0, "spoil", 1)
 worker(-774, -207.5, 0, "work", 90, "CP010X"); worker(-790, -186, 0, "stand", 0, "CP010X")    # setting out at the last pegs
-FIELD_INFO = {"positions": len(FIELD_POS), **fcount, "pits_open": len(fpits), "heaps": fn, "heaps_skipped": fskip}
+# c06 (CN39): scale markers for CP010_extent - one standing labourer every 96 ft (4 bays) on the grid lines, midway
+# between the two south pit rows (y -192), from the dug zone to the rising frame. Eye height unchanged (5.25 ft).
+SCALE_MARKERS = []
+for k in range(14):
+    mx = -708.0 + 96 * k
+    ob = worker(mx, -192.0, 0, "stand", 90, "CP010S"); ob["scale_marker"] = True; ob["marker_k"] = k; SCALE_MARKERS.append(ob)
+FIELD_INFO = {"positions": len(FIELD_POS), "scale_markers": len(SCALE_MARKERS), **fcount, "pits_open": len(fpits), "heaps": fn, "heaps_skipped": fskip}
 print("FIELD", json.dumps(FIELD_INFO), flush=True)
 
 # ---------------- CP012: horse hauling the sheer-leg fall through a snatch block (CN34) ----------------

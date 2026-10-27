@@ -139,6 +139,23 @@ if cam:
             if hit and ob.get("part_kind") in ("roof_unit", "gutter", "sash_bars", "glazing", "roof"):
                 st = ob.get("state", ob.get("part_kind")); seen[st] = seen.get(st, 0) + 1
 chk("K31", cam and len(seen) >= 2, "CP013_layers sees more than one roof layer (glazed / bars / gutter)", json.dumps(seen))
+mk = sorted([o for o in bpy.data.objects if o.get("scale_marker")], key=lambda o: o["marker_k"])
+dg = bpy.context.evaluated_depsgraph_get(); sc = bpy.context.scene; clash = []; vis = 0
+cam = obs.get("CP010_extent_start")
+for o in mk:
+    p0 = o.location.copy()
+    for a in range(8):
+        d = Vector((math.cos(a * math.pi / 4), math.sin(a * math.pi / 4), 0))
+        for z in (1.0, 4.0):
+            hit, loc, nrm, idx, ob, M = sc.ray_cast(dg, p0 + Vector((0, 0, z * FT)), d, distance=1.5 * FT)
+            if hit and ob != o: clash.append((o.name, ob.name)); break
+    if cam:
+        tgt = p0 + Vector((0, 0, 5.0 * FT)); dv = tgt - cam.matrix_world.translation
+        hit, loc, nrm, idx, ob, M = sc.ray_cast(dg, cam.matrix_world.translation, dv.normalized(), distance=dv.length + 0.3)
+        if hit and ob == o: vis += 1
+gaps = {round(f(b.location.x - a.location.x), 2) for a, b in zip(mk, mk[1:])}
+chk("K32", len(mk) >= 10 and gaps == {96.0} and not clash and vis >= len(mk) // 2, "CP010 scale markers: a standing figure every 96 ft, clear of pits/heaps/props, most visible from CP010_extent",
+    f"{len(mk)} markers x {f(mk[0].location.x):.0f}..{f(mk[-1].location.x):.0f}, gaps {sorted(gaps)}, clashes {clash[:4]}, head visible {vis}/{len(mk)}" if mk else "none")
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w") as fh:
     fh.write(f"# construction checks {os.path.basename(bpy.data.filepath)}\n\n| id | result | check | detail |\n|---|---|---|---|\n")
