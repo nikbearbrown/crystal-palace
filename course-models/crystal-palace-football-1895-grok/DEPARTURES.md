@@ -39,3 +39,7 @@ Retry of v3.1-reverted CP050/CP055 with people_lib 3.3 + `--keep-lighting`. Hone
 | CP055 bank 1913 | 1910s | REVERT | pale/ghostly bank + washout ~1.12×; contrast lost |
 
 Heroes left at pre-adopt PNGs. Pairs under `people_v33/previews/`.
+
+## People library v3.4 — close-up gate (2026-10-27)
+
+Synced people_lib 3.4 (`CLOSE_UP_FRAME_FRAC`). No football keeps this round (CP050/055 already reverted).
