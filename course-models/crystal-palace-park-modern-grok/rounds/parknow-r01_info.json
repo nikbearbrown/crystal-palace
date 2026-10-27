@@ -1,0 +1,19 @@
+{
+  "state": "PARKNOW",
+  "inferences": [
+    "D-PM-01 I: park levels reuse Sydenham ruins41 terrain (no OS/LiDAR open data in workspace; searched 2026-10-27)",
+    "D-PM-02 I: HL shed demolished by 1960s; platform stubs only (exact demolition date U)",
+    "D-PM-03 I: subway shown in restored Open-House condition (cream/red patterned brick); exact 2020s finish U",
+    "D-PM-05 I: NSC placed at (-50.0,-550.0,-47.0) m near former south-basin/football ground; no NSC plan in repo",
+    "D-PM-06 I: footprint overlay registered to Sydenham model axes (not independently georeferenced OS); label approximate",
+    "D-PM-07 R: dinosaurs appended read-only from dinosaurs-1854-r01.blend (conserved survivors)",
+    "D-PM-08 I: dinosaur cluster translated by (-50,-880,-48) m to south-park lake; native blend local origin"
+  ],
+  "sydenham_appended": 11,
+  "nsc": 1,
+  "dinos_appended": 4,
+  "ppl_spots_planned": 102,
+  "ppl_now": 96,
+  "objects": 382,
+  "faces": 338559
+}

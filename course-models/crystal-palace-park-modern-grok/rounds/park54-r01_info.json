@@ -1,0 +1,10 @@
+{
+  "state": "PARK54",
+  "inferences": [
+    "D-PM-01 I: park levels reuse Sydenham ruins41 terrain (no OS/LiDAR open data in workspace; searched 2026-10-27)",
+    "D-PM-04 I: subway sealed/quiet after 1954 closure; interior still patterned but dim"
+  ],
+  "sydenham_appended": 11,
+  "objects": 233,
+  "faces": 120961
+}

@@ -1,0 +1,12 @@
+00:00.915  blend            | Read blend: "/workspace/crystal-palace-park-modern/course-models/crystal-palace-park-modern-grok/rounds/park54-r01.blend"
+STATE  root collection = PARK54_HighLevel_closed_1954
+PASS  Sydenham ruins shell appended                                [rule]
+PASS  High Level / subway geometry present                         [G-STATION]
+PASS  closed HL station + gated subway head                        [closed 1954 R]
+PASS  CP065 camera present                                         [storyboard]
+PASS  all 2 cameras on 36 mm sensor                                [rule]
+PASS  no camera roll                                               [rule]
+INFO  objects=233 cameras=2
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 02:18:37)
+
+Blender quit

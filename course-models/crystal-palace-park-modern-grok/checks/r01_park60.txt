@@ -1,0 +1,12 @@
+00:01.046  blend            | Read blend: "/workspace/crystal-palace-park-modern/course-models/crystal-palace-park-modern-grok/rounds/park60-r01.blend"
+STATE  root collection = PARK60_NationalSportsCentre_1960s
+PASS  Sydenham ruins shell appended                                [rule]
+PASS  High Level / subway geometry present                         [G-STATION]
+PASS  NSC stadium infield + sports hall block-outs                 [opened 1964 R; forms U]
+PASS  CP066 NSC cameras present                                    [storyboard]
+PASS  all 5 cameras on 36 mm sensor                                [rule]
+PASS  no camera roll                                               [rule]
+INFO  objects=248 cameras=5
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 02:18:37)
+
+Blender quit
