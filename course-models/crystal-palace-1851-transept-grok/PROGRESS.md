@@ -142,3 +142,7 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
 ## look-v1 (2026-10-27)
 - Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
 - `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root

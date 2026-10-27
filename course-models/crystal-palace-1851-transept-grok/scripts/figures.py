@@ -136,7 +136,7 @@ def _lathe(bm, prof, seg, cx=0.0, cy=0.0, ox=0.0):
     if prof[-1][0] > 0: bm.faces.new(rings[-1])
     return len(prof)
 
-def person_mesh(name, kind, mats, FT=0.3048, style=None):
+def _person_mesh_legacy(name, kind, mats, FT=0.3048, style=None):
     """kind 'man' | 'woman' | 'girl' | 'boy'; mats = [main, second, skin, hat(, trim)]. One mesh, metres.
     r10 style (all optional, defaults = r09 figure): man/boy: hat 'top'|'low'|'cap'|'shako', frock (knee-length skirts),
     cravat, cane, belt; woman/girl: skirt_w (crinoline width factor), shawl. Trim parts use slot 4 (mats[4])."""
@@ -200,3 +200,14 @@ def person_mesh(name, kind, mats, FT=0.3048, style=None):
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
     for m in mats: me.materials.append(m)
     return me
+
+
+# --- crystal-palace-people v2 hook ---
+def person_mesh(name, kind, mats, FT=0.3048, style=None, pose=None, lod=None, seed=None, era="1850s"):
+    """Crowd figure — delegates to people v2 (articulated) when available."""
+    try:
+        from cpl_people import person_mesh as _cpl_person_mesh
+        return _cpl_person_mesh(name, kind, mats, FT=FT, style=style, pose=pose, lod=lod, seed=seed, era=era)
+    except Exception:
+        return _person_mesh_legacy(name, kind, mats, FT=FT, style=style)
+
