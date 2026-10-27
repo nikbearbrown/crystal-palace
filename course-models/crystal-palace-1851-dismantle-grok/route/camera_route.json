@@ -1,0 +1,131 @@
+{
+ "frame": "Claude's frame: feet, origin at the crossing, X east, Z up from the floor. Storyboard v001 grammar: eye 5.25 ft above the standing surface, 28/35/50 mm on 36 mm, no roll. REV_* are review-only.",
+ "shots": [
+  {
+   "id": "CP030_empty_walk",
+   "lens_mm": 28,
+   "states": [
+    "empty"
+   ],
+   "start": {
+    "pos_ft": [
+     40,
+     -6,
+     5.25
+    ],
+    "look_ft": [
+     96,
+     -34,
+     8
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     64,
+     -22,
+     5.25
+    ],
+    "look_ft": [
+     96,
+     -36,
+     9
+    ]
+   },
+   "use": "CP030 HP-EMPTY: the CP023 position, walk 29 ft (8.9 m) east toward the familiar nave column at (84,-36); packing cases where the machinery stood, porters"
+  },
+  {
+   "id": "CP030_empty_aisle",
+   "lens_mm": 35,
+   "states": [
+    "empty"
+   ],
+   "start": {
+    "pos_ft": [
+     52,
+     -34,
+     5.25
+    ],
+    "look_ft": [
+     45,
+     -150,
+     4
+    ]
+   },
+   "use": "CP030 alternate: east transept aisle, dust-sheeted cases and Muse crates where the other cases stood"
+  },
+  {
+   "id": "CP031_joint_detail",
+   "lens_mm": 50,
+   "states": [
+    "dismantle"
+   ],
+   "start": {
+    "pos_ft": [
+     192.2,
+     -147.8,
+     18.75
+    ],
+    "look_ft": [
+     180.6,
+     -156,
+     20.4
+    ],
+    "eye_base_ft": 13.5
+   },
+   "use": "CP031 HP-DISMANTLE 50 mm fixed joint detail from the scaffold deck (13.5 ft): column head at (180,-156), west girder already out, east girder on shores, key knocked out"
+  },
+  {
+   "id": "CP031_lateral",
+   "lens_mm": 35,
+   "states": [
+    "dismantle"
+   ],
+   "start": {
+    "pos_ft": [
+     162,
+     -116,
+     5.25
+    ],
+    "look_ft": [
+     168,
+     -156,
+     11
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     194,
+     -116,
+     5.25
+    ],
+    "look_ft": [
+     222,
+     -143,
+     3
+    ]
+   },
+   "use": "CP031 35 mm lateral view from outside the work zone: girder lowered by sheer legs between its columns, pan/track to finish on the component stack"
+  },
+  {
+   "id": "REV_dismantle_aerial",
+   "lens_mm": 35,
+   "states": [
+    "dismantle",
+    "empty"
+   ],
+   "start": {
+    "pos_ft": [
+     360,
+     -470,
+     170
+    ],
+    "look_ft": [
+     190,
+     -150,
+     15
+    ]
+   },
+   "use": "review only: the stripped and glass-off zones from outside, SE"
+  }
+ ]
+}

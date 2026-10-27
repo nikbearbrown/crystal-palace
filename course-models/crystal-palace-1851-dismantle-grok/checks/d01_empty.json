@@ -1,0 +1,218 @@
+{
+ "state": "empty",
+ "zones": {
+  "state": "empty",
+  "R": 0,
+  "G": 0,
+  "G_glass_slots": 0,
+  "vault": 0,
+  "girder": 0
+ },
+ "rows": [
+  {
+   "id": "K01",
+   "check": "CP030_empty_walk_start lens",
+   "target": "28",
+   "measured": "28.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "CP030_empty_walk_start no roll (camera X axis z)",
+   "target": "0",
+   "measured": "-0.0",
+   "ok": true
+  },
+  {
+   "id": "K03",
+   "check": "CP030_empty_walk_start eye height above standing surface (ft)",
+   "target": "5.25",
+   "measured": "5.25",
+   "ok": true
+  },
+  {
+   "id": "K04",
+   "check": "CP030_empty_walk_start clearance to nearest visible mesh (ft)",
+   "target": ">= 3",
+   "measured": "5.24 (FLOOR_BOARDS)",
+   "ok": true
+  },
+  {
+   "id": "K01",
+   "check": "CP030_empty_walk_end lens",
+   "target": "28",
+   "measured": "28.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "CP030_empty_walk_end no roll (camera X axis z)",
+   "target": "0",
+   "measured": "-0.0",
+   "ok": true
+  },
+  {
+   "id": "K03",
+   "check": "CP030_empty_walk_end eye height above standing surface (ft)",
+   "target": "5.25",
+   "measured": "5.25",
+   "ok": true
+  },
+  {
+   "id": "K04",
+   "check": "CP030_empty_walk_end clearance to nearest visible mesh (ft)",
+   "target": ">= 3",
+   "measured": "5.24 (FLOOR_BOARDS)",
+   "ok": true
+  },
+  {
+   "id": "K05",
+   "check": "CP030_empty_walk move length (m)",
+   "target": "<= 10 m",
+   "measured": "8.79",
+   "ok": true
+  },
+  {
+   "id": "K01",
+   "check": "CP030_empty_aisle_start lens",
+   "target": "35",
+   "measured": "35.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "CP030_empty_aisle_start no roll (camera X axis z)",
+   "target": "0",
+   "measured": "0.0",
+   "ok": true
+  },
+  {
+   "id": "K03",
+   "check": "CP030_empty_aisle_start eye height above standing surface (ft)",
+   "target": "5.25",
+   "measured": "5.25",
+   "ok": true
+  },
+  {
+   "id": "K04",
+   "check": "CP030_empty_aisle_start clearance to nearest visible mesh (ft)",
+   "target": ">= 3",
+   "measured": "5.24 (FLOOR_BOARDS)",
+   "ok": true
+  },
+  {
+   "id": "K01",
+   "check": "REV_dismantle_aerial_start lens",
+   "target": "35",
+   "measured": "35.0",
+   "ok": true
+  },
+  {
+   "id": "K02",
+   "check": "REV_dismantle_aerial_start no roll (camera X axis z)",
+   "target": "0",
+   "measured": "0.0",
+   "ok": true
+  },
+  {
+   "id": "K06",
+   "check": "rounds/d01_dismantle.blend size (MB)",
+   "target": "< 90",
+   "measured": "18.1",
+   "ok": true
+  },
+  {
+   "id": "K06",
+   "check": "rounds/d01_empty.blend size (MB)",
+   "target": "< 90",
+   "measured": "17.6",
+   "ok": true
+  },
+  {
+   "id": "K07",
+   "check": "no Sydenham-named data (Hyde Park 1851 only)",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'crowd' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'banners' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'sculpture' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'textiles' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'machinery' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K08",
+   "check": "HP51 dressing 'planters' visible",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K09",
+   "check": "Muse plinths and benches cleared",
+   "target": "0",
+   "measured": "0",
+   "ok": true
+  },
+  {
+   "id": "K10",
+   "check": "Muse crates present and credited",
+   "target": "> 0, credited",
+   "measured": "64, credited=True",
+   "ok": true
+  },
+  {
+   "id": "K11",
+   "check": "EMPTY: half the vitrines kept (dust-sheeted)",
+   "target": "24",
+   "measured": "24",
+   "ok": true
+  },
+  {
+   "id": "K12",
+   "check": "EMPTY: dust sheets",
+   "target": "present",
+   "measured": "True",
+   "ok": true
+  },
+  {
+   "id": "K13",
+   "check": "EMPTY: packing cases at the machinery footprints",
+   "target": ">= 8",
+   "measured": "17",
+   "ok": true
+  }
+ ],
+ "passed": 29,
+ "total": 29
+}
