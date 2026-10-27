@@ -419,9 +419,9 @@ if STATE in ("PARK60", "PARKNOW"):
 
 if STATE == "PARKNOW":
     # CP070 begin walk — lower station area (distinct from HL)
-    cam("CAM_CP070_park_entry_35mm", (ft(-800), ft(-1200), -40), (0, ft(-400), 10), 35)  # CP070 begin the walk today
+    cam("CAM_CP070_park_entry_35mm", (0, 72, 2.9), (0, -90, -4), 35)  # dud-fix: parade → park, readable
     # alias name for coverage audit
-    cam("CAM_CP070_begin_walk_35mm", (ft(-800), ft(-1200), -40), (0, ft(-400), 10), 35)
+    cam("CAM_CP070_begin_walk_35mm", (0, 72, 2.9), (0, -90, -4), 35)
     # CP071 restored subway interior
     cam("CAM_CP071_subway_interior_28mm", (0, (SUB_Y0+SUB_Y1)/2, SUB_Z + EYE), (0, SUB_Y0, SUB_Z + 1.5), 28)
     cam("CAM_CP071_subway_vault_50mm", (SUB_W/4, SUB_Y1 - 5, SUB_Z + EYE), (0, SUB_Y0 + 10, SUB_Z + 3), 50)
@@ -437,15 +437,15 @@ if STATE == "PARKNOW":
     _so = bpy.data.objects.new("sphinx_fill", _sl); ROOT.objects.link(_so)
     _so.location = (ft(-40), ft(-320), ft(-10))
     # CP067 — dinosaur conservation today (preserving Hawkins' earlier understanding)
-    cam("CAM_CP067_dino_conservation_35mm", (5, -855, -43), (-35, -878, -46.5), 35)
+    cam("CAM_CP067_dino_conservation_35mm", (-18, -890, -44.2), (-42, -876, -45), 50)  # dud-fix v4
     # CP074 dinosaurs (after D-PM-08 translate; aim at iguanodon/megalosaurus cluster)
     cam("CAM_CP074_dinosaurs_35mm", (-10, -860, -44), (-40, -875, -46.5), 35)
     cam("CAM_CP074_iguanodon_50mm", (20, -870, -45), (-5, -878, -46.5), 50)
     # CP075 layered landscape NSC + park
-    cam("CAM_CP075_layered_nsc_35mm", (-50, -300, -10), (-50, -550, -40), 35)
+    cam("CAM_CP075_layered_nsc_35mm", (-16, -88, -4.0), (-50, -540, -36), 28)  # dud-fix: sphinx→NSC
     # CP076 turn back toward empty site
-    cam("CAM_CP076_empty_plateau_35mm", (ft(200), ft(-400), 15), (0, 0, 5), 35)
-    cam("CAM_CP076_hold_35mm", (ft(200), ft(-400), 15), (0, ft(-50), 2), 35)
+    cam("CAM_CP076_empty_plateau_35mm", (-8, -106, -4.6), (90, -55, 0.5), 35)  # dud-fix: sphinx→arcade
+    cam("CAM_CP076_hold_35mm", (-8, -106, -4.6), (90, -55, 0.5), 35)
 
     # place PPL-NOW with 7 ft camera clear zone + hero silhouettes just outside
     cams_xy = [(o.location.x, o.location.y, o.location.z) for o in bpy.data.objects if o.type == "CAMERA"]
