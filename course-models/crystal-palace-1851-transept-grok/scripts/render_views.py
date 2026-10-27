@@ -6,6 +6,7 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 cams = arg("--cams").split(","); outdir = arg("--outdir"); W, H = map(int, arg("--res", "960x540").split("x"))
 portrait = set((arg("--portrait", "") or "").split(","))
 sc = bpy.context.scene; sc.cycles.samples = int(arg("--samples", "48"))
+if arg("--exposure"): sc.view_settings.exposure = float(arg("--exposure"))   # review-only override (REV_combo seam check)
 sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8"))
 claude = arg("--claude")
 if claude:   # append Claude's model collection read-only (never saved)
@@ -19,6 +20,27 @@ if claude:   # append Claude's model collection read-only (never saved)
         elif ob.get("part_kind") in ("column", "girder", "roof") and ob.location.x < -0.3048 * 36.5: ob.hide_render = True
     # RL02: Claude's appended roof units get our roof glass at render time (seam match); his file is never saved
     rg = bpy.data.materials.get("GT_Glass"); n = 0
+    if rg:   # RL03: Claude's roof mesh has no usable UVs -> drive any UV-based bar mask from object coords (ft)
+        cl = rg.copy(); cl.name = "GT_Glass_CL"
+        for tc in [x for x in cl.node_tree.nodes if x.type == 'TEX_COORD']:
+            for dst in [lk.to_socket for lk in tc.outputs["UV"].links]:
+                v = cl.node_tree.nodes.new("ShaderNodeVectorMath"); v.operation = 'SCALE'; v.inputs["Scale"].default_value = 1 / 0.3048
+                cl.node_tree.links.new(tc.outputs["Object"], v.inputs[0]); cl.node_tree.links.new(v.outputs[0], dst)
+        rg = cl
+    def roofglass(m):   # RL04: exterior roof-glass recipe (EX19: tint .58/.64/.64, milk .025 @ .55) for the combined review
+        for nd in m.node_tree.nodes:
+            if nd.type == 'BSDF_TRANSPARENT': nd.inputs[0].default_value = (0.58, 0.64, 0.64, 1)
+            if nd.type == 'BSDF_DIFFUSE' and nd.inputs[0].default_value[0] > 0.85: nd.inputs[0].default_value = (0.55, 0.58, 0.58, 1)
+            if nd.type == 'MIX_SHADER' and not nd.inputs[0].is_linked and abs(nd.inputs[0].default_value - 0.06) < 1e-3: nd.inputs[0].default_value = 0.025
+        return m
+    if rg: roofglass(rg)
+    own = {}
+    for ob in bpy.data.objects:   # our own flat roof units in the combined review get the same recipe
+        if ob.get("part_kind") == "roof" and ob.type == 'MESH':
+            for sl in ob.material_slots:
+                if sl.material and sl.material.name == "GT_Glass":
+                    if "r" not in own: own["r"] = roofglass(sl.material.copy()); own["r"].name = "GT_Glass_ROOFREV"
+                    sl.link = 'OBJECT'; sl.material = own["r"]
     for c in bpy.data.collections:
         if c.name.startswith("PART_RoofUnit") and c.library is None:
             for ob in c.all_objects:
