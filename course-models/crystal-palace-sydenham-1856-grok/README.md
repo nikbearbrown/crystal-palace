@@ -1,0 +1,3 @@
+# Crystal Palace, Sydenham — SY-EARLY (c.1856) scripted Blender model (Grok)
+Separate from the Hyde Park 1851 build: no Hyde Park geometry, grid or section reused; no Codex FBX. Built from the 1856 Guide (plan 0205, section 0212, text pp.29-35) and the 1857 park map.
+See PROGRESS.md (how to rebuild/render), DEPARTURES.md (every guess with evidence grade), checks/, compare/, renders/. Collections under SY-EARLY_c1856 split by part and by dated state (SY54_*, SY56_*, SY_north_transept__lost1866).

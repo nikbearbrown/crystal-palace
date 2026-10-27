@@ -1,0 +1,11 @@
+# PROGRESS — SY-EARLY c.1856
+- r01: shell built (scripts/build.py). Preview renders washed out; gallery undersides bland; overview showed sky below horizon.
+- r02: darker albedos, exposure, cameras retargeted, distant ground, nave planting placeholders (box trees looked toy-like).
+- r03: sphere trees, exposure -1.0, bigger ground plane; full renders 1920x1080 32 spp -> renders/r03_*.png; checks/r03_dimension_check.txt.
+- Plan overlay: compare/r01_plan_overlay.jpg (geometry unchanged in plan since r01 except trees).
+- Rebuild: /workspace/blender5/blender -b -P scripts/build.py -- rounds/<name>.blend
+- Render: blender -b rounds/X.blend -P scripts/render.py -- renders <tag> <pct> <spp> <cams...>
+- Overlay: blender -b rounds/X.blend -P scripts/plan_overlay.py -- compare/<tag>; python3 scripts/plan_composite.py compare/<tag>.raw.png compare/<tag>.jpg
+- Checks: blender -b rounds/X.blend -P checks/dimension_check.py -- checks/<tag>.txt
+- NOT pushed. Branch grok-sydenham-1856, local commits only.
+- r03 self-score 5/10. Compare sheets in compare/r03_vs_*.jpg. Next round fixes listed at bottom of DEPARTURES.md.
