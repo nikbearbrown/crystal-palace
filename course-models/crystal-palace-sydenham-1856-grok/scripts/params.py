@@ -33,7 +33,9 @@ WING_Y0 = -100.0         # R/I: plan 0205 wing begins ~y=990 px (-88 ft)
 COLONNADE_LEN = 720.0    # R: guide p.35
 TOWER_H = 284.0          # U: Brunel towers ~284 ft commonly cited; not from repo sources
 TOWER_DATE = '1856'      # U: towers completed 1855-56; dated collection, hide for SY54
-UPPER_TERRACE_D = 100.0  # I: 1857 map 0591 band C ~20 px at ~5.2 ft/px
+UPPER_TERRACE_D = 180.0  # R(r04): 1857 map 0591 re-registered on wing centres (4.28 ft/display px, 2.95 ft/full px): facade->upper terrace edge ~44 disp px; r01-r03 used 100 (I) from a wrong 5.19 ft/px read
+# 1857 map registration (display width 1024 of 1483 px): x_ft=(dx-541)*4.28 ; y_ft=-100-(dy-265)*4.28  (wing centres 340/742, wing top y=265)
+MAP_FT_PER_DPX = 4.28
 LOWER_TERRACE_D = 300.0  # I: 1857 map band D ~60 px
 LOWER_TERRACE_DROP = 20.0  # U: no level survey in repo
 # Plan 0205 registration (px -> ft)

@@ -3,14 +3,16 @@ usage: blender -b <round.blend> -P scripts/plan_overlay.py -- <out.png>"""
 import bpy, sys, os, math
 sys.path.insert(0, os.path.dirname(__file__)); from params import *
 out = sys.argv[sys.argv.index('--')+1]
-W, H = 5669, 2763; s = PLAN_PX_PER_FT; DS = 3
+W, H = 5669, 2763; s = PLAN_PX_PER_FT; DS = 1
 sc = bpy.context.scene
 for c in bpy.data.collections:
-    if c.name.startswith('SY_terraces') or c.name.startswith('REF'): c.hide_render = True
+    if c.name.startswith('SY_terraces') or c.name.startswith('REF') or c.name.startswith('SY56_park') or c.name.startswith('SY56_fountains'): c.hide_render = True
 cam = bpy.data.objects['CAM_plan_overlay_top']; cd = cam.data; cd.type = 'ORTHO'
 cx_ft = (W/2 - PLAN_X0)/s; cy_ft = -(H/2 - PLAN_Y0)/s
 cam.location = (cx_ft*F, cy_ft*F, 900); cam.rotation_euler = (0, 0, 0)
-cd.ortho_scale = (W/s)*F; cd.clip_end = 2000
+cd.ortho_scale = (W/s)*F
+# r04+: true plan CUT, slab z=+0.5..+20 ft above main floor (columns, walls, beds, statues) instead of roof silhouette
+cd.clip_start = 900 - 20*F; cd.clip_end = 900 - 0.5*F
 sc.camera = cam; sc.render.engine = 'BLENDER_WORKBENCH'
 sc.render.resolution_x = W//DS; sc.render.resolution_y = H//DS; sc.render.resolution_percentage = 100
 sc.render.film_transparent = True

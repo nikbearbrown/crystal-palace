@@ -13,7 +13,7 @@ def chk(label, val, target, tol, src):
     ok = abs(val-target) <= tol; rows.append(f"{'PASS' if ok else 'FAIL'}  {label:46s} model {val:8.2f} ft  target {target:8.2f} ft  tol {tol}  [{src}]")
 lo, hi = bb(['main_floor']); chk('main building length (end walls)', hi[0]-lo[0], 1608, 1, 'guide p.35 B')
 chk('general width', hi[1]-lo[1], 312, 1, 'guide p.35 B')
-lo, hi = bb(['central_transept_vault_glass']); chk('greatest width (central transept N-S extent)', hi[1]-lo[1], 384, 1, 'guide p.35 B')
+lo, hi = bb(['central_transept_vault_glass', 'SY_central_transept_walls']); chk('greatest width (central transept N-S extent)', hi[1]-lo[1], 384, 1, 'guide p.35 B')
 chk('central transept crown above main floor', hi[2], 174.25, 0.5, "guide p.35 B 174'3\"")
 chk('central transept span', hi[0]-lo[0], 120, 1, 'common figure; plan reads 104 inner lines (U)')
 lo, hi = bb(['nave_vault_glass']); chk('nave crown above main floor', hi[2], 110.25, 0.5, "guide p.35 B 110'3\"")

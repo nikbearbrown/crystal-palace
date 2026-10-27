@@ -1,11 +1,18 @@
 # PROGRESS — SY-EARLY c.1856
-- r01: shell built (scripts/build.py). Preview renders washed out; gallery undersides bland; overview showed sky below horizon.
-- r02: darker albedos, exposure, cameras retargeted, distant ground, nave planting placeholders (box trees looked toy-like).
-- r03: sphere trees, exposure -1.0, bigger ground plane; full renders 1920x1080 32 spp -> renders/r03_*.png; checks/r03_dimension_check.txt.
-- Plan overlay: compare/r01_plan_overlay.jpg (geometry unchanged in plan since r01 except trees).
-- Rebuild: /workspace/blender5/blender -b -P scripts/build.py -- rounds/<name>.blend
-- Render: blender -b rounds/X.blend -P scripts/render.py -- renders <tag> <pct> <spp> <cams...>
-- Overlay: blender -b rounds/X.blend -P scripts/plan_overlay.py -- compare/<tag>; python3 scripts/plan_composite.py compare/<tag>.raw.png compare/<tag>.jpg
-- Checks: blender -b rounds/X.blend -P checks/dimension_check.py -- checks/<tag>.txt
+- r01: shell built (scripts/build.py). Preview renders washed out.
+- r02: darker albedos, exposure, cameras retargeted, nave planting placeholders.
+- r03: sphere trees; full renders renders/r03_*.png; self-score 5/10 (later found: no columns/girders — frame bug).
+- r04: frame bug fixed; stepped CT front; tiered nave/wings; basement arcade + stairs; terraces/balustrade/statues; Owen Jones toggle; boarded floor; palms/trees; park fountains set (SY56_park_fountains_cascades__dated); ortho section; compare/r04_section_vs_0212.jpg.
+- r05: pale exterior iron; S basins r=45 (map); 0074/0007 cameras re-solved; ortho_scale fix.
+- r06: nave/transept placeholders from plan 0205 detection (26 marks), crossing Crystal Fountain withdrawn (U), 70 park trees, 0007 elevated camera. 259 objects / 154k faces / 2.0 MB. 12/12 dimension checks PASS (checks/r06_dimension_check.txt).
+- r06 outputs: renders/r06final_*.png (1920x1080, 128 spp), compare/r06_vs_0074.jpg, compare/r06_vs_0007.jpg, compare/r06_section_vs_0212.jpg, compare/r06_plan_overlay.jpg.
+- Commands:
+  - Rebuild: /workspace/blender5/blender -b -P scripts/build.py -- rounds/<name>.blend
+  - Render: blender -b rounds/X.blend -P scripts/render.py -- renders <tag> <pct> <spp> <cams...>
+  - Section: blender -b rounds/X.blend -P scripts/section_render.py -- compare/<tag>.png
+  - Overlay: blender -b rounds/X.blend -P scripts/plan_overlay.py -- compare/<tag>; python3 scripts/plan_composite.py compare/<tag>.raw.png compare/<tag>.jpg
+  - Palette: blender -b rounds/X.blend -P scripts/set_palette.py -- 0|1 out.blend
+  - Plan marks: python3 scripts/plan_nave_objects.py checks/plan_nave_objects.json
+  - Checks: blender -b rounds/X.blend -P checks/dimension_check.py -- checks/<tag>.txt
 - NOT pushed. Branch grok-sydenham-1856, local commits only.
-- r03 self-score 5/10. Compare sheets in compare/r03_vs_*.jpg. Next round fixes listed at bottom of DEPARTURES.md.
+- Next states: courts (0226/0246) → post-1866 without North Transept → 1936 fire → ruins/towers.
