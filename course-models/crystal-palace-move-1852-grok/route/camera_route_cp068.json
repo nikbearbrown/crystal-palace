@@ -1,0 +1,66 @@
+{
+ "set": "LEGACY TODAY (CP068)",
+ "units": "feet; pos z = eye height",
+ "grammar": "eye 5.25 ft, 35/50 mm, no roll",
+ "shots": [
+  {
+   "id": "CP068_park",
+   "storyboard": "CP068",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     -22.0,
+     -28.0,
+     5.25
+    ],
+    "look_ft": [
+     18.0,
+     0.0,
+     10.0
+    ],
+    "abs_z": true
+   },
+   "note": "present-day park light: kit + bay as study objects on grass"
+  },
+  {
+   "id": "CP068_kit",
+   "storyboard": "CP068",
+   "lens_mm": 50,
+   "fstop": 5.6,
+   "start": {
+    "pos_ft": [
+     3.2,
+     -4.0,
+     5.25
+    ],
+    "look_ft": [
+     0.2,
+     0.1,
+     4.6
+    ],
+    "abs_z": true,
+    "focus_ft": 5.0
+   },
+   "note": "K-JOINT component detail \u2014 analytical study"
+  },
+  {
+   "id": "CP068_bay",
+   "storyboard": "CP068",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     18.0,
+     -32.0,
+     5.25
+    ],
+    "look_ft": [
+     36.0,
+     0.0,
+     12.0
+    ],
+    "abs_z": true
+   },
+   "note": "single prefabricated bay standing alone"
+  }
+ ]
+}

@@ -18,3 +18,9 @@
 
 ## Backlog (parked by Professor Bear, diminishing returns)
 - r11 (transept polish), x07 (exterior polish), d04 (dismantle polish).
+
+## m03 — CP068 legacy today (2026-10-27)
+- Built `rounds/m03_legacy.blend` via `scripts/build_legacy_today.py` (reuse `parts1851` K-JOINT + single bay).
+- Cams: `CP068_park`, `CP068_kit`, `CP068_bay` (appended to `route/camera_route.json`).
+- Renders: `renders/m03/CP068_{park,kit,bay}_start.png` (28 spp, 1280×720).
+- D-checks: `checks/m03_checks.json` **11/11**.

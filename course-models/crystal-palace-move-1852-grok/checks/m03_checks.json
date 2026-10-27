@@ -1,0 +1,62 @@
+{
+  "set": "LEGACY_TODAY_CP068",
+  "passed": 11,
+  "total": 11,
+  "checks": [
+    {
+      "name": "has_kjoint",
+      "pass": true,
+      "detail": "connecting piece present"
+    },
+    {
+      "name": "has_bay",
+      "pass": true,
+      "detail": "prefab bay present"
+    },
+    {
+      "name": "has_park_ground",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "eye_CP068_bay_start",
+      "pass": true,
+      "detail": "z_ft=5.25"
+    },
+    {
+      "name": "noroll_CP068_bay_start",
+      "pass": true,
+      "detail": "ry=0.0000"
+    },
+    {
+      "name": "eye_CP068_kit_start",
+      "pass": true,
+      "detail": "z_ft=5.25"
+    },
+    {
+      "name": "noroll_CP068_kit_start",
+      "pass": true,
+      "detail": "ry=0.0000"
+    },
+    {
+      "name": "eye_CP068_park_start",
+      "pass": true,
+      "detail": "z_ft=5.25"
+    },
+    {
+      "name": "noroll_CP068_park_start",
+      "pass": true,
+      "detail": "ry=0.0000"
+    },
+    {
+      "name": "kit_clearance",
+      "pass": true,
+      "detail": "dist_ft=7.34"
+    },
+    {
+      "name": "bay_span_note",
+      "pass": true,
+      "detail": "{'span_ft': 24, 'columns': 4, 'girders': 4}"
+    }
+  ]
+}

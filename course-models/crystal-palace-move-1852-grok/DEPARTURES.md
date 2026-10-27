@@ -16,3 +16,5 @@ Grades: **A** documented (Downes 1852 / dated source) · **B** documented in out
 | MV10 | Muse elm/props appended read-only with credit (Muse round-2 models); Claude/Codex folders untouched | — | reuse rule |
 | MV11 | Figures: generic Grok PPL-1851 workmen/clerks; no named individuals | C | |
 | MV12 | m02: KJ_exploded pulled back to (-3.3,-5.9,5.25 ft) looking at the W joint; north girder + its oak keys hidden for this camera only via `grok_states` (still in the scene for other shots) | C | camera fix only; joint geometry unchanged |
+| MV13 | CP068 legacy-today: separate lean blend `m03_legacy` with K-JOINT kit + one 24 ft prefabricated bay on park grass under present-day daylight; analytical study plinth/pad, not a ruin or rebuild | B | storyboard asks PARK-NOW labelled model study; method, not archaeology |
+| MV14 | CP068 materials: same Owen-Jones blue kit paint as m01; lean 28-sample / 1280×720 renders | D | box busy |
