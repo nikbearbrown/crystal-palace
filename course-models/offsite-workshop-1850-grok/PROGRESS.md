@@ -9,3 +9,11 @@ Branch `grok-workshop-1850` (worktree /workspace/crystal-palace-workshop). Commi
   - Preview fixes as in W13/W15/W16.
   - check_workshop 31/31. Renders: renders/w01 (1280x720, 48 spp).
 - **Next:** add belts to each machine and shavings on the floor; split cylinders by the kiln; add an interior wagon view from the loading door; give the glass house a darker interior with more glory-hole bloom.
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root

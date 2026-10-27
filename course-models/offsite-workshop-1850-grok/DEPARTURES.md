@@ -23,3 +23,6 @@ Grades:
 | W14 | 22 figures: minders, foreman, blowers, gatherers, kiln man, porters, clerk. No faces. | stand-in grammar | C |
 | W15 | The exterior wagon shot uses render-time exposure -0.7; interiors use 0.0 (raised from +0.2 because the yard blew out). | render review | C |
 | W16 | Removed in w01: limewash planes on the long walls (they covered the windows) and degenerate "cooling cylinders" on the stage. The CP011_cylinder camera was moved back 7 ft (it sat 4 ft from a rack), and FIG_SHOP_4 was moved out of the shop foreground. | preview review | - |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
