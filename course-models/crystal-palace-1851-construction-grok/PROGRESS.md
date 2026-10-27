@@ -23,6 +23,33 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
   - CP014_gutter moved on site with water in the gutters (CN20).
   - Checks 20/20 (checks/c02). Renders in renders/c02; compare sheets in compare/c02_*.jpg.
 
+- **c03 (2026-10-26):**
+  - models/ comparison with Muse's parts on origin/main adb0d2c (CN22–CN26).
+  - Sash bars now 27 per slope at 10.29 in centres, with 3 strong 2½ in bars (CN23). Was 29 bars at 9.93 in, narrower than a 10 in pane.
+  - Floor joists 7 × 2½ in at 2 ft centres (CN22).
+  - 20 packing crates appended from Muse's hp-crate-and-display-case and credited to Muse (CN24).
+  - Timber hoarding with a gate on the south side (CN25).
+  - Checks 22/22 (checks/c03; new K21 credited props, K22 hoarding). Renders in renders/c03; compare sheets in compare/c03_*.jpg.
+
+## Self-score c03: 7.0/10
+**Good:**
+- The roof bars now satisfy the pane arithmetic.
+- The site gains stock (crates at the glazing bays, the gate road and the louvre bays) and an enclosure, which shows in the aerial and through the louvre wall.
+
+**Misses:**
+- Still no seated glazier or pane being slid in, no carts or horses, and no spoil heaps scaled to the pits.
+- The CP014 section has not been reframed.
+- The Muse crate is an open slatted exhibit crate, not a closed glass crate, and its pale timber reads a little light against our darkened site palette.
+- The strong bars sit up to 3½ in off the 4/12/20 ft marks.
+
+## Next (c04)
+- Glazier poses with a pane at about 30 degrees.
+- Carts and horse stand-ins at the gate.
+- Spoil heaps scaled to the pit volume.
+- CP014 reframed.
+- Closed crate variant: a lid board on a copy in our file, not in models/.
+- Darken Muse's crate timber by a render-time override if needed.
+
 ## Self-score c02: 6.8/10
 **Good:**
 - One continuous site reads as the progression from pegs to pits, pads, base pieces, columns, girders, bars, glass and canvas, all on Claude's grid with D16/D17 numbers.

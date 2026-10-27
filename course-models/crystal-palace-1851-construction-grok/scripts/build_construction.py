@@ -138,7 +138,8 @@ for x in LINES:
     if x <= 420: place("t72g", f"KTRUSS72_X{x:+05.0f}", K["FRAME"], x, 0, GIRDER_TOP[2], math.pi / 2, part_kind="truss")
 
 # ---------------- ridge-and-furrow roof states (24 x 8 ft Paxton units; panes 49 x 10 in -> bars at ~10 in) ----------------
-RISE = 1.6; NBARS = 29
+RISE = 1.6; NBARS = 27            # CN23 (c03): 27 bars / 28 panes per slope per 24 ft (Plate XII; agrees with Muse hp-roof-furrow-bay)
+STRONG_FT = (4.0, 12.0, 20.0)     # three 2 1/2 in strong bars in every 24 ft (Downes text; Plate XII Fig. 3)
 def mesh_roof(kind):
     bm = bmesh.new(); L = ft(24); W = ft(8); rise = ft(RISE); off = inch(1.3)
     if kind in ("glazed", "canvas", "half"):
@@ -150,9 +151,10 @@ def mesh_roof(kind):
     if kind != "gutter":
         bm_box(bm, -L/2, L/2, -inch(1), inch(1), rise - inch(1.5), rise + inch(1.5))  # ridge
         for s in (-1, 1):
-            for k in range(NBARS):
-                x = -L/2 + (k + 0.5) * L / NBARS
-                bm_bar(bm, (x, s * (W/2 - inch(2)), inch(0.5)), (x, 0, rise), inch(1.5), inch(2.5))
+            xs = [-L/2 + (k + 1) * L / (NBARS + 1) for k in range(NBARS)]
+            strong = {min(range(NBARS), key=lambda k: abs(xs[k] - (ft(sf) - L/2))) for sf in STRONG_FT}
+            for k, x in enumerate(xs):
+                bm_bar(bm, (x, s * (W/2 - inch(2)), inch(0.5)), (x, 0, rise), inch(2.5) if k in strong else inch(1.5), inch(2.5))
     faces_since(bm, n0, 1)
     if kind == "canvas":            # canvas laid over the outside of the ridges (Downes p. 24; CN09)
         n1 = len(bm.faces); co = inch(5)
@@ -392,9 +394,9 @@ worker(300, -212, DECK_ROOF, "work", 90, "CP013")
 # ---------------- floor: boards to x 300, bare joists 300-420 (CP013 timber) ----------------
 slab_xyz("KFLOOR_BOARDS", 36, 300, -204, 204, -0.02, 0.04, FLOORM, K["FLOOR"], part_kind="floor")
 bm = bmesh.new()
-for k in range(int(408 / 3) + 1):
-    y = -204 + 3 * k
-    bm_box(bm, ft(300), ft(420), ft(y) - inch(1.5), ft(y) + inch(1.5), ft(-0.75), ft(0.0))
+for k in range(int(408 / 2) + 1):          # CN22 (c03): joists 7 x 2 1/2 in (Catalogue p.62, printed) at 2 ft centres (inferred, as Muse hp-floor-boards)
+    y = -204 + 2 * k
+    bm_box(bm, ft(300), ft(420), ft(y) - inch(1.25), ft(y) + inch(1.25), -inch(7), ft(0.0))
 new_obj("KFLOOR_JOISTS", finish(bm, "joists", WOOD), K["FLOOR"], props={"part_kind": "joist"})
 
 # ---------------- CP015: louvre wall bays (Plate XXI ground tier; Plate XXVII machinery) under canvas ----------------
@@ -499,6 +501,39 @@ _al = bpy.data.lights.new("KDET_FILL", 'AREA'); _al.energy = 6000; _al.size = ft
 _alo = bpy.data.objects.new("KDET_FILL", _al); DD.objects.link(_alo)
 _alo.location = (ft(CX), ft(CY - 40), ft(12)); _alo.rotation_euler = (math.radians(90), 0, 0)
 
+# ---------------- c03: site hoarding (south side, gate gap for carts) ----------------
+bm = bmesh.new()
+for (xa, xb) in ((0, 596), (634, 1000)):
+    for k in range(int((xb - xa) / 0.75)):
+        x = xa + k * 0.75
+        bm_box(bm, ft(x), ft(x + 0.71), ft(-296.1), ft(-296.0), ft(0), ft(8.0 + 0.15 * ((k * 7) % 3)))
+    for x in range(int(xa), int(xb), 8): bm_box(bm, ft(x), ft(x + 0.33), ft(-295.95), ft(-295.6), ft(0), ft(7.6))   # posts
+    for z in (1.2, 6.4): bm_box(bm, ft(xa), ft(xb), ft(-295.95), ft(-295.75), ft(z), ft(z + 0.6))                    # rails
+new_obj("KHOARDING_S", finish(bm, "hoarding", WOODDARK), K["GROUND"], props={"part_kind": "hoarding"})
+
+# ---------------- c03: packing crates appended from Muse's models/hp-crate-and-display-case (read-only extract; CN24) ----------------
+MUSE = "/workspace/models-main-ro/models/hp-crate-and-display-case/hp-crate-and-display-case.blend"
+crates = []
+if os.path.exists(MUSE):
+    with bpy.data.libraries.load(MUSE, link=False) as (src, dst):
+        dst.objects = [n for n in src.objects if n.startswith("Crate")]
+    MC = bpy.data.collections.new("MUSE_Crate_by_Muse")      # not linked to the scene: instanced only
+    MC["credit"] = "Muse, models/hp-crate-and-display-case (origin/main adb0d2c), appended read-only"
+    MC.instance_offset = (-1.4, 0.0, 0.0)
+    for o in dst.objects:
+        if o: MC.objects.link(o)
+    KC = coll("CRATES", ROOT)
+    spots = []
+    for i in range(4):                       # glass crates by the glazing bays, outside the south wall (x 300-420)
+        for j in range(2):
+            for lv in range(2 if (i + j) % 2 == 0 else 1): spots.append((356 + i * 3.6, -214 - j * 3.0, lv * 0.8 / 0.3048, 0.1 * i))
+    for i in range(5): spots.append((544 + i * 3.8, -214.5 - (i % 2) * 2.5, 0, 0.3 * i))     # unloaded at the gate road (CP012 foreground)
+    for i in range(3): spots.append((258 + i * 3.6, -186, 0, 0.0))                            # inside, by the louvre bays
+    for n, (x, y, z, rz) in enumerate(spots):
+        e = bpy.data.objects.new(f"KCRATE_{n:02d}", None); e.instance_type = 'COLLECTION'; e.instance_collection = MC
+        e.location = (ft(x), ft(y), ft(z)); e.rotation_euler = (0, 0, rz); KC.objects.link(e)
+        e["part_kind"] = "crate"; e["credit"] = "Muse"; crates.append(e)
+
 # ---------------- cameras ----------------
 CAMS = bpy.data.collections.new("CAMERAS_CONSTRUCTION"); scene.collection.children.link(CAMS)
 def cam(name, loc_ft, look_ft, lens, ortho=None):
@@ -519,9 +554,9 @@ scene.camera = bpy.data.objects.get("CP012_bay_start")
 scene.frame_start, scene.frame_end = 1, 96; scene.render.fps = 24
 
 info = {"columns": len(cols), "girders": ngir, "roof_units": nroof, "roof_states": roof_states, "workers": len(workers),
-        "foundations": len(found), "louvre_blades": len(louvres), "parts": len(parts)}
+        "foundations": len(found), "louvre_blades": len(louvres), "parts": len(parts), "muse_crates": len(crates)}
 scene["grok_construction_build"] = json.dumps(info)
-scene["foundations"] = json.dumps(found)
+scene["foundations"] = json.dumps(found); scene["nbars"] = NBARS
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 print("SAVED", OUT, json.dumps(info))

@@ -44,7 +44,12 @@ gut = [abs((f(o.location.y) + 204) % 8) for o in wag]
 chk("K10", wag and all(7.6 < g < 8.4 for g in gauge) and all(abs(g - 4) < 0.01 for g in gut),
     "glazing wagons: wheels in the gutters, 8 ft gauge, deck over one ridge", f"{len(wag)} wagons, wheel spread {min(gauge):.2f}-{max(gauge):.2f} ft (outer faces)")
 bars = bpy.data.meshes.get("roof_bars")
-chk("K11", bars is not None, "sash bars ~10 in apart (24 ft / 29 = 9.93 in) for 49 x 10 in panes", "29 bars per slope per unit")
+nbar = int(bpy.context.scene.get("nbars", 0))
+sp = 288 / (nbar + 1)
+chk("K11", bars is not None and 10.0 < sp < 10.75, "sash bars at 10-10 3/4 in centres (> 10 in pane width; Plate XII 10 1/2 in) + 3 strong bars per 24 ft", f"{nbar} bars per slope per unit, {sp:.2f} in centres")
+cr = kind("crate"); hd = kind("hoarding")
+chk("K21", len(cr) >= 10 and all(o.instance_collection and o.instance_collection.get("credit", "").startswith("Muse") for o in cr), "props appended from models/ are credited to their maker", f"{len(cr)} Muse crates")
+chk("K22", hd and all(7.5 < f(max((o.matrix_world @ Vector(c)).z for c in o.bound_box)) < 8.6 and f(max((o.matrix_world @ Vector(c)).y for c in o.bound_box)) < -290 for o in hd), "site hoarding ~8 ft high, south of the works (y < -290 ft)", f"{len(hd)} hoarding objects")
 wk = kind("worker")
 hs = [f(max((o.matrix_world @ Vector(c)).z for c in o.bound_box) - min((o.matrix_world @ Vector(c)).z for c in o.bound_box)) for o in wk if o.get("pose") in ("stand", "work")]
 chk("K12", wk and all(5.3 < h < 5.9 for h in hs), "worker stand-ins 5'4\"-5'10\" (standing)", f"{len(wk)} workers; standing heights {min(hs):.2f}-{max(hs):.2f} ft")
