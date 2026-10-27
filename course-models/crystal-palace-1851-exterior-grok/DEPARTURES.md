@@ -41,3 +41,9 @@ Grades: **A** documented in Downes 1852 / control dimensions · **B** strongly i
 | EX31 | **PLATE_IV trees thinned (x06)** | Downes Plate IV shows the elevation clear of trees | The south rows y −470 and −530 (spacing 52–68 ft) become one row at y −520 with 115–150 ft spacing. Rotten Row (north) is unchanged. The ortho elevation now shows the building between the trunks. | C | No |
 | EX32 | **Park people and carriages (x06)** | Dickinson and ILN exterior views: crowds along the south front and carriages on the Kensington Road side | 1,266 visitors in groups of 1–5: the south promenade, the lawns, outside the east doors, and foreground strollers on the SE lawn. There are 16 carriages (open and closed, one horse) on a new carriage drive at y −440. The figures reuse Grok's transept `figures.py` crowd stand-ins (read-only import, own work), with clearances from every sight line and 25 ft from every camera. The counts and positions are illustrative. | C | No |
 | EX33 | **EXT_SE_34 reframed (x06)** | x05 miss: lawn-heavy | 35 mm (was 28 mm) from (1112, −488, 5.25) beyond the SE corner, looking at (850, −215, 30), so the south front, the SE corner and the east end read together. A gravel carriage drive with a branch to the east end, plus a footpath across the SE lawn to the corner, give leading lines. The path sits 5 mm under the drive to avoid a coplanar black overlap. The drive layout is inferred. | C | No |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| EX31 | GT_Boarding albedo (0.26, 0.22, 0.16); GT_Timber (0.40, 0.34, 0.26) | Sunlit end boards bleach | B |

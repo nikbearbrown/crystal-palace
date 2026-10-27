@@ -152,8 +152,8 @@ else:                  # neutral, to sit beside Claude's preview frame
     IRON = mat_principled("GT_Iron", (0.80, 0.80, 0.77), 0.55)
     IRON_COL = IRON_GIR = IRON
 FAN = mat_principled("GT_FanIron", (0.10, 0.11, 0.11), 0.5) if COLOUR != "owen" else oj_material("GT_Fan_OJ", "plain")
-WOOD = mat_principled("GT_Timber", (0.72, 0.66, 0.56), 0.7)
-WOODDARK = mat_principled("GT_Boarding", (0.50, 0.45, 0.37), 0.8)   # x06 EX30: more value contrast with the light iron (was 0.62)
+WOOD = mat_principled("GT_Timber", (0.40, 0.34, 0.26), 0.78)
+WOODDARK = mat_principled("GT_Boarding", (0.26, 0.22, 0.16), 0.88)   # EX31: darker weathered deal albedo (was pale)
 LEAD = mat_principled("GT_Lead", (0.42, 0.44, 0.46), 0.5, 0.3)
 GLASS = mat_glass("GT_Glass")
 GLASS_PLAIN = mat_glass("GT_GlassPlain", tint=(0.62, 0.68, 0.68), bars=False)
