@@ -451,6 +451,8 @@ new_obj("EGRAVEL_APRON", finish(bm, "gravel", GRAVEL), C["GROUND"], props={"part
 
 # ---------------- walls (Plate XXI ground tier; Plates IV, V upper tiers) ----------------
 DOOR = mat_principled("GT_DoorPaint", (0.20, 0.17, 0.13), 0.7)
+# EX20 (x04): wall and end-screen glass seen from outside in daylight reads dark against the light iron (Plate V, photos)
+GLASS_WALL = mat_glass("GT_GlassWallExt", tint=(0.34, 0.38, 0.39), bars=False, milk=0.02, milk_rgb=(0.30, 0.32, 0.32))
 def mesh_wall_bay(width_ft, height_ft, boarded):
     """24 ft bay between iron columns, three 8 ft compartments split by timber posts (Plate XXI); round-headed sashes.
     Ground tier: vertical boarding with iron louvres top and bottom. Upper tiers: glazed arched panels."""
@@ -479,7 +481,7 @@ def mesh_wall_bay(width_ft, height_ft, boarded):
     v = [bm.verts.new(p) for p in [(ft(-W/2), 0, ft(0.5)), (ft(W/2), 0, ft(0.5)), (ft(W/2), 0, ft(H)), (ft(-W/2), 0, ft(H))]]
     f = bm.faces.new(v)
     for lp in f.loops: lp[uvl].uv = (lp.vert.co.x / FT, lp.vert.co.z / FT)
-    me2 = finish(bm, me.name + "_fill", WOODDARK if boarded else GLASS_PLAIN)
+    me2 = finish(bm, me.name + "_fill", WOODDARK if boarded else GLASS_WALL)
     return me, me2
 def mesh_louvre():
     bm = bmesh.new()
@@ -625,6 +627,71 @@ except TypeError:
     scene.view_settings.view_transform = 'Filmic'
 scene.view_settings.exposure = -0.6     # whole-building views: glass roofs over ~19 acres clip at the transept setting (EX10)
 
+# ---------------- x04: flagstaffs on the top tier (bird's-eye view 1851; EX21) ----------------
+FLAGC = coll("FLAGS", ROOT)
+FLAG_MATS = [mat_principled("GT_FlagRed", (0.55, 0.06, 0.05), 0.8), mat_principled("GT_FlagBlue", (0.06, 0.10, 0.35), 0.8),
+             mat_principled("GT_FlagWhite", (0.80, 0.79, 0.74), 0.8)]
+def mesh_flagstaff(mat_i):
+    bm = bmesh.new(); bm_cyl(bm, inch(3), 0, ft(30), 8); bm_cyl(bm, inch(5), ft(30), ft(30.6), 8)
+    me_staff = None
+    fb = bmesh.new(); nx, nz = 9, 4
+    vs = [[fb.verts.new((inch(3) + ft(9) * i / nx, ft(0.35) * math.sin(i * 1.1) * i / nx, ft(29.5 - 6 * j / nz)))
+           for j in range(nz + 1)] for i in range(nx + 1)]
+    for i in range(nx):
+        for j in range(nz):
+            fb.faces.new([vs[i][j], vs[i + 1][j], vs[i + 1][j + 1], vs[i][j + 1]])
+    me = finish(bm, f"flagstaff_{mat_i}", IRON); mf = finish(fb, f"flag_{mat_i}", FLAG_MATS[mat_i])
+    return me, mf
+FLAGM = [mesh_flagstaff(i) for i in range(3)]
+flags = 0
+def flag_at(x, y, z):
+    global flags
+    me, mf = FLAGM[flags % 3]
+    new_obj(f"EFLAGSTAFF_{flags:03d}", me, FLAGC, (ft(x), ft(y), ft(z)), props={"part_kind": "flagstaff"})
+    new_obj(f"EFLAG_{flags:03d}", mf, FLAGC, (ft(x), ft(y), ft(z)), math.radians(200), props={"part_kind": "flag"})
+    flags += 1
+for sx in (-1, 1):
+    for k in range(0, 33):
+        x = sx * (132 + 24 + 72 * k)
+        if abs(x) > 900: break
+        for y in (-60.0, 60.0): flag_at(x, y, GIRDER_TOP[2] + 1.5)
+    for y in (-60.0, 0.0, 60.0): flag_at(sx * 924.0, y, GIRDER_TOP[2] + 1.5)
+
+# ---------------- x04: park trees (Rotten Row to the north, Kensington Road side to the south; EX22) ----------------
+TREEC = coll("PARK_TREES", ROOT)
+FOLIAGE = mat_principled("GT_ParkFoliage", (0.055, 0.10, 0.035), 0.9)
+def mesh_park_tree(seed, H):
+    rr = random.Random(seed); bm = bmesh.new()
+    bm_cyl(bm, ft(1.4), 0, ft(H * 0.45), 10)
+    for k in range(9):
+        a = rr.uniform(0, 2 * math.pi); d = rr.uniform(0, H * 0.18); z = rr.uniform(H * 0.5, H * 0.82); r = rr.uniform(H * 0.14, H * 0.22)
+        bmesh.ops.create_icosphere(bm, subdivisions=2, radius=ft(r),
+                                   matrix=Matrix.Translation((ft(d * math.cos(a)), ft(d * math.sin(a)), ft(z))))
+    me = bpy.data.meshes.new(f"park_tree_{seed}"); bm.to_mesh(me); bm.free()
+    me.materials.append(BARK); me.materials.append(FOLIAGE)
+    for p in me.polygons: p.material_index = 0 if p.center.z < ft(H * 0.45) - 0.01 and abs(p.center.x) < ft(1.5) and abs(p.center.y) < ft(1.5) else 1
+    return me
+TREEM = [mesh_park_tree(11, 62), mesh_park_tree(23, 74), mesh_park_tree(37, 86)]
+def _seg_d(p, a, b):
+    ax, ay = a; bx, by = b; px, py = p; dx, dy = bx - ax, by - ay; L2 = dx * dx + dy * dy
+    t = 0 if L2 == 0 else max(0, min(1, ((px - ax) * dx + (py - ay) * dy) / L2))
+    return math.hypot(px - ax - t * dx, py - ay - t * dy)
+_route = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "route", "camera_route.json")))
+_sight = [((s["start"]["pos_ft"][0], s["start"]["pos_ft"][1]), (s["start"]["look_ft"][0], s["start"]["look_ft"][1]))
+          for s in _route["shots"] if "ortho_m" not in s]
+trees = skipped = 0; rt = random.Random(SEED + 7)
+for yrow in (345.0, 395.0, -470.0, -530.0):
+    x = -1300.0 + rt.uniform(0, 30)
+    while x < 1300:
+        p = (x, yrow + rt.uniform(-12, 12))
+        if any(_seg_d(p, a, b) < 60 or math.hypot(p[0] - a[0], p[1] - a[1]) < 80 for a, b in _sight):
+            skipped += 1
+        else:
+            new_obj(f"ETREE_{trees:03d}", TREEM[trees % 3], TREEC, (ft(p[0]), ft(p[1]), 0), rt.uniform(0, 6.28),
+                    {"part_kind": "park_tree"}); trees += 1
+        x += rt.uniform(52, 68)
+print("FLAGS", flags, "TREES", trees, "SKIPPED", skipped)
+
 # ---------------- cameras (storyboard v001 grammar) ----------------
 CAMS = bpy.data.collections.new("CAMERAS_GROK"); scene.collection.children.link(CAMS)
 def cam(name, loc_ft, look_ft, lens, ortho=None, sensor=36.0, clip_end_ft=None):
@@ -645,7 +712,7 @@ for shot in route["shots"]:
 scene.camera = bpy.data.objects.get("EXT_SE_34_start")
 
 scene["grok_exterior_build"] = json.dumps({"parts": len(parts), "columns": len(cols), "roof_units": roof_n, "walls": walls,
-                                           "stairs": stairs, "finials": fin, "seed": SEED, "colour": COLOUR})
+                                           "stairs": stairs, "finials": fin, "flags": flags, "trees": trees, "seed": SEED, "colour": COLOUR})
 os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
 bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(OUT), compress=True)
 print("SAVED", OUT, "parts", len(parts), "columns", len(cols), "roofs", roof_n, "stairs", stairs)
