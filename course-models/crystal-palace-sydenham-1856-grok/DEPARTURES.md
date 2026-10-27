@@ -396,3 +396,22 @@ transept with Abu Simbel colossi amid warped iron; ground plan tinted fire exten
 | Colossi not re-placed in POST66 | R | crystal.dircon: survived fire but not re-erected in the transept; S67 shows them in the *immediate* ruins only |
 
 Blend: `rounds/sydenham-post66-s67-cand.blend`. Live starts untouched. Matched BEFORE remains EARLY r10final/r16 CP047/CP048.
+
+## S67b CANDIDATE — CP047 / CP048 (1866–67 N-transept fire, EARLY ruins)
+
+Prior S67 POST66 fire-scar cand (**REJECT** as fire shots): intact palace look; no readable fire damage.
+White-slab removal in CP048 foreground KEPT in live `sydenham-post66-r10.blend`.
+
+New candidate from EARLY (destroyed in-place), framed on the north end:
+
+| Change | Class | Note |
+| --- | --- | --- |
+| Kill N-transept vault glass / walls / roofs; leave gap where transept stood | R | ILN ruins + 12 Jan 1867 fire-extent plan |
+| Twisted / fallen iron ribs + charred collapsed wing fabric | I | pose language from ILN ruins engraving |
+| Rubble, blackened / broken glazing, smoke stains on adjacent fabric + colossi soot | I | density I |
+| Cameras on north end (CP047 north_end, CP048 terrace_hold) | R | fire must read at a glance |
+| Grey overcast winter sky (Jan 1867) replaces clear blue | I | **dated-state departure**, logged |
+
+Blend: `rounds/sydenham-s67b-fire-cand.blend` (script `scripts/install_s67b_fire_ruins_cand.py`).
+Before: `renders/s67b_before/` (EARLY + same cam poses). After: `renders/s67b_cand/`.
+Pairs: `compare/s67b_cand/pair_CP047.jpg`, `pair_CP048.jpg`.
