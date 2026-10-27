@@ -20,3 +20,5 @@
 - Higher-fidelity heads (Megalosaurus snout, Iguanodon horn detail) and surface texture (scales, armour).
 - Remaining 1854 genera (Labyrinthodon, Dicynodon, Pterodactyls, Mosasaurus, Teleosaurus, Palaeotherium, Anoplotherium).
 - A gaslit evening version of the dinner.
+- r01 renders done: `renders/r01/r01_CAM_*.png` (5 cams, 1920×1080, 40 spp). Contact sheet `compare/r01_contact.jpg`. Print compares: `compare/r01_CP034b_vs_ILN1854.jpg` and `compare/r01_CP034_vs_ILN1853.jpg`.
+- Known misses for r01: statue colours are pale and uniform (U); CP043b has the island bank filling the lower frame; the studio scaffold is generic; diners are generic stand-ins without top hats or individual portraits.
