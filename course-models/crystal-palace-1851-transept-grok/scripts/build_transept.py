@@ -464,7 +464,7 @@ rail_run(-X_T, VOID_N, X_T, VOID_N, "XN"); rail_run(-X_T, VOID_S, X_T, VOID_S, "
 
 # ---------------- floor and ground ----------------
 slab("FLOOR_BOARDS", -X_ARM - 12, X_ARM + 12, -Y_HALF, Y_HALF, 0.002 / FT, 0.5, FLOORM, C["FLOOR"], part_kind="floor_ground")
-bm = bmesh.new(); bm_box(bm, ft(-1600), ft(1600), ft(-1400), ft(1400), -0.30, -0.02)
+bm = bmesh.new(); bm_box(bm, ft(-9000), ft(9000), ft(-9000), ft(9000), -0.30, -0.02)
 new_obj("GROUND_PARK", finish(bm, "ground", GRASS), C["GROUND"], props={"part_kind": "ground"})
 
 # ---------------- walls (ends of the transept block, and the arms' clerestory sides) ----------------
@@ -667,18 +667,25 @@ def build_elm(name, x, y, H, D, CR, seed):
         spread = rnd.uniform(0.45, 0.8)
         nd = Vector((math.cos(ang) * spread, math.sin(ang) * spread, 1)).normalized()
         branch(top, nd, (H - trunk_h) * rnd.uniform(0.55, 0.7), D * 0.26, 3, 0.10)
+    # English elm: lower side limbs off the bole and leaders give the tall, billowing, low-starting crown
+    # (r05 fix: r04 read as an umbrella pine with a bare stem)
+    for k in range(6):
+        zb = trunk_h * rnd.uniform(0.75, 1.0) + (H - trunk_h) * rnd.uniform(0.0, 0.25)
+        ang = rnd.uniform(0, 2 * math.pi)
+        nd = Vector((math.cos(ang), math.sin(ang), rnd.uniform(0.35, 0.7))).normalized()
+        branch(Vector((x, y, zb)), nd, CR * rnd.uniform(0.55, 0.8), D * 0.14, 2, 0.12)
     me = finish(bm, name + "_wood", BARK)
     for pg in me.polygons: pg.use_smooth = True
     new_obj(name + "_WOOD", me, C["ELMS"], props={"part_kind": "elm_wood"})
     # foliage: clusters of leaf cards
     bm = bmesh.new(); uvl = bm.loops.layers.uv.new()
-    zc = trunk_h + (H - trunk_h) * 0.55; hz = (H - trunk_h) * 0.55
+    zc = trunk_h + (H - trunk_h) * 0.5; hz = (H - trunk_h) * 0.62
     clusters = 0; cards = 0
     for tp in tips:
         if rnd.random() < 0.05: continue
         c = Vector(tp) + Vector((rnd.uniform(-2, 2), rnd.uniform(-2, 2), rnd.uniform(0, 2.5)))
         r = rnd.uniform(3.0, 5.0)
-        if c.z < H * 0.36: continue
+        if c.z < H * 0.26: continue
         if math.hypot(c.x - x, c.y - y) + r * 0.6 > CR or (c.z - zc) / hz > 1.0 or c.z + r > H: continue
         if abs(c.x) + r + 1.6 > min(vault_half_width(c.z + r + 1.6) - 3.0, X_T - 2.0): continue
         clusters += 1

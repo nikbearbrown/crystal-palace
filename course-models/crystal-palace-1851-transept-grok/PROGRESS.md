@@ -15,3 +15,5 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
 - r02: elms rebuilt as branching tubes + leaf cards. CP017 end stop moved to (-26,-154), looking up at canopy + vault.
 - r03: denser and wider elms, dark bark. Full render set (1280x720, 64 spp) launched detached: scripts/render_round.sh r03 -> /tmp/r03.log
 - r04: elm branches clamped to the vault/column envelope (checks 38/38). Renders launched: /tmp/r04.log
+- r04 renders done (1280x720, 48 spp). Compare sheets: compare/r04_*.jpg. Self-score r04: 6.5/10. Frame, vault and fan read; the elms read as umbrella pines; the Plate VII sheet is mis-framed; the combo has a dark band beyond the ground plane.
+- r05: elm lower limbs (checks 38/38). Renders launched -> /tmp/r05.log. Script now has an 18,000 ft ground plane and a wider ortho (for r06).

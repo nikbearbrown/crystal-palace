@@ -38,9 +38,9 @@
   },
   {
    "id": "PLATE_IV_south_ortho",
-   "use": "compare with Downes Plate IV / VII end elevation",
+   "use": "compare with Downes Plate IV (south elevation, shortened drawing) and the transept end of Plate VII; the model is only the 264 ft transept block",
    "lens_mm": 50,
-   "ortho_m": 84,
+   "ortho_m": 86,
    "start": {
     "pos_ft": [
      0,

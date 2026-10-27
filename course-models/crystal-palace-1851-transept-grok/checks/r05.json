@@ -1,0 +1,394 @@
+[
+ {
+  "id": "D19a",
+  "check": "72 ft truss, face-to-face extent across the nave (Y)",
+  "target": 71.2,
+  "tolerance": 0.4,
+  "measured": 71.45,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D19a, Plate XX"
+ },
+ {
+  "id": "D19b",
+  "check": "72 ft truss depth (Z)",
+  "target": 6.0,
+  "tolerance": 0.1,
+  "measured": 6.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D19b, Plate XX"
+ },
+ {
+  "id": "D20",
+  "check": "main rib A extrados diameter (X extent)",
+  "target": 74.3333,
+  "tolerance": "0.70%",
+  "measured": 74.3333,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D20, p. 50"
+ },
+ {
+  "id": "D21",
+  "check": "main rib A radius (extrados, the 37 ft the ribs are 'cut to')",
+  "target": 37.0,
+  "tolerance": "0.70%",
+  "measured": 37.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "p. 50, D21"
+ },
+ {
+  "id": "D21i",
+  "check": "main rib A depth (extrados - intrados)",
+  "target": 1.5,
+  "tolerance": 0.02,
+  "measured": 1.5,
+  "unit": "ft",
+  "pass": true,
+  "source": "p. 50: 1 ft 6 in"
+ },
+ {
+  "id": "T01",
+  "check": "vault crown (rib extrados top) above floor",
+  "target": 102.1667,
+  "tolerance": 1.0,
+  "measured": 102.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "1856 guide: transept height 102 ft 2 in"
+ },
+ {
+  "id": "T02",
+  "check": "transept (vault) length, end rib to end rib",
+  "target": 408.0,
+  "tolerance": 0.5,
+  "measured": 408.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Plate II/III, 408 ft main block"
+ },
+ {
+  "id": "T05",
+  "check": "main rib A pitch (on the 24 ft columns)",
+  "target": 24.0,
+  "tolerance": 0.01,
+  "measured": 24.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "p. 36"
+ },
+ {
+  "id": "T06",
+  "check": "main ribs carried on the strong 72 ft trusses at y = +-12 ft",
+  "target": 2,
+  "tolerance": 0,
+  "measured": 2,
+  "unit": "count",
+  "pass": true,
+  "source": "p. 36"
+ },
+ {
+  "id": "G01",
+  "check": "columns on Claude's 24 ft grid (max off-grid error)",
+  "target": 0.0,
+  "tolerance": 0.01,
+  "measured": 0.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Claude frame: x=-924+24i, y=-204+24j"
+ },
+ {
+  "id": "G02",
+  "check": "transept clear width between column lines",
+  "target": 72.0,
+  "tolerance": 0.01,
+  "measured": 72.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Plate II"
+ },
+ {
+  "id": "D11a",
+  "check": "tier-1 girder top",
+  "target": 22.1667,
+  "tolerance": 0.05,
+  "measured": 22.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D11a"
+ },
+ {
+  "id": "D11b",
+  "check": "tier-2 girder top",
+  "target": 42.1667,
+  "tolerance": 0.05,
+  "measured": 42.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D11b"
+ },
+ {
+  "id": "D11c",
+  "check": "tier-3 girder top",
+  "target": 62.1667,
+  "tolerance": 0.05,
+  "measured": 62.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D11c"
+ },
+ {
+  "id": "D12",
+  "check": "gallery floor top",
+  "target": 22.9167,
+  "tolerance": 0.05,
+  "measured": 22.9167,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D12"
+ },
+ {
+  "id": "T03",
+  "check": "south cross gallery depth (Plate II '48.0')",
+  "target": 48.0,
+  "tolerance": 0.1,
+  "measured": 48.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Plate II"
+ },
+ {
+  "id": "T04",
+  "check": "north cross gallery depth",
+  "target": 24.0,
+  "tolerance": 0.1,
+  "measured": 24.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Plate II"
+ },
+ {
+  "id": "D13",
+  "check": "column outside diameter (shaft)",
+  "target": 8.0,
+  "tolerance": 0.1,
+  "measured": 8.0,
+  "unit": "in",
+  "pass": true,
+  "source": "controls.json D13"
+ },
+ {
+  "id": "D14",
+  "check": "column shaft top (bottom of the first connecting piece)",
+  "target": 18.9792,
+  "tolerance": 0.05,
+  "measured": 18.9792,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls.json D14"
+ },
+ {
+  "id": "E01_ELM_NORTH2_LEAVES",
+  "check": "ELM_NORTH2_LEAVES: min clearance to vault intrados / 72 ft column lines (>= 3 ft)",
+  "target": 3.0,
+  "tolerance": 0,
+  "measured": 3.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "CP017: canopy and roof clearance established",
+  "measured_clearance_ft": 4.55,
+  "top_ft": 64.0
+ },
+ {
+  "id": "E01_ELM_NORTH2_WOOD",
+  "check": "ELM_NORTH2_WOOD: min clearance to vault intrados / 72 ft column lines (>= 3 ft)",
+  "target": 3.0,
+  "tolerance": 0,
+  "measured": 3.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "CP017: canopy and roof clearance established",
+  "measured_clearance_ft": 4.81,
+  "top_ft": 63.1
+ },
+ {
+  "id": "E01_ELM_NORTH_LEAVES",
+  "check": "ELM_NORTH_LEAVES: min clearance to vault intrados / 72 ft column lines (>= 3 ft)",
+  "target": 3.0,
+  "tolerance": 0,
+  "measured": 3.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "CP017: canopy and roof clearance established",
+  "measured_clearance_ft": 4.67,
+  "top_ft": 83.1
+ },
+ {
+  "id": "E01_ELM_NORTH_WOOD",
+  "check": "ELM_NORTH_WOOD: min clearance to vault intrados / 72 ft column lines (>= 3 ft)",
+  "target": 3.0,
+  "tolerance": 0,
+  "measured": 3.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "CP017: canopy and roof clearance established",
+  "measured_clearance_ft": 3.88,
+  "top_ft": 82.7
+ },
+ {
+  "id": "E01_ELM_SOUTH_LEAVES",
+  "check": "ELM_SOUTH_LEAVES: min clearance to vault intrados / 72 ft column lines (>= 3 ft)",
+  "target": 3.0,
+  "tolerance": 0,
+  "measured": 3.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "CP017: canopy and roof clearance established",
+  "measured_clearance_ft": 4.45,
+  "top_ft": 77.5
+ },
+ {
+  "id": "E01_ELM_SOUTH_WOOD",
+  "check": "ELM_SOUTH_WOOD: min clearance to vault intrados / 72 ft column lines (>= 3 ft)",
+  "target": 3.0,
+  "tolerance": 0,
+  "measured": 3.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "CP017: canopy and roof clearance established",
+  "measured_clearance_ft": 5.06,
+  "top_ft": 77.1
+ },
+ {
+  "id": "CAM_CP008_build_around_end",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 25.24,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_CP008_build_around_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 35.48,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_CP017_park_inside_end",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 28.55,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_CP017_park_inside_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 57.68,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_OPEN_gallery_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 31.47,
+   "roll_rad": 0.0,
+   "z_m": 8.687
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_PLATE_IV_south_ortho_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 542.44,
+   "roll_rad": 0.0,
+   "z_m": 15.85
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REF_absolon_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 29.42,
+   "roll_rad": 0.0,
+   "z_m": 8.656
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REF_elm_north_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 79.55,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REF_talbot_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 15.29,
+   "roll_rad": 0.0,
+   "z_m": 2.743
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REV_combo_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 618.96,
+   "roll_rad": 0.0,
+   "z_m": 57.912
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REV_ext34_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 400.07,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REV_int_up_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 70.59,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ },
+ {
+  "id": "CAM_REV_south_start",
+  "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
+  "measured": {
+   "branch_clearance_ft": 265.9,
+   "roll_rad": 0.0,
+   "z_m": 1.6
+  },
+  "pass": true
+ }
+]
