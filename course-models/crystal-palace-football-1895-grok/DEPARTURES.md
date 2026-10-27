@@ -16,3 +16,15 @@
 | ID | Change | Why | Grade |
 |---|---|---|---|
 | FB04 | 36 hero figures near bank/pavilion/pitch cams; darker turf/bank albedo; turf strip on pitch | Sparse near-camera figures; flat green | B |
+
+## People library v3.1 adopt (2026-10-27) — football crowds
+
+| Shot | Era | Verdict | Note |
+|---|---|---|---|
+| CP050 bank 1895 | 1890s Victorian | REVERT | mid-ground stand reads darker/muddier vs before; grade otherwise OK |
+| CP055 bank 1913 | 1910s→1890s stand-in | REVERT | overall grade brighter/washed; pavilion band darker |
+
+### Departures
+- 1913 uses 1890s bustle/boater stand-in (same as Sydenham late11) — no true 1910s day-dress set in v3.1.
+- Crinoline hem capped ~0.9–1.0 m; lighter mid-tone skirts (shared survey `people_lib.py`).
+- Heroes left at pre-adopt PNGs after keep-better revert.

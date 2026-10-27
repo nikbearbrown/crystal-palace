@@ -6,6 +6,13 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 sc = bpy.context.scene; W, H = map(int, arg("--res", "1280x720").split("x")); sc.cycles.samples = int(arg("--samples", "48"))
 sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8")); base_exp = sc.view_settings.exposure
 os.makedirs(arg("--outdir"), exist_ok=True)
+
+era = arg("--era", os.environ.get("PEOPLE_ERA", ""))
+if era and "--no-people" not in argv:
+    scripts = os.path.dirname(os.path.abspath(__file__))
+    if scripts not in sys.path: sys.path.insert(0, scripts)
+    from cpl_people import adopt_people_v31, PEOPLE_VERSION
+    print("PEOPLE_ADOPT", PEOPLE_VERSION, era, adopt_people_v31(era=era, seed=int(arg("--seed", "0") or "0")), flush=True)
 cams = arg("--cams").split(",") if arg("--cams") != "ALL" else sorted(o.name for o in bpy.data.objects if o.type == 'CAMERA')
 for c in cams:
     ob = bpy.data.objects[c]; sc.camera = ob

@@ -1,0 +1,21 @@
+{
+  "version": "3.1",
+  "verdicts": {
+    "CP050": [
+      "REVERT",
+      "mid-ground stand reads darker/muddier band vs before"
+    ],
+    "CP055": [
+      "REVERT",
+      "overall grade brighter/washed vs before; pavilion darker"
+    ]
+  },
+  "changed": [
+    "CP054",
+    "CP058"
+  ],
+  "reverted": [
+    "CP050",
+    "CP055"
+  ]
+}

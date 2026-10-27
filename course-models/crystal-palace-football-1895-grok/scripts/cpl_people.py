@@ -9,7 +9,8 @@ if str(_HERE) not in sys.path:
 try:
     from people_lib import (  # noqa: F401
         PEOPLE_VERSION, catalogue, clear_mesh_cache, person_mesh,
-        resolve_role, swap_scene_people, ERA_ROLES, POSES,
+        resolve_role, swap_scene_people, adopt_people_v31,
+        swap_ppl57_templates, swap_merged_crowd_blocks, ERA_ROLES, POSES,
     )
 except ImportError:
     _SURVEY = Path("/workspace/crystal-palace-survey/people")
@@ -17,5 +18,6 @@ except ImportError:
         sys.path.insert(0, str(_SURVEY))
     from people_lib import (  # noqa: F401
         PEOPLE_VERSION, catalogue, clear_mesh_cache, person_mesh,
-        resolve_role, swap_scene_people, ERA_ROLES, POSES,
+        resolve_role, swap_scene_people, adopt_people_v31,
+        swap_ppl57_templates, swap_merged_crowd_blocks, ERA_ROLES, POSES,
     )
