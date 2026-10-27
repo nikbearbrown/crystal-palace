@@ -50,3 +50,33 @@ Claude's frame is used as-is: metres, origin at the crossing, X east, Y north. H
 - Move EXT_SE_34 and EXT_NE_strip about 40% closer and lower the look target, so the building fills the upper half.
 - Park trees: reuse the transept elm generator at low density, south of Rotten Row and on the Kensington side.
 - Propose (not do) a shared roof-glass material to Claude through Professor Bear.
+
+## x04 (2026-10-26)
+- **Changes**
+  - Darker end-screen glass. Flagstaffs on the cresting. EXT_SE_34 and EXT_NE_strip moved about 40% closer (EX23). Park trees.
+  - **Roof seam with Claude** (EX24/EX26): at render time, and in the assembly .blend saved here, his appended roof units take our roof glass.
+    - First x04 pass: the override applied, but his 2-poly roof mesh has no usable UVs. Our UV-driven sash-bar mask therefore painted his whole roof as bar, an opaque cream sheet.
+    - Fix: a copy, GT_RoofGlassExt_CL, drives the bars from object coordinates in feet. The seam is closed in REF_aerial_SE (`compare/x04_seam_before_after.jpg`).
+    - Claude's file was only read, never saved.
+  - **HP1851 complete** (EX25): `assembly/HP1851_complete.blend` is 20.6 MB and self-contained (appended, not linked).
+    - Contents: Claude's west frame, the Grok transept r07 and this exterior, with 31 cameras and 12 film-order markers over frames 1-1152.
+    - Rebuilt after EX26; its roof mesh carries GT_RoofGlassExt_CL.
+    - Test frame 1000 (OPEN_gallery) renders correctly from the assembly.
+- Checks 29/29 (checks/x04). Renders are in renders/x04, compare sheets in compare/x04_*.jpg.
+
+## Self-score x04: 7.2/10
+**Good:**
+- The seam between west and east roofs is gone from the air: one roof glass over 1848 ft.
+- The east end and transept read together in the eye-height views.
+- One film scene now holds the whole 1851 building and the camera route.
+
+**Misses:**
+- Claude's roofs are flat 2-poly sheets. From low angles they read smoother than our ridge-and-furrow units.
+- EXT_SE_34 is still about 45% lawn. The building needs to sit lower in frame, or the camera should stand on Rotten Row with trees in the foreground.
+- The south wall reads very pale and flat in full sun. The boarding and louvre bands need more value contrast.
+- No people, carriages or railings in the park.
+- REV_combo in the transept scene still clips the roofs (exposure 0 there), so the seam check uses the x04 aerial.
+
+## Next (x05)
+- Render-time ridge-and-furrow proxy for Claude's roof units: an instanced copy of our roof unit, placed only in our combined/assembly scenes.
+- EXT_SE_34 reframed. Wall value contrast. Railings and a few carriages on Rotten Row.
