@@ -100,6 +100,12 @@ for cam in [o for o in objs if o.type == 'CAMERA']:
     ok = d >= 1.0 and roll < 1e-3 and (not walk or abs(p.z - 1.6) < 0.01)
     res.append({"id": "CAM_" + cam.name, "check": "camera: >=1 ft from any branch/leaf, no roll, eye 1.6 m on walks",
                 "measured": {"branch_clearance_ft": round(d, 2), "roll_rad": round(roll, 5), "z_m": round(p.z, 3)}, "pass": ok})
+ex = [o for o in objs if o.get("part_kind") in ("exhibit_case", "exhibit_plinth", "bench")]
+cams_ = [o for o in objs if o.type == 'CAMERA']
+near = min((((c.matrix_world.translation - e.matrix_world.translation).length) / FT for c in cams_ for e in ex), default=1e9)
+okx = bool(ex) and all(e.instance_collection and e.instance_collection.get("credit", "").startswith("Muse") for e in ex) and near > 3.0
+res.append({"id": "PROPS_muse", "check": "appended models/ props credited to their maker (Muse); no camera within 3 ft of a prop",
+            "measured": {"props": len(ex), "nearest_camera_ft": round(near, 1)}, "pass": okx})
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 json.dump(res, open(OUT + ".json", "w"), indent=1)
 with open(OUT + ".md", "w") as f:
