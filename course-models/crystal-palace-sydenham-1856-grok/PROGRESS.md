@@ -64,3 +64,11 @@
 - Renders `renders/r12_<state>_<cam>.png` at 960×540 and 32 spp, run detached by `/workspace/syd_scratch/render_r12.sh`.
 - 23:57 resume: r12b chain (CP058 camera moved inside the cordon, y 217) running detached: FIRE + 1936 rebuilt (0 FAIL), AFTER in progress. Dino branch clean at e1d59bb.
 - r12b DONE: CP058 camera moved to (-310, 217) inside the cordon (press position, graded I). Rebuilt FIRE/1936/AFTER r12; checks 23/0, 21/0, 16/0. CP058 re-rendered for all three; compare/r12_CP058_1936_fire_after.jpg regenerated. r12 milestone committed locally (no push).
+
+## r13 (00:05–) — CP045 Handel Festival 1857, Fine Arts courts II, CP042 waterworks running
+- New `SY_STATE=CONCERT57` (root `SY-CONCERT57_HandelFestival_Jun1857`; the EARLY building with the north transept): `scripts/concert57.py` (orchestra amphitheatre, Gray & Davison organ, Costa rostrum, royal box, 2,424 performers, ~10,900 audience) + `scripts/people57.py` (Victorian-dress GN figures; 7 ft clear zone round cameras).
+- `scripts/courts2.py` (EARLY + CONCERT57): Pompeian house, Greek/Roman segment, Mediaeval Court with Rochester door and stained glass; Muse props appended from `vendor/muse-*` (CREDIT.md per prop; unused una/fountain-basin copies dropped).
+- `scripts/waterworks.py` (EARLY): fountains running (`SY56_waterworks_running__18Jun1856`), cascades, 2,417 visitors, CP042 cameras.
+- Rounds `rounds/sydenham-1856-r13.blend` (18.4 MB) and `rounds/sydenham-concert57-r13.blend` (15.1 MB).
+- Checks: `checks/r13_1856.txt` 25 PASS / 0 FAIL; `checks/r13_concert57.txt` 28 PASS / 0 FAIL (new: performer count, audience, organ/rostrum/royal box, dated tiers, orchestra width, the three courts, waterworks dated + visitors). `dimension_check.py` POST66 now excludes CONCERT57 (north transept present).
+- Previews in `/workspace/syd_scratch/r13/` (c57b_sheet, e13a_sheet, b_sheet). Finals rendering detached at 1280×720/32 spp → `renders/r13_*` via `/workspace/syd_scratch/r13/render_r13.sh`.

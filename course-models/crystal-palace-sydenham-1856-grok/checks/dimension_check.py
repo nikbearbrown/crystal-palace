@@ -30,7 +30,7 @@ if has('nave_vault_glass'):
     lo, hi = bb(['nave_vault_glass']); chk('nave crown above main floor', hi[2], 110.25, 0.5, "guide p.35 B 110'3\""); chk('nave span', hi[1]-lo[1], 72, 0.5, 'section 0212 R')
 else: na('nave', 'shell destroyed in this state')
 lo, hi = bb(['basement_brick']); chk('basement depth below main floor', -lo[2], 23.58, 0.3, "guide p.35 B 197'10\"-174'3\"")
-POST66 = ST != 'SY-EARLY'
+POST66 = ST not in ('SY-EARLY', 'SY-CONCERT57')
 for w in ('south', 'north'):
     if w == 'north' and POST66:
         flag(f'{w}_transept_vault_glass' not in OB, 'north transept ABSENT (post-1866 states)', '1866 fire, never rebuilt: R'); continue
@@ -82,6 +82,24 @@ if ST == 'SY-1936AFTER' and has('collapsed_ironwork_field'):
     bc = m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value if m and m.use_nodes else (1, 1, 1, 1)
     flag(m is not None and 'charred' in m.name, 'AFTER stumps/ironwork use charred-black iron (%s)' % (m.name if m else None), 'aerial 0587/0588 dark wreckage R; tone I')
 if ST == 'SY-RUINS': flag(not has('collapsed_ironwork_field') and has('column_footing_pads'), 'debris cleared, footing pads only', 'Ward demolition R; pads I')
+# r13: CONCERT57 (CP045), Fine Arts courts (CP039/CP040), waterworks running (CP042)
+def pc(n): return OB[n].get('people_count', 0) if n in OB else 0
+def collof(n, tag): return n in OB and any(tag in c.name for c in OB[n].users_collection)
+if ST == 'SY-CONCERT57':
+    chk('performers (orchestra + chorus) count', pc('ppl57_performers_choir_band'), 2396, 360, 'Handel Festival 1857: 2,000 chorus + 396 band, Times/Grove R; +-15%')
+    flag(pc('ppl57_audience') > 5000, 'audience > 5,000 figures (%d)' % pc('ppl57_audience'), 'attendance 11,000-17,000 per day R; modelled subset U')
+    flag(has('organ_case_1857', 'organ_front_pipes_1857', 'costa_rostrum', 'royal_box_1857'), 'organ, Costa rostrum and royal box present', 'Gray & Davison organ 1857 R; forms I')
+    flag(collof('handel_orchestra_tiers', '1857'), 'orchestra tiers in a dated 1857 collection', 'rule')
+    if has('handel_orchestra_tiers'):
+        lo, hi = bb(['handel_orchestra_tiers']); chk('orchestra N-S width (fills transept)', hi[1]-lo[1], 216, 20, 'transept 384 ft less aisles/galleries; ~216 I')
+if ST in ('SY-EARLY', 'SY-CONCERT57'):
+    for n, lab in (('ppl57_pompeian_visitors', 'Pompeian'), ('ppl57_greekroman_visitors', 'Greek/Roman'), ('ppl57_mediaeval_visitors', 'Mediaeval')):
+        flag(n in OB and any('SY54_court' in c.name for c in OB[n].users_collection), f'{lab} court present in a dated SY54 collection', '1854 guidebooks R (Scharf, Digby Wyatt)')
+if ST == 'SY-EARLY':
+    flag(collof('waterworks_spray', '18Jun1856') and collof('waterworks_foam', '18Jun1856'), 'waterworks RUNNING in dated collection *18Jun1856*', 'first full display 18 Jun 1856 R')
+    if has('waterworks_spray'):
+        lo, hi = bb(['waterworks_spray']); rows.append(f"INFO  highest jet top {hi[2]:.0f} ft above main floor (great-basin plumes, period claim 250 ft)")
+    flag(pc('ppl57_waterworks_visitors') > 1500, 'waterworks visitors > 1,500 (%d)' % pc('ppl57_waterworks_visitors'), 'U numbers')
 if has('gallery_floors'):
     gal = OB['gallery_floors']; area = sum(p.area for p in gal.data.polygons if p.normal.z > 0.9)/(F*F)
     rows.append(f"INFO  gallery floor area modelled {area:,.0f} sq ft vs guide 261,568 sq ft (B) -> {area/261568:.0%}; remainder = galleries not yet modelled (outer tiers, transept galleries)")

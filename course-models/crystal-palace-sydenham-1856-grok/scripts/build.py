@@ -121,9 +121,10 @@ M['flowers'] = flowers_mat('flower_beds_bedding')
 STATE = os.environ.get('SY_STATE', 'EARLY').upper() or 'EARLY'
 ROOTS = {'EARLY': 'SY-EARLY_c1856', 'POST66': 'SY-POST66_c1868', '1936': 'SY-1936_Nov1936_preFire',
          'FIRE': 'SY-1936FIRE_30Nov1936_night', 'AFTER': 'SY-1936AFTER_Dec1936_morning',
-         'RUINS': 'SY-RUINS_c1937-40', 'RUINS41': 'SY-RUINS_post1941'}
+         'RUINS': 'SY-RUINS_c1937-40', 'RUINS41': 'SY-RUINS_post1941',
+         'CONCERT57': 'SY-CONCERT57_HandelFestival_Jun1857'}   # r13: pre-1866 fabric + the 1857 festival (scripts/concert57.py)
 assert STATE in ROOTS, STATE
-POST66 = STATE != 'EARLY'
+POST66 = STATE not in ('EARLY', 'CONCERT57')
 root = bpy.data.collections.new(ROOTS[STATE]); sc.collection.children.link(root)
 def coll(name, parent=root):
     c = bpy.data.collections.new(name); parent.children.link(c); return c
@@ -184,6 +185,14 @@ def col_h(y):
 # inside the court rectangle; Egyptian court x180-276 y60-156 per plans 0205/0226; I - the real columns' treatment is U)
 COURT_VOIDS = [] if os.environ.get('SY_NO_COURTS') else [(180, 276, 60, 156)] + ([(492, 564, 60, 156)] if POST66 else [])   # POST66: restored Alhambra keeps its void in the infilled bay (I)
 def in_court(x, y): return any(x0 < x < x1 and y0 < y < y1 for x0, x1, y0, y1 in COURT_VOIDS)
+# r13: CONCERT57 - the Handel orchestra rises through the first north nave bays: gallery floors and the girders below
+# the orchestra top (tiers 1-2) are omitted there; columns stay and stand among the performers (I, D-R13-C03)
+ORCH_VOIDS = [(60, 172, -108.5, 108.5)] if STATE == 'CONCERT57' else []
+# r13 courts2.py: the Medieval Court (garden side, plan 0205 x392-490 y-116..-44) rises above gallery level as in the
+# Rijksmuseum stereo 'The French and Italian Medieval Vestibule' (catalogue 0042; glass roof seen over the arcades): gallery floor and the
+# tier-1/2 girders omitted over it, columns kept (I, D-R13-F05). Only the pre-1866 states carry courts2.
+GAL_VOIDS13 = [(392, 490, -116, -44)] if (STATE in ('EARLY', 'CONCERT57') and not os.environ.get('SY_NO_COURTS')) else []
+def in_orch(x, y, t): return t < 50 and any(x0 < x < x1 and y0 <= y <= y1 for x0, x1, y0, y1 in ORCH_VOIDS + GAL_VOIDS13)
 # ---------- main frame: columns + girders on the 24 ft grid ----------
 frame = {}
 def fb(key):
@@ -213,7 +222,7 @@ for y in COL_Y:
         for i in range(len(xs_grid)-1):
             xa, xb = xs_grid[i], xs_grid[i+1]
             if in_span((xa+xb)/2, TSPANS) and abs(y)<156-0.1: continue
-            if in_court((xa+xb)/2, y): continue
+            if in_court((xa+xb)/2, y) or in_orch((xa+xb)/2, y, t): continue
             fb('SY_main_frame').box(xa, xb, y-0.35, y+0.35, t-3, t)
 for x in xs_grid:
     if in_span(x, TSPANS): continue
@@ -222,12 +231,12 @@ for x in xs_grid:
         if in_court(x, (ya+yb)/2): continue
         hmin = min(col_h(ya), col_h(yb))
         for t in TIERS:
-            if t <= hmin+0.1:
+            if t <= hmin+0.1 and not in_orch(x, (ya+yb)/2, t):
                 fb('SY_main_frame').box(x-0.35, x+0.35, yb, ya, t-3, t)
 # gallery floors at tier 1 in the inner bands (I: HP practice; Sydenham gallery area 261,568 sq ft, guide p.35)
 gal = MB('gallery_floors', C['SY_main_frame'], M['floor'])
 def galbox(xa, xb, yl, yh, z0, z1):  # r08: gallery floor strip with court voids cut out
-    cuts = sorted((x0, x1) for x0, x1, y0, y1 in COURT_VOIDS if y0 < (yl+yh)/2 < y1 and x0 < xb and x1 > xa)
+    cuts = sorted((x0, x1) for x0, x1, y0, y1 in COURT_VOIDS + ORCH_VOIDS + GAL_VOIDS13 if y0 < (yl+yh)/2 < y1 and x0 < xb and x1 > xa)
     for x0, x1 in cuts:
         if x0 > xa: gal.box(xa, x0, yl, yh, z0, z1)
         xa = max(xa, x1)
@@ -240,8 +249,8 @@ for (yh, yl) in [(108,60),(60,36),(-36,-60),(-60,-108)]:
 for (yh, yl) in [(60,36),(-36,-60)]:  # second gallery in the tower stacks
     xa = -HALF
     for c,w in sorted(TSPANS):
-        gal.box(xa, c-w/2, yl, yh, TIERS[1]+0.2, TIERS[1]+0.8); xa = c+w/2
-    gal.box(xa, HALF, yl, yh, TIERS[1]+0.2, TIERS[1]+0.8)
+        galbox(xa, c-w/2, yl, yh, TIERS[1]+0.2, TIERS[1]+0.8); xa = c+w/2   # r13: galbox (orchestra void)
+    galbox(xa, HALF, yl, yh, TIERS[1]+0.2, TIERS[1]+0.8)
 gal.done()
 for _mb in list(frame.values()): _mb.done()  # r04 BUGFIX: r01-r03 never finalised the column/girder meshes
 # ground floor (boarded, 1.5 in boards with gaps: shader-free, U)
@@ -919,6 +928,7 @@ k = 0
 for side, yy in (('west', 26), ('garden', -26)):
     for xx in beds[side]:
         if in_span(xx, [(c_, w_+20) for c_, w_ in TSPANS]) or abs(xx) > HALF-20: continue
+        if STATE == 'CONCERT57' and -320 < xx < 200: continue          # r13: cleared for the festival seating (I)
         tub.box(xx-4, xx+4, yy-4, yy+4, 0, 3.5)
         (palm if k % 2 else tree_broadleaf)(xx, yy, 3.5, name=f'PLACEHOLDER_nave_{"palm" if k%2 else "tree"}_{side}_{int(xx)}'); k += 1
 # r05: statue / group / basin placeholders at marks DETECTED on plan 0205 (scripts/plan_nave_objects.py ->
@@ -928,6 +938,7 @@ objs = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'checks', 'p
 cf_s = MB('PLACEHOLDER_nave_basins_groups', NP, M['stone']); cf_w = MB('PLACEHOLDER_nave_basins_water', NP, M['water'])
 for o_ in objs:
     x_, y_, w_, d_ = o_['x'], o_['y'], o_['w'], o_['d']
+    if STATE == 'CONCERT57' and -320 < x_ < 200 and abs(y_) < 110: continue   # r13: cleared for the festival seating (I)
     if o_['kind'] == 'statue':
         statue(x_, y_, 0, st, scale=1.0)
     else:   # ~10 ft mark: low basin with a sculpture group on a central pedestal (placeholder)
@@ -1021,6 +1032,14 @@ sc.view_settings.view_transform = 'AgX' if 'AgX' in [i.identifier for i in sc.vi
 sc.unit_settings.system = 'METRIC'
 sc.view_settings.exposure = -1.0
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'states.py')).read())   # r11 later states + sphinxes
+# r13: Victorian people (GN-instanced), the 1857 Handel Festival, courts2 (Pompeian / Greek+Roman / Medieval), running
+# waterworks (CP042). Pre-1866 states only.
+if STATE in ('EARLY', 'CONCERT57'):
+    _sd = os.path.dirname(os.path.abspath(__file__))
+    exec(open(os.path.join(_sd, 'people57.py')).read())
+    if STATE == 'CONCERT57': exec(open(os.path.join(_sd, 'concert57.py')).read())
+    if not os.environ.get('SY_NO_COURTS') and os.path.exists(os.path.join(_sd, 'courts2.py')): exec(open(os.path.join(_sd, 'courts2.py')).read())
+    if STATE == 'EARLY' and os.path.exists(os.path.join(_sd, 'waterworks.py')): exec(open(os.path.join(_sd, 'waterworks.py')).read())
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 tri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
 print('BUILD_OK', OUT, 'objects', len(bpy.data.objects), 'faces', tri)
