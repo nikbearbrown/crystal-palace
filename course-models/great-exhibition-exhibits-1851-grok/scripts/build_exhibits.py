@@ -1,5 +1,5 @@
 """Great Exhibition 1851 hero exhibits as standalone, instance-ready assets (Grok Bot).
-  blender -b -P scripts/build_exhibits.py -- --out rounds/e01.blend
+  blender -b -P scripts/build_exhibits.py -- --out rounds/e02.blend
 Assets (each its own collection under EXH_ASSETS, origin = floor centre, Z up, metres; geometry written in feet):
   EXH_KOHINOOR            CP025  Koh-i-Noor (186 ct, pre-1852 cut) in the Chubb gilded 'birdcage' case  [I: case form from written
                                  accounts, ILN 17/31 May 1851, Illustrated Exhibitor 7 Jun 1851]
@@ -128,6 +128,47 @@ for k in range(NP):
 ring(bm, R_RAIL, 3.0, 0.06, 72); ring(bm, R_RAIL, 1.4, 0.035, 72)
 part("KOH_rail", KC, bm, [BRASS], part_kind="rail", radius_ft=R_RAIL)
 
+# e02 / EX10: July crimson enclosure with gas jets (ILN mid-1851 — added after May complaints the stone did not sparkle)
+CRIMSON = mat("EX_July_crimson", (0.38, 0.02, 0.04), 0.92)
+GASJET = mat("EX_GasJet", (1.0, 0.85, 0.55), 0.3, emit=4.5)
+GASPIPE = mat("EX_GasPipe", (0.45, 0.42, 0.35), 0.55, 0.3)
+ENC_R = 3.4                                          # inside the brass rail (6.5), outside the cage (1.45)
+bm = bmesh.new(); NPAN = 8
+for k in range(NPAN):
+    a0 = 2 * math.pi * k / NPAN + math.pi / NPAN; a1 = 2 * math.pi * (k + 1) / NPAN + math.pi / NPAN
+    # crimson fabric panels ~7.5 ft high, open at top so cage crown still reads
+    x0, y0 = ENC_R * math.cos(a0), ENC_R * math.sin(a0)
+    x1, y1 = ENC_R * math.cos(a1), ENC_R * math.sin(a1)
+    # thin curtain wall
+    for (za, zb) in ((0.15, 3.0), (3.0, 6.6), (6.6, 7.5)):
+        # skip a doorway panel on the south for visitor view (k==6)
+        if k == 6 and za < 6.5: continue
+        box(bm, min(x0, x1) - 0.02, max(x0, x1) + 0.02, min(y0, y1) - 0.02, max(y0, y1) + 0.02, za, zb)
+# valance ring at the top
+ring(bm, ENC_R, 7.5, 0.08, 48); ring(bm, ENC_R, 7.35, 0.05, 48)
+part("KOH_july_enclosure", KC, bm, [CRIMSON], part_kind="july_enclosure", state="july", note="ILN July 1851 crimson tent around the cage")
+bm = bmesh.new()                                      # gas-jet posts just inside the enclosure
+for k in range(6):
+    a = 2 * math.pi * k / 6 + 0.2
+    x, y = (ENC_R - 0.35) * math.cos(a), (ENC_R - 0.35) * math.sin(a)
+    rod(bm, (x, y, 0.1), (x, y, 6.9), 0.04, 8)       # upright pipe
+    rod(bm, (x, y, 6.9), (x * 0.55, y * 0.55, 5.6), 0.03, 6)  # swan-neck toward the stone
+part("KOH_gas_pipes", KC, bm, [GASPIPE], part_kind="gas_pipe", state="july")
+bm = bmesh.new()
+for k in range(6):
+    a = 2 * math.pi * k / 6 + 0.2
+    x, y = (ENC_R - 0.35) * 0.55 * math.cos(a), (ENC_R - 0.35) * 0.55 * math.sin(a)
+    # flame tip (emissive)
+    lathe(bm, [(0, 5.55), (0.06, 5.58), (0.09, 5.7), (0.04, 5.85), (0, 5.95)], 10, Matrix.Translation((x, y, 0)))
+part("KOH_gas_jets", KC, bm, [GASJET], part_kind="gas_jet", state="july", jets=6)
+# warm the diamond a touch under gas light (period fix for the dull look)
+try:
+    b = DIAMOND.node_tree.nodes["Principled BSDF"]
+    b.inputs["Emission Color"].default_value = (1.0, 0.95, 0.85, 1)
+    b.inputs["Emission Strength"].default_value = 0.25
+except Exception:
+    pass
+
 # ============ EXH_OSLER_CANDELABRUM ============
 OC = asset("EXH_OSLER_CANDELABRUM", shot="CP025", status="C/I", title="F. & C. Osler cut crystal-glass candelabrum (one of the Queen's pair)",
            credit="Grok Bot; height, light count and prism shaft from the Official Catalogue; arm layout and cutting interpretive",
@@ -231,6 +272,37 @@ for blow in range(4):                                # 4 blows in 96 frames: lif
 for fc in (tup.animation_data.action.fcurves if hasattr(tup.animation_data.action, "fcurves") else []):
     for kp in fc.keyframe_points:
         if abs(kp.co[1] - ft(DIE_TOP + STROKE)) < 1e-4 and kp.co[0] % 24 in (19,): kp.interpolation = 'QUAD'; kp.easing = 'EASE_IN'
+# e02: steam puffs on the exhaust / anvil at each blow impact (frames f0+24)
+STEAM = mat("EX_Steam", (0.92, 0.94, 0.96), 1.0, emit=0.35)
+try:
+    sb = STEAM.node_tree.nodes["Principled BSDF"]
+    sb.inputs["Alpha"].default_value = 0.35
+    sb.inputs["Transmission Weight"].default_value = 0.55
+    STEAM.blend_method = 'BLEND'
+    STEAM.use_backface_culling = False
+except Exception:
+    pass
+for blow in range(4):
+    f0 = 1 + 24 * blow
+    impact = f0 + 24
+    # exhaust stack puff
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=10, v_segments=8, radius=ft(0.55))
+    puff = part(f"HAM_steam_exh_{blow}", HC, bm, [STEAM], loc=(2.6, -0.3, 19.2), part_kind="steam", blow=blow)
+    # anvil strike puff
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=10, v_segments=8, radius=ft(0.85))
+    for v in bm.verts:
+        v.co.z *= 0.55; v.co.x *= 1.15; v.co.y *= 1.15
+    strike = part(f"HAM_steam_strike_{blow}", HC, bm, [STEAM], loc=(0, 0, DIE_TOP + 0.4), part_kind="steam", blow=blow)
+    for ob, s0, s1 in ((puff, 0.05, 2.4), (strike, 0.08, 2.8)):
+        for fr, sc_ in ((impact - 2, s0), (impact, s0 * 1.2), (impact + 3, s1), (impact + 10, s1 * 1.35), (impact + 18, 0.02)):
+            ob.scale = (sc_, sc_, sc_)
+            ob.keyframe_insert("scale", frame=fr)
+        # hide between blows
+        ob.hide_render = True; ob.keyframe_insert("hide_render", frame=impact - 3)
+        ob.hide_render = False; ob.keyframe_insert("hide_render", frame=impact - 1)
+        ob.hide_render = True; ob.keyframe_insert("hide_render", frame=impact + 20)
 bm = bmesh.new()                                     # barrier (I)
 BX, BY = 11.0, 7.0; posts = []
 for x in (-BX, -BX / 2, 0, BX / 2, BX):
