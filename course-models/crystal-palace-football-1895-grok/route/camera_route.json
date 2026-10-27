@@ -1,0 +1,106 @@
+{
+  "set": "G-FOOTBALL (CP050, CP055) Crystal Palace football ground 1895 / 1913",
+  "units": "m",
+  "shots": [
+    {
+      "id": "CP050_bank_1895",
+      "lens_mm": 35,
+      "note": "1895: from the natural bank looking over the pitch to the palace skyline",
+      "start": {
+        "pos_ft": [
+          -158,
+          -680,
+          -42.5
+        ],
+        "look_ft": [
+          -158,
+          -560,
+          -35
+        ]
+      }
+    },
+    {
+      "id": "CP050_pavilion_1895",
+      "lens_mm": 28,
+      "note": "1895: from the pavilion looking across the pitch",
+      "start": {
+        "pos_ft": [
+          -138,
+          -553,
+          -45.6
+        ],
+        "look_ft": [
+          -158,
+          -598,
+          -46.0
+        ]
+      }
+    },
+    {
+      "id": "CP055_bank_1913",
+      "lens_mm": 35,
+      "note": "1913 Cup Final: packed natural bank, palace on skyline (~120k)",
+      "start": {
+        "pos_ft": [
+          -158,
+          -685,
+          -41.8
+        ],
+        "look_ft": [
+          -158,
+          -560,
+          -35
+        ]
+      }
+    },
+    {
+      "id": "CP055_pitch_1913",
+      "lens_mm": 28,
+      "note": "1913: pitch-side looking up the packed bank",
+      "start": {
+        "pos_ft": [
+          -138,
+          -608,
+          -45.9
+        ],
+        "look_ft": [
+          -178,
+          -673,
+          -39.5
+        ]
+      }
+    }
+  ],
+  "contents": [
+    {
+      "id": "FB.palace",
+      "what": "Sydenham shell appended (read-only source)",
+      "info": "sydenham_appended",
+      "min": 1
+    },
+    {
+      "id": "FB.no_north",
+      "what": "north transept (lost 1866) removed",
+      "info": "north_removed",
+      "min": 1
+    },
+    {
+      "id": "FB.pitch",
+      "what": "pitch marked",
+      "info": "pitch",
+      "min": 1
+    },
+    {
+      "id": "FB.crowd_1913",
+      "what": "1913 crowd ~120k on banks",
+      "info": "crowd_1913",
+      "min": 100000
+    },
+    {
+      "id": "FB.crowd_1895",
+      "what": "1895 crowd present or empty ground state",
+      "info": "crowd_1895",
+      "min": 1
+    }
+  ]
+}
