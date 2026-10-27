@@ -40,3 +40,5 @@
 - Checks (state-aware `checks/dimension_check.py`): `checks/r11_<s>.txt` — 0 FAIL in all six (1856 19 PASS, 1936 20, fire 18, after 12, ruins 13, ruins41 9).
 - Renders: `renders/r11_<state>_<cam>.png` 960×540, 32 spp.
 - 22:15 r11b: `rounds/sydenham-1856-r11b.blend` built with Alhambra geometry lace (SY_LACE=1 default, courts.py arch_screen: 3 staggered rows of faceted lozenge studs following the arch outline, both faces). render.py accepts EXPO=<ev> per-render exposure override.
+- 22:37 r11 renders complete (`renders/r11_*`, 31 PNG) and matched compare sheets: `compare/r11_CP057_states.jpg` (1936/FIRE/AFTER/RUINS), `r11_CP061_1936_vs_fire.jpg`, `r11_CP062_1936_fire_after.jpg` (+post-1941), `r11_CP001_1936_vs_fire.jpg`, `r11_CP064_skyline_states.jpg` (5 states), `r11_CP072_after_vs_ruins.jpg`, `r11_CP073_1856_vs_ruins.jpg`, `r11_CP059_1936_vs_fire.jpg`. Same cam/res/spp per sheet (960×540, 32 spp). Sheets: `python3 scripts/state_sheet.py out.jpg "title" 2 "label=path" ...`.
+- In progress: r11b flames (one soft-masked emissive volume object per tongue, no hard cone silhouettes) → `rounds/sydenham-1936fire-r11b.blend`.
