@@ -93,3 +93,8 @@
   - `rounds/sydenham-war-r14.blend` (13.3 MB)
 - Checks `checks/r14_*.txt` all 0 FAIL: BUILD53 13P, OPEN54 27P, EARLY 29P, CONCERT57 30P, LATE11 25P, WAR 24P.
 - Renders 1280×720 / 32 spp detached via `/workspace/syd_scratch/r14/render_r14.sh` → `renders/r14_*`.
+- Renders DONE: 26 PNG at 1280×720 / 32 spp → `renders/r14_{build53,open54,1856,concert57,late11,war}_*.png`.
+- Sheets: `compare/r14_CP033_build53.jpg`, `r14_CP035_opening.jpg`, `r14_CP036_station.jpg`, `r14_CP040_courts_fix.jpg`, `r14_CP045_concert_fix.jpg`, `r14_CP049_CP053_late.jpg`, `r14_CP056_war.jpg`.
+- Best: CP035 procession nave 28 mm (opening crowds, yeomen, banners, vault) and CP036 platform arrival 28 mm (station shed, train, visitors).
+- Misses: 1913 national purchase not modelled; pavilion forms U; All-Red Route path I; White Ensign is banded approximation; BUILD53 outdoor dressing reads thin from some cams (tramway/spoil present on slope-up); opening crowd ~8k of ~40k; cascade look still from r13.
+- Local commit ee5b670 (rounds + scripts + BUILD53 renders); renders/sheets follow-up commit. NOT pushed.
