@@ -56,31 +56,31 @@
   },
   {
    "id": "CP017_park_inside",
-   "use": "CP017: enter the clear ground-level aisle under the south cross gallery, stop at the tree line, look up",
+   "use": "CP017: walk south down the west transept aisle toward the south elm, stop 20 ft short of the canopy edge (tree line), look up: canopy, canopy-to-vault gap and the dark south fan in one frame (r06 re-stage, see DEPARTURES C-row)",
    "lens_mm": 28,
    "speed_mps": 0.85,
    "start": {
     "pos_ft": [
-     -22,
-     -198,
+     -28,
+     -30,
      5.25
     ],
     "look_ft": [
-     -22,
-     -100,
+     -28,
+     -140,
      5.25
     ]
    },
    "end": {
     "pos_ft": [
-     -26,
-     -154,
+     -28,
+     -84,
      5.25
     ],
     "look_ft": [
-     0,
+     4,
      -122,
-     78
+     66
     ]
    }
   },
@@ -213,6 +213,23 @@
      0,
      160,
      60
+    ]
+   }
+  },
+  {
+   "id": "DET_fountain",
+   "use": "detail: the Osler crystal fountain at the crossing, 50 mm",
+   "lens_mm": 50,
+   "start": {
+    "pos_ft": [
+     -30,
+     -52,
+     5.25
+    ],
+    "look_ft": [
+     0,
+     0,
+     12
     ]
    }
   }

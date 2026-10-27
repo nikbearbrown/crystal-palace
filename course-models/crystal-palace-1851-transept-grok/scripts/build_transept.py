@@ -100,15 +100,59 @@ def mat_glass(name, tint=(0.88, 0.95, 0.93), bars=True):
     m.diffuse_color = (*tint, 0.3)
     return m
 
-if COLOUR == "owen":   # Owen Jones 1851: pale blue iron, with red and yellow (applied as a simple blue here)
-    IRON = mat_principled("GT_Iron", (0.55, 0.66, 0.80), 0.55)
+OJ_BLUE, OJ_RED, OJ_YELLOW, OJ_WHITE = (0.13, 0.25, 0.58), (0.58, 0.05, 0.04), (0.86, 0.62, 0.12), (0.86, 0.86, 0.82)
+def oj_material(name, mode):
+    """Owen Jones 1851 scheme (see DEPARTURES OJ rows): primaries separated by white; blue on the large and
+    concave surfaces, yellow on the convex, red only on the undersides. mode: 'column' (vertical stripes round the
+    shaft, by angle in object space), 'girder' (red underside by normal, yellow top chord, blue faces), 'plain' (blue)."""
+    m = bpy.data.materials.new(name); m.use_nodes = True
+    nt = m.node_tree; n = nt.nodes; l = nt.links; b = n["Principled BSDF"]; b.inputs["Roughness"].default_value = 0.5
+    def rgb(c):
+        r = n.new("ShaderNodeRGB"); r.outputs[0].default_value = (*c, 1); return r.outputs[0]
+    def mix(fac, a, c):
+        x = n.new("ShaderNodeMix"); x.data_type = 'RGBA'; l.new(fac, x.inputs["Factor"]); l.new(a, x.inputs["A"]); l.new(c, x.inputs["B"]); return x.outputs["Result"]
+    def math_(op, a, v=None, a2=None):
+        x = n.new("ShaderNodeMath"); x.operation = op
+        l.new(a, x.inputs[0])
+        if a2 is not None: l.new(a2, x.inputs[1])
+        elif v is not None: x.inputs[1].default_value = v
+        return x.outputs[0]
+    tc = n.new("ShaderNodeTexCoord"); sep = n.new("ShaderNodeSeparateXYZ"); l.new(tc.outputs["Object"], sep.inputs[0])
+    geo = n.new("ShaderNodeNewGeometry"); sn = n.new("ShaderNodeSeparateXYZ"); l.new(geo.outputs["Normal"], sn.inputs[0])
+    if mode == "column":
+        ang = math_('ARCTAN2', sep.outputs[1], a2=sep.outputs[0])
+        k = math_('FRACT', math_('MULTIPLY', ang, 8 / (2 * math.pi)))      # 8 stripes round the shaft
+        # stripe sequence per quarter: blue (wide), white, yellow, white
+        is_white1 = math_('LESS_THAN', math_('ABSOLUTE', math_('SUBTRACT', k, 0.5)), 0.08)
+        q = math_('FRACT', math_('MULTIPLY', ang, 4 / (2 * math.pi)))
+        is_yel = math_('GREATER_THAN', q, 0.5)
+        c = mix(is_yel, rgb(OJ_BLUE), rgb(OJ_YELLOW))
+        c = mix(is_white1, c, rgb(OJ_WHITE))
+        down = math_('LESS_THAN', sn.outputs[2], -0.5)
+        c = mix(down, c, rgb(OJ_RED))
+    elif mode == "girder":
+        top = math_('GREATER_THAN', sep.outputs[2], -inch(3.2))
+        down = math_('LESS_THAN', sn.outputs[2], -0.5)
+        c = mix(top, rgb(OJ_BLUE), rgb(OJ_YELLOW))
+        c = mix(down, c, rgb(OJ_RED))
+    else:
+        down = math_('LESS_THAN', sn.outputs[2], -0.5)
+        c = mix(down, rgb(OJ_BLUE), rgb(OJ_RED))
+    l.new(c, b.inputs["Base Color"]); m.diffuse_color = (*OJ_BLUE, 1)
+    return m
+if COLOUR == "owen":
+    IRON = oj_material("GT_Iron_OJ", "plain")
+    IRON_COL = oj_material("GT_IronColumn_OJ", "column")
+    IRON_GIR = oj_material("GT_IronGirder_OJ", "girder")
 else:                  # neutral, to sit beside Claude's preview frame
     IRON = mat_principled("GT_Iron", (0.80, 0.80, 0.77), 0.55)
+    IRON_COL = IRON_GIR = IRON
+FAN = mat_principled("GT_FanIron", (0.10, 0.11, 0.11), 0.5) if COLOUR != "owen" else oj_material("GT_Fan_OJ", "plain")
 WOOD = mat_principled("GT_Timber", (0.72, 0.66, 0.56), 0.7)
 WOODDARK = mat_principled("GT_Boarding", (0.62, 0.55, 0.45), 0.8)
 LEAD = mat_principled("GT_Lead", (0.42, 0.44, 0.46), 0.5, 0.3)
 GLASS = mat_glass("GT_Glass")
-GLASS_PLAIN = mat_glass("GT_GlassPlain", bars=False)
+GLASS_PLAIN = mat_glass("GT_GlassPlain", tint=(0.62, 0.68, 0.68), bars=False)
 BARK = mat_principled("GT_Bark", (0.075, 0.065, 0.055), 0.95)
 GRASS = mat_principled("GT_Grass", (0.16, 0.24, 0.08), 0.9)
 
@@ -207,7 +251,7 @@ def mesh_column(top_ft, with_seat=False):
     if with_seat:     # transept columns carry the arched ribs to the springing (Plate VIII Figs. 9-10, p. 37)
         bm_cyl(bm, r, ft(z), ft(SPRING), 16)
         bm_box(bm, -inch(7), inch(7), -inch(7), inch(7), ft(SPRING - 0.8), ft(SPRING))
-    return finish(bm, f"col_{int(top_ft)}{'_seat' if with_seat else ''}", IRON)
+    return finish(bm, f"col_{int(top_ft)}{'_seat' if with_seat else ''}", IRON_COL)
 
 def mesh_girder(span_ft, depth_ft, panel_ft, name):
     """Trellis girder along +X centred on 0, top at z=0 (place at the girder top)."""
@@ -223,7 +267,7 @@ def mesh_girder(span_ft, depth_ft, panel_ft, name):
         xa = x0 + (x1 - x0) * k / n; xb = x0 + (x1 - x0) * (k + 1) / n
         bm_bar(bm, (xa, 0, -D + inch(3)), (xb, 0, -inch(3)), inch(1.5), inch(1.0))
         bm_bar(bm, (xa, 0, -inch(3)), (xb, 0, -D + inch(3)), inch(1.5), inch(1.0))
-    return finish(bm, name, IRON)
+    return finish(bm, name, IRON_GIR)
 
 LIBM = {
     "col1": mesh_column(GIRDER_TOP[0]), "col2": mesh_column(GIRDER_TOP[1]),
@@ -534,6 +578,107 @@ for sx in (-1, 1):   # clerestory sides of the tier-2 arms, and tier-3 sides of 
         wall_run(sx * X_ARM, ya, sx * X_ARM, yb, GIRDER_TOP[0], GIRDER_TOP[1] - GIRDER_D, False, f"A{sx:+d}{sy:+d}")
         wall_run(sx * X_LF, ya, sx * X_LF, yb, GIRDER_TOP[1], GIRDER_TOP[2] - GIRDER_D, False, f"L{sx:+d}{sy:+d}")
 
+# ---------------- arm galleries and avenue stairs (Plate II, XV-XVII; mirrors Claude's scheme) ----------------
+# Gallery cells in the tier-2 arms (|x| 60..132): strips |y| 36..60 and 108..132; avenue voids |y| 60..108 except the
+# stair bay |x| 84..108, where a 48 x 24 ft cross gallery bridges the void (two 8 x 16 ft wells over the middle strip).
+STAIR_RISE_LAND = 137.5 / 12          # landing height, ft (Claude parts.STAIR_RISE)
+def mesh_flight(run_ft, rise_ft, width_ft, name):
+    """straight flight along +Y from y=0 (foot) to y=run, rising rise; strings and treads; origin at the foot."""
+    bm = bmesh.new(); n = max(2, round(rise_ft / (6.5 / 12))); g = run_ft / n; r = rise_ft / n; w = width_ft
+    for k in range(n):
+        bm_box(bm, ft(-w/2), ft(w/2), ft(k * g), ft((k + 1) * g + 0.1), ft((k + 1) * r - 0.12), ft((k + 1) * r))
+    for sx in (-1, 1):
+        bm_bar(bm, (ft(sx * w/2), 0, ft(0.4)), (ft(sx * w/2), ft(run_ft), ft(rise_ft + 0.4)), inch(2), inch(11))
+        bm_bar(bm, (ft(sx * w/2), 0, ft(3.0)), (ft(sx * w/2), ft(run_ft), ft(rise_ft + 3.0)), inch(2.5), inch(2.5))
+    return finish(bm, name, WOOD)
+LIBM["flight"] = mesh_flight(20, STAIR_RISE_LAND, 7.0, "stair_flight")
+LIBM["flight2"] = mesh_flight(20, GALLERY_TOP - STAIR_RISE_LAND, 7.0, "stair_flight_upper")
+for sx in (-1, 1):
+    ov = {"claude_overlap": sx < 0}
+    for sy in (-1, 1):
+        for (ya, yb) in ((36, 60), (108, 132)):
+            y0, y1 = sorted((sy * ya, sy * yb)); x0, x1 = sorted((sx * X_LF, sx * X_ARM))
+            slab(f"GAL_ARM_{sx:+d}{sy:+d}_{ya}", x0, x1, y0, y1, GALLERY_TOP, GALLERY_T, WOOD, C["GALLERIES"],
+                 part_kind="gallery_floor", **ov)
+        # cross gallery over the stair bay
+        xc = sx * 96; y0, y1 = sorted((sy * 60, sy * 108))
+        for (xa, xb) in ((-12, -4), (4, 12)):
+            slab(f"XGAL_{sx:+d}{sy:+d}_{xa}", xc + xa, xc + xb, y0, y1, GALLERY_TOP, GALLERY_T, WOOD, C["GALLERIES"], part_kind="gallery_floor", **ov)
+        ym0, ym1 = sorted((sy * 76, sy * 92))
+        slab(f"XGAL_{sx:+d}{sy:+d}_mid", xc - 4, xc + 4, ym0, ym1, GALLERY_TOP, GALLERY_T, WOOD, C["GALLERIES"], part_kind="gallery_floor", **ov)
+        # stair: landing at the void centre, two ground flights in the outer strips, two upper flights in the middle
+        ym0, ym1 = sorted((sy * 80, sy * 88))
+        slab(f"STLAND_{sx:+d}{sy:+d}", xc - 12, xc + 12, ym0, ym1, STAIR_RISE_LAND, 0.5, WOOD, C["GALLERIES"], part_kind="stair_landing", **ov)
+        rot_out = 0.0 if sy > 0 else math.pi      # flight local +Y points away from the nave
+        for dx in (-7.75, 7.75):
+            place("flight", f"STFL_{sx:+d}{sy:+d}_{dx:+.0f}", C["GALLERIES"], xc + dx, sy * 60, 0, rot_out, part_kind="stair_flight", **ov)
+        place("flight2", f"STFU_{sx:+d}{sy:+d}_IN", C["GALLERIES"], xc, sy * 80, STAIR_RISE_LAND, rot_out + math.pi, part_kind="stair_flight", **ov)
+        place("flight2", f"STFU_{sx:+d}{sy:+d}_OUT", C["GALLERIES"], xc, sy * 88, STAIR_RISE_LAND, rot_out, part_kind="stair_flight", **ov)
+        for k, (xa, xb) in enumerate(((60, 84), (108, 132))):
+            for ye in (60, 108):
+                rail_run(sx * xa, sy * ye, sx * xb, sy * ye, f"ARM{sx:+d}{sy:+d}{k}{ye}")
+        rail_run(sx * X_LF, sy * 60, sx * X_LF, sy * 108, f"ARMX{sx:+d}{sy:+d}")
+for ob in list(C["RAILINGS"].objects):
+    if ob.name.startswith(("RAIL_ARM", "RAIL_ARMX")) and ob.location.x < 0: ob["claude_overlap"] = True
+
+# ---------------- the Osler crystal fountain at the crossing (ILN 1851 engraving; 27 ft of cut glass) ----------------
+def glass_solid(name, tint=(0.95, 0.97, 1.0), ior=1.5, rough=0.0):
+    """cut glass read as thin shells: Fresnel mix of a tinted transparent and a sharp glossy, plus a faint
+    refraction lobe for the cut-glass sparkle. A solid refractive BSDF on single-sided lathe shells read as
+    chrome in r06 tests (total internal reflection), so the shells are treated as thin glass."""
+    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; n = nt.nodes; l = nt.links
+    for x in list(n):
+        if x.type != 'OUTPUT_MATERIAL': n.remove(x)
+    out = [x for x in n if x.type == 'OUTPUT_MATERIAL'][0]
+    fr = n.new("ShaderNodeFresnel"); fr.inputs["IOR"].default_value = ior
+    tr = n.new("ShaderNodeBsdfTransparent"); tr.inputs["Color"].default_value = (*tint, 1)
+    gl = n.new("ShaderNodeBsdfGlossy"); gl.inputs["Roughness"].default_value = rough
+    rf = n.new("ShaderNodeBsdfRefraction"); rf.inputs["IOR"].default_value = ior; rf.inputs["Color"].default_value = (*tint, 1)
+    m1 = n.new("ShaderNodeMixShader"); m1.inputs[0].default_value = 0.15
+    l.new(tr.outputs[0], m1.inputs[1]); l.new(rf.outputs[0], m1.inputs[2])
+    m2 = n.new("ShaderNodeMixShader"); l.new(fr.outputs[0], m2.inputs[0]); l.new(m1.outputs[0], m2.inputs[1]); l.new(gl.outputs[0], m2.inputs[2])
+    l.new(m2.outputs[0], out.inputs["Surface"])
+    m.diffuse_color = (*tint, 0.4)
+    return m
+CRYSTAL = glass_solid("GT_OslerCrystal", (0.96, 0.97, 1.0), 1.55, 0.0)
+WATER = glass_solid("GT_Water", (0.80, 0.88, 0.86), 1.33, 0.02)
+STONE = mat_principled("GT_Stone", (0.62, 0.60, 0.56), 0.8)
+def lathe(profile_ft, name, mat, seg=48, cx=0.0, cy=0.0):
+    """revolve a (r, z) polyline in feet about the vertical axis"""
+    bm = bmesh.new(); rings = []
+    for (r, z) in profile_ft:
+        rings.append([bm.verts.new((ft(cx) + ft(r) * math.cos(2*math.pi*k/seg), ft(cy) + ft(r) * math.sin(2*math.pi*k/seg), ft(z))) for k in range(seg)])
+    for A, B in zip(rings, rings[1:]):
+        for k in range(seg):
+            bm.faces.new([A[k], A[(k+1)%seg], B[(k+1)%seg], B[k]])
+    me = finish(bm, name, mat)
+    for p in me.polygons: p.use_smooth = True
+    return me
+FC = coll("FOUNTAIN", ROOT)
+# basin: a stone curb 30 ft across (inferred from the figures in the ILN engraving), water 0.9 ft below the curb
+new_obj("FOUNTAIN_CURB", lathe([(13.6, 0), (15.0, 0), (15.0, 1.6), (14.4, 1.9), (13.6, 1.9), (13.6, 0)], "f_curb", STONE), FC, props={"part_kind": "fountain"})
+new_obj("FOUNTAIN_WATER", lathe([(0, 1.0), (13.65, 1.0)], "f_water", WATER, 64), FC, props={"part_kind": "fountain"})
+# glass body: stepped plinth, big lower bowl, crowned middle bowl, small upper bowl, knopped shaft, finial
+prof = [(0, 1.0), (5.2, 1.0), (5.2, 2.4), (4.4, 2.6), (4.4, 3.6), (3.6, 3.8), (2.2, 4.4), (1.6, 6.0),
+        (1.3, 7.2), (3.5, 7.6), (7.6, 8.4), (8.4, 9.4), (8.0, 9.9), (2.0, 9.6), (1.2, 10.4), (1.0, 12.4),
+        (2.0, 12.6), (5.2, 13.5), (5.6, 14.3), (1.0, 14.0), (0.8, 15.2), (1.5, 15.6), (3.2, 16.6), (3.4, 17.2),
+        (0.7, 17.0), (0.6, 18.4), (1.0, 18.9), (0.5, 19.5), (0.45, 21.0), (0.85, 21.5), (0.4, 22.0), (0.35, 23.6),
+        (0.7, 24.1), (0.3, 24.6), (0.25, 26.2), (0.55, 26.6), (0.0, 27.0)]
+new_obj("FOUNTAIN_GLASS", lathe(prof, "f_glass", CRYSTAL, 48), FC, props={"part_kind": "fountain", "height_ft": 27.0})
+# hanging prism fringes on the bowls and the spiked crown on the middle bowl
+bm = bmesh.new()
+for (rr, z0, n, L) in ((8.2, 9.4, 64, 1.6), (5.4, 13.6, 44, 1.1), (3.3, 16.7, 28, 0.8)):
+    for k in range(n):
+        a = 2 * math.pi * k / n
+        bm_cyl(bm, inch(0.9), ft(z0 - L), ft(z0), 5, ft(rr) * math.cos(a), ft(rr) * math.sin(a))
+for k in range(18):
+    a = 2 * math.pi * k / 18
+    bm_bar(bm, (ft(4.6) * math.cos(a), ft(4.6) * math.sin(a), ft(14.2)), (ft(4.9) * math.cos(a), ft(4.9) * math.sin(a), ft(16.2)), inch(2.5), inch(2.5))
+new_obj("FOUNTAIN_PRISMS", finish(bm, "f_prisms", CRYSTAL), FC, props={"part_kind": "fountain"})
+# the water: a jet from the finial and a sheet falling from each bowl (thin glassy shells)
+new_obj("FOUNTAIN_JET", lathe([(0.05, 26.9), (0.12, 29.5), (0.6, 30.6), (1.6, 30.2), (2.6, 28.0)], "f_jet", WATER, 24), FC, props={"part_kind": "fountain_water"})
+# (r06: falling water sheets dropped; they read as solid chrome cylinders. Logged F-row.)
+
 # ---------------- semicircular end screens (Plates VII, XXIV-XXVI) ----------------
 def build_end_screen(sy):
     Y = ft(sy * Y_HALF); tag = "S" if sy < 0 else "N"
@@ -578,7 +723,7 @@ def build_end_screen(sy):
             for (xa, za), (xb, zb) in zip(pts, pts[1:]):
                 bm_bar(bm, (xa, Y, za), (xb, Y, zb), inch(2.5), inch(3))
     # columns of the screen: the semi-elliptical wooden columns B rise with the arch (approximated as 2 mullions per 24 ft)
-    new_obj(f"ENDSCREEN_FRAME_{tag}", finish(bm, f"endscreen_{tag}", IRON), C["END_SCREENS"], props={"part_kind": "end_screen"})
+    new_obj(f"ENDSCREEN_FRAME_{tag}", finish(bm, f"endscreen_{tag}", FAN), C["END_SCREENS"], props={"part_kind": "end_screen"})
     # glass disc
     bm = bmesh.new(); uvl = bm.loops.layers.uv.new()
     pts = arc_pts(ft(R - 0.5), 96)
@@ -689,14 +834,14 @@ def build_elm(name, x, y, H, D, CR, seed):
         if math.hypot(c.x - x, c.y - y) + r * 0.6 > CR or (c.z - zc) / hz > 1.0 or c.z + r > H: continue
         if abs(c.x) + r + 1.6 > min(vault_half_width(c.z + r + 1.6) - 3.0, X_T - 2.0): continue
         clusters += 1
-        for j in range(70):
+        for j in range(150):
             # points in a squashed sphere, denser at the outer, sunlit skin
             v = Vector((rnd.gauss(0, 1), rnd.gauss(0, 1), rnd.gauss(0, 1))).normalized() * (r * rnd.uniform(0.55, 1.0) ** 0.5)
             v.z *= 0.75
             q = c + v
             nrm = Vector((rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.uniform(-0.3, 1))).normalized()
             t1 = nrm.cross(Vector((0.3, 0.2, 1))).normalized(); t2 = nrm.cross(t1)
-            sz = rnd.uniform(0.9, 1.5)
+            sz = rnd.uniform(0.45, 0.8)
             vs = [bm.verts.new(F(q + (t1 * sx + t2 * sy) * sz)) for (sx, sy) in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
             f = bm.faces.new(vs)
             for lp, uv in zip(f.loops, ((0, 0), (1, 0), (1, 1), (0, 1))): lp[uvl].uv = uv
