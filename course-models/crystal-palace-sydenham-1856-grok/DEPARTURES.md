@@ -77,3 +77,4 @@ Grades: B = book/guide, R = repo research (plan/map/photo measured), I = inferen
 - MISS: placeholder statuary/fountains/trees are blocks and blobs; terrace basins plain rings (0074 shows ornate basins).
 - MISS: water towers simplified (no tapered body/lantern); upper-terrace grass slopes shown as walls.
 - U: Owen Jones colour placement; park levels; fountain dates; Crystal Fountain position.
+- MISS (after finals): CAM_compare_0007 is still too low/level — the photo looks down over the terraces and Grand Fountain; ours shows flat lawn. Park paths/flower beds absent. The CT central stair and stair cheeks are plain blocks (no flights/landings articulation). In the straight CT view the stepped tiers read only as horizontal bands (correct frontally, but the front still looks boxy).
