@@ -35,14 +35,15 @@ def mat(name, base, rough=0.6, metal=0.0, bump=None, var=None):
     return m
 # Hawkins painted the statues (brick/iron cores, cement render); 1854 colours are not recorded well -> greens/greys/browns
 # after contemporary coloured prints and the 2002 restoration palette (U).
+# r02: brighter Hawkins-era cement paints after hand-coloured prints / 2002 restoration notes (U/I); stronger scale bump
 M = dict(
-    ig=mat('paint_iguanodon_green_grey', (0.16, 0.19, 0.12), 0.65, bump=('scales', 18, 0.35), var=((0.22, 0.22, 0.15), 3)),
-    meg=mat('paint_megalosaurus_brown', (0.2, 0.13, 0.08), 0.65, bump=('scales', 18, 0.35), var=((0.26, 0.19, 0.12), 3)),
-    hyl=mat('paint_hylaeosaurus_olive', (0.18, 0.17, 0.1), 0.65, bump=('scales', 20, 0.35), var=((0.25, 0.22, 0.14), 3)),
-    ich=mat('paint_ichthyosaur_slate', (0.17, 0.18, 0.17), 0.5, bump=('noise', 30, 0.15), var=((0.24, 0.24, 0.2), 2)),
-    ple=mat('paint_plesiosaur_dun', (0.21, 0.18, 0.13), 0.55, bump=('noise', 30, 0.15), var=((0.27, 0.24, 0.18), 2)),
-    mgt=mat('paint_megatherium_brown_fur', (0.16, 0.11, 0.07), 0.8, bump=('noise', 60, 0.4), var=((0.22, 0.16, 0.1), 4)),
-    elk=mat('paint_irish_elk_fawn', (0.3, 0.2, 0.11), 0.7, bump=('noise', 50, 0.2), var=((0.36, 0.26, 0.16), 4)),
+    ig=mat('paint_iguanodon_green_grey', (0.28, 0.34, 0.18), 0.55, bump=('scales', 22, 0.55), var=((0.42, 0.38, 0.22), 4.5)),
+    meg=mat('paint_megalosaurus_brown', (0.38, 0.22, 0.12), 0.55, bump=('scales', 20, 0.55), var=((0.52, 0.36, 0.18), 4.0)),
+    hyl=mat('paint_hylaeosaurus_olive', (0.30, 0.32, 0.14), 0.55, bump=('scales', 24, 0.6), var=((0.45, 0.40, 0.20), 5.0)),
+    ich=mat('paint_ichthyosaur_slate', (0.22, 0.28, 0.30), 0.4, bump=('noise', 36, 0.28), var=((0.38, 0.40, 0.32), 3.5)),
+    ple=mat('paint_plesiosaur_dun', (0.34, 0.28, 0.18), 0.45, bump=('noise', 32, 0.28), var=((0.48, 0.40, 0.26), 3.5)),
+    mgt=mat('paint_megatherium_brown_fur', (0.30, 0.18, 0.10), 0.75, bump=('noise', 70, 0.55), var=((0.42, 0.28, 0.14), 6.0)),
+    elk=mat('paint_irish_elk_fawn', (0.48, 0.32, 0.16), 0.65, bump=('noise', 55, 0.35), var=((0.62, 0.44, 0.24), 5.0)),
     clay=mat('modelling_clay_wet_grey', (0.33, 0.31, 0.28), 0.85, bump=('noise', 25, 0.25)),
     plaster=mat('plaster_mould_white', (0.72, 0.7, 0.65), 0.9, bump=('noise', 12, 0.15)),
     grass=mat('grass_1854_young_turf', (0.07, 0.13, 0.035), 0.9, bump=('noise', 80, 0.3), var=((0.12, 0.15, 0.05), 0.08)),
@@ -341,8 +342,10 @@ bm_obj('dinner_deck_marquee_table', CD, dinner, [M['plaster'], M['timber'], M['l
 def guests(bm):
     rr = random.Random(1853)
     for k in range(10):
-        for s in (-1, 1): man(bm, DX - 9.5 + k*1.9, s*2.3, 0.0 if s > 0 else math.pi, 'plain', rr, 7.9 - 1.6)
-    man(bm, DX + 10.6, 0, -math.pi/2, 'plain', rr, 7.9 - 1.6)                 # Owen at the head (R that he sat in the head; pose I)
+        for s in (-1, 1):
+            kind = 'top' if rr.random() < 0.85 else 'plain'   # r02: top hats for evening silhouette
+            man(bm, DX - 9.5 + k*1.9, s*2.3, 0.0 if s > 0 else math.pi, kind, rr, 7.9 - 1.6)
+    man(bm, DX + 10.6, 0, -math.pi/2, 'top', rr, 7.9 - 1.6)                 # Owen at the head (R); top hat silhouette
 bm_obj('dinner_guests_21', CD, guests, PEOPLE_M)
 def yard(bm):   # grass yard under the off-site studio / dinner sets (I): hides the empty sky-ground horizon
     box(bm, 1000, 7000, -3000, 3000, -0.3, -0.05, 0)
@@ -356,29 +359,45 @@ def cam(name, loc, look, lens):
     o.rotation_euler = (Vector([f(v) for v in look]) - o.location).to_track_quat('-Z', 'Y').to_euler(); return o
 def walk_y(x): return -5 - LB * math.sqrt(max(0, 1.32 - ((x - 60) / 440) ** 2))
 cam('CAM_CP043_lake_islands_35mm', (-60, walk_y(-60), ground(-60, walk_y(-60)) + EYE), (5, 10, 4), 35)
-cam('CAM_CP043b_iguanodons_detail_50mm', (48, -84, WL + EYE), (36, 14, 4.5), 50)   # standing in a boat on the lake (I)
+# r02: S-bank walk framing — camera above path, look over open water to iguanodons (was boat-level with bank filling frame)
+_wy = walk_y(15); cam('CAM_CP043b_iguanodons_detail_50mm', (15, _wy - 14, ground(15, _wy - 14) + EYE + 3.5), (10, 12, 6.0), 50)
 cam('CAM_CP043c_tertiary_megatherium_elk_50mm', (318, -60, WL + EYE), (289, 24, 8), 50)   # from a boat (I)
 cam('CAM_CP034_hawkins_studio_28mm', (SX - 48, -22, EYE), (SX + 4, 0, 8), 28)
 cam('CAM_CP034b_iguanodon_dinner_28mm', (DX - 21, -21, 12.0 + EYE), (DX - 1, 0, 9.5), 28)   # standing on the press gallery (I), print-like raised view
 sc.camera = bpy.data.objects['CAM_CP043_lake_islands_35mm']
 
 # ---------------- world / render ----------------
+# Daylight Nishita for lake/studio; dinner uses local gaslight (sun still present but dim dusk for evening read on CP034b)
 w = bpy.data.worlds.new('sky'); sc.world = w; w.use_nodes = True; nt = w.node_tree; bg = nt.nodes['Background']
 sky = nt.nodes.new('ShaderNodeTexSky')
-for t in ('NISHITA', 'MULTIPLE_SCATTERING', 'SINGLE_SCATTERING'):
-    try: sky.sky_type = t; break
+for _st in ('NISHITA', 'MULTIPLE_SCATTERING', 'SINGLE_SCATTERING'):
+    try: sky.sky_type = _st; break
     except Exception: pass
-try: sky.sun_elevation = math.radians(34); sky.sun_rotation = math.radians(150)
+try: sky.sun_elevation = math.radians(28); sky.sun_rotation = math.radians(200)   # r02 dusk for dinner plates
 except Exception: pass
-nt.links.new(sky.outputs[0], bg.inputs[0]); bg.inputs[1].default_value = 0.25
-sun = bpy.data.lights.new('sun', 'SUN'); sun.energy = 2.0; sun.angle = math.radians(1.0)
-so = bpy.data.objects.new('sun', sun); root.objects.link(so); so.rotation_euler = (math.radians(56), 0, math.radians(150))
-for nm, loc, e, sz in [('studio_clerestory_light_S', (SX, -26, 22), 9000, 90), ('studio_clerestory_light_N', (SX, 26, 22), 6000, 90), ('marquee_glow', (DX, 0, 24), 9000, 60)]:
-    ld = bpy.data.lights.new(nm, 'AREA'); ld.energy = e; ld.shape = 'RECTANGLE'; ld.size = f(sz); ld.size_y = f(8)
-    lo = bpy.data.objects.new(nm, ld); (CSTU if 'studio' in nm else CD).objects.link(lo); lo.location = [f(v) for v in loc]
-    lo.rotation_euler = (math.radians(90 if loc[1] < 0 else -90) if 'studio' in nm else 0, 0, 0)
+nt.links.new(sky.outputs[0], bg.inputs[0]); bg.inputs[1].default_value = 0.22
+sun = bpy.data.lights.new('sun', 'SUN'); sun.energy = 1.6  # day for lake; dinner set is 3000 ft away so local gaslights dominate CP034b; sun.angle = math.radians(1.2); sun.color = (1.0, 0.72, 0.45)
+so = bpy.data.objects.new('sun', sun); root.objects.link(so); so.rotation_euler = (math.radians(55), 0, math.radians(150))
+# studio still needs work light
+for nm, loc, e, sz in [('studio_clerestory_light_S', (SX, -26, 22), 12000, 90), ('studio_clerestory_light_N', (SX, 26, 22), 8000, 90)]:
+    ld = bpy.data.lights.new(nm, 'AREA'); ld.energy = e; ld.shape = 'RECTANGLE'; ld.size = f(sz); ld.size_y = f(8); ld.color = (1.0, 0.95, 0.85)
+    lo = bpy.data.objects.new(nm, ld); CSTU.objects.link(lo); lo.location = [f(v) for v in loc]
+    lo.rotation_euler = (math.radians(90 if loc[1] < 0 else -90), 0, 0)
+# r02: warm gas/oil lamps for New Year dinner (evening event R)
+def _gas(name, loc_ft, energy=2500, size=1.2):
+    ld = bpy.data.lights.new(name, 'POINT'); ld.energy = energy; ld.color = (1.0, 0.62, 0.28); ld.shadow_soft_size = f(size)
+    lo = bpy.data.objects.new(name, ld); CD.objects.link(lo); lo.location = [f(v) for v in loc_ft]; return lo
+_gas('dinner_chandelier_gas', (DX - 1, 0, 20.5), 3200, 2.0)
+for _k, _x in enumerate([DX - 10 + i*4 for i in range(6)]):
+    _gas(f'dinner_table_lamp_{_k}', (_x, 0, 12.5), 1800, 0.8)
+_gas('dinner_marquee_warm_L', (DX - 20, -12, 18), 3500, 3.0)
+_gas('dinner_marquee_warm_R', (DX + 18, 12, 18), 3500, 3.0)
+_gas('dinner_gallery_fill', (DX - 21, -21, 14), 2200, 2.5)
+# marquee canopy soft fill
+ld = bpy.data.lights.new('marquee_glow', 'AREA'); ld.energy = 900; ld.shape = 'RECTANGLE'; ld.size = f(50); ld.size_y = f(30); ld.color = (1.0, 0.55, 0.25)
+lo = bpy.data.objects.new('marquee_glow', ld); CD.objects.link(lo); lo.location = [f(v) for v in (DX, 0, 22)]; lo.rotation_euler = (0, 0, 0)
 sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 48; sc.cycles.use_denoising = True; sc.cycles.max_bounces = 6
 sc.render.resolution_x = 1920; sc.render.resolution_y = 1080
-sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = -1.4; sc.unit_settings.system = 'METRIC'
+sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = -0.6; sc.unit_settings.system = 'METRIC'
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 print('BUILD_OK', OUT, 'objects', len(bpy.data.objects), 'faces', sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH'))

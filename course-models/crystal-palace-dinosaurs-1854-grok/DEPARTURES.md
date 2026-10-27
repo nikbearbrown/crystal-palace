@@ -31,3 +31,12 @@ Units in the scripts are feet. Coordinates: +X runs east along the lake, +Y is n
 | 23 | Mould cut height (upper half removed above 6.0 ft local), boarded inner floor, table at the rim | | The print shows diners at the rim level. Construction details are I | I |
 | 24 | Studio/dinner sets placed off-site (x = 2000 / 3000) on a grass yard | | Separate dated collections per the rules; not geographic | I |
 | 25 | Figures (workmen, guests): metaball stand-ins after the HP executor's `figures.py` approach (read-only reference, credited) | | Generic 1850s dress | I |
+
+## r02 quality (2026-10-27)
+- D-DN-22 U/I: brighter Hawkins cement paints + stronger scale bump (hand-coloured prints / 2002 restoration notes)
+- D-DN-23 I: CP043b reframed from S-bank walk (was boat-level; bank filled lower third)
+- D-DN-24 R: New Year dinner evening gas/oil lamps (warm POINT); guests top-hatted for silhouette
+
+## r02b (2026-10-27)
+- Dinner evening override in hero render (world 0.015, sun 0.02); marquee/chandelier glow already in build.
+- CP043b further back/higher from S-bank (build.py).

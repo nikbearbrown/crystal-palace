@@ -22,3 +22,11 @@
 - A gaslit evening version of the dinner.
 - r01 renders done: `renders/r01/r01_CAM_*.png` (5 cams, 1920×1080, 40 spp). Contact sheet `compare/r01_contact.jpg`. Print compares: `compare/r01_CP034b_vs_ILN1854.jpg` and `compare/r01_CP034_vs_ILN1853.jpg`.
 - Known misses for r01: statue colours are pale and uniform (U); CP043b has the island bank filling the lower frame; the studio scaffold is generic; diners are generic stand-ins without top hats or individual portraits.
+
+## Checkpoint crystal-palace-dinosaurs-1854-grok quality round
+- Patched scripts for quality pass; rebuilds pending lean hero renders.
+
+## r02 (2026-10-27) — Hawkins paint + dinner evening + bank frame
+- `dinosaurs-1854-r02.blend` (~5.7 MB).
+- Lean heroes → `renders/r02/r02_CAM_CP{043,043b,034b}_*.png` (dinner evening avg ~140,121,94).
+- Local commit. NOT pushed.
