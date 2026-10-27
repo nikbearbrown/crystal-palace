@@ -14,3 +14,11 @@
 - PARK54 / PARK60 / PARK-NOW rebuilt: dino translate D-PM-08, camera purge, subway lights, cam fixes.
 - Checks: r01_park54 / park60 / parknow — 0 FAIL.
 - No OS/LiDAR in workspace (D-PM-01).
+
+## Checkpoint crystal-palace-park-modern-grok quality round
+- Patched scripts for quality pass; rebuilds pending lean hero renders.
+
+## r02 (2026-10-27) — PARK-NOW quality + CP067/CP070
+- `parknow-r02.blend` (~6.8 MB): richer grass/stone/NSC mats, trees, visitor silhouettes, CP067/CP070 cams.
+- Lean heroes → `renders/r02/r02_CAM_CP{067,070,066,071,072,074,076}_*.png`.
+- Soft cam-block: []. Local commit. NOT pushed.

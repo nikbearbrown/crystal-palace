@@ -36,6 +36,19 @@ def mat_thin_glass(n, tint=(0.80, 0.86, 0.84), mix=0.10):
     fr = nn.new("ShaderNodeFresnel"); fr.inputs[0].default_value = 1.5
     m2 = nn.new("ShaderNodeMixShader"); l.new(fr.outputs[0], m2.inputs[0]); l.new(m1.outputs[0], m2.inputs[1]); l.new(gl.outputs[0], m2.inputs[2])
     l.new(m2.outputs[0], o.inputs[0]); M.diffuse_color = (*tint, 0.3); return M
+def mat_noise(n, c0, c1, rough=0.85, scale=12.0, bump=0.08, detail=6.0):
+    """two-tone noise base color + mild bump — richer park/NSC materials"""
+    M = bpy.data.materials.new(PFX + n); M.use_nodes = True; nt = M.node_tree
+    b = nt.nodes["Principled BSDF"]
+    nz = nt.nodes.new("ShaderNodeTexNoise"); nz.inputs["Scale"].default_value = scale; nz.inputs["Detail"].default_value = detail
+    cr = nt.nodes.new("ShaderNodeValToRGB")
+    cr.color_ramp.elements[0].position = 0.35; cr.color_ramp.elements[0].color = (*c0, 1)
+    cr.color_ramp.elements[1].position = 0.7; cr.color_ramp.elements[1].color = (*c1, 1)
+    nt.links.new(nz.outputs["Fac"], cr.inputs["Fac"]); nt.links.new(cr.outputs["Color"], b.inputs["Base Color"])
+    bp = nt.nodes.new("ShaderNodeBump"); bp.inputs["Strength"].default_value = bump
+    nt.links.new(nz.outputs["Fac"], bp.inputs["Height"]); nt.links.new(bp.outputs[0], b.inputs["Normal"])
+    b.inputs["Roughness"].default_value = rough
+    M.diffuse_color = (*c0, 1); return M
 def mat_image(n, path, rough=0.8):
     M = bpy.data.materials.new(PFX + n); M.use_nodes = True; nt = M.node_tree; b = nt.nodes["Principled BSDF"]
     t = nt.nodes.new("ShaderNodeTexImage"); t.image = bpy.data.images.load(path); t.image.pack()

@@ -13,3 +13,13 @@
 - **D-PM-09 I**: purged cameras that rode in on non-CAMERAS collections from ruins41 append (name collisions).
 - **D-PM-10 I**: subway AREA lights for CP071; restored brighter than sealed PARK54/60.
 - **D-PM-11 I**: CP072 footprint cam raised to elevated overview; CP074 retargeted after dino translate.
+
+## r02 quality (2026-10-27)
+- D-PM-12 I: PARK-NOW grass carpets + park trees (no OS tree survey; placement U)
+- D-PM-13 I: noise grass / worn stone / NSC formwork concrete materials
+- D-PM-14 I: visitor silhouettes with arms; hero figures just outside camera clear zone
+
+## r02 coverage (2026-10-27)
+- **D-PM-15 I** CP067 `CAM_CP067_dino_conservation_35mm` + interpretive board near conserved Hawkins cluster.
+- **D-PM-16 R/I** CP070 aliased: `CAM_CP070_park_entry_35mm` + `CAM_CP070_begin_walk_35mm` (same pose; begin-the-walk beat).
+- **D-PM-07 R** dino append path now `dinosaurs-1854-r02.blend`.

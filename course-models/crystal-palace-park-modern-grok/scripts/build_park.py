@@ -16,7 +16,7 @@ STATE = arg("--state", "PARKNOW").upper()   # PARK54 | PARK60 | PARKNOW
 SY = arg("--sydenham",
     "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/rounds/sydenham-ruins41-r11.blend")
 DINO = arg("--dinos",
-    "/workspace/crystal-palace-dinosaurs/course-models/crystal-palace-dinosaurs-1854-grok/rounds/dinosaurs-1854-r01.blend")
+    "/workspace/crystal-palace-dinosaurs/course-models/crystal-palace-dinosaurs-1854-grok/rounds/dinosaurs-1854-r02.blend")
 SEED = {"PARK54": 1954, "PARK60": 1964, "PARKNOW": 2024}.get(STATE, 2024)
 R = random.Random(SEED)
 assert STATE in ("PARK54", "PARK60", "PARKNOW"), STATE
@@ -45,16 +45,19 @@ for _o in [o for o in bpy.data.objects if o.type == "CAMERA"]:
 info["inferences"].append("D-PM-01 I: park levels reuse Sydenham ruins41 terrain (no OS/LiDAR open data in workspace; searched 2026-10-27)")
 
 # ---- materials ----
+# r02: richer present-day materials — noise grass, worn stone, NSC formwork concrete
 M_brick = G.mat("Brick", (0.30, 0.18, 0.12), 0.9)
 M_brick_w = G.mat("BrickWeathered", (0.35, 0.28, 0.22), 0.95)
-M_stone = G.mat("Stone", (0.48, 0.46, 0.42), 0.85)
-M_concrete = G.mat("Concrete", (0.55, 0.54, 0.50), 0.85)
-M_concrete_d = G.mat("ConcreteDark", (0.38, 0.38, 0.36), 0.8)
+M_stone = G.mat_noise("StoneWorn", (0.42, 0.40, 0.36), (0.58, 0.55, 0.48), rough=0.9, scale=8.0, bump=0.12)
+M_concrete = G.mat_noise("ConcreteNSC", (0.48, 0.47, 0.44), (0.62, 0.60, 0.55), rough=0.88, scale=4.5, bump=0.15)
+M_concrete_d = G.mat_noise("ConcreteDark", (0.32, 0.32, 0.30), (0.42, 0.41, 0.38), rough=0.85, scale=3.5, bump=0.12)
 M_iron = G.mat("Iron", (0.10, 0.10, 0.11), 0.5, 0.3)
 M_rust = G.mat("Rust", (0.30, 0.14, 0.06), 0.9, 0.2)
 M_glass = G.mat_thin_glass("Glass", (0.78, 0.84, 0.86), 0.12)
 M_road = G.mat("Road", (0.22, 0.22, 0.20), 0.95)
-M_grass = G.mat("Grass", (0.20, 0.32, 0.14), 0.95)
+M_grass = G.mat_noise("Grass", (0.14, 0.28, 0.10), (0.28, 0.42, 0.16), rough=0.95, scale=40.0, bump=0.06)
+M_bark = G.mat_noise("Bark", (0.18, 0.12, 0.08), (0.28, 0.20, 0.12), rough=0.9, scale=18.0, bump=0.2)
+M_leaf = G.mat_noise("Leaf", (0.10, 0.28, 0.08), (0.22, 0.40, 0.14), rough=0.85, scale=25.0, bump=0.05)
 M_tile = G.mat("Tile", (0.55, 0.30, 0.14), 0.6)
 M_cream = G.mat("VaultCream", (0.78, 0.72, 0.58), 0.85)
 M_red = G.mat("VaultRed", (0.42, 0.12, 0.08), 0.85)
@@ -263,8 +266,11 @@ if STATE == "PARKNOW":
             if not _c: continue
             for _o in _c.all_objects:
                 _o.location = Vector(_o.location) + DINO_OFF
-        info["inferences"].append("D-PM-07 R: dinosaurs appended read-only from dinosaurs-1854-r01.blend (conserved survivors)")
+        info["inferences"].append("D-PM-07 R: dinosaurs appended read-only from dinosaurs-1854-r02.blend (conserved survivors)")
         info["inferences"].append("D-PM-08 I: dinosaur cluster translated by (-50,-880,-48) m to south-park lake; native blend local origin")
+        # CP067 interpretive board (conservation / "earlier understanding")
+        board_m = G.mat("InterpBoard", (0.15, 0.18, 0.12), 0.7)
+        box("pk_dino_interp_board", DN, -25, -23.5, -868, -866, -47.5, -45.5, board_m)
     except Exception as e:
         info["dinos_appended"] = 0
         info["inferences"].append(f"D-PM-07 U: dino append failed: {e}")
@@ -275,16 +281,17 @@ if STATE == "PARKNOW":
         bm = __import__("bmesh").new()
         import bmesh
         from mathutils import Matrix as Mx
-        # legs
-        for s in (-0.08, 0.08):
-            bmesh.ops.create_cone(bm, cap_ends=True, segments=5, radius1=0.06, radius2=0.05, depth=0.75,
-                                  matrix=Mx.Translation(Vector((x + s, y, z + 0.4))))
-        # torso
-        bmesh.ops.create_cone(bm, cap_ends=True, segments=6, radius1=0.22, radius2=0.16, depth=0.7,
-                              matrix=Mx.Translation(Vector((x, y, z + 1.15))))
-        # head
-        bmesh.ops.create_uvsphere(bm, u_segments=6, v_segments=4, radius=0.11,
-                                  matrix=Mx.Translation(Vector((x, y, z + 1.65))))
+        # r02: clearer silhouette — legs, wider torso, arms, head
+        for s in (-0.10, 0.10):
+            bmesh.ops.create_cone(bm, cap_ends=True, segments=5, radius1=0.07, radius2=0.055, depth=0.85,
+                                  matrix=Mx.Translation(Vector((x + s, y, z + 0.42))))
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=7, radius1=0.26, radius2=0.18, depth=0.75,
+                              matrix=Mx.Translation(Vector((x, y, z + 1.2))))
+        for s in (-0.32, 0.32):
+            bmesh.ops.create_cone(bm, cap_ends=True, segments=4, radius1=0.05, radius2=0.04, depth=0.55,
+                                  matrix=Mx.Translation(Vector((x + s, y, z + 1.25))) @ Mx.Rotation(math.radians(18 if s > 0 else -18), 4, 'Y'))
+        bmesh.ops.create_uvsphere(bm, u_segments=7, v_segments=5, radius=0.13,
+                                  matrix=Mx.Translation(Vector((x, y, z + 1.72))))
         me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
         me.materials.append(M_coat if R.random() < 0.5 else M_jeans); me.materials.append(M_skin)
         o = bpy.data.objects.new(name, me); o.rotation_euler[2] = rot; PPL.objects.link(o)
@@ -303,6 +310,31 @@ if STATE == "PARKNOW":
         spots.append((-80 + R.uniform(-60, 60), -900 + R.uniform(-80, 80), -50))
     # clear 7 ft around cameras (added below — so place people after cams? do cams first)
     info["ppl_spots_planned"] = len(spots)
+
+    # r02: present-day grass carpets + park trees (richer PARK-NOW materials)
+    GR = G.coll("PARKNOW_grass_trees", ROOT)
+    box("pk_grass_plateau", GR, -hx - 40, hx + 40, -hy - 80, hy + 40, -0.05, 0.02, M_grass)
+    box("pk_grass_terrace_band", GR, -hx, hx, ft(-337) - 5, ft(-337) + 25, ft(-23.58) - 0.05, ft(-23.58) + 0.02, M_grass)
+    box("pk_grass_nsc_surround", GR, CX - 120, CX + 120, CY - 100, CY + 100, CZ - 0.3, CZ - 0.05, M_grass)
+    def _tree(name, x, y, z, h):
+        bm = __import__("bmesh").new(); import bmesh
+        from mathutils import Matrix as Mx
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=6, radius1=h*0.04, radius2=h*0.02, depth=h*0.55,
+                              matrix=Mx.Translation(Vector((x, y, z + h*0.28))))
+        for k in range(4):
+            ox, oy = R.uniform(-h*0.12, h*0.12), R.uniform(-h*0.12, h*0.12)
+            bmesh.ops.create_icosphere(bm, subdivisions=1, radius=h*0.22*R.uniform(0.7, 1.1),
+                                       matrix=Mx.Translation(Vector((x+ox, y+oy, z + h*0.55 + R.uniform(0, h*0.15)))))
+        me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+        me.materials.append(M_bark); me.materials.append(M_leaf)
+        for i, p in enumerate(me.polygons):
+            p.material_index = 0 if i < 6 else 1
+        o = bpy.data.objects.new(name, me); GR.objects.link(o); return o
+    for i in range(28):
+        _tree(f"pk_tree_{i}", R.uniform(-220, 220), R.uniform(-180, 120), 0.0, R.uniform(8, 16))
+    for i in range(18):
+        _tree(f"pk_tree_nsc_{i}", CX + R.uniform(-90, 90), CY + R.uniform(-70, 90), CZ, R.uniform(7, 14))
+    info["inferences"].append("D-PM-12 I: PARK-NOW grass carpets + park trees (no OS tree survey; placement U)")
 
 # Subway interior lights (underground; needed for CP071 / CP065 threshold)
 SUB_LIGHTS = G.coll("G_STATION_subway_lights", ROOT)
@@ -334,7 +366,9 @@ if STATE in ("PARK60", "PARKNOW"):
 
 if STATE == "PARKNOW":
     # CP070 begin walk — lower station area (distinct from HL)
-    cam("CAM_CP070_park_entry_35mm", (ft(-800), ft(-1200), -40), (0, ft(-400), 10), 35)
+    cam("CAM_CP070_park_entry_35mm", (ft(-800), ft(-1200), -40), (0, ft(-400), 10), 35)  # CP070 begin the walk today
+    # alias name for coverage audit
+    cam("CAM_CP070_begin_walk_35mm", (ft(-800), ft(-1200), -40), (0, ft(-400), 10), 35)
     # CP071 restored subway interior
     cam("CAM_CP071_subway_interior_28mm", (0, (SUB_Y0+SUB_Y1)/2, SUB_Z + EYE), (0, SUB_Y0, SUB_Z + 1.5), 28)
     cam("CAM_CP071_subway_vault_50mm", (SUB_W/4, SUB_Y1 - 5, SUB_Z + EYE), (0, SUB_Y0 + 10, SUB_Z + 3), 50)
@@ -345,6 +379,8 @@ if STATE == "PARKNOW":
         (ft(-54.5), ft(-337) + 4, ft(-23.58) + 1.5), 50)
     cam("CAM_CP073_steps_35mm", (ft(-90), ft(-337) - ft(70), ft(-43.58) + EYE),
         (0, ft(-337) + 3, ft(-23.58) + 2), 35)
+    # CP067 — dinosaur conservation today (preserving Hawkins' earlier understanding)
+    cam("CAM_CP067_dino_conservation_35mm", (5, -855, -43), (-35, -878, -46.5), 35)
     # CP074 dinosaurs (after D-PM-08 translate; aim at iguanodon/megalosaurus cluster)
     cam("CAM_CP074_dinosaurs_35mm", (-10, -860, -44), (-40, -875, -46.5), 35)
     cam("CAM_CP074_iguanodon_50mm", (20, -870, -45), (-5, -878, -46.5), 50)
@@ -354,12 +390,17 @@ if STATE == "PARKNOW":
     cam("CAM_CP076_empty_plateau_35mm", (ft(200), ft(-400), 15), (0, 0, 5), 35)
     cam("CAM_CP076_hold_35mm", (ft(200), ft(-400), 15), (0, ft(-50), 2), 35)
 
-    # place PPL-NOW with 7 ft camera clear zone
-    cams_xy = [(o.location.x, o.location.y) for o in bpy.data.objects if o.type == "CAMERA"]
+    # place PPL-NOW with 7 ft camera clear zone + hero silhouettes just outside
+    cams_xy = [(o.location.x, o.location.y, o.location.z) for o in bpy.data.objects if o.type == "CAMERA"]
     n_placed = 0
     for i, (x, y, z) in enumerate(spots):
-        if any((x - cx)**2 + (y - cy)**2 < (7 * FT)**2 for cx, cy in cams_xy): continue
+        if any((x - cx)**2 + (y - cy)**2 < (7 * FT)**2 for cx, cy, _ in cams_xy): continue
         visitor(f"ppl_now_{n_placed:03d}", x, y, z, R.uniform(0, 6.28)); n_placed += 1
+    for cx, cy, cz in cams_xy:
+        for k in range(3):
+            ang = k * 2.1 + 0.4; d = 3.2 + (k % 2) * 0.6
+            visitor(f"ppl_now_hero_{n_placed:03d}", cx + d*math.cos(ang), cy + d*math.sin(ang), cz - 1.55, ang + math.pi)
+            n_placed += 1
     info["ppl_now"] = n_placed
 
 # =====================================================================
