@@ -17,3 +17,6 @@ Misses: the stone itself is a few pixels in CP025_case (period-correct, but a 50
 3. Osler: second candelabrum of the pair, faceted prisms with dispersion; place in the Central North Gallery once a gallery host exists.
 4. Hammer: valve-gear linkage, steam puffs on the exhaust per blow, red-hot billet variant; place in the NW machinery court block-out.
 5. Applegath vertical press as the second CP024 machine.
+
+## e02 (2026-10-27): Osler glass faceted prisms + sparkle
+- glass(sparkle=True) Coat/Emission; 6-sided prism drops. DEPARTURES EX20. Checks 19/19.

@@ -9,7 +9,7 @@ sc = bpy.context.scene; out = os.path.abspath(arg("--out", "renders/tmp")); os.m
 sc.cycles.samples = int(arg("--samples", "64")); sc.render.resolution_percentage = int(arg("--pct", "100"))
 if arg("--frame"): sc.frame_set(int(arg("--frame")))
 suf = arg("--suffix", "")
-sc.render.image_settings.file_format = 'JPEG'; sc.render.image_settings.quality = 92
+sc.render.image_settings.file_format = 'PNG'; sc.render.image_settings.color_depth = '8'
 cams = arg("--cams", "").split(",") if arg("--cams") else [o.name for o in bpy.data.objects if o.type == 'CAMERA']
 states = json.loads(bpy.data.texts["grok_states"].as_string()) if "grok_states" in bpy.data.texts else {}
 base = {o.name: o.hide_render for o in bpy.data.objects}
@@ -24,5 +24,5 @@ for cn in cams:
                 if any(o.name.startswith(p) for p in st.get("hide", [])): o.hide_render = True
                 if any(o.name.startswith(p) for p in st.get("show", [])): o.hide_render = False
             if "exposure" in st: sc.view_settings.exposure = st["exposure"]
-    sc.render.filepath = os.path.join(out, cn + suf + ".jpg"); bpy.ops.render.render(write_still=True)
+    sc.render.filepath = os.path.join(out, cn + suf + ".png"); bpy.ops.render.render(write_still=True)
     print("RENDERED", cn, flush=True)

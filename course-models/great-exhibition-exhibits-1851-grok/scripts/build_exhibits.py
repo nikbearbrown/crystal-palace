@@ -23,12 +23,16 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene; sc.unit_settings.system = 'METRIC'; sc.frame_start = 1; sc.frame_end = 96; sc.render.fps = 24
 ROOT = sc.collection
 
-def glass(name, rgb=(1, 1, 1), ior=1.5, rough=0.0, frost=False):
+def glass(name, rgb=(1, 1, 1), ior=1.5, rough=0.0, frost=False, sparkle=False):
     m = bpy.data.materials.get(name)
     if m: return m
     m = bpy.data.materials.new(name); m.use_nodes = True; b = m.node_tree.nodes["Principled BSDF"]
     b.inputs["Base Color"].default_value = (*rgb, 1); b.inputs["Transmission Weight"].default_value = 1.0
     b.inputs["IOR"].default_value = ior; b.inputs["Roughness"].default_value = 0.35 if frost else rough
+    if sparkle and not frost:
+        for key, val in (("Specular IOR Level", 1.0), ("Coat Weight", 1.0), ("Coat Roughness", 0.02),
+                         ("Coat IOR", 1.7), ("Emission Color", (0.85, 0.9, 1.0, 1)), ("Emission Strength", 0.08)):
+            if key in b.inputs: b.inputs[key].default_value = val
     m.diffuse_color = (*rgb, 0.3); return m
 GILT = mat("EX_Gilt", (0.83, 0.60, 0.26), 0.28, 1.0)
 BRASS = mat("EX_Brass", (0.78, 0.60, 0.33), 0.35, 1.0)
@@ -37,7 +41,7 @@ CLOTH = mat("EX_Pedestal_cloth", (0.36, 0.05, 0.05), 0.9)
 GOLD = mat("EX_Gold", (0.95, 0.72, 0.30), 0.2, 1.0)
 DIAMOND = glass("EX_Diamond", ior=2.417)
 DOME = glass("EX_Dome_glass", ior=1.5)
-CRYSTAL = glass("EX_Crystal_glass", (0.98, 0.99, 1.0), ior=1.56)
+CRYSTAL = glass("EX_Crystal_glass", (0.98, 0.99, 1.0), ior=1.56, sparkle=True)
 FROST = glass("EX_Frosted_glass", ior=1.5, frost=True)
 WAX = mat("EX_Candle_wax", (0.88, 0.85, 0.76), 0.5)
 MACH = mat("EX_Machine_paint", (0.10, 0.13, 0.11), 0.55)      # dark green-grey: interpretive (EX07)
@@ -150,7 +154,7 @@ def light(x, y, z, cand=0.75):
     lathe(wax, [(0, z + 0.1), (0.055, z + 0.1), (0.055, z + 0.1 + cand), (0.02, z + 0.12 + cand), (0, z + 0.12 + cand)], 10)
     for k in range(6):                                  # hanging prism drops off each pan
         a = 2 * math.pi * k / 6 + 0.3; dx, dy = x + 0.21 * math.cos(a), y + 0.21 * math.sin(a)
-        bmesh.ops.create_cone(drops, cap_ends=True, segments=4, radius1=0.025, radius2=0.0, depth=0.28, matrix=Matrix.Translation((dx, dy, z - 0.18)) @ Matrix.Rotation(math.pi, 4, 'X'))
+        bmesh.ops.create_cone(drops, cap_ends=True, segments=6, radius1=0.028, radius2=0.0, depth=0.32, matrix=Matrix.Translation((dx, dy, z - 0.18)) @ Matrix.Rotation(math.pi, 4, 'X'))
         rod(drops, (dx, dy, z - 0.02), (dx, dy, z - 0.04), 0.022, 4)
     lights.append((x, y, z + 0.1 + cand))
 for k in range(8):                                   # lower tier: 8 S-arms
@@ -169,7 +173,7 @@ for k in range(8):                                   # festoons of prisms betwee
     for j in range(1, 12):
         t = j / 12; a = a0 + (a1 - a0) * t; r = 1.9 * math.cos((a1 - a0) / 2) / math.cos(a - (a0 + a1) / 2) * 0.98
         z = 5.6 - 0.45 * math.sin(math.pi * t)
-        bmesh.ops.create_icosphere(drops, subdivisions=1, radius=0.035, matrix=Matrix.Translation((r * math.cos(a), r * math.sin(a), z)))
+        bmesh.ops.create_cone(drops, cap_ends=True, segments=6, radius1=0.03, radius2=0.01, depth=0.12, matrix=Matrix.Translation((r * math.cos(a), r * math.sin(a), z)))
 part("OSL_arms", OC, arms, [CRYSTAL], part_kind="arms"); part("OSL_pans", OC, pans, [CRYSTAL], part_kind="drip_pans")
 part("OSL_drops", OC, drops, [CRYSTAL], part_kind="drops"); part("OSL_candles", OC, wax, [WAX], part_kind="candles", lights=len(lights))
 OC["lights_built"] = len(lights); OC["height_built_ft"] = round(max(l[2] for l in lights) + 0.02, 3)

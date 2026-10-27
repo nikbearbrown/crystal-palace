@@ -15,3 +15,9 @@ Grades: **A** = documented, **B** = derived from a surviving object / close anal
 | EX10 | — | July crimson enclosure with gas jets around the Koh-i-Noor (added after complaints it did not sparkle) **not built** | e01 shows the May/June cage state. Proposed as a variant. The tiny, dull look of the stone in CP025_case is therefore period-correct (visitors complained of it). |
 | EX11 | C | Placement test: Koh-i-Noor (96,0, main avenue east of the transept) + Osler (108,-22) in the transept r10 east block-outs (x ≤ 144); hammer at (-456,4) in Claude's west nave | Test only, to prove the assets drop in. Real 1851 locations differ (Koh-i-Noor near the transept in the main avenue; Osler in the gallery; the hammer in the NW machinery court) — not modelled in either host. Clash check reports intersecting host objects; `--hide-clash` hides only loose crowd figures standing in the footprint at render time (4 for the Koh-i-Noor); props/statues/machines are never hidden, so spots were chosen clear of them (K43 statue at x 120, locomotive at x 72–84). `--clear-sightlines` also hides loose crowd figures within 2.5 ft of a camera→asset sightline (the r10 avenue crowd is dense). Hosts are never saved (md5 checked before/after). |
 | EX12 | C | CP024_ram pulled back 15 → 25 ft, EX_osler pulled back to 28 ft; ram rendered at f015 (top of lift) and f025 (on the die) | Preview showed a confusing tight crop and a cut-off candelabrum foot. |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| EX20 | Crystal glass sparkle (coat + faint emission); 6-sided prism drops and festoon cones | Osler candelabrum flat glass | B |
