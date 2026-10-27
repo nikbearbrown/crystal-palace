@@ -29,3 +29,9 @@
 - **D-PM-18 I** CP066 NSC CZ raised, basins hidden, TrackRed emit, SW 3/4 cam; hero `r17k_park60_*`.
 - **D-PM-19 I** CP073 along-terrace cam + mid-warm sphinx stone; hero `r17k_parknow_*`.
 - **D-PM-20 I** Horizon berms E/W/S + aerosol (no shared look preset).
+
+## set_v18 CP071 subway dress (2026-10-27)
+
+- **D-PM-21 I** CP071 Open-House subway: checkered floor tiles, cream brick noise walls, red brick columns with stone bases/capitals, dado + spring string courses, iron vault ribs, hanging lamp fixtures, wall poster boards, side handrail. Exact present-day finish still **U** (extends D-PM-03).
+- **D-PM-22 I** Authored subway AREA lights + exposure (−0.8) held (`KEEP_LIGHTING`); no sun/world rewrite.
+- Hero: `renders/r18_parknow_CAM_CP071_subway_interior_28mm.png` from `rounds/parknow-r18.blend`. KEEP by eye vs r01 graybox.

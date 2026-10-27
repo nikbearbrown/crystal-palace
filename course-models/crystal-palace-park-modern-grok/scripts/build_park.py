@@ -70,9 +70,9 @@ M_road = G.mat("Road", (0.22, 0.22, 0.20), 0.95)
 M_grass = G.mat_noise("Grass", (0.14, 0.28, 0.10), (0.28, 0.42, 0.16), rough=0.95, scale=40.0, bump=0.06)
 M_bark = G.mat_noise("Bark", (0.18, 0.12, 0.08), (0.28, 0.20, 0.12), rough=0.9, scale=18.0, bump=0.2)
 M_leaf = G.mat_noise("Leaf", (0.10, 0.28, 0.08), (0.22, 0.40, 0.14), rough=0.85, scale=25.0, bump=0.05)
-M_tile = G.mat("Tile", (0.55, 0.30, 0.14), 0.6)
-M_cream = G.mat("VaultCream", (0.78, 0.72, 0.58), 0.85)
-M_red = G.mat("VaultRed", (0.42, 0.12, 0.08), 0.85)
+M_tile = G.mat_noise("Tile", (0.48, 0.28, 0.14), (0.62, 0.42, 0.22), rough=0.6, scale=14.0, bump=0.05)  # r18 checker-ish noise
+M_cream = G.mat_noise("VaultCream", (0.72, 0.66, 0.52), (0.82, 0.76, 0.62), rough=0.88, scale=22.0, bump=0.10)  # r18
+M_red = G.mat_noise("VaultRed", (0.38, 0.10, 0.07), (0.52, 0.16, 0.10), rough=0.88, scale=18.0, bump=0.12)  # r18
 M_asphalt = G.mat("Asphalt", (0.12, 0.12, 0.12), 0.95)
 M_track_red = G.mat("TrackRed", (0.85, 0.10, 0.04), 0.8, 0.0, emit=((1.0, 0.18, 0.05), 0.55))  # r17h emit so AgX keeps red
 M_infield = G.mat("NSCInfield", (0.22, 0.38, 0.16), 0.9)

@@ -1,0 +1,24 @@
+{
+  "round": "set_v18",
+  "date": "2026-10-27",
+  "keep_lighting": true,
+  "shots": {
+    "CP071": {
+      "verdict": "KEEP",
+      "state": "PARK-NOW",
+      "note": "checkered tile floor, red-brick cols with stone bases/caps, dado, string courses, vault ribs, hanging lamps, poster boards, handrail; authored subway AREA lights held"
+    },
+    "CP033": {
+      "verdict": "KEEP",
+      "state": "BUILD53",
+      "note": "clay/meadow noise mats, grounded spoil extras, timber baulks/sleepers/scaffold decks snapped to park_slope, cut-face benches, iron girders; floating decks fixed in r18b; no water towers (BUILD53 dated)"
+    },
+    "CP001": {
+      "verdict": "KEEP",
+      "state": "1936",
+      "note": "multi-blob tree canopies + bark/leaf noise, grass/gravel noise, central-walk kerbs; water towers kept; heavy fg road strip removed in r18b"
+    }
+  },
+  "reverted": [],
+  "best_pair": "/workspace/crystal-palace-survey/set_v18/previews/CP071_set_v18_before_after.jpg"
+}

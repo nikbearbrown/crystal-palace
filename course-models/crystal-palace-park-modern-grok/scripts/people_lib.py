@@ -1,29 +1,66 @@
-"""crystal-palace-people v2 — procedural period figures (licence-clean, offline).
+"""crystal-palace-people v3.1 — HBM base humans + period-correct modelled garments.
 
-Drop-in API:
+Drop-in API (compatible with v2 callers):
   person_mesh(name, kind, mats, FT=0.3048, style=None, pose=None, lod=None, seed=None)
-  swap_scene_people(era="1851", camera=None, seed=0)  # replace baked lathe crowds in a .blend
+  swap_scene_people(era="1851", camera=None, seed=0)
 
-Body: separate head / torso / arms+hands / legs+feet capsules and boxes (not a single lathe).
-Clothing silhouettes by era/class. Poses. Seeded variation. Three LODs: hero / mid / crowd.
-No third-party body meshes — built entirely in bmesh (MPFB/MakeHuman not available offline).
+Bases: Blender Studio Human Base Meshes v1.4.1 (CC0), realistic male/female,
+decimated LODs under people/vendor/bases/. Garments are modelled shells
+(frock coat with tails, top hat, crinoline, bodice, bonnet, shawl, smock,
+police tunic) — not lathe primitives. Proportions: head ~1/7.5 height;
+1850s crowd height 5'0"–5'10". Matte period colours; no white hats.
 """
 from __future__ import annotations
-import hashlib, math, random
+import hashlib, math, os, random
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import bpy
 import bmesh
-from mathutils import Matrix, Vector
+from mathutils import Matrix, Vector, Euler
 
-PEOPLE_VERSION = "2.0"
-PEOPLE_TAG = "cpl_people_v2"
+PEOPLE_VERSION = "3.1"
+PEOPLE_TAG = "cpl_people_v3"
+
+_HERE = Path(__file__).resolve().parent
+_SURVEY_PEOPLE = Path("/workspace/crystal-palace-survey/people")
+# Prefer local vendor/ (canonical tree); fall back to survey people/ when vendored into grok scripts/
+_BASES = _HERE / "vendor" / "bases"
+if not _BASES.exists():
+    _BASES = _SURVEY_PEOPLE / "vendor" / "bases"
+
+# metres
+INCH = 0.0254
+FT = 0.3048
+HEIGHT_MIN = 5.0 * FT          # 5'0"
+HEIGHT_MAX = 5.0 * FT + 10*INCH  # 5'10"
+HEAD_RATIO = 1.0 / 7.5
+TOP_HAT_H = 7.0 * INCH         # ~7 in crown
+HEAD_CIRC = 22.0 * INCH
+HEAD_DIAM = HEAD_CIRC / math.pi
+
+POSES = ("standing", "walking", "pointing", "seated", "working", "hauling")
+
+ERA_ROLES = {
+    "1850s": ("1850s_gentleman", "1850s_lady", "1850s_workman", "1850s_navvy",
+              "1850s_police", "1850s_soldier", "1850s_boy", "1850s_girl"),
+    "1851":  ("1850s_gentleman", "1850s_lady", "1850s_workman", "1850s_navvy",
+              "1850s_police", "1850s_soldier", "1850s_boy", "1850s_girl"),
+    "1890s": ("1890s_gentleman", "1890s_lady", "1890s_sailor", "1890s_uniform"),
+    "1880s": ("1890s_gentleman", "1890s_lady", "1890s_sailor", "1890s_uniform"),
+    "1910s": ("1890s_gentleman", "1890s_lady", "1890s_sailor", "1890s_uniform"),
+    "1930s": ("1930s_man", "1930s_woman", "1930s_fireman"),
+    "today": ("today_casual_m", "today_casual_f"),
+}
+
+_MESH_CACHE: Dict[Tuple, bpy.types.Mesh] = {}
+
 
 # ---------------------------------------------------------------------------
-# materials helpers
+# materials — matte period fabric; NO white hats
 # ---------------------------------------------------------------------------
 
-def _ensure_mat(name: str, color: Tuple[float, float, float], rough: float = 0.55) -> bpy.types.Material:
+def _ensure_mat(name: str, color: Tuple[float, float, float], rough: float = 0.72) -> bpy.types.Material:
     m = bpy.data.materials.get(name)
     if m is None:
         m = bpy.data.materials.new(name)
@@ -34,830 +71,1200 @@ def _ensure_mat(name: str, color: Tuple[float, float, float], rough: float = 0.5
         bsdf.inputs["Base Color"].default_value = (*color, 1.0)
         if "Roughness" in bsdf.inputs:
             bsdf.inputs["Roughness"].default_value = rough
+        if "Specular IOR Level" in bsdf.inputs:
+            bsdf.inputs["Specular IOR Level"].default_value = 0.15
+        elif "Specular" in bsdf.inputs:
+            bsdf.inputs["Specular"].default_value = 0.15
     m.diffuse_color = (*color, 1.0)
     return m
 
 
-def _default_mats(seed: int = 0) -> List[bpy.types.Material]:
-    """[main, second, skin, hat, trim] with seeded cloth variation."""
+# Dark coats dominant; skirts mid-tone but never chalk white; hats black/brown/navy
+_COATS = [
+    (0.05, 0.05, 0.06), (0.08, 0.06, 0.05), (0.04, 0.05, 0.045),
+    (0.10, 0.08, 0.07), (0.06, 0.06, 0.08), (0.11, 0.05, 0.05),
+    (0.07, 0.07, 0.06), (0.08, 0.08, 0.09),
+]
+_SKIRTS = [
+    (0.22, 0.10, 0.12), (0.10, 0.14, 0.22), (0.28, 0.24, 0.18),
+    (0.14, 0.16, 0.12), (0.20, 0.12, 0.18), (0.24, 0.20, 0.12),
+    (0.12, 0.12, 0.14), (0.30, 0.26, 0.22),
+]
+_TROUS = [(0.08, 0.08, 0.10), (0.12, 0.11, 0.10), (0.06, 0.07, 0.10)]
+_SKINS = [(0.62, 0.46, 0.38), (0.48, 0.34, 0.28), (0.70, 0.55, 0.44), (0.40, 0.28, 0.22)]
+_HATS = [(0.04, 0.04, 0.05), (0.10, 0.08, 0.06), (0.06, 0.07, 0.10), (0.12, 0.09, 0.05)]  # never white
+_BONNETS = [(0.18, 0.12, 0.08), (0.10, 0.10, 0.12), (0.22, 0.16, 0.10), (0.14, 0.08, 0.08)]
+_SMOCKS = [(0.42, 0.40, 0.34), (0.35, 0.36, 0.32), (0.48, 0.44, 0.36)]  # drab linen, not chalk
+_POLICE = (0.05, 0.08, 0.16)
+
+
+def _mats_for(seed: int, role: str) -> Dict[str, bpy.types.Material]:
     rng = random.Random(seed)
-    coats = [
-        (0.12, 0.14, 0.22), (0.18, 0.12, 0.10), (0.08, 0.10, 0.08),
-        (0.22, 0.18, 0.14), (0.10, 0.12, 0.18), (0.28, 0.08, 0.08),
-        (0.14, 0.16, 0.12), (0.20, 0.20, 0.22),
-    ]
-    skirts = [
-        (0.35, 0.12, 0.14), (0.12, 0.18, 0.28), (0.45, 0.40, 0.32),
-        (0.18, 0.22, 0.16), (0.30, 0.20, 0.28), (0.40, 0.35, 0.20),
-        (0.15, 0.15, 0.18), (0.50, 0.45, 0.40),
-    ]
-    trous = [(0.10, 0.10, 0.12), (0.18, 0.16, 0.14), (0.08, 0.10, 0.14)]
-    skins = [(0.72, 0.55, 0.45), (0.55, 0.40, 0.32), (0.80, 0.65, 0.52)]
-    hats = [(0.05, 0.05, 0.06), (0.12, 0.10, 0.08), (0.20, 0.18, 0.12), (0.08, 0.12, 0.08)]
-    trims = [(0.55, 0.45, 0.20), (0.70, 0.70, 0.72), (0.40, 0.10, 0.10)]
     i = rng.randrange(8)
-    return [
-        _ensure_mat(f"CPL_PPL_main_{i}", coats[i] if rng.random() > 0.45 else skirts[i]),
-        _ensure_mat(f"CPL_PPL_sec_{i % 3}", trous[i % 3]),
-        _ensure_mat(f"CPL_PPL_skin_{i % 3}", skins[i % 3], 0.45),
-        _ensure_mat(f"CPL_PPL_hat_{i % 4}", hats[i % 4], 0.65),
-        _ensure_mat(f"CPL_PPL_trim_{i % 3}", trims[i % 3], 0.4),
-    ]
+    skin = _ensure_mat(f"CPL3_skin_{seed % 4}", _SKINS[seed % 4], 0.55)
+    if "lady" in role or "girl" in role or role.endswith("_f") or "woman" in role:
+        main = _ensure_mat(f"CPL3_skirt_{i}", _SKIRTS[i], 0.75)
+        sec = _ensure_mat(f"CPL3_bodice_{i}", _COATS[(i + 3) % 8], 0.7)
+        hat = _ensure_mat(f"CPL3_bonnet_{i % 4}", _BONNETS[i % 4], 0.8)
+    elif "police" in role:
+        main = _ensure_mat("CPL3_police", _POLICE, 0.7)
+        sec = _ensure_mat(f"CPL3_trou_{i % 3}", _TROUS[i % 3], 0.75)
+        hat = _ensure_mat(f"CPL3_hat_{i % 4}", _HATS[i % 4], 0.7)
+    elif "workman" in role or "navvy" in role or "fireman" in role:
+        main = _ensure_mat(f"CPL3_smock_{i % 3}", _SMOCKS[i % 3], 0.85)
+        sec = _ensure_mat(f"CPL3_trou_{i % 3}", _TROUS[i % 3], 0.8)
+        hat = _ensure_mat(f"CPL3_hat_{i % 4}", _HATS[i % 4], 0.75)
+    elif "sailor" in role:
+        main = _ensure_mat("CPL3_navy", (0.06, 0.10, 0.18), 0.7)
+        sec = _ensure_mat("CPL3_bell", (0.08, 0.08, 0.10), 0.7)
+        hat = _ensure_mat("CPL3_sailorcap", (0.05, 0.05, 0.06), 0.7)
+    else:
+        main = _ensure_mat(f"CPL3_coat_{i}", _COATS[i], 0.7)
+        sec = _ensure_mat(f"CPL3_trou_{i % 3}", _TROUS[i % 3], 0.75)
+        hat = _ensure_mat(f"CPL3_hat_{i % 4}", _HATS[i % 4], 0.65)
+    # waistcoat / cravat / shirt peek — mid tones, never chalk
+    _WAIST = [(0.28, 0.22, 0.16), (0.18, 0.20, 0.24), (0.32, 0.18, 0.14),
+              (0.22, 0.22, 0.20), (0.35, 0.30, 0.22)]
+    trim = _ensure_mat(f"CPL3_waist_{i % 5}", _WAIST[i % 5], 0.65)
+    return {"main": main, "sec": sec, "skin": skin, "hat": hat, "trim": trim}
 
 
 # ---------------------------------------------------------------------------
-# low-level solid builders (bmesh)
+# base body load
 # ---------------------------------------------------------------------------
 
-def _box(bm: bmesh.types.BMesh, x0, x1, y0, y1, z0, z1, mat=0):
-    vs = [bm.verts.new(v) for v in [
-        (x0, y0, z0), (x1, y0, z0), (x1, y1, z0), (x0, y1, z0),
-        (x0, y0, z1), (x1, y0, z1), (x1, y1, z1), (x0, y1, z1),
-    ]]
-    for idx in ((0, 3, 2, 1), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)):
-        f = bm.faces.new([vs[i] for i in idx])
+def _sex_for(role: str) -> str:
+    if any(k in role for k in ("lady", "girl", "woman", "_f")):
+        return "female"
+    return "male"
+
+
+def _height_for(role: str, seed: int) -> float:
+    rng = random.Random(seed + 17)
+    if "boy" in role or "girl" in role:
+        return rng.uniform(1.15, 1.40)
+    if _sex_for(role) == "female":
+        # 1850s women often ~5'0"–5'4"
+        return rng.uniform(HEIGHT_MIN, 5.0 * FT + 4 * INCH)
+    return rng.uniform(5.0 * FT + 4 * INCH, HEIGHT_MAX)
+
+
+def _lod_suffix(lod: str) -> str:
+    return {"hero": "_hero", "mid": "_mid", "crowd": "_crowd"}.get(lod, "_mid")
+
+
+def _import_base(sex: str, lod: str) -> bpy.types.Object:
+    """Import realistic HBM body OBJ (CC0); falls back to stylized if missing."""
+    suf = _lod_suffix(lod)
+    path = _BASES / f"{sex}_realistic{suf}.obj"
+    if not path.exists():
+        path = _BASES / f"{sex}_realistic_mid.obj"
+    if not path.exists():
+        path = _BASES / f"{sex}_stylized{suf}.obj"
+    if not path.exists():
+        path = _BASES / f"{sex}_stylized_mid.obj"
+    if not path.exists():
+        raise FileNotFoundError(f"missing base mesh {path}")
+    before = set(bpy.data.objects)
+    # Blender 4+/5
+    try:
+        bpy.ops.wm.obj_import(filepath=str(path))
+    except Exception:
+        bpy.ops.import_scene.obj(filepath=str(path))
+    new = [o for o in bpy.data.objects if o not in before]
+    if not new:
+        raise RuntimeError(f"OBJ import produced nothing: {path}")
+    obj = new[0]
+    for extra in new[1:]:
+        bpy.data.objects.remove(extra, do_unlink=True)
+    # center XY on origin, feet at z=0
+    bbox = [obj.matrix_world @ Vector(c) for c in obj.bound_box]
+    xs = [v.x for v in bbox]; ys = [v.y for v in bbox]; zs = [v.z for v in bbox]
+    cx = 0.5 * (min(xs) + max(xs))
+    cy = 0.5 * (min(ys) + max(ys))
+    zmin = min(zs)
+    obj.location -= Vector((cx, cy, zmin))
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    return obj
+
+
+def _scale_to_height(obj: bpy.types.Object, target_h: float) -> float:
+    zs = [(obj.matrix_world @ Vector(c)).z for c in obj.bound_box]
+    h = max(zs) - min(zs)
+    if h < 1e-6:
+        return 1.0
+    s = target_h / h
+    obj.scale = (s, s, s)
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    # re-ground
+    zs = [(obj.matrix_world @ Vector(c)).z for c in obj.bound_box]
+    obj.location.z -= min(zs)
+    bpy.ops.object.transform_apply(location=True, rotation=False, scale=False)
+    return s
+
+
+
+def _enforce_head_ratio(obj: bpy.types.Object, target_ratio: float = HEAD_RATIO):
+    """Scale head verts about the neck so head height ~= target_ratio * body height.
+    Neck is detected as the narrowest XY ring between 78–88% of height."""
+    me = obj.data
+    zs = [v.co.z for v in me.vertices]
+    z0, z1 = min(zs), max(zs)
+    h = z1 - z0
+    if h < 1e-6:
+        return
+    # find neck: sample bands, pick min mean radius
+    best_z, best_r = z0 + 0.82 * h, 1e9
+    for i in range(12):
+        zc = z0 + (0.78 + 0.01 * i) * h
+        ring = [v for v in me.vertices if abs(v.co.z - zc) < 0.012]
+        if len(ring) < 6:
+            continue
+        rs = [((v.co.x) ** 2 + (v.co.y) ** 2) ** 0.5 for v in ring]
+        r = sum(rs) / len(rs)
+        if r < best_r:
+            best_r, best_z = r, zc
+    neck_z = best_z
+    head_h = z1 - neck_z
+    want = target_ratio * h
+    if head_h < 1e-6:
+        return
+    s = want / head_h
+    # shrink oversized heads; mild enlarge if head is tiny
+    if 0.92 <= s <= 1.05:
+        return
+    s = max(0.55, min(1.15, s))
+    # keep neck XY centroid
+    neck_ring = [v for v in me.vertices if abs(v.co.z - neck_z) < 0.02]
+    cx = sum(v.co.x for v in neck_ring) / max(1, len(neck_ring))
+    cy = sum(v.co.y for v in neck_ring) / max(1, len(neck_ring))
+    neck = Vector((cx, cy, neck_z))
+    for v in me.vertices:
+        if v.co.z >= neck_z - 0.005:
+            delta = v.co - neck
+            v.co = neck + Vector((delta.x * s, delta.y * s, delta.z * s))
+    me.update()
+
+
+def _landmarks(obj: bpy.types.Object) -> Dict[str, float]:
+    """Z landmarks as fractions of height (feet=0)."""
+    zs = [v.co.z for v in obj.data.vertices]
+    z0, z1 = min(zs), max(zs)
+    h = z1 - z0
+    return {
+        "z0": z0, "z1": z1, "h": h,
+        "ankle": z0 + 0.04 * h,
+        "knee": z0 + 0.28 * h,
+        "hip": z0 + 0.50 * h,
+        "waist": z0 + 0.58 * h,
+        "chest": z0 + 0.72 * h,
+        "shoulder": z0 + 0.80 * h,
+        "chin": z0 + 0.86 * h,
+        "crown": z1,
+        "head_h": h * HEAD_RATIO,
+    }
+
+
+# ---------------------------------------------------------------------------
+# garment builders (modelled shells, not lathe pegs)
+# ---------------------------------------------------------------------------
+
+def _new_bm():
+    return bmesh.new()
+
+
+def _finish_mesh(bm: bmesh.types.BMesh, name: str) -> bpy.types.Mesh:
+    me = bpy.data.meshes.new(name)
+    bm.to_mesh(me)
+    bm.free()
+    me.update()
+    return me
+
+
+def _ring(bm, cx, cy, z, rx, ry, seg, mat=0):
+    vs = []
+    for k in range(seg):
+        a = 2 * math.pi * k / seg
+        vs.append(bm.verts.new((cx + math.cos(a) * rx, cy + math.sin(a) * ry, z)))
+    return vs
+
+
+def _bridge(bm, A, B, mat=0):
+    n = len(A)
+    for k in range(n):
+        f = bm.faces.new([A[k], A[(k + 1) % n], B[(k + 1) % n], B[k]])
         f.material_index = mat
 
 
-def _capsule(bm: bmesh.types.BMesh, a: Vector, b: Vector, r: float, seg: int = 8, mat: int = 0):
-    """Tapered cylinder between a and b with hemispheric end caps (low-poly)."""
+def _cap(bm, ring, tip, mat=0):
+    tv = tip if isinstance(tip, bmesh.types.BMVert) else bm.verts.new(tip)
+    n = len(ring)
+    for k in range(n):
+        f = bm.faces.new([ring[k], ring[(k + 1) % n], tv])
+        f.material_index = mat
+    return tv
+
+
+def _lathed_shell(bm, profile, seg=12, mat=0, cx=0.0, cy=0.0):
+    """profile: list of (radius_x, radius_y, z)."""
+    rings = [_ring(bm, cx, cy, z, rx, ry, seg) for rx, ry, z in profile]
+    for A, B in zip(rings, rings[1:]):
+        _bridge(bm, A, B, mat)
+    return rings
+
+
+def build_top_hat(bm, crown_z, head_r, mat=0, seg=12):
+    """Period silk top hat: ~7 in crown, clear flat brim (not a fez/cap)."""
+    head_r = max(0.078, min(head_r, 0.105))
+    crown_r = head_r * 0.98
+    brim_r = head_r * 1.75          # wide readable brim
+    h = TOP_HAT_H
+    scalp = crown_z - 0.018
+    # thick brim slab (top + bottom faces) so it reads at crowd distance
+    brim_z_lo = scalp - 0.012
+    brim_z_hi = scalp - 0.002
+    outer_lo = _ring(bm, 0, 0, brim_z_lo, brim_r, brim_r, seg)
+    outer_hi = _ring(bm, 0, 0, brim_z_hi, brim_r, brim_r, seg)
+    inner_lo = _ring(bm, 0, 0, brim_z_lo, crown_r, crown_r, seg)
+    inner_hi = _ring(bm, 0, 0, brim_z_hi, crown_r, crown_r, seg)
+    n = seg
+    for k in range(n):
+        # top of brim
+        f = bm.faces.new([outer_hi[k], outer_hi[(k + 1) % n], inner_hi[(k + 1) % n], inner_hi[k]])
+        f.material_index = mat
+        # bottom of brim
+        f = bm.faces.new([outer_lo[(k + 1) % n], outer_lo[k], inner_lo[k], inner_lo[(k + 1) % n]])
+        f.material_index = mat
+        # outer rim
+        f = bm.faces.new([outer_lo[k], outer_lo[(k + 1) % n], outer_hi[(k + 1) % n], outer_hi[k]])
+        f.material_index = mat
+    # crown cylinder — slightly tapered
+    bot = _ring(bm, 0, 0, scalp, crown_r, crown_r, seg)
+    top = _ring(bm, 0, 0, scalp + h, crown_r * 0.92, crown_r * 0.92, seg)
+    _bridge(bm, bot, top, mat)
+    _bridge(bm, inner_hi, bot, mat)
+    _cap(bm, top, (0, 0, scalp + h + 0.008), mat)
+
+
+def build_boater(bm, crown_z, head_r, mat=0, seg=12):
+    crown_r = head_r * 0.95
+    brim_r = head_r * 1.55
+    h = 0.055
+    brim_z = crown_z - 0.005
+    outer = _ring(bm, 0, 0, brim_z, brim_r, brim_r, seg)
+    inner = _ring(bm, 0, 0, brim_z, crown_r, crown_r, seg)
+    n = seg
+    for k in range(n):
+        f = bm.faces.new([outer[k], outer[(k + 1) % n], inner[(k + 1) % n], inner[k]])
+        f.material_index = mat
+    top = _ring(bm, 0, 0, crown_z + h, crown_r, crown_r, seg)
+    bot = _ring(bm, 0, 0, crown_z, crown_r, crown_r, seg)
+    _bridge(bm, bot, top, mat)
+    _cap(bm, top, (0, 0, crown_z + h + 0.002), mat)
+
+
+def build_trilby(bm, crown_z, head_r, mat=0, seg=12):
+    crown_r = head_r * 0.95
+    brim_r = head_r * 1.4
+    h = 0.10
+    # pinched crown: oval
+    brim_z = crown_z - 0.008
+    outer = _ring(bm, 0, 0, brim_z, brim_r * 1.05, brim_r * 0.9, seg)
+    inner = _ring(bm, 0, 0, brim_z, crown_r, crown_r * 0.9, seg)
+    n = seg
+    for k in range(n):
+        f = bm.faces.new([outer[k], outer[(k + 1) % n], inner[(k + 1) % n], inner[k]])
+        f.material_index = mat
+    top = _ring(bm, 0, 0, crown_z + h, crown_r * 0.85, crown_r * 0.7, seg)
+    bot = _ring(bm, 0, 0, crown_z, crown_r, crown_r * 0.9, seg)
+    _bridge(bm, bot, top, mat)
+    _cap(bm, top, (0, 0, crown_z + h + 0.01), mat)
+
+
+def build_cap(bm, crown_z, head_r, mat=0, seg=10):
+    """Cloth / peaked workman's cap — low profile, dark."""
+    r = head_r * 1.05
+    h = 0.045
+    scalp = crown_z - 0.02
+    bot = _ring(bm, 0, 0, scalp, r, r, seg)
+    top = _ring(bm, 0, 0.01, scalp + h, r * 0.7, r * 0.7, seg)
+    _bridge(bm, bot, top, mat)
+    _cap(bm, top, (0, 0.02, scalp + h + 0.01), mat)
+    # small peak
+    peak = [
+        bm.verts.new((0, r * 0.2, scalp)),
+        bm.verts.new((-r * 0.35, r * 1.15, scalp - 0.005)),
+        bm.verts.new((r * 0.35, r * 1.15, scalp - 0.005)),
+    ]
+    f = bm.faces.new(peak); f.material_index = mat
+
+
+def build_bonnet(bm, chin_z, crown_z, head_r, mat=0, seg=10):
+    """1850s bonnet: rear hood + cheek sides; face fully open."""
+    r = head_r * 1.0
+    cy = -head_r * 0.40
+    rings = []
+    for t, sc, yoff in ((0.20, 0.80, 0.0), (0.55, 1.0, -0.02), (0.90, 0.85, -0.03), (1.12, 0.40, -0.02)):
+        z = chin_z + t * (crown_z + 0.03 - chin_z)
+        rings.append(_ring(bm, 0, cy + yoff, z, r * sc * 0.50, r * sc * 0.45, seg))
+    for A, B in zip(rings, rings[1:]):
+        _bridge(bm, A, B, mat)
+    _cap(bm, rings[-1], (0, cy - 0.02, crown_z + 0.04), mat)
+    # cheek ties / side panels (left & right), not over the face
+    for sign in (-1.0, 1.0):
+        vs = [
+            bm.verts.new((sign * head_r * 0.55, -head_r * 0.1, chin_z + 0.04)),
+            bm.verts.new((sign * head_r * 0.70, head_r * 0.15, chin_z + 0.08)),
+            bm.verts.new((sign * head_r * 0.55, head_r * 0.05, crown_z - 0.02)),
+            bm.verts.new((sign * head_r * 0.35, -head_r * 0.25, crown_z - 0.04)),
+        ]
+        try:
+            f = bm.faces.new(vs); f.material_index = mat
+        except ValueError:
+            pass
+
+
+def build_frock_coat(bm, L, shoulder_w, mat=0, seg=12):
+    """Fitted torso + flared skirted tails to mid-thigh."""
+    sw = shoulder_w * 0.55
+    chest_r = sw * 0.95
+    waist_r = sw * 0.78
+    hip_r = sw * 0.88
+    # torso shell
+    profile = [
+        (chest_r * 0.55, chest_r * 0.4, L["shoulder"] + 0.02),  # collar base
+        (chest_r, chest_r * 0.7, L["chest"]),
+        (waist_r, waist_r * 0.7, L["waist"]),
+        (hip_r, hip_r * 0.65, L["hip"] + 0.02),
+    ]
+    rings = _lathed_shell(bm, profile, seg=seg, mat=mat)
+    # collar
+    collar_bot = rings[0]
+    collar_top = _ring(bm, 0, 0, L["shoulder"] + 0.06, chest_r * 0.5, chest_r * 0.38, seg)
+    _bridge(bm, collar_bot, collar_top, mat)
+    # tails: rear half panels from waist to mid-thigh, flared back
+    tail_z0 = L["waist"]
+    tail_z1 = L["hip"] - 0.12 * L["h"]
+    # left and right rear tails as extruded quads (simplified solid)
+    for sign in (-1, 1):
+        x0 = sign * waist_r * 0.15
+        x1 = sign * hip_r * 0.95
+        # outer rear
+        vs = [
+            bm.verts.new((x0, -waist_r * 0.5, tail_z0)),
+            bm.verts.new((x1, -hip_r * 1.05, tail_z0)),
+            bm.verts.new((x1 * 1.05, -hip_r * 1.25, tail_z1)),
+            bm.verts.new((sign * 0.02, -hip_r * 0.7, tail_z1)),
+        ]
+        # thicken slightly in Y
+        vs2 = [
+            bm.verts.new((v.co.x, v.co.y + 0.025, v.co.z)) for v in vs
+        ]
+        try:
+            f = bm.faces.new(vs); f.material_index = mat
+            f = bm.faces.new(list(reversed(vs2))); f.material_index = mat
+            for i in range(4):
+                f = bm.faces.new([vs[i], vs[(i + 1) % 4], vs2[(i + 1) % 4], vs2[i]])
+                f.material_index = mat
+        except ValueError:
+            pass
+    # sleeves (upper arm cylinders)
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.5)
+        a = Vector((sx, 0.0, L["shoulder"] - 0.02))
+        b = Vector((sx + sign * 0.22, 0.05, L["waist"] + 0.08))
+        _sleeve(bm, a, b, 0.045, seg=max(6, seg // 2), mat=mat)
+
+
+def _sleeve(bm, a: Vector, b: Vector, r: float, seg=6, mat=0):
     d = b - a
-    length = d.length
-    if length < 1e-8:
+    if d.length < 1e-6:
         return
     direction = d.normalized()
-    # orthonormal basis
     up = Vector((0, 0, 1)) if abs(direction.z) < 0.9 else Vector((1, 0, 0))
     x_axis = direction.cross(up).normalized()
     y_axis = direction.cross(x_axis).normalized()
     rings = []
-    # two end rings + mid if long
-    zs = (0.0, 1.0)
-    for t in zs:
-        center = a.lerp(b, t)
+    for t in (0.0, 1.0):
+        c = a.lerp(b, t)
         ring = []
         for k in range(seg):
             ang = 2 * math.pi * k / seg
-            p = center + (math.cos(ang) * x_axis + math.sin(ang) * y_axis) * r
-            ring.append(bm.verts.new(p))
+            ring.append(bm.verts.new(c + (math.cos(ang) * x_axis + math.sin(ang) * y_axis) * r))
         rings.append(ring)
-    for A, B in zip(rings, rings[1:]):
-        for k in range(seg):
-            f = bm.faces.new([A[k], A[(k + 1) % seg], B[(k + 1) % seg], B[k]])
-            f.material_index = mat
-    # end caps (fan)
-    for ring, tip in ((rings[0], a - direction * r * 0.35), (rings[-1], b + direction * r * 0.35)):
-        tv = bm.verts.new(tip)
-        for k in range(seg):
-            f = bm.faces.new([ring[k], ring[(k + 1) % seg], tv])
-            f.material_index = mat
+    _bridge(bm, rings[0], rings[1], mat)
 
 
-def _ellipsoid(bm: bmesh.types.BMesh, c: Vector, rx, ry, rz, seg: int = 8, mat: int = 0):
-    """UV-sphere scaled to ellipsoid."""
-    stacks = max(4, seg // 2)
-    sectors = seg
-    grid = []
-    for i in range(stacks + 1):
-        phi = math.pi * i / stacks
-        row = []
-        for j in range(sectors):
-            th = 2 * math.pi * j / sectors
-            x = c.x + rx * math.sin(phi) * math.cos(th)
-            y = c.y + ry * math.sin(phi) * math.sin(th)
-            z = c.z + rz * math.cos(phi)
-            row.append(bm.verts.new((x, y, z)))
-        grid.append(row)
-    for i in range(stacks):
-        for j in range(sectors):
-            v1 = grid[i][j]
-            v2 = grid[i][(j + 1) % sectors]
-            v3 = grid[i + 1][(j + 1) % sectors]
-            v4 = grid[i + 1][j]
-            if i == 0:
-                f = bm.faces.new([v1, v3, v4]); f.material_index = mat
-            elif i == stacks - 1:
-                f = bm.faces.new([v1, v2, v4]); f.material_index = mat
-            else:
-                f = bm.faces.new([v1, v2, v3, v4]); f.material_index = mat
+
+def build_frock_tails_and_sleeves(bm, L, shoulder_w, mat=0, seg=12):
+    """Extras for frock coat: standing collar, long sleeves to wrist, rear tails.
+    Fitted torso comes from _body_shell_mesh in _build_person."""
+    sw = shoulder_w * 0.52
+    # standing collar
+    collar_bot = _ring(bm, 0, 0.01, L["chin"] - 0.02, sw * 0.38, sw * 0.32, seg)
+    collar_top = _ring(bm, 0, 0.015, L["chin"] + 0.02, sw * 0.36, sw * 0.30, seg)
+    _bridge(bm, collar_bot, collar_top, mat)
+    # long sleeves shoulder → near wrist (two segments)
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.48)
+        shoulder = Vector((sx, 0.02, L["shoulder"] - 0.01))
+        elbow = Vector((sx + sign * 0.14, 0.04, L["waist"] + 0.12))
+        wrist = Vector((sx + sign * 0.20, 0.02, L["hip"] + 0.15))
+        _sleeve(bm, shoulder, elbow, 0.050, seg=max(6, seg // 2), mat=mat)
+        _sleeve(bm, elbow, wrist, 0.040, seg=max(6, seg // 2), mat=mat)
+    # rear tails — flared panels to mid-thigh
+    waist_r = sw * 0.85
+    hip_r = sw * 1.0
+    tail_z0 = L["waist"]
+    tail_z1 = max(L["knee"] + 0.04, L["hip"] - 0.15 * L["h"])
+    y_back0 = -max(0.12, waist_r * 0.75)
+    y_back1 = -max(0.18, hip_r * 1.2)
+    for sign in (-1, 1):
+        x0 = sign * waist_r * 0.1
+        x1 = sign * hip_r * 0.95
+        vs = [
+            bm.verts.new((x0, y_back0, tail_z0)),
+            bm.verts.new((x1, y_back1, tail_z0)),
+            bm.verts.new((x1 * 1.12, y_back1 - 0.07, tail_z1)),
+            bm.verts.new((sign * 0.015, y_back0 - 0.05, tail_z1)),
+        ]
+        vs2 = [bm.verts.new((v.co.x, v.co.y + 0.04, v.co.z)) for v in vs]
+        try:
+            f = bm.faces.new(vs); f.material_index = mat
+            f = bm.faces.new(list(reversed(vs2))); f.material_index = mat
+            for i in range(4):
+                f = bm.faces.new([vs[i], vs[(i + 1) % 4], vs2[(i + 1) % 4], vs2[i]])
+                f.material_index = mat
+        except ValueError:
+            pass
 
 
-def _lathe(bm: bmesh.types.BMesh, prof: Sequence[Tuple[float, float]], seg: int, cx=0.0, cy=0.0, ox=0.0, mat=0):
-    rings = []
-    for r, z in prof:
-        ring = [bm.verts.new((cx + r * math.cos(2 * math.pi * k / seg) + ox,
-                              cy + r * math.sin(2 * math.pi * k / seg), z)) for k in range(seg)]
-        rings.append(ring)
-    for A, B in zip(rings, rings[1:]):
-        for k in range(seg):
-            f = bm.faces.new([A[k], A[(k + 1) % seg], B[(k + 1) % seg], B[k]])
-            f.material_index = mat
-    if prof[-1][0] > 1e-6:
-        f = bm.faces.new(rings[-1]); f.material_index = mat
-    if prof[0][0] > 1e-6:
-        f = bm.faces.new(list(reversed(rings[0]))); f.material_index = mat
+def build_waistcoat(bm, L, shoulder_w, mat=0, seg=10):
+    """Fitted waistcoat under the frock — V-front, ends at waist."""
+    sw = shoulder_w * 0.48
+    profile = [
+        (sw * 0.42, sw * 0.34, L["shoulder"] - 0.01),
+        (sw * 0.88, sw * 0.62, L["chest"]),
+        (sw * 0.70, sw * 0.52, L["waist"] + 0.01),
+    ]
+    _lathed_shell(bm, profile, seg=seg, mat=mat)
 
 
-# ---------------------------------------------------------------------------
-# proportions (metres, adult male ~1.70 m crown; facing -Y like legacy figures)
-# ---------------------------------------------------------------------------
-
-# Landmark heights as fraction of body height H (feet at z=0, crown at H)
-PROP = {
-    "male": dict(H=1.70, shoulder_w=0.42, hip_w=0.34, chest_d=0.24, head_r=0.11,
-                 upper_arm=0.30, forearm=0.27, hand=0.095, thigh=0.42, shin=0.42, foot=0.24),
-    "female": dict(H=1.62, shoulder_w=0.36, hip_w=0.36, chest_d=0.22, head_r=0.105,
-                   upper_arm=0.28, forearm=0.25, hand=0.085, thigh=0.40, shin=0.40, foot=0.22),
-    "child": dict(H=1.20, shoulder_w=0.28, hip_w=0.26, chest_d=0.18, head_r=0.10,
-                  upper_arm=0.22, forearm=0.20, hand=0.07, thigh=0.30, shin=0.30, foot=0.16),
-}
-
-
-def _seed_of(name: str, seed: Optional[int] = None) -> int:
-    if seed is not None:
-        return int(seed)
-    return int(hashlib.md5(name.encode()).hexdigest()[:8], 16)
-
-
-def _sex_for_kind(kind: str) -> str:
-    k = (kind or "man").lower()
-    if k in ("woman", "girl", "lady", "bustle"):
-        return "female" if k != "girl" else "child"
-    if k in ("boy",):
-        return "child"
-    return "male"
-
-
-# ---------------------------------------------------------------------------
-# era / role / clothing presets
-# ---------------------------------------------------------------------------
-
-ERA_ROLES = {
-    # 1850s Hyde Park / Great Exhibition
-    "1850s_gentleman": dict(era="1850s", sex="male", hat="top", coat="frock", trousers=True, cravat=True),
-    "1850s_lady": dict(era="1850s", sex="female", hat="bonnet", skirt="crinoline", shawl=True),
-    "1850s_workman": dict(era="1850s", sex="male", hat="cap", coat="smock", trousers=True, tool=False),
-    "1850s_navvy": dict(era="1850s", sex="male", hat="cap", coat="waistcoat", trousers=True, tool=True),
-    "1850s_police": dict(era="1850s", sex="male", hat="top", coat="frock", trousers=True, trim="police"),
-    "1850s_soldier": dict(era="1850s", sex="male", hat="shako", coat="redcoat", trousers=True),
-    "1850s_girl": dict(era="1850s", sex="child", hat="bonnet", skirt="crinoline", female_child=True),
-    "1850s_boy": dict(era="1850s", sex="child", hat="cap", coat="frock", trousers=True),
-    # 1880s–1910s Sydenham / naval
-    "1890s_gentleman": dict(era="1890s", sex="male", hat="boater", coat="lounge", trousers=True),
-    "1890s_lady": dict(era="1890s", sex="female", hat="boater", skirt="bustle", shawl=False),
-    "1890s_sailor": dict(era="1890s", sex="male", hat="sailor", coat="sailor", trousers=True, bellbottoms=True),
-    "1890s_uniform": dict(era="1890s", sex="male", hat="peak", coat="uniform", trousers=True),
-    # 1930s
-    "1930s_man": dict(era="1930s", sex="male", hat="trilby", coat="overcoat", trousers=True),
-    "1930s_woman": dict(era="1930s", sex="female", hat="beret", skirt="straight", coat="overcoat"),
-    "1930s_fireman": dict(era="1930s", sex="male", hat="helmet", coat="fire", trousers=True),
-    # today
-    "today_casual_m": dict(era="today", sex="male", hat="none", coat="tee", trousers=True),
-    "today_casual_f": dict(era="today", sex="female", hat="none", coat="tee", skirt="straight"),
-}
-
-
-def resolve_role(kind: str, style: Optional[dict], era_hint: str = "1850s") -> dict:
-    st = dict(style or {})
-    if st.get("role") and st["role"] in ERA_ROLES:
-        base = dict(ERA_ROLES[st["role"]])
-        base.update({k: v for k, v in st.items() if k != "role"})
-        return base
-    k = (kind or "man").lower()
-    era = st.get("era", era_hint)
-    # map legacy style flags
-    if era.startswith("185") or era in ("1851", "1850", "1850s"):
-        if k in ("woman", "lady"):
-            role = "1850s_lady"
-        elif k == "girl":
-            role = "1850s_girl"
-        elif k == "boy":
-            role = "1850s_boy"
-        elif k in ("soldier",):
-            role = "1850s_soldier"
-        elif k in ("police", "policeman"):
-            role = "1850s_police"
-        elif k in ("worker", "workman", "navvy"):
-            role = "1850s_navvy" if st.get("tool") or st.get("hat") == "cap" else "1850s_workman"
-        elif st.get("hat") == "cap" or st.get("smock"):
-            role = "1850s_workman"
-        else:
-            role = "1850s_gentleman"
-    elif era.startswith("188") or era.startswith("189") or era.startswith("190") or era.startswith("191"):
-        if k in ("woman", "lady"):
-            role = "1890s_lady"
-        elif "sail" in k or st.get("sailor"):
-            role = "1890s_sailor"
-        else:
-            role = "1890s_gentleman"
-    elif era.startswith("193"):
-        if "fire" in k:
-            role = "1930s_fireman"
-        elif k in ("woman", "lady"):
-            role = "1930s_woman"
-        else:
-            role = "1930s_man"
-    else:
-        role = "today_casual_f" if k in ("woman", "lady", "girl") else "today_casual_m"
-    base = dict(ERA_ROLES[role])
-    # honour explicit style overrides from legacy dressing
-    if "hat" in st:
-        base["hat"] = st["hat"]
-    if st.get("frock"):
-        base["coat"] = "frock"
-    if "skirt_w" in st:
-        base["skirt_w"] = st["skirt_w"]
-    if st.get("shawl"):
-        base["shawl"] = True
-    if st.get("cane"):
-        base["cane"] = True
-    if st.get("tool"):
-        base["tool"] = True
-    base["role_name"] = role
-    return base
-
-
-# ---------------------------------------------------------------------------
-# poses — limb joint angles (radians); arms hang by default facing -Y
-# ---------------------------------------------------------------------------
-
-POSES = {
-    "standing": dict(L_hip=0.05, R_hip=-0.05, L_knee=0.05, R_knee=0.02,
-                     L_shoulder=0.12, R_shoulder=0.12, L_elbow=0.15, R_elbow=0.15,
-                     spine=0.0, head=0.0),
-    "walking": dict(L_hip=0.35, R_hip=-0.30, L_knee=0.45, R_knee=0.10,
-                    L_shoulder=-0.35, R_shoulder=0.40, L_elbow=0.40, R_elbow=0.35,
-                    spine=0.04, head=0.0),
-    "pointing": dict(L_hip=0.05, R_hip=-0.05, L_knee=0.05, R_knee=0.02,
-                     L_shoulder=0.15, R_shoulder=-1.15, L_elbow=0.2, R_elbow=0.15,
-                     spine=0.05, head=-0.15),
-    "seated": dict(L_hip=1.15, R_hip=1.15, L_knee=1.35, R_knee=1.35,
-                   L_shoulder=0.25, R_shoulder=0.25, L_elbow=0.9, R_elbow=0.9,
-                   spine=0.12, head=0.05, seat_z=0.48),
-    "working": dict(L_hip=0.15, R_hip=-0.10, L_knee=0.25, R_knee=0.15,
-                    L_shoulder=-0.7, R_shoulder=-0.85, L_elbow=0.7, R_elbow=0.55,
-                    spine=0.18, head=0.2),
-    "hauling": dict(L_hip=0.25, R_hip=-0.2, L_knee=0.3, R_knee=0.2,
-                    L_shoulder=-1.0, R_shoulder=-1.0, L_elbow=0.35, R_elbow=0.35,
-                    spine=0.22, head=0.1),
-}
-
-
-def _lod_seg(lod: str) -> int:
-    return {"hero": 12, "mid": 8, "crowd": 6}.get(lod, 8)
-
-
-# ---------------------------------------------------------------------------
-# core builder
-# ---------------------------------------------------------------------------
-
-def build_person_bmesh(
-    role: dict,
-    pose_name: str = "standing",
-    lod: str = "mid",
-    seed: int = 0,
-    height_scale: float = 1.0,
-) -> bmesh.types.BMesh:
-    """Build an articulated figure into a new BMesh. Material indices:
-    0=main(coat/skirt), 1=second(trousers/bodice), 2=skin, 3=hat, 4=trim.
-    """
-    rng = random.Random(seed)
-    sex = role.get("sex", "male")
-    if role.get("female_child"):
-        sex = "child"
-    prop = dict(PROP["female" if sex == "female" else ("child" if sex == "child" else "male")])
-    # seeded variation
-    hs = height_scale * (0.94 + 0.12 * rng.random())
-    for k in ("shoulder_w", "hip_w", "chest_d"):
-        prop[k] *= 0.94 + 0.12 * rng.random()
-    H = prop["H"] * hs
-    seg = _lod_seg(lod)
-    pose = dict(POSES.get(pose_name, POSES["standing"]))
-    # slight pose jitter
-    for k in list(pose.keys()):
-        if isinstance(pose[k], float):
-            pose[k] += rng.uniform(-0.04, 0.04)
-
-    bm = bmesh.new()
-
-    # ---- landmarks ----
-    ankle_z = 0.04 * H
-    knee_z = ankle_z + prop["shin"] * hs * 0.55
-    hip_z = knee_z + prop["thigh"] * hs * 0.55
-    if pose_name == "seated":
-        hip_z = pose.get("seat_z", 0.48) * H
-        knee_z = hip_z - 0.05 * H
-        ankle_z = 0.02 * H
-    waist_z = hip_z + 0.08 * H
-    chest_z = waist_z + 0.22 * H
-    shoulder_z = chest_z + 0.10 * H
-    neck_z = shoulder_z + 0.04 * H
-    chin_z = neck_z + 0.03 * H
-    crown_z = chin_z + prop["head_r"] * 2.1
-
-    sw = prop["shoulder_w"] * 0.5
-    hw = prop["hip_w"] * 0.5
-
-    # ---- legs (separate L/R) ----
-    def leg(side: float, hip_a: float, knee_a: float, mat_leg: int):
-        # hip flare forward(-Y) by hip_a
-        hip = Vector((side * hw * 0.85, 0.0, hip_z))
-        knee = Vector((side * hw * 0.7, -math.sin(hip_a) * prop["thigh"] * hs * 0.5, knee_z))
-        ankle = Vector((side * hw * 0.55,
-                        knee.y - math.sin(knee_a) * prop["shin"] * hs * 0.35,
-                        ankle_z))
-        thigh_r = 0.065 * H if lod != "crowd" else 0.07 * H
-        shin_r = 0.048 * H
-        _capsule(bm, hip, knee, thigh_r, seg=seg, mat=mat_leg)
-        _capsule(bm, knee, ankle, shin_r, seg=max(6, seg - 2), mat=mat_leg)
-        # foot
-        toe = ankle + Vector((0, -prop["foot"] * hs * 0.55, -0.01 * H))
-        if lod == "crowd":
-            _box(bm, ankle.x - 0.03 * H, ankle.x + 0.03 * H,
-                 toe.y, ankle.y + 0.02 * H, 0.0, 0.035 * H, mat=3)
-        else:
-            _ellipsoid(bm, Vector((ankle.x, (ankle.y + toe.y) * 0.5, 0.02 * H)),
-                       0.04 * H, prop["foot"] * hs * 0.28, 0.025 * H, seg=max(6, seg - 2), mat=3)
-        return hip, ankle
-
-    mat_leg = 1 if role.get("trousers") or role.get("skirt") is None else 0
-    if role.get("skirt"):
-        mat_leg = 0  # skirt covers; still build legs underneath for hero/mid
-    if lod == "crowd" and role.get("skirt"):
-        # skip individual legs under full skirt for crowd LOD
-        pass
-    else:
-        leg(-1.0, pose["L_hip"], pose["L_knee"], mat_leg)
-        leg(1.0, pose["R_hip"], pose["R_knee"], mat_leg)
-
-    # ---- skirt / crinoline / bustle / straight ----
-    skirt = role.get("skirt")
-    if skirt:
-        sw_factor = float(role.get("skirt_w", 1.0))
-        if skirt == "crinoline":
-            hem_r = 0.38 * H * sw_factor
-            mid_r = 0.32 * H * sw_factor
-            waist_r = 0.12 * H
-            _lathe(bm, [
-                (0.0, 0.02 * H), (hem_r, 0.02 * H), (hem_r * 0.98, 0.12 * H),
-                (mid_r, hip_z * 0.55), (waist_r * 1.5, hip_z), (waist_r * 1.15, waist_z), (waist_r * 0.95, chest_z - 0.06 * H),
-                (0.0, chest_z - 0.05 * H),
-            ], seg=seg + 2, mat=0)
-        elif skirt == "bustle":
-            hem_r = 0.22 * H * sw_factor
-            _lathe(bm, [
-                (0.0, 0.02 * H), (hem_r, 0.02 * H), (hem_r * 0.9, hip_z * 0.5),
-                (0.14 * H, hip_z), (0.12 * H, waist_z), (0.11 * H, chest_z - 0.05 * H), (0.0, chest_z - 0.04 * H),
-            ], seg=seg, mat=0)
-            # bustle puff rear (+Y historically? our figures face -Y so rear is +Y)
-            _ellipsoid(bm, Vector((0, 0.12 * H, hip_z * 0.7)),
-                       0.10 * H, 0.12 * H, 0.12 * H, seg=seg, mat=0)
-        else:  # straight / today
-            hem_r = 0.14 * H * sw_factor
-            _lathe(bm, [
-                (0.0, 0.02 * H), (hem_r, 0.02 * H), (hem_r * 0.95, hip_z * 0.6),
-                (0.11 * H, hip_z), (0.10 * H, waist_z), (0.10 * H, chest_z - 0.05 * H), (0.0, chest_z - 0.04 * H),
-            ], seg=seg, mat=0)
-
-    # ---- continuous pelvis → torso (no waist gap) ----
-    _ellipsoid(bm, Vector((0, 0.01 * H, (hip_z + waist_z) * 0.5)),
-               prop["hip_w"] * 0.48, prop["chest_d"] * 0.50, 0.10 * H, seg=seg, mat=0)
-    _capsule(bm, Vector((0, 0.012 * H, hip_z + 0.02 * H)), Vector((0, 0.015 * H, shoulder_z - 0.02 * H)),
-             prop["chest_d"] * 0.42, seg=seg, mat=0)
-    _ellipsoid(bm, Vector((0, 0.015 * H, chest_z)),
-               prop["shoulder_w"] * 0.40, prop["chest_d"] * 0.50, 0.12 * H, seg=seg, mat=0)
-    # shoulders bar
-    _capsule(bm, Vector((-sw, 0.01 * H, shoulder_z)), Vector((sw, 0.01 * H, shoulder_z)),
-             0.045 * H, seg=max(6, seg - 2), mat=0)
-
-    coat = role.get("coat", "frock")
-    if coat == "frock":
-        # knee-length frock skirts
-        _lathe(bm, [
-            (0.0, hip_z * 0.55), (0.16 * H, hip_z * 0.55), (0.17 * H, hip_z),
-            (0.15 * H, waist_z), (0.0, waist_z + 0.01 * H),
-        ], seg=seg, mat=0)
-    elif coat == "smock":
-        _lathe(bm, [
-            (0.0, hip_z * 0.4), (0.18 * H, hip_z * 0.4), (0.20 * H, waist_z),
-            (0.16 * H, chest_z), (0.0, chest_z + 0.02 * H),
-        ], seg=seg, mat=0)
-    elif coat == "waistcoat":
-        _lathe(bm, [
-            (0.0, waist_z - 0.02 * H), (0.13 * H, waist_z - 0.02 * H),
-            (0.14 * H, chest_z), (0.12 * H, shoulder_z - 0.02 * H), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-        # shirt sleeves already from arms; add shirt collar hint
-    elif coat == "overcoat":
-        _lathe(bm, [
-            (0.0, 0.08 * H), (0.18 * H, 0.08 * H), (0.20 * H, hip_z),
-            (0.18 * H, chest_z), (0.14 * H, shoulder_z), (0.0, shoulder_z + 0.02 * H),
-        ], seg=seg, mat=0)
-    elif coat == "sailor":
-        # jumper + sailor collar (flared rear flap)
-        _lathe(bm, [
-            (0.0, hip_z * 0.7), (0.14 * H, hip_z * 0.7), (0.15 * H, chest_z),
-            (0.13 * H, shoulder_z), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-        _box(bm, -0.10 * H, 0.10 * H, 0.02 * H, 0.14 * H, neck_z - 0.02 * H, neck_z + 0.04 * H, mat=1)
-    elif coat == "redcoat":
-        _lathe(bm, [
-            (0.0, hip_z * 0.5), (0.15 * H, hip_z * 0.5), (0.16 * H, waist_z),
-            (0.15 * H, chest_z), (0.13 * H, shoulder_z), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-    elif coat == "fire":
-        _lathe(bm, [
-            (0.0, hip_z * 0.45), (0.17 * H, hip_z * 0.45), (0.18 * H, chest_z),
-            (0.15 * H, shoulder_z), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-    elif coat == "uniform":
-        _lathe(bm, [
-            (0.0, hip_z * 0.55), (0.14 * H, hip_z * 0.55), (0.15 * H, chest_z),
-            (0.13 * H, shoulder_z), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-    elif coat == "lounge":
-        _lathe(bm, [
-            (0.0, hip_z * 0.65), (0.15 * H, hip_z * 0.65), (0.16 * H, chest_z),
-            (0.14 * H, shoulder_z), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-    elif coat == "tee":
-        _lathe(bm, [
-            (0.0, waist_z), (0.13 * H, waist_z), (0.14 * H, chest_z),
-            (0.12 * H, shoulder_z), (0.0, shoulder_z),
-        ], seg=seg, mat=0)
-
-    if role.get("bellbottoms"):
-        for s in (-1, 1):
-            _lathe(bm, [
-                (0.06 * H, 0.0), (0.08 * H, 0.0), (0.05 * H, knee_z * 0.5),
-                (0.04 * H, knee_z), (0.0, knee_z),
-            ], seg=max(6, seg - 2), ox=s * hw * 0.7, mat=1)
-
-    if role.get("shawl") and lod != "crowd":
-        _ellipsoid(bm, Vector((0, -0.02 * H, chest_z)),
-                   0.16 * H, 0.08 * H, 0.10 * H, seg=seg, mat=4)
-
-    if role.get("cravat") and lod != "crowd":
-        _box(bm, -0.03 * H, 0.03 * H, -0.06 * H, -0.02 * H, neck_z - 0.02 * H, neck_z + 0.03 * H, mat=4)
-
-    if role.get("trim") == "police" and lod != "crowd":
-        # belt + buttons strip
-        _lathe(bm, [(0.0, waist_z - 0.01 * H), (0.145 * H, waist_z - 0.01 * H),
-                    (0.145 * H, waist_z + 0.02 * H), (0.0, waist_z + 0.02 * H)], seg=seg, mat=4)
-
-    # ---- neck + head (separate) ----
-    _capsule(bm, Vector((0, 0.01 * H, shoulder_z - 0.01 * H)), Vector((0, 0.015 * H, chin_z + 0.01 * H)),
-             0.042 * H, seg=max(6, seg - 2), mat=2)
-    head_c = Vector((0, 0.015 * H + pose.get("head", 0) * 0.02, (chin_z + crown_z) * 0.5))
-    _ellipsoid(bm, head_c, prop["head_r"] * 0.85, prop["head_r"] * 0.95, prop["head_r"] * 1.05,
-               seg=seg, mat=2)
-    # simple nose for hero
-    if lod == "hero":
-        _ellipsoid(bm, head_c + Vector((0, -prop["head_r"] * 0.9, -0.01 * H)),
-                   0.015 * H, 0.025 * H, 0.015 * H, seg=6, mat=2)
-
-    # ---- arms + hands (separate) ----
-    def arm(side: float, sh_a: float, el_a: float):
-        shoulder = Vector((side * sw, 0.01 * H, shoulder_z))
-        # sh_a: negative = raise forward (-Y)
-        upper_len = prop["upper_arm"] * hs
-        fore_len = prop["forearm"] * hs
-        elbow = shoulder + Vector((side * 0.04 * H,
-                                   -math.sin(-sh_a) * upper_len,
-                                   -math.cos(sh_a) * upper_len * 0.85))
-        # elbow bend
-        hand = elbow + Vector((side * 0.02 * H,
-                               -math.sin(-sh_a + el_a) * fore_len,
-                               -math.cos(sh_a - el_a * 0.5) * fore_len * 0.7))
-        arm_mat = 0 if coat not in ("tee", "smock", "waistcoat") else 2
-        if coat in ("smock", "tee", "waistcoat"):
-            arm_mat = 2  # sleeves short / skin
-        _capsule(bm, shoulder, elbow, 0.045 * H, seg=max(6, seg - 2), mat=arm_mat)
-        _capsule(bm, elbow, hand, 0.036 * H, seg=max(6, seg - 2), mat=2)
-        # hand
-        if lod == "crowd":
-            _ellipsoid(bm, hand, 0.025 * H, 0.035 * H, 0.02 * H, seg=6, mat=2)
-        else:
-            # palm box + thumb stub
-            hx, hy, hz = hand.x, hand.y, hand.z
-            _box(bm, hx - 0.028 * H, hx + 0.028 * H,
-                 hy - 0.045 * H, hy + 0.01 * H,
-                 hz - 0.015 * H, hz + 0.015 * H, mat=2)
-            if lod == "hero":
-                _capsule(bm, hand, hand + Vector((side * 0.03 * H, -0.03 * H, 0.01 * H)),
-                         0.012 * H, seg=6, mat=2)
-        return hand
-
-    hand_L = arm(-1.0, pose["L_shoulder"], pose["L_elbow"])
-    hand_R = arm(1.0, pose["R_shoulder"], pose["R_elbow"])
-
-    # ---- hat ----
-    hat = role.get("hat", "top")
-    hat_z = crown_z - 0.01 * H
-    if hat == "top":
-        _lathe(bm, [
-            (0.0, hat_z - 0.01 * H), (0.12 * H, hat_z - 0.01 * H), (0.12 * H, hat_z),
-            (0.075 * H, hat_z), (0.078 * H, hat_z + 0.16 * H), (0.0, hat_z + 0.16 * H),
-        ], seg=seg, mat=3)
-    elif hat == "low":
-        _lathe(bm, [
-            (0.0, hat_z - 0.01 * H), (0.13 * H, hat_z - 0.01 * H), (0.13 * H, hat_z),
-            (0.08 * H, hat_z), (0.075 * H, hat_z + 0.09 * H), (0.0, hat_z + 0.09 * H),
-        ], seg=seg, mat=3)
-    elif hat == "cap":
-        _lathe(bm, [
-            (0.0, hat_z - 0.005 * H), (0.10 * H, hat_z - 0.005 * H),
-            (0.11 * H, hat_z + 0.04 * H), (0.0, hat_z + 0.055 * H),
-        ], seg=seg, mat=3)
-        _box(bm, -0.06 * H, 0.06 * H, -0.14 * H, -0.08 * H, hat_z - 0.01 * H, hat_z + 0.01 * H, mat=3)
-    elif hat == "bonnet":
-        _ellipsoid(bm, Vector((0, -0.02 * H, hat_z + 0.02 * H)),
-                   0.12 * H, 0.14 * H, 0.08 * H, seg=seg, mat=3)
-        if lod != "crowd":
-            # brim ribbon
-            _box(bm, -0.04 * H, 0.04 * H, -0.12 * H, -0.05 * H, chin_z, chin_z + 0.08 * H, mat=4)
-    elif hat == "boater":
-        _lathe(bm, [
-            (0.0, hat_z - 0.005 * H), (0.14 * H, hat_z - 0.005 * H), (0.14 * H, hat_z),
-            (0.09 * H, hat_z), (0.09 * H, hat_z + 0.055 * H), (0.0, hat_z + 0.055 * H),
-        ], seg=seg, mat=3)
-        if lod != "crowd":
-            _lathe(bm, [(0.085 * H, hat_z + 0.02 * H), (0.092 * H, hat_z + 0.02 * H),
-                        (0.092 * H, hat_z + 0.04 * H), (0.085 * H, hat_z + 0.04 * H)], seg=seg, mat=4)
-    elif hat == "sailor":
-        _lathe(bm, [
-            (0.0, hat_z - 0.005 * H), (0.11 * H, hat_z - 0.005 * H),
-            (0.10 * H, hat_z + 0.05 * H), (0.0, hat_z + 0.055 * H),
-        ], seg=seg, mat=3)
-    elif hat == "trilby":
-        _lathe(bm, [
-            (0.0, hat_z - 0.008 * H), (0.13 * H, hat_z - 0.008 * H), (0.12 * H, hat_z),
-            (0.08 * H, hat_z), (0.07 * H, hat_z + 0.08 * H), (0.0, hat_z + 0.09 * H),
-        ], seg=seg, mat=3)
-    elif hat == "shako":
-        _lathe(bm, [
-            (0.0, hat_z - 0.005 * H), (0.09 * H, hat_z - 0.005 * H),
-            (0.095 * H, hat_z + 0.18 * H), (0.0, hat_z + 0.18 * H),
-        ], seg=seg, mat=3)
-        if lod != "crowd":
-            _box(bm, -0.02 * H, 0.02 * H, -0.10 * H, -0.08 * H, hat_z + 0.05 * H, hat_z + 0.18 * H, mat=4)
-    elif hat == "helmet":
-        _ellipsoid(bm, Vector((0, 0, hat_z + 0.06 * H)), 0.11 * H, 0.13 * H, 0.09 * H, seg=seg, mat=3)
-        _box(bm, -0.015 * H, 0.015 * H, -0.02 * H, 0.02 * H, hat_z + 0.12 * H, hat_z + 0.22 * H, mat=3)
-    elif hat == "beret":
-        _ellipsoid(bm, Vector((0.02 * H, 0, hat_z + 0.02 * H)), 0.11 * H, 0.11 * H, 0.04 * H, seg=seg, mat=3)
-    elif hat == "peak":
-        _lathe(bm, [
-            (0.0, hat_z - 0.005 * H), (0.10 * H, hat_z - 0.005 * H),
-            (0.10 * H, hat_z + 0.06 * H), (0.0, hat_z + 0.07 * H),
-        ], seg=seg, mat=3)
-        _box(bm, -0.07 * H, 0.07 * H, -0.14 * H, -0.08 * H, hat_z - 0.01 * H, hat_z + 0.01 * H, mat=3)
-    # else none
-
-    # ---- props: cane / tool ----
-    if role.get("cane") and lod != "crowd":
-        _capsule(bm, hand_R + Vector((0.02 * H, 0, 0)), Vector((hand_R.x + 0.02 * H, hand_R.y, 0.02 * H)),
-                 0.012 * H, seg=6, mat=3)
-    if role.get("tool") and pose_name in ("working", "hauling", "standing") and lod != "crowd":
-        # simple hammer / bar in right hand
-        tip = hand_R + Vector((0.02 * H, -0.25 * H, 0.05 * H))
-        _capsule(bm, hand_R, tip, 0.015 * H, seg=6, mat=3)
-        if lod == "hero":
-            _box(bm, tip.x - 0.04 * H, tip.x + 0.04 * H,
-                 tip.y - 0.03 * H, tip.y + 0.03 * H,
-                 tip.z - 0.02 * H, tip.z + 0.05 * H, mat=4)
-
-    # smooth
-    for f in bm.faces:
-        f.smooth = True
+def build_cravat(bm, L, shoulder_w, mat=0, seg=8):
+    """Necktie / cravat knot at the throat."""
+    sw = shoulder_w * 0.42
+    z = L["chin"] - 0.04
+    # small torus-like band
+    outer = _ring(bm, 0, 0.02, z, sw * 0.38, sw * 0.30, seg)
+    inner = _ring(bm, 0, 0.02, z + 0.025, sw * 0.32, sw * 0.26, seg)
+    _bridge(bm, outer, inner, mat)
+    # knot blob at front
     try:
-        bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    except Exception:
+        knot = [
+            bm.verts.new((-0.025, 0.06, z - 0.01)),
+            bm.verts.new((0.025, 0.06, z - 0.01)),
+            bm.verts.new((0.02, 0.09, z + 0.02)),
+            bm.verts.new((-0.02, 0.09, z + 0.02)),
+        ]
+        f = bm.faces.new(knot); f.material_index = mat
+    except ValueError:
         pass
-    return bm
 
 
-def person_mesh(
-    name: str,
-    kind: str = "man",
-    mats: Optional[Sequence] = None,
-    FT: float = 0.3048,  # noqa: ARG001 — kept for drop-in compat with legacy callers
-    style: Optional[dict] = None,
-    pose: Optional[str] = None,
-    lod: Optional[str] = None,
-    seed: Optional[int] = None,
-    era: str = "1850s",
-) -> bpy.types.Mesh:
-    """Drop-in replacement for figures.person_mesh. Returns a Mesh with up to 5 material slots."""
-    sid = _seed_of(name, seed)
-    role = resolve_role(kind, style, era_hint=era)
-    pose_name = pose or (style or {}).get("pose") or "standing"
-    lod_name = lod or (style or {}).get("lod") or "mid"
-    bm = build_person_bmesh(role, pose_name=pose_name, lod=lod_name, seed=sid)
+def build_police_tunic(bm, L, shoulder_w, mat=0, seg=12):
+    """Dark fitted tunic, shorter than frock, standing collar."""
+    sw = shoulder_w * 0.55
+    profile = [
+        (sw * 0.5, sw * 0.38, L["shoulder"] + 0.04),
+        (sw * 0.95, sw * 0.7, L["chest"]),
+        (sw * 0.8, sw * 0.65, L["waist"]),
+        (sw * 0.85, sw * 0.6, L["hip"] + 0.05),
+    ]
+    _lathed_shell(bm, profile, seg=seg, mat=mat)
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.5)
+        _sleeve(bm, Vector((sx, 0, L["shoulder"] - 0.02)),
+                Vector((sx + sign * 0.2, 0.04, L["waist"] + 0.1)), 0.042, seg=6, mat=mat)
+
+
+def build_smock(bm, L, shoulder_w, mat=0, seg=12):
+    """Workmen's smock — loose A-line over torso to mid-thigh."""
+    sw = shoulder_w * 0.55
+    profile = [
+        (sw * 0.55, sw * 0.45, L["shoulder"] + 0.02),
+        (sw * 1.05, sw * 0.85, L["chest"]),
+        (sw * 1.15, sw * 0.95, L["waist"]),
+        (sw * 1.25, sw * 1.05, L["hip"] - 0.05 * L["h"]),
+    ]
+    _lathed_shell(bm, profile, seg=seg, mat=mat)
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.48)
+        _sleeve(bm, Vector((sx, 0, L["shoulder"])),
+                Vector((sx + sign * 0.18, 0.03, L["waist"] + 0.12)), 0.055, seg=6, mat=mat)
+
+
+def build_bodice(bm, L, shoulder_w, mat=0, seg=12):
+    """Fitted women's bodice — shoulder to waist, not a bell."""
+    sw = shoulder_w * 0.52
+    profile = [
+        (sw * 0.5, sw * 0.4, L["shoulder"] + 0.01),
+        (sw * 0.95, sw * 0.7, L["chest"]),
+        (sw * 0.72, sw * 0.58, L["waist"] + 0.02),
+    ]
+    _lathed_shell(bm, profile, seg=seg, mat=mat)
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.48)
+        _sleeve(bm, Vector((sx, 0, L["shoulder"])),
+                Vector((sx + sign * 0.16, 0.02, L["chest"] - 0.05)), 0.038, seg=6, mat=mat)
+
+
+
+def build_sleeves_only(bm, L, shoulder_w, mat=0, seg=6, length=0.85):
+    """Upper-arm sleeves without a lathed torso (torso from body shell)."""
+    r = 0.032 if length < 0.9 else 0.036
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.50)
+        a = Vector((sx, 0.02, L["shoulder"] - 0.015))
+        if length > 0.9:
+            b = Vector((sx + sign * 0.16, 0.04, L["waist"] + 0.12))
+        else:
+            b = Vector((sx + sign * 0.14, 0.03, L["chest"] - 0.04))
+        _sleeve(bm, a, b, r, seg=seg, mat=mat)
+
+
+def build_crinoline(bm, L, mat=0, seg=16):
+    """Full 1850s bell crinoline: waist to floor, wide elliptical hem."""
+    z0 = L["waist"]
+    z1 = max(L["z0"] + 0.01, L["ankle"] - 0.01)  # floor-length
+    waist_rx, waist_ry = 0.14, 0.12
+    # Full bell ~1.1–1.2 m across at hem
+    hem_rx, hem_ry = 0.52, 0.44
+    mid_z = z0 + 0.45 * (z1 - z0)
+    profile = [
+        (waist_rx, waist_ry, z0),
+        (waist_rx * 1.8, waist_ry * 1.6, z0 + 0.18 * (z1 - z0)),
+        (hem_rx * 0.88, hem_ry * 0.88, mid_z),
+        (hem_rx, hem_ry, z1),
+    ]
+    rings = _lathed_shell(bm, profile, seg=seg, mat=mat)
+    # close hem underside partially (prevents see-through) — small inset
+    inset = _ring(bm, 0, 0, z1 + 0.01, hem_rx * 0.4, hem_ry * 0.4, seg)
+    _bridge(bm, rings[-1], inset, mat)
+    try:
+        bm.faces.new(list(reversed(inset))).material_index = mat
+    except ValueError:
+        pass
+
+
+def build_bustle_skirt(bm, L, mat=0, seg=14):
+    """1880s–1910s bustle: fuller at rear."""
+    z0 = L["waist"]
+    z1 = L["ankle"] + 0.02
+    # build asymmetric by shifting ring centres backward at mid
+    rings = []
+    steps = [
+        (0.15, 0.13, z0, 0.0),
+        (0.32, 0.30, z0 + 0.35 * (z1 - z0), -0.08),
+        (0.42, 0.45, z1, -0.06),
+    ]
+    for rx, ry, z, cy in steps:
+        rings.append(_ring(bm, 0, cy, z, rx, ry, seg))
+    for A, B in zip(rings, rings[1:]):
+        _bridge(bm, A, B, mat)
+
+
+def build_shawl(bm, L, shoulder_w, mat=0):
+    """Thin draped triangle across shoulders — not blocky pads."""
+    z = L["shoulder"]
+    w = shoulder_w * 0.55
+    # front drape tip + shoulder ends; slight thickness via dual sheet
+    front = [
+        bm.verts.new((-w, 0.04, z + 0.01)),
+        bm.verts.new((w, 0.04, z + 0.01)),
+        bm.verts.new((0.0, 0.10, z - 0.22)),
+    ]
+    back = [
+        bm.verts.new((-w * 0.85, -0.06, z + 0.01)),
+        bm.verts.new((w * 0.85, -0.06, z + 0.01)),
+        bm.verts.new((0.0, -0.12, z - 0.18)),
+    ]
+    try:
+        f = bm.faces.new(front); f.material_index = mat
+        f = bm.faces.new(list(reversed(back))); f.material_index = mat
+        # side connectors
+        f = bm.faces.new([front[0], front[2], back[2], back[0]]); f.material_index = mat
+        f = bm.faces.new([front[1], back[1], back[2], front[2]]); f.material_index = mat
+    except ValueError:
+        pass
+
+
+def build_trousers(bm, L, hip_w, mat=0, seg=8):
+    """Separate legs — not a skirt. Radii scale with hip width."""
+    hip_r = max(0.07, hip_w * 0.14)
+    for sign in (-1.0, 1.0):
+        cx = sign * hip_w * 0.20
+        profile = [
+            (hip_r, hip_r * 1.05, L["hip"] + 0.02),
+            (hip_r * 0.85, hip_r * 0.95, L["knee"]),
+            (hip_r * 0.65, hip_r * 0.72, L["ankle"] + 0.03),
+        ]
+        rings = []
+        for rx, ry, z in profile:
+            rings.append(_ring(bm, cx, 0.01, z, rx, ry, seg))
+        for A, B in zip(rings, rings[1:]):
+            _bridge(bm, A, B, mat)
+
+
+
+def build_boots(bm, L, hip_w, mat=0, seg=8):
+    """Period ankle boots covering foot + ankle (~ankle+0.14 m)."""
+    foot_x = max(0.12, hip_w * 0.38)
+    for sign in (-1.0, 1.0):
+        cx = sign * foot_x
+        z0 = max(0.0, L["z0"])
+        z1 = L["ankle"] + 0.14
+        top = _ring(bm, cx, 0.01, z1, 0.055, 0.062, seg)
+        mid = _ring(bm, cx, 0.03, z0 + 0.04, 0.058, 0.070, seg)
+        _bridge(bm, top, mid, mat)
+        toe = _ring(bm, cx, 0.09, z0 + 0.005, 0.050, 0.095, seg)
+        _bridge(bm, mid, toe, mat)
+        try:
+            bm.faces.new(list(reversed(toe))).material_index = mat
+        except ValueError:
+            pass
+
+
+def build_fire_helmet(bm, crown_z, head_r, mat=0, seg=10):
+    r = head_r * 1.1
+    h = 0.12
+    bot = _ring(bm, 0, 0, crown_z, r, r, seg)
+    top = _ring(bm, 0, 0, crown_z + h, r * 0.5, r * 0.5, seg)
+    _bridge(bm, bot, top, mat)
+    _cap(bm, top, (0, 0, crown_z + h + 0.04), mat)
+    # rear brim
+    brim = _ring(bm, 0, -0.05, crown_z - 0.01, r * 1.2, r * 1.3, seg)
+    _bridge(bm, bot, brim, mat)
+
+
+# ---------------------------------------------------------------------------
+# body material paint (skin head/hands; hide torso under clothes via dark)
+# ---------------------------------------------------------------------------
+
+def _paint_body_materials(obj, L, mats, role):
+    """Paint HBM body under modelled garments.
+    Gentlemen: waistcoat (sec) on torso, trousers on legs, skin head/hands —
+    frock coat is a separate modelled shell (not a painted T-shirt).
+    Ladies: bodice (sec) torso, skirt (main) below waist.
+    Workmen: smock (main) torso+arms."""
+    me = obj.data
+    while len(me.materials) < 4:
+        me.materials.append(None)
+    me.materials[0] = mats["skin"]
+    me.materials[1] = mats["main"]
+    me.materials[2] = mats["sec"]
+    me.materials[3] = mats.get("trim") or mats["sec"]
+    sh_xs = [abs(v.co.x) for v in me.vertices if abs(v.co.z - L["shoulder"]) < 0.06]
+    shoulder_w = max(sh_xs) if sh_xs else 0.22
+    hand_x = shoulder_w * 0.72
+    is_lady = any(k in role for k in ("lady", "girl", "woman")) or role.endswith("_f")
+    is_worker = any(k in role for k in ("workman", "navvy", "fireman"))
+    is_gent = (not is_lady) and (not is_worker) and ("police" not in role) and ("sailor" not in role)
+    for p in me.polygons:
+        zs = [me.vertices[i].co.z for i in p.vertices]
+        xs = [me.vertices[i].co.x for i in p.vertices]
+        zc = sum(zs) / len(zs)
+        xc = sum(abs(x) for x in xs) / len(xs)
+        if zc >= L["chin"] - 0.01:
+            p.material_index = 0
+            continue
+        # hands only: hanging-arm band (hip..chest), far from centreline — never legs
+        if L["hip"] + 0.02 < zc < L["chest"] - 0.05 and xc > hand_x:
+            p.material_index = 0
+            continue
+        if is_lady:
+            if zc < L["waist"]:
+                p.material_index = 1  # skirt
+            else:
+                p.material_index = 2  # bodice
+            continue
+        if is_gent:
+            # torso = waistcoat (trim/slot3); legs = trousers (sec); arms under coat
+            if zc >= L["waist"] - 0.02 and xc < hand_x * 0.85:
+                p.material_index = 3  # waistcoat
+            elif zc >= L["waist"] - 0.02:
+                p.material_index = 0  # shirt cuff / skin peek under sleeve
+            else:
+                p.material_index = 2  # trousers
+            continue
+        # worker / police / default: main on torso+arms, sec trousers
+        if zc >= L["waist"] - 0.02:
+            p.material_index = 1
+        else:
+            p.material_index = 2
+
+
+# ---------------------------------------------------------------------------
+# simple pose via armature-free limb bend
+# ---------------------------------------------------------------------------
+
+def _apply_pose(obj: bpy.types.Object, L: Dict[str, float], pose: str, seed: int):
+    if pose in (None, "standing"):
+        return
+    rng = random.Random(seed + 99)
+    me = obj.data
+    # approximate shoulder / hip centres
+    sh_z = L["shoulder"]
+    hip_z = L["hip"]
+    # collect verts
+    coords = [v.co.copy() for v in me.vertices]
+
+    def rot_around(origin, axis, angle, co):
+        M = Matrix.Rotation(angle, 4, axis)
+        return origin + M @ (co - origin)
+
+    for i, co in enumerate(coords):
+        # left/right arm: x sign, z above waist
+        if co.z > L["waist"] + 0.02 and abs(co.x) > 0.12:
+            sign = 1.0 if co.x > 0 else -1.0
+            origin = Vector((sign * 0.12, 0.0, sh_z))
+            if pose == "walking":
+                ang = sign * 0.35 * (1 if sign > 0 else -1) * (0.8 + 0.4 * rng.random())
+                # swing forward/back around X-ish via Y rotation alternate
+                swing = 0.4 if (sign > 0) == (seed % 2 == 0) else -0.35
+                co = rot_around(origin, Vector((1, 0, 0)), swing, co)
+            elif pose == "pointing":
+                if sign > 0:
+                    co = rot_around(origin, Vector((0, 1, 0)), -0.9, co)
+                    co = rot_around(origin, Vector((1, 0, 0)), -0.5, co)
+            elif pose == "working":
+                swing = -0.7 if sign > 0 else 0.2
+                co = rot_around(origin, Vector((1, 0, 0)), swing, co)
+            elif pose == "hauling":
+                co = rot_around(origin, Vector((1, 0, 0)), -0.9, co)
+            elif pose == "seated":
+                pass
+            coords[i] = co
+        # legs for walking / seated
+        if co.z < L["hip"] and abs(co.x) > 0.03:
+            sign = 1.0 if co.x > 0 else -1.0
+            origin = Vector((sign * 0.08, 0.0, hip_z))
+            if pose == "walking":
+                swing = -0.35 if (sign > 0) == (seed % 2 == 0) else 0.3
+                coords[i] = rot_around(origin, Vector((1, 0, 0)), swing, co)
+            elif pose == "seated":
+                coords[i] = rot_around(origin, Vector((1, 0, 0)), -1.2, co)
+            elif pose == "hauling":
+                coords[i] = rot_around(origin, Vector((1, 0, 0)), -0.15, co)
+
+    for v, co in zip(me.vertices, coords):
+        v.co = co
+    me.update()
+    # re-ground after pose
+    zs = [v.co.z for v in me.vertices]
+    dz = -min(zs)
+    if abs(dz) > 1e-5:
+        for v in me.vertices:
+            v.co.z += dz
+
+
+
+def _body_shell_mesh(body: bpy.types.Object, z_lo: float, z_hi: float,
+                     inflate: float = 0.025, name: str = "shell",
+                     xy_scale: float = 1.06) -> bpy.types.Mesh:
+    """Duplicate body verts in a Z band, scale XY from centre, inflate along normals.
+    Produces a fitted garment shell that follows the HBM body — not a lathe bell."""
+    src = body.data
+    bm = bmesh.new()
+    bm.from_mesh(src)
+    # delete verts outside band (and their faces)
+    doomed = [v for v in bm.verts if v.co.z < z_lo - 0.01 or v.co.z > z_hi + 0.01]
+    bmesh.ops.delete(bm, geom=doomed, context="VERTS")
+    if not bm.verts:
+        bm.free()
+        return bpy.data.meshes.new(name)
+    # centre XY
+    xs = [v.co.x for v in bm.verts]; ys = [v.co.y for v in bm.verts]
+    cx = 0.5 * (min(xs) + max(xs)); cy = 0.5 * (min(ys) + max(ys))
+    for v in bm.verts:
+        v.co.x = cx + (v.co.x - cx) * xy_scale
+        v.co.y = cy + (v.co.y - cy) * xy_scale
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    if inflate > 0 and bm.faces:
+        for v in bm.verts:
+            v.normal_update()
+        for v in bm.verts:
+            v.co += v.normal * inflate
     me = bpy.data.meshes.new(name)
     bm.to_mesh(me)
     bm.free()
-    # materials
-    use_mats = list(mats) if mats else _default_mats(sid)
-    while len(use_mats) < 5:
-        use_mats.append(use_mats[-1] if use_mats else _default_mats(sid)[0])
-    # Ensure workman/navvy main cloth is earthy (not washed linen white)
-    rn = role.get("role_name", "")
-    if rn in ("1850s_workman", "1850s_navvy", "1850s_police") and (mats is None or len([m for m in use_mats if m]) < 2):
-        use_mats[0] = _ensure_mat(f"CPL_PPL_work_{sid % 5}", [
-            (0.22, 0.20, 0.16), (0.18, 0.16, 0.14), (0.28, 0.24, 0.18),
-            (0.16, 0.18, 0.20), (0.24, 0.18, 0.12)][sid % 5], 0.7)
-        use_mats[1] = _ensure_mat(f"CPL_PPL_trou_{sid % 3}", [
-            (0.12, 0.12, 0.14), (0.16, 0.14, 0.12), (0.10, 0.10, 0.12)][sid % 3], 0.65)
-    for m in use_mats[:5]:
-        if m is not None:
-            me.materials.append(m)
-    me["cpl_people"] = PEOPLE_VERSION
-    me["cpl_role"] = role.get("role_name", "")
-    me["cpl_pose"] = pose_name
-    me["cpl_lod"] = lod_name
+    me.update()
     return me
 
 
+def _append_mesh(bm_dst: bmesh.types.BMesh, me: bpy.types.Mesh, mat: int = 0):
+    """Append mesh geometry into bmesh with material index."""
+    tmp = bmesh.new()
+    tmp.from_mesh(me)
+    vmap = {}
+    for v in tmp.verts:
+        vmap[v.index] = bm_dst.verts.new(v.co.copy())
+    bm_dst.verts.ensure_lookup_table()
+    for f in tmp.faces:
+        try:
+            nf = bm_dst.faces.new([vmap[v.index] for v in f.verts])
+            nf.material_index = mat
+        except ValueError:
+            pass
+    tmp.free()
+
+
+
 # ---------------------------------------------------------------------------
-# scene swap — replace lathe crowds with v2 meshes (render-time, not saved)
+# assemble person
 # ---------------------------------------------------------------------------
 
-_MESH_CACHE: Dict[Tuple, bpy.types.Mesh] = {}
+def _shoulder_width(obj) -> float:
+    Lapprox_z = None
+    zs = [v.co.z for v in obj.data.vertices]
+    z0, z1 = min(zs), max(zs)
+    sh = z0 + 0.80 * (z1 - z0)
+    xs = [v.co.x for v in obj.data.vertices if abs(v.co.z - sh) < 0.06]
+    if not xs:
+        xs = [v.co.x for v in obj.data.vertices]
+    return max(xs) - min(xs)
 
 
-def _infer_kind_role(ob: bpy.types.Object) -> Tuple[str, dict]:
-    n = ob.name.upper()
-    style: dict = {}
-    if any(k in n for k in ("WOMAN", "CROWD_F", "CROWD_CL_F", "LADY", "QUEUE_F", "GIRL")):
-        kind = "girl" if "GIRL" in n else "woman"
-    elif "BOY" in n:
-        kind = "boy"
-    elif "POLICE" in n:
-        kind = "police"; style["role"] = "1850s_police"
-    elif any(k in n for k in ("SOLDIER", "GUARD")):
-        kind = "soldier"; style["role"] = "1850s_soldier"
-    elif any(k in n for k in ("SAILOR", "RND")):
-        kind = "man"; style["role"] = "1890s_sailor"
-    elif "FIRE" in n:
-        kind = "man"; style["role"] = "1930s_fireman"
-    elif any(k in n for k in (
-        "WORK", "KWORKER", "NAVVY", "ATTEND", "MONEY", "BUILDER", "CARPENTER",
-        "CARRY", "CARTER", "ENGINE", "PAINT", "LAYER", "FOOT_", "EXHIBITOR", "HAMMER",
-    )):
-        kind = "workman"; style["role"] = "1850s_navvy"; style["tool"] = True; style["hat"] = "cap"
-    elif any(k in n for k in ("ENTERING", "CROWD_M", "QUEUE_M", "MAN", "STAIR", "CROWD_CL")):
-        # CROWD_CL_* closing crowd: seed sex
-        if "CROWD_CL" in n:
-            kind = "woman" if (_seed_of(ob.name) % 2) else "man"
+def _join_garment(body: bpy.types.Object, gme: bpy.types.Mesh, mats_list):
+    gob = bpy.data.objects.new(gme.name + "_ob", gme)
+    bpy.context.collection.objects.link(gob)
+    # materials already on mesh slots via caller
+    bpy.ops.object.select_all(action="DESELECT")
+    body.select_set(True)
+    gob.select_set(True)
+    bpy.context.view_layer.objects.active = body
+    bpy.ops.object.join()
+    return body
+
+
+def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
+    sex = _sex_for(role)
+    height = _height_for(role, seed)
+    mats = _mats_for(seed, role)
+    seg = {"hero": 14, "mid": 10, "crowd": 8}[lod if lod in ("hero", "mid", "crowd") else "mid"]
+
+    body = _import_base(sex, lod)
+    _scale_to_height(body, height)
+    _enforce_head_ratio(body, HEAD_RATIO)
+    L = _landmarks(body)
+    # enforce head ratio softly: if crown-chin >> head_ratio, we still trust HBM
+    sw = _shoulder_width(body)
+    # measure actual head radius from mesh (chin..crown band)
+    hs = [abs(v.co.x) for v in body.data.vertices if v.co.z >= L["chin"] - 0.02]
+    head_r = max(hs) * 1.05 if hs else (HEAD_DIAM * 0.5 * (height / (5.5 * FT)))
+
+    _paint_body_materials(body, L, mats, role)
+    _apply_pose(body, L, pose, seed)
+    L = _landmarks(body)  # refresh after pose/ground
+
+    # garment bmesh — fitted body shells + modelled hats/skirts/tails
+    bm = _new_bm()
+    is_lady = any(k in role for k in ("lady", "girl", "woman")) or role.endswith("_f")
+    is_worker = any(k in role for k in ("workman", "navvy"))
+    is_police = "police" in role
+    is_sailor = "sailor" in role
+    is_fire = "fireman" in role
+    is_1890 = role.startswith("1890")
+    is_1930 = role.startswith("1930")
+    is_today = role.startswith("today")
+
+    def add_shell(z_lo, z_hi, inflate, xy, mat):
+        sm = _body_shell_mesh(body, z_lo, z_hi, inflate=inflate, xy_scale=xy,
+                              name=f"sh_{mat}_{seed}")
+        if sm.vertices:
+            _append_mesh(bm, sm, mat=mat)
+        if sm.users == 0:
+            bpy.data.meshes.remove(sm)
+
+    # Fitted shells from the HBM body (shrinkwrap-style) + modelled volume extras.
+    # garment mat slots: 0=main, 1=sec, 2=hat, 3=trim
+    if is_lady:
+        if is_1890:
+            build_bustle_skirt(bm, L, mat=0, seg=seg)
+            build_boater(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         else:
-            kind = "man"
-    elif n.startswith("VIS_"):
-        kind = "woman" if (_seed_of(ob.name) % 3 == 0) else "man"
+            build_crinoline(bm, L, mat=0, seg=max(seg, 16))
+            build_bonnet(bm, L["chin"], L["crown"], head_r, mat=2, seg=seg)
+        # fitted bodice shell following the female HBM torso
+        add_shell(L["waist"] - 0.005, L["shoulder"] + 0.03, 0.016, 1.05, 1)
+        build_sleeves_only(bm, L, sw, mat=1, seg=max(6, seg // 2), length=0.7)
+        if seed % 5 != 1:
+            build_shawl(bm, L, sw, mat=3)
+        build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
+    elif is_police:
+        add_shell(L["hip"] + 0.02, L["shoulder"] + 0.04, 0.022, 1.08, 0)
+        build_frock_tails_and_sleeves(bm, L, sw * 0.9, mat=0, seg=seg)
+        build_top_hat(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+        build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
+    elif is_worker or is_fire:
+        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.014, 1.06, 1)  # trousers
+        add_shell(L["hip"] - 0.04 * L["h"], L["shoulder"] + 0.03, 0.030, 1.12, 0)  # smock
+        build_sleeves_only(bm, L, sw, mat=0, seg=max(6, seg // 2), length=0.75)
+        if is_fire:
+            build_fire_helmet(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+        else:
+            build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+        build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
+    elif is_sailor:
+        add_shell(L["waist"] - 0.02, L["shoulder"] + 0.03, 0.022, 1.06, 0)
+        build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+        build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
+    elif is_1930:
+        add_shell(L["hip"] + 0.02, L["shoulder"] + 0.03, 0.020, 1.06, 0)
+        build_trilby(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+        build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
+    elif is_today:
+        if not is_lady:
+            build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     else:
-        kind = "woman" if (_seed_of(ob.name) % 2) else "man"
-    return kind, style
-
-
-def _infer_pose(ob: bpy.types.Object) -> str:
-    n = ob.name.upper()
-    if any(k in n for k in ("SIT", "SEAT", "BENCH")):
-        return "seated"
-    if any(k in n for k in ("POINT", "GESTURE", "ATTEND")):
-        return "pointing"
-    if any(k in n for k in ("WORK", "HAMMER", "TOOL", "NAVVY", "PAINT", "LAYER", "ENGINE", "KWORKER")):
-        return "working"
-    if any(k in n for k in ("CARRY", "CARTER")):
-        return "hauling"
-    if any(k in n for k in ("HAUL", "CARRY", "LIFT")):
-        return "hauling"
-    if any(k in n for k in ("WALK", "ENTER", "QUEUE")):
-        return "walking"
-    # seeded standing/walking mix for crowds
-    return "walking" if (_seed_of(ob.name) % 5 == 0) else "standing"
-
-
-def _lod_for_distance(dist: float, hero_n: int, mid_n: int, idx: int) -> str:
-    if idx < hero_n and dist < 12.0:
-        return "hero"
-    if idx < hero_n + mid_n and dist < 35.0:
-        return "mid"
-    return "crowd"
-
-
-def swap_scene_people(
-    era: str = "1851",
-    camera: Optional[bpy.types.Object] = None,
-    seed: int = 0,
-    max_hero: int = 10,
-    max_mid: int = 60,
-    kinds: Sequence[str] = ("figure", "worker", "person", "crowd"),
-) -> dict:
-    """Replace mesh datablocks on figure objects with people v2. Does not save the .blend.
-    Hides legacy figure_arm extras (arms are built into v2). Returns stats dict.
-    """
-    cam = camera or bpy.context.scene.camera
-    cam_loc = cam.matrix_world.translation if cam else Vector((0, 0, 1.6))
-    era_hint = "1850s"
-    if str(era).startswith("193"):
-        era_hint = "1930s"
-    elif str(era).startswith(("188", "189", "190", "191")):
-        era_hint = "1890s"
-    elif str(era) in ("today", "2020", "modern", "2010"):
-        era_hint = "today"
-
-    NAME_PREFIXES = (
-        "CROWD", "QUEUE", "VIS", "FIG_", "PERSON", "WORKER", "KWORKER", "POLICE",
-        "ATTEND", "CARRY", "CARTER", "ENGINE", "PAINTER", "PAINT_", "EXHIBITOR",
-        "LAYER", "FOOT_", "MONEY", "ENTERING", "STAIR", "NAVVY", "SAILOR",
-    )
-    figs = [o for o in bpy.data.objects
-            if o.type == "MESH" and not o.hide_render
-            and (o.get("part_kind") in kinds
-                 or any(o.name.upper().startswith(p) for p in NAME_PREFIXES))]
-
-    # sort by distance to camera — nearest get hero LOD
-    def dist(o):
-        return (o.matrix_world.translation - cam_loc).length
-    figs.sort(key=dist)
-
-    # hide separate arms
-    n_arms = 0
-    for o in bpy.data.objects:
-        if o.get("part_kind") == "figure_arm" or o.name.upper().endswith("_ARM"):
-            if any(o.name.upper().startswith(p) or (o.parent and o.parent in figs)
-                   for p in ("ATTEND", "CROWD", "QUEUE", "WORK")):
-                o.hide_render = True
-                o.hide_viewport = True
-                n_arms += 1
-
-    stats = dict(version=PEOPLE_VERSION, n=0, hero=0, mid=0, crowd=0, cache=0, arms_hidden=n_arms)
-    # reuse materials from first figure when possible
-    for idx, ob in enumerate(figs):
-        d = dist(ob)
-        lod = _lod_for_distance(d, max_hero, max_mid, idx)
-        kind, style = _infer_kind_role(ob)
-        # era override for modern park etc.
-        if era_hint == "today":
-            style["era"] = "today"
-        elif era_hint != "1850s" and "role" not in style:
-            style["era"] = era_hint
-        pose = _infer_pose(ob)
-        style["pose"] = pose
-        sid = _seed_of(ob.name, seed + idx)
-        role = resolve_role(kind, style, era_hint=era_hint)
-        cache_key = (role.get("role_name"), pose, lod, sid % 24)  # 24 body variants
-        me = _MESH_CACHE.get(cache_key)
-        if me is None:
-            # build with materials from object if present
-            mats = [s.material for s in ob.material_slots] if ob.material_slots else None
-            # Drop blown-out pale mains (common on smock lathes) so v2 uses earthy cloth
-            if mats:
-                def _too_pale(m):
-                    if m is None: return True
-                    try:
-                        c = m.diffuse_color
-                        return (c[0] + c[1] + c[2]) / 3.0 > 0.55
-                    except Exception:
-                        return False
-                if _too_pale(mats[0] if mats else None):
-                    mats = None  # fall back to role-aware defaults
-            me = person_mesh(f"CPL_PPL_{cache_key[0]}_{pose}_{lod}_{sid % 24}",
-                             kind=kind, mats=mats, style=style, pose=pose, lod=lod,
-                             seed=sid, era=era_hint)
-            _MESH_CACHE[cache_key] = me
+        # gentleman: waistcoat + frock + trousers shells + cravat + tails/sleeves + top hat
+        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.014, 1.06, 1)  # trousers
+        add_shell(L["waist"] - 0.01, L["shoulder"] + 0.02, 0.012, 1.03, 3)  # waistcoat
+        add_shell(L["hip"] - 0.06 * L["h"], L["shoulder"] + 0.04, 0.024, 1.08, 0)  # frock
+        build_cravat(bm, L, sw, mat=3, seg=max(6, seg // 2))
+        build_frock_tails_and_sleeves(bm, L, sw, mat=0, seg=seg)
+        if is_1890:
+            build_boater(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         else:
-            stats["cache"] += 1
-        old = ob.data
-        ob.data = me
-        # Prefer mesh (DATA) materials from the new figure — object overrides
-        # often left pale linen on the wrong slots after a lathe→v2 swap.
-        for slot in ob.material_slots:
-            try:
-                slot.link = "DATA"
-            except Exception:
-                pass
-        ob[PEOPLE_TAG] = PEOPLE_VERSION
-        ob["cpl_lod"] = lod
-        stats["n"] += 1
-        stats[lod] = stats.get(lod, 0) + 1
-        # old mesh may become orphan — leave for Blender; don't delete shared
-        _ = old
-    return stats
+            build_top_hat(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+        build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
+
+    gme = _finish_mesh(bm, f"CPL3_gar_{role}_{seed}")
+    # assign materials to garment slots
+    gme.materials.append(mats["main"])
+    gme.materials.append(mats["sec"])
+    gme.materials.append(mats["hat"])
+    gme.materials.append(mats["trim"])
+    gme.materials.append(mats["skin"])
+
+    body = _join_garment(body, gme, mats)
+    # smooth shading helps garments read as cloth not facets
+    for p in body.data.polygons:
+        p.use_smooth = True
+    if hasattr(body.data, "use_auto_smooth"):
+        body.data.use_auto_smooth = True
+    me = body.data
+    me.name = f"CPL3_{role}_{pose}_{lod}_{seed % 24}"
+    body["cpl_people"] = PEOPLE_TAG
+    body["cpl_role"] = role
+    body["cpl_pose"] = pose
+    body["cpl_lod"] = lod
+    # return mesh; leave object — caller may keep or remove object
+    return body
 
 
 def clear_mesh_cache():
     _MESH_CACHE.clear()
 
 
+def resolve_role(kind: str, style: Optional[dict], era: str = "1850s") -> str:
+    style = style or {}
+    if "role" in style:
+        return style["role"]
+    k = (kind or "").lower()
+    era_key = "1850s"
+    if era:
+        e = str(era).lower()
+        for key in ERA_ROLES:
+            if key in e or e in key:
+                era_key = key
+                break
+        if e.isdigit():
+            y = int(e)
+            if y >= 1930: era_key = "1930s"
+            elif y >= 1880: era_key = "1890s"
+            else: era_key = "1850s"
+    roles = ERA_ROLES.get(era_key, ERA_ROLES["1850s"])
+    if any(x in k for x in ("woman", "lady", "female", "girl")):
+        for r in roles:
+            if any(x in r for x in ("lady", "woman", "girl", "_f")):
+                return r
+    if "police" in k: return "1850s_police" if "1850" in era_key or era_key == "1851" else roles[0]
+    if any(x in k for x in ("work", "navvy", "labour", "labor")): 
+        return "1850s_workman" if era_key in ("1850s", "1851") else roles[0]
+    if "sailor" in k or "rnd" in k: return "1890s_sailor"
+    if "fire" in k: return "1930s_fireman"
+    if "soldier" in k or "uniform" in k:
+        return "1850s_soldier" if era_key in ("1850s", "1851") else "1890s_uniform"
+    # default first male-ish
+    for r in roles:
+        if not any(x in r for x in ("lady", "woman", "girl", "_f")):
+            return r
+    return roles[0]
+
+
+def person_mesh(name, kind, mats=None, FT=0.3048, style=None, pose=None,
+                lod=None, seed=None, era="1850s"):
+    """Build or cache a dressed person mesh; return mesh datablock.
+    Places a temporary object named `name` (replacing any existing)."""
+    style = style or {}
+    role = resolve_role(kind, style, era=style.get("era", era))
+    pose = pose or style.get("pose") or "standing"
+    if pose not in POSES:
+        pose = "standing"
+    lod = lod or style.get("lod") or "mid"
+    if lod not in ("hero", "mid", "crowd"):
+        lod = "mid"
+    if seed is None:
+        seed = int(hashlib.md5(name.encode()).hexdigest()[:8], 16)
+    key = (role, pose, lod, seed % 24)
+    me = _MESH_CACHE.get(key)
+    if me is None or me.users < 0:
+        # remove old object if present
+        old = bpy.data.objects.get(name)
+        if old:
+            bpy.data.objects.remove(old, do_unlink=True)
+        body_ob = _build_person(role, pose, lod, seed)
+        body_ob.name = name
+        me = body_ob.data
+        _MESH_CACHE[key] = me
+        return me
+    # instance cached mesh on object
+    old = bpy.data.objects.get(name)
+    if old:
+        old.data = me
+        return me
+    ob = bpy.data.objects.new(name, me)
+    bpy.context.collection.objects.link(ob)
+    return me
+
+
+def catalogue():
+    return {
+        "version": PEOPLE_VERSION,
+        "bases": "Blender Studio Human Base Meshes v1.4.1 realistic (CC0)",
+        "roles": {k: list(v) for k, v in ERA_ROLES.items()},
+        "poses": list(POSES),
+        "lods": ["hero", "mid", "crowd"],
+        "height_m": (HEIGHT_MIN, HEIGHT_MAX),
+        "head_ratio": HEAD_RATIO,
+        "top_hat_m": TOP_HAT_H,
+    }
+
+
 # ---------------------------------------------------------------------------
-# catalogue helpers for README / previews
+# scene swap
 # ---------------------------------------------------------------------------
 
-def catalogue() -> List[dict]:
-    rows = []
-    for role_name, role in ERA_ROLES.items():
-        for pose in POSES:
-            for lod in ("hero", "mid", "crowd"):
-                rows.append({"role": role_name, "pose": pose, "lod": lod, **{k: role[k] for k in ("era", "sex")}})
-    return rows
+_FIGURE_PREFIXES = (
+    "CROWD", "VIS_", "PERSON", "FIG_", "FIGURE", "PEOPLE", "GENT", "LADY",
+    "MAN_", "WOMAN", "CHILD", "BOY_", "GIRL", "POLICE", "SAILOR", "SOLDIER",
+    "KWORKER", "WORKER", "NAVY", "FIRE", "GUEST", "STAFF",
+)
+_FIGURE_KINDS = {"figure", "worker", "crowd", "person", "human", "visitor"}
+
+
+def _is_figure(ob: bpy.types.Object) -> bool:
+    if ob.type != "MESH":
+        return False
+    if ob.get("cpl_people") in (PEOPLE_TAG, "cpl_people_v2", "cpl_people_v1"):
+        return True
+    pk = (ob.get("part_kind") or ob.get("kind") or "").lower()
+    if pk in _FIGURE_KINDS:
+        return True
+    name = ob.name.upper()
+    return any(name.startswith(p) or f"_{p}" in name for p in _FIGURE_PREFIXES)
+
+
+def _infer_kind(ob) -> str:
+    n = ob.name.lower()
+    pk = (ob.get("part_kind") or "").lower()
+    if pk == "worker" or "worker" in n or "kworker" in n or "navvy" in n:
+        return "workman"
+    if "police" in n: return "police"
+    if "lady" in n or "woman" in n or "girl" in n: return "lady"
+    if "sailor" in n: return "sailor"
+    if "fire" in n: return "fireman"
+    if "soldier" in n: return "soldier"
+    if "boy" in n: return "boy"
+    return "man"
+
+
+def _infer_pose(ob, seed: int) -> str:
+    n = ob.name.lower()
+    for p in POSES:
+        if p in n:
+            return p
+    return POSES[seed % len(POSES)]
+
+
+def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
+                      max_hero: int = 10, max_mid: int = 60) -> Dict[str, Any]:
+    """Replace baked lathe/v2 figures with v3 HBM+garment people. Does not save."""
+    figs = [o for o in bpy.data.objects if _is_figure(o)]
+    if not figs:
+        return {"swapped": 0, "version": PEOPLE_VERSION}
+
+    cam = camera or bpy.context.scene.camera
+    cam_loc = cam.matrix_world.translation if cam else Vector((0, 0, 1.6))
+
+    # distance sort for LOD
+    dists = []
+    for ob in figs:
+        d = (ob.matrix_world.translation - cam_loc).length
+        dists.append((d, ob))
+    dists.sort(key=lambda x: x[0])
+
+    swapped = 0
+    for i, (d, ob) in enumerate(dists):
+        if i < max_hero:
+            lod = "hero"
+        elif i < max_hero + max_mid:
+            lod = "mid"
+        else:
+            lod = "crowd"
+        rng_seed = seed + int(hashlib.md5(ob.name.encode()).hexdigest()[:6], 16)
+        kind = _infer_kind(ob)
+        # 1850s Victorian crowd: force ≥40% ladies when figure is anonymous "man"
+        era_l = (era or "").lower()
+        if kind == "man" and ("1850" in era_l or era_l in ("1851", "1850s")):
+            # deterministic: ~45% ladies from name hash
+            if (rng_seed % 100) < 45:
+                kind = "lady"
+            elif (rng_seed % 100) >= 85:
+                kind = "workman"  # ~15% workmen in anonymous crowd
+        pose = _infer_pose(ob, rng_seed)
+        role = resolve_role(kind, {}, era=era)
+        # preserve transform
+        mw = ob.matrix_world.copy()
+        # uniform XY scale from original (height encoded in scale often)
+        sx = ob.scale.x
+        # build
+        key = (role, pose, lod, rng_seed % 24)
+        me = _MESH_CACHE.get(key)
+        if me is None:
+            body_ob = _build_person(role, pose, lod, rng_seed)
+            me = body_ob.data
+            _MESH_CACHE[key] = me
+            # remove temp object (we'll reuse mesh on original)
+            bpy.data.objects.remove(body_ob, do_unlink=True)
+        ob.data = me
+        ob.matrix_world = mw
+        # keep original footprint scale roughly: our mesh is already real-world height;
+        # if old figure was ~1.7 unit tall via scale, reset scale to 1
+        # Detect peg scale: if scale.z wildly off, normalize
+        if max(ob.scale) > 2.5 or min(ob.scale) < 0.3:
+            ob.scale = (1, 1, 1)
+        else:
+            # keep horizontal facing; height from mesh
+            ob.scale = (1, 1, 1)
+        ob["cpl_people"] = PEOPLE_TAG
+        ob["cpl_role"] = role
+        ob["cpl_lod"] = lod
+        swapped += 1
+
+    return {"swapped": swapped, "version": PEOPLE_VERSION, "cache": len(_MESH_CACHE),
+            "era": era}
