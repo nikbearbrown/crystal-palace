@@ -9,6 +9,8 @@ FT = 0.3048; sc = bpy.context.scene; dg = bpy.context.evaluated_depsgraph_get()
 info = json.loads(sc.get("grok_build", "{}")); SI = info.get("info", {})
 RP = argv[argv.index("--route") + 1] if "--route" in argv else os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "route", "camera_route.json")
 route = json.load(open(RP))
+units_m = route.get("units") == "m"; EYE = 1.6 if units_m else 5.25; CLR = 1.0 if not units_m else 1.0  # clearance still in ft via /FT below; for m use metres
+EU = 1.0 if units_m else FT  # divide world metres by EU to get eye units
 res = []
 def rec(i, w, ok, m, t=""): res.append({"id": i, "check": w, "target": t, "measured": m, "pass": bool(ok)})
 ppl = {o.name for o in bpy.data.objects if o.get("person")}
@@ -25,8 +27,8 @@ for c in [o for o in bpy.data.objects if o.type == 'CAMERA']:
     diag = shot.get("diagram", False)
     if not diag:
         l, o = cast(P, Vector((0, 0, -1)), 400)
-        eye = (P.z - l.z) / FT if l is not None else None
-        rec(f"{c.name}.eye", f"eye 5.25 ft over the surface below ({o.name if o else '-'})", eye is not None and abs(eye - 5.25) < 0.1, round(eye, 3) if eye else None, "5.25 ft")
+        eye = (P.z - l.z) / EU if l is not None else None
+        rec(f"{c.name}.eye", f"eye {EYE} over the surface below ({o.name if o else '-'})", eye is not None and abs(eye - EYE) < (0.08 if units_m else 0.1), round(eye, 3) if eye else None, f"{EYE} m" if units_m else "5.25 ft")
         xax = c.matrix_world.to_3x3() @ Vector((1, 0, 0)); rec(f"{c.name}.roll", "no roll", abs(xax.z) < 1e-4, round(xax.z, 6), "0")
         rec(f"{c.name}.lens", "lens in grammar (28 interior / 35 approach / 50 detail) and = route", c.data.lens in (28, 35, 50) and c.data.lens == shot["lens_mm"], c.data.lens, shot["lens_mm"])
         dmin = 99.0

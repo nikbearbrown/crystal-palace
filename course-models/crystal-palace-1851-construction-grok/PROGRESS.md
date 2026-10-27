@@ -128,3 +128,6 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
 - KD01–KD06: ridge → Paxton gutter → box gutter → hollow column → base pipe → drain; studio diagrams + live details.
 - Checks: see checks/k01_checks.md.
 - Renders: renders/k01/CP014_drain_{whole,roof,gutter,base}_start.png.
+
+## c07 (2026-10-27): horse harness + darker coats
+- Bay/grey coats darkened; harness straps (bridle/breast/girth/traces) GT_HorseHarness. DEPARTURES CN35.

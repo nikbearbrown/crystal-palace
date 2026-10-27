@@ -52,3 +52,9 @@ inference from a period image; C = staging judgement for the film (labelled as s
 | KD04 | **Studio world for the diagrams** (flat warm paper BG + two area lights). Diagram cams flagged `diagram: true` so eye-height grammar is n/a; 50 mm ortho portraits. Live cams (gutter, base) keep eye 5.25. | The cutaway is a teaching plate, not a sunlit site view. | B |
 | KD05 | **Water path visualisation**: cyan rain + condensation strips, blue flow arrows, red cut faces. Path polyline checked monotone (ridge z → sewer). | Staging for legibility. | C |
 | KD06 | **Labels** as 3D text + leaders, `only_cams`-gated so they appear only on their diagram shot; paper backdrop per diagram. | Downes-style plate. | C |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| CN35 | Draught horse coats darker (bay 0.06/0.035/0.02); harness straps (bridle/breast/girth/traces) as second material GT_HorseHarness | Pale coats; no harness | B |

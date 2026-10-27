@@ -613,8 +613,8 @@ for i, yc in enumerate(WAGON_RIDGES):
 # ---------------- c04: carts and horses at the gate (CN29) ----------------
 sys.path.insert(0, HERE)
 import figures
-HORSE_MAT = mat_principled("GT_DraughtHorse", (0.13, 0.08, 0.05), 0.7)
-HORSE_GREY = mat_principled("GT_DraughtHorseGrey", (0.42, 0.40, 0.37), 0.7)
+HORSE_MAT = mat_principled("GT_DraughtHorse", (0.06, 0.035, 0.02), 0.75)
+HORSE_GREY = mat_principled("GT_DraughtHorseGrey", (0.28, 0.26, 0.24), 0.75)
 HORSES = [figures.horse_group_mesh("horse_draught_bay", 2.35, HORSE_MAT, rearing=False, rider=False, base=False),
           figures.horse_group_mesh("horse_draught_grey", 2.35, HORSE_GREY, rearing=False, rider=False, base=False)]
 IRONTYRE = mat_principled("GT_CartTyre", (0.06, 0.06, 0.06), 0.5, 0.6)
