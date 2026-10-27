@@ -1,3 +1,7 @@
 rounds/_base/
 *.blend1
 __pycache__/
+__pycache__/
+*.blend1
+*.glb
+.DS_Store

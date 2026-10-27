@@ -50,3 +50,11 @@ Branch grok-dismantle-1851, from transept r09 (0b64c06) plus a merge of exterior
 - Parked d04 backlog cleared.
 - Build: `rounds/d04_empty.blend`, `rounds/d04_dismantle.blend`. Checks: empty 32/32, dismantle 43/43.
 - Lean renders: `renders/d04` — CP031_key_strike, CP031_lateral (+ dusk), CP030_empty_walk (24 spp).
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root

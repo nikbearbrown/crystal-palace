@@ -35,3 +35,6 @@ d01 CP030_empty_walk_end looked straight into the locomotive packing case at ~6 
 | DM21 | B | Maul: distinct cast-iron barrel+peen head; raised two-handed strike pose | Stick-and-ball tool did not read as a striking maul at 50 mm. |
 | DM22 | C | Horse trolley shifted ty−12 ft so the horse stands clear of the lowered girder | Overlap with the hanging girder mass. |
 | DM23 | C | Workmen use r10-style person_mesh styles (cap/frock/cravat/belt) + TRIM slot | Flat coat silhouettes; keep shared low-poly kit. |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
