@@ -73,9 +73,16 @@ if claude:   # append Claude's model collection read-only (never saved)
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import furrow; furrow.swap_flat_roofs()
 # apply shared look once per blend (override with --era / --tod)
+# --keep-lighting: people-only pass — preserve blend world/sun/exposure/grade
 _era = arg("--era", "1851"); _tod = arg("--tod", "interior_daylit")
-apply_look(era=_era, time_of_day=_tod)
-if arg("--exposure"): sc.view_settings.exposure = float(arg("--exposure"))
+if "--keep-lighting" in argv:
+    print("KEEP_LIGHTING exposure", sc.view_settings.exposure,
+          "look", sc.view_settings.look, flush=True)
+else:
+    apply_look(era=_era, time_of_day=_tod)
+if arg("--exposure"):
+    sc.view_settings.exposure = float(arg("--exposure"))
+    print("EXPOSURE_OVERRIDE", sc.view_settings.exposure, flush=True)
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
