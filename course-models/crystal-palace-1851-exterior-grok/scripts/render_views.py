@@ -12,10 +12,19 @@ sc = bpy.context.scene; sc.cycles.samples = int(arg("--samples", "48"))
 sc.render.threads_mode = 'FIXED'; sc.render.threads = int(arg("--threads", "8"))
 combine(arg("--claude"), arg("--transept"), roof_override="--no-roof-override" not in argv, furrow=bool(arg("--claude")) and "--no-furrow" not in argv)
 os.makedirs(outdir, exist_ok=True)
+base_exp = sc.view_settings.exposure
+ortho_exp = sc.get("grok_ortho_exposure", base_exp - 0.55)
 for c in cams:
     cam = bpy.data.objects.get(c)
     if not cam: print("NO CAM", c); continue
     sc.camera = cam; sc.render.resolution_x, sc.render.resolution_y = W, H
+    # x07: ortho elevation contrast pass
+    if cam.data.type == 'ORTHO':
+        sc.view_settings.exposure = float(ortho_exp)
+        try: sc.view_settings.look = 'AgX - High Contrast'
+        except TypeError: pass
+    else:
+        sc.view_settings.exposure = base_exp
     sc.render.filepath = os.path.join(outdir, c + ".png")
     bpy.ops.render.render(write_still=True)
     print("WROTE", sc.render.filepath, flush=True)

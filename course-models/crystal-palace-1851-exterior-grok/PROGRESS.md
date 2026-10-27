@@ -136,3 +136,8 @@ Claude's frame is used as-is: metres, origin at the crossing, X east, Y north. H
 
 ## x07 (2026-10-27): darker sunlit boards (albedo)
 - GT_Boarding (0.26,0.22,0.16); GT_Timber (0.40,0.34,0.26). DEPARTURES EX31. Checks 31/31.
+
+## x07 remainder (2026-10-27): darker gravel, near carriage, ortho contrast, NE strip people
+- Rebuild of x07 with the parked backlog items (boards albedo already in).
+- Build: `rounds/x07.blend`. Checks: 31/31.
+- Lean renders: `renders/x07` — EXT_SE_34, EXT_NE_strip, PLATE_V_east_ortho (24 spp).

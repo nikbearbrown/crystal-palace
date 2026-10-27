@@ -456,7 +456,7 @@ new_obj("EGRAVEL_APRON", finish(bm, "gravel", GRAVEL), C["GROUND"], props={"part
 # south-east lawn toward the SE corner: ground value and leading lines for EXT_SE_34 (layout inferred, DEPARTURES EX33)
 bm = bmesh.new(); bm_box(bm, ft(-1000), ft(1060), ft(-452), ft(-428), -0.02, -0.01); bm_box(bm, ft(1036), ft(1060), ft(-428), ft(-240), -0.02, -0.01)
 bm_bar(bm, (ft(1160), ft(-560), -0.0175), (ft(962), ft(-246), -0.0175), ft(10), 0.01)   # top 5 mm under the drive: no coplanar overlap
-new_obj("EGRAVEL_DRIVE", finish(bm, "gravel_drive", mat_principled("GT_GravelDrive", (0.36, 0.33, 0.27), 0.95)), C["GROUND"], props={"part_kind": "ground"})
+new_obj("EGRAVEL_DRIVE", finish(bm, "gravel_drive", mat_principled("GT_GravelDrive", (0.22, 0.20, 0.16), 0.96)), C["GROUND"], props={"part_kind": "ground"})  # x07: darker drive gravel
 
 # ---------------- walls (Plate XXI ground tier; Plates IV, V upper tiers) ----------------
 DOOR = mat_principled("GT_DoorPaint", (0.20, 0.17, 0.13), 0.7)
@@ -638,6 +638,9 @@ try:
 except TypeError:
     scene.view_settings.view_transform = 'Filmic'
 scene.view_settings.exposure = -0.6     # whole-building views: glass roofs over ~19 acres clip at the transept setting (EX10)
+scene["grok_ortho_exposure"] = -1.15     # x07: darker ortho plates (was washed at -0.6)
+try: scene.view_settings.look = 'AgX - Medium High Contrast'
+except TypeError: pass
 
 # ---------------- x04: flagstaffs on the top tier (bird's-eye view 1851; EX21) ----------------
 FLAGC = coll("FLAGS", ROOT)
@@ -765,6 +768,12 @@ for k in range(16):                             # carriages on the drive south o
     x = -880 + k * 118 + rp.uniform(-30, 30); y = -440 + rp.choice([-6, 6])
     if not _clear(x, y, 12): continue
     new_obj(f"ECARRIAGE_{carriages:02d}", CARM[k % 2], PEOPLEC, (ft(x), ft(y), 0), 0.0 if y < -440 else math.pi, {"part_kind": "carriage"}); carriages += 1
+# x07: carriage nearer the EXT_SE_34 camera (on the SE footpath / drive bend)
+if _clear(1095, -470, 10):
+    new_obj(f"ECARRIAGE_{carriages:02d}", CARM[0], PEOPLEC, (ft(1095), ft(-470), 0), math.radians(40), {"part_kind": "carriage", "near_cam": "EXT_SE_34"}); carriages += 1
+# x07: people on the NE strip (north lawn / strip in EXT_NE_strip frame)
+crowd_area(-200, 400, 220, 500, 55)
+crowd_area(200, 500, 480, 560, 25)
 print("PARK_PEOPLE", people, "CARRIAGES", carriages, flush=True)
 
 # ---------------- cameras (storyboard v001 grammar) ----------------

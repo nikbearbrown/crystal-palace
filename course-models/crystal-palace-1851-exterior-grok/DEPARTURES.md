@@ -47,3 +47,11 @@ Grades: **A** documented in Downes 1852 / control dimensions · **B** strongly i
 | ID | Change | Why | Grade |
 |---|---|---|---|
 | EX31 | GT_Boarding albedo (0.26, 0.22, 0.16); GT_Timber (0.40, 0.34, 0.26) | Sunlit end boards bleach | B |
+
+## x07 (2026-10-27)
+| ID | Grade | Decision | Why |
+|---|---|---|---|
+| EX32 | C | Drive gravel albedo (0.22, 0.20, 0.16) | Drive was reading as pale sand next to lawn. |
+| EX33 | C | Near carriage at (1095, −470) for EXT_SE_34 | Foreground scale; cleared of crowd. |
+| EX34 | C | Ortho exposure −1.15 + AgX Medium High Contrast | Plate orthos were washed. |
+| EX35 | C | NE strip crowd_area | EXT_NE_strip mid-ground was empty. |
