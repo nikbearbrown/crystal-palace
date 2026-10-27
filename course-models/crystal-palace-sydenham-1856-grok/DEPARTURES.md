@@ -360,3 +360,11 @@ Honest keep-better by viewing each before/after pair (not lum alone):
 
 Prior v3.1 KEPT still held: CP044, CP054, CP060 (not re-batched this round).
 Pairs: `people_v33/previews/CP*_pair.jpg`. Verdicts: `people_v33/verdicts_v33_crowds.json`.
+
+## People library v3.4 — close-up gate; CP058/035/049 revert (2026-10-27)
+
+Eye review of v3.3 KEPT tiles: CP058 AFTER has large bald pale HBM faces, tiny perched hats, bare torsos (uncanny). CP049 same class of floating hats / bald close faces. CP035 has a too-large foreground figure at the left edge. **All three reverted** to pre-adopt heroes.
+
+`people_lib` PEOPLE_VERSION **3.4**: `CLOSE_UP_FRAME_FRAC = 0.08` — if a person-height figure at an object would fill more than ~8% of the frame height, `swap_scene_people` / merged crowd blocks / FB_Hero adopt **keep the previous mesh** (or leave empty). Never base-mesh close-ups without hair, a sized hat, and a clothed torso.
+
+Cumulative Sydenham people KEEP still held from v3.1: **CP044, CP054, CP060**.

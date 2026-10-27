@@ -22,7 +22,7 @@ import bpy
 import bmesh
 from mathutils import Matrix, Vector, Euler
 
-PEOPLE_VERSION = "3.3"
+PEOPLE_VERSION = "3.4"
 PEOPLE_TAG = "cpl_people_v3"
 
 _HERE = Path(__file__).resolve().parent
@@ -1324,6 +1324,54 @@ def _is_facade_or_castbase(ob: bpy.types.Object) -> bool:
     return False
 
 
+
+# Never put bare HBM close-ups in the foreground: base mesh has no hair, and
+# tiny/floating hats + unclothed torso read as uncanny when a figure fills
+# more than ~8% of the frame height. Keep the previous figure or leave empty.
+CLOSE_UP_FRAME_FRAC = 0.08
+
+
+def _projected_person_frame_frac(world_feet, cam, person_h: float = 1.75) -> float:
+    """Approx vertical frame fraction (0..1) a person_h figure at world_feet fills."""
+    if cam is None or getattr(cam, "type", None) != "CAMERA":
+        return 0.0
+    try:
+        from bpy_extras.object_utils import world_to_camera_view
+    except ImportError:
+        return 0.0
+    sc = bpy.context.scene
+    head = Vector((world_feet.x, world_feet.y, world_feet.z + person_h))
+    a = world_to_camera_view(sc, cam, Vector(world_feet))
+    b = world_to_camera_view(sc, cam, head)
+    # z <= 0 → behind camera
+    if a.z <= 0.0 or b.z <= 0.0:
+        return 0.0
+    return float(abs(b.y - a.y))
+
+
+def _is_close_up_for_base_mesh(ob: bpy.types.Object, cam, threshold: float = CLOSE_UP_FRAME_FRAC) -> bool:
+    """True if swapping this object to an HBM person would be a too-close close-up.
+
+    Uses the nearest point of the object's world bbox (conservative for merged
+    crowd blocks). When True, callers must keep the previous mesh / leave empty
+    — never a bald base-mesh face without hair, a sized hat, and a clothed torso.
+    """
+    if cam is None or ob is None:
+        return False
+    cam_loc = cam.matrix_world.translation
+    try:
+        corners = [ob.matrix_world @ Vector(c) for c in ob.bound_box]
+    except Exception:
+        corners = [ob.matrix_world.translation]
+    if not corners:
+        return False
+    nearest = min(corners, key=lambda v: (v - cam_loc).length_squared)
+    feet_z = min(c.z for c in corners)
+    feet = Vector((nearest.x, nearest.y, feet_z))
+    frac = _projected_person_frame_frac(feet, cam)
+    return frac > threshold
+
+
 def _is_figure(ob: bpy.types.Object) -> bool:
     if ob.type != "MESH":
         return False
@@ -1388,7 +1436,12 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
     dists.sort(key=lambda x: x[0])
 
     swapped = 0
+    skipped_close = 0
     for i, (d, ob) in enumerate(dists):
+        # Foreground close-ups: keep previous figure (never bald HBM / tiny hat)
+        if _is_close_up_for_base_mesh(ob, cam):
+            skipped_close += 1
+            continue
         if i < max_hero:
             lod = "hero"
         elif i < max_hero + max_mid:
@@ -1436,7 +1489,7 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
         swapped += 1
 
     return {"swapped": swapped, "version": PEOPLE_VERSION, "cache": len(_MESH_CACHE),
-            "era": era}
+            "era": era, "skipped_close_up": skipped_close}
 
 
 
@@ -1521,13 +1574,20 @@ def swap_merged_crowd_blocks(era: str = "1930s", lod: str = "crowd",
                                  "crowd36_", "lfb_firemen", "police_line",
                              ),
                              seed: int = 1936,
-                             max_per_block: int = 40) -> Dict[str, Any]:
+                             max_per_block: int = 40,
+                             camera=None) -> Dict[str, Any]:
     """Rebuild dress36-style merged crowd meshes with people v3.1 figures.
-    Shared mesh datablocks are rebuilt once. Does not save."""
+    Shared mesh datablocks are rebuilt once. Does not save.
+
+    Blocks that would put a person-height figure over CLOSE_UP_FRAME_FRAC of the
+    frame (near-camera foreground) are left unchanged — never bald HBM close-ups.
+    """
     targets = [o for o in bpy.data.objects
                if o.type == "MESH" and any(o.name.startswith(p) for p in prefixes)]
     if not targets:
         return {"blocks": 0, "version": PEOPLE_VERSION, "era": era}
+
+    cam = camera or bpy.context.scene.camera
 
     # group by mesh datablock
     by_me: Dict[bpy.types.Mesh, list] = {}
@@ -1536,7 +1596,12 @@ def swap_merged_crowd_blocks(era: str = "1930s", lod: str = "crowd",
 
     rebuilt = 0
     figures = 0
+    skipped_close = 0
     for old_me, obs in by_me.items():
+        # If any instance of this block is a foreground close-up, keep previous
+        if any(_is_close_up_for_base_mesh(o, cam) for o in obs):
+            skipped_close += len(obs)
+            continue
         # estimate person count from verts (lathe ~200-250 v/person) or custom prop
         n_est = obs[0].get("people_count") or max(8, min(max_per_block, len(old_me.vertices) // 220))
         n_est = int(n_est)
@@ -1618,7 +1683,7 @@ def swap_merged_crowd_blocks(era: str = "1930s", lod: str = "crowd",
         rebuilt += 1
 
     return {"blocks": rebuilt, "figures": figures, "version": PEOPLE_VERSION,
-            "era": era, "objects": len(targets)}
+            "era": era, "objects": len(targets), "skipped_close_up": skipped_close}
 
 
 def adopt_people_v31(era: str = "1850s", camera=None, seed: int = 0) -> Dict[str, Any]:
@@ -1627,7 +1692,7 @@ def adopt_people_v31(era: str = "1850s", camera=None, seed: int = 0) -> Dict[str
     cast bases / props). Does not save the .blend."""
     out = {"version": PEOPLE_VERSION, "era": era}
     out["templates"] = swap_ppl57_templates(era=era, lod="crowd", seed=seed)
-    out["merged"] = swap_merged_crowd_blocks(era=era, seed=seed)
+    out["merged"] = swap_merged_crowd_blocks(era=era, seed=seed, camera=camera)
     # Tag FB_Hero_* then swap only those (plus already-tagged cpl_people heroes)
     heroes = [o for o in bpy.data.objects
               if o.type == "MESH" and o.name.startswith("FB_Hero")]
@@ -1642,11 +1707,15 @@ def adopt_people_v31(era: str = "1850s", camera=None, seed: int = 0) -> Dict[str
     figs = [o for o in bpy.data.objects
             if o.type == "MESH" and o.name.startswith("FB_Hero")]
     swapped = 0
+    skipped_close = 0
     if figs:
         cam = camera or bpy.context.scene.camera
         cam_loc = cam.matrix_world.translation if cam else Vector((0, 0, 1.6))
         dists = sorted(((o.matrix_world.translation - cam_loc).length, o) for o in figs)
         for i, (d, ob) in enumerate(dists):
+            if _is_close_up_for_base_mesh(ob, cam):
+                skipped_close += 1
+                continue
             lod = "hero" if i < 12 else ("mid" if i < 36 else "crowd")
             rng_seed = seed + int(hashlib.md5(ob.name.encode()).hexdigest()[:6], 16)
             kind = "lady" if ob.get("cpl_kind_hint") == "lady" else _infer_kind(ob)
@@ -1671,5 +1740,6 @@ def adopt_people_v31(era: str = "1850s", camera=None, seed: int = 0) -> Dict[str
             ob["cpl_role"] = role
             ob["cpl_lod"] = lod
             swapped += 1
-    out["heroes"] = {"swapped": swapped, "version": PEOPLE_VERSION, "era": era}
+    out["heroes"] = {"swapped": swapped, "version": PEOPLE_VERSION, "era": era,
+                     "skipped_close_up": skipped_close}
     return out

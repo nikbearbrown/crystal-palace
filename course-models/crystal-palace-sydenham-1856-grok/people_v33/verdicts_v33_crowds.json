@@ -1,109 +1,28 @@
 {
-  "version": "3.3",
+  "version": "3.4",
   "date": "2026-10-27",
-  "kept": [
+  "note": "CP058/035/049 reverted after eye review: uncanny close HBM faces. people_lib CLOSE_UP_FRAME_FRAC=0.08 skip rule.",
+  "kept_this_round": [],
+  "reverted_this_round": [
     "CP035",
     "CP049",
     "CP058"
   ],
-  "reverted": [
+  "kept_cumulative_sydenham_people": [
+    "CP044",
+    "CP054",
+    "CP060"
+  ],
+  "still_reverted": [
+    "CP035",
     "CP036",
     "CP037",
     "CP045",
-    "CP050",
+    "CP049",
     "CP051",
-    "CP055"
+    "CP050",
+    "CP055",
+    "CP058"
   ],
-  "verdicts": [
-    {
-      "cp": "CP035",
-      "decision": "KEEP",
-      "reason": "KEEP \u2014 gallery crowd replaces white clay placeholders; mid-tone crinolines; keep-lighting held (lum 0.962, not visually darker/emptier)",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP035__r16_CAM_CP035_transept_gallery_28mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP035__r16_CAM_CP035_transept_gallery_28mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r16/r16_CAM_CP035_transept_gallery_28mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP035_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP036",
-      "decision": "REVERT",
-      "reason": "REVERT \u2014 broken multi-arm / sunk meshes; washout lum 1.945",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP036__r14_open54_CAM_CP036_covered_way_28mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP036__r14_open54_CAM_CP036_covered_way_28mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r14_open54_CAM_CP036_covered_way_28mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP036_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP037",
-      "decision": "REVERT",
-      "reason": "REVERT \u2014 washout lum 1.491; no people gain in frame",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP037__r16_CAM_CP037_taller_nave_28mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP037__r16_CAM_CP037_taller_nave_28mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r16/r16_CAM_CP037_taller_nave_28mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP037_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP045",
-      "decision": "REVERT",
-      "reason": "REVERT \u2014 darker/emptier (lum 0.819); mid-stand thinner; hero shoulder gaps",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP045__r13_concert57_CAM_CP045_gallery_wide_b_28mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP045__r13_concert57_CAM_CP045_gallery_wide_b_28mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r13_concert57_CAM_CP045_gallery_wide_b_28mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP045_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP049",
-      "decision": "KEEP",
-      "reason": "KEEP \u2014 garden-front crowd articulated; lum 1.002 exact grade hold; coats/hats read",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP049__r16_CAM_CP049_worn_garden_front_35mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP049__r16_CAM_CP049_worn_garden_front_35mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r16/r16_CAM_CP049_worn_garden_front_35mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP049_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP051",
-      "decision": "REVERT",
-      "reason": "REVERT \u2014 double-head artifact; brighter washout lum 1.263",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP051__r16_CAM_CP051_electric_nave_28mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP051__r16_CAM_CP051_electric_nave_28mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r16/r16_CAM_CP051_electric_nave_28mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP051_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP058",
-      "decision": "KEEP",
-      "reason": "KEEP \u2014 1930s coats/bodices darker mid-tones + normal skin; bare shoulders fixed; keep-lighting (lum 0.930)",
-      "before": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/before/CP058__r17i_after_CAM_CP058_parade_appliances_35mm.png",
-      "after": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/CP058__r17i_after_CAM_CP058_parade_appliances_35mm.png",
-      "hero": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/renders/r17i_after_CAM_CP058_parade_appliances_35mm.png",
-      "pair": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/previews/CP058_pair.jpg",
-      "root": "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok"
-    },
-    {
-      "cp": "CP050",
-      "decision": "REVERT",
-      "reason": "REVERT \u2014 pale/stony foreground vs varied before; stand crowd muddier/darker",
-      "before": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/people_v33/before/CP050__CP050_bank_1895_start.png",
-      "after": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/people_v33/after/CP050__CP050_bank_1895_start.png",
-      "hero": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/renders/fb02_1895/CP050_bank_1895_start.png",
-      "pair": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/people_v33/previews/CP050_pair.jpg",
-      "root": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok"
-    },
-    {
-      "cp": "CP055",
-      "decision": "REVERT",
-      "reason": "REVERT \u2014 pale/ghostly bank + washout lum 1.121; contrast lost",
-      "before": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/people_v33/before/CP055__CP055_bank_1913_start.png",
-      "after": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/people_v33/after/CP055__CP055_bank_1913_start.png",
-      "hero": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/renders/fb02/CP055_bank_1913_start.png",
-      "pair": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok/people_v33/previews/CP055_pair.jpg",
-      "root": "/workspace/crystal-palace-football/course-models/crystal-palace-football-1895-grok"
-    }
-  ]
+  "close_up_rule": "skip swap when projected person height > ~8% of frame; never bald HBM close-up without hair, sized hat, clothed torso"
 }
