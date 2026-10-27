@@ -368,3 +368,16 @@ Eye review of v3.3 KEPT tiles: CP058 AFTER has large bald pale HBM faces, tiny p
 `people_lib` PEOPLE_VERSION **3.4**: `CLOSE_UP_FRAME_FRAC = 0.08` — if a person-height figure at an object would fill more than ~8% of the frame height, `swap_scene_people` / merged crowd blocks / FB_Hero adopt **keep the previous mesh** (or leave empty). Never base-mesh close-ups without hair, a sized hat, and a clothed torso.
 
 Cumulative Sydenham people KEEP still held from v3.1: **CP044, CP054, CP060**.
+
+## set_v18 build / park establish (2026-10-27)
+
+### CP033 BUILD53 slope (`CAM_CP033_slope_up_35mm`)
+- **D-R18-B1 I** Clay/meadow rematted with noise+bump (`build53_clay_r18`, `build53_meadow_r18`); spoil extras, timber baulks, tram sleepers, iron girder stock, cut-face benches, low scaffold decks.
+- **D-R18-B2 I** Dress Z snapped to `park_slope`/`terrain` BVH after first pass floated decks (r18 → r18b).
+- **D-R18-B3 R** BUILD53 dated: water towers / fountains / courts still absent (eras.py kill list unchanged).
+- Hero: `renders/r18_build53_CAM_CP033_slope_up_35mm.png` from `rounds/sydenham-build53-r18b.blend`. KEEP (modest) vs r14 flat clay.
+
+### CP001 1936 prologue (`CAM_CP001_prologue_distant_35mm`)
+- **D-R18-P1 I** Park trees: bark/leaf noise mats + 3 secondary canopy icospheres per crown; grass/gravel noise; central-walk kerbs.
+- **D-R18-P2 R** Water towers remain visible (1936 pre-fire dated). Heavy foreground asphalt strip from first pass removed in r18b (dominated frame).
+- Hero: `renders/r18_1936_CAM_CP001_prologue_distant_35mm.png` from `rounds/sydenham-1936-r18b.blend`. KEEP vs r12 schematic trees.

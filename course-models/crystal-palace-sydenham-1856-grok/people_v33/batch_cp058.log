@@ -1,0 +1,84 @@
+
+=== GROUP ['CP058'] era=1930s blend=sydenham-1936after-r17.blend keep-lighting ===
+CMD /workspace/blender5/blender -b /workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/rounds/sydenham-1936after-r17.blend -P /workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/scripts/render.py -- /workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/_grp_CP058 v33 100 28 CAM_CP058_parade_appliances_35mm
+00:00.228  blend            | Read blend: "/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/rounds/sydenham-1936after-r17.blend"
+KEEP_LIGHTING exposure -1.0 look None
+PEOPLE_ADOPT 3.3 1930s {'version': '3.3', 'era': '1930s', 'templates': {'templates': 0, 'version': '3.3', 'era': '1930s'}, 'merged': {'blocks': 7, 'figures': 230, 'version': '3.3', 'era': '1930s', 'objects': 46}, 'heroes': {'swapped': 0, 'version': '3.3', 'era': '1930s'}}
+00:18.896  render           | Saved: '/workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/after/_grp_CP058/v33_CAM_CP058_parade_appliances_35mm.png'
+RENDERED CAM_CP058_parade_appliances_35mm
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 02:18:37)
+OBJ import of 'female_realistic_crowd.obj' took 2.90 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.06 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.01 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.93 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.25 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.90 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.95 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.93 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.93 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.32 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.90 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.00 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.93 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.24 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.94 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.28 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.03 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.16 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.05 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.87 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.10 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.95 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.88 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.88 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.86 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.88 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.02 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.09 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.88 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.07 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.11 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.94 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.94 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.94 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.10 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.88 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.22 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.83 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.11 ms
+OBJ import of 'female_realistic_crowd.obj' took 1.97 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.09 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.90 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.03 ms
+OBJ import of 'female_realistic_crowd.obj' took 1.99 ms
+OBJ import of 'female_realistic_crowd.obj' took 2.01 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.98 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.98 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.94 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.96 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.92 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.93 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.93 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.04 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.98 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.03 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.94 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.09 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.06 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.20 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.96 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.22 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.06 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.00 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.08 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.87 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.89 ms
+OBJ import of 'male_realistic_crowd.obj' took 1.86 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.46 ms
+OBJ import of 'male_realistic_crowd.obj' took 3.05 ms
+OBJ import of 'male_realistic_crowd.obj' took 21.94 ms
+OBJ import of 'male_realistic_crowd.obj' took 2.86 ms
+
+Blender quit
+RESULT CP058 True
+DONE groups 1 shots 1 -> /workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/people_v33/verdicts_v33_crowds.json
