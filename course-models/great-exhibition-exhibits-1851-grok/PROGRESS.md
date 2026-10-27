@@ -40,3 +40,9 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2: revert CP024
+
+## Hero CANDIDATE CP025 Koh (2026-10-27)
+- Audit: Koh-i-Noor diamond 42-vert icosphere vs CP025 close-up screen time — second crudest hero.
+- CANDIDATE: `scripts/polish_koh_cand.py` rebuilds pre-1852 Mughal/rose-cut diamond (170v/336f hard facets) + gilt ribbon/bead-ring cage enrich → `rounds/candidates/e02_koh.blend` + `renders/candidates/CP025_july_start.png` (--keep-lighting). Live e02 untouched.
+- Pair: survey `look/pairs_geo/CANDIDATE_CP025_koh_july_start_pair.png`.
+- Muse `cut-glass-chandelier` / `glass-topped-display-counter` noted for CP019/CP025 dressing but not in CP025_july frame; not appended this pass.
