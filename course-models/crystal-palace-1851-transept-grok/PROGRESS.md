@@ -52,3 +52,9 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
   - Move REF_talbot back about 30 ft and up to the gallery-rail sightline. Scale the fountain to about 27 ft (the 1851 catalogue).
   - Add statue and railing proxies.
   - Make the outside roof glass less white (a grey glass and lead tint on the furrows), and grade the exposure.
+- r07 (scripts/build_transept.py, checks 43/43). Renders: renders/r07 (1280x720, 48 spp), Owen set renders/r07/owen; compare sheets compare/r07_*.jpg. Note: the box restarted mid-round and wiped /tmp; the round was re-run, logs now in /workspace/logs.
+  - Changes: REF_talbot raised to 24 ft at the gallery-rail sightline (C06, the 30 ft pull-back is blocked by ELM_NORTH2's crown); fountain scaled to ~27 ft; statue proxies at x = +/-14 and the curved iron railing; grey roof glass; RL02 render-time override of Claude's PART_RoofUnit MAT_Glass with GT_Glass (his file never saved; `CLAUDE_ROOF_OVERRIDE slots 1` in the log).
+  - Self-score r07: 7.8/10.
+    - Good: Talbot composition now reads (railing foreground, fountain on axis, elm behind, statues lining the nave edge); Owen set unchanged and stable.
+    - Misses: the fountain is now too near/large in the Talbot frame (the photo puts it ~60 ft further south); the south end fan still reads light, not as the dark radiating lunette; REV_combo still clips the roofs to white on BOTH halves (an exposure problem in this transept scene, not a material seam: the r06/r07 roof pixels are both 249-255); no exhibits or plants under the galleries.
+- Next (r08): move the REF_talbot camera north ~40 ft along the axis (or a 35 mm with a lower target) so the fountain sits at mid-ground; darken the lunette sash bars and add the radial fan glazing bars; give REV_combo its own exposure (-0.6 like the exterior EX10) so the seam check is meaningful; exhibit and plant proxies under the galleries.
