@@ -1,0 +1,91 @@
+{
+ "units": "ft",
+ "eye_ft": 5.25,
+ "shots": [
+  {
+   "id": "CP011_shop",
+   "lens_mm": 28,
+   "start": {
+    "pos_ft": [
+     -4,
+     15,
+     5.25
+    ],
+    "look_ft": [
+     -40,
+     -4,
+     6
+    ]
+   },
+   "note": "machine shop: shafting, belts, sash-bar and gutter machines"
+  },
+  {
+   "id": "CP011_sashbar",
+   "lens_mm": 50,
+   "start": {
+    "pos_ft": [
+     -20,
+     -2.5,
+     5.25
+    ],
+    "look_ft": [
+     -28,
+     -7,
+     3.2
+    ]
+   },
+   "note": "sash-bar machine detail"
+  },
+  {
+   "id": "CP011_glass",
+   "lens_mm": 28,
+   "start": {
+    "pos_ft": [
+     24,
+     -20,
+     5.25
+    ],
+    "look_ft": [
+     42,
+     0,
+     6
+    ]
+   },
+   "note": "blowing stage from the floor: blowers with pipes over the swing pits, furnace glory holes beyond"
+  },
+  {
+   "id": "CP011_cylinder",
+   "lens_mm": 50,
+   "start": {
+    "pos_ft": [
+     30,
+     3,
+     5.25
+    ],
+    "look_ft": [
+     30,
+     17,
+     2.5
+    ]
+   },
+   "note": "finished cylinders on the racks"
+  },
+  {
+   "id": "CP011_wagon",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     34,
+     -84,
+     5.25
+    ],
+    "look_ft": [
+     -2,
+     -42,
+     7
+    ]
+   },
+   "note": "columns and a girder on wagons at the siding"
+  }
+ ]
+}
