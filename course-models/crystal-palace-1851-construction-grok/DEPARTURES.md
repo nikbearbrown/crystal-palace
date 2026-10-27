@@ -68,3 +68,21 @@ inference from a period image; C = staging judgement for the film (labelled as s
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## Muse kit compare (2026-10-27) — origin/main read-only via models-main-ro
+
+Compared Muse `lattice-girder-truss-bay`, `paxton-gutter`, `gallery-lattice-railing` against our K-ROOF / K-GALLERY encodings in the shared exterior/construction parts. Muse folders not edited.
+
+| ID | Topic | Ours | Muse (origin/main) | Call |
+|---|---|---|---|---|
+| MK01 | Cast-iron lattice girder depth (24 ft bay) | `GIRDER_D = 3.0 ft` (D10a) | `lattice-girder-truss-bay` overall depth **3.166 ft** (~3 ft 2 in; NOTES cite PL.10 Fig.3 3 ft 1¼ in / PL.8 3 ft) | **Disagree (minor).** We keep D10a 3.0 ft; Muse is plate-measured overall including flanges. Flagged, not adopted this round. |
+| MK02 | Wrought-iron roof-truss bay depth | Our `TRUSS72_D = 6.0 ft` is the **72 ft** nave truss (D19b), not a 24 ft roof-truss bay | Muse models one 24 ft length of the **48 ft** roof truss at **5.50 ft** depth (plate-measured, ±3 in) | **Not a direct conflict** — different members. Do not equate. |
+| MK03 | Paxton gutter profile / sash-bar pitch | K-DRAIN / construction roof: simplified timber trough (~6 in wide × 5 in deep box); sash bars staged at **~10 in** (24 ft/29 for 49×10 in panes, CN18) or UV **10.5 in** in transept/fitout glass | Muse `paxton-gutter`: printed Plate XII Fig.10 — depth **6 in**, base **5 in**, cheek ≈**5.7 in**; bar notches at **10½ in** centres (Fig.3 chain) + Plate XIII main gutter | **Disagree.** Muse matches Downes printed anchors more closely. Our construction trough is a stand-in (KD03). Prefer Muse pitch **10½ in** when next rebuilding K-ROOF geometry; keep CN18 staging note until then. |
+| MK04 | Gallery lattice railing height | Transept `mesh_railing`: **H = 3.06 ft** (≈3 ft 0.7 in) above gallery floor | Muse `gallery-lattice-railing`: handrail top **3 ft 1⅞ in** (0.962 m, printed Fig.7); newel with finial ~3 ft 8 in | **Disagree (≈1 in).** Muse matches Plate XVII printed figure. Our rail is ~1 in short. Log only; do not retarget live rails this round. |
+
+Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
+
+| ID | Topic | Finding |
+|---|---|---|
+| MK05 | Ground-floor board gaps ½ in | **Match.** Fitout FT09/FT10 and `floor_boards` shader use 9 in boards + **½ in** gaps (pitch 9.5 in). Construction/exterior share the same shader. Muse `hp-floor-boards` NOTES: gap ½ in printed. Ground floor only — gallery floors in our builds are solid `WOOD` slabs (no open gaps), consistent with Berlyn (gallery = iron tongues). CP013/CP020 staging already references the open-board ground floor. |
+
