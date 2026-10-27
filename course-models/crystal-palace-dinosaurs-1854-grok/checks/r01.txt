@@ -1,0 +1,16 @@
+PASS  Iguanodon (standing) statue length                   model   35.78 ft  target   32.80 ft  tol 3.3  [cpdinosaurs.org: 10 m R]
+PASS  Iguanodon (standing) height above ground             model    8.76 ft  target    8.86 ft  tol 1.0  [cpdinosaurs.org: 2.7 m R]
+PASS  Megalosaurus statue length                           model   34.78 ft  target   32.80 ft  tol 3.3  [Historic England: 10 m R]
+PASS  Megalosaurus height above ground                     model   10.84 ft  target   11.48 ft  tol 1.0  [Historic England: 3.5 m R]
+PASS  Megatherium upright height 13.9 ft <= 6 m (19.7 ft)                      [ArtUK/cpdinosaurs: up to 6 m R; statue height I]
+PASS  Megatherium clasps a tree                                                [cpdinosaurs/ArtUK R]
+INFO  Hylaeosaurus length 24.4 ft (7.4 m); animal ~5 m (cpdinosaurs R), statue size I
+INFO  Irish elk stag antler span 12.3 ft (3.7 m); Megaloceros spans to 3.6 m (R, animal)
+PASS  count iguanodon                                      model    2.00 ft  target    2.00 ft  tol 0  [NHM/cpdinosaurs: two Iguanodons R]
+PASS  count ichthyosaur                                    model    3.00 ft  target    3.00 ft  tol 0  [cpdinosaurs: three Ichthyosaurs R]
+PASS  count plesiosaur                                     model    3.00 ft  target    3.00 ft  tol 0  [cpdinosaurs: three Plesiosaurs R]
+PASS  count irish_elk                                      model    4.00 ft  target    4.00 ft  tol 0  [Hawkins built four Megaloceros, 2 stags + 2 does (1854) R]
+PASS  count megalosaurus                                   model    1.00 ft  target    1.00 ft  tol 0  [R]
+PASS  count hylaeosaurus                                   model    1.00 ft  target    1.00 ft  tol 0  [R]
+PASS  count megatherium                                    model    1.00 ft  target    1.00 ft  tol 0  [R]
+PASS  Iguanodon carries the 1854 nose horn / highest point near the snout      [nose horn (Owen/Hawkins misplaced thumb spike) R]
