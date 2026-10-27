@@ -30,3 +30,8 @@ never git init inside a grok folder; commit from the worktree root
 - Rebuilt `rounds/ln03_southken.blend`: RAH frieze band, window ring + iron mullions, iron balcony, glazed lantern + dome ribs; museum iron frames; street rails/lamps/bollards; multi-lobe trees + iron tree guards.
 - Keep-lighting lean 1280×720 / 28 spp: `renders/ln03/CP069_street_start.png`, `CP069_rah_start.png`.
 - Honest pair keep-better: **KEEP** CP069 (geometry/dressing visibly better than prior block-out).
+
+## ln03 w03 fix (2026-10-27) — CP069 exposure + RAH-as-itself + London planes
+- User rejected w02 after (washed/overexposed, pale brick/dome, cone trees, grey-dash windows).
+- Fix: authored exposure ~−0.18 (street mean luminance ≈ before 0.73); BrickDeep (0.16,0.045,0.028) + grit; buff terracotta + dark mosaic frieze; darker DomeIronGlass + thick iron ribs; regular arched dark-glazed bays with iron frames (Kit.quad, no AABB dashes); rounded broadleaf London planes (14 icosphere lobes + leaf noise, exterior park-tree grammar).
+- Keep-lighting 1280×720 / 32 spp. Strict keep-better by eye: **KEEP** CP069.

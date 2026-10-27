@@ -15,22 +15,52 @@ RAH = G.coll("ROYAL_ALBERT_HALL", ROOT); MUS = G.coll("MUSEUMS", ROOT)
 info = {"scene": "CP069", "state": "today", "optional": True,
         "note": "w02: RAH frieze/windows/iron balcony/lantern; museum frames; street iron dressing; real footage may still replace"}
 
+# RAH reads: deep red brick, buff terracotta, dark mosaic frieze, darker iron/glass dome
 M = dict(
-    asphalt=G.mat("Asphalt", (0.18, 0.18, 0.17), 0.92),
-    pavement=G.mat("Pavement", (0.55, 0.52, 0.48), 0.88),
-    brick=G.mat("BrickRed", (0.42, 0.22, 0.14), 0.9),
-    terracotta=G.mat("Terracotta", (0.48, 0.28, 0.16), 0.85),
-    stone=G.mat("StonePale", (0.62, 0.58, 0.52), 0.82),
-    stone_d=G.mat("StoneDark", (0.35, 0.33, 0.30), 0.85),
-    dome=G.mat("DomeLead", (0.22, 0.24, 0.22), 0.55, 0.3),
-    glass=G.mat_thin_glass("Glass", (0.70, 0.78, 0.82), 0.12),
-    grass=G.mat("Grass", (0.14, 0.28, 0.10), 0.95),
-    iron=G.mat("IronRail", (0.08, 0.08, 0.09), 0.5, 0.5),
-    slate=G.mat("Slate", (0.16, 0.17, 0.18), 0.75),
+    asphalt=G.mat("Asphalt", (0.16, 0.16, 0.15), 0.92),
+    pavement=G.mat("Pavement", (0.48, 0.46, 0.42), 0.88),
+    brick=G.mat("BrickDeep", (0.16, 0.045, 0.028), 0.92),            # deeper red — fight AgX mid lift
+    terracotta=G.mat("TerracottaBuff", (0.48, 0.32, 0.16), 0.85),  # buff terracotta band
+    mosaic=G.mat("MosaicFrieze", (0.06, 0.05, 0.045), 0.70),       # dark mosaic under cornice
+    stone=G.mat("StonePale", (0.55, 0.52, 0.46), 0.82),
+    stone_d=G.mat("StoneDark", (0.32, 0.30, 0.27), 0.85),
+    dome=G.mat("DomeIronGlass", (0.08, 0.085, 0.08), 0.38, 0.7),  # darker grey wrought-iron/glass
+    glass=G.mat_thin_glass("Glass", (0.45, 0.52, 0.55), 0.18),     # tinted, less sky wash
+    glass_win=G.mat("GlassWinDark", (0.08, 0.10, 0.12), 0.25, 0.35),  # dark exterior glazing
+    grass=G.mat("Grass", (0.12, 0.24, 0.08), 0.95),
+    leaf=G.mat("LeafPlane", (0.10, 0.22, 0.06), 0.95),
+    leaf_d=G.mat("LeafDeep", (0.045, 0.12, 0.03), 0.95),
+    bark=G.mat("Bark", (0.28, 0.18, 0.10), 0.9),
+    iron=G.mat("IronRail", (0.07, 0.07, 0.08), 0.45, 0.65),
+    slate=G.mat("Slate", (0.14, 0.15, 0.16), 0.75),
 )
 ML = list(M.values()); IX = {k: i for i, k in enumerate(M)}
 def K(): return Kit(ML)
+
 def I(k): return IX[k]
+
+def leaf_noise_mat(base_mat, scale=18.0):
+    """Multiply leaf albedo by noise so canopy reads leafy, not plastic."""
+    if base_mat.get("leaf_noise"): return base_mat
+    nt = base_mat.node_tree; b = nt.nodes.get("Principled BSDF")
+    if not b: return base_mat
+    tex = nt.nodes.new("ShaderNodeTexNoise"); tex.inputs["Scale"].default_value = scale
+    tex.inputs["Detail"].default_value = 12; tex.inputs["Roughness"].default_value = 0.65
+    tex.location = (-600, 200)
+    ramp = nt.nodes.new("ShaderNodeValToRGB"); ramp.location = (-380, 200)
+    ramp.color_ramp.elements[0].position = 0.35
+    ramp.color_ramp.elements[0].color = (0.45, 0.55, 0.35, 1)
+    ramp.color_ramp.elements[1].position = 0.72
+    ramp.color_ramp.elements[1].color = (1.15, 1.15, 1.05, 1)
+    mix = nt.nodes.new("ShaderNodeMix"); mix.data_type = "RGBA"; mix.blend_type = "MULTIPLY"
+    mix.inputs["Factor"].default_value = 1.0; mix.location = (-160, 120)
+    col = tuple(b.inputs["Base Color"].default_value[:3]) + (1.0,)
+    mix.inputs["A"].default_value = col
+    nt.links.new(tex.outputs["Fac"], ramp.inputs["Fac"])
+    nt.links.new(ramp.outputs["Color"], mix.inputs["B"])
+    nt.links.new(mix.outputs["Result"], b.inputs["Base Color"])
+    base_mat["leaf_noise"] = 1
+    return base_mat
 
 # Units: feet (same as rest of london set). Origin at Exhibition Road / Prince Consort Rd approx.
 # +Y = north along Exhibition Road; +X = east toward Albert Hall / Hyde Park.
@@ -42,83 +72,177 @@ gk.box(I("pavement"), -32, -18, -200, 220, -0.05, 0.08)      # W pavement (museu
 gk.box(I("pavement"), 18, 36, -200, 220, -0.05, 0.08)        # E pavement
 gk.done("SK_Road", STREET)
 
-# street trees — multi-lobe canopy + iron tree guards (w02 polish)
-for i, y in enumerate(range(-180, 200, 40)):
-    for x in (-26, 28):
-        tk = K()
-        tk.cyl(I("stone_d"), (x, y, 0.1), (x, y, 14), 0.55, 10)
-        # layered canopy lobes (not a single cone)
-        for j, (dx, dy, h0, h1, r0, r1) in enumerate((
-            (0, 0, 12, 22, 4.2, 1.2), (2.2, 1.0, 14, 20, 3.0, 0.8),
-            (-2.0, -1.2, 13, 19, 2.8, 0.7), (0.5, -2.0, 15, 21, 2.5, 0.6),
-        )):
-            tk.cyl(I("grass"), (x + dx, y + dy, h0), (x + dx, y + dy, h1), r0, 12, True, r1)
-        # iron tree-guard cage
-        for a in range(0, 360, 45):
-            import math as _m
-            rr = 1.6; ax = x + rr * _m.cos(_m.radians(a)); ay = y + rr * _m.sin(_m.radians(a))
-            tk.cyl(I("iron"), (ax, ay, 0.05), (ax, ay, 3.2), 0.06, 6)
-        tk.cyl(I("iron"), (x, y, 3.1), (x, y, 3.25), 1.65, 16, True, 1.55)
-        tk.done(f"SK_Tree_{i}_{x}", STREET)
+# street trees — rounded broadleaf London planes (icosphere lobes + leaf noise; exterior park-tree grammar)
 
-# ---- Royal Albert Hall — w02: frieze band, window ring, iron balcony, glazed lantern ----
+def albedo_noise(mat, scale=40.0, lo=(0.7,0.7,0.7), hi=(1.15,1.1,1.05), strength=0.55):
+    if mat.get("albedo_noise"): return mat
+    nt = mat.node_tree; b = nt.nodes.get("Principled BSDF")
+    if not b: return mat
+    tex = nt.nodes.new("ShaderNodeTexNoise"); tex.inputs["Scale"].default_value = scale
+    tex.inputs["Detail"].default_value = 14; tex.inputs["Roughness"].default_value = 0.55
+    ramp = nt.nodes.new("ShaderNodeValToRGB")
+    ramp.color_ramp.elements[0].position = 0.35; ramp.color_ramp.elements[0].color = (*lo, 1)
+    ramp.color_ramp.elements[1].position = 0.7; ramp.color_ramp.elements[1].color = (*hi, 1)
+    mix = nt.nodes.new("ShaderNodeMix"); mix.data_type = "RGBA"; mix.blend_type = "MULTIPLY"
+    mix.inputs["Factor"].default_value = strength
+    col = tuple(b.inputs["Base Color"].default_value[:3]) + (1.0,)
+    mix.inputs["A"].default_value = col
+    nt.links.new(tex.outputs["Fac"], ramp.inputs["Fac"])
+    nt.links.new(ramp.outputs["Color"], mix.inputs["B"])
+    nt.links.new(mix.outputs["Result"], b.inputs["Base Color"])
+    mat["albedo_noise"] = 1
+    return mat
+
+leaf_noise_mat(M["leaf"], 22.0)
+leaf_noise_mat(M["leaf_d"], 16.0)
+albedo_noise(M["brick"], scale=55.0, lo=(0.65,0.55,0.50), hi=(1.05,0.95,0.88), strength=0.45)
+albedo_noise(M["terracotta"], scale=30.0, lo=(0.75,0.7,0.6), hi=(1.1,1.05,0.95), strength=0.4)
+albedo_noise(M["mosaic"], scale=80.0, lo=(0.4,0.4,0.4), hi=(1.3,1.2,1.1), strength=0.8)
+
+def london_plane(name, x, y, H=28.0, seed=1):
+    """Rounded broadleaf London plane: bark trunk + icosphere canopy lobes (exterior park-tree grammar) + leaf noise."""
+    import bmesh
+    from mathutils import Matrix
+    rr = random.Random(seed)
+    FT = 0.3048
+    bm = bmesh.new()
+    # trunk as cone
+    bmesh.ops.create_cone(bm, cap_ends=True, segments=10,
+                          radius1=0.7*FT, radius2=0.5*FT, depth=H*0.42*FT,
+                          matrix=Matrix.Translation((x*FT, y*FT, H*0.21*FT)))
+    trunk_faces = set(bm.faces)
+    # canopy lobes — icospheres (reads rounded, not cone)
+    for j in range(14):
+        a = rr.uniform(0, 2*math.pi)
+        d = rr.uniform(0, H*0.16)
+        z = rr.uniform(H*0.42, H*0.82)
+        r = rr.uniform(H*0.09, H*0.16)
+        bmesh.ops.create_icosphere(bm, subdivisions=2, radius=r*FT,
+            matrix=Matrix.Translation(((x + d*math.cos(a))*FT, (y + d*math.sin(a))*FT, z*FT)))
+    me = bpy.data.meshes.new(name)
+    bm.to_mesh(me); bm.free()
+    me.materials.append(M["bark"]); me.materials.append(M["leaf"]); me.materials.append(M["leaf_d"])
+    trunk_z = H * 0.40 * FT
+    for poly in me.polygons:
+        c = poly.center
+        # trunk: near axis and below canopy springing
+        if c.z < trunk_z and (c.x - x*FT)**2 + (c.y - y*FT)**2 < (1.2*FT)**2:
+            poly.material_index = 0
+        else:
+            poly.material_index = 1 if (poly.index % 2) else 2
+    ob = bpy.data.objects.new(name, me)
+    STREET.objects.link(ob)
+    # iron tree-guard as separate Kit
+    gk = K()
+    for a in range(0, 360, 45):
+        rr2 = 1.7; ax = x + rr2 * math.cos(math.radians(a)); ay = y + rr2 * math.sin(math.radians(a))
+        gk.cyl(I("iron"), (ax, ay, 0.05), (ax, ay, 3.4), 0.06, 6)
+    gk.cyl(I("iron"), (x, y, 3.3), (x, y, 3.45), 1.75, 16, True, 1.65)
+    gk.done(name + "_guard", STREET)
+
+for i, y in enumerate(range(-180, 200, 40)):
+    for xi, x in enumerate((-26, 28)):
+        london_plane(f"SK_Plane_{i}_{x}", x, y, H=26 + (i + xi) % 5, seed=100 + i * 3 + xi)
+
+
+# ---- Royal Albert Hall — deep red brick, buff band, dark mosaic, arched bays, darker ribbed dome ----
 CX, CY = 95.0, 90.0
 rk = K()
 rk.box(I("stone"), CX - 130, CX + 130, CY - 150, CY + 150, 0.0, 3.5)   # podium
-# amphitheatre body with slight entasis feel via two stacked rings
-rk.cyl(I("terracotta"), (CX, CY, 3.5), (CX, CY, 28), 110, 36, True, 110)
-rk.cyl(I("terracotta"), (CX, CY, 28), (CX, CY, 48), 110, 36, True, 108)
-# mosaic frieze band (darker stone strip)
-rk.cyl(I("stone_d"), (CX, CY, 40), (CX, CY, 46), 111.2, 36, True, 111.2)
-# cornice + attic
-rk.cyl(I("stone"), (CX, CY, 48), (CX, CY, 52), 112, 36, True, 108)
-rk.cyl(I("stone"), (CX, CY, 52), (CX, CY, 58), 108, 32, True, 100)
-# arched window recesses around the drum (shallow glass + iron mullions)
-import math as _m
-for i in range(36):
-    a = _m.radians(i * 10 + 5)
-    wx = CX + 109.2 * _m.cos(a); wy = CY + 109.2 * _m.sin(a)
-    # outward normal box for glass
-    nx, ny = _m.cos(a), _m.sin(a)
-    for floor_z in (8.0, 18.0, 30.0):
-        xa, xb = sorted([wx - 1.8 * ny - 0.3 * nx, wx + 1.8 * ny + 0.15 * nx])
-        ya, yb = sorted([wy + 1.8 * nx - 0.3 * ny, wy - 1.8 * nx + 0.15 * ny])
-        # thin radial thickness along normal
-        xa2, xb2 = sorted([wx - 0.2 * nx, wx + 0.35 * nx])
-        ya2, yb2 = sorted([wy - 0.2 * ny, wy + 0.35 * ny])
-        # glass as small radial slab
-        rk.box(I("glass"),
-               min(wx - 1.6 * abs(ny) - 0.15 * abs(nx), wx + 1.6 * abs(ny) + 0.15 * abs(nx)),
-               max(wx - 1.6 * abs(ny) - 0.15 * abs(nx), wx + 1.6 * abs(ny) + 0.15 * abs(nx)),
-               min(wy - 1.6 * abs(nx) - 0.15 * abs(ny), wy + 1.6 * abs(nx) + 0.15 * abs(ny)),
-               max(wy - 1.6 * abs(nx) - 0.15 * abs(ny), wy + 1.6 * abs(nx) + 0.15 * abs(ny)),
-               floor_z, floor_z + 6.5)
-        rk.cyl(I("iron"), (wx + 0.25 * nx, wy + 0.25 * ny, floor_z),
-               (wx + 0.25 * nx, wy + 0.25 * ny, floor_z + 6.5), 0.08, 6)
-# iron balcony rail at podium edge (camera-facing SW arc)
-for i in range(20):
-    a0 = _m.radians(200 + i * 4); a1 = _m.radians(200 + (i + 1) * 4)
+# deep red brick amphitheatre body (two stacked rings, slight entasis)
+rk.cyl(I("brick"), (CX, CY, 3.5), (CX, CY, 28), 110, 48, True, 110)
+rk.cyl(I("brick"), (CX, CY, 28), (CX, CY, 38), 110, 48, True, 109.5)
+# buff terracotta band (taller so it reads from Exhibition Road)
+rk.cyl(I("terracotta"), (CX, CY, 38), (CX, CY, 45), 111.2, 48, True, 111.2)
+# dark mosaic frieze under the cornice
+rk.cyl(I("mosaic"), (CX, CY, 45), (CX, CY, 51), 111.6, 48, True, 111.6)
+# stone cornice + attic
+rk.cyl(I("stone"), (CX, CY, 51), (CX, CY, 54.5), 113.0, 40, True, 108)
+rk.cyl(I("stone"), (CX, CY, 54.5), (CX, CY, 58), 108, 36, True, 100)
+# regular arched window bays — 36 × 2 storeys; dark glazing + iron arch frames (no AABB dashes / spikes)
+N_BAY = 36
+for i in range(N_BAY):
+    a = math.radians(i * (360.0 / N_BAY) + 5)
+    nx, ny = math.cos(a), math.sin(a)
+    tx, ty = -ny, nx
+    R = 110.35
+    half_w = 3.6
+    for floor_z, arch_h in ((7.0, 16.0), (24.0, 14.0)):
+        z0 = floor_z
+        z_spring = floor_z + arch_h * 0.62   # springing of arch
+        z1 = floor_z + arch_h                # crown
+        # rectangular dark glazing up to springing
+        g = [
+            (CX + R*nx + half_w*tx, CY + R*ny + half_w*ty, z0),
+            (CX + R*nx - half_w*tx, CY + R*ny - half_w*ty, z0),
+            (CX + R*nx - half_w*tx, CY + R*ny - half_w*ty, z_spring),
+            (CX + R*nx + half_w*tx, CY + R*ny + half_w*ty, z_spring),
+        ]
+        rk.quad(I("glass_win"), g)
+        # arched head: fan of dark quads under semicircle
+        for k in range(6):
+            t0 = -1.0 + k * (2.0/6); t1 = -1.0 + (k+1) * (2.0/6)
+            # height of semicircle at t
+            def arch_z(tt):
+                return z_spring + (z1 - z_spring) * math.sqrt(max(0.0, 1.0 - tt*tt))
+            q = [
+                (CX + R*nx + half_w*t0*tx, CY + R*ny + half_w*t0*ty, z_spring),
+                (CX + R*nx + half_w*t1*tx, CY + R*ny + half_w*t1*ty, z_spring),
+                (CX + R*nx + half_w*t1*tx, CY + R*ny + half_w*t1*ty, arch_z(t1)),
+                (CX + R*nx + half_w*t0*tx, CY + R*ny + half_w*t0*ty, arch_z(t0)),
+            ]
+            rk.quad(I("glass_win"), q)
+        # iron frame: jambs + arch polyline + sill + centre mullion
+        wx, wy = CX + (R+0.15)*nx, CY + (R+0.15)*ny
+        # left/right jambs
+        for s in (-1.0, 1.0):
+            rk.cyl(I("iron"),
+                   (CX + R*nx + half_w*s*tx, CY + R*ny + half_w*s*ty, z0),
+                   (CX + R*nx + half_w*s*tx, CY + R*ny + half_w*s*ty, z_spring),
+                   0.14, 6)
+        # arch iron: segments along semicircle
+        prev = None
+        for k in range(9):
+            tt = -1.0 + k * (2.0/8)
+            zz = z_spring + (z1 - z_spring) * math.sqrt(max(0.0, 1.0 - tt*tt))
+            pt = (CX + R*nx + half_w*tt*tx, CY + R*ny + half_w*tt*ty, zz)
+            if prev is not None:
+                rk.cyl(I("iron"), prev, pt, 0.12, 5)
+            prev = pt
+        # sill + centre mullion
+        rk.cyl(I("iron"),
+               (CX + R*nx + half_w*tx, CY + R*ny + half_w*ty, z0),
+               (CX + R*nx - half_w*tx, CY + R*ny - half_w*ty, z0), 0.12, 5)
+        rk.cyl(I("iron"), (wx, wy, z0), (wx, wy, z_spring), 0.10, 6)
+# iron balcony rail at podium (camera-facing SW arc)
+for i in range(24):
+    a0 = math.radians(200 + i * 3.5); a1 = math.radians(200 + (i + 1) * 3.5)
     for a in (a0, a1):
-        px = CX + 118 * _m.cos(a); py = CY + 118 * _m.sin(a)
+        px = CX + 118 * math.cos(a); py = CY + 118 * math.sin(a)
         rk.cyl(I("iron"), (px, py, 3.5), (px, py, 6.0), 0.07, 6)
-    # rail top
-    x0, y0 = CX + 118 * _m.cos(a0), CY + 118 * _m.sin(a0)
-    x1, y1 = CX + 118 * _m.cos(a1), CY + 118 * _m.sin(a1)
+    x0, y0 = CX + 118 * math.cos(a0), CY + 118 * math.sin(a0)
+    x1, y1 = CX + 118 * math.cos(a1), CY + 118 * math.sin(a1)
     rk.cyl(I("iron"), (x0, y0, 5.9), (x1, y1, 5.9), 0.06, 6)
-# dome tiers + glazed lantern
-rk.cyl(I("dome"), (CX, CY, 58), (CX, CY, 95), 95, 28, True, 70)
-rk.cyl(I("dome"), (CX, CY, 95), (CX, CY, 125), 70, 24, True, 28)
-rk.cyl(I("glass"), (CX, CY, 125), (CX, CY, 136), 28, 20, True, 10)  # glazed lantern ring
-rk.cyl(I("iron"), (CX, CY, 136), (CX, CY, 148), 10, 14, True, 4)
-# radial iron ribs on lower dome (visible silhouette)
-for i in range(16):
-    a = _m.radians(i * 22.5)
-    x0 = CX + 92 * _m.cos(a); y0 = CY + 92 * _m.sin(a)
-    x1 = CX + 68 * _m.cos(a); y1 = CY + 68 * _m.sin(a)
-    rk.cyl(I("iron"), (x0, y0, 60), (x1, y1, 92), 0.35, 6)
-rk.done("SK_RAH", RAH)
-info["rah"] = {"cx_ft": CX, "cy_ft": CY, "note": "w02 frieze+windows+iron balcony+glazed lantern"}
 
+# darker wrought-iron / glass dome with ribs (no bright washed lantern)
+rk.cyl(I("dome"), (CX, CY, 58), (CX, CY, 95), 95, 36, True, 70)
+rk.cyl(I("dome"), (CX, CY, 95), (CX, CY, 125), 70, 32, True, 28)
+# lantern: iron frame + dark glass (not bright sky-hole)
+rk.cyl(I("iron"), (CX, CY, 125), (CX, CY, 136), 28, 20, True, 12)
+rk.cyl(I("glass_win"), (CX, CY, 126), (CX, CY, 134), 26, 16, True, 11)
+rk.cyl(I("iron"), (CX, CY, 136), (CX, CY, 148), 10, 14, True, 4)
+# radial iron ribs on lower + upper dome
+for i in range(24):
+    a = math.radians(i * 15)
+    x0 = CX + 92 * math.cos(a); y0 = CY + 92 * math.sin(a)
+    x1 = CX + 68 * math.cos(a); y1 = CY + 68 * math.sin(a)
+    rk.cyl(I("iron"), (x0, y0, 60), (x1, y1, 94), 1.35, 6)
+    x2 = CX + 66 * math.cos(a); y2 = CY + 66 * math.sin(a)
+    x3 = CX + 26 * math.cos(a); y3 = CY + 26 * math.sin(a)
+    rk.cyl(I("iron"), (x2, y2, 96), (x3, y3, 124), 1.05, 6)
+rk.done("SK_RAH", RAH)
+info["rah"] = {"cx_ft": CX, "cy_ft": CY, "note": "w03: deep brick, buff band, mosaic frieze, arched bays, dark ribbed dome"}
+info["note"] = "w03: RAH readable as itself; London-plane trees; exposure matched to before luminance; real footage may still replace"
 
 # Albert Memorial suggestion (further NE, lean obelisk/canopy stub) — skip to keep lean
 
@@ -189,11 +313,13 @@ gk2.box(I("grass"), 36, CX - 120, CY - 150, CY + 150, 0.0, 0.15)
 gk2.done("SK_PlazaGrass", STREET)
 
 # ---- present-day daylight ----
-G.world_sky(elev=42, rot=185, strength=0.38, sun_energy=3.6,
-            sun_rot=(48, 0, -20), sun_col=(1.0, 0.97, 0.92), haze=(1.2, 0.55))
+# authored daylight but held back so brick/dome don't wash (match before mean luminance ~0.73)
+G.world_sky(elev=36, rot=185, strength=0.18, sun_energy=1.8,
+            sun_rot=(52, 0, -25), sun_col=(1.0, 0.94, 0.86), haze=(0.8, 0.35))
 sc.cycles.samples = 28
 sc.render.resolution_x = 1280; sc.render.resolution_y = 720
-G.render_settings(exposure=-0.15)
+# authored exposure held for brick saturation; mean-luminance matched in w03 review
+G.render_settings(exposure=-0.18)
 
 # ---- cameras: street approach + RAH hold ----
 route = {

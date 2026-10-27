@@ -28,3 +28,11 @@ Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Cont
 | LN06 | RAH: mosaic frieze strip, arched window recesses + iron mullions (3 floors × 36), SW iron balcony rail, glazed lantern ring + radial dome ribs | Prior massing was blank peach cylinder + faceted dome | C |
 | LN07 | Museum blocks: iron window frames on street façades | Blank stone slabs | C |
 | LN08 | Street: iron rails, lamps, bollards; multi-lobe tree canopies + iron tree-guard cages | Bare road / single-cone trees | C |
+
+## ln03 w03 fix (2026-10-27)
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| LN09 | Exposure held ~−0.18; world strength 0.18 / sun 1.8 so street mean luminance tracks before (~0.73) | w02 after washed (mean ~0.90) | C |
+| LN10 | RAH materials: deep BrickDeep, TerracottaBuff band, MosaicFrieze under cornice, darker DomeIronGlass + thick ribs; arched Kit.quad glazing + iron frames | Read as Royal Albert Hall, not blank peach cylinder / grey dashes | C |
+| LN11 | Street trees: London-plane icosphere multi-lobe canopies + leaf noise (not tapered cones) | Cones read as low-poly placeholders | C |
