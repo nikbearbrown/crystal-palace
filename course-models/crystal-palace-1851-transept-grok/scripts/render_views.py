@@ -15,7 +15,8 @@ if claude:   # append Claude's model collection read-only (never saved)
         if c: sc.collection.children.link(c)
     # hide our duplicates on Claude's line 37 (x = -36 ft)
     for ob in bpy.data.objects:
-        if ob.get("claude_line37"): ob.hide_render = True
+        if ob.get("claude_line37") or ob.get("claude_overlap"): ob.hide_render = True
+        elif ob.get("part_kind") in ("column", "girder", "roof") and ob.location.x < -0.3048 * 36.5: ob.hide_render = True
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)

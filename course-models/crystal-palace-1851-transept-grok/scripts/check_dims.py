@@ -73,6 +73,18 @@ for o in objs:
 for n, (cl, ht) in worst.items():
     rec("E01_" + n, f"{n}: min clearance to vault intrados / 72 ft column lines (>= 3 ft)", 3.0, 0, min(cl, 3.0) if cl >= 3 else cl, src="CP017: canopy and roof clearance established")
     res[-1]["measured_clearance_ft"] = round(cl, 2); res[-1]["top_ft"] = round(ht, 1); res[-1]["pass"] = cl >= 3.0
+# r06: fountain, arm galleries, stairs
+fg = bpy.data.objects.get("FOUNTAIN_GLASS")
+if fg:
+    zs = [v.z for v in wverts(fg)]
+    rec("F01", "Osler fountain glass body height above the floor", 27.0, 0.5, (max(zs) - 0) / FT, src="ILN/Wikipedia: 27 ft")
+arm = [o for o in objs if o.name.startswith("GAL_ARM_")]
+if arm:
+    rec("G03", "arm gallery floor top", 22 + 11/12, 0.05, max(max(v.z for v in wverts(o)) for o in arm) / FT, src="Downes: gallery 22 ft 11 in (as G01)")
+land = [o for o in objs if o.name.startswith("STLAND_")]
+if land:
+    rec("S01", "avenue stair landing top", 137.5/12, 0.05, max(max(v.z for v in wverts(o)) for o in land) / FT, src="Claude parts.STAIR_RISE, Plates XV-XVII")
+    rec("S02", "avenue staircases: one per avenue void (N, S) in the stair bay of each arm", 4, 0, len(land), unit="count")
 # cameras: eye height, no roll, branch clearance
 trees = []
 for o in objs:

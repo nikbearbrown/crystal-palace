@@ -27,3 +27,28 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
     - No fountain or exhibits.
     - Colours are neutral.
 - Next (r06): move the CP017 end stop to about y=-162 and aim it at the canopy edge and the vault gap; halve the card size near the cameras; darken the end-screen glass and bars; build the Osler fountain; add the arm galleries.
+- r06 (built from scripts/build_transept.py, checks 43/43 in checks/r06.md). Renders: renders/r06 (1280x720, 48 spp); Owen Jones toggle set in renders/r06/owen. Compare sheets: compare/r06_*.jpg.
+  - Changes:
+    - The CP017 end stop is pulled back, and the leaf cards near the cameras are smaller.
+    - The end-screen glass and bars are darker.
+    - The Osler crystal fountain is at the crossing: glass tiers on a basin kerb.
+    - The arm galleries and stairs are in (Downes II/XV-XVII).
+    - The ground-plane fix: REV_ext34 shows a continuous lawn.
+    - A wider Plate IV/VII ortho.
+    - The Owen Jones colour toggle (`--owen`), with blue, red and yellow stripes on the columns and girders (OJ01/OJ02).
+  - Self-score r06: 7.5/10.
+    - Good:
+      - The fountain reads as glass and sits correctly under the crossing.
+      - The CP017 stop now shows the floor, the gallery underside and the canopy together.
+      - The combo with Claude's west frame and the exterior lawn is continuous.
+      - The Owen colouring reads at gallery-rail scale.
+  - Misses:
+    - In the Talbot view the fan still does not read dark: the elm canopy hides most of it, and the reference camera is probably too low or too far north.
+    - The fountain is too thin and too short against the Talbot one, which rises past the gallery rail.
+    - There are no exhibits, statues, or the iron railing of the Talbot foreground.
+    - The roofs read as white slabs from outside.
+    - The overall contrast is low (no sepia or overcast grade).
+- Next (r07):
+  - Move REF_talbot back about 30 ft and up to the gallery-rail sightline. Scale the fountain to about 27 ft (the 1851 catalogue).
+  - Add statue and railing proxies.
+  - Make the outside roof glass less white (a grey glass and lead tint on the furrows), and grade the exposure.
