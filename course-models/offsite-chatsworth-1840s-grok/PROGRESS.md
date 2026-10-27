@@ -10,3 +10,11 @@
 ## ch02 (2026-10-27): quality pass — warmer glass/iron, lit lily pads
 - Warmer darker iron/paint; glass tint; world strength 0.28 + haze; lily AREA fill + leaf emit; exposure −0.15.
 - DEPARTURES CH03. Checks pass; renders/ch02/.
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root

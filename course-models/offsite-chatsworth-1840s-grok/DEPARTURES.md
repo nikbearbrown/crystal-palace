@@ -14,3 +14,6 @@
 | ID | Change | Why | Grade |
 |---|---|---|---|
 | CH03 | Warmer glass/iron (iron 0.07, paint cream 0.62/0.55/0.42, glass tint mix 0.14); world strength 0.28 + haze; lily fill AREA + leaf emit; exposure −0.15 | Review: bleached studio look; lily pads underlit | B |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
