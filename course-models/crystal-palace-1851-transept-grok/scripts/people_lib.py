@@ -1,4 +1,4 @@
-"""crystal-palace-people v3.2 — HBM base humans + period-correct modelled garments.
+"""crystal-palace-people v3.3 — HBM base humans + period-correct modelled garments.
 
 Drop-in API (compatible with v2 callers):
   person_mesh(name, kind, mats, FT=0.3048, style=None, pose=None, lod=None, seed=None)
@@ -10,6 +10,7 @@ decimated LODs under people/vendor/bases/. Garments are modelled shells
 police tunic) — not lathe primitives. Proportions: head ~1/7.5 height;
 1850s crowd height 5'0"–5'10". Matte period colours; no white hats.
 Crowd mix: ~42% ladies; crinoline hem ~0.9–1.0 m with waist taper; mid-tone skirts.
+Exclude statues/sculptures/busts and any figure on a plinth or pedestal (keep authored marble/bronze).
 """
 from __future__ import annotations
 import hashlib, math, os, random
@@ -20,7 +21,7 @@ import bpy
 import bmesh
 from mathutils import Matrix, Vector, Euler
 
-PEOPLE_VERSION = "3.2"
+PEOPLE_VERSION = "3.3"
 PEOPLE_TAG = "cpl_people_v3"
 
 _HERE = Path(__file__).resolve().parent
@@ -1173,16 +1174,120 @@ def catalogue():
 # ---------------------------------------------------------------------------
 
 _FIGURE_PREFIXES = (
-    "CROWD", "VIS_", "PERSON", "FIG_", "FIGURE", "PEOPLE", "GENT", "LADY",
+    "CROWD", "VIS_", "PERSON", "FIG_", "PEOPLE", "GENT", "LADY",
     "MAN_", "WOMAN", "CHILD", "BOY_", "GIRL", "POLICE", "SAILOR", "SOLDIER",
     "KWORKER", "WORKER", "NAVY", "FIRE", "GUEST", "STAFF",
     "FB_HERO", "FB_VAR", "PV57_", "CROWD36", "LFB_",
 )
+# Note: bare "FIGURE" removed — it false-matched STATUE_*_FIGURE names.
 _FIGURE_KINDS = {"figure", "worker", "crowd", "person", "human", "visitor"}
+_STATUE_KINDS = {"statue", "sculpture", "sculpt", "bust", "plinth", "pedestal",
+                 "monument", "equestrian", "relief", "ornament"}
+_STATUE_NAME_TOKENS = (
+    "STATUE", "SCULPT", "SCULPTURE", "EQUEST", "BUST_", "_BUST",
+    "MONUMENT", "RELIEF_", "MARBLE_FIG", "BRONZE_FIG",
+)
+_STATUE_MAT_TOKENS = ("gt_marble", "gt_bronze", "marble", "bronze")
+_CLOTHING_MAT_TOKENS = ("coat", "dress", "skirt", "trou", "skin", "hat", "bonnet",
+                        "shawl", "bodice", "smock", "shirt", "waist")
+_PLINTH_NAME_TOKENS = ("PLINTH", "PEDESTAL", "PEDEST")
+
+
+def _mats_blob(ob: bpy.types.Object) -> str:
+    if ob.type != "MESH" or not ob.data:
+        return ""
+    return " ".join((m.name or "").lower() for m in (ob.data.materials or []) if m)
+
+
+def _name_is_statue(name: str) -> bool:
+    n = name.upper()
+    if any(tok in n for tok in _STATUE_NAME_TOKENS):
+        return True
+    # sculpture groups (equestrian / marble groups) — not crowd
+    if n.startswith("GROUP_") and any(t in n for t in ("HORSE", "EQUEST", "M38", "SCULPT", "STATUE")):
+        return True
+    return False
+
+
+def _has_statue_material(ob: bpy.types.Object) -> bool:
+    mats = _mats_blob(ob)
+    if not mats:
+        return False
+    if any(c in mats for c in _CLOTHING_MAT_TOKENS):
+        return False
+    return any(t in mats for t in _STATUE_MAT_TOKENS)
+
+
+_PLINTH_CACHE = None  # list[(obj, loc, top_z)] rebuilt per swap
+
+
+def _plinth_cache():
+    global _PLINTH_CACHE
+    if _PLINTH_CACHE is not None:
+        return _PLINTH_CACHE
+    out = []
+    for p in bpy.data.objects:
+        if p.type != "MESH":
+            continue
+        pn = p.name.upper()
+        if not any(t in pn for t in _PLINTH_NAME_TOKENS):
+            continue
+        pl = p.matrix_world.translation
+        out.append((p, pl, pl.z + max(p.dimensions.z, 0.05)))
+    _PLINTH_CACHE = out
+    return out
+
+
+def _rests_on_plinth(ob: bpy.types.Object) -> bool:
+    """True if parent/name is a plinth/pedestal, or a plinth sits under the object's feet."""
+    n = ob.name.upper()
+    if any(t in n for t in _PLINTH_NAME_TOKENS):
+        # the plinth mesh itself is not a crowd figure
+        return True
+    parent = ob.parent
+    if parent is not None:
+        pn = parent.name.upper()
+        if any(t in pn for t in _PLINTH_NAME_TOKENS) or _name_is_statue(parent.name):
+            return True
+    # geometric: plinth within 2.5 m XY whose top is near object origin Z
+    loc = ob.matrix_world.translation
+    for p, pl, top_z in _plinth_cache():
+        if p is ob:
+            continue
+        dxy = (pl.x - loc.x) ** 2 + (pl.y - loc.y) ** 2
+        if dxy > 6.25:  # 2.5^2
+            continue
+        if abs(top_z - loc.z) < 0.75 or (pl.z < loc.z and (loc.z - top_z) < 0.4):
+            return True
+    return False
+
+
+def _is_statue_or_plinth_figure(ob: bpy.types.Object) -> bool:
+    """Authored marble/bronze statues and any figure standing on a plinth/pedestal."""
+    if ob.type != "MESH":
+        return False
+    pk = (ob.get("part_kind") or ob.get("kind") or "").lower()
+    if pk in _STATUE_KINDS:
+        return True
+    if _name_is_statue(ob.name):
+        return True
+    if _has_statue_material(ob) and (
+        _rests_on_plinth(ob) or ob.matrix_world.translation.z > 1.0
+    ):
+        return True
+    # crowd/person proxies that were placed on a plinth must stay authored
+    if _rests_on_plinth(ob) and pk in _FIGURE_KINDS.union({"", "statue"}):
+        # Only treat as statue if elevated / marble-ish / statue-named sibling
+        if ob.matrix_world.translation.z > 0.9 or _has_statue_material(ob):
+            return True
+    return False
 
 
 def _is_figure(ob: bpy.types.Object) -> bool:
     if ob.type != "MESH":
+        return False
+    # Never swap statues, sculptures, or figures on plinths/pedestals
+    if _is_statue_or_plinth_figure(ob):
         return False
     if ob.get("cpl_people") in (PEOPLE_TAG, "cpl_people_v2", "cpl_people_v1"):
         return True
@@ -1223,6 +1328,8 @@ def _infer_pose(ob, seed: int) -> str:
 def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
                       max_hero: int = 10, max_mid: int = 60) -> Dict[str, Any]:
     """Replace baked lathe/v2 figures with v3 HBM+garment people. Does not save."""
+    global _PLINTH_CACHE
+    _PLINTH_CACHE = None  # rebuild for this blend
     figs = [o for o in bpy.data.objects if _is_figure(o)]
     if not figs:
         return {"swapped": 0, "version": PEOPLE_VERSION}
