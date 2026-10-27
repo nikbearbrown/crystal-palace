@@ -53,3 +53,6 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2 keep-lighting: keep CP020/CP021; revert CP018/019/022/027
+
+## CP028 CANDIDATE (2026-10-27)
+- **CP028 CANDIDATE:** `scripts/polish_cp028_cand.py` → `rounds/candidates/h03_cp028.blend` + `renders/candidates/CP028_louvre_start.png` (thick louvres/battens). Live `h03` untouched. Pair: survey `look/pairs_geo/CANDIDATE_CP028_louvre_start_pair.png`.
