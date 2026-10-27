@@ -1,4 +1,4 @@
-"""crystal-palace-people v3.1 — HBM base humans + period-correct modelled garments.
+"""crystal-palace-people v3.2 — HBM base humans + period-correct modelled garments.
 
 Drop-in API (compatible with v2 callers):
   person_mesh(name, kind, mats, FT=0.3048, style=None, pose=None, lod=None, seed=None)
@@ -9,7 +9,7 @@ decimated LODs under people/vendor/bases/. Garments are modelled shells
 (frock coat with tails, top hat, crinoline, bodice, bonnet, shawl, smock,
 police tunic) — not lathe primitives. Proportions: head ~1/7.5 height;
 1850s crowd height 5'0"–5'10". Matte period colours; no white hats.
-Crowd mix: ~58% ladies (wide crinoline) so silhouettes read at mid-distance.
+Crowd mix: ~42% ladies; crinoline hem ~0.9–1.0 m with waist taper; mid-tone skirts.
 """
 from __future__ import annotations
 import hashlib, math, os, random
@@ -20,7 +20,7 @@ import bpy
 import bmesh
 from mathutils import Matrix, Vector, Euler
 
-PEOPLE_VERSION = "3.1"
+PEOPLE_VERSION = "3.2"
 PEOPLE_TAG = "cpl_people_v3"
 
 _HERE = Path(__file__).resolve().parent
@@ -87,9 +87,9 @@ _COATS = [
     (0.07, 0.07, 0.06), (0.08, 0.08, 0.09),
 ]
 _SKIRTS = [
-    (0.28, 0.12, 0.14), (0.12, 0.18, 0.28), (0.34, 0.28, 0.20),
-    (0.16, 0.20, 0.14), (0.26, 0.14, 0.22), (0.30, 0.24, 0.14),
-    (0.14, 0.14, 0.18), (0.36, 0.30, 0.24),
+    (0.52, 0.34, 0.36), (0.38, 0.44, 0.55), (0.55, 0.48, 0.38),
+    (0.42, 0.48, 0.40), (0.50, 0.36, 0.44), (0.54, 0.46, 0.34),
+    (0.40, 0.40, 0.46), (0.58, 0.52, 0.44),
 ]
 _TROUS = [(0.08, 0.08, 0.10), (0.12, 0.11, 0.10), (0.06, 0.07, 0.10)]
 _SKINS = [(0.62, 0.46, 0.38), (0.48, 0.34, 0.28), (0.70, 0.55, 0.44), (0.40, 0.28, 0.22)]
@@ -609,12 +609,12 @@ def build_smock(bm, L, shoulder_w, mat=0, seg=12):
 
 
 def build_bodice(bm, L, shoulder_w, mat=0, seg=12):
-    """Fitted women's bodice — shoulder to waist, not a bell."""
+    """Fitted women's bodice — clear shoulder → chest → pinched waist."""
     sw = shoulder_w * 0.52
     profile = [
-        (sw * 0.5, sw * 0.4, L["shoulder"] + 0.01),
-        (sw * 0.95, sw * 0.7, L["chest"]),
-        (sw * 0.72, sw * 0.58, L["waist"] + 0.02),
+        (sw * 0.48, sw * 0.38, L["shoulder"] + 0.01),
+        (sw * 0.92, sw * 0.68, L["chest"]),
+        (sw * 0.58, sw * 0.48, L["waist"] + 0.02),  # strong waist taper
     ]
     _lathed_shell(bm, profile, seg=seg, mat=mat)
     for sign in (-1.0, 1.0):
@@ -638,17 +638,16 @@ def build_sleeves_only(bm, L, shoulder_w, mat=0, seg=6, length=0.85):
 
 
 def build_crinoline(bm, L, mat=0, seg=16):
-    """Full 1850s bell crinoline: waist to floor, wide elliptical hem."""
+    """1850s crinoline: pinched waist → A-line → ~0.9–1.0 m hem (not a squat blob)."""
     z0 = L["waist"]
     z1 = max(L["z0"] + 0.01, L["ankle"] - 0.01)  # floor-length
-    waist_rx, waist_ry = 0.14, 0.12
-    # Full bell ~1.2–1.3 m across at hem (reads at mid-distance)
-    hem_rx, hem_ry = 0.58, 0.50
-    mid_z = z0 + 0.45 * (z1 - z0)
+    waist_rx, waist_ry = 0.12, 0.10
+    # ~0.9–1.0 m across at hem
+    hem_rx, hem_ry = 0.48, 0.42
     profile = [
         (waist_rx, waist_ry, z0),
-        (waist_rx * 1.8, waist_ry * 1.6, z0 + 0.18 * (z1 - z0)),
-        (hem_rx * 0.88, hem_ry * 0.88, mid_z),
+        (waist_rx * 1.35, waist_ry * 1.25, z0 + 0.22 * (z1 - z0)),  # hip
+        (hem_rx * 0.78, hem_ry * 0.78, z0 + 0.55 * (z1 - z0)),      # mid flare
         (hem_rx, hem_ry, z1),
     ]
     rings = _lathed_shell(bm, profile, seg=seg, mat=mat)
@@ -993,18 +992,29 @@ def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
     # Fitted shells from the HBM body (shrinkwrap-style) + modelled volume extras.
     # garment mat slots: 0=main, 1=sec, 2=hat, 3=trim
     if is_lady:
-        if is_1890:
+        if is_1930:
+            # mid-calf 1930s coat / day dress — no crinoline
+            add_shell(L["ankle"] + 0.05, L["shoulder"] + 0.03, 0.022, 1.08, 0)
+            build_sleeves_only(bm, L, sw, mat=0, seg=max(6, seg // 2), length=0.7)
+            build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)  # cloche stand-in
+            build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
+        elif is_1890:
             build_bustle_skirt(bm, L, mat=0, seg=seg)
             build_boater(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
+            add_shell(L["waist"] - 0.005, L["shoulder"] + 0.03, 0.016, 1.05, 1)
+            build_sleeves_only(bm, L, sw, mat=1, seg=max(6, seg // 2), length=0.7)
+            if seed % 5 != 1:
+                build_shawl(bm, L, sw, mat=3)
+            build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
         else:
             build_crinoline(bm, L, mat=0, seg=max(seg, 16))
             build_bonnet(bm, L["chin"], L["crown"], head_r, mat=2, seg=seg)
-        # fitted bodice shell following the female HBM torso
-        add_shell(L["waist"] - 0.005, L["shoulder"] + 0.03, 0.016, 1.05, 1)
-        build_sleeves_only(bm, L, sw, mat=1, seg=max(6, seg // 2), length=0.7)
-        if seed % 5 != 1:
-            build_shawl(bm, L, sw, mat=3)
-        build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
+            # fitted bodice shell following the female HBM torso
+            add_shell(L["waist"] - 0.005, L["shoulder"] + 0.03, 0.016, 1.05, 1)
+            build_sleeves_only(bm, L, sw, mat=1, seg=max(6, seg // 2), length=0.7)
+            if seed % 5 != 1:
+                build_shawl(bm, L, sw, mat=3)
+            build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
     elif is_police:
         add_shell(L["hip"] + 0.02, L["shoulder"] + 0.04, 0.022, 1.08, 0)
         build_frock_tails_and_sleeves(bm, L, sw * 0.9, mat=0, seg=seg)
@@ -1024,7 +1034,9 @@ def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
         build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_1930:
-        add_shell(L["hip"] + 0.02, L["shoulder"] + 0.03, 0.020, 1.06, 0)
+        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.014, 1.06, 1)  # trousers
+        add_shell(L["hip"] - 0.04 * L["h"], L["shoulder"] + 0.03, 0.022, 1.08, 0)  # mid-thigh coat
+        build_sleeves_only(bm, L, sw, mat=0, seg=max(6, seg // 2), length=0.7)
         build_trilby(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_today:
@@ -1164,6 +1176,7 @@ _FIGURE_PREFIXES = (
     "CROWD", "VIS_", "PERSON", "FIG_", "FIGURE", "PEOPLE", "GENT", "LADY",
     "MAN_", "WOMAN", "CHILD", "BOY_", "GIRL", "POLICE", "SAILOR", "SOLDIER",
     "KWORKER", "WORKER", "NAVY", "FIRE", "GUEST", "STAFF",
+    "FB_HERO", "FB_VAR", "PV57_", "CROWD36", "LFB_",
 )
 _FIGURE_KINDS = {"figure", "worker", "crowd", "person", "human", "visitor"}
 
@@ -1187,10 +1200,15 @@ def _infer_kind(ob) -> str:
         return "workman"
     if "police" in n: return "police"
     if "lady" in n or "woman" in n or "girl" in n: return "lady"
-    if "sailor" in n: return "sailor"
-    if "fire" in n: return "fireman"
-    if "soldier" in n: return "soldier"
+    if "sailor" in n or "rating" in n: return "sailor"
+    if "fire" in n or "lfb" in n: return "fireman"
+    if "soldier" in n or "yeoman" in n or "courtier" in n: return "soldier"
     if "boy" in n: return "boy"
+    # football / skirt-material heroes
+    if "fb_hero" in n or "fb_var" in n:
+        mats = " ".join((m.name if m else "") for m in (ob.data.materials if ob.type == "MESH" else [])).lower()
+        if "skirt" in mats or "bodice" in mats or "dress" in mats:
+            return "lady"
     return "man"
 
 
@@ -1232,8 +1250,8 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
         # 1850s Victorian crowd: force ≥40% ladies when figure is anonymous "man"
         era_l = (era or "").lower()
         if kind == "man" and ("1850" in era_l or era_l in ("1851", "1850s")):
-            # deterministic: ~58% ladies so crinolines read at mid-distance
-            if (rng_seed % 100) < 58:
+            # deterministic: ~42% ladies (40–45%); rest gentlemen / workmen
+            if (rng_seed % 100) < 42:
                 kind = "lady"
             elif (rng_seed % 100) >= 88:
                 kind = "workman"  # ~12% workmen in anonymous crowd
@@ -1269,3 +1287,239 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
 
     return {"swapped": swapped, "version": PEOPLE_VERSION, "cache": len(_MESH_CACHE),
             "era": era}
+
+
+
+def _role_pose_for_template(name: str, era: str, seed: int = 0):
+    """Map a PPL57 / FB_Var template name to (role, pose) for the given era."""
+    n = name.lower()
+    pose = "seated" if ("_se_" in n or "man_se" in n or "woman_se" in n) else "standing"
+    if any(k in n for k in ("woman", "queen", "chorus_w", "lady", "girl")):
+        kind = "lady"
+    elif "navvy" in n:
+        kind = "workman"
+    elif "rating" in n or "sailor" in n:
+        kind = "sailor"
+    elif any(k in n for k in ("yeoman", "courtier", "soldier")):
+        kind = "soldier"
+    elif "fire" in n or "lfb" in n:
+        kind = "fireman"
+    elif "police" in n:
+        kind = "police"
+    elif "var" in n:
+        # FB_Var odd indices historically shorter (women)
+        kind = "lady" if (seed % 2 == 1) else "man"
+    else:
+        kind = "man"
+    # Victorian open crowds: keep ~40%+ crinolines via lady share already in templates
+    role = resolve_role(kind, {}, era=era)
+    return role, pose
+
+
+def swap_ppl57_templates(era: str = "1850s", lod: str = "crowd",
+                         seed: int = 0) -> Dict[str, Any]:
+    """Replace meshes in PPL57_templates / FB_VARIANTS with people v3.1.
+    GN Instance-on-Points crowds pick up the new meshes. Does not save."""
+    cols = []
+    for nm in ("PPL57_templates__instanced_not_rendered", "FB_VARIANTS"):
+        c = bpy.data.collections.get(nm)
+        if c:
+            cols.append(c)
+    # also catch loose pv57_* / FB_Var_* not in those collections
+    objs = []
+    seen = set()
+    for c in cols:
+        for o in c.objects:
+            if o.type == "MESH" and o.name not in seen:
+                objs.append(o); seen.add(o.name)
+    for o in bpy.data.objects:
+        if o.type != "MESH" or o.name in seen:
+            continue
+        if o.name.startswith(("pv57_", "FB_Var_")):
+            objs.append(o); seen.add(o.name)
+    if not objs:
+        return {"templates": 0, "version": PEOPLE_VERSION, "era": era}
+
+    n = 0
+    roles_used = {}
+    for i, ob in enumerate(objs):
+        rng = seed + int(hashlib.md5(ob.name.encode()).hexdigest()[:6], 16)
+        # FB_Var: use index parity for sex when name has no cue
+        role, pose = _role_pose_for_template(ob.name, era, seed=rng)
+        # Prefer mid LOD for first ~8 templates (near-camera heroes via pick)
+        use_lod = "mid" if i < 8 else lod
+        key = (role, pose, use_lod, rng % 24)
+        me = _MESH_CACHE.get(key)
+        if me is None:
+            body = _build_person(role, pose, use_lod, rng)
+            me = body.data
+            _MESH_CACHE[key] = me
+            bpy.data.objects.remove(body, do_unlink=True)
+        ob.data = me
+        ob.scale = (1, 1, 1)
+        ob["cpl_people"] = PEOPLE_TAG
+        ob["cpl_role"] = role
+        ob["cpl_lod"] = use_lod
+        roles_used[role] = roles_used.get(role, 0) + 1
+        n += 1
+    return {"templates": n, "version": PEOPLE_VERSION, "era": era,
+            "roles": roles_used, "cache": len(_MESH_CACHE)}
+
+
+def swap_merged_crowd_blocks(era: str = "1930s", lod: str = "crowd",
+                             prefixes: Tuple[str, ...] = (
+                                 "crowd36_", "lfb_firemen", "police_line",
+                             ),
+                             seed: int = 1936,
+                             max_per_block: int = 40) -> Dict[str, Any]:
+    """Rebuild dress36-style merged crowd meshes with people v3.1 figures.
+    Shared mesh datablocks are rebuilt once. Does not save."""
+    targets = [o for o in bpy.data.objects
+               if o.type == "MESH" and any(o.name.startswith(p) for p in prefixes)]
+    if not targets:
+        return {"blocks": 0, "version": PEOPLE_VERSION, "era": era}
+
+    # group by mesh datablock
+    by_me: Dict[bpy.types.Mesh, list] = {}
+    for o in targets:
+        by_me.setdefault(o.data, []).append(o)
+
+    rebuilt = 0
+    figures = 0
+    for old_me, obs in by_me.items():
+        # estimate person count from verts (lathe ~200-250 v/person) or custom prop
+        n_est = obs[0].get("people_count") or max(8, min(max_per_block, len(old_me.vertices) // 220))
+        n_est = int(n_est)
+        # footprint from dimensions of first object
+        ob0 = obs[0]
+        dim = ob0.dimensions
+        w = max(float(dim.x), 2.0)
+        d = max(float(dim.y), 2.0)
+        # build joined crowd in local space centred on origin (object loc carries world)
+        bm = bmesh.new()
+        mat_offset = 0
+        mats_all = []
+        rng = random.Random(seed + int(hashlib.md5(old_me.name.encode()).hexdigest()[:6], 16))
+        kind_default = "fireman" if "lfb" in ob0.name.lower() or "fire" in ob0.name.lower() else (
+            "police" if "police" in ob0.name.lower() else "man")
+        for i in range(n_est):
+            if kind_default in ("fireman", "police"):
+                kind = kind_default
+            else:
+                kind = "lady" if rng.random() < 0.42 else "man"
+            role = resolve_role(kind, {}, era=era)
+            pose = "standing"
+            key = (role, pose, lod, (seed + i) % 24)
+            me = _MESH_CACHE.get(key)
+            if me is None:
+                body = _build_person(role, pose, lod, seed + i * 17)
+                me = body.data
+                _MESH_CACHE[key] = me
+                bpy.data.objects.remove(body, do_unlink=True)
+            # append mesh verts with XY jitter in local footprint
+            ox = rng.uniform(-w / 2, w / 2)
+            oy = rng.uniform(-d / 2, d / 2)
+            rz = rng.uniform(-0.5, 0.5)
+            # material remap: append materials then shift indices
+            base_mi = len(mats_all)
+            for m in me.materials:
+                mats_all.append(m)
+            import mathutils
+            R = mathutils.Matrix.Rotation(rz, 4, "Z")
+            T = mathutils.Matrix.Translation((ox, oy, 0.0))
+            M = T @ R
+            # bmesh from me
+            bm_src = bmesh.new()
+            bm_src.from_mesh(me)
+            bmesh.ops.transform(bm_src, matrix=M, verts=bm_src.verts)
+            # remap material indices
+            for f in bm_src.faces:
+                f.material_index = base_mi + f.material_index
+            # merge into bm
+            bm_src.verts.ensure_lookup_table()
+            vert_map = {}
+            for v in bm_src.verts:
+                vert_map[v.index] = bm.verts.new(v.co)
+            bm.verts.ensure_lookup_table()
+            for f in bm_src.faces:
+                try:
+                    nf = bm.faces.new([vert_map[v.index] for v in f.verts])
+                    nf.material_index = f.material_index
+                except ValueError:
+                    pass
+            bm_src.free()
+            figures += 1
+        new_me = bpy.data.meshes.new(old_me.name + "_v31")
+        # Materials MUST be on the mesh before to_mesh, or Blender clamps
+        # every face.material_index to 0 (all-skin clay look).
+        for m in mats_all:
+            new_me.materials.append(m)
+        bm.to_mesh(new_me)
+        bm.free()
+        # Re-assert slots (to_mesh can leave them empty on some builds)
+        if len(new_me.materials) < len(mats_all):
+            new_me.materials.clear()
+            for m in mats_all:
+                new_me.materials.append(m)
+        for o in obs:
+            o.data = new_me
+            o["cpl_people"] = PEOPLE_TAG
+            o["cpl_era"] = era
+        rebuilt += 1
+
+    return {"blocks": rebuilt, "figures": figures, "version": PEOPLE_VERSION,
+            "era": era, "objects": len(targets)}
+
+
+def adopt_people_v31(era: str = "1850s", camera=None, seed: int = 0) -> Dict[str, Any]:
+    """Full Sydenham/football adopt: templates + merged blocks + FB_Hero figures.
+    Does not broadly rewrite every mesh that matches figure prefixes (avoids
+    cast bases / props). Does not save the .blend."""
+    out = {"version": PEOPLE_VERSION, "era": era}
+    out["templates"] = swap_ppl57_templates(era=era, lod="crowd", seed=seed)
+    out["merged"] = swap_merged_crowd_blocks(era=era, seed=seed)
+    # Tag FB_Hero_* then swap only those (plus already-tagged cpl_people heroes)
+    heroes = [o for o in bpy.data.objects
+              if o.type == "MESH" and o.name.startswith("FB_Hero")]
+    for o in heroes:
+        o["part_kind"] = "figure"
+        # sex cue for skirt mats
+        mats = " ".join((m.name if m else "") for m in o.data.materials).lower()
+        if "skirt" in mats or "bodice" in mats:
+            o["cpl_kind_hint"] = "lady"
+    # narrow swap: temporarily only consider FB_Hero + cpl-tagged non-templates
+    # Only individual football heroes — never re-swap merged crowd36 / template objs
+    figs = [o for o in bpy.data.objects
+            if o.type == "MESH" and o.name.startswith("FB_Hero")]
+    swapped = 0
+    if figs:
+        cam = camera or bpy.context.scene.camera
+        cam_loc = cam.matrix_world.translation if cam else Vector((0, 0, 1.6))
+        dists = sorted(((o.matrix_world.translation - cam_loc).length, o) for o in figs)
+        for i, (d, ob) in enumerate(dists):
+            lod = "hero" if i < 12 else ("mid" if i < 36 else "crowd")
+            rng_seed = seed + int(hashlib.md5(ob.name.encode()).hexdigest()[:6], 16)
+            kind = "lady" if ob.get("cpl_kind_hint") == "lady" else _infer_kind(ob)
+            era_l = (era or "").lower()
+            if kind == "man" and ("1850" in era_l or era_l in ("1851", "1850s", "1890", "1890s")):
+                if (rng_seed % 100) < 40:
+                    kind = "lady"
+            pose = "standing"
+            role = resolve_role(kind, {}, era=era)
+            key = (role, pose, lod, rng_seed % 24)
+            me = _MESH_CACHE.get(key)
+            if me is None:
+                body = _build_person(role, pose, lod, rng_seed)
+                me = body.data
+                _MESH_CACHE[key] = me
+                bpy.data.objects.remove(body, do_unlink=True)
+            mw = ob.matrix_world.copy()
+            ob.data = me
+            ob.matrix_world = mw
+            ob.scale = (1, 1, 1)
+            ob["cpl_people"] = PEOPLE_TAG
+            ob["cpl_role"] = role
+            ob["cpl_lod"] = lod
+            swapped += 1
+    out["heroes"] = {"swapped": swapped, "version": PEOPLE_VERSION, "era": era}
+    return out
