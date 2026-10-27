@@ -40,3 +40,7 @@ Units in the scripts are feet. Coordinates: +X runs east along the lake, +Y is n
 ## r02b (2026-10-27)
 - Dinner evening override in hero render (world 0.015, sun 0.02); marquee/chandelier glow already in build.
 - CP043b further back/higher from S-bank (build.py).
+
+## set_v18 CP043 lake islands (2026-10-27)
+
+- **D-DINO-01 I** CP043 grass/rock/bank/foliage + Hawkins paint mats rebuilt with high-contrast object-space noise + bump; lake water transmission/roughness tightened for sharper reflections. `KEEP_LIGHTING` (exposure −1.4). Hero `renders/r03/r03_CAM_CP043_lake_islands_35mm.png` from `rounds/dinosaurs-1854-r03b.blend`. KEEP by eye vs r01 flat turf / soft water.
