@@ -65,3 +65,6 @@ inference from a period image; C = staging judgement for the film (labelled as s
 | CN40 | C | Spoil heaps: radial sin displacement on frustum verts | Smooth cones read as CGI; still volume-correct (K23). |
 | CN41 | C | Pane edge band (emissive rim GT_PaneEdge) on 49×10 sheets | Sheets vanished at 50 mm against sky; rim catches light. |
 | CN42 | B | CP016_wheels cam on roof-edge scaffold (deck 24, eye 29.25) looking at SW wagon wheel | Close-up of Muse 0174 tyre/spoke; K15/K16 require scaffold standing surface. |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.

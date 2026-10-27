@@ -135,3 +135,11 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
 ## c06 (2026-10-27): rough spoil, pane edge catchlights, CP016 wheel close-up
 - Build: `rounds/c06.blend`. Checks: 32/32.
 - Lean renders: `renders/c06` — CP010_foundations, CP016_trolley, CP016_wheels (24 spp).
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root
