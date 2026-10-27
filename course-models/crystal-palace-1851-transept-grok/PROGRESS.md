@@ -17,3 +17,13 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
 - r04: elm branches clamped to the vault/column envelope (checks 38/38). Renders launched: /tmp/r04.log
 - r04 renders done (1280x720, 48 spp). Compare sheets: compare/r04_*.jpg. Self-score r04: 6.5/10. Frame, vault and fan read; the elms read as umbrella pines; the Plate VII sheet is mis-framed; the combo has a dark band beyond the ground plane.
 - r05: elm lower limbs (checks 38/38). Renders launched -> /tmp/r05.log. Script now has an 18,000 ft ground plane and a wider ortho (for r06).
+- r05 renders and compare sheets done. Self-score r05: 7/10.
+  - Good: the elms now read as broad-leaved park trees, the vault, fan and ridge-and-furrow read, and all 38 checks pass.
+  - Misses:
+    - The CP017 stop is too close: the canopy fills the frame, so the roof clearance is not readable.
+    - The leaf cards are too large up close.
+    - The fan glass washes out against the sky (the Talbot view shows a dark fan).
+    - The Plate VII sheet is partial.
+    - No fountain or exhibits.
+    - Colours are neutral.
+- Next (r06): move the CP017 end stop to about y=-162 and aim it at the canopy edge and the vault gap; halve the card size near the cameras; darken the end-screen glass and bars; build the Osler fountain; add the arm galleries.
