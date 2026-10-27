@@ -41,3 +41,7 @@ Branch grok-dismantle-1851, from transept r09 (0b64c06) plus a merge of exterior
   - Add a maul head and an arm pose.
   - Move the horse clear of the girder.
   - Use the r10 figure styles (frock coats, caps) for the workmen.
+
+## Backlog (parked 2026-10-26)
+- d04 parked by Professor Bear's instruction: polish rounds now give diminishing returns; work moved to unbuilt sets (HP-SITE, MOVE+K-JOINT).
+- Parked d04 items: warm dusk world colour; maul head/arm pose; horse clear of girder; r10 figure styles for workmen.
