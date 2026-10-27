@@ -381,3 +381,18 @@ Cumulative Sydenham people KEEP still held from v3.1: **CP044, CP054, CP060**.
 - **D-R18-P1 I** Park trees: bark/leaf noise mats + 3 secondary canopy icospheres per crown; grass/gravel noise; central-walk kerbs.
 - **D-R18-P2 R** Water towers remain visible (1936 pre-fire dated). Heavy foreground asphalt strip from first pass removed in r18b (dominated frame).
 - Hero: `renders/r18_1936_CAM_CP001_prologue_distant_35mm.png` from `rounds/sydenham-1936-r18b.blend`. KEEP vs r12 schematic trees.
+
+## S67 CANDIDATE — CP047 / CP048 (1866–67 north-transept fire scar)
+
+Evidence: muse-round2 S67 (ILN 1867-01-05 fire engraving/report; ILN 1867-01-12 ruins of north
+transept with Abu Simbel colossi amid warped iron; ground plan tinted fire extent).
+
+| Change | Class | Note |
+| --- | --- | --- |
+| Removed leftover `frame_SY_north_transept__lost1866` stub that survived into post66-r10 | R | POST66 must not keep north-transept fabric (aerial / Park Trust) |
+| Scorched ground pad + warped iron remnants + rubble on former N-transept footprint (x≈150–172) | I | density/heights I; pose language from S67 engraving (curved girders) |
+| Charred blanking faces on N/S of former bay | I | temporary/fire-scarred cut, not a rebuilt elevation drawing |
+| Soot-darkened materials on adjacent nave iron in fire zone | I | adjacent fabric sooted, not rebuilt |
+| Colossi not re-placed in POST66 | R | crystal.dircon: survived fire but not re-erected in the transept; S67 shows them in the *immediate* ruins only |
+
+Blend: `rounds/sydenham-post66-s67-cand.blend`. Live starts untouched. Matched BEFORE remains EARLY r10final/r16 CP047/CP048.
