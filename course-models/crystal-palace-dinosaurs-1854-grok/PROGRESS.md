@@ -30,3 +30,7 @@
 - `dinosaurs-1854-r02.blend` (~5.7 MB).
 - Lean heroes → `renders/r02/r02_CAM_CP{043,043b,034b}_*.png` (dinner evening avg ~140,121,94).
 - Local commit. NOT pushed.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root
