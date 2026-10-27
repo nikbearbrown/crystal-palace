@@ -1,0 +1,127 @@
+{
+  "frame": "Claude's frame: feet here, converted to metres at build; origin crossing centre, X east, Y north; eye 1.6 m = 5.25 ft",
+  "shots": [
+    {
+      "id": "EXT_SE_34",
+      "lens_mm": 28,
+      "use": "three-quarter from the south-east lawn at eye height: south front east half + east end (Plates IV, V)",
+      "start": {
+        "pos_ft": [
+          1130,
+          -470,
+          5.25
+        ],
+        "look_ft": [
+          560,
+          -170,
+          36
+        ]
+      }
+    },
+    {
+      "id": "EXT_east_end",
+      "lens_mm": 35,
+      "use": "east end on axis from the park at eye height (Plate V elevation, perspective)",
+      "start": {
+        "pos_ft": [
+          1420,
+          -30,
+          5.25
+        ],
+        "look_ft": [
+          924,
+          0,
+          38
+        ]
+      }
+    },
+    {
+      "id": "EXT_NE_strip",
+      "lens_mm": 35,
+      "use": "north side from the north-east: north strip (D05) and the stepped tiers behind",
+      "start": {
+        "pos_ft": [
+          520,
+          760,
+          5.25
+        ],
+        "look_ft": [
+          -120,
+          240,
+          28
+        ]
+      }
+    },
+    {
+      "id": "EXT_int_east_nave",
+      "lens_mm": 28,
+      "use": "inside the east nave looking west toward the transept (eye height)",
+      "start": {
+        "pos_ft": [
+          860,
+          -14,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          0,
+          34
+        ]
+      }
+    },
+    {
+      "id": "PLATE_V_east_ortho",
+      "lens_mm": 50,
+      "ortho_m": 135,
+      "use": "review: orthographic east elevation, compare Plate V; clip_end 900 ft cuts the scene at x=700 ft so only the east end reads, like the drawing (EX18)",
+      "start": {
+        "pos_ft": [
+          1600,
+          0,
+          34
+        ],
+        "look_ft": [
+          0,
+          0,
+          34
+        ]
+      },
+      "clip_end_ft": 900
+    },
+    {
+      "id": "PLATE_IV_full_south_ortho",
+      "lens_mm": 50,
+      "ortho_m": 580,
+      "use": "review: orthographic full south elevation, compare Plate IV",
+      "start": {
+        "pos_ft": [
+          0,
+          -1600,
+          50
+        ],
+        "look_ft": [
+          0,
+          0,
+          50
+        ]
+      }
+    },
+    {
+      "id": "REF_aerial_SE",
+      "lens_mm": 35,
+      "use": "review only (not a storyboard shot): aerial from the south-east, whole building",
+      "start": {
+        "pos_ft": [
+          1080,
+          -1020,
+          380
+        ],
+        "look_ft": [
+          -120,
+          40,
+          0
+        ]
+      }
+    }
+  ]
+}
