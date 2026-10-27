@@ -63,3 +63,6 @@ Grades:
 | FT44 | New `--state empty` (CP030): strip dressing/exhibits; packing crates + sparse packers; pale winter sun | Gap: palace without exhibition | B |
 | FT45 | New `--state dismantle` (CP031): shores, girder/sash/column stacks, hero joint with pins withdrawn, sky-open bay | Gap: undoing the assembly | B |
 | FT46 | empty/dismantle dims: DRESS_* / PROPS_muse fail by design (no HP51 dressing); state checks 19/19 and 15/15 | Expected for stripped states | A |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.

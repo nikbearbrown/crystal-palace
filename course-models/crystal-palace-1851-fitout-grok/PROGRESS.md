@@ -39,3 +39,11 @@ Branch `grok-fitout-1851` (worktree /workspace/crystal-palace-fitout). Local com
 - DEPARTURES FT44–FT45.
 - Checks: em01 state 19/19; dm01 state 15/15 (dims DRESS fails expected).
 - Renders: renders/em01/CP030_*; renders/dm01/CP031_*.
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root
