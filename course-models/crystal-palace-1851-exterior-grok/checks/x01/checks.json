@@ -1,0 +1,292 @@
+[
+ {
+  "id": "D01",
+  "check": "building length, end wall to end wall (column centrelines)",
+  "target": 1848.0,
+  "tolerance": 1.0,
+  "measured": 1848.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Downes D01, Plate I/IV: 1848 ft"
+ },
+ {
+  "id": "D02a",
+  "check": "tier-1 width between its outer side walls",
+  "target": 408,
+  "tolerance": 0.5,
+  "measured": 408.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Downes D02 / Plate III: 408 / 264 / 120 ft"
+ },
+ {
+  "id": "D02aL",
+  "check": "tier-1 side walls reach the end walls (x extent of wall-bay centres + 24)",
+  "target": 1848.0,
+  "tolerance": 1.0,
+  "measured": 1848.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "tiers all 1848 ft long"
+ },
+ {
+  "id": "D02b",
+  "check": "tier-2 width between its outer side walls",
+  "target": 264,
+  "tolerance": 0.5,
+  "measured": 264.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Downes D02 / Plate III: 408 / 264 / 120 ft"
+ },
+ {
+  "id": "D02bL",
+  "check": "tier-2 side walls reach the end walls (x extent of wall-bay centres + 24)",
+  "target": 1848.0,
+  "tolerance": 1.0,
+  "measured": 1848.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "tiers all 1848 ft long"
+ },
+ {
+  "id": "D02c",
+  "check": "tier-3 width between its outer side walls",
+  "target": 120,
+  "tolerance": 0.5,
+  "measured": 120.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "Downes D02 / Plate III: 408 / 264 / 120 ft"
+ },
+ {
+  "id": "D02cL",
+  "check": "tier-3 side walls reach the end walls (x extent of wall-bay centres + 24)",
+  "target": 1848.0,
+  "tolerance": 1.0,
+  "measured": 1848.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "tiers all 1848 ft long"
+ },
+ {
+  "id": "D05a",
+  "check": "north strip length (x extent of its north wall)",
+  "target": 936.0,
+  "tolerance": 1.0,
+  "measured": 936.4166,
+  "unit": "ft",
+  "pass": true,
+  "source": "CONTROL-DIMENSIONS D05"
+ },
+ {
+  "id": "D05b",
+  "check": "north strip depth beyond the 408 ft block",
+  "target": 48.0,
+  "tolerance": 0.6,
+  "measured": 48.2083,
+  "unit": "ft",
+  "pass": true,
+  "source": "D05: 48 ft"
+ },
+ {
+  "id": "D05c",
+  "check": "north strip start x (216 ft west of the transept centre-line chain)",
+  "target": -708.0,
+  "tolerance": 0.6,
+  "measured": -708.2083,
+  "unit": "ft",
+  "pass": true,
+  "source": "north chain 216 + 936 + 696"
+ },
+ {
+  "id": "G01",
+  "check": "every column on Claude's 24 ft grid (max off-grid, ft)",
+  "target": 0.0,
+  "tolerance": 0.01,
+  "measured": 0.0,
+  "unit": "ft",
+  "pass": true,
+  "source": "x=-924+24i, y=-204+24j"
+ },
+ {
+  "id": "G02",
+  "check": "no exterior column west of line 40 except the north strip",
+  "target": 0,
+  "tolerance": 0,
+  "measured": 0,
+  "unit": "count",
+  "pass": true,
+  "source": "complementary to Claude (x <= -36)"
+ },
+ {
+  "id": "G03",
+  "check": "no duplicate column positions",
+  "target": 614,
+  "tolerance": 0,
+  "measured": 614,
+  "unit": "count",
+  "pass": true,
+  "source": ""
+ },
+ {
+  "id": "G04",
+  "check": "no column inside the 72 ft nave (|y| < 36)",
+  "target": 0,
+  "tolerance": 0,
+  "measured": 0,
+  "unit": "count",
+  "pass": true,
+  "source": "Plate VI; EX02"
+ },
+ {
+  "id": "D11a",
+  "check": "tier-1 girder top",
+  "target": 22.1667,
+  "tolerance": 0.05,
+  "measured": 22.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls D11"
+ },
+ {
+  "id": "D11b",
+  "check": "tier-2 girder top",
+  "target": 42.1667,
+  "tolerance": 0.05,
+  "measured": 42.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls D11"
+ },
+ {
+  "id": "D11c",
+  "check": "tier-3 girder top",
+  "target": 62.1667,
+  "tolerance": 0.05,
+  "measured": 62.1667,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls D11"
+ },
+ {
+  "id": "D12",
+  "check": "east gallery floor top",
+  "target": 22.9167,
+  "tolerance": 0.05,
+  "measured": 22.9167,
+  "unit": "ft",
+  "pass": true,
+  "source": "controls D12"
+ },
+ {
+  "id": "W01",
+  "check": "full-height posts per 24 ft wall bay (iron-column ends + 2 timber posts at 8 ft, Plate XXI)",
+  "target": 4,
+  "tolerance": 0,
+  "measured": 4,
+  "unit": "posts",
+  "pass": true,
+  "source": "Plate XXI"
+ },
+ {
+  "id": "E01",
+  "check": "east end wall incl. top louvre band reaches the tier-3 girder underside",
+  "target": 59.1667,
+  "tolerance": 0.6,
+  "measured": 58.9708,
+  "unit": "ft",
+  "pass": true,
+  "source": "Plate V"
+ },
+ {
+  "id": "E02",
+  "check": "east end entrance doors (centre 3 bays + outer 2)",
+  "target": 5,
+  "tolerance": 0,
+  "measured": 5,
+  "unit": "count",
+  "pass": true,
+  "source": "Plate V"
+ },
+ {
+  "id": "S01",
+  "check": "east-half avenue staircases (mirrors of Claude's stair bays 8/17/26, N and S)",
+  "target": 6,
+  "tolerance": 0,
+  "measured": 6,
+  "unit": "count",
+  "pass": true,
+  "source": "Plate II; Claude STAIR_BAYS"
+ },
+ {
+  "id": "C_EXT_east_end_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.02,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ },
+ {
+  "id": "C_EXT_int_east_nave_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.02,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ },
+ {
+  "id": "C_EXT_NE_strip_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.02,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ },
+ {
+  "id": "C_EXT_SE_34_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.02,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ },
+ {
+  "id": "C_PLATE_IV_full_south_ortho_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.0,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ },
+ {
+  "id": "C_PLATE_V_east_ortho_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.0,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ },
+ {
+  "id": "C_REF_aerial_SE_start",
+  "check": "camera: no roll (deg) + eye-height error (cm) unless review/ortho",
+  "target": 0.0,
+  "tolerance": 0.5,
+  "measured": 0.0,
+  "unit": "deg+cm",
+  "pass": true,
+  "source": "storyboard v001"
+ }
+]
