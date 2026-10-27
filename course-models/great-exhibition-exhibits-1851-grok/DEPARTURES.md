@@ -25,3 +25,12 @@ Grades: **A** = documented, **B** = derived from a surviving object / close anal
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## CP025 Koh (2026-10-27)
+| ID | Topic | Call |
+|---|---|---|
+| EX_KOH_V1 | Prior CANDIDATE (ribbons + tight july crop): diamond invisible; grey pole (OSL_shaft_prisms) down cage; ribbons read as messy curved bars | **REJECT** (user). Live e02 untouched. |
+| EX_KOH_V2 | CANDIDATE `e02_koh_v2`: drop gilt ribbons; hide OSL_shaft_prisms + KOH_gas_pipes (grey pole clear); replace closed July enclosure with three-wall crimson backdrop (N/E/W + roof, south open); reframe CP025_july_start to 50 mm / eye 5.25 ft / no roll, cam (0, −10.5, 5.25) ft → cage centre so whole birdcage in frame | **CANDIDATE** (await KEEP). Live e02 untouched. |
+| EX_KOH_SPARKLE | Diamond emission mix (Fac 0.25, strength 1.8) + warm gas point (28 W) + cool skylight point (14 W) for readable sparkle under the July tent | **Cheat** (candidate v2). Not physically correct caustics; logged. |
+| EX_KOH_SCALE | Rose-cut diamond screen scale **3.5×** true ~1.55×1.3×0.68 in so facets read at 50 mm / ~10.5 ft | **Cheat** (candidate v2). |
+| EX_KOH_COUNTER | Muse `glass-topped-display-counter` (~12 ft unit) vs ~7 ft July tent | **Skip** — does not fit without scaling. |

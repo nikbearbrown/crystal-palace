@@ -46,3 +46,10 @@ never git init inside a grok folder; commit from the worktree root
 - CANDIDATE: `scripts/polish_koh_cand.py` rebuilds pre-1852 Mughal/rose-cut diamond (170v/336f hard facets) + gilt ribbon/bead-ring cage enrich → `rounds/candidates/e02_koh.blend` + `renders/candidates/CP025_july_start.png` (--keep-lighting). Live e02 untouched.
 - Pair: survey `look/pairs_geo/CANDIDATE_CP025_koh_july_start_pair.png`.
 - Muse `cut-glass-chandelier` / `glass-topped-display-counter` noted for CP019/CP025 dressing but not in CP025_july frame; not appended this pass.
+
+## CP025 Koh REJECT v1 → CANDIDATE v2 (2026-10-27)
+- User REJECT: ribbons messy; diamond invisible; pole/crop.
+- New candidate `rounds/candidates/e02_koh_v2.blend`: no ribbons; hide OSL_shaft_prisms; reframe CP025_july_start (50 mm, eye 5.25 ft, no roll, whole cage); emission + point-light sparkle (EX_KOH_SPARKLE); Muse counter skipped (EX_KOH_COUNTER).
+
+## 2026-10-27 Koh CP025
+- REJECT ribbons candidate. New CANDIDATE e02_koh_v2: no ribbons, open south, reframe 50 mm/5.25 ft, sparkle cheat (EX_KOH_*). Muse counter skipped.
