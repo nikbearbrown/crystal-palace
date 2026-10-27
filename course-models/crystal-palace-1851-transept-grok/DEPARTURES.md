@@ -1,0 +1,37 @@
+# DEPARTURES: Hyde Park 1851 transept (Grok Bot)
+
+This lists every simplification or guess in `scripts/build_transept.py`. Status is one of: **Record** (taken directly from Downes 1852 or a D-check), **Inferred** (read from a drawing or photograph by eye, or worked out), or **Simplified** (deliberately reduced). Same table format as Claude's DEPARTURES-LEDGER.
+
+| # | Part | The record says | The model does | Status | Disclose in film? |
+|---|---|---|---|---|---|
+| G01 | Origin, axes, units | (Claude's frame convention) | Metres; origin at the crossing centre at floor level; X east, Y north. Claude's line 37 (x = -36 ft) is shared; those columns are tagged `claude_line37` and hidden in the combined render | Record | No |
+| G02 | Extent | The transept is 72 ft wide and crosses the full 408 ft width | Built: the transept, its lead flats (\|x\| <= 60) and the tier-2 arms (\|x\| <= 132), y -204..204. The ground tier east and west of x = +-132 is left to the nave models | Simplified | No |
+| V01 | Springing height | Plate VII reads ~65-66 ft; the 1856 guide gives 102 ft 2 in to the top | The springing axis is set at 65.0 ft, so the crown extrados is 102.17 ft (T01 passes) | Inferred | No |
+| V02 | Rib A | 3 timber thicknesses, 1 ft 6 in x 8 in, 74 ft 4 in extrados diameter, cut to 37 ft (p. 50) | One solid timber arch, 1.5 x 0.667 ft, extrados radius 37.17 ft; the three laminations are not drawn | Simplified | No |
+| V03 | Rib spacing | "Main ribs A rest on the columns" (every 24 ft); intermediate ribs B over the girders | A every 24 ft, B at the 8 ft thirds (so 8 ft spacing overall) | Inferred (B pitch) | No |
+| V04 | Rib B depth | OCR reads "4 in deep", 8 in wide | 9 in deep x 8 in wide, because 4 in is implausibly shallow for a 74 ft arch (likely an OCR error) | Inferred | Maybe |
+| V05 | Two ribs over the nave | Carried on the strong 72 ft trusses | Ribs A at y = +-12 sit over the trusses at x = +-36; the truss mesh is a plain trellis, without the strengthening detail | Simplified | No |
+| V06 | Vault glazing | Ridge-and-furrow on the curve: gutters on the ribs, diagonal sash bars fixed to ridges | Two glass planes per 8 ft bay, with the ridge 0.9 ft above the extrados. The sash bars are a procedural UV stripe, not geometry. The ridge rise is a guess | Simplified | No |
+| V07 | Purlins and bracing | Purlins C; diagonal bracing of six crosses per bay | 7 continuous purlins at 22.5 deg steps, with an X-rod in each of the 6 inter-purlin panels per 24 ft bay | Simplified | No |
+| V08 | Louvres, space J | Louvres between the lead flat and the springing | 4 louvre blades along each side from the lead-flat top to the springing | Simplified | No |
+| V09 | Lead flats | 24 ft lead flats either side of the vault (Plates XVIII-XIX) | Flat 9 in slabs, \|x\| 37.3..60, with no fall, gutters or Paxton gutter detail | Simplified | No |
+| S01 | End screen fan | Plates VII, XXIV-XXVI: fan of rings and radiating bars, with semi-elliptical wooden columns | Hub r 4 ft, rings at 12/21/29 ft, then 16/16/16/24 spokes with small petal arcs and an outer arch band. The ring radii and spoke counts are read by eye, and the semi-elliptical columns are not modelled | Inferred | Maybe |
+| S02 | Attic band | Lath and cement panel replacing the louvres at the ends (p. 50) | Solid 8 in panel from 62 ft 2 in to the springing across the 72 ft | Record | No |
+| S03 | Ground tier at the ends | Plate IV: boarded ground tier, doors in the central bay | Boarded infill with arched-head mullions; three door leaves in the central bay plus two pedestals. The door count and size are guesses | Inferred | Maybe |
+| S04 | Upper wall bays | Arched-headed glazed panels on 8 ft mullions | 3 arched panels per 24 ft bay, glass infill, and a 2.5 ft louvre band at each tier head | Simplified | No |
+| C01 | Columns | 8 in hollow cast iron; connecting pieces 3 ft 4.5 in; capitals | 16-sided solid cylinder, square connecting block, ring capital and base flare. The capital profile is generic | Simplified | No |
+| C02 | Columns at the transept ends | Plate VII shows 4 columns across the 72 ft end | Full-height columns at x = +-12, y = +-204 | Inferred | No |
+| C03 | Columns under the south cross gallery | Plate II shows dots at y = -156 | Tier-1 columns at x = +-12, y = -156 and -180 | Inferred | No |
+| C04 | North cross gallery support | Plate II: 24 ft north cross gallery, no intermediate columns visible | Carried on a 72 ft x 3 ft gallery truss at y = 180 | Inferred | Maybe |
+| GA1 | Galleries | Galleries along the transept and crossing it at both ends (Plate II) | Transept side strips x +-(36..60) for \|y\| >= 36, a 48 ft south and a 24 ft north cross gallery, 9 in slab, lattice railing 3 ft 1 in. **The galleries of the tier-2 arms (60..132) are not built**, and there are no stairs | Simplified | Yes, if shown |
+| GA2 | Nave crossing | The nave void runs through the crossing | No gallery bridges at the crossing | Inferred | No |
+| R01 | Tier-2 roofs | Ridge-and-furrow, 8 ft ridges | Glass ridge units 24 x 8 ft, rise 1.6 ft (Claude's dimensions), over 60..132 and \|y\| 60..204. The nave tier-2/3 roofs (\|y\| < 60) are left to the nave model | Simplified | No |
+| F01 | Floor | Boarded floor, 9 in boards with 1/2 in gaps | Slab 2 mm above Claude's floor (to avoid z-fighting), with a procedural board-gap shader | Simplified | No |
+| E01 | Elm positions | Talbot (looking south): a large elm near the south end behind the fountain. Empty-transept photo (looking north): a large elm near the north end. Absolon: trees beyond the fountain | 3 elms: south (4, -128) 78 ft tall; north (-3, 142) 84 ft; second north (12, 98) 64 ft. **The positions and heights are judged from photographs, not surveyed**; the 1851 accounts mention more trees in the park than in the transept | Inferred | Yes |
+| E02 | Elm form | Mature English elms in full leaf (summer 1851) | Procedural: straight bole, 5 ascending leaders, 3-4 levels of branching, and ~25k leaf cards per tree in billowing clusters. Clipped so the canopy stays at least 3 ft inside the vault intrados and the column lines (E01 checks) | Simplified | Yes (stylised) |
+| E03 | Elm clearance | In reality the vault was built over the existing trees | Canopy clipped to the vault with a 3 ft gap, so CP017 shows clear roof clearance | Inferred | No |
+| X01 | Fountain | Osler crystal fountain at the crossing (opening day) | **Not built**. Needed for CP020/CP021 | Missing | Yes |
+| X02 | Exhibits, banners, sculpture, people | Present on opening day | Not built (empty building state, like the empty-transept photograph) | Missing | Yes |
+| X03 | Colour | Owen Jones scheme: blue, red and yellow iron (CP018) | Neutral white "clay" by default, to sit beside Claude's frame; `--colour owen` gives a plain pale-blue iron stand-in only | Simplified | Yes |
+| X04 | Glass | Sheet glass 49 x 10 in | A single shader: Fresnel gloss over a tinted transparency plus 6% milky diffuse; shadow rays pass. No individual panes except on the vault (procedural bars) | Simplified | No |
+| X05 | Hyde Park state | Hyde Park 1851 only | No Sydenham elements: a single transept, no terraces, no water towers | Record | No |
