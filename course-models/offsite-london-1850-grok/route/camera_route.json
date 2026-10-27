@@ -1,0 +1,141 @@
+{
+ "set": "O-INDUSTRY (CP002) + O-ROOM (CP005) London 1850",
+ "units": "ft",
+ "shots": [
+  {
+   "id": "CP002_lane",
+   "lens_mm": 35,
+   "note": "railway lane: viaduct, factory chimneys, terraced housing",
+   "start": {
+    "pos_ft": [
+     -28,
+     -42,
+     5.25
+    ],
+    "look_ft": [
+     40,
+     30,
+     18
+    ]
+   }
+  },
+  {
+   "id": "CP002_factory",
+   "lens_mm": 35,
+   "note": "factory yard with chimneys and smoke",
+   "start": {
+    "pos_ft": [
+     55,
+     -20,
+     5.25
+    ],
+    "look_ft": [
+     90,
+     25,
+     30
+    ]
+   }
+  },
+  {
+   "id": "CP002_terrace",
+   "lens_mm": 28,
+   "note": "crowded terraced street under the viaduct",
+   "start": {
+    "pos_ft": [
+     -10,
+     8,
+     5.25
+    ],
+    "look_ft": [
+     50,
+     12,
+     8
+    ]
+   }
+  },
+  {
+   "id": "CP005_room",
+   "lens_mm": 28,
+   "note": "1849-50 planning room: commission table, plans, samples",
+   "start": {
+    "pos_ft": [
+     -13.0,
+     -10,
+     5.25
+    ],
+    "look_ft": [
+     4,
+     4,
+     3.5
+    ]
+   }
+  },
+  {
+   "id": "CP005_table",
+   "lens_mm": 50,
+   "note": "detail of plans and glass/sash/column samples on the table",
+   "start": {
+    "pos_ft": [
+     2.5,
+     -3.5,
+     5.25
+    ],
+    "look_ft": [
+     1.0,
+     1.5,
+     3.1
+    ]
+   }
+  }
+ ],
+ "contents": [
+  {
+   "id": "LN.viaduct",
+   "what": "brick railway viaduct arches",
+   "info": "viaduct_arches",
+   "min": 6
+  },
+  {
+   "id": "LN.chimneys",
+   "what": "factory chimneys",
+   "info": "chimneys",
+   "min": 3
+  },
+  {
+   "id": "LN.terrace",
+   "what": "terraced house fronts",
+   "info": "terraces",
+   "min": 8
+  },
+  {
+   "id": "LN.train",
+   "what": "train on the viaduct",
+   "info": "train",
+   "min": 1
+  },
+  {
+   "id": "LN.table",
+   "what": "commission table",
+   "info": "table",
+   "min": 1
+  },
+  {
+   "id": "LN.plans",
+   "what": "plan sheets on table/walls",
+   "info": "plans",
+   "min": 4
+  },
+  {
+   "id": "LN.samples",
+   "what": "glass / sash / column samples",
+   "info": "samples",
+   "min": 3
+  },
+  {
+   "id": "LN.figures",
+   "what": "figures across both sets",
+   "info": "figures",
+   "min": 10
+  }
+ ]
+}
