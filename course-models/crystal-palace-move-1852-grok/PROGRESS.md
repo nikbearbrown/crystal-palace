@@ -24,3 +24,11 @@
 - Cams: `CP068_park`, `CP068_kit`, `CP068_bay` (appended to `route/camera_route.json`).
 - Renders: `renders/m03/CP068_{park,kit,bay}_start.png` (28 spp, 1280×720).
 - D-checks: `checks/m03_checks.json` **11/11**.
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root

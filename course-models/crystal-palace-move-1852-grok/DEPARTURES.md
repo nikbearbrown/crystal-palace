@@ -18,3 +18,6 @@ Grades: **A** documented (Downes 1852 / dated source) · **B** documented in out
 | MV12 | m02: KJ_exploded pulled back to (-3.3,-5.9,5.25 ft) looking at the W joint; north girder + its oak keys hidden for this camera only via `grok_states` (still in the scene for other shots) | C | camera fix only; joint geometry unchanged |
 | MV13 | CP068 legacy-today: separate lean blend `m03_legacy` with K-JOINT kit + one 24 ft prefabricated bay on park grass under present-day daylight; analytical study plinth/pad, not a ruin or rebuild | B | storyboard asks PARK-NOW labelled model study; method, not archaeology |
 | MV14 | CP068 materials: same Owen-Jones blue kit paint as m01; lean 28-sample / 1280×720 renders | D | box busy |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
