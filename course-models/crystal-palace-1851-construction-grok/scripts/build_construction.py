@@ -223,7 +223,7 @@ def slab_xyz(name, x0, x1, y0, y1, z0, z1, mat, coll_, **props):
     bm = bmesh.new(); bm_box(bm, ft(x0), ft(x1), ft(y0), ft(y1), ft(z0), ft(z1))
     return new_obj(name, finish(bm, name, mat), coll_, props=props)
 bm = bmesh.new()       # park grass with the site (x 0..1000, y -300..300) left open for the earth and the pits
-for (x0, x1, y0, y1) in ((-9000, 0, -9000, 9000), (1000, 9000, -9000, 9000), (0, 1000, -9000, -300), (0, 1000, 300, 9000)):
+for (x0, x1, y0, y1) in ((-9000, -960, -9000, 9000), (-960, 0, -9000, -300), (-960, 0, 300, 9000), (1000, 9000, -9000, 9000), (0, 1000, -9000, -300), (0, 1000, 300, 9000)):   # c05: west footprint opened (CN32)
     bm_box(bm, ft(x0), ft(x1), ft(y0), ft(y1), ft(-1.0), ft(-0.06))
 new_obj("KGROUND_PARK", finish(bm, "park", GRASS), K["GROUND"], props={"part_kind": "ground"})
 for nm, (x0, x1, y0, y1) in {"W": (0, AX0, -300, 300), "E": (AX1, 1000, -300, 300), "S": (AX0, AX1, -300, AY0), "N": (AX0, AX1, AY1, 300)}.items():
@@ -395,7 +395,7 @@ bm = bmesh.new(); r = inch(0.6)
 cyl_axis(bm, [ft(v) for v in APEX], (ft(552), ft(-180), ft(LIFT_Z + 0.1)), r, 6)            # fall to the girder sling
 for a, b in (((546, -180, LIFT_Z + 0.05), (552, -180, LIFT_Z + 2.0)), ((558, -180, LIFT_Z + 0.05), (552, -180, LIFT_Z + 2.0))):
     cyl_axis(bm, [ft(v) for v in a], [ft(v) for v in b], r, 6)                               # sling
-cyl_axis(bm, [ft(v) for v in APEX], (ft(558), ft(-204), ft(2.0)), r, 6)                      # lead to the crab winch
+cyl_axis(bm, [ft(v) for v in APEX], (ft(552.6), ft(-195.0), ft(1.0)), r, 6)                   # c05: fall down to the snatch block (horse haul, CN34)
 for gx, gy in ((530, -236), (576, -126)): cyl_axis(bm, [ft(v) for v in APEX], (ft(gx), ft(gy), 0), r, 6)   # guys
 cyl_axis(bm, (ft(541), ft(-180), ft(LIFT_Z - 3)), (ft(536), ft(-196), ft(3.6)), r, 6)       # tag line
 new_obj("KROPES", finish(bm, "ropes", ROPE), K["LIFTING"], props={"part_kind": "rope"})
@@ -694,6 +694,143 @@ if crates:
         if e.location.x < ft(420) and e.location.y < ft(-210):     # the glass crates by the glazing bays
             e.instance_collection = MCC; e["variant"] = "closed"
 
+# ================= c05: HP-PHASES (CP010 extent, CP012 horse haul + gin pole, CP013 layers, CP016 follow) =================
+# ---------------- CP010: foundations across the whole footprint (CN32) ----------------
+# West half (lines x -924 .. -36, rows y -204..204 outside the nave) + north strip (x -708..-36, y 228/252) + the east end line
+# x 924. Read as a spatial time-lapse westward -> eastward: pegged (x < -780), dug (-780..-420), poured (-420..-132),
+# base pieces set (-132..-36), then zones A/B/C of c01-c04 (backfilled, first lifts, complete frame). The 72 ft transept
+# lines (x -12, 12) carry no columns. Pads and base plates use the same D16/D17 rules as zone A (K05-K08 cover them too).
+def fstate(x):
+    if x < -780: return "pegged"
+    if x < -420: return "dug"
+    if x < -132: return "poured"
+    return "base"
+FIELD_POS = [(x, y) for x in (-924.0 + 24 * i for i in range(38)) for y in ROWS]
+FIELD_POS += [(x, y) for x in (-708.0 + 24 * i for i in range(28)) for y in (228.0, 252.0)]
+FIELD_POS += [(924.0, y) for y in ROWS]
+KF = coll("FOUNDATION_FIELD", ROOT)
+fpits = {}; fcount = {"pegged": 0, "dug": 0, "poured": 0, "base": 0}
+bm_peg = bmesh.new()
+for (x, y) in FIELD_POS:
+    st = "pegged" if x > 900 else fstate(x); fcount[st] += 1
+    t = tier_of(y); p = PAD[t]; pl = base_plate(x, y)
+    if st == "pegged":
+        bm_box(bm_peg, ft(x - 0.08), ft(x + 0.08), ft(y - 0.08), ft(y + 0.08), ft(-0.02), ft(1.4)); continue
+    d = p["top"] + p["t"]; fpits[(x, y)] = (st, d)
+    if st in ("poured", "base"):
+        padL, padW = pl[0] + 0.6, max(p["w"], pl[1] + 0.6)
+        ob = slab_xyz(f"KFPAD_{x:+.0f}_{y:+.0f}", x - padL / 2, x + padL / 2, y - padW / 2, y + padW / 2, -d, -p["top"], CONCRETE, KF,
+                      part_kind="pad", x=x, y=y, tier=t, state=st, pad_t=p["t"], pad_top=p["top"], pad_L=padL, pad_W=padW, field=True)
+        ob["plate_L"], ob["plate_W"] = pl
+    if st == "base":
+        key = (pl, t)
+        if key not in BASEM: BASEM[key] = mesh_base_piece(pl, p["top"] + SOCKET_ABOVE_FLOOR, f"base_piece_{pl[0]}x{pl[1]}_t{t}")
+        new_obj(f"KFBASE_{x:+.0f}_{y:+.0f}", BASEM[key], KF, (ft(x), ft(y), ft(-p["top"])), 0,
+                {"part_kind": "base_piece", "plate_L": pl[0], "plate_W": pl[1], "tier": t, "socket_top_ft": SOCKET_ABOVE_FLOOR, "field": True})
+new_obj("KFPEGS", finish(bm_peg, "field_pegs", WOOD), KF, props={"part_kind": "peg_field", "n": fcount["pegged"]})
+bm = bmesh.new()                                     # string lines over the pegged lines
+for y in ROWS: bm_bar(bm, (ft(-930), ft(y), ft(1.2)), (ft(-786), ft(y), ft(1.2)), inch(0.4), inch(0.4))
+for x in (-924.0 + 24 * i for i in range(7)): bm_bar(bm, (ft(x), ft(-210), ft(1.2)), (ft(x), ft(210), ft(1.2)), inch(0.4), inch(0.4))
+new_obj("KFSTRINGLINES", finish(bm, "field_stringlines", ROPE), KF, props={"part_kind": "string_line"})
+# west earth with the pits cut (4 ft cells; pits 8 x 8 ft aligned to the cell grid)
+WX0, WX1, WY0, WY1 = -960.0, 0.0, -240.0, 280.0
+holes = set()
+for (px, py) in fpits:
+    for a in (-4, 0):
+        for b in (-4, 0): holes.add((int(px + a), int(py + b)))
+bm = bmesh.new()
+for i in range(int((WX1 - WX0) / 4)):
+    for j in range(int((WY1 - WY0) / 4)):
+        x0, y0 = WX0 + 4 * i, WY0 + 4 * j
+        if (int(x0), int(y0)) in holes: continue
+        bm.faces.new([bm.verts.new((ft(a), ft(b), ft(-0.02))) for a, b in ((x0, y0), (x0 + 4, y0), (x0 + 4, y0 + 4), (x0, y0 + 4))])
+bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.001)
+for (px, py), (st, d) in fpits.items():
+    c = [(px - 4, py - 4), (px + 4, py - 4), (px + 4, py + 4), (px - 4, py + 4)]
+    for k in range(4):
+        (xa, ya), (xb, yb) = c[k], c[(k + 1) % 4]
+        bm.faces.new([bm.verts.new((ft(xa), ft(ya), ft(-0.02))), bm.verts.new((ft(xa), ft(ya), ft(-d))),
+                      bm.verts.new((ft(xb), ft(yb), ft(-d))), bm.verts.new((ft(xb), ft(yb), ft(-0.02)))])
+    bm.faces.new([bm.verts.new((ft(a), ft(b), ft(-d))) for a, b in reversed(c)])
+new_obj("KGROUND_WEST_FIELD", finish(bm, "ground_west_field", EARTH), K["GROUND"], props={"part_kind": "ground"})
+for nm, (y0, y1) in {"S": (-300, WY0), "N": (WY1, 300)}.items():
+    slab_xyz(f"KGROUND_WEST_{nm}", WX0, WX1, y0, y1, -0.6, -0.02, EARTH, K["GROUND"], part_kind="ground")
+# spoil beside every open pit (same 1.25 bulking + 34 deg frustum as CN27); one merged mesh, totals recorded
+_route5 = json.load(open(os.path.join(HERE, "..", "route", "camera_route.json")))
+_cp5 = [([_s[k]["pos_ft"] for k in ("start", "end") if k in _s][0][:2], [_s[k]["pos_ft"] for k in ("start", "end") if k in _s][-1][:2]) for _s in _route5["shots"]]
+bm = bmesh.new(); fused = set(); fV = fH = 0.0; fn = 0; fskip = 0
+for (px, py), (st, d) in sorted(fpits.items()):
+    V = 1.25 * 64.0 * d; h, rt = frustum_h(V); Vh = math.pi * h / 3 * (RB * RB + RB * rt + rt * rt)
+    spot = None
+    for (ox, oy) in ((12, 12), (12, -12), (-12, 12), (-12, -12)):
+        cx, cy = px + ox, py + oy
+        if (cx, cy) in fused or not (WY0 + RB < cy < WY1 - RB) or cx > -RB - 30: continue
+        if any(_segd((cx, cy), a, b) < RB + 6 for a, b in _cp5): continue
+        spot = (cx, cy); break
+    if not spot: fskip += 1; continue
+    fused.add(spot); fV += V; fH += Vh; fn += 1
+    rng = random.Random(int(px * 1000 + py)); seg = 12
+    r0 = [bm.verts.new((ft(spot[0] + RB * (1 + rng.uniform(-0.07, 0.07)) * math.cos(2 * math.pi * k / seg)),
+                        ft(spot[1] + RB * (1 + rng.uniform(-0.07, 0.07)) * math.sin(2 * math.pi * k / seg)), ft(-0.05))) for k in range(seg)]
+    rr = max(rt, 0.6)
+    r1 = [bm.verts.new((ft(spot[0] + rr * math.cos(2 * math.pi * k / seg)), ft(spot[1] + rr * math.sin(2 * math.pi * k / seg)), ft(h * 0.97))) for k in range(seg)]
+    top = bm.verts.new((ft(spot[0]), ft(spot[1]), ft(h)))
+    for k in range(seg):
+        k2 = (k + 1) % seg; bm.faces.new([r0[k], r0[k2], r1[k2], r1[k]]); bm.faces.new([r1[k], r1[k2], top])
+me = finish(bm, "field_spoil", SPOIL)
+for f_ in me.polygons: f_.use_smooth = True
+new_obj("KFSPOIL", me, KF, props={"part_kind": "spoil_field", "heaps": fn, "skipped": fskip, "bulked_ft3": round(fV), "heap_ft3": round(fH), "carted_ft3": round(fV - fH)})
+# gangs in the dug zone nearest the CP010_extent camera, one tip cart taking spoil off
+for (px, py) in ((-756, -204), (-756, -180), (-732, -204), (-708, -180), (-684, -204)):
+    st, d = fpits[(float(px), float(py))]
+    worker(px - 1.5, py + 1.0, -d, "work", 0, "CP010X")                 # digging on the pit floor
+    worker(px + 5.6, py - 1.2, 0, "stand", 180, "CP010X")               # ganger at the pit edge
+cart("field_spoil", -716, -236, 0, "spoil", 1)
+worker(-774, -207.5, 0, "work", 90, "CP010X"); worker(-790, -186, 0, "stand", 0, "CP010X")    # setting out at the last pegs
+FIELD_INFO = {"positions": len(FIELD_POS), **fcount, "pits_open": len(fpits), "heaps": fn, "heaps_skipped": fskip}
+print("FIELD", json.dumps(FIELD_INFO), flush=True)
+
+# ---------------- CP012: horse hauling the sheer-leg fall through a snatch block (CN34) ----------------
+SNATCH = (552.6, -195.0)
+bm = bmesh.new(); bm_box(bm, ft(-0.5), ft(0.5), ft(-0.35), ft(0.35), ft(0.5), ft(1.5)); cyl_axis(bm, (0, ft(-0.4), ft(1.0)), (0, ft(0.4), ft(1.0)), ft(0.45), 12)
+bm_box(bm, ft(-0.15), ft(0.15), ft(-0.15), ft(0.15), 0, ft(0.5))
+new_obj("KSNATCH_BLOCK", finish(bm, "snatch_block", PLANK), K["LIFTING"], (ft(SNATCH[0]), ft(SNATCH[1]), 0), 0, {"part_kind": "snatch_block"})
+HD = math.radians(170.0); hdx, hdy = math.cos(HD), math.sin(HD)
+HX, HY = SNATCH[0] + 26 * hdx, SNATCH[1] + 26 * hdy
+hh = new_obj("KHORSE_haul", HORSES[1], K["LIFTING"], (ft(HX), ft(HY), 0), HD, {"part_kind": "horse", "role": "hauling", "height_withers_ft": 5.6})
+STX, STY = HX - 4.9 * hdx, HY - 4.9 * hdy
+bm = bmesh.new(); r = inch(0.6)
+cyl_axis(bm, (ft(SNATCH[0]), ft(SNATCH[1]), ft(1.0)), (ft(STX), ft(STY), ft(2.4)), r, 6)            # fall from the block to the swingletree
+nx_, ny_ = -hdy, hdx
+cyl_axis(bm, (ft(STX - 1.3 * nx_), ft(STY - 1.3 * ny_), ft(2.4)), (ft(STX + 1.3 * nx_), ft(STY + 1.3 * ny_), ft(2.4)), inch(1.5), 8)   # swingletree
+for sgn in (-1, 1):                                                                                   # traces to the hames
+    cyl_axis(bm, (ft(STX + sgn * 1.2 * nx_), ft(STY + sgn * 1.2 * ny_), ft(2.4)),
+             (ft(HX + 1.6 * hdx + sgn * 0.75 * nx_), ft(HY + 1.6 * hdy + sgn * 0.75 * ny_), ft(4.3)), inch(0.7), 6)
+new_obj("KHAUL_ROPE", finish(bm, "haul_rope", ROPE), K["LIFTING"], props={"part_kind": "rope", "role": "horse_haul"})
+worker(HX + 3.6 * hdx - 2.4 * nx_, HY + 3.6 * hdy - 2.4 * ny_, 0, "stand", 170, "CP012")    # boy leading the horse
+worker(SNATCH[0] - 3.0, SNATCH[1] - 3.2, 0, "stand", 135, "CP012")                            # watching the block
+
+# ---------------- CP012: gin pole lifting a tier-2 upper column onto the first lift at (564, -132) (CN35) ----------------
+GF, GH = (570.0, -127.0, 0.0), (566.0, -131.0, 50.0)
+bm = bmesh.new(); cyl_axis(bm, [ft(v) for v in GF], [ft(v) for v in GH], inch(6), 12)
+new_obj("KGINPOLE", finish(bm, "gin_pole", POLE), K["LIFTING"], props={"part_kind": "gin_pole", "head_ft": list(GH)})
+UC0, UC1 = 24.6, 43.0
+bm = bmesh.new(); bm_cyl(bm, inch(4), ft(UC0) + inch(1), ft(UC1), 16, cx=ft(564.6), cy=ft(-131.6))
+bm_cyl(bm, inch(6.5), ft(UC0), ft(UC0) + inch(1.2), 16, cx=ft(564.6), cy=ft(-131.6))
+new_obj("KCOL_UPPER_HOIST", finish(bm, "upper_column_hoist", IRON), K["LIFTING"], props={"part_kind": "column_hoisting", "bottom_ft": UC0, "top_ft": UC1, "seat": "564,-132"})
+bm = bmesh.new(); r = inch(0.6)
+cyl_axis(bm, [ft(v) for v in GH], (ft(564.6), ft(-131.6), ft(UC1 + 0.3)), r, 6)                     # sling to the column head
+cyl_axis(bm, [ft(v) for v in GH], (ft(569.4), ft(-126.4), ft(1.0)), r, 6)                           # fall to the foot block
+cyl_axis(bm, (ft(569.4), ft(-126.4), ft(1.0)), (ft(597.0), ft(-109.0), ft(3.4)), r, 6)              # hauling line
+for gx, gy in ((536, -101), (596, -101), (536, -161), (596, -161)): cyl_axis(bm, [ft(v) for v in GH], (ft(gx), ft(gy), 0), r, 6)   # guys
+cyl_axis(bm, (ft(564.6), ft(-131.6), ft(UC0 + 0.5)), (ft(552), ft(-140), ft(3.5)), r, 6)             # tag line
+new_obj("KGIN_ROPES", finish(bm, "gin_ropes", ROPE), K["LIFTING"], props={"part_kind": "rope", "role": "gin_pole"})
+for k in range(3): worker(586.0 + 3.6 * k, -114.0 + 2.3 * k, 0, "work", 32, "CP012")
+worker(551.0, -141.5, 0, "stand", 30, "CP012")                                                      # tag-line man
+worker(564.0, -129.6, 22.4, "reach", 270, "CP012")                                                  # man on the first-lift cap, guiding
+
+# ---------------- CP012 camera yaw 5 deg left (c04 Next) and CP016 follow are set in route/camera_route.json ----------------
+
 # ---------------- cameras ----------------
 CAMS = bpy.data.collections.new("CAMERAS_CONSTRUCTION"); scene.collection.children.link(CAMS)
 def cam(name, loc_ft, look_ft, lens, ortho=None):
@@ -715,7 +852,7 @@ scene.frame_start, scene.frame_end = 1, 96; scene.render.fps = 24
 
 info = {"columns": len(cols), "girders": ngir, "roof_units": nroof, "roof_states": roof_states, "workers": len(workers),
         "foundations": len(found), "louvre_blades": len(louvres), "parts": len(parts), "muse_crates": len(crates), "spoil_heaps": len(heaps), "panes": len(panes), "carts": len(carts),
-        "closed_crates": sum(1 for e in crates if e.get("variant") == "closed")}
+        "closed_crates": sum(1 for e in crates if e.get("variant") == "closed"), "field": FIELD_INFO}
 scene["grok_construction_build"] = json.dumps(info)
 scene["foundations"] = json.dumps(found); scene["nbars"] = NBARS
 os.makedirs(os.path.dirname(OUT), exist_ok=True)

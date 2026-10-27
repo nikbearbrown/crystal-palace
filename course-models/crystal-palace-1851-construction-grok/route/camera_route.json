@@ -31,6 +31,35 @@
    }
   },
   {
+   "id": "CP010_extent",
+   "lens_mm": 35,
+   "start": {
+    "pos_ft": [
+     -800,
+     -214,
+     5.25
+    ],
+    "look_ft": [
+     -560,
+     -190,
+     1.0
+    ]
+   },
+   "end": {
+    "pos_ft": [
+     -780,
+     -216,
+     5.25
+    ],
+    "look_ft": [
+     -540,
+     -192,
+     1.0
+    ]
+   },
+   "note": "c05: 'small foundations, immense extent' - eye-level walk along the south row from the pegged west end; dug pits, poured pads and base pieces recede ~1,700 ft to the rising frame (CN32)"
+  },
+  {
    "id": "CP010_base_insert",
    "lens_mm": 50,
    "note": "50 mm insert: base plate and base piece on its pad in an open pit (x 756, y -156)",
@@ -87,8 +116,8 @@
      5.25
     ],
     "look_ft": [
-     520,
-     -150,
+     514.0,
+     -157.2,
      14
     ]
    },
@@ -99,11 +128,12 @@
      5.25
     ],
     "look_ft": [
-     520,
-     -160,
+     507.4,
+     -172.8,
      14
     ]
-   }
+   },
+   "note_c05": "yaw 5 deg left (look rotated CCW) to hold the horse haul and the cart; gin pole beyond on the right; end key a further 6 deg CCW so the whole haul horse is in frame (c05 preview)"
   },
   {
    "id": "CP012_joint_insert",
@@ -167,6 +197,23 @@
      22
     ]
    }
+  },
+  {
+   "id": "CP013_layers",
+   "lens_mm": 28,
+   "start": {
+    "pos_ft": [
+     288,
+     -144,
+     5.25
+    ],
+    "look_ft": [
+     380,
+     -150,
+     22.0
+    ]
+   },
+   "note": "c05: iron + timber + glass layering seen from the floor: boards end at x 300 over bare joists; overhead the tier-1 roof runs glazed -> sash bars only -> Paxton gutters only on the iron girders (CN36)"
   },
   {
    "id": "CP014_gutter",
@@ -253,7 +300,20 @@
      -172,
      23.5
     ]
-   }
+   },
+   "end": {
+    "pos_ft": [
+     338,
+     -214,
+     29.25
+    ],
+    "look_ft": [
+     338,
+     -172,
+     23.5
+    ]
+   },
+   "note_c05": "8 ft follow along the roof-edge platform within the evidenced glazing segment (x 324-348)"
   },
   {
    "id": "REV_site_aerial",

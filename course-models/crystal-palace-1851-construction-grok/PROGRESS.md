@@ -39,6 +39,30 @@ Branch `grok-construction-1851` (worktree /workspace/crystal-palace-construction
   - CP014 section reframed (CN31).
   - Checks 26/26 (checks/c04; new K23 heaps, K24 carts, K25 panes, K26 closed crates). Renders in renders/c04.
 
+- **c05 (2026-10-26/27) — HP-PHASES (CP010, CP012, CP013, CP016):**
+  - CP010 "small foundations, immense extent": foundation field over the whole site extent (pegs x −924..924 ft), 680 positions in work order pegged → dug → poured → base, 554 spoil heaps; new CP010_extent eye-level camera (CN32, CN33).
+  - CP012 bay-by-bay rise: horse haul through a snatch block at the shear legs, crab winch kept as standby; guyed gin pole raising an upper-tier column; CP012_bay end camera (CN34, CN35, CN37).
+  - CP013 iron + glass + timber layering: new CP013_layers 28 mm camera along the roof states (CN36).
+  - CP016 K-WAGON: follow-end camera on the glazing wagon with its glaziers (CN37).
+  - Field spoil cart off the CP010 axis; K24 exempts the hauling horse; new checks K27–K31 (CN38).
+  - Checks **31/31** (checks/c05). Renders in renders/c05 (1280x720, 48 samples) + contact_sheet_c05.jpg.
+
+## Self-score c05: 7.4/10
+**Good:**
+- CP013_layers is the strongest frame of the set: gutters, bare bars, half and fully glazed bays receding in one 28 mm look.
+- CP010_foundations now reads the repeated pits/heaps marching to the horizon; CP012 has a working horse at the tackle and a second lifting method.
+
+**Misses:**
+- CP010_extent still reads "big field" more than "immense": the eye-level horizon flattens 1848 ft; no high or long-lens comparison frame.
+- Horses remain white metaball stand-ins with no harness or collar; the CP012 haul horse is partly masked by a worker.
+- Heaps are smooth frustums; panes still faint against the sky at 50 mm.
+- CP016 wagons read as clusters of figures; the wagon wheels on the gutter are hidden.
+
+## Next (c06)
+- CP010: second extent frame from a ladder/hoarding top (eye-height rule exception to log) or stagger figures as scale markers every 96 ft.
+- Harness + collar on the horses; darker coat colours.
+- Heap displacement; pane edge band; wagon wheel close-up in CP016_end.
+
 ## Self-score c04: 7.3/10
 **Good:**
 - CP010 now reads as a dug site: the heaps match the pit volumes, with a cart taking the surplus.

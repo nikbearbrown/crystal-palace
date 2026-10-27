@@ -100,7 +100,7 @@ sp = [o for o in obs if o.get("part_kind") == "spoil"]
 bad = [o.name for o in sp if abs(o["heap_ft3"] + o["carted_ft3"] - o["bulked_ft3"]) > 0.6 or abs(o["bulked_ft3"] - 1.25 * o["pit_vol_ft3"]) > 0.6]
 tot = sum(o["heap_ft3"] for o in sp); bul = sum(o["bulked_ft3"] for o in sp)
 chk("K23", sp and not bad, "spoil heaps sized to their pits (heap + carted = 1.25 x pit volume)", f"{len(sp)} heaps, {tot:.0f} of {bul:.0f} ft3 bulked on site ({100 * tot / max(bul, 1):.0f} %)")
-ca = [o for o in obs if o.get("part_kind") == "cart"]; ho = [o for o in obs if o.get("part_kind") == "horse"]
+ca = [o for o in obs if o.get("part_kind") == "cart"]; ho = [o for o in obs if o.get("part_kind") == "horse" and o.get("role") != "hauling"]
 fl = [o.name for o in ca + ho if abs(o.location.z) > 0.01]
 chk("K24", len(ca) >= 3 and len(ho) == len(ca) and not fl, "carts and draught horses at the gate, standing on the ground", f"{len(ca)} carts, {len(ho)} horses")
 pn = [o for o in obs if o.get("part_kind") == "pane"]
@@ -108,6 +108,37 @@ held = [o for o in pn if o.get("state") == "held" and abs(abs(math.degrees(o.rot
 chk("K25", len(held) >= 4, "glaziers handle 49 x 10 in panes, held at ~30 deg", f"{len(pn)} panes, {len(held)} held at 30 deg")
 cc = [o for o in obs if o.get("part_kind") == "crate" and o.get("variant") == "closed"]
 chk("K26", cc and all(o.instance_collection and "credit" in o.instance_collection for o in cc), "closed crate variant built on Muse's frame in our file, credited", f"{len(cc)} closed crates")
+# c05
+def wbb(o):
+    cs = [o.matrix_world @ Vector(c) for c in o.bound_box]; return [f(min(c[i] for c in cs)) for i in range(3)], [f(max(c[i] for c in cs)) for i in range(3)]
+fp = [o for o in obs if o.get("field") and o.get("part_kind") == "pad"]; fst = {}
+for o in fp: fst[o["state"]] = fst.get(o["state"], 0) + 1
+pg = obs.get("KFPEGS"); px = wbb(pg) if pg else ([0] * 3, [0] * 3)
+north = [o for o in fp if abs(o["y"]) >= 228 and o["y"] > 0]
+xs = {}
+for o in fp: xs.setdefault(o["state"], []).append(o["x"])
+FI = json.loads(bpy.context.scene.get("grok_construction_build", "{}")).get("field", {})
+seq = bool(xs.get("poured")) and bool(xs.get("base")) and max(xs["poured"]) <= min(xs["base"]) + 1e-6 and FI.get("pegged", 0) > 0 and FI.get("dug", 0) > 0 and FI.get("pits_open", 0) >= FI.get("dug", 0)
+chk("K27", px[0][0] <= -900 and px[1][0] >= 900 and north and seq, "CP010 field spans the whole site (pegs -924..924 ft), north strip present, states progress pegged > dug > poured > base west to east",
+    f"pegs x {px[0][0]:.0f}..{px[1][0]:.0f}; field {FI}; pads {fst}; {len(north)} north-strip pads")
+fbad = [o.name for o in cols if f(o.location.x) < -36]
+chk("K28", not fbad, "no columns stand in the foundation field (x < -36 ft)", f"{len(fbad)}")
+sb = obs.get("KSNATCH_BLOCK"); hh = obs.get("KHORSE_haul"); hr = obs.get("KHAUL_ROPE")
+dd = (Vector((f(hh.location.x), f(hh.location.y))) - Vector((f(sb.location.x), f(sb.location.y)))).length if sb and hh else 0
+chk("K29", sb and hh and hr and 15 <= dd <= 45 and abs(hh.location.z) < 0.01, "CP012 horse haul: sheer-leg fall led through a ground snatch block to a horse on the ground", f"horse {dd:.1f} ft from block")
+gp = obs.get("KGINPOLE"); uc = obs.get("KCOL_UPPER_HOIST")
+chk("K30", gp and uc and 22.2 < uc["bottom_ft"] < uc["top_ft"] < gp["head_ft"][2] - 3, "CP012 gin pole: upper-tier column hanging above its seat and below the pole head",
+    f"column {uc['bottom_ft']:.1f}-{uc['top_ft']:.1f} ft, head {gp['head_ft'][2]:.0f} ft" if gp and uc else "missing")
+cam = obs.get("CP013_layers_start"); seen = {}
+if cam:
+    dg = bpy.context.evaluated_depsgraph_get(); sc = bpy.context.scene
+    for k in range(-14, 15):
+        for j in range(0, 9):
+            d = cam.matrix_world.to_3x3() @ Vector((math.tan(math.radians(30)) * k / 14, math.tan(math.radians(17)) * j / 8, -1)).normalized()
+            hit, loc, nrm, idx, ob, M = sc.ray_cast(dg, cam.matrix_world.translation, d)
+            if hit and ob.get("part_kind") in ("roof_unit", "gutter", "sash_bars", "glazing", "roof"):
+                st = ob.get("state", ob.get("part_kind")); seen[st] = seen.get(st, 0) + 1
+chk("K31", cam and len(seen) >= 2, "CP013_layers sees more than one roof layer (glazed / bars / gutter)", json.dumps(seen))
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w") as fh:
     fh.write(f"# construction checks {os.path.basename(bpy.data.filepath)}\n\n| id | result | check | detail |\n|---|---|---|---|\n")
