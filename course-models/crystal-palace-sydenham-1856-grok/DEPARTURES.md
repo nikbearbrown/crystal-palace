@@ -309,3 +309,9 @@ New scripts: `scripts/eras.py` (BUILD53 / OPEN54 / LATE11 / WAR dressing), `scri
 - **D-R16-C2 I** LATE11 CP051 electric pendant fittings + warm POINT lights + tech cabinets; CP052 scaffold towers + reglazing gang on garden-front glazing; CP054 1913 Plymouth rescue flags + terrace crowd (~2200).
 - **D-R16-C3 R** OPEN54 densify: people 20983 + terrace 8118 + park 9117 (~38k toward 40k storyboard).
 - **D-R16-W3 I** Cascade water materials already boosted in waterworks.py (transmission/emission); side-on CP042 cascade hero.
+
+## r17 WEAK→OK ( 2026-10-27 04:22 UTC )
+- **D-R17-C1 I** CP058 denser AFTER pumps + cam along pump line (`dress36.py`); hero `r17i_after_CAM_CP058_*`.
+- **D-R17-C2 I** CP062/064 elevated cams (absolute Z) + horizon grass/haze fill (`states.py` r17q); heroes `r17q_ruins_*`.
+- **D-R17-C3 I** CP063 lowered lookat among scrap + yellow crane FG (`clearance.py`); hero `r17q_clearance_*`.
+- **D-R17-W1 I** Nishita hard blue band: aerosol bump + sky-matched haze card (shared look preset NOT adopted).

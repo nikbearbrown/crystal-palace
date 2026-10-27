@@ -108,7 +108,7 @@ def colls_of(o): return {c.name for c in o.users_collection}
 # repainted terracotta red in 2016 "as they had been until the end of the 19th century" (Park Trust). Side-flight
 # positions at the side transepts I; sphinx form procedural (Tanis type) I.
 SPH = coll('SY54_terrace_sphinxes_and_side_flights__1854_extant')
-sphm = mat('sphinx_red_painted_c1856', (0.42, 0.13, 0.07), 0.75) if not LATE else mat('sphinx_weathered_concrete', (0.47, 0.44, 0.39), 0.9)
+sphm = mat('sphinx_red_painted_c1856', (0.42, 0.13, 0.07), 0.75) if not LATE else mat('sphinx_weathered_concrete', (0.28, 0.25, 0.20), 0.92)  # r17 darker so CP073 separates from sky
 add_bump(sphm, 6.0, 0.3) if 'add_bump' in globals() else None
 SF = MB('terrace_side_flights', SPH, M['stone'])
 RUN_ = (BANK - 2.5) / 10
@@ -142,8 +142,9 @@ cam('CAM_CP057_1936_lower_terrace_35mm', (330, yL + 30, LT + EYE), (-120, -120, 
 cam('CAM_CP001_prologue_distant_35mm', (-260, -2150, zs(-2150) + EYE), (0, 0, 110), 35)        # CP001: glow from the park
 cam('CAM_CP059_nave_fire_28mm', (-430, 10, EYE), (0, -5, 40), 28)                              # CP059: inside the nave
 cam('CAM_CP061_transept_collapse_35mm', (-170, yU + 25, UT + EYE), (0, -60, 105), 35)          # CP061: CT from the upper terrace
-cam('CAM_CP062_morning_between_towers_35mm', (0, -1950, zs(-1950) + EYE), (0, 30, 95), 35)    # CP062: both towers
-cam('CAM_CP064_skyline_50mm', (260, -3150, zs(-3150) + EYE), (0, 30, 150), 50)                # CP064: tower skyline
+# r17c: absolute elevated Z (zs alone sits below plateau); towers at x=±918 ft
+cam('CAM_CP062_morning_between_towers_35mm', (0, -1600, 70), (0, 40, 85), 28)   # r17p: levelish lookat — less over-horizon band
+cam('CAM_CP064_skyline_50mm', (0, -2600, 85), (0, 40, 95), 50)                  # r17p: towers still in FOV, less sky lip
 cam('CAM_CP072_footprint_35mm', (-336, 0, gz(0) + EYE), (450, -10, gz(-10) + 4), 35)                    # CP072: empty plateau
 cam('CAM_CP073_sphinx_steps_50mm', (-80, yU + 1, UT + EYE + 1), (-54.5, yU + 13, UT + 5.0), 50)   # CP073: sphinx detail
 cam('CAM_CP073_steps_35mm', (-90, yU - 70, LT + EYE), (0, yU + 10, UT + 6), 35)                 # CP073: steps + sphinxes
@@ -335,7 +336,7 @@ if STATE == 'FIRE':
     sc.cycles.volume_step_rate = 6.0; sc.cycles.volume_max_steps = 256
 elif STATE == 'AFTER':
     set_sky(9, 0, 0.30, 1.5, 0, 9)                                       # low December morning sun from the east (-Y) (I time)
-    for a_, v_ in (('dust_density', 6.0), ('aerosol_density', 6.0), ('air_density', 1.6)):
+    for a_, v_ in (('dust_density', 5.0), ('aerosol_density', 5.5), ('air_density', 1.5)):  # r17i soft horizon
         try: setattr(sky, a_, v_)
         except Exception: pass
     hz = nt.nodes.new('ShaderNodeMix'); hz.data_type = 'RGBA'; socket(hz, 'Factor_Float').default_value = 0.5
@@ -343,6 +344,35 @@ elif STATE == 'AFTER':
     nt.links.new(sky.outputs[0], socket(hz, 'A_Color')); nt.links.new(socket(hz, 'Result_Color', True), bg.inputs[0])
     sun.color = (1.0, 0.82, 0.62)
     sc.cycles.volume_step_rate = 6.0
+elif STATE in ('RUINS', 'CLEARANCE'):
+    # r17j: cooler morning; heavy aerosol softens Nishita hard horizon band
+    set_sky(18, 35, 0.18, 1.6, 40, 22)
+    sun.color = (1.0, 0.92, 0.78)
+    sc.view_settings.exposure = -0.35
+    for a_, v_ in (('dust_density', 6.5), ('aerosol_density', 8.0), ('air_density', 1.65)):
+        try: setattr(sky, a_, v_)
+        except Exception: pass
+# r17q: low grass ridge + tall sky-matched haze card (kills blue band without green wall)
+if STATE in ('AFTER', 'RUINS', 'RUINS41', 'CLEARANCE'):
+    try:
+        _gm = M['grass'] if 'grass' in M else None
+    except Exception:
+        _gm = None
+    if _gm is None:
+        for _m in bpy.data.materials:
+            if 'grass' in _m.name.lower():
+                _gm = _m; break
+    # pale cream matching washed Nishita + aerosol so berm edge doesn't read as a wall
+    _haze = mat('HorizonHaze_r17', (0.82, 0.84, 0.86), rough=1.0)
+    HF = MB('horizon_fill_r17', C['SY_terraces_terrain'], _gm)
+    HF.box(-16000, 16000, 400, 5000, LT - 20, UT + 55)   # low green continuity
+    HF.box(-20000, 20000, -34000, -5000, LT - 90, LT + 40)
+    HF.done()
+    HZ = MB('horizon_haze_r17', C['SY_terraces_terrain'], _haze)
+    HZ.box(-22000, 22000, 250, 45000, UT + 20, UT + 360)  # sky-matched card behind terrace
+    HZ.box(-24000, 24000, -45000, -8000, LT + 30, UT + 280)
+    HZ.done()
+
 print('STATE', STATE, 'root', root.name)
 
 # ---------------- r12: PPL-20C 1936 dressing (appliances, hoses, crowds, police) ----------------

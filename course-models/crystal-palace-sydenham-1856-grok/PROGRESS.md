@@ -120,3 +120,18 @@
 - Lean heroes 1280×720 / 28 spp → `renders/r16/r16_CAM_CP{037,042,044,035,051,052,054}_*.png`.
 - Soft cam-block hints: none on park; 7 ft clear zone kept.
 - Local commit. NOT pushed.
+
+## r17 WEAK→OK quality (in progress 2026-10-27 03:46 UTC)
+- Targets: CP058/062/063/064 (AFTER/RUINS/CLEARANCE).
+- Cam/dress: denser AFTER pumps; elevated tower cams; clearance crane FG scrap; horizon_fill berm + Nishita aerosol (kill blue band).
+- Rounds: sydenham-{1936after,ruins,clearance}-r17.blend. Lean heroes r17*/r17d*/r17i*.
+- NOT pushed.
+
+## r17j checkpoint (2026-10-27 04:00 UTC)
+- Horizon: taller stepped berms + heavier Nishita aerosol on RUINS/CLEARANCE (no shared look preset).
+- Rebuild+lean re-render CP062/063/064 in flight.
+- CP058 r17i kept (crowd+tower+appliances).
+- NOT pushed.
+
+## r17 WEAK→OK done (2026-10-27 04:22 UTC)
+- CP058/062/063/064 promoted ≥7 (pixel judgment). Heroes r17i/r17q. Horizon haze card; no shared look preset. Local commit. NOT pushed.

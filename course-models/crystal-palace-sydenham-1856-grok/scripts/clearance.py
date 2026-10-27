@@ -15,7 +15,7 @@ cab = fmat('cl_lorry_cab', (0.15, 0.18, 0.12), 0.7)
 canvas = fmat('cl_canvas', (0.45, 0.40, 0.28), 0.9)
 rubber = fmat('cl_rubber', (0.04, 0.04, 0.04), 0.9)
 wood = fmat('cl_timber', (0.30, 0.22, 0.12), 0.85)
-yellow = fmat('cl_crane_yellow', (0.55, 0.42, 0.08), 0.55, 0.15)
+yellow = fmat('cl_crane_yellow', (0.72, 0.55, 0.08), 0.45, 0.2)  # r17 more readable crane body
 
 # ---- scrap piles on the cleared plateau (footing pads already from RUINS) ----
 SC = MB('clearance_scrap_piles', CL, rust)
@@ -107,14 +107,23 @@ for i in range(48):
     if (x + 336)**2 + y**2 < 55**2: continue
     WK.append(worker_mesh(f'worker_{i:02d}', x, y, gz(y), RCL.uniform(0, 6.28)))
 # denser gang near central crane
-for i in range(18):
-    x = -80 + RCL.uniform(-25, 25); y = 40 + RCL.uniform(-20, 20)
+for i in range(28):
+    x = -80 + RCL.uniform(-30, 30); y = 40 + RCL.uniform(-25, 25)
     WK.append(worker_mesh(f'worker_crane_{i:02d}', x, y, gz(y), RCL.uniform(0, 6.28)))
+# r17: scrap mound + beams in crane foreground (story: lift of wreckage)
+SC2 = MB('clearance_crane_fg_scrap', CL, rust); IR2 = MB('clearance_crane_fg_beams', CL, iron_d)
+for i in range(24):
+    x = -55 + RCL.uniform(-18, 12); y = 55 + RCL.uniform(-12, 18); z0 = gz(y) + 0.3
+    L = RCL.uniform(10, 26); ang = RCL.uniform(0, math.pi)
+    IR2.strut((x, y, z0 + 0.5), (x + L*math.cos(ang), y + L*math.sin(ang), z0 + RCL.uniform(1, 5)), 0.6, 0.5)
+    if RCL.random() < 0.6: SC2.box(x-4, x+4, y-3, y+3, z0, z0 + RCL.uniform(3, 8))
+SC2.done(); IR2.done()
 
 # ---- cameras CP063 ----
 cam('CAM_CP063_clearance_perimeter_35mm', (-520, yU + 40, UT + EYE + 4), (0, 0, 20), 35)
 cam('CAM_CP063_scrap_gang_35mm', (-200, 120, gz(120) + EYE), (-80, 40, gz(40) + 18), 35)
-cam('CAM_CP063_crane_lift_50mm', (-40, 90, gz(90) + EYE + 2), (-80, 40, gz(40) + 40), 50)
+# r17c: among scrap looking at yellow crane body + workers (fill frame)
+cam('CAM_CP063_crane_lift_50mm', (-20, 85, gz(85) + EYE + 2), (-80, 40, gz(40) + 10), 35)
 cam('CAM_CP063_terrace_edge_35mm', (-100, yU + 20, UT + EYE), (100, -40, UT + 5), 35)  # intact terrace edge anchors
 
 print('CLEARANCE OK', 'workers', len(WK), 'cranes 3 lorries 6')

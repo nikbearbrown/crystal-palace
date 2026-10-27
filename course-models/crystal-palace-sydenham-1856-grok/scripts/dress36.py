@@ -242,8 +242,9 @@ if FIRE_ or AFTER_:
         return (x + math.cos(heading)*-11.5, y + math.sin(heading)*-11.5)
     n_pump = 0
     # ---- Parade side (+Y): pumps along the road, TLs at the transept front (I positions) ----
+    # r17 AFTER: denser appliance line so CP058 reads outbreak/aftermath (was 2 pumps on empty olive plane)
     par_pumps = [(-620, 192, 0), (-470, 196, math.pi), (-330, 190, 0), (-200, 197, math.pi), (-120, 190, 0), (130, 192, math.pi),
-                 (285, 197, 0), (360, 190, math.pi), (500, 196, 0), (650, 191, math.pi)] if FIRE_ else [(-200, 192, 0), (180, 195, math.pi)]
+                 (285, 197, 0), (360, 190, math.pi), (500, 196, 0), (650, 191, math.pi)] if FIRE_ else                 [(-360, 192, 0), (-280, 196, math.pi), (-200, 190, 0), (-120, 195, math.pi), (-40, 191, 0), (80, 196, math.pi), (180, 192, 0)]
     for i, (x_, y_, h_) in enumerate(par_pumps):
         rp = pump('parade_%02d' % i, x_, y_, ZPAR, h_); n_pump += 1
         for k in range(2 if FIRE_ else 1):     # lines of hose into the building / to the transept front
@@ -321,10 +322,14 @@ if FIRE_ or AFTER_:
         crowd_band('upper_terrace_S', -560, -330, yU + 12, yU + 58, UT, math.pi/2 + 0.6, 0.8)
         place('police_line_upper_terrace', line_mesh('police_line_upper_terrace', 'police', 10, 9.0, -math.pi/2, 79), DC, -315, yU + 35, UT, math.pi/2)
     else:
+        # AFTER TTL still damping down (I) + denser parade sightseers around appliances
+        ttl('parade_after', -90, 188, ZPAR, 0.0, -math.pi/2 + 0.2, math.radians(28), jet_to=(-20, 80, 8))
+        crowd_band('parade_after', -400, 200, 210, 250, ZPAR, math.pi, 0.7)
         crowd_band('lower_terrace_sightseers', -300, 300, yU - BANK - 40, yU - BANK - 10, LT, 0.0, 0.35)
         place('police_line_lower_terrace', line_mesh('police_line_lower_terrace_am', 'police', 24, 18.0, math.pi, 80), DC, 0, yU - BANK - 6, LT)
     print('DRESS36', STATE, 'pumps', n_pump, 'crowd', n_people, 'hoses', len(hoses), 'jets', len(jets))
 
 # CP058 (appliances & firemen on the Parade) and CP060 (the crowd watching) - new storyboard cameras, positions I
-cam('CAM_CP058_parade_appliances_35mm', (-310, 217, ZPAR + EYE), (-20, 150, 30), 35)   # inside the cordon (press position), police line + crowd behind (I)
+# r17: stand among appliances looking along the pump line toward scorched nave + tower (was empty olive FG)
+cam('CAM_CP058_parade_appliances_35mm', (-300, 215, ZPAR + EYE), (-80, 195, ZPAR + 5), 35)  # r17i along pump line (was lookat z=35 → empty sky)
 cam('CAM_CP060_crowd_watching_35mm', (-420, 318, ZPAR + EYE + 1.0), (-40, 40, 70), 35)
