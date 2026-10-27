@@ -35,3 +35,6 @@ never git init inside a grok folder; commit from the worktree root
 - User rejected w02 after (washed/overexposed, pale brick/dome, cone trees, grey-dash windows).
 - Fix: authored exposure ~−0.18 (street mean luminance ≈ before 0.73); BrickDeep (0.16,0.045,0.028) + grit; buff terracotta + dark mosaic frieze; darker DomeIronGlass + thick iron ribs; regular arched dark-glazed bays with iron frames (Kit.quad, no AABB dashes); rounded broadleaf London planes (14 icosphere lobes + leaf noise, exterior park-tree grammar).
 - Keep-lighting 1280×720 / 32 spp. Strict keep-better by eye: **KEEP** CP069.
+
+## ln03 w04 (2026-10-27)
+KEEP CP069 street+rah: London planes with trunk/branches + small leaf clusters + darker underside; arched windows as near-black glazing with sash bars; exposure matched to before. Pairs in survey `look/pairs_geo/`.
