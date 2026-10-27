@@ -126,7 +126,30 @@ def horse_group_mesh(name, length_m, mat, rearing=False, rider=True, base=True):
                ("cap", (0.0, -0.06, z0 + 0.18), (0.12, -0.08, z0 + 0.12), 0.025), ("cap", (0.0, 0.03, z0 + 0.18), (0.1, 0.06, z0 + 0.1), 0.025)]
     me = _mb_mesh(name, body + fl + hind + tail + rid, length_m)
     if base: _join(me, [(-0.5, 0.55, -0.2, 0.2, -0.0, 0.05)], length_m)   # base=False: live horse (construction/dismantle carts)
-    me.materials.append(mat); return me
+    # harness: bridle, breast collar, girth, traces (leather) — second material slot
+    bm = bmesh.new(); bm.from_mesh(me); n0 = len(bm.faces)
+    s = length_m
+    for box in [
+        (0.40*s, 0.55*s, -0.045*s, 0.045*s, 0.82*s, 0.96*s),   # headstall
+        (0.48*s, 0.58*s, -0.03*s, 0.03*s, 0.78*s, 0.86*s),    # bit/cheek
+        (-0.05*s, 0.38*s, -0.018*s, 0.018*s, 0.72*s, 0.78*s), # rein along neck
+        (0.18*s, 0.36*s, -0.14*s, 0.14*s, 0.58*s, 0.66*s),    # breast collar
+        (-0.12*s, 0.12*s, -0.155*s, 0.155*s, 0.50*s, 0.58*s), # girth
+        (-0.22*s, 0.05*s, -0.12*s, -0.10*s, 0.52*s, 0.60*s),  # trace L
+        (-0.22*s, 0.05*s, 0.10*s, 0.12*s, 0.52*s, 0.60*s),    # trace R
+    ]:
+        _box(bm, *box)
+    for i, f in enumerate(bm.faces):
+        if i >= n0: f.material_index = 1
+    bm.to_mesh(me); bm.free()
+    leather = bpy.data.materials.get("GT_HorseHarness")
+    if leather is None:
+        leather = bpy.data.materials.new("GT_HorseHarness"); leather.use_nodes = True
+        b = leather.node_tree.nodes["Principled BSDF"]
+        b.inputs["Base Color"].default_value = (0.05, 0.03, 0.02, 1)
+        b.inputs["Roughness"].default_value = 0.55
+        leather.diffuse_color = (0.05, 0.03, 0.02, 1)
+    me.materials.append(mat); me.materials.append(leather); return me
 
 # ---- crowd (feet) ----
 def _lathe(bm, prof, seg, cx=0.0, cy=0.0, ox=0.0):

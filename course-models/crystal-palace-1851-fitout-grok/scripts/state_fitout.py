@@ -15,7 +15,10 @@ def half_material(src, axis):
     """copy of an OJ material: above the per-object cut ('paint_cut', metres, object space) the OJ colours, below primer."""
     m = src.copy(); m.name = src.name + "_HALF_" + axis
     nt = m.node_tree; n = nt.nodes; l = nt.links; b = n["Principled BSDF"]
-    lk = b.inputs["Base Color"].links[0]; oj = lk.from_socket; nt.links.remove(lk)
+    if b.inputs["Base Color"].links:
+        lk = b.inputs["Base Color"].links[0]; oj = lk.from_socket; nt.links.remove(lk)
+    else:
+        rgb = n.new("ShaderNodeRGB"); rgb.outputs[0].default_value = b.inputs["Base Color"].default_value; oj = rgb.outputs[0]
     tc = n.new("ShaderNodeTexCoord"); sp = n.new("ShaderNodeSeparateXYZ"); l.new(tc.outputs["Object"], sp.inputs[0])
     at = n.new("ShaderNodeAttribute"); at.attribute_type = 'OBJECT'; at.attribute_name = "paint_cut"
     gt = n.new("ShaderNodeMath"); gt.operation = 'GREATER_THAN'
@@ -135,7 +138,7 @@ def mesh_dray():
     for sy in (-1.3, 1.3): k.bar(2, (6.0, sy, 3.6), (14.5, sy * 0.8, 3.7), 0.25)
     return k.done("dray")
 DRAY = mesh_dray()
-HORSE_B = mat_principled("FT_DraughtBay", (0.14, 0.08, 0.05), 0.7); HORSE_G = mat_principled("FT_DraughtGrey", (0.42, 0.40, 0.37), 0.7)
+HORSE_B = mat_principled("FT_DraughtBay", (0.06, 0.035, 0.02), 0.75); HORSE_G = mat_principled("FT_DraughtGrey", (0.28, 0.26, 0.24), 0.75)
 HORSE = [FG.horse_group_mesh("ft_horse_bay", 2.35, HORSE_B, rearing=False, rider=False, base=False),
          FG.horse_group_mesh("ft_horse_grey", 2.35, HORSE_G, rearing=False, rider=False, base=False)]
 def dray(nm, x, y, deg, loads, horse=0):

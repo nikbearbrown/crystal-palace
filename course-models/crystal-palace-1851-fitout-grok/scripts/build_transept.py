@@ -20,7 +20,7 @@ OUT = arg("--out", "/tmp/transept.blend")
 MILESTONES = arg("--milestones")
 COLOUR = arg("--colour", "neutral")
 SEED = int(arg("--seed", "1851"))
-STATE = arg("--state", "hp51")          # fitout | hp51 | closing
+STATE = arg("--state", "hp51")          # fitout | hp51 | closing | opening | empty | dismantle
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 FT = 0.3048
@@ -158,8 +158,8 @@ else:                  # neutral, to sit beside Claude's preview frame
     IRON = mat_principled("GT_Iron", (0.80, 0.80, 0.77), 0.55)
     IRON_COL = IRON_GIR = IRON
 FAN = mat_principled("GT_FanIron", (0.018, 0.02, 0.02), 0.65)   # r10 L03: near-black like Talbot (was 0.10) if COLOUR != "owen" else oj_material("GT_Fan_OJ", "plain")
-WOOD = mat_principled("GT_Timber", (0.72, 0.66, 0.56), 0.7)
-WOODDARK = mat_principled("GT_Boarding", (0.62, 0.55, 0.45), 0.8)
+WOOD = mat_principled("GT_Timber", (0.42, 0.36, 0.28), 0.78)
+WOODDARK = mat_principled("GT_Boarding", (0.28, 0.24, 0.18), 0.88)  # FT41: darker weathered deal albedo
 LEAD = mat_principled("GT_Lead", (0.42, 0.44, 0.46), 0.5, 0.3)
 GLASS = mat_glass("GT_Glass")
 GLASS_PLAIN = mat_glass("GT_GlassPlain", tint=(0.62, 0.68, 0.68), bars=False)
@@ -646,9 +646,9 @@ def glass_solid(name, tint=(0.95, 0.97, 1.0), ior=1.5, rough=0.0):
     out = [x for x in n if x.type == 'OUTPUT_MATERIAL'][0]
     fr = n.new("ShaderNodeFresnel"); fr.inputs["IOR"].default_value = ior
     tr = n.new("ShaderNodeBsdfTransparent"); tr.inputs["Color"].default_value = (*tint, 1)
-    gl = n.new("ShaderNodeBsdfGlossy"); gl.inputs["Roughness"].default_value = rough
-    rf = n.new("ShaderNodeBsdfRefraction"); rf.inputs["IOR"].default_value = ior; rf.inputs["Color"].default_value = (*tint, 1)
-    m1 = n.new("ShaderNodeMixShader"); m1.inputs[0].default_value = 0.15
+    gl = n.new("ShaderNodeBsdfGlossy"); gl.inputs["Roughness"].default_value = rough; gl.inputs["Color"].default_value = (1, 1, 1, 1)
+    rf = n.new("ShaderNodeBsdfRefraction"); rf.inputs["IOR"].default_value = ior; rf.inputs["Color"].default_value = (*tint, 1); rf.inputs["Roughness"].default_value = 0.0
+    m1 = n.new("ShaderNodeMixShader"); m1.inputs[0].default_value = 0.22
     l.new(tr.outputs[0], m1.inputs[1]); l.new(rf.outputs[0], m1.inputs[2])
     m2 = n.new("ShaderNodeMixShader"); l.new(fr.outputs[0], m2.inputs[0]); l.new(m1.outputs[0], m2.inputs[1]); l.new(gl.outputs[0], m2.inputs[2])
     l.new(m2.outputs[0], out.inputs["Surface"])
@@ -680,15 +680,23 @@ prof = [(0, 1.0), (5.2, 1.0), (5.2, 2.4), (4.4, 2.6), (4.4, 3.6), (3.6, 3.8), (2
         (0.7, 24.1), (0.3, 24.6), (0.25, 26.2), (0.55, 26.6), (0.0, 27.0)]
 prof = [(r * (1.45 if z > 10.0 else 1.15), z) for (r, z) in prof]   # r07 F03: Talbot/ILN read a much fuller body than r06
 new_obj("FOUNTAIN_GLASS", lathe(prof, "f_glass", CRYSTAL, 48), FC, props={"part_kind": "fountain", "height_ft": 27.0})
-# hanging prism fringes on the bowls and the spiked crown on the middle bowl
+# hanging prism fringes — faceted hexagonal drops with sparkle (FT42)
 bm = bmesh.new()
+def hex_prism(bm, cx, cy, z0, z1, r0, r1, seg=6):
+    rings = []
+    for (r, z) in ((r0, z0), (r1, z1)):
+        rings.append([bm.verts.new((cx + r * math.cos(2 * math.pi * k / seg), cy + r * math.sin(2 * math.pi * k / seg), z)) for k in range(seg)])
+    for A, B in zip(rings, rings[1:]):
+        for k in range(seg):
+            bm.faces.new([A[k], A[(k + 1) % seg], B[(k + 1) % seg], B[k]])
+    bm.faces.new(list(reversed(rings[0]))); bm.faces.new(rings[-1])
 for (rr, z0, n, L) in ((8.2 * 1.15, 9.4, 64, 1.6), (5.4 * 1.45, 13.6, 44, 1.1), (3.3 * 1.45, 16.7, 28, 0.8)):
     for k in range(n):
         a = 2 * math.pi * k / n
-        bm_cyl(bm, inch(0.9), ft(z0 - L), ft(z0), 5, ft(rr) * math.cos(a), ft(rr) * math.sin(a))
+        hex_prism(bm, ft(rr) * math.cos(a), ft(rr) * math.sin(a), ft(z0 - L), ft(z0), inch(1.1), inch(0.15), 6)
 for k in range(18):
     a = 2 * math.pi * k / 18
-    bm_bar(bm, (ft(6.7) * math.cos(a), ft(6.7) * math.sin(a), ft(14.2)), (ft(7.1) * math.cos(a), ft(7.1) * math.sin(a), ft(16.2)), inch(2.5), inch(2.5))
+    hex_prism(bm, ft(6.9) * math.cos(a), ft(6.9) * math.sin(a), ft(14.0), ft(16.4), inch(2.2), inch(0.3), 6)
 new_obj("FOUNTAIN_PRISMS", finish(bm, "f_prisms", CRYSTAL), FC, props={"part_kind": "fountain"})
 # the water: a jet from the finial and a sheet falling from each bowl (thin glassy shells)
 new_obj("FOUNTAIN_JET", lathe([(0.05, 26.9), (0.12, 29.5), (0.6, 30.6), (1.6, 30.2), (2.6, 28.0)], "f_jet", WATER, 24), FC, props={"part_kind": "fountain_water"})
@@ -944,7 +952,7 @@ def put(mc, name, x, y, rz, kind):
     e = bpy.data.objects.new(name, None); e.instance_type = 'COLLECTION'; e.instance_collection = mc
     e.location = (ft(x), ft(y), 0); e.rotation_euler = (0, 0, rz); EXC.objects.link(e)
     e["part_kind"] = kind; e["credit"] = "Muse"; exhibits.append(e)
-MUSE_ON = STATE != "fitout"          # FT01: no exhibits in the fit-out months
+MUSE_ON = STATE not in ("fitout", "empty", "dismantle")          # FT01: no exhibits in the fit-out months
 CASE = muse_prop("hp-crate-and-display-case", lambda n: n.startswith("Case"), (1.4, 0.0, 0.0), "MUSE_DisplayCase_by_Muse")
 BENCH = muse_prop("park-bench", lambda n: n not in ("Ground", "Backdrop"), (0.0, 0.0, 0.0), "MUSE_Bench_by_Muse")
 PLINTH = muse_prop("display-plinth", lambda n: n == "DisplayPlinth", (0.0, 0.0, 0.0), "MUSE_Plinth_by_Muse")
@@ -962,7 +970,7 @@ if BENCH and MUSE_ON:   # benches in the transept, east side near the fountain a
     for (x, y, rz) in ((22, -46, -math.pi / 2), (22, 46, -math.pi / 2), (-22, 116, math.pi / 2), (-22, 158, math.pi / 2)):   # seat front (Muse -y) faces the axis
         put(BENCH, f"EXH_BENCH_{x:+d}_{y:+d}", x, y, rz, "bench")
 print("MUSE_EXHIBITS", len(exhibits), flush=True)
-PRE_RECTS = {"hp51": [(-16, 16, -200, -186, "turnstiles")], "closing": [(-25, 25, 24, 61, "dais")]}.get(STATE, [])
+PRE_RECTS = {"hp51": [(-16, 16, -200, -186, "turnstiles")], "closing": [(-25, 25, 24, 61, "dais")], "opening": [(-25, 25, 24, 61, "dais")]}.get(STATE, [])
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dressing.py")).read())
 
 exec(open(os.path.join(HERE, f"state_{STATE}.py")).read())

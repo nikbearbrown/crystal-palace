@@ -1,283 +1,439 @@
 {
- "units": "ft",
- "eye_ft": 5.25,
- "gallery_eye_ft": 28.17,
- "shots": [
-  {
-   "id": "CP018_paint",
-   "lens_mm": 28,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     -22,
-     -116,
-     5.25
-    ],
-    "look_ft": [
-     32,
-     -100,
-     14
-    ]
-   },
-   "end": {
-    "pos_ft": [
-     -22,
-     -96,
-     5.25
-    ],
-    "look_ft": [
-     32,
-     -78,
-     18
-    ]
-   },
-   "note": "painters on ladders, half-painted columns along the east transept edge"
-  },
-  {
-   "id": "CP018_cradle",
-   "lens_mm": 50,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     39.5,
-     -100,
-     28.17
-    ],
-    "look_ft": [
-     -34,
-     -62,
-     37
-    ]
-   },
-   "note": "from the east gallery across to a cradle on the west columns"
-  },
-  {
-   "id": "CP019_doors",
-   "lens_mm": 28,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     -14,
-     -160,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     -214,
-     6
-    ]
-   },
-   "note": "trucks bringing crates in through the south doors"
-  },
-  {
-   "id": "CP019_dray",
-   "lens_mm": 35,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     -32,
-     -262,
-     5.25
-    ],
-    "look_ft": [
-     -3,
-     -212,
-     7
-    ]
-   },
-   "note": "dray unloading at the south entrance"
-  },
-  {
-   "id": "CP020_floor",
-   "lens_mm": 28,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     128,
-     -28,
-     5.25
-    ],
-    "look_ft": [
-     80,
-     2,
-     1.5
-    ]
-   },
-   "note": "boarding gaps in the east nave; sweeping beyond"
-  },
-  {
-   "id": "CP020_gaps",
-   "lens_mm": 50,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     126,
-     24,
-     5.25
-    ],
-    "look_ft": [
-     126,
-     2,
-     -1
-    ]
-   }
-  },
-  {
-   "id": "CP020_sweep",
-   "lens_mm": 50,
-   "state": "fitout",
-   "start": {
-    "pos_ft": [
-     34,
-     20,
-     5.25
-    ],
-    "look_ft": [
-     64,
-     8,
-     2
-    ]
-   }
-  },
-  {
-   "id": "CP026_shilling_ext",
-   "lens_mm": 35,
-   "state": "hp51",
-   "start": {
-    "pos_ft": [
-     24,
-     -262,
-     5.25
-    ],
-    "look_ft": [
-     0,
-     -206,
-     7
-    ]
-   },
-   "note": "shilling-day queue at the south entrance"
-  },
-  {
-   "id": "CP026_turnstiles",
-   "lens_mm": 28,
-   "state": "hp51",
-   "start": {
-    "pos_ft": [
-     -8,
-     -174,
-     5.25
-    ],
-    "look_ft": [
-     2,
-     -198,
-     4
-    ]
-   }
-  },
-  {
-   "id": "CP027_stair_foot",
-   "lens_mm": 28,
-   "state": "hp51",
-   "start": {
-    "pos_ft": [
-     103.75,
-     -50,
-     5.25
-    ],
-    "look_ft": [
-     103.75,
-     -84,
-     14
-    ]
-   },
-   "note": "foot of the SE gallery stair (K-STAIR)"
-  },
-  {
-   "id": "CP027_gallery_rail",
-   "lens_mm": 28,
-   "state": "hp51",
-   "start": {
-    "pos_ft": [
-     39.5,
-     -48,
-     28.17
-    ],
-    "look_ft": [
-     -6,
-     0,
-     2
-    ]
-   },
-   "note": "from the east gallery rail down into the transept"
-  },
-  {
-   "id": "CP028_louvre",
-   "lens_mm": 50,
-   "state": "hp51",
-   "start": {
-    "pos_ft": [
-     24,
-     156,
-     5.25
-    ],
-    "look_ft": [
-     24,
-     203,
-     15
-    ]
-   },
-   "note": "tilted up to frame Muse's louvre compartments at 16.7 ft with the rope attendant below (FT41)"
-  },
-  {
-   "id": "CP028_watering",
-   "lens_mm": 35,
-   "state": "hp51",
-   "start": {
-    "pos_ft": [
-     -4,
-     80,
-     5.25
-    ],
-    "look_ft": [
-     12,
-     97,
-     5
-    ]
-   }
-  },
-  {
-   "id": "CP029_dais",
-   "lens_mm": 28,
-   "state": "closing",
-   "start": {
-    "pos_ft": [
-     -27,
-     -6,
-     5.25
-    ],
-    "look_ft": [
-     4,
-     48,
-     8
-    ]
-   }
-  },
-  {
-   "id": "CP029_gallery",
-   "lens_mm": 28,
-   "state": "closing",
-   "start": {
-    "pos_ft": [
-     -39.5,
-     -44,
-     28.17
-    ],
-    "look_ft": [
-     0,
-     48,
-     3
-    ]
-   }
-  }
- ]
+  "units": "ft",
+  "eye_ft": 5.25,
+  "gallery_eye_ft": 28.17,
+  "shots": [
+    {
+      "id": "CP018_paint",
+      "lens_mm": 28,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          -22,
+          -116,
+          5.25
+        ],
+        "look_ft": [
+          32,
+          -100,
+          14
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          -22,
+          -96,
+          5.25
+        ],
+        "look_ft": [
+          32,
+          -78,
+          18
+        ]
+      },
+      "note": "painters on ladders, half-painted columns along the east transept edge"
+    },
+    {
+      "id": "CP018_cradle",
+      "lens_mm": 50,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          39.5,
+          -100,
+          28.17
+        ],
+        "look_ft": [
+          -34,
+          -62,
+          37
+        ]
+      },
+      "note": "from the east gallery across to a cradle on the west columns"
+    },
+    {
+      "id": "CP019_doors",
+      "lens_mm": 28,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          -14,
+          -160,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          -214,
+          6
+        ]
+      },
+      "note": "trucks bringing crates in through the south doors"
+    },
+    {
+      "id": "CP019_dray",
+      "lens_mm": 35,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          -32,
+          -262,
+          5.25
+        ],
+        "look_ft": [
+          -3,
+          -212,
+          7
+        ]
+      },
+      "note": "dray unloading at the south entrance"
+    },
+    {
+      "id": "CP020_floor",
+      "lens_mm": 28,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          128,
+          -28,
+          5.25
+        ],
+        "look_ft": [
+          80,
+          2,
+          1.5
+        ]
+      },
+      "note": "boarding gaps in the east nave; sweeping beyond"
+    },
+    {
+      "id": "CP020_gaps",
+      "lens_mm": 50,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          126,
+          24,
+          5.25
+        ],
+        "look_ft": [
+          126,
+          2,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "CP020_sweep",
+      "lens_mm": 50,
+      "state": "fitout",
+      "start": {
+        "pos_ft": [
+          34,
+          20,
+          5.25
+        ],
+        "look_ft": [
+          64,
+          8,
+          2
+        ]
+      }
+    },
+    {
+      "id": "CP026_shilling_ext",
+      "lens_mm": 35,
+      "state": "hp51",
+      "start": {
+        "pos_ft": [
+          24,
+          -262,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          -206,
+          7
+        ]
+      },
+      "note": "shilling-day queue at the south entrance"
+    },
+    {
+      "id": "CP026_turnstiles",
+      "lens_mm": 28,
+      "state": "hp51",
+      "start": {
+        "pos_ft": [
+          -8,
+          -174,
+          5.25
+        ],
+        "look_ft": [
+          2,
+          -198,
+          4
+        ]
+      }
+    },
+    {
+      "id": "CP027_stair_foot",
+      "lens_mm": 28,
+      "state": "hp51",
+      "start": {
+        "pos_ft": [
+          103.75,
+          -50,
+          5.25
+        ],
+        "look_ft": [
+          103.75,
+          -84,
+          14
+        ]
+      },
+      "note": "foot of the SE gallery stair (K-STAIR)"
+    },
+    {
+      "id": "CP027_gallery_rail",
+      "lens_mm": 28,
+      "state": "hp51",
+      "start": {
+        "pos_ft": [
+          39.5,
+          -48,
+          28.17
+        ],
+        "look_ft": [
+          -6,
+          0,
+          2
+        ]
+      },
+      "note": "from the east gallery rail down into the transept"
+    },
+    {
+      "id": "CP028_louvre",
+      "lens_mm": 50,
+      "state": "hp51",
+      "start": {
+        "pos_ft": [
+          24,
+          156,
+          5.25
+        ],
+        "look_ft": [
+          24,
+          203,
+          15
+        ]
+      },
+      "note": "tilted up to frame Muse's louvre compartments at 16.7 ft with the rope attendant below (FT41)"
+    },
+    {
+      "id": "CP028_watering",
+      "lens_mm": 35,
+      "state": "hp51",
+      "start": {
+        "pos_ft": [
+          -4,
+          80,
+          5.25
+        ],
+        "look_ft": [
+          12,
+          97,
+          5
+        ]
+      }
+    },
+    {
+      "id": "CP029_dais",
+      "lens_mm": 28,
+      "state": "closing",
+      "start": {
+        "pos_ft": [
+          -27,
+          -6,
+          5.25
+        ],
+        "look_ft": [
+          4,
+          48,
+          8
+        ]
+      }
+    },
+    {
+      "id": "CP029_gallery",
+      "lens_mm": 28,
+      "state": "closing",
+      "start": {
+        "pos_ft": [
+          -39.5,
+          -44,
+          28.17
+        ],
+        "look_ft": [
+          0,
+          48,
+          3
+        ]
+      }
+    },
+    {
+      "id": "CP021_doors",
+      "lens_mm": 28,
+      "state": "opening",
+      "start": {
+        "pos_ft": [
+          0,
+          -200,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          40,
+          12
+        ]
+      },
+      "note": "1 May opening: looking up the nave from the south doors toward the dais / fountain"
+    },
+    {
+      "id": "CP021_dais",
+      "lens_mm": 35,
+      "state": "opening",
+      "start": {
+        "pos_ft": [
+          -24,
+          -4,
+          5.25
+        ],
+        "look_ft": [
+          2,
+          48,
+          8
+        ]
+      },
+      "note": "opening ceremony under the transept"
+    },
+    {
+      "id": "CP022_fountain",
+      "lens_mm": 35,
+      "state": "opening",
+      "start": {
+        "pos_ft": [
+          18,
+          -28,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          0,
+          14
+        ]
+      },
+      "note": "Osler crystal fountain at the crossing \u2014 landmark of glass"
+    },
+    {
+      "id": "CP022_crossing",
+      "lens_mm": 28,
+      "state": "opening",
+      "start": {
+        "pos_ft": [
+          -8,
+          32,
+          5.25
+        ],
+        "look_ft": [
+          0,
+          0,
+          16
+        ]
+      },
+      "note": "crossing looking south past the fountain into the nave"
+    },
+    {
+      "id": "CP030_aisle",
+      "lens_mm": 28,
+      "state": "empty",
+      "start": {
+        "pos_ft": [
+          30,
+          -8,
+          5.25
+        ],
+        "look_ft": [
+          80,
+          -10,
+          6
+        ]
+      },
+      "end": {
+        "pos_ft": [
+          58,
+          -12,
+          5.25
+        ],
+        "look_ft": [
+          100,
+          -10,
+          8
+        ]
+      },
+      "note": "CP030 HP-EMPTY: walk toward familiar column, crates replace exhibits"
+    },
+    {
+      "id": "CP030_crates",
+      "lens_mm": 35,
+      "state": "empty",
+      "start": {
+        "pos_ft": [
+          -20,
+          -70,
+          5.25
+        ],
+        "look_ft": [
+          -46,
+          -20,
+          4
+        ]
+      },
+      "note": "packing crates on the aisle line"
+    },
+    {
+      "id": "CP031_joint",
+      "lens_mm": 50,
+      "state": "dismantle",
+      "start": {
+        "pos_ft": [
+          28,
+          6,
+          5.25
+        ],
+        "look_ft": [
+          36,
+          0,
+          10.5
+        ]
+      },
+      "note": "CP031: supported joint detail, pins withdrawn"
+    },
+    {
+      "id": "CP031_stacks",
+      "lens_mm": 35,
+      "state": "dismantle",
+      "start": {
+        "pos_ft": [
+          5,
+          -190,
+          5.25
+        ],
+        "look_ft": [
+          30,
+          -210,
+          4
+        ]
+      },
+      "note": "component stacks on the south yard; lateral outside work zone"
+    }
+  ]
 }

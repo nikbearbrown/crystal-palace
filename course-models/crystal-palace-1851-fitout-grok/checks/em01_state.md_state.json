@@ -1,0 +1,138 @@
+{
+ "state": "empty",
+ "checks": [
+  {
+   "id": "CP030_aisle_end.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_end.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_end.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_end.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_end.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP030_aisle_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "CP030_crates_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP030_crates_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP030_crates_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP030_crates_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP030_crates_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "E.crates",
+   "check": "packing crates present",
+   "target": "",
+   "measured": 44,
+   "pass": true
+  },
+  {
+   "id": "E.staff",
+   "check": "packers on the floor",
+   "target": "",
+   "measured": 9,
+   "pass": true
+  },
+  {
+   "id": "E.no_exhibits",
+   "check": "exhibits cleared",
+   "target": "",
+   "measured": 0,
+   "pass": true
+  },
+  {
+   "id": "FILE.size",
+   "check": "round .blend under 90 MB",
+   "target": "< 90 MB",
+   "measured": 17.6,
+   "pass": true
+  }
+ ]
+}

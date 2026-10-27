@@ -9,7 +9,7 @@ import importlib, figures as FG
 importlib.reload(FG)
 rnd = random.Random(SEED + 51)
 STATE = arg("--state", "hp51")
-_DST = "hp51" if STATE in ("hp51", "closing") else STATE   # FT: the closing (Oct 1851) keeps the full exhibition dressing
+_DST = "hp51" if STATE in ("hp51", "closing", "opening") else STATE   # FT: the closing (Oct 1851) keeps the full exhibition dressing
 DRESS = coll("DRESSING_R09", ROOT)
 SUBC = {n: coll(n, DRESS) for n in ["SCULPTURE", "MACHINERY", "TEXTILES", "BANNERS", "PLANTERS", "CROWD"]}
 dressed = {k: 0 for k in SUBC}

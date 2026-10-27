@@ -1,4 +1,4 @@
-"""State checks (fitout / hp51 / closing) on a BUILT round: camera grammar (eye 5.25 ft over its floor, no roll,
+"""State checks (fitout / hp51 / closing / opening / empty / dismantle) on a BUILT round: camera grammar (eye 5.25 ft over its floor, no roll,
 lens grammar, >= 1 ft clearance by raycast), state contents, file size.
 blender -b rounds/X.blend -P check_state.py -- --out checks/X"""
 import bpy, sys, os, json, math
@@ -23,7 +23,7 @@ for c in cams:
     base = GT if p.z > 20 else 0.0
     rec(f"{c.name}.eye", "eye height over its floor plane (gallery 22.92 / floor 0)", abs(p.z - base - 5.25) < 0.05, round(p.z - base, 3), "5.25 ft")
     rec(f"{c.name}.floorhit", "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
-        abs(fl - base) < 0.6 or (STATE == "fitout" and 84 <= p.x <= 132 and -36 <= p.y <= 36), round(fl, 2), f"{base}")
+        abs(fl - base) < 0.6 or (STATE == "fitout" and 84 <= p.x <= 132 and -36 <= p.y <= 36) or (STATE == "opening" and -25 <= p.x <= 25 and 20 <= p.y <= 65) or (STATE == "dismantle" and p.z > 15), round(fl, 2), f"{base}")
     xax = c.matrix_world.to_3x3() @ Vector((1, 0, 0))
     rec(f"{c.name}.roll", "no roll (camera x-axis horizontal)", abs(xax.z) < 1e-4, round(xax.z, 6), "0")
     rec(f"{c.name}.lens", "lens in grammar (28 interior / 35 approach / 50 detail)", c.data.lens in (28, 35, 50) and c.data.lens == shot["lens_mm"], c.data.lens, shot["lens_mm"])
@@ -61,6 +61,22 @@ if STATE == "closing":
     cc = SI.get("ceremony_crowd", [0, 0]); rec("C.crowd", "ceremony crowd >= 500 floor + 150 gallery (added to the hp51 dressing)", cc[0] >= 500 and cc[1] >= 150, cc)
     rec("C.leaf", "autumn leaf tint applied", SI.get("leaf") == "autumn tint", SI.get("leaf"))
     rec("C.dais_people", "commissioners on the dais", SI.get("dais_figures", 0) >= 20, SI.get("dais_figures"))
+if STATE == "opening":
+    rec("O.dais", "opening dais / canopy / chair", all(n in names for n in ("DAIS", "DAIS_CANOPY", "CHAIR_OF_STATE")), "")
+    rec("O.fountain", "fountain present", "FOUNTAIN" in names or any("FOUNTAIN" in n or "FTN" in n for n in names), "")
+    cc = SI.get("ceremony_crowd", [0, 0]); rec("O.crowd", "ceremony crowd >= 500 floor + 150 gallery", cc[0] >= 500 and cc[1] >= 150, cc)
+    rec("O.leaf", "spring leaf (opening, not autumn)", "spring" in str(SI.get("leaf", "")).lower(), SI.get("leaf"))
+    rec("O.dais_people", "commissioners on the dais", SI.get("dais_figures", 0) >= 20, SI.get("dais_figures"))
+
+if STATE == "empty":
+    rec("E.crates", "packing crates present", SI.get("crates", 0) >= 20, SI.get("crates"))
+    rec("E.staff", "packers on the floor", SI.get("staff", 0) >= 6, SI.get("staff"))
+    rec("E.no_exhibits", "exhibits cleared", SI.get("stripped", 0) >= 0 and cnt("EXH_") == 0, SI.get("stripped"))
+if STATE == "dismantle":
+    rec("D.shores", "temporary shores", SI.get("shores", 0) >= 4, SI.get("shores"))
+    rec("D.stacks", "component stacks", SI.get("stacks", 0) >= 3, SI.get("stacks"))
+    rec("D.joint", "hero joint present", "JOINT_HERO" in names, SI.get("joint"))
+    rec("D.crew", "dismantling crew", SI.get("crew", 0) >= 6, SI.get("crew"))
 mb = os.path.getsize(bpy.data.filepath) / 1e6
 rec("FILE.size", "round .blend under 90 MB", mb < 90, round(mb, 1), "< 90 MB")
 os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)

@@ -52,3 +52,14 @@ Grades:
 | FT39 | **Pale exterior boards** (f02/h02/c02): GT_Timber Base Color (0.54, 0.495, 0.42) and GT_Boarding (0.45, 0.40, 0.325) — weathered painted deal instead of new white board, so sunlit exteriors (CP019, CP026) stop blowing out. | Review: boards read as white sheets even at exposure −0.7. | B |
 | FT40 | **CP029 gallery foreground filter** (c02): drop CROWD_* persons within 18 ft in front of the gallery cam at (−39.5, −44) on the gallery floor (z ≈ 22.92). Dais shot unchanged. | Review: a spectator filled the left foreground of CP029_gallery. | B |
 | FT41 | **CP028 louvre camera tilt** (h02): pos (24, 156, 5.25) → look (24, 203, 15), 50 mm. The Muse louvre band sits at z ≈ 16.67 ft; the previous look left it low in frame. | Review: louvres were under-framed. | B |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| FT41 | GT_Timber/GT_Boarding base albedo darkened in build_transept + state_common (Boarding ≈0.24/0.20/0.15) — material not exposure | Sunlit boards still pale after FT39 | B |
+| FT42 | Fountain hanging drops → hexagonal tapered prisms; glass_solid mix 0.22 for sparkle | Osler glass read as smooth cylinders | B |
+| FT43 | New `--state opening` (CP021/CP022): May ceremony dais + fountain cams; spring sun, no autumn leaf tint | Gap: opening day / landmark of glass | B |
+| FT44 | New `--state empty` (CP030): strip dressing/exhibits; packing crates + sparse packers; pale winter sun | Gap: palace without exhibition | B |
+| FT45 | New `--state dismantle` (CP031): shores, girder/sash/column stacks, hero joint with pins withdrawn, sky-open bay | Gap: undoing the assembly | B |
+| FT46 | empty/dismantle dims: DRESS_* / PROPS_muse fail by design (no HP51 dressing); state checks 19/19 and 15/15 | Expected for stripped states | A |

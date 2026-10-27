@@ -112,7 +112,7 @@ def open_south_doors():
 
 # FT39 (f02/h02/c02): the boarded end walls blew out white in sunlit exteriors -> tone the timber down ~25 %
 # (state rounds only; the base transept build is unchanged). Weathered painted deal, not new white board.
-for _mn, _rgb in (("GT_Timber", (0.54, 0.495, 0.42)), ("GT_Boarding", (0.45, 0.40, 0.325))):
+for _mn, _rgb in (("GT_Timber", (0.36, 0.30, 0.22)), ("GT_Boarding", (0.24, 0.20, 0.15))):  # FT41 darker albedo
     _m = bpy.data.materials.get(_mn)
     if _m and _m.use_nodes:
         _b = _m.node_tree.nodes.get("Principled BSDF")

@@ -27,3 +27,15 @@ Branch `grok-fitout-1851` (worktree /workspace/crystal-palace-fitout). Local com
 - Parked as backlog: sharper half-paint bands with drips; workshop belts and shavings / shop lighting / loading-door view (fitout next 3 and 5).
 - Checks: f02 40/40 dims + 48/48 state; h02 39/39 + 38/38; c02 35/35 + 15/15.
 - Renders: renders/f02/CP019_dray_start; renders/h02/CP026_shilling_ext_start, CP028_louvre_start; renders/c02/CP029_gallery_start, CP029_dais_start.
+
+## f03 / h03 / o01 (2026-10-27): quality + opening gap fill
+- FT41 darker boarding albedo (material not exposure); FT42 hex fountain prisms + glass_solid sparkle; FT43 `--state opening` (CP021/CP022).
+- Horse harness + darker coats in fitout. Checks: f03 40/40 + 48/48.
+- Renders: f03/, h03/, o01/.
+
+## em01 / dm01 (2026-10-27): HP-EMPTY + HP-DISMANTLE gap fill
+- empty (CP030): crates replace exhibits.
+- dismantle (CP031): shores, stacks, joint hero.
+- DEPARTURES FT44–FT45.
+- Checks: em01 state 19/19; dm01 state 15/15 (dims DRESS fails expected).
+- Renders: renders/em01/CP030_*; renders/dm01/CP031_*.
