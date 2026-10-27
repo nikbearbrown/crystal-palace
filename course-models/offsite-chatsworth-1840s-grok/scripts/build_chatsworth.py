@@ -13,10 +13,10 @@ ROOT = G.coll("CHATSWORTH_CH01"); STOVE = G.coll("GREAT_STOVE", ROOT); LILY = G.
 info = {}
 M = dict(
     timber=G.mat("Timber", (0.42, 0.32, 0.20), 0.75), deal=G.mat("Deal", (0.55, 0.46, 0.32), 0.7),
-    iron=G.mat("Iron", (0.12, 0.13, 0.14), 0.5, 0.3), paint=G.mat("WhitePaint", (0.78, 0.76, 0.70), 0.65),
-    glass=G.mat_thin_glass("Glass", (0.78, 0.88, 0.86), 0.08),
-    leaf=G.mat("Leaf", (0.12, 0.38, 0.14), 0.7), leafu=G.mat("LeafUnder", (0.45, 0.55, 0.28), 0.55),
-    rib=G.mat("LeafRib", (0.55, 0.50, 0.30), 0.6), water=G.mat("Water", (0.05, 0.22, 0.35), 0.05, 0, ((0.05, 0.25, 0.4), 0.4)),
+    iron=G.mat("Iron", (0.07, 0.065, 0.055), 0.45, 0.35), paint=G.mat("WhitePaint", (0.62, 0.55, 0.42), 0.7),
+    glass=G.mat_thin_glass("Glass", (0.72, 0.82, 0.78), 0.14),
+    leaf=G.mat("Leaf", (0.10, 0.42, 0.12), 0.65, 0.0, ((0.05, 0.18, 0.04), 0.15)), leafu=G.mat("LeafUnder", (0.40, 0.50, 0.22), 0.55),
+    rib=G.mat("LeafRib", (0.50, 0.45, 0.25), 0.55), water=G.mat("Water", (0.04, 0.20, 0.32), 0.04, 0, ((0.08, 0.28, 0.45), 0.55)),
     stone=G.mat("Stone", (0.55, 0.52, 0.46), 0.9), soil=G.mat("Soil", (0.25, 0.18, 0.10), 0.95),
     brick=G.mat("Brick", (0.48, 0.28, 0.18), 0.85), path=G.mat("Path", (0.40, 0.38, 0.32), 0.9),
     pot=G.mat("Terracotta", (0.55, 0.28, 0.14), 0.8), trunk=G.mat("Trunk", (0.28, 0.18, 0.10), 0.9),
@@ -241,6 +241,9 @@ for s in route["shots"]:
                 s[key]["pos_ft"][0] += LX; s[key]["look_ft"][0] += LX
 tmp = "/tmp/ch_route.json"; json.dump(route, open(tmp, "w"))
 CAMS = G.coll("CAMERAS"); G.cameras(tmp, CAMS)
-G.world_sky(elev=42, rot=160, strength=0.45, sun_energy=2.8, sun_rot=(50, 0, 20), sun_col=(1.0, 0.95, 0.88))
-G.render_settings(exposure=0.05)
+# CH03: warmer glasshouse light, less bleach; lily tank soft fill
+G.world_sky(elev=38, rot=150, strength=0.28, sun_energy=2.2, sun_rot=(48, 0, 25), sun_col=(1.0, 0.88, 0.72), haze=(1.2, 0.45))
+G.render_settings(exposure=-0.15)
+fill = bpy.data.lights.new("CH_LilyFill", "AREA"); fill.energy = 180; fill.size = 18; fill.color = (1.0, 0.95, 0.85)
+fo = bpy.data.objects.new("CH_LilyFill", fill); fo.location = (LX, 0, 14); LILY.objects.link(fo)
 G.save(OUT, info, "O-CHATS ch01", SEED)

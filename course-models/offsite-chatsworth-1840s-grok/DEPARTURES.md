@@ -8,3 +8,9 @@
 | CH04 | Turned-over leaf on a trestle for the underside + CP004_learning shot linking leaf ribs to the roof | Staging: CP004 "learning to repeat". A leaf was exhibited this way. | B |
 | CH05 | Tropical planting as simplified palms + underplanting boxes (not a full botanical inventory) | Staging density for an interior view. | C |
 | CH06 | Stove walk ledge at 4.05 ft — cameras at eye 5.25 over that surface (z=9.3) | The dwarf wall raises the floor; eye grammar is over the standing surface. | B |
+
+## Quality pass 2026-10-27
+
+| ID | Change | Why | Grade |
+|---|---|---|---|
+| CH03 | Warmer glass/iron (iron 0.07, paint cream 0.62/0.55/0.42, glass tint mix 0.14); world strength 0.28 + haze; lily fill AREA + leaf emit; exposure −0.15 | Review: bleached studio look; lily pads underlit | B |
