@@ -382,25 +382,54 @@ if STATE == "hp51":
 print("BANNERS", ban_n, flush=True)
 
 # ---------- planters (timber tubs with palms or clipped shrubs), the Talbot urn ----------
+M_LEAF2 = mat_principled("GT_LeafLight", (0.12, 0.22, 0.06), 0.55)
+M_ORANGE = mat_principled("GT_OrangeFruit", (0.70, 0.30, 0.03), 0.5)
 def palm_mesh(name, h):
-    k = Kit([M_TUB, M_LEAF, M_SOIL, M_IRON])
+    """r10 PL02: arching pinnate fronds (rachis + paired leaflets that hang from it) on a tapered trunk; was 11 flat paddles"""
+    k = Kit([M_TUB, M_LEAF, M_SOIL, M_IRON, M_LEAF2])
     k.cyl(0, (0, 0, 0), (0, 0, 2.2), 1.6, 8); k.cyl(3, (0, 0, 0.3), (0, 0, 0.5), 1.65, 8); k.cyl(3, (0, 0, 1.8), (0, 0, 2.0), 1.65, 8)
-    k.cyl(2, (0, 0, 2.15), (0, 0, 2.25), 1.45, 8); k.cyl(0, (0, 0, 2.2), (0, 0, h), 0.18, 6)
-    r2 = random.Random(len(name))
-    for j in range(11):
-        a = 2 * math.pi * j / 11 + r2.uniform(-0.2, 0.2); L = r2.uniform(3.6, 5.2); droop = r2.uniform(1.0, 2.6)
-        p0 = (0, 0, h); p1 = (L * 0.55 * math.cos(a), L * 0.55 * math.sin(a), h + 1.0); p2 = (L * math.cos(a), L * math.sin(a), h + 1.0 - droop)
-        k.bar(1, p0, p1, 0.9, 0.05); k.bar(1, p1, p2, 0.7, 0.05)
+    k.cyl(2, (0, 0, 2.15), (0, 0, 2.25), 1.45, 8)
+    k.cyl(0, (0, 0, 2.2), (0, 0, h * 0.6), 0.26, 8); k.cyl(0, (0, 0, h * 0.6), (0, 0, h), 0.2, 8)
+    r2 = random.Random(len(name) * 7)
+    for j in range(16):
+        a = 2 * math.pi * j / 16 + r2.uniform(-0.15, 0.15); L = r2.uniform(4.5, 6.5)
+        up = r2.uniform(0.6, 2.2) if j % 3 else r2.uniform(2.4, 3.4)          # every third frond younger and more upright
+        ca, sa = math.cos(a), math.sin(a); mat = 1 if j % 2 else 4
+        pts = []
+        for t in [i / 8 for i in range(9)]:                                    # parabolic arch, droops at the tip
+            pts.append((L * t * ca, L * t * sa, h + up * 2 * t - (up + 1.6) * t * t))
+        for p, q in zip(pts, pts[1:]): k.bar(mat, p, q, 0.08)
+        for i in range(1, 8):
+            p = pts[i]; t = i / 8; ln = 1.5 * math.sin(math.pi * (0.15 + 0.85 * t))
+            for sd in (-1, 1):
+                ex, ey = -sa * sd, ca * sd
+                q = (p[0] + ex * ln + ca * 0.25, p[1] + ey * ln + sa * 0.25, p[2] - 0.45 * ln)
+                k.bar(mat, p, q, 0.22, 0.03)
     return k.done(name)
 def shrub_mesh(name):
-    k = Kit([M_TUB, M_LEAF, M_SOIL]); k.box(0, -1.4, 1.4, -1.4, 1.4, 0, 2.2); k.box(2, -1.3, 1.3, -1.3, 1.3, 2.2, 2.3)
-    me = k.done(name)
-    leaf = FG._mb_mesh(name + "_crown", [("ball", (0, 0, 0.5), 0.45), ("ball", (0.12, 0.08, 0.62), 0.3), ("ball", (-0.1, -0.06, 0.66), 0.3)], ft(3.4), res=0.03)
-    return me, leaf
+    """r10 PL03: clipped orange / bay tree in a Versailles tub: clear stem and a lumpy crown of ~420 leaf cards with a little
+    fruit, in place of the r09 smooth metaball 'green ball'"""
+    k = Kit([M_TUB, M_LEAF, M_SOIL, M_IRON, M_LEAF2, M_ORANGE])
+    k.box(0, -1.4, 1.4, -1.4, 1.4, 0, 2.2); k.box(2, -1.3, 1.3, -1.3, 1.3, 2.2, 2.3)
+    for cx in (-1.42, 1.42):
+        for cy in (-1.42, 1.42): k.box(3, cx - 0.1, cx + 0.1, cy - 0.1, cy + 0.1, 0, 2.5)
+    k.cyl(0, (0, 0, 2.2), (0, 0, 4.6), 0.14, 6)
+    r2 = random.Random(len(name) * 13)
+    lobes = [(0, 0, 6.1, 1.5)] + [(1.0 * math.cos(t), 1.0 * math.sin(t), 5.7 + r2.uniform(-0.3, 0.6), 1.0) for t in (0.3, 1.9, 3.4, 4.9)]
+    for n in range(420):
+        cx, cy, cz, R = lobes[n % len(lobes)]
+        while True:
+            v = Vector((r2.uniform(-1, 1), r2.uniform(-1, 1), r2.uniform(-1, 1)))
+            if 0.55 < v.length <= 1: break
+        c = Vector((cx, cy, cz)) + v * R; d = Vector((r2.uniform(-1, 1), r2.uniform(-1, 1), r2.uniform(-0.6, 0.6))).normalized() * 0.28
+        k.bar(1 if n % 3 else 4, tuple(c - d), tuple(c + d), 0.24, 0.02)
+    for n in range(16):
+        cx, cy, cz, R = lobes[n % len(lobes)]; v = Vector((r2.uniform(-1, 1), r2.uniform(-1, 1), r2.uniform(-0.8, 0.5))).normalized() * R * 0.97
+        c = Vector((cx, cy, cz)) + v; k.cyl(5, tuple(c - Vector((0, 0, 0.1))), tuple(c + Vector((0, 0, 0.1))), 0.11, 6)
+    return k.done(name)
 pl_n = 0
 if STATE in ("hp51",):
-    PALM = palm_mesh("planter_palm", 7.5); SHRUB, SHRUB_CROWN = shrub_mesh("planter_shrub")
-    SHRUB_CROWN.materials.clear(); SHRUB_CROWN.materials.append(M_LEAF)
+    PALM = palm_mesh("planter_palm", 7.5); SHRUB = shrub_mesh("planter_shrub")
     spots = [(28 * math.cos(math.radians(a)), 28 * math.sin(math.radians(a)), "palm") for a in (45, 135, 225, 315)]
     for sy in (-1, 1):
         for sx in (-1, 1):
@@ -410,8 +439,7 @@ if STATE in ("hp51",):
         if not try_place(x, y, 2.2, "planter", cone_d=45, cone_a=12): continue
         if kind == "palm": dobj(f"PLANTER_{x:+.0f}_{y:+.0f}", PALM, "PLANTERS", x, y, 0, rnd.uniform(0, 6.28), part_kind="planter")
         else:
-            dobj(f"PLANTER_{x:+.0f}_{y:+.0f}", SHRUB, "PLANTERS", x, y, 0, 0, part_kind="planter")
-            dobj(f"PLANTER_{x:+.0f}_{y:+.0f}_CROWN", SHRUB_CROWN, "PLANTERS", x, y, 1.6, rnd.uniform(0, 6.28), part_kind="planter")
+            dobj(f"PLANTER_{x:+.0f}_{y:+.0f}", SHRUB, "PLANTERS", x, y, 0, rnd.choice((0, 1.5708, 3.1416, 4.7124)), part_kind="planter")
         pl_n += 1
     # Talbot foreground: a garden urn on a pedestal by the camera's left (DEPARTURES C07)
     if try_place(30, 92, 2.5, "talbot_urn", cone_d=0):
@@ -433,11 +461,29 @@ if STATE == "hp51":
               C_("skirt_lilac", (0.42, 0.35, 0.48)), C_("skirt_white", (0.70, 0.68, 0.62))]
     bods = [C_("bod_black", (0.03, 0.03, 0.035)), C_("bod_brown", (0.15, 0.09, 0.06)), C_("bod_shawl", (0.55, 0.45, 0.30))]
     hats = [C_("hat_black", (0.02, 0.02, 0.02)), C_("bonnet_straw", (0.65, 0.55, 0.35)), C_("bonnet_cream", (0.80, 0.76, 0.66)), C_("hat_grey", (0.30, 0.28, 0.26))]
-    PEOPLE = []
-    for j in range(6): PEOPLE.append(("man", FG.person_mesh(f"PERSON_man_{j}", "man", [coats[j % 5], trous[j % 3], SKIN[j % 2], hats[0 if j % 3 else 3]])))
-    for j in range(8): PEOPLE.append(("woman", FG.person_mesh(f"PERSON_woman_{j}", "woman", [skirts[j], bods[j % 3], SKIN[j % 2], hats[1 + j % 2]])))
-    for j in range(3): PEOPLE.append(("girl", FG.person_mesh(f"PERSON_girl_{j}", "girl", [skirts[(7, 3, 6)[j]], bods[2], SKIN[0], hats[2]])))
-    WEIGHTS = [4] * 6 + [4] * 8 + [2] * 3
+    # r10 F04: 34 variants (was 17): frock / short coats, top / low / cap hats, cravats, canes, shawls, crinoline widths,
+    # boys, and a few soldiers (red coat, white belts, shako) of the Guards on duty in the building
+    trims = [C_("trim_white", (0.75, 0.74, 0.70)), C_("shawl_paisley", (0.45, 0.18, 0.10)), C_("shawl_grey", (0.38, 0.36, 0.33)),
+             C_("shawl_tartan", (0.12, 0.20, 0.14)), C_("shawl_cream", (0.68, 0.62, 0.50))]
+    redcoat = C_("coat_scarlet", (0.42, 0.04, 0.035))
+    PEOPLE = []; WEIGHTS = []
+    HATS_M = ["top", "top", "top", "low", "cap", "top", "low", "top", "top", "cap", "top", "low", "top", "top"]
+    for j in range(14):
+        st = {"hat": HATS_M[j], "frock": j % 3 != 2, "cravat": j % 2 == 0, "cane": j in (1, 6, 11)}
+        PEOPLE.append(("man", FG.person_mesh(f"PERSON_man_{j}", "man", [coats[j % 5], trous[(j * 2) % 3], SKIN[j % 2],
+                       hats[3 if st["hat"] == "low" and j % 2 else 0], trims[0]], style=st))); WEIGHTS.append(3)
+    for j in range(12):
+        st = {"skirt_w": (0.85, 1.0, 1.12, 0.92, 1.05, 1.18)[j % 6], "shawl": j % 3 == 1}
+        PEOPLE.append(("woman", FG.person_mesh(f"PERSON_woman_{j}", "woman", [skirts[j % 8], bods[(j + j // 8) % 3], SKIN[j % 2],
+                       hats[1 + j % 2], trims[1 + j % 4]], style=st))); WEIGHTS.append(3)
+    for j in range(4):
+        PEOPLE.append(("girl", FG.person_mesh(f"PERSON_girl_{j}", "girl", [skirts[(7, 3, 6, 4)[j]], bods[2 - j % 2], SKIN[j % 2], hats[2], trims[4]],
+                       style={"shawl": j == 2}))); WEIGHTS.append(1.5)
+    for j in range(2):
+        PEOPLE.append(("boy", FG.person_mesh(f"PERSON_boy_{j}", "boy", [coats[(1, 2)[j]], trous[j], SKIN[0], hats[0], trims[0]]))); WEIGHTS.append(1.5)
+    for j in range(2):
+        PEOPLE.append(("soldier", FG.person_mesh(f"PERSON_soldier_{j}", "man", [redcoat, trous[2], SKIN[j], hats[0], trims[0]],
+                       style={"hat": "shako", "belt": True}))); WEIGHTS.append(0.35)
     def regions_floor():
         return [((-33, 33, 26, 200), 3.0), ((-33, 33, -200, -26), 3.0), ((-34, 34, -34, 34), 1.0),
                 ((37, 59, -200, 200), 1.2), ((-59, -37, -200, 200), 1.2), ((37, 132, -34, 34), 2.6), ((61, 131, 37, 59), 0.8), ((61, 131, -59, -37), 0.8)]
@@ -458,20 +504,21 @@ if STATE == "hp51":
                 if occupied(x, y, 1.1) or cam_conflict(x, y, 1.0, z_ft, cone_d=cone_d, cone_a=cone_a, seg_r=seg_r): continue
                 kind, me = rnd.choices(PEOPLE, WEIGHTS)[0]
                 rz = face(x, y) if face else math.atan2(gy - y, gx - x) + math.pi / 2 if m else rnd.uniform(0, 6.283)
-                dobj(f"CROWD_{tag}_{n:03d}", me, "CROWD", x, y, z_ft, rz + rnd.uniform(-0.4, 0.4), part_kind="figure", person=kind)
+                ob = dobj(f"CROWD_{tag}_{n:03d}", me, "CROWD", x, y, z_ft, rz + rnd.uniform(-0.4, 0.4), part_kind="figure", person=kind)
+                k_ = rnd.uniform(0.93, 1.06); ob.scale = (k_ * rnd.uniform(0.95, 1.05), k_, k_ * rnd.uniform(0.97, 1.04))   # r10 F05 build variation
                 OCC.append((x, y, 0.9, "person")); n += 1
                 if n >= total: break
         return n
     in_ring = lambda x, y: math.hypot(x, y) > 25 if abs(y) < 36 else True
-    crowd_n = spawn(regions_floor(), 260, 0.0, "F", in_ring)
+    crowd_n = spawn(regions_floor(), 540, 0.0, "F", in_ring)   # r10 F06: denser (was 260)
     # galleries: visitors along the gallery fronts looking into the transept and nave
     GT = GALLERY_TOP
     face_tr = lambda x, y: (-math.pi / 2 if x > 0 else math.pi / 2)      # look toward the transept axis
     gal_n = spawn([((37.3, 40.0, 40, 178), 1), ((-40.0, -37.3, 40, 178), 1), ((37.3, 40.0, -152, -40), 1), ((-40.0, -37.3, -152, -40), 1)],
-                  40, GT, "G", None, seg_r=22, cone_d=40, cone_a=20, face=face_tr)
+                  76, GT, "G", None, seg_r=22, cone_d=40, cone_a=20, face=face_tr)
     face_nv = lambda x, y: (0.0 if y > 0 else math.pi)
-    gal_n += spawn([((62, 130, 37.3, 40.0), 1), ((62, 130, -40.0, -37.3), 1)], 14, GT, "GN", None, seg_r=22, cone_d=40, cone_a=20, face=face_nv)
-    gal_n += spawn([((-34, 34, 180.5, 183), 1), ((-34, 34, -159.5, -157), 1)], 10, GT, "GX", None, seg_r=22, cone_d=60, cone_a=25,
+    gal_n += spawn([((62, 130, 37.3, 40.0), 1), ((62, 130, -40.0, -37.3), 1)], 26, GT, "GN", None, seg_r=22, cone_d=40, cone_a=20, face=face_nv)
+    gal_n += spawn([((-34, 34, 180.5, 183), 1), ((-34, 34, -159.5, -157), 1)], 18, GT, "GX", None, seg_r=22, cone_d=60, cone_a=25,
                    face=lambda x, y: (0.0 if y > 0 else math.pi))
 print("CROWD floor", crowd_n, "gallery", gal_n, flush=True)
 scene["grok_dressing"] = json.dumps({"state": STATE, "counts": dressed, "skipped": [list(map(str, s)) for s in skipped[:200]], "skipped_n": len(skipped)})

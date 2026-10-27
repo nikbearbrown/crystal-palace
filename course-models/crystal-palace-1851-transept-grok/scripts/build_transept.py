@@ -151,13 +151,15 @@ if COLOUR == "owen":
 else:                  # neutral, to sit beside Claude's preview frame
     IRON = mat_principled("GT_Iron", (0.80, 0.80, 0.77), 0.55)
     IRON_COL = IRON_GIR = IRON
-FAN = mat_principled("GT_FanIron", (0.10, 0.11, 0.11), 0.5) if COLOUR != "owen" else oj_material("GT_Fan_OJ", "plain")
+FAN = mat_principled("GT_FanIron", (0.018, 0.02, 0.02), 0.65)   # r10 L03: near-black like Talbot (was 0.10) if COLOUR != "owen" else oj_material("GT_Fan_OJ", "plain")
 WOOD = mat_principled("GT_Timber", (0.72, 0.66, 0.56), 0.7)
 WOODDARK = mat_principled("GT_Boarding", (0.62, 0.55, 0.45), 0.8)
 LEAD = mat_principled("GT_Lead", (0.42, 0.44, 0.46), 0.5, 0.3)
 GLASS = mat_glass("GT_Glass")
 GLASS_PLAIN = mat_glass("GT_GlassPlain", tint=(0.62, 0.68, 0.68), bars=False)
-GLASS_END = mat_glass("GT_GlassEndScreen", tint=(0.42, 0.47, 0.47), bars=False)   # r09 L02: darker so the fan bars read
+GLASS_END = mat_glass("GT_GlassEndScreen", tint=(0.30, 0.34, 0.34), bars=False)   # r09 L02 / r10 L03: darker so the fan reads
+for _n in GLASS_END.node_tree.nodes:          # r10 L03: the sunlit milky veil turned the lunette pale; much less of it on the end screen
+    if _n.type == 'BSDF_DIFFUSE': _n.inputs[0].default_value = (0.30, 0.31, 0.31, 1)
 BARK = mat_principled("GT_Bark", (0.075, 0.065, 0.055), 0.95)
 GRASS = mat_principled("GT_Grass", (0.16, 0.24, 0.08), 0.9)
 
@@ -736,7 +738,7 @@ def build_end_screen(sy):
     for (ra, rb, n) in spokes:
         for k in range(1, n):
             a = math.pi * k / n
-            bm_bar(bm, (ft(ra)*math.cos(a), Y, ft(zc) + ft(ra)*math.sin(a)), (ft(rb)*math.cos(a), Y, ft(zc) + ft(rb)*math.sin(a)), inch(6), inch(6))
+            bm_bar(bm, (ft(ra)*math.cos(a), Y, ft(zc) + ft(ra)*math.sin(a)), (ft(rb)*math.cos(a), Y, ft(zc) + ft(rb)*math.sin(a)), inch(8), inch(6))   # r10 L03 radial bars 6->8 in
     # petal heads: small arcs between spokes on the outer rings
     for (ra, rb, n) in spokes[1:3] + [(spokes[3][0], spokes[3][1], 24)]:
         for k in range(n):
@@ -917,7 +919,7 @@ try:
     scene.view_settings.look = 'AgX - Medium High Contrast'   # r07 V08: r06 read flat and washed out
 except TypeError:
     pass
-scene.view_settings.exposure = -0.25
+scene.view_settings.exposure = -0.7   # r10 G03: darker grade (was -0.25)
 
 # ---------------- r08: exhibit proxies appended from Muse's models/ (read-only extract, origin/main adb0d2c; MC03) ----------------
 MUSE_DIR = "/workspace/models-main-ro/models"

@@ -100,3 +100,31 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
       - The lunette is darker but still not as black as in Talbot's photograph.
       - The crowd density is far below 1851.
 - Next (r10): give the planters fronds/tub shapes; add more figure variety and a darker grade; move the machinery to the west/Claude zone if he agrees (proposal); refine the lunette.
+
+## r10 — checkpoint (render running)
+- Done:
+  - Planters: PL02 fronded palms, PL03 orange-tree tubs.
+  - Figures: F04 variety (frock coats, caps, shakos, shawls, boys, soldiers) and F05 scale jitter.
+  - Crowd: F06 denser (floor 540, galleries 120).
+  - Grade: G03 exposure -0.7.
+  - Lunette: L03 darker and blacker, with 8 in radial bars.
+  - MX02: machinery stays east.
+- Build and checks: rounds/r10.blend, checks/r10 49/49. Render renders/r10 at 1280x720/48 is queued after d03.
+
+## r10 — FINAL
+- Renders: renders/r10 (15 frames plus _contact_r10.jpg). Compare sheets: compare/r10_*.jpg. Checks 49/49.
+- Self-score: 7.5/10.
+- Wins:
+  - The palms now have fronds.
+  - The crowd is denser and more varied: frock coats, shawls, children, redcoats.
+  - The lunette reads dark, and the -0.7 grade gives the ironwork contrast.
+- Misses:
+  - The fountain glass still reads as chrome and steel rather than crystal.
+  - The figures are still low-poly blocks.
+  - The REF_talbot frame is too bright on the floor.
+  - The orange tubs are small in frame.
+- Next r11:
+  - Fountain glass IOR/tint and caustic-free transmission.
+  - Floor albedo down about 10%.
+  - Figure heads and arms refined.
+  - Gallery crowd up again.
