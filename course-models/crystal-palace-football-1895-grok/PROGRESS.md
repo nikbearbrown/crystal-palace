@@ -10,3 +10,7 @@
 ## fb02 (2026-10-27): quality pass — denser heroes, turf/bank
 - 36 hero figures near bank/pavilion/pitch cams (FT=0.3048); darker turf/bank albedo; turf strip.
 - DEPARTURES FB04. Renders/fb02/.
+
+## Repo hygiene
+
+never git init inside a grok folder; commit from the worktree root
