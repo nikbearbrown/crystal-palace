@@ -35,3 +35,8 @@
 - **D-PM-21 I** CP071 Open-House subway: checkered floor tiles, cream brick noise walls, red brick columns with stone bases/capitals, dado + spring string courses, iron vault ribs, hanging lamp fixtures, wall poster boards, side handrail. Exact present-day finish still **U** (extends D-PM-03).
 - **D-PM-22 I** Authored subway AREA lights + exposure (−0.8) held (`KEEP_LIGHTING`); no sun/world rewrite.
 - Hero: `renders/r18_parknow_CAM_CP071_subway_interior_28mm.png` from `rounds/parknow-r18.blend`. KEEP by eye vs r01 graybox.
+
+## set_v18 CP071 true subway vaults (2026-10-27)
+
+- **D-PM-23 R** CP071 ceiling replaced with Muse `sy-subway-vault-bay` fan/groin vaults (refs S87-subway-restored-interior-2025 / S87-subway-interior-2016; HE 1385457). 3×6 octagonal cream-brick columns, polychrome red+cream brick soffits, stone ribs/capitals; vaults terminate in brick end wall. PARK-NOW dirt/wear on mats + dirty floor; modern AREA lamps (aimed at soffits) + LED uplights retained/adjusted. Terrain boolean-cut so park ground no longer caps the corridor. Cam nudged to aisle x=PITCH/2 so it is not inside a column. `KEEP_LIGHTING` (exposure −0.8; no sun/world rewrite).
+- **D-PM-24 I** Hero `renders/r19_parknow_CAM_CP071_subway_interior_28mm.png` from `rounds/parknow-r19.blend`. KEEP by eye vs r18 flat olive slab + box ribs.
