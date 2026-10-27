@@ -95,6 +95,20 @@ M = {
  'water': mat('water', (0.05,0.10,0.12), 0.05),
  'wood': mat('wood_panel', (0.55,0.50,0.42), 0.7),
 }
+# r07 materials: fountain jets (spray as translucent cones, I) and flower-bed planting (colour mix U)
+M['jet'] = mat('fountain_jet_spray', (0.86,0.89,0.92), 0.35)
+_jb = M['jet'].node_tree.nodes['Principled BSDF']; _jb.inputs['Alpha'].default_value = 0.4; _jb.inputs['Transmission Weight'].default_value = 0.85; _jb.inputs['Roughness'].default_value = 0.6
+def flowers_mat(name):
+    m = mat(name, (0.3,0.2,0.1), 0.85); nt = m.node_tree; n = nt.nodes; l = nt.links; b = n['Principled BSDF']
+    tc = n.new('ShaderNodeTexCoord'); nz = n.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 3.0
+    l.new(tc.outputs['Object'], nz.inputs['Vector'])
+    ramp = n.new('ShaderNodeValToRGB'); cr = ramp.color_ramp; cr.interpolation = 'CONSTANT'
+    cr.elements[0].position = 0.0; cr.elements[0].color = (0.10,0.22,0.06,1)
+    cr.elements[1].position = 0.45; cr.elements[1].color = (0.55,0.05,0.04,1)
+    for pos, col in ((0.55, (0.75,0.62,0.10,1)), (0.62, (0.80,0.78,0.72,1)), (0.70, (0.45,0.04,0.20,1)), (0.78, (0.10,0.22,0.06,1))):
+        e = cr.elements.new(pos); e.color = col
+    l.new(nz.outputs['Fac'], ramp.inputs[0]); l.new(ramp.outputs[0], b.inputs['Base Color']); return m
+M['flowers'] = flowers_mat('flower_beds_bedding')
 
 # ---------- collections ----------
 root = bpy.data.collections.new('SY-EARLY_c1856'); sc.collection.children.link(root)
@@ -119,6 +133,17 @@ class MB:
         bmesh.ops.transform(s.bm, matrix=mtx, verts=r['verts'])
     def poly(s, pts):  # list of (x,y,z) feet
         vs = [s.bm.verts.new((f(a),f(b),f(c))) for a,b,c in pts]; s.bm.faces.new(vs)
+    def strut(s, p0, p1, w=0.5, d=None):  # r07: oriented square bar between two points (feet)
+        d = d or w; a = Vector(p0); b = Vector(p1); v = b - a; L = v.length
+        if L < 1e-3: return
+        r = bmesh.ops.create_cube(s.bm, size=1.0)
+        q = v.normalized().to_track_quat('Z', 'Y')
+        mtx = Matrix.Translation(Vector([f(c) for c in (a+b)/2])) @ q.to_matrix().to_4x4() @ Matrix.Diagonal((f(w), f(d), f(L), 1))
+        bmesh.ops.transform(s.bm, matrix=mtx, verts=r['verts'])
+    def cyl(s, x, y, z0, z1, r0, r1=None, seg=12):  # r07: (tapered) cylinder / cone frustum, feet
+        r1 = r0 if r1 is None else r1
+        bmesh.ops.create_cone(s.bm, cap_ends=True, segments=seg, radius1=f(r0), radius2=f(max(r1, 0.001)), depth=f(z1-z0),
+                              matrix=Matrix.Translation(Vector((f(x), f(y), f((z0+z1)/2)))))
     def done(s):
         me = bpy.data.meshes.new(s.name); s.bm.to_mesh(me); s.bm.free()
         me.materials.append(s.m); o = bpy.data.objects.new(s.name, me); s.col.objects.link(o); return o
@@ -142,6 +167,10 @@ def col_h(y):
         if lo-0.1 <= y <= hi+0.1: hs.append(NAVE_SPRING if h=='vault' else h)
     return max(hs)
 
+# r08 courts: main-frame voids where a fine-arts court occupies the ground floor (columns/girders/gallery floor omitted
+# inside the court rectangle; Egyptian court x180-276 y60-156 per plans 0205/0226; I - the real columns' treatment is U)
+COURT_VOIDS = [] if os.environ.get('SY_NO_COURTS') else [(180, 276, 60, 156)]
+def in_court(x, y): return any(x0 < x < x1 and y0 < y < y1 for x0, x1, y0, y1 in COURT_VOIDS)
 # ---------- main frame: columns + girders on the 24 ft grid ----------
 frame = {}
 def fb(key):
@@ -152,6 +181,7 @@ CW = 0.67  # 8 in column (HP precedent, I)
 for x in xs_grid:
     for y in COL_Y:
         if in_span(x, TSPANS) and abs(y) < 156-0.1: continue  # transept interiors open full height (I)
+        if in_court(x, y): continue
         h = col_h(y)
         key = tcol(x) if (tcol(x) and abs(y)<156-0.1) else 'SY_main_frame'
         fb(key).box(x-CW/2, x+CW/2, y-CW/2, y+CW/2, 0, h)
@@ -170,22 +200,30 @@ for y in COL_Y:
         for i in range(len(xs_grid)-1):
             xa, xb = xs_grid[i], xs_grid[i+1]
             if in_span((xa+xb)/2, TSPANS) and abs(y)<156-0.1: continue
+            if in_court((xa+xb)/2, y): continue
             fb('SY_main_frame').box(xa, xb, y-0.35, y+0.35, t-3, t)
 for x in xs_grid:
     if in_span(x, TSPANS): continue
     for (ya, yb) in zip(COL_Y[:-1], COL_Y[1:]):
         if abs(ya)==36 and abs(yb)==36: continue  # nave: vault ribs instead
+        if in_court(x, (ya+yb)/2): continue
         hmin = min(col_h(ya), col_h(yb))
         for t in TIERS:
             if t <= hmin+0.1:
                 fb('SY_main_frame').box(x-0.35, x+0.35, yb, ya, t-3, t)
 # gallery floors at tier 1 in the inner bands (I: HP practice; Sydenham gallery area 261,568 sq ft, guide p.35)
 gal = MB('gallery_floors', C['SY_main_frame'], M['floor'])
+def galbox(xa, xb, yl, yh, z0, z1):  # r08: gallery floor strip with court voids cut out
+    cuts = sorted((x0, x1) for x0, x1, y0, y1 in COURT_VOIDS if y0 < (yl+yh)/2 < y1 and x0 < xb and x1 > xa)
+    for x0, x1 in cuts:
+        if x0 > xa: gal.box(xa, x0, yl, yh, z0, z1)
+        xa = max(xa, x1)
+    if xb > xa: gal.box(xa, xb, yl, yh, z0, z1)
 for (yh, yl) in [(108,60),(60,36),(-36,-60),(-60,-108)]:
     xa = -HALF
     for c,w in sorted(TSPANS):
-        gal.box(xa, c-w/2, yl, yh, GALLERY_FLOOR-0.6, GALLERY_FLOOR); xa = c+w/2
-    gal.box(xa, HALF, yl, yh, GALLERY_FLOOR-0.6, GALLERY_FLOOR)
+        galbox(xa, c-w/2, yl, yh, GALLERY_FLOOR-0.6, GALLERY_FLOOR); xa = c+w/2
+    galbox(xa, HALF, yl, yh, GALLERY_FLOOR-0.6, GALLERY_FLOOR)
 for (yh, yl) in [(60,36),(-36,-60)]:  # second gallery in the tower stacks
     xa = -HALF
     for c,w in sorted(TSPANS):
@@ -194,7 +232,9 @@ for (yh, yl) in [(60,36),(-36,-60)]:  # second gallery in the tower stacks
 gal.done()
 for _mb in list(frame.values()): _mb.done()  # r04 BUGFIX: r01-r03 never finalised the column/girder meshes
 # ground floor (boarded, 1.5 in boards with gaps: shader-free, U)
-fl = MB('main_floor', C['SY_main_frame'], M['floor']); fl.box(-HALF, HALF, -156, 156, -1.0, 0); fl.done()
+fl = MB('main_floor', C['SY_main_frame'], M['floor'])
+for xa_, xb_ in zip(xs_grid[:-1], xs_grid[1:]): fl.box(xa_, xb_, -156, 156, -1.5, 0)   # r07: per-bay so section slices show a cut floor (joist depth I)
+fl.done()
 
 # ---------- flat ridge-and-furrow roofs ----------
 rf = MB('ridge_furrow_roofs', C['SY_main_roofs_glazing'], M['glass_roof'])
@@ -239,7 +279,9 @@ def wall_y(y, z0, z1, xa=-HALF, xb=HALF, skip=True):
     for a,b in segs:
         gw.poly([(a,y,z0),(b,y,z0),(b,y,z1),(a,y,z1)])
         facade((a,y),(b,y), z0, z1, bands=[t for t in TIERS if z0 < t < z1] + [z0 + (z1-z0)/2] * (z1-z0 > 18))
-wall_y(156, 0, TIERS[0]); wall_y(132, TIERS[0], TIERS[1]); wall_y(60, TIERS[1], TIERS[2]); wall_y(36, TIERS[2], NAVE_SPRING)
+if COURT_VOIDS: wall_y(156, 0, TIERS[0], xb=180); wall_y(156, 0, TIERS[0], xa=248.4)
+else: wall_y(156, 0, TIERS[0])   # r08: Egyptian Museum/Abu Simbel annex breaks the Parade wall (plan 0226; I)
+wall_y(132, TIERS[0], TIERS[1]); wall_y(60, TIERS[1], TIERS[2]); wall_y(36, TIERS[2], NAVE_SPRING)
 wall_y(-156, 0, TIERS[0]); wall_y(-108, TIERS[0], TIERS[1]); wall_y(-60, TIERS[1], TIERS[2]); wall_y(-36, TIERS[2], NAVE_SPRING)
 # end walls x = +-HALF: stepped profile
 for xe in (-HALF, HALF):
@@ -273,24 +315,34 @@ def vault(name, col, axis, c, span, spring, a_lo, a_hi, rib_every=24.0, skip=Non
                 u0 = math.pi*i/nseg; u1 = math.pi*(i+1)/nseg
                 g.poly([P(t,u0),P(t1,u0),P(t1,u1),P(t,u1)])
         t = t1
-    # ribs: lattice arch ribs (rendered as a band 1.5 ft deep, 0.67 wide), and purlins
-    t = a_lo
+    # r07: ribs re-sized after photo 0074 (deep, closely spaced arched rib bands; I for sizes):
+    #  main lattice ribs every 24 ft: two chords (outer flange 1.2 x 0.5, inner chord 1.2 x 0.6) 3.5 ft apart with zigzag web;
+    #  secondary ribs every 8 ft: solid band 0.5 wide x 1.2 deep; purlins every 2nd facet; ridge cresting.
+    DEP = 3.5
+    def rib_band(t, w, dep, rr):
+        for i in range(nseg):
+            u0 = math.pi*i/nseg; u1 = math.pi*(i+1)/nseg; ta, tb = t-w/2, t+w/2
+            pa, pb = P(ta,u0,rr), P(ta,u1,rr); pc, pd = P(tb,u1,rr), P(tb,u0,rr)
+            qa, qb = P(ta,u0,rr-dep), P(ta,u1,rr-dep); qc, qd = P(tb,u1,rr-dep), P(tb,u0,rr-dep)
+            r.poly([pa,pb,qb,qa]); r.poly([pd,pc,qc,qd]); r.poly([qa,qb,qc,qd]); r.poly([pa,pb,pc,pd])
+    t = a_lo; k = 0
     while t <= a_hi + 0.01:
         if not (skip and skip(t)):
-            for i in range(nseg):
-                u0 = math.pi*i/nseg; u1 = math.pi*(i+1)/nseg
-                for (ta, tb) in [(t-0.33, t+0.33)]:
-                    pa, pb = P(ta,u0), P(ta,u1); pc, pd = P(tb,u1), P(tb,u0)
-                    qa, qb = P(ta,u0,R-1.5), P(ta,u1,R-1.5); qc, qd = P(tb,u1,R-1.5), P(tb,u0,R-1.5)
-                    r.poly([pa,pb,qb,qa]); r.poly([pd,pc,qc,qd]); r.poly([qa,qb,qc,qd])
-        t += rib_every
-    for i in range(0, nseg+1, 4):
-        u = math.pi*i/nseg
-        if axis=='x': a,b = P(a_lo,u), P(a_hi,u)
-        else: a,b = P(a_lo,u), P(a_hi,u)
-        # purlin as thin quad pair
-        if axis=='x': r.box(a_lo, a_hi, a[1]-0.2, a[1]+0.2, a[2]-0.5, a[2])
-        else: r.box(a[0]-0.2, a[0]+0.2, a_lo, a_hi, a[2]-0.5, a[2])
+            if k % 3 == 0:
+                rib_band(t, 1.2, 0.5, R); rib_band(t, 1.2, 0.6, R-DEP+0.6)
+                for i in range(nseg):   # zigzag lattice web between the chords
+                    u0 = math.pi*i/nseg; u1 = math.pi*(i+1)/nseg
+                    r.strut(P(t, u0, R-0.5), P(t, u1, R-DEP+0.6), 0.35, 0.35)
+            else:
+                rib_band(t, 0.5, 1.2, R)
+        t += 8.0; k += 1
+    for i in range(0, nseg+1, 2):
+        u = math.pi*i/nseg; a = P(a_lo,u)
+        if axis=='x': r.box(a_lo, a_hi, a[1]-0.25, a[1]+0.25, a[2]-0.7, a[2])
+        else: r.box(a[0]-0.25, a[0]+0.25, a_lo, a_hi, a[2]-0.7, a[2])
+    top = P(a_lo, math.pi/2)
+    if axis=='x': r.box(a_lo, a_hi, top[1]-0.6, top[1]+0.6, top[2], top[2]+1.6)          # ridge cresting band (photo 0074 ridge ornament; I)
+    else: r.box(top[0]-0.6, top[0]+0.6, a_lo, a_hi, top[2], top[2]+1.6)
     return g.done(), r.done()
 vault('nave_vault', C['SY_nave_vault'], 'x', 0, NAVE_SPAN, NAVE_SPRING, -HALF, HALF, 24.0, skip=lambda t: in_span(t, TSPANS))
 CT_Y0, CT_Y1 = -156-CT_GARDEN_PROJ, 156+CT_WEST_PROJ
@@ -332,20 +384,34 @@ def transept(key, xc, span, spring, y0, y1, recess):
             rr.poly([(x,yf,z1_),(xm,yf,z1_+2),(xm,yb_,z1_+2),(x,yb_,z1_)]); rr.poly([(xm,yf,z1_+2),(x+8,yf,z1_),(x+8,yb_,z1_),(xm,yb_,z1_+2)])
             x += 8
         fr.box(xc-R_, xc+R_, yf-0.6, yf+0.6, z1_-3, z1_)
-    # great end screen at yE: glazed from top step to springing, lunette above
-    w.poly([(xc-R_,yE,TIERS[2]),(xc+R_,yE,TIERS[2]),(xc+R_,yE,spring),(xc-R_,yE,spring)])
+    # r07: great end screen set back HOOD ft behind a heavy double lattice arch band at yE, so the vault reads as a deep
+    #  projecting hood (photo 0074; HOOD/ring depths I). Outer band: chords R and R-5 with radial+diagonal web, 1.6 ft thick.
+    HOOD = 8.0; yS = yE + HOOD
+    rr.box(xc-R_, xc+R_, yE, yS, TIERS[2]-0.5, TIERS[2]+0.4)                     # lead flat over the hood floor
+    w.poly([(xc-R_,yS,TIERS[2]),(xc+R_,yS,TIERS[2]),(xc+R_,yS,spring),(xc-R_,yS,spring)])
     n = 32
     for i in range(n):
         a0 = math.pi*i/n; a1 = math.pi*(i+1)/n
-        w.poly([(xc,yE,spring),(xc+R_*math.cos(a0),yE,spring+R_*math.sin(a0)),(xc+R_*math.cos(a1),yE,spring+R_*math.sin(a1))])
-    for i in range(n):  # arch ring (main rib on the face)
+        w.poly([(xc,yS,spring),(xc+R_*math.cos(a0),yS,spring+R_*math.sin(a0)),(xc+R_*math.cos(a1),yS,spring+R_*math.sin(a1))])
+    def arcpt(rad, a_, y_): return (xc + rad*math.cos(a_), y_, spring + rad*math.sin(a_))
+    for (yy, ro, ri, th) in ((yE, R_, R_-5.0, 1.6), (yE+HOOD/2, R_-0.3, R_-2.0, 0.8), (yS, R_-0.6, R_-3.0, 1.0)):
+        for i in range(n):
+            a0 = math.pi*i/n; a1 = math.pi*(i+1)/n
+            for rad, wd in ((ro, 1.4), (ri, 1.0)):
+                fr.strut(arcpt(rad-wd/2, a0, yy), arcpt(rad-wd/2, a1, yy), wd, th)
+            fr.strut(arcpt(ro, a0, yy), arcpt(ri, a0, yy), 0.5, th)              # radial web
+            fr.strut(arcpt(ro, a0, yy), arcpt(ri, a1, yy), 0.35, th*0.8)          # diagonal web
+    # inner arch and concentric ring on the screen (0074 shows a second arch inside the lunette; radius I)
+    for i in range(n):
         a0 = math.pi*i/n; a1 = math.pi*(i+1)/n
-        p0 = (xc+R_*math.cos(a0), spring+R_*math.sin(a0)); p1 = (xc+R_*math.cos(a1), spring+R_*math.sin(a1))
-        fr.box(min(p0[0],p1[0])-0.8, max(p0[0],p1[0])+0.8, yE-0.9, yE+0.9, min(p0[1],p1[1])-0.8, max(p0[1],p1[1])+0.8)
+        fr.strut(arcpt(R_*0.62, a0, yS-0.3), arcpt(R_*0.62, a1, yS-0.3), 1.0, 0.8)
     for xx in [xc-R_ + k*8 for k in range(int(span/8)+1)]:
-        fr.box(xx-0.25, xx+0.25, yE-0.4, yE+0.4, TIERS[2], spring + math.sqrt(max(R_*R_-(xx-xc)**2, 0)))
-    for t in [spring, spring - (spring-TIERS[2])/2]:
-        fr.box(xc-R_, xc+R_, yE-0.6, yE+0.6, t-2.5, t)
+        fr.box(xx-0.3, xx+0.3, yS-0.5, yS+0.3, TIERS[2], spring + math.sqrt(max(R_*R_-(xx-xc)**2, 0)))
+    for t in [spring, spring - (spring-TIERS[2])/2, spring + R_*0.35]:
+        hw = R_ if t <= spring else math.sqrt(max(R_*R_-(t-spring)**2, 0))
+        fr.box(xc-hw, xc+hw, yS-0.7, yS+0.3, t-1.6, t)
+    for xs in (xc-R_, xc+R_):                                                    # hood side cheeks: stanchions to spring
+        fr.box(xs-1.0, xs+1.0, yE-0.8, yS+0.8, TIERS[2], spring)
     # west end screen full height
     w.poly([(xc-R_,y1,0),(xc+R_,y1,0),(xc+R_,y1,spring),(xc-R_,y1,spring)])
     facade((xc-R_,y1),(xc+R_,y1), 0, spring, bands=list(TIERS))
@@ -374,7 +440,29 @@ for xc, sp in TSPANS:
                 twg.poly([(x0,yy,TIERS[2]),(x1,yy,TIERS[2]),(x1,yy,top),(x0,yy,top)])
             for xx in (x0, x1):
                 twg.poly([(xx,y0,TIERS[2]),(xx,y1,TIERS[2]),(xx,y1,top),(xx,y0,top)])
-tw.done(); twg.done()
+# r07: diagonal X-bracing (section 0212 shows braced stacks flanking the vault; photo 0074 braced tower faces; member sizes I)
+def xbrace(mb, p0, p1, z0, z1, w=0.45):
+    (xa, ya), (xb, yb) = p0, p1
+    mb.strut((xa, ya, z0), (xb, yb, z1), w, w); mb.strut((xb, yb, z0), (xa, ya, z1), w, w)
+for xc, sp in TSPANS:
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            x0 = xc + sx*sp/2; x1 = x0 + sx*BAY; y0 = sy*36; y1 = y0 + sy*BAY
+            levels = [0.0] + list(TIERS) + [NAVE_SPRING + 12]
+            for za, zb in zip(levels[:-1], levels[1:]):
+                for (pa, pb) in (((x0,y0),(x1,y0)), ((x0,y1),(x1,y1)), ((x0,y0),(x0,y1)), ((x1,y0),(x1,y1))):
+                    xbrace(tw, pa, pb, za+0.5, zb-3)
+# transverse braced frames in the 36-60 ft tower stacks every 72 ft (k%3==0, with the paired nave columns; spacing I).
+# Own object so it can be hidden for walkthrough shots (braces cross the side aisles/galleries at those frames).
+tb = MB('transverse_bracing_72ft', C['SY_main_frame'], M['iron'])
+for x in xs_grid:
+    k_ = round((x+HALF)/BAY)
+    if k_ % 3 or in_span(x, [(c_, w_+0.2) for c_, w_ in TSPANS]): continue
+    for sy in (-1, 1):
+        levels = [0.0] + list(TIERS)
+        for za, zb in zip(levels[:-1], levels[1:]):
+            xbrace(tb, (x, sy*36), (x, sy*60), za+0.5, zb-3, 0.35)
+tb.done(); tw.done(); twg.done()
 
 # ---------- basement storey along the garden front (guide p.34: lower storey + Paxton's tunnel 24 ft) ----------
 BD = BASEMENT_DEPTH
@@ -453,26 +541,66 @@ cg.poly([(cx, cy0-COLONNADE_LEN, zc+26), (cx, cy0, zc+26), (cx+12, cy0, zc+20), 
 cg.done(); cf.done()
 
 # ---------- Brunel water towers (dated 1856; positions U) ----------
+# r07: octagonal, tiered, tapering shaft with storey bands and paired windows per face, projecting gallery under the
+# tank storey, tank storey, octagonal pyramid roof and an OPEN lantern (posts + cap + finial), after photo 0074 (distant
+# tower) and the brief. Side count 8 per brief (photo 0074 reads many-sided: I); storey height 18 ft, radii, tank and
+# lantern sizes I; overall height TOWER_H U.
 for nm, sx in (('south', -1), ('north', 1)):
-    o = MB('water_tower_'+nm, C['SY56_water_towers__dated'], M['iron']); g = MB('water_tower_glass_'+nm, C['SY56_water_towers__dated'], M['glass_wall'])
-    xc = sx*(HALF+120); yc = 60
-    sides = 12
-    def ring(r, z): return [(xc + r*math.cos(2*math.pi*k/sides), yc + r*math.sin(2*math.pi*k/sides), z) for k in range(sides)]
-    for (r0, z0, r1, z1) in ((24, 0, 20, TOWER_H-40),):
-        a = ring(r0, z0); b = ring(r1, z1)
+    o = MB('water_tower_'+nm, C['SY56_water_towers__dated'], M['iron_ext']); g = MB('water_tower_glass_'+nm, C['SY56_water_towers__dated'], M['glass_wall'])
+    bk = MB('water_tower_base_'+nm, C['SY56_water_towers__dated'], M['brick'])
+    xc = sx*(HALF+120); yc = 60; H = TOWER_H; sides = 8
+    def ring(r, z, rot=math.pi/8): return [(xc + r*math.cos(rot+2*math.pi*k/sides), yc + r*math.sin(rot+2*math.pi*k/sides), z) for k in range(sides)]
+    def prism(mb, r0, z0, r1, z1, cap=False):
+        a_, b_ = ring(r0, z0), ring(r1, z1)
+        for k in range(sides):
+            k1 = (k+1) % sides; mb.poly([a_[k], a_[k1], b_[k1], b_[k]])
+        if cap: mb.poly(list(reversed(a_))); mb.poly(b_)
+    zg = 0.0; ZT = H - 62; R0, R1 = 24.0, 19.0
+    rad = lambda z: R0 + (R1-R0)*(z-zg)/(ZT-zg)
+    prism(bk, R0+3, zg-12, R0+3, zg+8, cap=True)                                   # brick base (I)
+    prism(g, R0, zg+8, R1, ZT)                                                      # glazed/infill skin
+    st = 18.0; z = zg + 8
+    while z < ZT - 0.1:
+        z2 = min(z + st, ZT); r_a, r_b = rad(z), rad(z2)
+        prism(o, r_a+0.6, z, r_a+0.6, z+1.6, cap=False)                             # storey band
+        A, B = ring(r_a+0.3, z), ring(r_b+0.3, z2)
         for k in range(sides):
             k1 = (k+1) % sides
-            g.poly([a[k], a[k1], b[k1], b[k]])
-            o.box(a[k][0]-1, a[k][0]+1, a[k][1]-1, a[k][1]+1, 0, z1)
-        for z in range(0, int(TOWER_H-40), 12):
-            rr = r0 + (r1-r0)*z/(TOWER_H-40); q = ring(rr, z)
-            for k in range(sides):
-                k1 = (k+1)%sides; o.poly([q[k], q[k1], (q[k1][0], q[k1][1], z+1.2), (q[k][0], q[k][1], z+1.2)])
-    tk = ring(24, TOWER_H-40); tt = ring(24, TOWER_H-8)
+            o.strut(A[k], B[k], 1.4, 1.4)                                           # angle posts
+            for tt in (0.33, 0.67):                                                 # paired windows: mullions
+                pa = tuple(A[k][i] + (A[k1][i]-A[k][i])*tt for i in range(2)) + (z,)
+                pb = tuple(B[k][i] + (B[k1][i]-B[k][i])*tt for i in range(2)) + (z2,)
+                o.strut(pa, pb, 0.6, 0.6)
+        z = z2
+    prism(o, R1+4.5, ZT-1.5, R1+4.5, ZT, cap=True)                                  # projecting gallery floor
+    GR = ring(R1+4.3, ZT)
+    for k in range(sides):                                                          # gallery rail + brackets
+        k1 = (k+1) % sides
+        o.strut((GR[k][0], GR[k][1], ZT+3.5), (GR[k1][0], GR[k1][1], ZT+3.5), 0.4, 0.4)
+        for tt in (0.0, 0.25, 0.5, 0.75):
+            px_, py_ = GR[k][0] + (GR[k1][0]-GR[k][0])*tt, GR[k][1] + (GR[k1][1]-GR[k][1])*tt
+            o.strut((px_, py_, ZT), (px_, py_, ZT+3.5), 0.25, 0.25)
+        o.strut(ring(R1, ZT-8)[k], GR[k], 0.8, 0.8)
+    prism(g, R1+1.5, ZT, R1+1.5, ZT+22)                                             # tank storey (glazed screen; I)
+    TS = ring(R1+1.8, ZT)
     for k in range(sides):
-        k1 = (k+1) % sides; o.poly([tk[k], tk[k1], tt[k1], tt[k]])
-    o.poly(list(reversed(tt))); o.poly(tk)
-    o.done(); g.done()
+        o.strut(TS[k], (TS[k][0], TS[k][1], ZT+22), 1.2, 1.2)
+    prism(o, R1+3.5, ZT+22, R1+3.5, ZT+24.5, cap=True)                              # cornice
+    zr0, zr1 = ZT+24.5, H-16                                                        # octagonal pyramid roof
+    a_, b_ = ring(R1+3.0, zr0), ring(5.0, zr1)
+    for k in range(sides):
+        k1 = (k+1) % sides; o.poly([a_[k], a_[k1], b_[k1], b_[k]])
+        o.strut(a_[k], b_[k], 0.7, 0.7)                                             # hip ribs
+    o.poly(b_)
+    LP = ring(4.2, zr1)                                                             # open lantern: posts, no glazing
+    for k in range(sides):
+        o.strut(LP[k], (LP[k][0], LP[k][1], H-8), 0.45, 0.45)
+    prism(o, 5.2, H-8, 5.2, H-7, cap=True)
+    c_ = ring(5.2, H-7); tip = (xc, yc, H-2.5)
+    for k in range(sides):
+        o.poly([c_[k], c_[(k+1) % sides], tip])
+    o.cyl(xc, yc, H-2.5, H, 0.35, 0.1, seg=8)                                      # finial
+    o.done(); g.done(); bk.done()
 
 # ---------- terraces and terrain (r04) ----------
 T = MB('terrain', C['SY_terraces_terrain'], M['grass']); S = MB('terraces_stone', C['SY_terraces_terrain'], M['stone']); G = MB('terrace_gravel', C['SY_terraces_terrain'], M['gravel'])
@@ -489,7 +617,14 @@ def zs(y):
         if yb <= y <= ya: return za + (zb-za)*(ya-y)/(ya-yb)
     return PROF[-1][1]
 G.box(-TX, TX, yU, -157, UT-2, UT)                              # upper terrace (gravel)
-S.box(-TX, TX, yU-3, yU, LT, UT)                                # retaining wall
+# r07: grass bank between the terraces instead of r04-r06's vertical retaining wall (photos 0074/0007 read sloping turf;
+# bank run BANK ft I). Stone kerb at the top under the balustrade; bank interrupted by the central flight (|x|<50).
+BANK = 40.0
+S.box(-TX, TX, yU-2.5, yU, UT-3, UT)
+for xa_, xb_ in ((-TX, -50), (50, TX)):
+    T.poly([(xa_, yU-BANK, LT+0.05), (xb_, yU-BANK, LT+0.05), (xb_, yU-2.5, UT-0.6), (xa_, yU-2.5, UT-0.6)])
+    for xe_ in (xa_, xb_):
+        S.poly([(xe_, yU-BANK, LT), (xe_, yU-2.5, LT), (xe_, yU-2.5, UT-0.6)])
 def balustrade(xa, xb, y, z, statues_every=None, gap=None):
     """plinth 0.8, balusters 0.55 wide @1.4 ft, coping 0.6 -> 3.3 ft high (I: typical Italianate terrace scale)"""
     segs = [(xa, xb)] if not gap else [(xa, gap[0]), (gap[1], xb)]
@@ -509,18 +644,48 @@ def statue(x, y, z, mb, scale=1.0):
     mb.box(x-1.1, x+1.1, y-0.5, y+0.5, z+(5+4.0)*scale, z+(5+5.6)*scale)      # shoulders
     mb.box(x-0.45, x+0.45, y-0.45, y+0.45, z+(5+5.6)*scale, z+(5+6.6)*scale)  # head
 balustrade(-TX, TX, yU-1.5, UT, statues_every=96, gap=(-48, 48))
-G.box(-TX, TX, yL, yU-3, LT-2, LT)                              # lower terrace
+G.box(-TX, TX, yL, yU-BANK, LT-2, LT)                           # lower terrace
 balustrade(-TX, TX, yL+1, LT, statues_every=144, gap=(-30, 30))
+RUN = (BANK-2.5)/10
 for i in range(10):                                              # grand central flight upper->lower terrace
-    S.box(-48, 48, yU-3-(i+1)*3, yU-3-i*3, LT, UT - i*(LOWER_TERRACE_DROP/10) + 0.01)
-for sx in (-1, 1): S.box(sx*48-1.5, sx*48+1.5, yU-33, yU, LT, UT+3.3)
+    S.box(-48, 48, yU-2.5-(i+1)*RUN, yU-2.5-i*RUN, LT, UT - i*(LOWER_TERRACE_DROP/10) + 0.01)
+# r07: stepped cheek walls with moulded coping and terminal pedestals + urns (r06 miss: plain cheeks; forms I)
+def cheek(xc_, ytop, ybot, ztop, zbot, nst):
+    for i in range(nst):
+        y0_, y1_ = ytop - (i+1)*(ytop-ybot)/nst, ytop - i*(ytop-ybot)/nst; zt = ztop - i*(ztop-zbot)/nst
+        S.box(xc_-1.5, xc_+1.5, y0_, y1_, zbot, zt+3.0); S.box(xc_-1.9, xc_+1.9, y0_, y1_, zt+3.0, zt+3.6)
+    for yy_, zz_ in ((ytop, ztop), (ybot, zbot)):
+        S.box(xc_-2.4, xc_+2.4, yy_-2.4, yy_+2.4, zz_, zz_+4.2); S.box(xc_-2.8, xc_+2.8, yy_-2.8, yy_+2.8, zz_+4.2, zz_+4.8)
+        S.cyl(xc_, yy_, zz_+4.8, zz_+5.6, 0.9, 1.4, seg=12); S.cyl(xc_, yy_, zz_+5.6, zz_+7.6, 1.9, 1.5, seg=12); S.cyl(xc_, yy_, zz_+7.6, zz_+8.2, 0.5, 0.2, seg=8)
+for sx in (-1, 1): cheek(sx*49.5, yU, yU-BANK, UT, LT, 10)
 for i in range(14):                                              # central flight lower terrace -> park (I)
     S.box(-30, 30, yL-(i+1)*2.6, yL-i*2.6, zs(yL-i*2.6)-3, LT - i*(LT-zs(yL-40))/14)
+for sx in (-1, 1): cheek(sx*31.5, yL, yL-14*2.6, LT, zs(yL-14*2.6), 14)
 # parterres on the lower terrace: 6 beds with S fountains (map 0591 S, R)
+YP0, YP1 = yL+22, yU-BANK-18; YPC = (YP0+YP1)/2     # r07: parterre panels (beds/paths added in the park-paths block)
 for xs_ in (-720, -515, -231, 231, 515, 720):
-    T.box(xs_-85, xs_+85, yL+30, yU-30, LT, LT+0.4)
+    T.box(xs_-85, xs_+85, YP0, YP1, LT, LT+0.25)
 T.box(-1100, 1100, 156, 700, -3, -0.5)
-T.box(-1100, 1100, -157, 156, -BD-1, -BD)
+# r07: ground under the palace slopes from the Parade (just below the floor) to the garden basement level, as drawn in
+# section 0212 (linear profile I). Built as a prism split on the 24 ft grid so a section slice shows a filled cut face.
+# garden side y<-84 (Paxton's tunnel + basement storey, guide p.34) held at full basement depth (I).
+def gz(y): return -BD if y <= -84 else -1.5 + (-BD + 1.5) * (156 - y) / (156 + 84)
+GP = [(156, gz(156)), (36, gz(36)), (-36, gz(-36)), (-84, -BD), (-157, -BD), (-157, -BD-12), (156, -BD-12)]
+gb = bmesh.new(); xs_cut = [-1100] + [x for x in xs_grid] + [1100]
+for xa_, xb_ in zip(xs_cut[:-1], xs_cut[1:]):
+    A_ = [gb.verts.new((f(xa_), f(y_), f(z_))) for y_, z_ in GP]; B_ = [gb.verts.new((f(xb_), f(y_), f(z_))) for y_, z_ in GP]
+    gb.faces.new(A_); gb.faces.new(list(reversed(B_)))
+    for k_ in range(len(GP)):
+        k1_ = (k_+1) % len(GP); gb.faces.new((A_[k_], B_[k_], B_[k1_], A_[k1_]))
+gme = bpy.data.meshes.new('ground_under_palace'); gb.to_mesh(gme); gme.materials.append(M['grass'])
+C['SY_terraces_terrain'].objects.link(bpy.data.objects.new('ground_under_palace', gme))
+# basement piers under every column line where the ground falls away (section 0212 piers + 'A' basement; sizes I)
+bp = MB('basement_piers', C['SY_basement_garden_front'], M['brick'])
+for x in xs_grid:
+    for y in COL_Y:
+        zg_ = gz(y)
+        if zg_ < -2.5 and abs(y) < 156.5: bp.box(x-1.0, x+1.0, y-1.0, y+1.0, zg_, -1.0)
+bp.done()
 T.box(-1100, -TX, yL, -157, LT-1, LT); T.box(TX, 1100, yL, -157, LT-1, LT)
 bm = bmesh.new(); vv = []
 for y, z in PROF:
@@ -529,7 +694,7 @@ for (a0, a1), (b0, b1) in zip(vv[:-1], vv[1:]): bm.faces.new((a0, a1, b1, b0))
 me = bpy.data.meshes.new('park_slope'); bm.to_mesh(me); me.materials.append(M['grass'])
 o = bpy.data.objects.new('park_slope', me); C['SY_terraces_terrain'].objects.link(o)
 for (ya, za), (yb, zb) in zip(PROF[:-1], PROF[1:]):
-    bmw = bmesh.new(); q = [bmw.verts.new((f(x_), f(y_), f(z_+0.3))) for x_, y_, z_ in ((-20, ya, za), (20, ya, za), (20, yb, zb), (-20, yb, zb))]
+    bmw = bmesh.new(); q = [bmw.verts.new((f(x_), f(y_), f(z_+0.3))) for x_, y_, z_ in ((-40, ya, za), (40, ya, za), (40, yb, zb), (-40, yb, zb))]
     bmw.faces.new(q); mw = bpy.data.meshes.new('central_walk'); bmw.to_mesh(mw); mw.materials.append(M['gravel'])
     ow = bpy.data.objects.new('central_walk', mw); C['SY_terraces_terrain'].objects.link(ow)
 T.done(); S.done(); G.done()
@@ -548,17 +713,56 @@ def basin(mbs, mbw, xc, yc, z, r, n=40, rim=1.2, h=2.2, jet=None, shape=None):
     mbw.poly([(p_[0], p_[1], z+h-0.6) for p_ in ring])
     if jet:  # central pedestal/jet placeholder (water jets not simulated)
         mbs.box(xc-jet*0.15, xc+jet*0.15, yc-jet*0.15, yc+jet*0.15, z, z+jet*0.3)
+def ring_wall(mbs, ring, z0, z1, wd):
+    for k in range(len(ring)):
+        a_, b_ = ring[k], ring[(k+1) % len(ring)]
+        L = math.hypot(b_[0]-a_[0], b_[1]-a_[1]); ang = math.atan2(b_[1]-a_[1], b_[0]-a_[0])
+        rr_ = bmesh.ops.create_cube(mbs.bm, size=1.0)
+        mtx = Matrix.Translation(Vector((f((a_[0]+b_[0])/2), f((a_[1]+b_[1])/2), f((z0+z1)/2)))) @ Matrix.Rotation(ang, 4, 'Z') @ Matrix.Diagonal((f(L+wd*0.6), f(wd), f(z1-z0), 1))
+        bmesh.ops.transform(mbs.bm, matrix=mtx, verts=rr_['verts'])
+JETS = MB('fountain_jets', C['SY56_fountains_basins__dated'], M['jet'])
+def ornate_basin(mbs, mbw, xc, yc, z, r, jet_h=30, lobes=8, shape=None, urns=True):
+    """r07: lobed outline, stepped kerb, moulded rim + coping + bead, central two-tier fountain with jet and rim jets,
+    urns on pedestals on the kerb. All ornament forms I (period photos too distant); outline lobing I."""
+    def outline(dr):
+        if shape:
+            return [(xc + (px_-xc)*(1+dr/max(r, 1)), yc + (py_-yc)*(1+dr/max(r, 1))) for px_, py_ in shape]
+        return [(xc + (r+dr)*(1+0.06*math.cos(lobes*t))*math.cos(t), yc + (r+dr)*(1+0.06*math.cos(lobes*t))*math.sin(t))
+                for t in [2*math.pi*k/96 for k in range(96)]]
+    ring_wall(mbs, outline(5.0), z, z+0.7, 4.0)           # outer step
+    ring_wall(mbs, outline(2.5), z, z+1.3, 2.0)           # second step
+    ring_wall(mbs, outline(0), z, z+2.4, 1.8)             # rim wall
+    ring_wall(mbs, outline(0), z+2.4, z+2.9, 2.8)         # coping
+    ring_wall(mbs, outline(0), z+2.9, z+3.2, 1.6)         # bead
+    mbw.poly([(p_[0], p_[1], z+1.8) for p_ in outline(-0.8)])
+    s_ = max(0.45, min(r/45.0, 1.4))
+    mbs.cyl(xc, yc, z, z+4*s_, 5*s_, 4.2*s_, seg=8)                          # pedestal
+    mbs.cyl(xc, yc, z+4*s_, z+6.5*s_, 3*s_, 11*s_, seg=24)                    # lower bowl
+    mbs.cyl(xc, yc, z+6.5*s_, z+7.1*s_, 11.6*s_, 11.6*s_, seg=24)             # bowl lip
+    mbs.cyl(xc, yc, z+7.1*s_, z+13*s_, 1.6*s_, 1.2*s_, seg=12)                # shaft
+    mbs.cyl(xc, yc, z+10*s_, z+11*s_, 2.4*s_, 2.4*s_, seg=12)                 # knop
+    mbs.cyl(xc, yc, z+13*s_, z+15*s_, 1.5*s_, 5.5*s_, seg=16)                 # upper bowl
+    mbs.cyl(xc, yc, z+15*s_, z+18*s_, 0.8*s_, 0.3*s_, seg=8)                  # finial
+    JETS.cyl(xc, yc, z+18*s_, z+18*s_+jet_h, 2.2*s_, 0.4, seg=12)             # main jet (spray column, I)
+    for k in range(8):                                                        # rim jets arching inward (as straight cones)
+        t = 2*math.pi*k/8 + math.pi/8; px_, py_ = xc + (r-3)*math.cos(t), yc + (r-3)*math.sin(t)
+        JETS.cyl(px_, py_, z+2.9, z+2.9+min(8, jet_h*0.2), 0.9, 0.15, seg=8)
+    if urns:
+        for k in range(4):
+            t = math.pi/2*k; px_, py_ = xc + (r+6.5)*math.cos(t), yc + (r+6.5)*math.sin(t)
+            mbs.box(px_-1.8, px_+1.8, py_-1.8, py_+1.8, z, z+3.8); mbs.box(px_-2.1, px_+2.1, py_-2.1, py_+2.1, z+3.8, z+4.3)
+            mbs.cyl(px_, py_, z+4.3, z+5.1, 0.8, 1.3, seg=12); mbs.cyl(px_, py_, z+5.1, z+7.0, 1.8, 1.4, seg=12)
 for xs_ in (-720, -515, -231, 231, 515, 720):
-    basin(fo, fw, xs_, (yL+yU)/2, LT, 45, n=56, rim=1.6, h=2.4, jet=14)   # r05: map S ~25 dpx dia ≈ 107 ft (R); r04 r=22 too small
+    ornate_basin(fo, fw, xs_, YPC, LT, 45, jet_h=26)   # r05: map S ~25 dpx dia ≈ 107 ft (R); r07 ornate (forms I)
 fo.done(); fw.done()
 
 # ---------- park fountains & cascades (map 0591: R, H, J, L, M) : SY56_park_fountains_cascades__dated ----------
 PF = C['SY56_park_fountains_cascades__dated']
 po = MB('park_basins_stone', PF, M['stone']); pw = MB('park_basins_water', PF, M['water'])
 for dx in (447, 632):                                            # R fountains
-    x_, y_ = mdx(dx), mdy(445); po.box(x_-30, x_+30, y_-30, y_+30, zs(y_)-2, zs(y_)); basin(po, pw, x_, y_, zs(y_), 20, jet=10)
+    x_, y_ = mdx(dx), mdy(445); po.box(x_-30, x_+30, y_-30, y_+30, zs(y_)-2, zs(y_)); ornate_basin(po, pw, x_, y_, zs(y_), 20, jet_h=25)
 yH = mdy(500); zH = zs(yH)                                       # H large circular fountain (map ~36 dpx dia ≈ 154 ft; R)
-po.box(-100, 100, yH-100, yH+100, zH-3, zH); basin(po, pw, 0, yH, zH, 77, n=64, rim=2.5, h=3, jet=24)
+po.box(-100, 100, yH-100, yH+100, zH-3, zH); ornate_basin(po, pw, 0, yH, zH, 77, jet_h=60, lobes=12)
 yM = mdy(700); zM = zs(yM)
 def super_ellipse(xc, yc, a, b, e=4, n=72):
     return [(xc + a*math.copysign(abs(math.cos(t))**(2/e), math.cos(t)), yc + b*math.copysign(abs(math.sin(t))**(2/e), math.sin(t))) for t in [2*math.pi*k/n for k in range(n)]]
@@ -575,7 +779,91 @@ for dx in (500, 582):                                            # L cascades: s
     for cx_ in (-16, 16):
         for cy_ in (-2, 30): po.box(x_+cx_-1.2, x_+cx_+1.2, yJ+cy_-1.2, yJ+cy_+1.2, zJ+4, zJ+30)
     po.box(x_-20, x_+20, yJ-6, yJ+34, zJ+30, zJ+36)
-po.done(); pw.done()
+po.done(); pw.done(); JETS.done()
+
+# ---------- r07: park paths and flower beds digitised from the 1857 map 0591 (display px -> ft via mdx/mdy; R for
+# alignment of the main walks/rings, I for widths, curvature between control points and bed shapes) ----------
+PB = coll('SY56_park_paths_beds__dated')
+PG = MB('park_paths_gravel', PB, M['gravel']); FB = MB('flower_beds', PB, M['flowers']); GPN = MB('parterre_grass', PB, M['grass'])
+def gzp(x, y):  # ground height at a park/terrace point
+    if y > -157: return UT
+    if y > yU - 2.5: return UT
+    if y > yU - BANK: return LT + (UT-LT)*(y-(yU-BANK))/(BANK-2.5)
+    if y > yL: return LT
+    return zs(y)
+def catmull(pts, step=12.0):
+    out = []
+    P_ = [pts[0]] + pts + [pts[-1]]
+    for i in range(1, len(P_)-2):
+        p0, p1, p2, p3 = P_[i-1], P_[i], P_[i+1], P_[i+2]
+        n_ = max(2, int(math.hypot(p2[0]-p1[0], p2[1]-p1[1]) / step))
+        for j in range(n_):
+            t = j/n_; t2, t3 = t*t, t*t*t
+            out.append(tuple(0.5*((2*p1[c]) + (-p0[c]+p2[c])*t + (2*p0[c]-5*p1[c]+4*p2[c]-p3[c])*t2 + (-p0[c]+3*p1[c]-3*p2[c]+p3[c])*t3) for c in range(2)))
+    out.append(pts[-1]); return out
+def ribbon(mb, pts, w, dz=0.35, closed=False):
+    if closed: pts = pts + [pts[0]]
+    for (xa_, ya_), (xb_, yb_) in zip(pts[:-1], pts[1:]):
+        L = math.hypot(xb_-xa_, yb_-ya_)
+        if L < 0.1: continue
+        nx_, ny_ = -(yb_-ya_)/L*w/2, (xb_-xa_)/L*w/2
+        mb.poly([(xa_-nx_, ya_-ny_, gzp(xa_, ya_)+dz), (xb_-nx_, yb_-ny_, gzp(xb_, yb_)+dz), (xb_+nx_, yb_+ny_, gzp(xb_, yb_)+dz), (xa_+nx_, ya_+ny_, gzp(xa_, ya_)+dz)])
+def circle_pts(cx, cy, r, n=64): return [(cx + r*math.cos(2*math.pi*k/n), cy + r*math.sin(2*math.pi*k/n)) for k in range(n)]
+def sector(mb, cx, cy, r0, r1, a0, a1, twist=0.0, dz=0.45, nr=5, na=8):
+    """annular sector bed draped on the ground; twist = extra rotation (rad) at r1 (whirling rosette beds, map I)"""
+    for i in range(nr):
+        for j in range(na):
+            q = []
+            for (ii, jj) in ((i, j), (i, j+1), (i+1, j+1), (i+1, j)):
+                rr_ = r0 + (r1-r0)*ii/nr; aa = a0 + (a1-a0)*jj/na + twist*ii/nr
+                x_, y_ = cx + rr_*math.cos(aa), cy + rr_*math.sin(aa); q.append((x_, y_, gzp(x_, y_)+dz))
+            mb.poly(q)
+D = lambda dx, dy: (mdx(dx), mdy(dy))
+# side walks from the lower terrace (D) down to the R fountains, and their surrounding rings
+for dx in (447, 632):
+    ribbon(PG, catmull([D(dx, 380), D(dx, 412), D(dx, 432)]), 16)
+    ribbon(PG, circle_pts(mdx(dx), mdy(445), 44), 12, closed=True)
+# H basin ring walk and 8 round beds around it
+ribbon(PG, circle_pts(0, yH, 118, 96), 16, closed=True)
+for k in range(8):
+    t = 2*math.pi*k/8 + math.pi/8
+    if abs(math.cos(t)) < 0.3: continue
+    sector(FB, 140*math.cos(t), yH + 140*math.sin(t), 0, 11, 0, 2*math.pi, na=12, nr=2)
+# I gardens: whirling rosettes with central disc, inner ring, 6 radiating walks and 6 whirl beds, outer ring walk
+for dx in (370, 698):
+    cx, cy = mdx(dx), mdy(555)
+    ribbon(PG, circle_pts(cx, cy, 290, 120), 14, closed=True)
+    ribbon(PG, circle_pts(cx, cy, 185, 96), 10, closed=True)
+    ribbon(PG, circle_pts(cx, cy, 48, 48), 10, closed=True)
+    sector(FB, cx, cy, 0, 40, 0, 2*math.pi, na=16, nr=3)
+    for k in range(6):
+        a = 2*math.pi*k/6
+        sp = [(cx + rr_*math.cos(a + 0.55*rr_/290), cy + rr_*math.sin(a + 0.55*rr_/290)) for rr_ in range(53, 291, 12)]
+        ribbon(PG, sp, 9)
+        sector(FB, cx, cy, 62, 175, a + 0.16, a + 0.75, twist=0.38)
+        sector(FB, cx, cy, 195, 280, a + 0.40, a + 0.95, twist=0.20)
+    # link walks from the R rings and the H ring to the I outer ring
+    sgn = -1 if dx < 541 else 1
+    ribbon(PG, catmull([(mdx(447 if sgn < 0 else 632) + sgn*30, mdy(445) - 34), (cx - sgn*120, cy + 300), (cx - sgn*150, cy + 250)]), 12)
+    ribbon(PG, catmull([(sgn*110, yH - 40), (sgn*220, yH - 120), (cx - sgn*280, cy + 40)]), 12)
+# walks around the M basins (offset outline of the simplified basin shape) and the cross walk between the J heads
+for dx in (420, 662):
+    ribbon(PG, super_ellipse(mdx(dx), yM, 430, 262, n=120), 18, closed=True)
+ribbon(PG, [D(330, 560), D(495, 560)], 14); ribbon(PG, [D(587, 560), D(752, 560)], 14)
+# perimeter serpentine walks (west mirrored to east; east side kept short of lake K; I)
+west = [D(318, 395), D(308, 440), D(322, 480), D(308, 530), D(300, 600), D(325, 650), D(360, 672)]
+ribbon(PG, catmull(west), 12)
+ribbon(PG, catmull([(-x_, y_) for x_, y_ in west[:5]]), 12)
+# lower-terrace parterres: grass panels with gravel border walks and four lobed bedding beds round each basin (map S; I)
+for xs_ in (-720, -515, -231, 231, 515, 720):
+    ribbon(PG, [(xs_-80, YP0+5), (xs_+80, YP0+5), (xs_+80, YP1-5), (xs_-80, YP1-5)], 7, dz=0.4, closed=True)
+    ribbon(PG, circle_pts(xs_, YPC, 56, 64), 7, dz=0.4, closed=True)
+    for k in range(4):
+        a = math.pi/2*k + math.pi/4
+        sector(FB, xs_, YPC, 63, 74, a-0.55, a+0.55, dz=0.5)
+    for (bx, by) in ((xs_-68, YP0+16), (xs_+68, YP0+16), (xs_-68, YP1-16), (xs_+68, YP1-16)):
+        sector(FB, bx, by, 0, 7, 0, 2*math.pi, na=12, nr=2, dz=0.5)
+PG.done(); FB.done(); GPN.done()
 
 # ---------- nave planting & statuary (PLACEHOLDERS; bed x-positions detected on plan 0205: checks/plan_nave_beds.json) ----------
 NP = C['SY_nave_planting_statuary__placeholders']
@@ -679,10 +967,14 @@ cam('CAM_nave_interior_28mm', (-330, 0, EYE), (0, 0, EYE+6), 28)
 cam('CAM_ext_elevated_overview', (900, -1300, 420), (-50, -60, 40), 35)
 cam('CAM_plan_overlay_top', (0, 0, 2000), (0, 0, 0), 50)
 cam('CAM_compare_0074', (-340, yL+60, LT+EYE+6), (160, -157, 62), 35)       # r05: photo 0074 from lower terrace S of CT looking N along garden front (I)
-cam('CAM_compare_0007', (-260, -1500, LT+30), (-302, -157, LT-12), 35)  # r05b: photo 0007 is elevated over the terraces; tower@5%/CT@~70% for 35 mm (I)
-cs = cam('CAM_section_cut_x-276', (-300, -20, 80), (0, -20, 80), 50, ortho=430)  # true section: clip slice x=-276..-252 (between grid lines, ortho)
-cs.data.clip_start = f(18); cs.data.clip_end = f(30)  # slice x=-282..-270 through column line -276
+cam('CAM_compare_0007', (60, -1500, LT+30), (-194, -157, -98), 35)  # r07: re-solved from tower/transept bearings (-21°/+8°) and H basin in the foreground; raised, looking down (I)
+cs = cam('CAM_section_cut_x-300', (-330, -20, 62), (0, -20, 62), 50, ortho=400)  # r07: true section on braced grid line x=-300 (k=21)
+cs.data.clip_start = f(24); cs.data.clip_end = f(36)  # slice x=-306..-294
 sc.camera = bpy.data.objects['CAM_ext_garden_34_terrace']
+
+# ---------- r08: fine-arts courts (separate collections inside the shell) ----------
+if not os.environ.get('SY_NO_COURTS'):   # r07 shell-only round was built with SY_NO_COURTS=1
+    exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'courts.py')).read())
 
 # ---------- world / render ----------
 w = bpy.data.worlds.new('sky'); sc.world = w; w.use_nodes = True
