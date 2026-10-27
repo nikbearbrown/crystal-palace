@@ -62,3 +62,11 @@ never git init inside a grok folder; commit from the worktree root
 - CANDIDATE: `scripts/polish_osler_cand.py` appends Muse `osler-crystal-fountain` (origin/main via models-main-ro; Wellcome-governed; credit on objects) → `rounds/candidates/o01_osler.blend` + `renders/candidates/CP022_fountain_start.png` (--keep-lighting). Live o01 / live render untouched.
 - Pair: survey `look/pairs_geo/CANDIDATE_CP022_osler_fountain_start_pair.png`.
 - CP014/CP028 candidates previously rejected by user; live left as-is (pairs renamed REJECTED_*).
+
+## KEEP CP022 Osler live (2026-10-27)
+- User KEEP on Muse append candidate. Promoted to live `rounds/o01.blend`; re-rendered CP021_doors/dais + CP022_fountain/crossing with `--keep-lighting`.
+- Same append applied to transept `r11` for CP023 combine (exterior x07).
+- CREDITS.md + DEPARTURES FT50.
+
+## 2026-10-27 KEEP Osler
+- Muse `osler-crystal-fountain` promoted live o01 (CP021/CP022 keep-lighting). CREDITS + DEPARTURES FT50. CP023 via r11.

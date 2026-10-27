@@ -69,3 +69,8 @@ Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Cont
 
 ## Muse kit compare pointer (2026-10-27)
 See construction-grok `DEPARTURES.md` MK01–MK05 (lattice girder, Paxton gutter, gallery rail, S25 floor gaps). Floor gaps already logged FT09/FT10 — confirmed match to muse-round2 S25 (½ in, ground floor only).
+
+## KEEP CP022 Osler (2026-10-27) — Muse fountain live
+| ID | Topic | Call |
+|---|---|---|
+| FT50 | Muse `osler-crystal-fountain` promoted to live o01 (CP021/CP022); also r11 for CP023. Lathe `FOUNTAIN_*` hidden. | **KEEP.** Credit: Muse (Wellcome). See CREDITS.md. |
