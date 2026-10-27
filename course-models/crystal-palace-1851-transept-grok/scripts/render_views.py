@@ -1,6 +1,14 @@
 """Render named cameras from a transept .blend.
 blender -b rounds/rNN.blend -P render_views.py -- --cams A,B --outdir renders/rNN --res 960x540 --samples 48 [--portrait A] [--claude path.blend [--no-furrow]]"""
 import bpy, sys, os
+
+# crystal-palace-look v1 (shared grade)
+try:
+    from cpl_look import apply_look, era_for_scene, tod_for_scene
+except ImportError:
+    import sys as _s
+    _s.path.insert(0, "/workspace/crystal-palace-survey/look")
+    from crystal_palace_look import apply_look, era_for_scene, tod_for_scene
 argv = sys.argv[sys.argv.index("--") + 1:]
 def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 cams = arg("--cams").split(","); outdir = arg("--outdir"); W, H = map(int, arg("--res", "960x540").split("x"))
@@ -51,6 +59,10 @@ if claude:   # append Claude's model collection read-only (never saved)
     if "--no-furrow" not in argv:   # RL05: flat roof units (his and ours) -> Muse's furrow bay, instanced, render time only
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import furrow; furrow.swap_flat_roofs()
+# apply shared look once per blend (override with --era / --tod)
+_era = arg("--era", "1851"); _tod = arg("--tod", "interior_daylit")
+apply_look(era=_era, time_of_day=_tod)
+if arg("--exposure"): sc.view_settings.exposure = float(arg("--exposure"))
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)

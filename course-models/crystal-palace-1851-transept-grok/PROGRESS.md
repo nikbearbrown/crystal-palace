@@ -138,3 +138,7 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
 - Build: `rounds/r11.blend`. Checks: `checks/r11` 49/49.
 - Dressing: floor crowd 540, gallery 180 (110+40+30).
 - Lean renders: `renders/r11` (1280×720, 24 spp) — DET_fountain, OPEN_gallery, CP023_into_nave, CP017_park_inside.
+
+## look-v1 (2026-10-27)
+- Wired `scripts/cpl_look.py` → shared `crystal-palace-survey/look/crystal_palace_look.py`.
+- `apply_look` in render script; lean re-render of COVERAGE hero cams.

@@ -90,3 +90,6 @@ This lists every simplification or guess in `scripts/build_transept.py`. Status 
 | T42 | C | Floor board albedo −10% → (0.495, 0.414, 0.315) | Boards were washing out under AgX; darken to hold gallery figures. |
 | T43 | B | Figure heads with nose/jaw; bent elbows, forearms, hand balls | Stub arms and smooth egg heads read as unfinished at 50 mm; still low-poly stand-ins. |
 | T44 | C | Gallery crowd 110+40+30 (was 76+26+18) | Galleries looked empty against floor density 540. |
+
+## Look — crystal-palace-look v1 (2026-10-27)
+Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
