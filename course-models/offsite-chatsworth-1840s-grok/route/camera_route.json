@@ -1,0 +1,129 @@
+{
+ "set": "O-CHATS (CP003, CP004) Chatsworth Great Stove + Victoria lily house",
+ "units": "ft",
+ "shots": [
+  {
+   "id": "CP003_stove_nave",
+   "lens_mm": 28,
+   "note": "Great Stove interior looking along the curved laminated ribs",
+   "start": {
+    "pos_ft": [
+     0,
+     -48,
+     9.3
+    ],
+    "look_ft": [
+     0,
+     40,
+     22
+    ]
+   }
+  },
+  {
+   "id": "CP003_stove_rib",
+   "lens_mm": 35,
+   "note": "Approach under a rib, tropical planting",
+   "start": {
+    "pos_ft": [
+     22,
+     -8,
+     9.3
+    ],
+    "look_ft": [
+     -10,
+     30,
+     18
+    ]
+   }
+  },
+  {
+   "id": "CP004_lily_tank",
+   "lens_mm": 28,
+   "note": "Victoria regia house: circular tank with giant pads",
+   "start": {
+    "pos_ft": [
+     0,
+     -22,
+     5.25
+    ],
+    "look_ft": [
+     0,
+     4,
+     3
+    ]
+   }
+  },
+  {
+   "id": "CP004_lily_underside",
+   "lens_mm": 50,
+   "note": "Ribbed underside of a turned-over leaf on a trestle",
+   "start": {
+    "pos_ft": [
+     20,
+     4.0,
+     5.25
+    ],
+    "look_ft": [
+     5,
+     6.5,
+     3.4
+    ]
+   }
+  },
+  {
+   "id": "CP004_learning",
+   "lens_mm": 35,
+   "note": "Leaf ribs beside the ridge-and-furrow roof (learning to repeat)",
+   "start": {
+    "pos_ft": [
+     18,
+     -6,
+     5.25
+    ],
+    "look_ft": [
+     5,
+     8,
+     14
+    ]
+   }
+  }
+ ],
+ "contents": [
+  {
+   "id": "CH.stove",
+   "what": "Great Stove laminated ribs",
+   "info": "stove_ribs",
+   "min": 20
+  },
+  {
+   "id": "CH.plants",
+   "what": "tropical planting pots/trees",
+   "info": "plants",
+   "min": 12
+  },
+  {
+   "id": "CH.tank",
+   "what": "circular Victoria tank ~33 ft",
+   "info": "tank_d_ft",
+   "min": 30
+  },
+  {
+   "id": "CH.pads",
+   "what": "Victoria regia pads",
+   "info": "pads",
+   "min": 8
+  },
+  {
+   "id": "CH.underside",
+   "what": "turned-over leaf showing radial + cross ribs",
+   "info": "underside_leaf",
+   "min": 1
+  },
+  {
+   "id": "CH.figures",
+   "what": "figures (Paxton / visitors)",
+   "info": "figures",
+   "min": 4
+  }
+ ]
+}
