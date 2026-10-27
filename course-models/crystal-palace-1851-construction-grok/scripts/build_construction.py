@@ -30,14 +30,14 @@ ROOT.name = "CONSTRUCTION_GROK"
 K = {n: coll(n, ROOT) for n in ["FRAME", "ROOF_STATES", "FOUNDATIONS", "GROUND", "SCAFFOLD", "LIFTING", "WAGONS",
                                 "WORKERS", "FLOOR", "LOUVRE_CANVAS", "OFFSITE_YARD", "DETAIL_DRAINAGE"]}
 rnd = random.Random(1850)
-scene.view_settings.exposure = -1.9      # bare frame + earth reflect far more than the finished interior (CN13)
+scene.view_settings.exposure = -2.4      # bare frame + earth reflect far more than the finished interior (CN13; c02 -1.9 -> -2.4)
 # 1850 site ironwork: delivered in a dark oxide priming coat; Owen Jones' colours were applied winter 1850-51 (CN12)
-PRIMER = mat_principled("GT_IronPrimer_1850", (0.20, 0.16, 0.13), 0.6)
+PRIMER = mat_principled("GT_IronPrimer_1850", (0.11, 0.085, 0.07), 0.6)   # c02: darker (CN12)
 for _me in bpy.data.meshes:
     for _i, _m in enumerate(_me.materials):
         if _m and _m.name.startswith("GT_Iron"): _me.materials[_i] = PRIMER
 IRON = PRIMER
-for _m, _c in ((WOOD, (0.50, 0.42, 0.31)), (WOODDARK, (0.42, 0.35, 0.26))):
+for _m, _c in ((WOOD, (0.40, 0.33, 0.24)), (WOODDARK, (0.32, 0.26, 0.19))):
     _m.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*_c, 1); _m.diffuse_color = (*_c, 1)
 try: scene.view_settings.look = 'AgX - Medium High Contrast'
 except TypeError: pass
@@ -45,10 +45,10 @@ except TypeError: pass
 # ---------------- materials ----------------
 EARTH = mat_principled("GT_Earth", (0.17, 0.13, 0.09), 0.95)
 SPOIL = mat_principled("GT_Spoil", (0.22, 0.17, 0.12), 0.95)
-CONCRETE = mat_principled("GT_Concrete", (0.56, 0.55, 0.51), 0.9)
+CONCRETE = mat_principled("GT_Concrete", (0.40, 0.39, 0.36), 0.9)
 CASTIRON = mat_principled("GT_CastIronBase", (0.20, 0.20, 0.21), 0.6, 0.4)
-POLE = mat_principled("GT_ScaffoldPole", (0.40, 0.34, 0.26), 0.85)
-PLANK = mat_principled("GT_ScaffoldPlank", (0.52, 0.45, 0.35), 0.85)
+POLE = mat_principled("GT_ScaffoldPole", (0.32, 0.27, 0.20), 0.85)
+PLANK = mat_principled("GT_ScaffoldPlank", (0.40, 0.34, 0.26), 0.85)
 ROPE = mat_principled("GT_Rope", (0.45, 0.40, 0.30), 0.9)
 COAT = mat_principled("GT_WorkerCoat", (0.07, 0.07, 0.08), 0.8)
 TROUS = mat_principled("GT_WorkerTrousers", (0.20, 0.17, 0.13), 0.85)
@@ -56,6 +56,7 @@ SKIN = mat_principled("GT_WorkerSkin", (0.62, 0.46, 0.36), 0.6)
 SHIRT = mat_principled("GT_WorkerShirt", (0.78, 0.76, 0.70), 0.8)
 ROOFG = mat_glass("GT_RoofGlassBuild", tint=(0.58, 0.64, 0.64), bars=False, milk=0.025, milk_rgb=(0.55, 0.58, 0.58))
 LABEL = mat_principled("GT_Label", (0.02, 0.02, 0.02), 0.9)
+WAGONT = mat_principled("GT_WagonTimber", (0.22, 0.17, 0.12), 0.85)   # weathered wagon timber (c02)
 def canvas_mat():
     m = bpy.data.materials.new("GT_Canvas"); m.use_nodes = True; nt = m.node_tree; n = nt.nodes; l = nt.links
     for x in list(n): n.remove(x)
@@ -356,8 +357,10 @@ def mesh_wagon():
     for sx in (-1.9, 1.9):
         for sy in (-4.0, 4.0):
             cyl_axis(bm, (ft(sx), ft(sy - 0.1), inch(2)), (ft(sx), ft(sy + 0.1), inch(2)), ft(0.5), 12)
-    for sy in (-4.0, 4.0):
-        bm_box(bm, ft(-2.5), ft(2.5), ft(sy) - inch(2), ft(sy) + inch(2), inch(4), ft(1.9))
+    for sy in (-4.0, 4.0):                                                                    # open side frames (0174), c02
+        bm_box(bm, ft(-2.5), ft(2.5), ft(sy) - inch(2), ft(sy) + inch(2), ft(1.55), ft(1.9))      # sole beam under the deck
+        bm_box(bm, ft(-2.5), ft(2.5), ft(sy) - inch(1.5), ft(sy) + inch(1.5), inch(1), inch(5))   # axle bearer
+        for px in (-2.2, -0.0, 2.2): bm_box(bm, ft(px) - inch(1.5), ft(px) + inch(1.5), ft(sy) - inch(1.5), ft(sy) + inch(1.5), inch(4), ft(1.6))
     bm_box(bm, ft(-2.5), ft(2.5), ft(-4.25), ft(4.25), ft(1.9), ft(2.05))                    # deck
     for hx in (-2.2, 0.0, 2.2):                                                                 # hoops for the canvas cover
         pts = [(4.0 * math.cos(math.pi * j / 10), 2.05 + 3.6 * math.sin(math.pi * j / 10)) for j in range(11)]
@@ -369,7 +372,7 @@ def mesh_wagon():
         bm_box(bm, ft(1.3) + inch(1.6 * k), ft(1.3) + inch(1.6 * k) + inch(0.15), ft(-1.0), ft(1.0), ft(2.1), ft(3.4))
     faces_since(bm, n0, 0); n0 = len(bm.faces)
     bm_cyl(bm, ft(0.6), ft(2.05), ft(3.3), 12, cx=ft(-1.7), cy=ft(2.6)); faces_since(bm, n0, 1)   # putty barrel
-    return finish(bm, "glazing_wagon", ROOFG, [PLANK])
+    return finish(bm, "glazing_wagon", ROOFG, [WAGONT])
 WAGON = mesh_wagon()
 for i, yc in enumerate(WAGON_RIDGES):
     x = WAGON_X + (0 if i % 2 == 0 else 1.5)
@@ -377,6 +380,11 @@ for i, yc in enumerate(WAGON_RIDGES):
             {"part_kind": "glazing_wagon", "gauge_ft": 8.0, "ridge_y": yc})
     worker(x - 0.8, yc - 1.6, GIRDER_TOP[0] + 2.05, "kneel", 270, "CP016")
     worker(x - 0.8, yc + 1.6, GIRDER_TOP[0] + 2.05, "work", 270, "CP016")
+# CP014 on site (c02): rain water standing in the Paxton gutters of the glazed bay 300-324, tier-1 south
+bm = bmesh.new()
+for gy in (-196.0, -188.0, -180.0, -172.0):
+    bm_box(bm, ft(300.3), ft(323.7), ft(gy) - inch(2), ft(gy) + inch(2), ft(GIRDER_TOP[0]) + inch(1.0), ft(GIRDER_TOP[0]) + inch(1.4))
+new_obj("KSITE_GUTTER_WATER", finish(bm, "site_gutter_water", WATER), K["DETAIL_DRAINAGE"], (0, 0, 0), 0, {"part_kind": "site_water"})
 # CP013: gutter walkers and a man on the roof-edge platform, clear of the cameras
 worker(372, -168, GIRDER_TOP[0] - 0.3, "stand", 90, "CP013"); worker(386, -152, GIRDER_TOP[0] - 0.3, "work", 270, "CP013")
 worker(300, -212, DECK_ROOF, "work", 90, "CP013")

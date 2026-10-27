@@ -170,18 +170,18 @@
   },
   {
    "id": "CP014_gutter",
-   "lens_mm": 50,
-   "note": "HP-DETAIL: water along a Paxton gutter to the column head (offsite demonstration bay)",
+   "lens_mm": 35,
+   "note": "HP-DETAIL on site: from the roof-edge platform (deck 24 ft), rain water in the Paxton gutters of a glazed bay running to the column-head (c02)",
    "start": {
     "pos_ft": [
-     3110,
-     186,
-     28.5
+     308,
+     -213,
+     29.25
     ],
     "look_ft": [
-     3124,
-     196,
-     21.5
+     320,
+     -188,
+     22.2
     ]
    }
   },
