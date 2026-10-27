@@ -76,3 +76,27 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
   - Darken the lunette bars.
   - A Talbot camera with a lower target.
   - Planter proxies.
+- r09 (scripts/build_transept.py + new scripts/dressing.py, figures.py, furrow.py; checks/r09). Renders: renders/r09 (1280x720, 48 spp); compare sheets compare/r09_*.jpg.
+  - Changes:
+    - The mannequin statue placeholders are replaced by classical stand-ins from figures.py: draped standing figures, a seated figure, an equestrian group, the Amazon group and busts, all on moulded stone pedestals. Muse's empty plinths now carry busts and urns (ST03–ST09).
+    - Exhibition dressing (dressing.py, everything tagged `dress_kind` so HP-EMPTY/DISMANTLE can strip it):
+      - flags and banners hung from the galleries
+      - hung carpets and textiles
+      - machinery block-outs in the east nave (locomotive, steam, beam and marine engines, hydraulic press, power looms, reaper, printing machine)
+      - sculpture groups
+      - palm and orange-tree planters
+      - 324 crowd stand-ins (CR01)
+    - Darker lunette bars and end-screen glass (L02).
+    - REF_talbot on the floor at eye height (C07).
+    - CP023_into_nave camera (CP23).
+    - The furrow roof module for the combined views (RL05, render scripts only).
+    - figures.horse_group_mesh(base=...) param for reuse.
+  - Self-score r09: 8.2/10.
+    - Good: the aisles now read as a crowded show; Talbot reads with the fountain at mid-ground; the plinths are no longer empty black boxes.
+    - Misses:
+      - The planters read as green balls.
+      - The figures are still low-poly and read as toy-like at close range.
+      - The standalone CP023 shows open sky east of x 60 (by design; use the x05 combined render).
+      - The lunette is darker but still not as black as in Talbot's photograph.
+      - The crowd density is far below 1851.
+- Next (r10): give the planters fronds/tub shapes; add more figure variety and a darker grade; move the machinery to the west/Claude zone if he agrees (proposal); refine the lunette.
