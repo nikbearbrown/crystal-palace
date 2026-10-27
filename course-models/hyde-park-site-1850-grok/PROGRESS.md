@@ -32,3 +32,6 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people/material 2026-10-27
 - people v3.1 keep CP006/009; lib 3.1
+
+## people v3.2 2026-10-27
+- people v3.2: revert CP006/009
