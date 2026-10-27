@@ -146,3 +146,6 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## people/material 2026-10-27
+- people v3.1 keep CP008/017/023; lib 3.1

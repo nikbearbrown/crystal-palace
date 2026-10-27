@@ -1,4 +1,4 @@
-"""crystal-palace-people v3 — HBM base humans + modelled period garments.
+"""crystal-palace-people v3.1 — HBM base humans + period-correct modelled garments.
 
 Drop-in API (compatible with v2 callers):
   person_mesh(name, kind, mats, FT=0.3048, style=None, pose=None, lod=None, seed=None)
@@ -9,6 +9,7 @@ decimated LODs under people/vendor/bases/. Garments are modelled shells
 (frock coat with tails, top hat, crinoline, bodice, bonnet, shawl, smock,
 police tunic) — not lathe primitives. Proportions: head ~1/7.5 height;
 1850s crowd height 5'0"–5'10". Matte period colours; no white hats.
+Crowd mix: ~58% ladies (wide crinoline) so silhouettes read at mid-distance.
 """
 from __future__ import annotations
 import hashlib, math, os, random
@@ -19,7 +20,7 @@ import bpy
 import bmesh
 from mathutils import Matrix, Vector, Euler
 
-PEOPLE_VERSION = "3.0"
+PEOPLE_VERSION = "3.1"
 PEOPLE_TAG = "cpl_people_v3"
 
 _HERE = Path(__file__).resolve().parent
@@ -86,9 +87,9 @@ _COATS = [
     (0.07, 0.07, 0.06), (0.08, 0.08, 0.09),
 ]
 _SKIRTS = [
-    (0.22, 0.10, 0.12), (0.10, 0.14, 0.22), (0.28, 0.24, 0.18),
-    (0.14, 0.16, 0.12), (0.20, 0.12, 0.18), (0.24, 0.20, 0.12),
-    (0.12, 0.12, 0.14), (0.30, 0.26, 0.22),
+    (0.28, 0.12, 0.14), (0.12, 0.18, 0.28), (0.34, 0.28, 0.20),
+    (0.16, 0.20, 0.14), (0.26, 0.14, 0.22), (0.30, 0.24, 0.14),
+    (0.14, 0.14, 0.18), (0.36, 0.30, 0.24),
 ]
 _TROUS = [(0.08, 0.08, 0.10), (0.12, 0.11, 0.10), (0.06, 0.07, 0.10)]
 _SKINS = [(0.62, 0.46, 0.38), (0.48, 0.34, 0.28), (0.70, 0.55, 0.44), (0.40, 0.28, 0.22)]
@@ -122,7 +123,10 @@ def _mats_for(seed: int, role: str) -> Dict[str, bpy.types.Material]:
         main = _ensure_mat(f"CPL3_coat_{i}", _COATS[i], 0.7)
         sec = _ensure_mat(f"CPL3_trou_{i % 3}", _TROUS[i % 3], 0.75)
         hat = _ensure_mat(f"CPL3_hat_{i % 4}", _HATS[i % 4], 0.65)
-    trim = _ensure_mat(f"CPL3_trim_{i % 3}", [(0.45, 0.35, 0.15), (0.30, 0.08, 0.08), (0.55, 0.50, 0.40)][i % 3], 0.5)
+    # waistcoat / cravat / shirt peek — mid tones, never chalk
+    _WAIST = [(0.28, 0.22, 0.16), (0.18, 0.20, 0.24), (0.32, 0.18, 0.14),
+              (0.22, 0.22, 0.20), (0.35, 0.30, 0.22)]
+    trim = _ensure_mat(f"CPL3_waist_{i % 5}", _WAIST[i % 5], 0.65)
     return {"main": main, "sec": sec, "skin": skin, "hat": hat, "trim": trim}
 
 
@@ -315,28 +319,36 @@ def _lathed_shell(bm, profile, seg=12, mat=0, cx=0.0, cy=0.0):
 
 
 def build_top_hat(bm, crown_z, head_r, mat=0, seg=12):
-    """Correct scale: crown ~7 in tall; brim fits ~22 in head circumference."""
-    # clamp head_r to period hat sizes (~22 in circ => r≈0.089)
-    head_r = max(0.075, min(head_r, 0.11))
-    crown_r = head_r * 1.02
-    brim_r = head_r * 1.55
+    """Period silk top hat: ~7 in crown, clear flat brim (not a fez/cap)."""
+    head_r = max(0.078, min(head_r, 0.105))
+    crown_r = head_r * 0.98
+    brim_r = head_r * 1.75          # wide readable brim
     h = TOP_HAT_H
-    # brim disk (thin)
-    # sink so brim sits on scalp (crown_z is top of skull)
-    scalp = crown_z - 0.025
-    brim_z = scalp - 0.008
-    outer = _ring(bm, 0, 0, brim_z, brim_r, brim_r, seg)
-    inner = _ring(bm, 0, 0, brim_z, crown_r, crown_r, seg)
+    scalp = crown_z - 0.018
+    # thick brim slab (top + bottom faces) so it reads at crowd distance
+    brim_z_lo = scalp - 0.012
+    brim_z_hi = scalp - 0.002
+    outer_lo = _ring(bm, 0, 0, brim_z_lo, brim_r, brim_r, seg)
+    outer_hi = _ring(bm, 0, 0, brim_z_hi, brim_r, brim_r, seg)
+    inner_lo = _ring(bm, 0, 0, brim_z_lo, crown_r, crown_r, seg)
+    inner_hi = _ring(bm, 0, 0, brim_z_hi, crown_r, crown_r, seg)
     n = seg
     for k in range(n):
-        f = bm.faces.new([outer[k], outer[(k + 1) % n], inner[(k + 1) % n], inner[k]])
+        # top of brim
+        f = bm.faces.new([outer_hi[k], outer_hi[(k + 1) % n], inner_hi[(k + 1) % n], inner_hi[k]])
         f.material_index = mat
-    # crown cylinder
-    top = _ring(bm, 0, 0, scalp + h, crown_r * 0.98, crown_r * 0.98, seg)
+        # bottom of brim
+        f = bm.faces.new([outer_lo[(k + 1) % n], outer_lo[k], inner_lo[k], inner_lo[(k + 1) % n]])
+        f.material_index = mat
+        # outer rim
+        f = bm.faces.new([outer_lo[k], outer_lo[(k + 1) % n], outer_hi[(k + 1) % n], outer_hi[k]])
+        f.material_index = mat
+    # crown cylinder — slightly tapered
     bot = _ring(bm, 0, 0, scalp, crown_r, crown_r, seg)
+    top = _ring(bm, 0, 0, scalp + h, crown_r * 0.92, crown_r * 0.92, seg)
     _bridge(bm, bot, top, mat)
-    # top cap
-    _cap(bm, top, (0, 0, crown_z + h + 0.005), mat)
+    _bridge(bm, inner_hi, bot, mat)
+    _cap(bm, top, (0, 0, scalp + h + 0.008), mat)
 
 
 def build_boater(bm, crown_z, head_r, mat=0, seg=12):
@@ -393,24 +405,28 @@ def build_cap(bm, crown_z, head_r, mat=0, seg=10):
 
 
 def build_bonnet(bm, chin_z, crown_z, head_r, mat=0, seg=10):
-    """Period bonnet: rear hood sitting on the back of the head; face open."""
-    r = head_r * 0.95
+    """1850s bonnet: rear hood + cheek sides; face fully open."""
+    r = head_r * 1.0
+    cy = -head_r * 0.40
     rings = []
-    # purely rear: centre at -Y, open toward +Y face
-    for t, sc in ((0.35, 0.75), (0.65, 1.0), (0.95, 0.7), (1.12, 0.3)):
-        z = chin_z + t * (crown_z + 0.02 - chin_z)
-        rings.append(_ring(bm, 0, -head_r * 0.45, z, r * sc * 0.55, r * sc * 0.5, seg))
+    for t, sc, yoff in ((0.20, 0.80, 0.0), (0.55, 1.0, -0.02), (0.90, 0.85, -0.03), (1.12, 0.40, -0.02)):
+        z = chin_z + t * (crown_z + 0.03 - chin_z)
+        rings.append(_ring(bm, 0, cy + yoff, z, r * sc * 0.50, r * sc * 0.45, seg))
     for A, B in zip(rings, rings[1:]):
         _bridge(bm, A, B, mat)
-    _cap(bm, rings[-1], (0, -head_r * 0.5, crown_z + 0.03), mat)
-    # thin brim ribbon at forehead
-    brim_z = crown_z - head_r * 0.25
-    outer = _ring(bm, 0, head_r * 0.15, brim_z, head_r * 0.85, head_r * 0.4, seg)
-    inner = _ring(bm, 0, 0.0, brim_z, head_r * 0.55, head_r * 0.28, seg)
-    n = seg
-    for k in range(n):
-        f = bm.faces.new([outer[k], outer[(k + 1) % n], inner[(k + 1) % n], inner[k]])
-        f.material_index = mat
+    _cap(bm, rings[-1], (0, cy - 0.02, crown_z + 0.04), mat)
+    # cheek ties / side panels (left & right), not over the face
+    for sign in (-1.0, 1.0):
+        vs = [
+            bm.verts.new((sign * head_r * 0.55, -head_r * 0.1, chin_z + 0.04)),
+            bm.verts.new((sign * head_r * 0.70, head_r * 0.15, chin_z + 0.08)),
+            bm.verts.new((sign * head_r * 0.55, head_r * 0.05, crown_z - 0.02)),
+            bm.verts.new((sign * head_r * 0.35, -head_r * 0.25, crown_z - 0.04)),
+        ]
+        try:
+            f = bm.faces.new(vs); f.material_index = mat
+        except ValueError:
+            pass
 
 
 def build_frock_coat(bm, L, shoulder_w, mat=0, seg=12):
@@ -486,29 +502,38 @@ def _sleeve(bm, a: Vector, b: Vector, r: float, seg=6, mat=0):
 
 
 def build_frock_tails_and_sleeves(bm, L, shoulder_w, mat=0, seg=12):
-    """Standing collar + rear frock tails. Sleeves/torso = painted HBM body."""
-    sw = shoulder_w * 0.55
-    waist_r = sw * 0.78
-    hip_r = sw * 0.88
-    # standing collar around neck
-    collar_bot = _ring(bm, 0, 0.01, L["chin"] - 0.02, sw * 0.42, sw * 0.36, seg)
-    collar_top = _ring(bm, 0, 0.01, L["chin"] + 0.02, sw * 0.40, sw * 0.34, seg)
+    """Extras for frock coat: standing collar, long sleeves to wrist, rear tails.
+    Fitted torso comes from _body_shell_mesh in _build_person."""
+    sw = shoulder_w * 0.52
+    # standing collar
+    collar_bot = _ring(bm, 0, 0.01, L["chin"] - 0.02, sw * 0.38, sw * 0.32, seg)
+    collar_top = _ring(bm, 0, 0.015, L["chin"] + 0.02, sw * 0.36, sw * 0.30, seg)
     _bridge(bm, collar_bot, collar_top, mat)
-    # tails — rear panels hanging behind the body (-Y)
-    tail_z0 = L["waist"] + 0.01
-    tail_z1 = max(L["knee"] + 0.05, L["hip"] - 0.15 * L["h"])
-    y_back0 = -max(0.10, waist_r * 0.65)
-    y_back1 = -max(0.14, hip_r * 1.05)
+    # long sleeves shoulder → near wrist (two segments)
+    for sign in (-1.0, 1.0):
+        sx = sign * (shoulder_w * 0.48)
+        shoulder = Vector((sx, 0.02, L["shoulder"] - 0.01))
+        elbow = Vector((sx + sign * 0.14, 0.04, L["waist"] + 0.12))
+        wrist = Vector((sx + sign * 0.20, 0.02, L["hip"] + 0.15))
+        _sleeve(bm, shoulder, elbow, 0.050, seg=max(6, seg // 2), mat=mat)
+        _sleeve(bm, elbow, wrist, 0.040, seg=max(6, seg // 2), mat=mat)
+    # rear tails — flared panels to mid-thigh
+    waist_r = sw * 0.85
+    hip_r = sw * 1.0
+    tail_z0 = L["waist"]
+    tail_z1 = max(L["knee"] + 0.04, L["hip"] - 0.15 * L["h"])
+    y_back0 = -max(0.12, waist_r * 0.75)
+    y_back1 = -max(0.18, hip_r * 1.2)
     for sign in (-1, 1):
-        x0 = sign * waist_r * 0.05
-        x1 = sign * hip_r * 0.9
+        x0 = sign * waist_r * 0.1
+        x1 = sign * hip_r * 0.95
         vs = [
             bm.verts.new((x0, y_back0, tail_z0)),
             bm.verts.new((x1, y_back1, tail_z0)),
-            bm.verts.new((x1 * 1.08, y_back1 - 0.05, tail_z1)),
-            bm.verts.new((sign * 0.015, y_back0 - 0.03, tail_z1)),
+            bm.verts.new((x1 * 1.12, y_back1 - 0.07, tail_z1)),
+            bm.verts.new((sign * 0.015, y_back0 - 0.05, tail_z1)),
         ]
-        vs2 = [bm.verts.new((v.co.x, v.co.y + 0.03, v.co.z)) for v in vs]
+        vs2 = [bm.verts.new((v.co.x, v.co.y + 0.04, v.co.z)) for v in vs]
         try:
             f = bm.faces.new(vs); f.material_index = mat
             f = bm.faces.new(list(reversed(vs2))); f.material_index = mat
@@ -517,6 +542,38 @@ def build_frock_tails_and_sleeves(bm, L, shoulder_w, mat=0, seg=12):
                 f.material_index = mat
         except ValueError:
             pass
+
+
+def build_waistcoat(bm, L, shoulder_w, mat=0, seg=10):
+    """Fitted waistcoat under the frock — V-front, ends at waist."""
+    sw = shoulder_w * 0.48
+    profile = [
+        (sw * 0.42, sw * 0.34, L["shoulder"] - 0.01),
+        (sw * 0.88, sw * 0.62, L["chest"]),
+        (sw * 0.70, sw * 0.52, L["waist"] + 0.01),
+    ]
+    _lathed_shell(bm, profile, seg=seg, mat=mat)
+
+
+def build_cravat(bm, L, shoulder_w, mat=0, seg=8):
+    """Necktie / cravat knot at the throat."""
+    sw = shoulder_w * 0.42
+    z = L["chin"] - 0.04
+    # small torus-like band
+    outer = _ring(bm, 0, 0.02, z, sw * 0.38, sw * 0.30, seg)
+    inner = _ring(bm, 0, 0.02, z + 0.025, sw * 0.32, sw * 0.26, seg)
+    _bridge(bm, outer, inner, mat)
+    # knot blob at front
+    try:
+        knot = [
+            bm.verts.new((-0.025, 0.06, z - 0.01)),
+            bm.verts.new((0.025, 0.06, z - 0.01)),
+            bm.verts.new((0.02, 0.09, z + 0.02)),
+            bm.verts.new((-0.02, 0.09, z + 0.02)),
+        ]
+        f = bm.faces.new(knot); f.material_index = mat
+    except ValueError:
+        pass
 
 
 def build_police_tunic(bm, L, shoulder_w, mat=0, seg=12):
@@ -581,18 +638,17 @@ def build_sleeves_only(bm, L, shoulder_w, mat=0, seg=6, length=0.85):
 
 
 def build_crinoline(bm, L, mat=0, seg=16):
-    """Crinoline skirt from WAIST only — elliptical hem, flatter front.
-    Not a neck-to-floor bell. Day-dress hem kept readable (~0.9 m across)."""
+    """Full 1850s bell crinoline: waist to floor, wide elliptical hem."""
     z0 = L["waist"]
-    z1 = L["ankle"] + 0.02
-    waist_rx, waist_ry = 0.13, 0.11
-    # Day dress ~0.7–0.8 m across — readable, not a doll bell
-    hem_rx, hem_ry = 0.30, 0.25
-    mid_z = z0 + 0.50 * (z1 - z0)
+    z1 = max(L["z0"] + 0.01, L["ankle"] - 0.01)  # floor-length
+    waist_rx, waist_ry = 0.14, 0.12
+    # Full bell ~1.2–1.3 m across at hem (reads at mid-distance)
+    hem_rx, hem_ry = 0.58, 0.50
+    mid_z = z0 + 0.45 * (z1 - z0)
     profile = [
         (waist_rx, waist_ry, z0),
-        (waist_rx * 1.55, waist_ry * 1.4, z0 + 0.22 * (z1 - z0)),
-        (hem_rx * 0.82, hem_ry * 0.82, mid_z),
+        (waist_rx * 1.8, waist_ry * 1.6, z0 + 0.18 * (z1 - z0)),
+        (hem_rx * 0.88, hem_ry * 0.88, mid_z),
         (hem_rx, hem_ry, z1),
     ]
     rings = _lathed_shell(bm, profile, seg=seg, mat=mat)
@@ -666,17 +722,16 @@ def build_trousers(bm, L, hip_w, mat=0, seg=8):
 
 
 def build_boots(bm, L, hip_w, mat=0, seg=8):
-    """Simple period ankle boots on the feet (HBM stance ~±0.22 m)."""
-    # hip_w is shoulder width; feet sit near ±0.43 * half-shoulder for realistic HBM
-    foot_x = max(0.16, hip_w * 0.42)
+    """Period ankle boots covering foot + ankle (~ankle+0.14 m)."""
+    foot_x = max(0.12, hip_w * 0.38)
     for sign in (-1.0, 1.0):
         cx = sign * foot_x
-        z0 = max(0.0, L["z0"] + 0.002)
-        z1 = L["ankle"] + 0.11
-        top = _ring(bm, cx, 0.0, z1, 0.05, 0.058, seg)
-        mid = _ring(bm, cx, 0.02, z0 + 0.03, 0.052, 0.065, seg)
+        z0 = max(0.0, L["z0"])
+        z1 = L["ankle"] + 0.14
+        top = _ring(bm, cx, 0.01, z1, 0.055, 0.062, seg)
+        mid = _ring(bm, cx, 0.03, z0 + 0.04, 0.058, 0.070, seg)
         _bridge(bm, top, mid, mat)
-        toe = _ring(bm, cx, 0.07, z0, 0.048, 0.09, seg)
+        toe = _ring(bm, cx, 0.09, z0 + 0.005, 0.050, 0.095, seg)
         _bridge(bm, mid, toe, mat)
         try:
             bm.faces.new(list(reversed(toe))).material_index = mat
@@ -701,42 +756,56 @@ def build_fire_helmet(bm, crown_z, head_r, mat=0, seg=10):
 # ---------------------------------------------------------------------------
 
 def _paint_body_materials(obj, L, mats, role):
-    """Paint the HBM body as clothing: torso+arms = main, legs = sec, head+hands = skin.
-    Fitted garments read as people because the body mesh IS the coat/smock/bodice."""
+    """Paint HBM body under modelled garments.
+    Gentlemen: waistcoat (sec) on torso, trousers on legs, skin head/hands —
+    frock coat is a separate modelled shell (not a painted T-shirt).
+    Ladies: bodice (sec) torso, skirt (main) below waist.
+    Workmen: smock (main) torso+arms."""
     me = obj.data
-    while len(me.materials) < 3:
+    while len(me.materials) < 4:
         me.materials.append(None)
     me.materials[0] = mats["skin"]
     me.materials[1] = mats["main"]
     me.materials[2] = mats["sec"]
-    # shoulder width at shoulder band
+    me.materials[3] = mats.get("trim") or mats["sec"]
     sh_xs = [abs(v.co.x) for v in me.vertices if abs(v.co.z - L["shoulder"]) < 0.06]
     shoulder_w = max(sh_xs) if sh_xs else 0.22
-    hand_x = shoulder_w * 0.72  # beyond this near waist = hands
+    hand_x = shoulder_w * 0.72
     is_lady = any(k in role for k in ("lady", "girl", "woman")) or role.endswith("_f")
+    is_worker = any(k in role for k in ("workman", "navvy", "fireman"))
+    is_gent = (not is_lady) and (not is_worker) and ("police" not in role) and ("sailor" not in role)
     for p in me.polygons:
         zs = [me.vertices[i].co.z for i in p.vertices]
         xs = [me.vertices[i].co.x for i in p.vertices]
-        ys = [me.vertices[i].co.y for i in p.vertices]
         zc = sum(zs) / len(zs)
         xc = sum(abs(x) for x in xs) / len(xs)
-        # head
         if zc >= L["chin"] - 0.01:
             p.material_index = 0
             continue
-        # hands only: below mid-chest height and far from torso centreline
-        if zc < L["chest"] - 0.05 and xc > hand_x:
+        # hands only: hanging-arm band (hip..chest), far from centreline — never legs
+        if L["hip"] + 0.02 < zc < L["chest"] - 0.05 and xc > hand_x:
             p.material_index = 0
             continue
-        # lady: legs hidden under skirt -> paint skirt colour below waist
-        if is_lady and zc < L["waist"]:
-            p.material_index = 1  # skirt main under crinoline
+        if is_lady:
+            if zc < L["waist"]:
+                p.material_index = 1  # skirt
+            else:
+                p.material_index = 2  # bodice
             continue
-        # torso + arms = main coat/smock/bodice
+        if is_gent:
+            # torso = waistcoat (trim/slot3); legs = trousers (sec); arms under coat
+            if zc >= L["waist"] - 0.02 and xc < hand_x * 0.85:
+                p.material_index = 3  # waistcoat
+            elif zc >= L["waist"] - 0.02:
+                p.material_index = 0  # shirt cuff / skin peek under sleeve
+            else:
+                p.material_index = 2  # trousers
+            continue
+        # worker / police / default: main on torso+arms, sec trousers
         if zc >= L["waist"] - 0.02:
             p.material_index = 1
         else:
-            p.material_index = 2  # trousers
+            p.material_index = 2
 
 
 # ---------------------------------------------------------------------------
@@ -921,7 +990,8 @@ def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
         if sm.users == 0:
             bpy.data.meshes.remove(sm)
 
-    # Volume garments only — fitted torso/arms come from painted HBM body.
+    # Fitted shells from the HBM body (shrinkwrap-style) + modelled volume extras.
+    # garment mat slots: 0=main, 1=sec, 2=hat, 3=trim
     if is_lady:
         if is_1890:
             build_bustle_skirt(bm, L, mat=0, seg=seg)
@@ -929,30 +999,43 @@ def _build_person(role: str, pose: str, lod: str, seed: int) -> bpy.types.Mesh:
         else:
             build_crinoline(bm, L, mat=0, seg=max(seg, 16))
             build_bonnet(bm, L["chin"], L["crown"], head_r, mat=2, seg=seg)
-        if seed % 3 == 0:
+        # fitted bodice shell following the female HBM torso
+        add_shell(L["waist"] - 0.005, L["shoulder"] + 0.03, 0.016, 1.05, 1)
+        build_sleeves_only(bm, L, sw, mat=1, seg=max(6, seg // 2), length=0.7)
+        if seed % 5 != 1:
             build_shawl(bm, L, sw, mat=3)
         build_boots(bm, L, sw * 0.7, mat=1, seg=max(6, seg // 2))
     elif is_police:
+        add_shell(L["hip"] + 0.02, L["shoulder"] + 0.04, 0.022, 1.08, 0)
         build_frock_tails_and_sleeves(bm, L, sw * 0.9, mat=0, seg=seg)
         build_top_hat(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_worker or is_fire:
+        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.014, 1.06, 1)  # trousers
+        add_shell(L["hip"] - 0.04 * L["h"], L["shoulder"] + 0.03, 0.030, 1.12, 0)  # smock
+        build_sleeves_only(bm, L, sw, mat=0, seg=max(6, seg // 2), length=0.75)
         if is_fire:
             build_fire_helmet(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         else:
             build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_sailor:
+        add_shell(L["waist"] - 0.02, L["shoulder"] + 0.03, 0.022, 1.06, 0)
         build_cap(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_1930:
+        add_shell(L["hip"] + 0.02, L["shoulder"] + 0.03, 0.020, 1.06, 0)
         build_trilby(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
         build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     elif is_today:
         if not is_lady:
             build_boots(bm, L, sw, mat=1, seg=max(6, seg // 2))
     else:
-        # gentleman: painted frock body + rear tails + collar; trousers; top hat; boots
+        # gentleman: waistcoat + frock + trousers shells + cravat + tails/sleeves + top hat
+        add_shell(L["ankle"] + 0.02, L["waist"] + 0.02, 0.014, 1.06, 1)  # trousers
+        add_shell(L["waist"] - 0.01, L["shoulder"] + 0.02, 0.012, 1.03, 3)  # waistcoat
+        add_shell(L["hip"] - 0.06 * L["h"], L["shoulder"] + 0.04, 0.024, 1.08, 0)  # frock
+        build_cravat(bm, L, sw, mat=3, seg=max(6, seg // 2))
         build_frock_tails_and_sleeves(bm, L, sw, mat=0, seg=seg)
         if is_1890:
             build_boater(bm, L["crown"] - 0.002, head_r, mat=2, seg=seg)
@@ -1146,6 +1229,14 @@ def swap_scene_people(era: str = "1851", camera=None, seed: int = 0,
             lod = "crowd"
         rng_seed = seed + int(hashlib.md5(ob.name.encode()).hexdigest()[:6], 16)
         kind = _infer_kind(ob)
+        # 1850s Victorian crowd: force ≥40% ladies when figure is anonymous "man"
+        era_l = (era or "").lower()
+        if kind == "man" and ("1850" in era_l or era_l in ("1851", "1850s")):
+            # deterministic: ~58% ladies so crinolines read at mid-distance
+            if (rng_seed % 100) < 58:
+                kind = "lady"
+            elif (rng_seed % 100) >= 88:
+                kind = "workman"  # ~12% workmen in anonymous crowd
         pose = _infer_pose(ob, rng_seed)
         role = resolve_role(kind, {}, era=era)
         # preserve transform
