@@ -23,3 +23,9 @@
 - **D-PM-15 I** CP067 `CAM_CP067_dino_conservation_35mm` + interpretive board near conserved Hawkins cluster.
 - **D-PM-16 R/I** CP070 aliased: `CAM_CP070_park_entry_35mm` + `CAM_CP070_begin_walk_35mm` (same pose; begin-the-walk beat).
 - **D-PM-07 R** dino append path now `dinosaurs-1854-r02.blend`.
+
+## r17 WEAK→OK ( 2026-10-27 04:22 UTC )
+- **D-PM-17 I** CP065 sealed subway bulkhead at SUB_Z (`pk_subway_seal_N`) — street booking gate was above cam lookat.
+- **D-PM-18 I** CP066 NSC CZ raised, basins hidden, TrackRed emit, SW 3/4 cam; hero `r17k_park60_*`.
+- **D-PM-19 I** CP073 along-terrace cam + mid-warm sphinx stone; hero `r17k_parknow_*`.
+- **D-PM-20 I** Horizon berms E/W/S + aerosol (no shared look preset).

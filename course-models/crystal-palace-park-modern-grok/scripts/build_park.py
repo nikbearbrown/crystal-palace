@@ -44,6 +44,18 @@ for _o in [o for o in bpy.data.objects if o.type == "CAMERA"]:
     bpy.data.objects.remove(_o, do_unlink=True)
 info["inferences"].append("D-PM-01 I: park levels reuse Sydenham ruins41 terrain (no OS/LiDAR open data in workspace; searched 2026-10-27)")
 
+# r17d: mid warm stone on sphinx (was too dark vs olive; was washed white before)
+for _m in bpy.data.materials:
+    if "sphinx" in _m.name.lower():
+        if _m.use_nodes:
+            for _n in _m.node_tree.nodes:
+                if _n.type == "BSDF_PRINCIPLED":
+                    _n.inputs["Base Color"].default_value = (0.52, 0.46, 0.36, 1.0)
+                    try: _n.inputs["Roughness"].default_value = 0.88
+                    except Exception: pass
+        else:
+            _m.diffuse_color = (0.52, 0.46, 0.36, 1.0)
+
 # ---- materials ----
 # r02: richer present-day materials — noise grass, worn stone, NSC formwork concrete
 M_brick = G.mat("Brick", (0.30, 0.18, 0.12), 0.9)
@@ -62,7 +74,9 @@ M_tile = G.mat("Tile", (0.55, 0.30, 0.14), 0.6)
 M_cream = G.mat("VaultCream", (0.78, 0.72, 0.58), 0.85)
 M_red = G.mat("VaultRed", (0.42, 0.12, 0.08), 0.85)
 M_asphalt = G.mat("Asphalt", (0.12, 0.12, 0.12), 0.95)
-M_seat = G.mat("Seat", (0.55, 0.12, 0.10), 0.7)
+M_track_red = G.mat("TrackRed", (0.85, 0.10, 0.04), 0.8, 0.0, emit=((1.0, 0.18, 0.05), 0.55))  # r17h emit so AgX keeps red
+M_infield = G.mat("NSCInfield", (0.22, 0.38, 0.16), 0.9)
+M_seat = G.mat("Seat", (0.62, 0.16, 0.12), 0.65)  # r17 slightly brighter seat face
 M_skin = G.mat("Skin", (0.55, 0.40, 0.32), 0.6)
 M_coat = G.mat("Coat", (0.15, 0.18, 0.22), 0.85)
 M_jeans = G.mat("Jeans", (0.12, 0.18, 0.32), 0.85)
@@ -143,6 +157,23 @@ box("pk_booking_wall_L", HL, ft(-42), ft(-40), BOOK_Y0, BOOK_Y1, ZS, ZS + ft(16)
 box("pk_booking_wall_R", HL, ft(40), ft(42), BOOK_Y0, BOOK_Y1, ZS, ZS + ft(16), brick_m)
 if STATE == "PARK54":
     box("pk_booking_closed_gate", HL, ft(-9), ft(9), BOOK_Y0, BOOK_Y0 + 0.3, ZS, ZS + ft(10), M_iron)  # quieter closed entrance
+    # r17 WEAK CP065: approach-side boarding, notices, chain, threshold lamps (story: closed 1954)
+    board_m = G.mat("BoardGate", (0.22, 0.15, 0.08), 0.9)
+    chalk_m = G.mat("NoticeBoard", (0.75, 0.72, 0.62), 0.85)
+    for bx in (ft(-28), ft(-16), ft(8), ft(20)):
+        box(f"pk_book_board_{bx:.0f}", HL, bx, bx + ft(8), BOOK_Y0 - 0.5, BOOK_Y0 - 0.15, ZS + ft(2), ZS + ft(9), board_m)
+    for bx in (ft(-20), ft(12)):
+        box(f"pk_book_notice_{bx:.0f}", HL, bx, bx + ft(5), BOOK_Y0 - 0.7, BOOK_Y0 - 0.4, ZS + ft(4), ZS + ft(7), chalk_m)
+    for i, bx in enumerate(range(int(ft(-9)), int(ft(9)), 2)):
+        zc = ZS + ft(4.5) + (0.25 if i % 2 else -0.2)
+        box(f"pk_book_chain_{i}", HL, bx, bx + 1.6, BOOK_Y0 - 0.9, BOOK_Y0 - 0.7, zc, zc + 0.3, M_iron)
+    # warm threshold lamps so closed gate reads at dusk
+    for i, lx in enumerate((ft(-14), 0.0, ft(14))):
+        ld = bpy.data.lights.new(f"pk_book_lamp_{i}", "POINT"); ld.energy = 320; ld.color = (1.0, 0.78, 0.45)
+        lo = bpy.data.objects.new(ld.name, ld); HL.objects.link(lo)
+        lo.location = (lx, BOOK_Y0 + 4, ZS + ft(12))
+    # approach paving on parade side of gate
+    box("pk_booking_approach", HL, ft(-40), ft(40), PARADE_Y1 - ft(8), BOOK_Y0, ROAD_Z - 0.05, ROAD_Z + 0.05, M_stone)
 
 # Subway vault
 def build_subway(restored=False):
@@ -185,8 +216,13 @@ def build_subway(restored=False):
         for s in (-1, 1):
             cx = s * (SUB_W/2 - ft(1.2))
             box(f"pk_col_{i}_{s}", SUB, cx - 0.15, cx + 0.15, ya + 0.05, ya + 0.25, SUB_Z, SPRING, M_red if restored else M_brick_w)
-    # exit pavilion
+    # exit pavilion (south / park side)
     box("pk_subway_exit", SUB, -SUB_W/2 - ft(4), SUB_W/2 + ft(4), SUB_Y0 - ft(8), SUB_Y0, SUB_Z, SUB_Z + ft(12), M_stone)
+    # r17k: sealed bulkhead at north end (1954 closure) — fills CP065 lookat at subway Z
+    if not restored:
+        box("pk_subway_seal_N", SUB, -SUB_W/2 - 0.1, SUB_W/2 + 0.1, SUB_Y1 - 0.35, SUB_Y1, SUB_Z, SUB_CROWN + 0.2, M_iron)
+        box("pk_subway_seal_bar_1", SUB, -SUB_W/2 + 0.3, SUB_W/2 - 0.3, SUB_Y1 - 0.55, SUB_Y1 - 0.4, SUB_Z + ft(3), SUB_Z + ft(3.4), M_iron)
+        box("pk_subway_seal_bar_2", SUB, -SUB_W/2 + 0.3, SUB_W/2 - 0.3, SUB_Y1 - 0.55, SUB_Y1 - 0.4, SUB_Z + ft(6), SUB_Z + ft(6.4), M_iron)
     if restored:
         info["inferences"].append("D-PM-03 I: subway shown in restored Open-House condition (cream/red patterned brick); exact 2020s finish U")
     else:
@@ -202,17 +238,17 @@ build_subway(restored=restored_sub)
 # Real NSC opened 1964 (R). Plans not in repo -> block-outs U/I.
 if STATE in ("PARK60", "PARKNOW"):
     NSC = G.coll("G_NSC_NationalSportsCentre", ROOT)
-    CX, CY, CZ = -50.0, -550.0, -47.0   # metres; CZ inferred from football pitch datum
+    CX, CY, CZ = -50.0, -550.0, -40.0   # r17g: above park_slope (~-45.5) so red track is not buried
     info["inferences"].append(f"D-PM-05 I: NSC placed at ({CX},{CY},{CZ}) m near former south-basin/football ground; no NSC plan in repo")
     # athletics stadium: oval bowl ~180 x 120 m, banked seating
     RW, RH = 90.0, 60.0
-    box("nsc_infield", NSC, CX - 50, CX + 50, CY - 35, CY + 35, CZ, CZ + 0.2, M_asphalt)
-    # running track ring (approx as outer band)
-    box("nsc_track_N", NSC, CX - 70, CX + 70, CY + 35, CY + 48, CZ, CZ + 0.15, M_asphalt)
-    box("nsc_track_S", NSC, CX - 70, CX + 70, CY - 48, CY - 35, CZ, CZ + 0.15, M_asphalt)
-    box("nsc_track_W", NSC, CX - 70, CX - 50, CY - 35, CY + 35, CZ, CZ + 0.15, M_asphalt)
-    box("nsc_track_E", NSC, CX + 50, CX + 70, CY - 35, CY + 35, CZ, CZ + 0.15, M_asphalt)
-    # concrete seating banks
+    box("nsc_infield", NSC, CX - 50, CX + 50, CY - 35, CY + 35, CZ, CZ + 0.2, M_infield)
+    # r17: red cinder track ring so CP066 reads as athletics stadium
+    box("nsc_track_N", NSC, CX - 75, CX + 75, CY + 32, CY + 52, CZ, CZ + 0.45, M_track_red)
+    box("nsc_track_S", NSC, CX - 75, CX + 75, CY - 52, CY - 32, CZ, CZ + 0.45, M_track_red)
+    box("nsc_track_W", NSC, CX - 75, CX - 45, CY - 32, CY + 32, CZ, CZ + 0.45, M_track_red)
+    box("nsc_track_E", NSC, CX + 45, CX + 75, CY - 32, CY + 32, CZ, CZ + 0.45, M_track_red)
+    # concrete seating banks — tiered risers
     for (name, x0, x1, y0, y1, z1) in (
         ("nsc_bank_N", CX - 80, CX + 80, CY + 48, CY + 72, CZ + 12),
         ("nsc_bank_S", CX - 80, CX + 80, CY - 72, CY - 48, CZ + 12),
@@ -221,6 +257,8 @@ if STATE in ("PARK60", "PARKNOW"):
     ):
         box(name, NSC, x0, x1, y0, y1, CZ, z1, M_concrete)
         box(name + "_seats", NSC, x0 + 1, x1 - 1, y0 + 1, y1 - 1, z1 - 0.4, z1, M_seat)
+        # mid tier for depth
+        box(name + "_mid", NSC, x0 + 2, x1 - 2, y0 + 2, y1 - 2, CZ + 4, z1 - 2, M_concrete)
     # concrete sports hall (block) east of stadium
     HX, HY = CX + 130, CY
     box("nsc_sports_hall", NSC, HX - 35, HX + 35, HY - 25, HY + 25, CZ, CZ + 14, M_concrete_d)
@@ -228,7 +266,20 @@ if STATE in ("PARK60", "PARKNOW"):
     box("nsc_sports_hall_glazing", NSC, HX - 34, HX + 34, HY - 24.7, HY - 24.5, CZ + 3, CZ + 12, M_glass)
     # access road
     box("nsc_access_road", NSC, CX - 20, CX + 160, CY + 80, CY + 88, CZ - 0.5, CZ, M_road)
+    # r17 floodlight poles + warm fills so bowl isn't a dark mass (CP066)
+    for i, (px, py) in enumerate(((CX - 85, CY - 55), (CX + 85, CY - 55), (CX - 85, CY + 55), (CX + 85, CY + 55))):
+        box(f"nsc_flood_pole_{i}", NSC, px - 0.5, px + 0.5, py - 0.5, py + 0.5, CZ, CZ + 28, M_iron)
+        fl = bpy.data.lights.new(f"nsc_flood_{i}", "AREA"); fl.energy = 2400; fl.color = (1.0, 0.92, 0.75); fl.size = 7
+        fo = bpy.data.objects.new(fl.name, fl); NSC.objects.link(fo)
+        fo.location = (px, py, CZ + 26)
+        direction = Vector((CX - px, CY - py, (CZ + 2) - (CZ + 26)))
+        fo.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()
     info["nsc"] = 1
+    # r17d: south basins sit on same footprint as NSC — hide so red track/infield read
+    for _o in list(bpy.data.objects):
+        if _o.name.startswith("park_basins"):
+            _o.hide_render = True
+            _o.hide_viewport = True
 
 # =====================================================================
 # PARK-NOW extras: footprint overlay, dinosaurs append, PPL-NOW
@@ -352,17 +403,19 @@ _sub_light("pk_subway_exit_fill", SUB_Y0 - 1.5, 350 if restored_sub else 120)
 # =====================================================================
 # Cameras (storyboard CP065–CP076)
 # =====================================================================
-# CP065 PARK54: establish HL approach, walk to subway threshold
-cam("CAM_CP065_hl_closed_35mm", (0, BOOK_Y1 + 3, ZS + EYE), (0, SUB_Y0 + 20, SUB_Z + 2), 35)
-_c65 = cam("CAM_CP065_subway_threshold_35mm", (0, BOOK_Y0 + 2, ZS + EYE), (0, SUB_Y0, SUB_Z + 2), 35)
-_c65.location = Vector((0, BOOK_Y0 + 2, ZS + EYE)); _c65.keyframe_insert("location", frame=1)
-_c65.location = Vector((0, BOOK_Y0 + 2 - 6.0, ZS + EYE)); _c65.keyframe_insert("location", frame=120)
+# CP065 PARK54: r17 — approach from parade facing closed gate (was cam pressed into gate → blank FOV)
+cam("CAM_CP065_hl_closed_35mm", (ft(18), PARADE_Y1 - ft(6), ROAD_Z + EYE), (0, BOOK_Y0 + 1, ZS + ft(6)), 35)
+# hero r17k: inside vault looking north at sealed bulkhead (street booking is above SUB_Z)
+_c65 = cam("CAM_CP065_subway_threshold_35mm", (0, SUB_Y0 + ft(28), SUB_Z + EYE), (0, SUB_Y1 - 0.2, SUB_Z + ft(5)), 35)
+_c65.location = Vector((0, SUB_Y0 + ft(28), SUB_Z + EYE)); _c65.keyframe_insert("location", frame=1)
+_c65.location = Vector((0, SUB_Y0 + ft(40), SUB_Z + EYE)); _c65.keyframe_insert("location", frame=120)
 
-# CP066 PARK60: NSC on park contours
+# CP066 PARK60: r17 elevated looking into lit bowl with red track
 if STATE in ("PARK60", "PARKNOW"):
-    cam("CAM_CP066_nsc_stadium_35mm", (-50, -450, -40), (-50, -550, -35), 35)
+    # r17f: high SW 3/4 over bowl — red track oval + green infield must read as sports
+    cam("CAM_CP066_nsc_stadium_35mm", (-180, -680, 18), (-50, -550, -38), 28)
     cam("CAM_CP066_nsc_hall_35mm", (40, -520, -40), (80, -550, -33), 35)
-    cam("CAM_CP066_nsc_wide_35mm", (-50, -380, -20), (-50, -600, -40), 35)
+    cam("CAM_CP066_nsc_wide_35mm", (-50, -380, -12), (-50, -560, -40), 35)
 
 if STATE == "PARKNOW":
     # CP070 begin walk — lower station area (distinct from HL)
@@ -374,11 +427,15 @@ if STATE == "PARKNOW":
     cam("CAM_CP071_subway_vault_50mm", (SUB_W/4, SUB_Y1 - 5, SUB_Z + EYE), (0, SUB_Y0 + 10, SUB_Z + 3), 50)
     # CP072 empty footprint + overlay
     cam("CAM_CP072_footprint_35mm", (ft(-420), ft(-280), 28), (0, 0, 1), 35)
-    # CP073 sphinxes + steps (garden terrace)
-    cam("CAM_CP073_sphinx_steps_50mm", (ft(-80), ft(-337) + 0.3, ft(-23.58) + EYE + 0.3),
-        (ft(-54.5), ft(-337) + 4, ft(-23.58) + 1.5), 50)
-    cam("CAM_CP073_steps_35mm", (ft(-90), ft(-337) - ft(70), ft(-43.58) + EYE),
-        (0, ft(-337) + 3, ft(-23.58) + 2), 35)
+    # r17j: from SE along terrace — sphinx + steps + arches; sky not plateau fill
+    cam("CAM_CP073_sphinx_steps_50mm", (ft(20), ft(-370), ft(-23.58) + EYE),
+        (ft(-54.5), ft(-337), ft(-23.58) + 1.2), 35)
+    cam("CAM_CP073_steps_35mm", (ft(-100), ft(-380), ft(-43.58) + EYE),
+        (ft(-40), ft(-337) + 2, ft(-23.58) + 1.5), 35)
+    # r17d warm fill so sphinx stone reads against sky
+    _sl = bpy.data.lights.new("sphinx_fill", "AREA"); _sl.energy = 900; _sl.color = (1.0, 0.95, 0.85); _sl.size = 8
+    _so = bpy.data.objects.new("sphinx_fill", _sl); ROOT.objects.link(_so)
+    _so.location = (ft(-40), ft(-320), ft(-10))
     # CP067 — dinosaur conservation today (preserving Hawkins' earlier understanding)
     cam("CAM_CP067_dino_conservation_35mm", (5, -855, -43), (-35, -878, -46.5), 35)
     # CP074 dinosaurs (after D-PM-08 translate; aim at iguanodon/megalosaurus cluster)
@@ -412,23 +469,46 @@ sky = nt.nodes.new("ShaderNodeTexSky")
 try: sky.sky_type = "NISHITA"
 except Exception: pass
 try:
-    sky.sun_elevation = math.radians(40 if STATE == "PARKNOW" else 28)
-    sky.sun_rotation = math.radians(210)
+    # r17: state-tuned sky — PARKNOW cooler/lower so sphinx not blown; PARK54 dusk; PARK60 evening floods
+    if STATE == "PARKNOW":
+        sky.sun_elevation = math.radians(28); sky.sun_rotation = math.radians(220)
+    elif STATE == "PARK54":
+        sky.sun_elevation = math.radians(12); sky.sun_rotation = math.radians(200)
+    else:
+        sky.sun_elevation = math.radians(10); sky.sun_rotation = math.radians(215)
 except Exception: pass
-nt.links.new(sky.outputs[0], bg.inputs[0]); bg.inputs[1].default_value = 0.55
-sun = bpy.data.lights.new("sun", "SUN"); sun.energy = 2.5; sun.angle = math.radians(0.5)
+nt.links.new(sky.outputs[0], bg.inputs[0]); bg.inputs[1].default_value = 1.0 if STATE == "PARKNOW" else 0.55
+sun = bpy.data.lights.new("sun", "SUN"); sun.energy = 2.0 if STATE != "PARK60" else 1.4; sun.angle = math.radians(0.5)
 so = bpy.data.objects.new("sun", sun); ROOT.objects.link(so)
-so.rotation_euler = (math.radians(50), 0, math.radians(210))
+so.rotation_euler = (math.radians(40 if STATE == "PARKNOW" else 28), 0, math.radians(210))
+if STATE == "PARK54": sun.color = (1.0, 0.75, 0.5)
+elif STATE == "PARK60": sun.color = (1.0, 0.7, 0.48)
+else: sun.color = (1.0, 0.9, 0.78)
 sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"; sc.cycles.samples = 48
 sc.cycles.use_denoising = True; sc.cycles.max_bounces = 6
 sc.render.resolution_x = 1920; sc.render.resolution_y = 1080
 try: sc.view_settings.view_transform = "AgX"
 except Exception: sc.view_settings.view_transform = "Filmic"
 sc.unit_settings.system = "METRIC"
-sc.view_settings.exposure = -0.15
+sc.view_settings.exposure = {"PARKNOW": 0.15, "PARK54": -0.2, "PARK60": 0.05}.get(STATE, -0.15)
 if CAM.objects: sc.camera = list(CAM.objects)[0]
 
 # save + write info
+# r17i: horizon berm + Nishita aerosol — kill hard blue band where ground ends
+try:
+    for a_, v_ in (("dust_density", 5.0), ("aerosol_density", 6.5), ("air_density", 1.5)):
+        try: setattr(sky, a_, v_)
+        except Exception: pass
+except Exception: pass
+_berm = G.coll("G_HORIZON_FILL", ROOT)
+# r17k: tall stepped berms — subway seal handles CP065; berms kill CP066/073 plane-edge band
+box("horizon_berm_N", _berm, -1600, 1600, 400, 4000, -5, 40, M_grass)
+box("horizon_berm_S", _berm, -1600, 1600, -4000, -1100, -55, -25, M_grass)
+box("horizon_berm_S2", _berm, -2000, 2000, -5500, -3800, -30, 35, M_grass)
+box("horizon_berm_E", _berm, 900, 3500, -3500, 3500, -50, 30, M_grass)
+box("horizon_berm_W", _berm, -3500, -900, -3500, 3500, -50, 30, M_grass)
+box("horizon_berm_far", _berm, -4500, 4500, -6500, 6500, -70, -55, M_grass)
+
 bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
 tri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == "MESH")
 info["objects"] = len(bpy.data.objects); info["faces"] = tri

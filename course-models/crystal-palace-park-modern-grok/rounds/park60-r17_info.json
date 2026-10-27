@@ -1,0 +1,13 @@
+{
+  "state": "PARK60",
+  "inferences": [
+    "D-PM-01 I: park levels reuse Sydenham ruins41 terrain (no OS/LiDAR open data in workspace; searched 2026-10-27)",
+    "D-PM-02 I: HL shed demolished by 1960s; platform stubs only (exact demolition date U)",
+    "D-PM-04 I: subway sealed/quiet after 1954 closure; interior still patterned but dim",
+    "D-PM-05 I: NSC placed at (-50.0,-550.0,-40.0) m near former south-basin/football ground; no NSC plan in repo"
+  ],
+  "sydenham_appended": 11,
+  "nsc": 1,
+  "objects": 269,
+  "faces": 121145
+}
