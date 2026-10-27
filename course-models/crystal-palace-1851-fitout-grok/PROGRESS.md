@@ -56,3 +56,9 @@ never git init inside a grok folder; commit from the worktree root
 
 ## CP028 CANDIDATE (2026-10-27)
 - **CP028 CANDIDATE:** `scripts/polish_cp028_cand.py` → `rounds/candidates/h03_cp028.blend` + `renders/candidates/CP028_louvre_start.png` (thick louvres/battens). Live `h03` untouched. Pair: survey `look/pairs_geo/CANDIDATE_CP028_louvre_start_pair.png`.
+
+## Hero CANDIDATE CP022 Osler (2026-10-27)
+- Audit: Osler fountain crudest vs screen time (CP022 hero; CP021/023 context) vs Muse articulated cut-glass.
+- CANDIDATE: `scripts/polish_osler_cand.py` appends Muse `osler-crystal-fountain` (origin/main via models-main-ro; Wellcome-governed; credit on objects) → `rounds/candidates/o01_osler.blend` + `renders/candidates/CP022_fountain_start.png` (--keep-lighting). Live o01 / live render untouched.
+- Pair: survey `look/pairs_geo/CANDIDATE_CP022_osler_fountain_start_pair.png`.
+- CP014/CP028 candidates previously rejected by user; live left as-is (pairs renamed REJECTED_*).

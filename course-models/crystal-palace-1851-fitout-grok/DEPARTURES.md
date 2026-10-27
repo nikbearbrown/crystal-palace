@@ -66,3 +66,6 @@ Grades:
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## Muse kit compare pointer (2026-10-27)
+See construction-grok `DEPARTURES.md` MK01–MK05 (lattice girder, Paxton gutter, gallery rail, S25 floor gaps). Floor gaps already logged FT09/FT10 — confirmed match to muse-round2 S25 (½ in, ground floor only).
