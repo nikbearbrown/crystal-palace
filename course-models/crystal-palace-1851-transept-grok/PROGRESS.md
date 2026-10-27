@@ -132,3 +132,9 @@ Branch `grok-transept-1851` (local only, nothing pushed). Blender 5.1.2 at /work
 ## Backlog (parked 2026-10-26)
 - r11 parked by Professor Bear's instruction: polish rounds now give diminishing returns; work moved to unbuilt sets (HP-SITE, MOVE+K-JOINT).
 - Parked r11 items: fountain glass; floor albedo -10%; figure heads/arms; more gallery crowd.
+
+## r11 (2026-10-27): fountain glass, darker floor, figure limbs, denser galleries
+- Parked r11 backlog cleared in one round.
+- Build: `rounds/r11.blend`. Checks: `checks/r11` 49/49.
+- Dressing: floor crowd 540, gallery 180 (110+40+30).
+- Lean renders: `renders/r11` (1280×720, 24 spp) — DET_fountain, OPEN_gallery, CP023_into_nave, CP017_park_inside.

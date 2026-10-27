@@ -151,10 +151,16 @@ def person_mesh(name, kind, mats, FT=0.3048, style=None):
             _lathe(bm, [(0.2 * f, 0.0), (0.21 * f, 1.0 * f), (0.25 * f, 2.6 * f), (0.0, 2.6 * f)], 8, ox=s * f); 
         mark(1)
         _lathe(bm, [(0.0, 1.95 * f), (0.66 * f, 1.95 * f), (0.6 * f, 2.9 * f), (0.55 * f, 3.6 * f), (0.64 * f, 4.35 * f), (0.4 * f, 4.7 * f), (0.0, 4.75 * f)], 10); mark(0)
-        for s in (-0.66, 0.66):
-            _lathe(bm, [(0.16 * f, 3.0 * f), (0.18 * f, 4.4 * f), (0.0, 4.5 * f)], 6, ox=s * f)
+        # r11: bent elbows, forearms, hand balls (was straight stub arms)
+        for s in (-1, 1):
+            ox = s * 0.66 * f
+            _lathe(bm, [(0.15 * f, 4.35 * f), (0.17 * f, 3.55 * f), (0.0, 3.5 * f)], 6, ox=ox)          # upper arm
+            _lathe(bm, [(0.13 * f, 3.55 * f), (0.14 * f, 2.85 * f), (0.0, 2.8 * f)], 6, ox=ox + s * 0.12 * f, cy=-0.18 * f)  # forearm forward
+            _lathe(bm, [(0.0, 2.78 * f), (0.11 * f, 2.78 * f), (0.11 * f, 2.95 * f), (0.0, 2.98 * f)], 8, ox=ox + s * 0.12 * f, cy=-0.28 * f)  # hand
         mark(0)
-        _lathe(bm, [(0.0, 4.75 * f), (0.3 * f, 4.85 * f), (0.36 * f, 5.15 * f), (0.3 * f, 5.42 * f), (0.0, 5.5 * f)], 10); mark(2)
+        # r11: head with slight nose / jaw (was a smooth lathe egg)
+        _lathe(bm, [(0.0, 4.75 * f), (0.28 * f, 4.82 * f), (0.34 * f, 5.05 * f), (0.32 * f, 5.28 * f), (0.22 * f, 5.45 * f), (0.0, 5.52 * f)], 12); mark(2)
+        _box(bm, -0.06 * f, 0.06 * f, -0.42 * f, -0.32 * f, 5.05 * f, 5.22 * f); mark(2)   # nose
         hat = st.get("hat", "top")
         if hat == "top": _lathe(bm, [(0.0, 5.32 * f), (0.48 * f, 5.32 * f), (0.48 * f, 5.38 * f), (0.3 * f, 5.38 * f), (0.32 * f, 6.0 * f), (0.0, 6.0 * f)], 10)
         elif hat == "low": _lathe(bm, [(0.0, 5.3 * f), (0.55 * f, 5.3 * f), (0.55 * f, 5.35 * f), (0.33 * f, 5.38 * f), (0.3 * f, 5.72 * f), (0.0, 5.75 * f)], 10)
@@ -176,13 +182,19 @@ def person_mesh(name, kind, mats, FT=0.3048, style=None):
         w_ = st.get("skirt_w", 1.0)
         _lathe(bm, [(0.0, 0.02 * f), (1.25 * w_ * sc * f, 0.02 * f), (1.2 * w_ * sc * f, 0.5 * sc * f), (0.95 * w_ * sc * f, 1.6 * sc * f), (0.6 * sc * f, 2.8 * sc * f), (0.4 * sc * f, 3.25 * sc * f), (0.0, 3.25 * sc * f)], 14); mark(0)
         _lathe(bm, [(0.4 * sc * f, 3.2 * sc * f), (0.48 * sc * f, 3.9 * sc * f), (0.55 * sc * f, 4.25 * sc * f), (0.3 * sc * f, 4.45 * sc * f), (0.0, 4.5 * sc * f)], 10); mark(1)
-        _lathe(bm, [(0.0, 4.45 * sc * f), (0.27 * sc * f, 4.55 * sc * f), (0.33 * sc * f, 4.82 * sc * f), (0.27 * sc * f, 5.08 * sc * f), (0.0, 5.12 * sc * f)], 10); mark(2)
+        # r11: woman/girl head with jaw + nose
+        _lathe(bm, [(0.0, 4.45 * sc * f), (0.26 * sc * f, 4.52 * sc * f), (0.31 * sc * f, 4.78 * sc * f), (0.28 * sc * f, 5.02 * sc * f), (0.18 * sc * f, 5.14 * sc * f), (0.0, 5.18 * sc * f)], 12); mark(2)
+        _box(bm, -0.05 * sc * f, 0.05 * sc * f, -0.38 * sc * f, -0.28 * sc * f, 4.78 * sc * f, 4.95 * sc * f); mark(2)
         if st.get("shawl"):
             _lathe(bm, [(0.0, 4.5 * sc * f), (0.52 * sc * f, 4.32 * sc * f), (0.72 * sc * f, 3.75 * sc * f), (0.62 * sc * f, 3.6 * sc * f), (0.0, 3.6 * sc * f)], 12); mark(4)
         if kind == "woman":   # bonnet: a hood open to the front (-y)
             _lathe(bm, [(0.0, 4.72 * f), (0.38 * f, 4.78 * f), (0.42 * f, 5.05 * f), (0.3 * f, 5.25 * f), (0.0, 5.3 * f)], 10, cy=0.06 * f); mark(3)
-        for s in (-0.55, 0.55):
-            _lathe(bm, [(0.14 * sc * f, 2.9 * sc * f), (0.15 * sc * f, 4.2 * sc * f), (0.0, 4.3 * sc * f)], 6, ox=s * sc * f)
+        # r11: bent elbows + hands
+        for s in (-1, 1):
+            ox = s * 0.55 * sc * f
+            _lathe(bm, [(0.13 * sc * f, 4.15 * sc * f), (0.14 * sc * f, 3.45 * sc * f), (0.0, 3.4 * sc * f)], 6, ox=ox)
+            _lathe(bm, [(0.12 * sc * f, 3.45 * sc * f), (0.12 * sc * f, 2.85 * sc * f), (0.0, 2.8 * sc * f)], 6, ox=ox + s * 0.1 * sc * f, cy=-0.15 * sc * f)
+            _lathe(bm, [(0.0, 2.78 * sc * f), (0.1 * sc * f, 2.78 * sc * f), (0.1 * sc * f, 2.92 * sc * f), (0.0, 2.95 * sc * f)], 8, ox=ox + s * 0.1 * sc * f, cy=-0.24 * sc * f)
         mark(1)
     if st.get("_k"): bmesh.ops.scale(bm, vec=(st["_k"],) * 3, verts=bm.verts)
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()

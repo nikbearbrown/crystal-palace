@@ -82,3 +82,11 @@ This lists every simplification or guess in `scripts/build_transept.py`. Status 
 | L03 | Lunette darker (r10; supersedes L02 tones) | Talbot: the south lunette reads as a near-black radiating fan | GT_FanIron goes from 0.10 to 0.018 grey. The end-screen glass tint goes from 0.42/0.47/0.47 to 0.30/0.34/0.34, and its milky sunlit veil from 0.9 to 0.30 grey. The radial spokes go from 6 to 8 in. Bar sizes stay thickened for legibility. | C |
 | G03 | Darker grade (r10) | Professor Bear: "darker grade". Period photographs and engravings carry deep interior values. | Transept scene exposure goes from −0.25 to −0.7. The look is still AgX Medium High Contrast. REV_combo keeps its own −0.6. | Grade |
 | MX02 | Machinery stays in the east block-outs (r10) | Professor Bear: "keep machinery in the east block-outs; don't touch Claude's zone" | The proposal to move machinery west is withdrawn. The 8 machinery proxies stay east of the crossing, and nothing is placed in Claude's zone. | Scope |
+
+## r11 (2026-10-27) — parked backlog polish
+| ID | Grade | Decision | Why |
+|---|---|---|---|
+| T41 | B | Crystal fountain glass: Principled Transmission + Coat (IOR 1.52, rough 0.03, cooler tint) instead of chrome Fresnel | Period cut-glass should transmit; chrome rim was reading as metal in DET_fountain. |
+| T42 | C | Floor board albedo −10% → (0.495, 0.414, 0.315) | Boards were washing out under AgX; darken to hold gallery figures. |
+| T43 | B | Figure heads with nose/jaw; bent elbows, forearms, hand balls | Stub arms and smooth egg heads read as unfinished at 50 mm; still low-poly stand-ins. |
+| T44 | C | Gallery crowd 110+40+30 (was 76+26+18) | Galleries looked empty against floor density 540. |

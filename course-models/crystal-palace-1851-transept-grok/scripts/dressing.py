@@ -515,10 +515,10 @@ if STATE == "hp51":
     GT = GALLERY_TOP
     face_tr = lambda x, y: (-math.pi / 2 if x > 0 else math.pi / 2)      # look toward the transept axis
     gal_n = spawn([((37.3, 40.0, 40, 178), 1), ((-40.0, -37.3, 40, 178), 1), ((37.3, 40.0, -152, -40), 1), ((-40.0, -37.3, -152, -40), 1)],
-                  76, GT, "G", None, seg_r=22, cone_d=40, cone_a=20, face=face_tr)
+                  110, GT, "G", None, seg_r=22, cone_d=40, cone_a=20, face=face_tr)   # r11: denser galleries (was 76)
     face_nv = lambda x, y: (0.0 if y > 0 else math.pi)
-    gal_n += spawn([((62, 130, 37.3, 40.0), 1), ((62, 130, -40.0, -37.3), 1)], 26, GT, "GN", None, seg_r=22, cone_d=40, cone_a=20, face=face_nv)
-    gal_n += spawn([((-34, 34, 180.5, 183), 1), ((-34, 34, -159.5, -157), 1)], 18, GT, "GX", None, seg_r=22, cone_d=60, cone_a=25,
+    gal_n += spawn([((62, 130, 37.3, 40.0), 1), ((62, 130, -40.0, -37.3), 1)], 40, GT, "GN", None, seg_r=22, cone_d=40, cone_a=20, face=face_nv)
+    gal_n += spawn([((-34, 34, 180.5, 183), 1), ((-34, 34, -159.5, -157), 1)], 30, GT, "GX", None, seg_r=22, cone_d=60, cone_a=25,
                    face=lambda x, y: (0.0 if y > 0 else math.pi))
 print("CROWD floor", crowd_n, "gallery", gal_n, flush=True)
 scene["grok_dressing"] = json.dumps({"state": STATE, "counts": dressed, "skipped": [list(map(str, s)) for s in skipped[:200]], "skipped_n": len(skipped)})

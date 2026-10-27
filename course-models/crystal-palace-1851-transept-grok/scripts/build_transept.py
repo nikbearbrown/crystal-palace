@@ -185,7 +185,7 @@ def leaf_material():
     m.diffuse_color = (0.08, 0.13, 0.03, 1)
     return m
 LEAF = leaf_material()
-FLOORM = mat_principled("GT_FloorBoards", (0.55, 0.46, 0.35), 0.85)
+FLOORM = mat_principled("GT_FloorBoards", (0.495, 0.414, 0.315), 0.88)   # r11: albedo -10%
 def floor_boards(m):
     nt = m.node_tree; n = nt.nodes; l = nt.links; b = n["Principled BSDF"]
     tc = n.new("ShaderNodeTexCoord"); sep = n.new("ShaderNodeSeparateXYZ"); l.new(tc.outputs["Object"], sep.inputs[0])
@@ -631,24 +631,24 @@ for ob in list(C["RAILINGS"].objects):
 
 # ---------------- the Osler crystal fountain at the crossing (ILN 1851 engraving; 27 ft of cut glass) ----------------
 def glass_solid(name, tint=(0.95, 0.97, 1.0), ior=1.5, rough=0.0):
-    """cut glass read as thin shells: Fresnel mix of a tinted transparent and a sharp glossy, plus a faint
-    refraction lobe for the cut-glass sparkle. A solid refractive BSDF on single-sided lathe shells read as
-    chrome in r06 tests (total internal reflection), so the shells are treated as thin glass."""
-    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; n = nt.nodes; l = nt.links
-    for x in list(n):
-        if x.type != 'OUTPUT_MATERIAL': n.remove(x)
-    out = [x for x in n if x.type == 'OUTPUT_MATERIAL'][0]
-    fr = n.new("ShaderNodeFresnel"); fr.inputs["IOR"].default_value = ior
-    tr = n.new("ShaderNodeBsdfTransparent"); tr.inputs["Color"].default_value = (*tint, 1)
-    gl = n.new("ShaderNodeBsdfGlossy"); gl.inputs["Roughness"].default_value = rough
-    rf = n.new("ShaderNodeBsdfRefraction"); rf.inputs["IOR"].default_value = ior; rf.inputs["Color"].default_value = (*tint, 1)
-    m1 = n.new("ShaderNodeMixShader"); m1.inputs[0].default_value = 0.15
-    l.new(tr.outputs[0], m1.inputs[1]); l.new(rf.outputs[0], m1.inputs[2])
-    m2 = n.new("ShaderNodeMixShader"); l.new(fr.outputs[0], m2.inputs[0]); l.new(m1.outputs[0], m2.inputs[1]); l.new(gl.outputs[0], m2.inputs[2])
-    l.new(m2.outputs[0], out.inputs["Surface"])
-    m.diffuse_color = (*tint, 0.4)
+    """r11: Principled transmission + coat. The r06–r10 Fresnel/refraction shells read as chrome/steel
+    (TIR on single-sided lathes); Principled Transmission keeps a crystal look without caustic noise."""
+    m = bpy.data.materials.new(name); m.use_nodes = True
+    b = m.node_tree.nodes["Principled BSDF"]
+    b.inputs["Base Color"].default_value = (*tint, 1)
+    b.inputs["Transmission Weight"].default_value = 1.0
+    b.inputs["IOR"].default_value = ior
+    b.inputs["Roughness"].default_value = max(rough, 0.02)
+    b.inputs["Alpha"].default_value = 0.15
+    for key, val in (("Specular IOR Level", 1.0), ("Coat Weight", 0.9), ("Coat Roughness", 0.04),
+                     ("Coat IOR", 1.7), ("Emission Color", (*tint, 1)), ("Emission Strength", 0.05)):
+        if key in b.inputs: b.inputs[key].default_value = val
+    m.blend_method = 'HASHED' if hasattr(m, "blend_method") else getattr(m, "blend_method", None)
+    try: m.use_transparency_overlap = True
+    except Exception: pass
+    m.diffuse_color = (*tint, 0.35)
     return m
-CRYSTAL = glass_solid("GT_OslerCrystal", (0.96, 0.97, 1.0), 1.55, 0.0)
+CRYSTAL = glass_solid("GT_OslerCrystal", (0.90, 0.95, 0.97), 1.52, 0.03)   # r11: cooler tint, not chrome
 WATER = glass_solid("GT_Water", (0.80, 0.88, 0.86), 1.33, 0.02)
 STONE = mat_principled("GT_Stone", (0.62, 0.60, 0.56), 0.8)
 def lathe(profile_ft, name, mat, seg=48, cx=0.0, cy=0.0):
