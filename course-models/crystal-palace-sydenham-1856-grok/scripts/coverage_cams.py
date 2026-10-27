@@ -85,7 +85,7 @@ if STATE == 'LATE11':
         for k in range(5):
             pts52.append((bay + R52.uniform(-8, 8), -152 + R52.uniform(-2, 4), 12 + (k % 3) * 12, public(R52), face_rot(0, 1), 1.0))
     people('ppl11_reglazing_gang', C52, pts52)
-    cam('CAM_CP052_scaffold_reglaze_35mm', (-40, -220, UT + EYE), (0, -155, 30), 35)
+    cam('CAM_CP052_scaffold_reglaze_35mm', (-72, -269, 18), (0, -153, 31), 35)  # dud-fix: pull back + raise; scaffold+gang fill
     # CP054 — 1913 public rescue: Lord Plymouth purchase celebration (crowd + bunting on terrace)
     FL54 = {k: MB(f'cov_plymouth_flag_{k}', C54, fmat(f'cov_ply_{k}', c)) for k, c in
             (('red', (0.5, 0.05, 0.05)), ('white', (0.85, 0.85, 0.8)), ('blue', (0.05, 0.08, 0.3)))}

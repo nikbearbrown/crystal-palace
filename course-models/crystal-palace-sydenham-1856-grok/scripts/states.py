@@ -143,8 +143,8 @@ cam('CAM_CP001_prologue_distant_35mm', (-260, -2150, zs(-2150) + EYE), (0, 0, 11
 cam('CAM_CP059_nave_fire_28mm', (-430, 10, EYE), (0, -5, 40), 28)                              # CP059: inside the nave
 cam('CAM_CP061_transept_collapse_35mm', (-170, yU + 25, UT + EYE), (0, -60, 105), 35)          # CP061: CT from the upper terrace
 # r17c: absolute elevated Z (zs alone sits below plateau); towers at x=±918 ft
-cam('CAM_CP062_morning_between_towers_35mm', (0, -1600, 70), (0, 40, 85), 28)   # r17p: levelish lookat — less over-horizon band
-cam('CAM_CP064_skyline_50mm', (0, -2600, 85), (0, 40, 95), 50)                  # r17p: towers still in FOV, less sky lip
+cam('CAM_CP062_morning_between_towers_35mm', (-656, -230, 92), (-922, 59, 171), 35)  # dud-fix v3: south tower hero, no haze
+cam('CAM_CP064_skyline_50mm', (-722, -131, 98), (-922, 59, 180), 50)  # dud-fix v3: 50mm tower fill
 cam('CAM_CP072_footprint_35mm', (-336, 0, gz(0) + EYE), (450, -10, gz(-10) + 4), 35)                    # CP072: empty plateau
 cam('CAM_CP073_sphinx_steps_50mm', (-80, yU + 1, UT + EYE + 1), (-54.5, yU + 13, UT + 5.0), 50)   # CP073: sphinx detail
 cam('CAM_CP073_steps_35mm', (-90, yU - 70, LT + EYE), (0, yU + 10, UT + 6), 35)                 # CP073: steps + sphinxes
