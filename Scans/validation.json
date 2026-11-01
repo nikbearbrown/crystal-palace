@@ -1,0 +1,13 @@
+{
+  "image_count": 49,
+  "source_identifiers": 43,
+  "cropped_comparisons": 3,
+  "source_photographs_included": false,
+  "zip_archives_included": false,
+  "personal_absolute_paths_found": false,
+  "email_or_common_secret_patterns_found": false,
+  "embedded_exif_or_personal_image_metadata_found": false,
+  "source_photo_hashes_present_as_files": false,
+  "all_image_and_comparison_references_resolve": true,
+  "processed_images_equal_local_deliverables": true
+}

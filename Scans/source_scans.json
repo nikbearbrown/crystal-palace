@@ -1,0 +1,561 @@
+[
+  {
+    "scan_id": "IMG_6420",
+    "source_filename": "IMG_6420.jpeg",
+    "source_sha256": "8cd3496233d824ec0f8c57c03ef84afc79e6b1fc57ac942b4e2c252d526141f1",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 6,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6421",
+    "source_filename": "IMG_6421.jpeg",
+    "source_sha256": "a1664b1b330fb05a8ad585621f9a5876a20db4ba82c3fcc3f241ea580b780d3b",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 6,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6422",
+    "source_filename": "IMG_6422.jpeg",
+    "source_sha256": "5d8c67624bbbb523b128c4ad563b161a58f253d5d2f0cd8b2ef7dad5d95a56d2",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 6,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6423",
+    "source_filename": "IMG_6423.jpeg",
+    "source_sha256": "bad14848198347404935e25015528346737e1dd8933fe992c8bc1f2b880324bd",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 6,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6424",
+    "source_filename": "IMG_6424.jpeg",
+    "source_sha256": "9df7b915277b7a9f1cbedcb09f9a3e5bf80d8bde6ef164785c582134cde94f92",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6425",
+    "source_filename": "IMG_6425.jpeg",
+    "source_sha256": "ff1869e689433483a23684625bd4b11a3538a74e0b6d6ccb6518d0f0270ad4eb",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6426",
+    "source_filename": "IMG_6426.jpeg",
+    "source_sha256": "fbcd8c616c1bb6188824d24a13378e76f64cf295905da303360bd07f49c5a9bc",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6427",
+    "source_filename": "IMG_6427.jpeg",
+    "source_sha256": "4aa996cee275b4e16b35082337af38df6a72991a8e50644965f73d82f3ac0af4",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6428",
+    "source_filename": "IMG_6428.jpeg",
+    "source_sha256": "4875669ad0affca2eca93950648db766ffd9457f3952aec18eb3acdf9e264544",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6429",
+    "source_filename": "IMG_6429.jpeg",
+    "source_sha256": "0c5d1270553ced2dd87374d9e8bde6df6ef3de79ffd87eeb1b2ef3bd369a5072",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 4,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6430",
+    "source_filename": "IMG_6430.jpeg",
+    "source_sha256": "14a4b3b4ef5dd81f7c780ff0c32176598b77719d89dfe0ea93a3413051de7ca3",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 4,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6431",
+    "source_filename": "IMG_6431.jpeg",
+    "source_sha256": "a83901422cff5f8420cbd648f9d35343d01d077e764e25b5568cc7d3f1225063",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 3,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6432",
+    "source_filename": "IMG_6432.jpeg",
+    "source_sha256": "734d29e33167b677f8be5972d101eb7e051604dfbd6a52e8a72d6e0ab83149c3",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 3,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6433",
+    "source_filename": "IMG_6433.jpeg",
+    "source_sha256": "a2fe65aa0e8fe4624563fba9fcd2cb23d919815a311e19f308784bc437f590a4",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 3,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6434",
+    "source_filename": "IMG_6434.jpeg",
+    "source_sha256": "14e830b2063a655d0c518abaed3f9fb5251e4262ac4a1a455c827f2da742c0f1",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 4,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6435",
+    "source_filename": "IMG_6435.jpeg",
+    "source_sha256": "d2d3b27cdb75ea02c0d685fe163c98006e79aade6d37ad0b6c8c817449e73efd",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 3,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6436",
+    "source_filename": "IMG_6436.jpeg",
+    "source_sha256": "6f745d88c7936bb0b7fa55acce5cd8e9e4aa2f4fdef1a39aa997bbb97621eee6",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 3,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6437",
+    "source_filename": "IMG_6437.jpeg",
+    "source_sha256": "166759a518555ccd15775ecf6387b9f2b8fbfddd0099bd387d24cbe2c24ae46f",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 4,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6438",
+    "source_filename": "IMG_6438.jpeg",
+    "source_sha256": "69e92e94097d352b9feab9741f96ab72541e4ebbd37c6b57e5075179ab8fdd37",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 4,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6439",
+    "source_filename": "IMG_6439.jpeg",
+    "source_sha256": "eac10b4c6b6ca227edb85ec54671bd8357255431cc12ba45586890de1db24136",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6440",
+    "source_filename": "IMG_6440.jpeg",
+    "source_sha256": "a59230364807111508d459f2d482a627a36bf9b68087643e2d7b8e27c2a2774f",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6441",
+    "source_filename": "IMG_6441.jpeg",
+    "source_sha256": "af362642237dbf5344a66b6931a08e3e44ff0adafb471320beb43799598c20e7",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6442",
+    "source_filename": "IMG_6442.jpeg",
+    "source_sha256": "026eb54b3945eeaafeb637bd227c69bb8f5efba6baf18303873d4b8b46bd5902",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6443",
+    "source_filename": "IMG_6443.jpeg",
+    "source_sha256": "331284c576972e5c696ca812ed43ca723c885b4d724cf5ebd4fd97b506159dc9",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6444",
+    "source_filename": "IMG_6444.jpeg",
+    "source_sha256": "27f0e4db914bdfc0326f4512af245d26a5db93da03ad2582102e70a3ee33820b",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6445",
+    "source_filename": "IMG_6445.jpeg",
+    "source_sha256": "4f72066b23b7d229fd120e684a92e858a2836ae45378a92ff7e662198ba7a9c7",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 6,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6446",
+    "source_filename": "IMG_6446.jpeg",
+    "source_sha256": "ec11484086ddb4ba0e1189bd1ae462e2e042e3a8afa6b970a1b6790a2371e40c",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6447",
+    "source_filename": "IMG_6447.jpeg",
+    "source_sha256": "bd97be5081dff8993ba58fde69de28001020c20371895ed432b5b447c21d8fe3",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6448",
+    "source_filename": "IMG_6448.jpeg",
+    "source_sha256": "bd015a0b40fece5fac1576117804f0530e30fb47f2b91d7d25fc0ebe16758e0f",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6449",
+    "source_filename": "IMG_6449.jpeg",
+    "source_sha256": "ecfa71387eaf828ae7b29d5f4f4de7604df2664ee514e10bbdf31ae1e0acb1aa",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6450",
+    "source_filename": "IMG_6450.jpeg",
+    "source_sha256": "21e5b62ff77017bfc214498b59580507f0c9761477e039eead23aff169523103",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6451",
+    "source_filename": "IMG_6451.jpeg",
+    "source_sha256": "e9c65fcc4c6cce7b318482e2734a241dfabd7ea7e10276df1c2554c1b1588961",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6452",
+    "source_filename": "IMG_6452.jpeg",
+    "source_sha256": "88420291eb036b4784a0475ebcd2b567d4c8c8093f83c3aaa40697ea783fef6a",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6453",
+    "source_filename": "IMG_6453.jpeg",
+    "source_sha256": "4f66f19e324c1c9579899d069b45ad77753a83fdc991086b1010d0e57ff542ef",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 6,
+    "additional_clockwise_rotation": 0,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6454",
+    "source_filename": "IMG_6454.jpeg",
+    "source_sha256": "fc788df6b103c6340f4c29cd037a19217d6008916b3f9188dff886c86e1aeb3b",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6455",
+    "source_filename": "IMG_6455.jpeg",
+    "source_sha256": "bcd631aeced0e3ebcba7a4aaba87acbd2a1604e3df5de46aa7080dd12d8fdd59",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 8,
+    "additional_clockwise_rotation": 180,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6456",
+    "source_filename": "IMG_6456.jpeg",
+    "source_sha256": "40438ea81f4ee21ed284dfb88d4812bed44b0ef065bbc078b5dabc4c2a0faa45",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6457",
+    "source_filename": "IMG_6457.jpeg",
+    "source_sha256": "fe7f29ed656daf3f8ac2ca7112bfa19a64430eeafc687f90c59adecfa7d9e044",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6458",
+    "source_filename": "IMG_6458.jpeg",
+    "source_sha256": "d7ad78c165d605d1488f30be3a049fa934f6597ed1f2bfadb22c936214eed6b5",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6459",
+    "source_filename": "IMG_6459.jpeg",
+    "source_sha256": "0263eee47f2a518ac9e6767b157a369b9740aeda7759a9bc1b1339e79a9c4f27",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6460",
+    "source_filename": "IMG_6460.jpeg",
+    "source_sha256": "ae50cd81d345a46a49b54d6cb694e0a9cf3d2c3af901873cc275e226c14b9a6b",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 2,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6461",
+    "source_filename": "IMG_6461.jpeg",
+    "source_sha256": "08c94607803d7525627545dbd5a2af5861940d6c87b6a0c75d8e990c18c43877",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  },
+  {
+    "scan_id": "IMG_6463",
+    "source_filename": "IMG_6463.jpeg",
+    "source_sha256": "6fb13039d353bcbce31ca01105e35448b5a316e2e43ba4ce3f7321f8f7c661f3",
+    "source_dimensions_pixels": [
+      4032,
+      3024
+    ],
+    "source_exif_orientation": 3,
+    "additional_clockwise_rotation": -90,
+    "equivalent_download_count": 1,
+    "original_available_in_repository": false
+  }
+]

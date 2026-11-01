@@ -1,0 +1,19 @@
+{
+  "tool": "built-in imagegen",
+  "prompts": [
+    {
+      "figure": 54,
+      "prompt": "Use case: precise-object-edit. Historical scan conservation. Repair ONLY the very small torn upper-left corner showing yellow tabletop and a dark torn edge. Continue the surrounding plain beige background into that tiny missing corner. Preserve all cabinet details, portraits, figures, geometry, texture, color and framing exactly. Do not alter any object detail."
+    },
+    {
+      "figure": 74,
+      "prompt": "Use case: precise-object-edit. Historical scan conservation. Repair ONLY the narrow torn area along the right edge, currently yellow tabletop and thin white torn paper. Extend the neighboring blue sea background and its horizontal hatch marks into that missing strip. Preserve all text, 1951 date, map, emblem, colors, proportions and texture exactly. Do not add islands or objects."
+    },
+    {
+      "figure": 43,
+      "prompt": "Use case: precise-object-edit. Historical scan conservation. Repair ONLY the torn strip on the left edge showing yellow tabletop and torn paper. Fill that missing strip with neutral grey paper and subtle background hatching continuing neighboring background. Preserve the exact portrait, face, bonnet, hands, clothing, chair and historical engraving marks. Do NOT reconstruct missing clothing or invent any subject detail. Keep framing and aspect ratio exactly.",
+      "postprocessing": "Only the leftmost background-only strip of the generated output was repeated horizontally within the damage mask, avoiding generated chair/clothing details."
+    }
+  ],
+  "final_compositing": "Generated output was resized and colour matched. Only masked damaged areas were composited; all other source pixels remain unchanged."
+}
