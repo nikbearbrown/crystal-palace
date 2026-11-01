@@ -174,3 +174,23 @@ never git init inside a grok folder; commit from the worktree root
 - REJECT for all other cameras: the fountain glass goes milky (`brighten_host_glass()` hits every "glass" material, including Osler's), exteriors lose the lawn (GROUND_PARK hidden) and show the east nave as a white box.
 - Follow-up if the envelope is ever widened: exclude the fountain from the glass brighten, keep GROUND_PARK, and give the east-nave stub real glazing. Calm the saturated yellow ironwork in CP023.
 - Pairs renamed KEEP_/REJECTED_ in survey look/pairs_geo.
+
+## 2026-11-01 envelope v2 candidate + full-camera check (CANDIDATE pairs; no keep/revert call)
+- New `scripts/apply_envelope_v2.py` builds `rounds/candidates/r11_envelope_v2.blend` from live `rounds/r11.blend` (Blender 5.1.2 headless, `--rig none`). DEPARTURES ENV2-01..10.
+  1. Glass brighten skips the Osler fountain (MUSE_OSLER_* + FOUNTAIN_*), the case glass and the end-screen glass. Only GT_Glass and GT_RoofGlass are brightened.
+  2. GROUND_PARK stays visible (no outdoor-leak hiding).
+  3. No kit box or cream walls. The east nave is the transept's own part library on the Downes grid: tier-3 nave strip x 60..252 plus the full 3-tier section x 132..252, glazed clerestories, boarded ground tier, end screen at x=252 (a truncation), galleries, railings and floor. The x=132 arm walls that are now interior are hidden.
+  4. New iron uses Owen Jones paint with per-object masks and a calmer yellow. Existing iron stays neutral.
+- Check: `scripts/render_envelope_v2_check.sh`. The 15 cameras are rendered as in render_envelope_check.sh (apply_look interior_daylit, 1280x720, 28 spp, people v3.4), live r11 vs v2 with `--shot-exposure`. Also rendered: `keep_cp023/` (r11_envelope at -2.2, the CP023 "before") and `candidate_noshot/` (v2 CP023 at look exposure, reference only). Output `renders/candidates/envelope_v2_20261101/`.
+- Pairs (`scripts/envelope_v2_pairs.py`): `/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_<CP|REVIEW>_transept_envelope_v2_<cam>_pair.jpg` (15). All CANDIDATE; nothing promoted.
+- Executor notes per camera (reviewer decides; mean-luma deltas are v2 minus before):
+  - CP023 start/end (vs KEEP): real glazed nave, ridge-and-furrow roof, galleries, blue ironwork with thin yellow. No yellow wash and no cream walls. WORSE on exposure: much darker (luma 133 to 54, and 130 to 57). The KEEP's brightness came from v1's extra lights, so -2.2 is wrong for v2; even at look exposure (`candidate_noshot`) it is 85-87. The east end screen at x=252 closes the view after about 5 bays. Crowds differ between halves: the KEEP re-render and the noshot run show block stand-ins, the v2 main run shows v3.4 people (people-swap quirk in short runs, not investigated).
+  - REV_ext34: lawn kept; the east block now reads as glazed stepped tiers on a boarded base instead of a white box. It also hides the open, see-through east side of live. Better than v1; different from live.
+  - REV_south: near-identical to live; a thin sliver of the east block shows at the right edge.
+  - PLATE_IV_south_ortho: near-identical; the new block's upper tiers appear faintly behind the right side (+1.9 luma).
+  - DET_fountain: fountain keeps its dark cut-glass tiers (v1 milky regression fixed). WORSE overall: darker (-12.4 luma), with less sun on the floor and galleries beyond, because the new nave roof and walls close the open sky east of the crossing.
+  - REF_elm_north: fountain dark tiers kept; darker (-7.0).
+  - REV_int_up: fountain kept; slightly darker (-4.2).
+  - REF_talbot: slightly darker floor and different sun patches (-5.8). End-screen lunette unchanged.
+  - CP008 start/end, CP017 start/end, REF_absolon, OPEN_gallery: near-identical (within +-1.4 luma).
+- md5 before/after unchanged: r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r10 a916795bca80185a0a576c24f41b9f40, r11_envelope c579eb76785ab2bd6b88a157c648d56e. v2 ce5db27df850982d8db63834ebd6fe19.
