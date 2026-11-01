@@ -45,3 +45,12 @@ Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Cont
 | EX_HAM_MODEL | Nasmyth hammer CP024 MODEL enrich | **KEEP** (user): A-frame + cylinder + steam pipe read as Nasmyth. Promoted `e02_hammer` → live `e02` (`scripts/promote_hammer_live.py`). |
 | EX_HAM_SETTING | Outdoor showroom / sea-blue horizon / lone truss around hammer | **Wrong** — CP024 is inside 1851 Machinery Court. |
 | EX_HAM_COURT | Machinery Court setting around KEEP hammer | **CANDIDATE** `e02_hammer_court`: cast-iron columns, gallery+girders, glazed ridge-and-furrow roof, boarded floor, neighbour machine block-outs; pale daylit world (no Nishita sea); `interior_machinery`; CP024_ram_start raised/backed so top reads against gallery/roof. Pair `CANDIDATE_CP024_hammer_court_ram_start_pair.png`. Claude west nave not appended this pass. |
+
+## 2026-11-01 Muse reference intake (CANDIDATES, no call made)
+| ID | Topic | Departure / note |
+|---|---|---|
+| EX_MUSE_HAM_SRC | Source disagreement | Muse: 1851 Ferrier photo RCIN 2800024, height assumed 5.00 m ±30%. Ours: NMAH surviving c.1851–56 hammer, ~19 ft (5.79 m), base 14×6 ft. |
+| EX_MUSE_HAM_DIM | Dimensions | Height 5.79 (ours) vs 4.98 m (Muse; ours within Muse's band). Frame width 4.43 vs 3.61 m; depth 1.83 vs 1.55 m; Muse throat 0.67 m. |
+| EX_MUSE_HAM_FORM | Standards | Muse standards built as a V (wider at top) because of a rotation-sign error (build script ~l.146); Muse's NOTES and the photo say A-form. Left uncorrected (their folder is read-only). |
+| EX_MUSE_HAM_MOTION | Motion | Muse Tup static at mid-stroke, single-acting; ours animated blow cycle + steam puffs (EX13). |
+| EX_MUSE_DRESS_PLACE | Machinery Court dressing | 1851 portable engines and seed drills stood with agricultural implements (Class IX), not in machinery-in-motion; placing them beside the hammer is a dressing departure. Vacuum sugar apparatus is plausible for the machinery area. |

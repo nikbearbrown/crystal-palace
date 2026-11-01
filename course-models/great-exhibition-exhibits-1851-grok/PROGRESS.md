@@ -72,3 +72,15 @@ never git init inside a grok folder; commit from the worktree root
 - CP024_ram: v1 wide reframe REJECTED; v2 restores the live close camera inside the envelope (+0.3 exposure in `render_round.sh`) → KEEP.
 - Promoted `rounds/candidates/e02_envelope_v2.blend` → live `rounds/e02.blend` (backup `rounds/e02.blend.pre_envelope_keep`).
 - Departure: CP024 ram exposure is a per-shot cheat (+1.0 stop over the CP021-matched interior_daylit) because the hammer is backlit by the bright end wall.
+
+## 2026-11-01 reference intake CANDIDATES (Muse, origin/main a62ba2e) — not promoted, no keep/revert call
+Live `rounds/e02.blend` untouched (md5 ae5355a5…). Script `scripts/intake_muse_1101.py` (opens live e02, saves candidate only).
+Renders: 28 spp, 1280×720; CP024_ram_start at frame 25 with `--exposure 0.3` (existing per-shot cheat). Fresh live baseline rendered with identical settings into `renders/candidates/live_20261101/` (renders/e02 predates the envelope KEEP).
+- **e02_muse_hammer** (`rounds/candidates/e02_muse_hammer.blend`): our HAM_* hammer hidden (barrier + label kept); Muse `hp-working-machine-exhibit` appended unmodified as `EXH_MUSE_NASMYTH_HAMMER` at the same spot; text block `CREDIT_MUSE_INTAKE_1101`.
+  Renders `renders/candidates/CP024_{approach_start,ram_start_f025}_muse_hammer.png`.
+  Pairs `/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP024_muse_hammer_{ram_start,approach_start}_pair.jpg`.
+  Comparison: Muse is NOT clearly better — its standards splay outward as a V (rotation sign bug; its own notes/photo say A-frame), material reads pale grey, Tup is static (single-acting, no blow cycle). Built anyway as the requested candidate for judging.
+- **e02_muse_dressing** (`rounds/candidates/e02_muse_dressing.blend`): boiler/engine/lathe block-outs hidden; Muse `vacuum-sugar-apparatus` at the boiler spot, `portable-steam-engine` at the engine spot (rot 200°), `seed-drill` at the lathe spot (rot 90°); press block-out kept.
+  Renders `renders/candidates/CP024_{approach_start,ram_start_f025}_muse_dressing.png`.
+  Pairs `…/pairs_geo/CANDIDATE_CP024_muse_dressing_{approach_start,ram_start}_pair.jpg`. Copper vacuum pan is cut by the left frame edge in approach_start; ram_start shows essentially no change.
+- Departures logged in DEPARTURES.md (EX_MUSE_*).
