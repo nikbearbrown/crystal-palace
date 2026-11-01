@@ -152,3 +152,6 @@ Vendored unmodified: `vendor/muse-alhambra-lion-fountain/` (+ `textures/fascia_b
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## 2026-11-01 Muse intake: Grok Bot review
+- All Muse intake candidates REJECTED after viewing the pairs (see survey look/pairs_geo/README.md). Live blends unchanged; candidate files kept for reference.
