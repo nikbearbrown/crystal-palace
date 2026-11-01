@@ -58,3 +58,6 @@ Branch grok-dismantle-1851, from transept r09 (0b64c06) plus a merge of exterior
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## 2026-11-01 HP interior envelope REJECT (CP030)
+- Envelope candidate `rounds/candidates/d04_envelope.blend` on CP030_empty_aisle reviewed: washed out, loses glass, tree and depth vs live. REJECT; live d04 unchanged. Candidate files left in `rounds/candidates/` for reference.
