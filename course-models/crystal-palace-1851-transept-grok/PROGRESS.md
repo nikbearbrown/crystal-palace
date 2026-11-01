@@ -230,3 +230,24 @@ never git init inside a grok folder; commit from the worktree root
 - Live CP023 is now `renders/candidates/cp023_dressing_20261101/full/CP023_into_nave_{start,end}.png`. `scripts/render_cp023_v2.sh` no longer passes `--no-cp023-dressing`, so re-renders come out dressed.
 - Follow-ups, not blocking: the men's boots are oversized shells (people_lib 3.4), and the plinth man's boot is doubled (end). The bottom third of the frame is empty floor, and a few mid-distance figures could come in to about 4-5 m. A small pale block at the right edge (start, about x 1270, y 600) was in live too.
 - Pairs renamed KEEP_ in survey look/pairs_geo.
+
+## 2026-11-01 CP023 boots + foreground CANDIDATE (rendered 16:22 UTC; awaiting parent review, NOT kept)
+- Goal: follow-ups from the crowd-dressing KEEP: (1) men's boots oversized, (2) empty lower third. CANDIDATE only; live CP023 (`render_cp023_v2.sh`, renders/candidates/cp023_dressing_20261101/full) must not change.
+- Plan: opt-in flags in render_views.py (`--cp023-boots`, `--cp023-foreground`, `--save-blend-dir`) so live renders are byte-for-byte the same pipeline. Code in scripts/cp023_dressing.py (CP023 boot builder installed in people_patch; foreground() pre-swap placement). Driver: scripts/render_cp023_bootsfg.sh -> renders/candidates/cp023_bootsfg_20261101/{lean,full}; pairs via scripts/cp023_bootsfg_pairs.py -> survey look/pairs_geo/CANDIDATE_CP023_boots_foreground_*.png.
+- Resume: if renders are missing, run `scripts/render_cp023_bootsfg.sh full` then `python3 scripts/cp023_bootsfg_pairs.py`.
+
+### Result (16:30 UTC)
+- The full run used `scripts/render_cp023_bootsfg.sh full`: r11_envelope_v2.blend, exposure -0.9 (the live CP023 exposure per ENV2-11), 1280x720, 64 spp, crowd dressing on, plus `--cp023-boots --cp023-foreground`. Log: /workspace/logs/transept_cp023_bootsfg_full.log.
+- Renders: renders/candidates/cp023_bootsfg_20261101/{lean,full}/CP023_into_nave_{start,end}.png
+- Sibling blend (baked dressed state, start camera, about 48 MB): rounds/candidates/r11_envelope_v2_CP023_into_nave_start.blend. The end-camera blend (about 51 MB) is left uncommitted on the box only. These blends are baked: do NOT re-render them through render_views (it would swap people again). Open them directly instead.
+- Pairs: /workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP023_boots_foreground_CP023_into_nave_{start,end}_pair.png and *_lowerdetail_pair.png (bottom 45%). Script: scripts/cp023_bootsfg_pairs.py. Before = live cp023_dressing_20261101/full.
+- Stats: FG start 6/6 placed (5.8-8.8 m), end 3/5 placed (6.7-7.5 m). Boots: 84 meshes, 22.0-28.5 x 8.0-9.6 cm. Luma start 91.2 -> 86.7, end 97.7 -> 93.9 (darker figures now cover bright floor).
+- Departures: PPL-C05 (boots) and PPL-C06 (foreground).
+- md5 unchanged: r11_envelope_v2.blend ce5db27df850982d8db63834ebd6fe19, r11.blend 0d083ae0e2bd09e2b64acdd2ec88e9fb. Live renders are untouched.
+- Executor notes (not a verdict):
+  - Start frame: the lower third is now mostly occupied.
+  - Start frame: the six foreground figures all face away, which reads a bit like a queue.
+  - Start frame: the bonnets on the back-facing ladies read as brown blobs at this size.
+  - The bottom ~8-10% is still bare boards.
+  - End frame: fuller, with men's boots visibly smaller.
+  - The walking-pose front foot can still show a small lump (distant figures only).

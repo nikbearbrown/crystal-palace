@@ -121,6 +121,15 @@ try:
 except ImportError:
     _cpd = None
 _use_dress = _cpd is not None and "--no-cp023-dressing" not in argv
+# 2026-11-01 boots + foreground CANDIDATE (DEPARTURES PPL-C05/C06), opt-in, CP023 dressing only:
+#   --cp023-boots       foot-fitted ~27-28 cm period boots (cp023_dressing.make_boots) in the CP023 swap
+#   --cp023-foreground  before the swap, move a few off-frame floor figures into the empty lower third
+#                       (cp023_dressing.foreground: 4-7 m, fully in frame, clear of the nave axis)
+#   --save-blend-dir D  after dressing each camera, save a copy of the dressed scene to D/<blend>_<cam>.blend
+# Without these flags the live CP023 pipeline (render_cp023_v2.sh) is unchanged.
+_use_boots = "--cp023-boots" in argv
+_use_fg = "--cp023-foreground" in argv
+_save_dir = arg("--save-blend-dir")
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
@@ -134,11 +143,17 @@ for c in cams:
         _dr = _use_dress and c in SHOT_CROWD_DRESSING and _PG is not None
         if _dr: sc.render.resolution_x, sc.render.resolution_y = W, H   # gate/edge tests at the render frame
         if _off: _PG["_is_close_up_for_base_mesh"] = lambda ob, cam, threshold=None: False
+        _fg_undo = None
+        if _dr and _use_fg:
+            _fst, _flog, _fg_undo = _cpd.foreground(cam, _PG["_is_figure"], _PG["_infer_kind"])
+            for _l in _flog: print("CP023_FG", c, _l, flush=True)
+            print("CP023_FG_STATS", c, _fst, flush=True)
         try:
             if _dr:
-                with _cpd.people_patch(_PG, _gate_lib, cam) as _pp:
+                with _cpd.people_patch(_PG, _gate_lib, cam, boots=_use_boots) as _pp:
                     _pst = swap_scene_people(era=_era, camera=cam)
                 _pst["pose_replaced"] = _pp["pose_replaced"]
+                if _use_boots: _pst["cp023_boots"] = _pp.get("boots", 0); _pst["boot_dims"] = sorted(_pp.get("boot_dims", ()))
             else:
                 _pst = swap_scene_people(era=_era, camera=cam)
         finally:
@@ -153,5 +168,11 @@ for c in cams:
     sc.render.filepath = os.path.join(outdir, c + ".png")
     bpy.ops.render.render(write_still=True)
     print("WROTE", sc.render.filepath, flush=True)
+    if _save_dir:
+        os.makedirs(_save_dir, exist_ok=True)
+        _bp = os.path.join(os.path.abspath(_save_dir), os.path.splitext(_blend_name)[0] + "_" + c + ".blend")
+        bpy.ops.wm.save_as_mainfile(filepath=_bp, copy=True, compress=True)
+        print("SAVED_BLEND", _bp, flush=True)
     if _dr:
         _undo()
+        if _fg_undo: _fg_undo()
