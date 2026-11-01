@@ -65,3 +65,10 @@ never git init inside a grok folder; commit from the worktree root
 - **KEEP** Nasmyth hammer MODEL → promoted live `rounds/e02.blend` (`scripts/promote_hammer_live.py`).
 - Setting wrong (outdoor sea horizon): **CANDIDATE** Machinery Court `rounds/candidates/e02_hammer_court.blend` + `renders/candidates/CP024_ram_start.png` (`scripts/polish_hammer_court.py`). Pair: survey `look/pairs_geo/CANDIDATE_CP024_hammer_court_ram_start_pair.png`.
 - HP interior sea-horizon audit (report only): see commit message / agent report.
+
+## 2026-11-01 HP interior envelope KEEP
+- Today's re-renders of the envelope candidate were reviewed pair by pair.
+- KEEP envelope for CP024_approach, CP025_visitors, EX_lineup.
+- CP024_ram: v1 wide reframe REJECTED; v2 restores the live close camera inside the envelope (+0.3 exposure in `render_round.sh`) → KEEP.
+- Promoted `rounds/candidates/e02_envelope_v2.blend` → live `rounds/e02.blend` (backup `rounds/e02.blend.pre_envelope_keep`).
+- Departure: CP024 ram exposure is a per-shot cheat (+1.0 stop over the CP021-matched interior_daylit) because the hammer is backlit by the bright end wall.
