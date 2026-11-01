@@ -84,3 +84,6 @@ Renders: 28 spp, 1280×720; CP024_ram_start at frame 25 with `--exposure 0.3` (e
   Renders `renders/candidates/CP024_{approach_start,ram_start_f025}_muse_dressing.png`.
   Pairs `…/pairs_geo/CANDIDATE_CP024_muse_dressing_{approach_start,ram_start}_pair.jpg`. Copper vacuum pan is cut by the left frame edge in approach_start; ram_start shows essentially no change.
 - Departures logged in DEPARTURES.md (EX_MUSE_*).
+
+## 2026-11-01 Muse intake: Grok Bot review
+- All Muse intake candidates REJECTED after viewing the pairs (see survey look/pairs_geo/README.md). Live blends unchanged; candidate files kept for reference.
