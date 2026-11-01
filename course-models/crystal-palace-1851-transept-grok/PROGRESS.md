@@ -194,3 +194,17 @@ never git init inside a grok folder; commit from the worktree root
   - REF_talbot: slightly darker floor and different sun patches (-5.8). End-screen lunette unchanged.
   - CP008 start/end, CP017 start/end, REF_absolon, OPEN_gallery: near-identical (within +-1.4 luma).
 - md5 before/after unchanged: r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r10 a916795bca80185a0a576c24f41b9f40, r11_envelope c579eb76785ab2bd6b88a157c648d56e. v2 ce5db27df850982d8db63834ebd6fe19.
+
+## 2026-11-01 envelope v2 review: Grok Bot call
+- **CP023 start/end: KEEP v2.** The live source for CP023 is now `rounds/candidates/r11_envelope_v2.blend` (CP023 only), rendered by `scripts/render_cp023_v2.sh`. The candidate_noshot frame shows a real glazed nave in place of v1's yellow wash.
+  - Exposure: `SHOT_EXPOSURE` in `render_views.py` is now keyed by blend. The old -2.2 applies only to `r11_envelope.blend` (v1, superseded); v2 has no entry. At the look exposure (-1.20), CP023 read dim next to CP021 (luma 129) and CP022 (147), at 83 start and 87 end. So it is rendered with a +0.3 lift, at **-0.9**: 93 start, 97 end, no clipping. This is logged as DEPARTURES ENV2-11.
+  - People fix: people_lib 3.4's close-up gate (skip a figure if its projected height is more than 8% of the frame) caught 103 of the 104 visible CP023 figures, at a median of about 24% of frame. In a short run where CP023 is the first camera, they all stayed as the old block stand-ins. In the 14-camera runs, earlier wide cameras had already swapped them, so the outcome depended on render order. `render_views.py` now switches the gate off for CP023_into_nave_start/end (`SHOT_PEOPLE_GATE_OFF`, swapped around the call and restored afterwards). All 720 figures are swapped with CP023's own LOD ranking (log `skipped_close_up: 0 gate_off`). The shared people_lib is unchanged, and other cameras keep the gate. See DEPARTURES PPL-G01.
+  - Renders, both 1280x720 at -0.9 with v3.4 people:
+    - lean (28 spp): `renders/r11_envelope_v2/cp023_lean/`
+    - full quality (render_round.sh live settings, 64 spp, 8 threads): `renders/r11_envelope_v2/cp023_full/CP023_into_nave_{start,end}.png`. This is the COVERAGE best path.
+- **REV_ext34: KEEP v2.** The continuous glazed east nave is more truthful than live's open cut-away. Its current render is `renders/candidates/envelope_v2_20261101/candidate/REV_ext34_start.png` (28 spp). render_round.sh still renders every camera from r11 and was not changed.
+- **REJECT v2 (stay on live r11):**
+  - DET_fountain, REF_elm_north, REV_int_up, REF_talbot: darker, and the fountain fix isn't worth it there.
+  - CP008 start/end, CP017 start/end, REF_absolon, OPEN_gallery, REV_south, PLATE_IV: no gain.
+- Survey: pairs renamed KEEP_/REJECTED_ in `look/pairs_geo` (README line added), and COVERAGE CP023 updated.
+- md5s unchanged: r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r10 a916795bca80185a0a576c24f41b9f40, r11_envelope c579eb76785ab2bd6b88a157c648d56e, v2 ce5db27df850982d8db63834ebd6fe19.

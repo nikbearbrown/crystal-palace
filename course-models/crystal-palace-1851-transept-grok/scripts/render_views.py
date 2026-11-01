@@ -86,22 +86,44 @@ if arg("--exposure"):
 # Per-shot exposure cheat (2026-11-01; pattern from the exhibits folder's per-shot --exposure).
 # Opt-in with --shot-exposure: without the flag every camera renders exactly as before.
 # Cameras absent from the table keep the scene/look/--exposure value unchanged.
+# 2026-11-01 envelope v2 review: the table is now per-blend. The -2.2 cheat was tuned for
+# r11_envelope.blend's extra lights and applies ONLY to that blend. r11_envelope_v2.blend
+# (CP023 live source) renders at the normal look exposure; no per-shot entry.
 SHOT_EXPOSURE = {
-    "CP023_into_nave_start": -2.2,   # HP interior envelope candidate: reads at -1.6..-2.2 (envjudge)
-    "CP023_into_nave_end": -2.2,
+    "r11_envelope.blend": {
+        "CP023_into_nave_start": -2.2,   # HP interior envelope v1 (superseded): reads at -1.6..-2.2 (envjudge)
+        "CP023_into_nave_end": -2.2,
+    },
 }
+_blend_name = os.path.basename(bpy.data.filepath)
+_shot_tab = SHOT_EXPOSURE.get(_blend_name, {})
 _use_shot_exp = "--shot-exposure" in argv
 _base_exp = sc.view_settings.exposure
+# 2026-11-01 people close-up gate, per shot (always on, not opt-in).
+# people_lib 3.4 skips any figure taller than CLOSE_UP_FRAME_FRAC (8%) of frame height and
+# leaves the old block stand-in. On eye-level CP023 that is 103 of 104 visible figures, so
+# when CP023 is rendered first (short runs) the whole crowd stays blocky; in the 14-camera
+# round they were already swapped by earlier wide cameras (order-dependent leak). For the
+# cameras below the gate is off: every figure is swapped for THIS camera's LOD ranking,
+# whatever ran before. Other cameras keep the library default.
+SHOT_PEOPLE_GATE_OFF = {"CP023_into_nave_start", "CP023_into_nave_end"}
+_PG = getattr(swap_scene_people, "__globals__", None) if swap_scene_people else None
+_gate_lib = _PG.get("_is_close_up_for_base_mesh") if _PG else None
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
     if not cam: print("NO CAM", c); continue
     sc.camera = cam
-    sc.view_settings.exposure = SHOT_EXPOSURE[c] if (_use_shot_exp and c in SHOT_EXPOSURE) else _base_exp
-    if _use_shot_exp and c in SHOT_EXPOSURE: print("SHOT_EXPOSURE", c, sc.view_settings.exposure, flush=True)
+    sc.view_settings.exposure = _shot_tab[c] if (_use_shot_exp and c in _shot_tab) else _base_exp
+    if _use_shot_exp and c in _shot_tab: print("SHOT_EXPOSURE", _blend_name, c, sc.view_settings.exposure, flush=True)
     if swap_scene_people is not None and "--no-people" not in argv:
-        _pst = swap_scene_people(era=_era, camera=cam)
-        print("PEOPLE", _PPL_VER, _pst, flush=True)
+        _off = c in SHOT_PEOPLE_GATE_OFF and _gate_lib is not None
+        if _off: _PG["_is_close_up_for_base_mesh"] = lambda ob, cam, threshold=None: False
+        try:
+            _pst = swap_scene_people(era=_era, camera=cam)
+        finally:
+            if _off: _PG["_is_close_up_for_base_mesh"] = _gate_lib
+        print("PEOPLE", _PPL_VER, _pst, "gate_off" if _off else "gate_lib", flush=True)
     if c in portrait: sc.render.resolution_x, sc.render.resolution_y = H * 3 // 4, int(H * 1.0)
     else: sc.render.resolution_x, sc.render.resolution_y = W, H
     sc.render.filepath = os.path.join(outdir, c + ".png")
