@@ -168,3 +168,9 @@ never git init inside a grok folder; commit from the worktree root
   - Exteriors REV_ext34, REV_south: lawn gone (GROUND_PARK hidden) -> pale grey ground; REV_ext34 also shows the east-nave seal as a plain white box beside the transept. Regression. PLATE_IV ortho: glass slightly paler, otherwise near-identical.
   - CP008 start/end, CP017 start/end, REF_absolon, OPEN_gallery, REF_talbot: slightly brighter/paler glass and sky beyond, otherwise near-identical; REF_absolon/OPEN_gallery lose some depth in the far nave haze.
 - Live blend md5s unchanged before/after (r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r10 a916795bca80185a0a576c24f41b9f40; candidate c579eb76785ab2bd6b88a157c648d56e unchanged too).
+
+## 2026-11-01 envelope review: Grok Bot call
+- KEEP for CP023 only (start and end): the enclosed nave replaces the open-sky eastward view; live source for CP023 is now `rounds/candidates/r11_envelope.blend` rendered with `--shot-exposure` (-2.2). `rounds/r11.blend` stays live for every other camera.
+- REJECT for all other cameras: the fountain glass goes milky (`brighten_host_glass()` hits every "glass" material, including Osler's), exteriors lose the lawn (GROUND_PARK hidden) and show the east nave as a white box.
+- Follow-up if the envelope is ever widened: exclude the fountain from the glass brighten, keep GROUND_PARK, and give the east-nave stub real glazing. Calm the saturated yellow ironwork in CP023.
+- Pairs renamed KEEP_/REJECTED_ in survey look/pairs_geo.
