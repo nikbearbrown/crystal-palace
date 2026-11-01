@@ -251,3 +251,16 @@ never git init inside a grok folder; commit from the worktree root
   - The bottom ~8-10% is still bare boards.
   - End frame: fuller, with men's boots visibly smaller.
   - The walking-pose front foot can still show a small lump (distant figures only).
+
+## 2026-11-01 CP023 boots + foreground review: parent verdict (viewed all four pairs)
+- **END: KEEP boots + foreground.** Live CP023 end is now `renders/candidates/cp023_bootsfg_20261101/full/CP023_into_nave_end.png` (r11_envelope_v2, -0.9, 1280x720, 64 spp, dressing + `--cp023-boots --cp023-foreground`). Pairs renamed `KEEP_CP023_boots_foreground_CP023_into_nave_end_{pair,lowerdetail_pair}.png` in survey look/pairs_geo. DEPARTURES PPL-C05/C06 updated.
+  - Baked end-state blend (about 51 MB, md5 056e5c854c4ff44015b0730edd4a3296) is NOT committed (over GitHub's 50 MB warning). It lives on the box only at `rounds/candidates/r11_envelope_v2_CP023_into_nave_end.blend`. Open directly; do not re-render it through render_views.
+  - `scripts/render_cp023_v2.sh` now renders start and end in separate Blender runs, with `--cp023-boots --cp023-foreground` on the end run only. Check: a standalone end re-render (`/workspace/tmp/cp023_end_check/`) has the same composition and the same 3/5 foreground placements, but a few figure variants differ (for example one mid-ground lady's dress green vs cream; FG pool 453 vs 454) because people-variant state depends on render order. The committed PNG is the reviewed live frame.
+- **START: KEEP boots, REJECT foreground.** The six back-facing figures form a queue-like wall across the lower centre, the bonnets read as brown blobs, and one lady hides the left statue's plinth base, so the view into the nave is worse than live. Pairs renamed `REJECTED_CP023_boots_foreground_CP023_into_nave_start_*`. Live start stays `renders/candidates/cp023_dressing_20261101/full/CP023_into_nave_start.png`.
+  - The committed start blend `rounds/candidates/r11_envelope_v2_CP023_into_nave_start.blend` (from ddf4dd0) bakes the REJECTED foreground state. Do not use it as a source.
+- **Boots-only start CANDIDATE (not promoted, awaiting parent review).** `scripts/render_cp023_boots.sh`: same blend/settings as live (-0.9, 1280x720, 64 spp, 8 threads, gate off, dressing on) plus `--cp023-boots` only, start camera only, no .blend saved. Log: `/workspace/logs/transept_cp023_boots_start.log`.
+  - Render: `renders/candidates/cp023_boots_20261101/CP023_into_nave_start.png`.
+  - Pairs (before = live start): `/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP023_bootsonly_start_pair.png` and `..._lowerdetail_pair.png` (`scripts/cp023_boots_pairs.py`).
+  - Stats: no CP023_FG lines; dressing is identical to live (114 visible, 17 flagged, 9 moved, 8 hidden, 106 after); 356 boot meshes, 22-28 cm. Luma 91.2 -> 91.4. Changed pixels are confined to y 416-591 (feet and legs).
+  - Executor note (not a verdict): the men's boots are visibly slimmer and attached, with no other change. The lower third remains empty floor, as in live.
+- md5 unchanged: r11_envelope_v2.blend ce5db27df850982d8db63834ebd6fe19, r11.blend 0d083ae0e2bd09e2b64acdd2ec88e9fb.
