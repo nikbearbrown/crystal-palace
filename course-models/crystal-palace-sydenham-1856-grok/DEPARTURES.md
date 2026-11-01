@@ -415,3 +415,11 @@ New candidate from EARLY (destroyed in-place), framed on the north end:
 Blend: `rounds/sydenham-s67b-fire-cand.blend` (script `scripts/install_s67b_fire_ruins_cand.py`).
 Before: `renders/s67b_before/` (EARLY + same cam poses). After: `renders/s67b_cand/`.
 Pairs: `compare/s67b_cand/pair_CP047.jpg`, `pair_CP048.jpg`.
+
+## 2026-11-01 Muse intake CANDIDATE (`rounds/candidates/sydenham-1856-r16-muse-courts.blend`)
+| Item | Grade | Note |
+|---|---|---|
+| Muse lion fountain replaces grok al_lions; 3.6 m vs 2.2 m footprint | I | Muse sizes ±15% (Owen Jones print, guide 1856 pp.66-69); scale disagreement unresolved |
+| Lamassu x4 on Nineveh facade, plan 0205 no. 27 | R/I | x/y read off the gridded plan (±5 ft); orientation along the facade, heads to the entrance is **I** |
+| Nineveh Court building not modelled; bulls free-standing | I | dated SY54 to lost 1866 |
+| Extra camera CAM_CP037_nineveh_facade_28mm | R | storyboard CP037 cam cannot see the Nineveh facade |

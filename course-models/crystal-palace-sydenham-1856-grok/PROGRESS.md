@@ -136,6 +136,19 @@
 ## r17 WEAK→OK done (2026-10-27 04:22 UTC)
 - CP058/062/063/064 promoted ≥7 (pixel judgment). Heroes r17i/r17q. Horizon haze card; no shared look preset. Local commit. NOT pushed.
 
+## 2026-11-01 reference intake CANDIDATES (Muse, origin/main a62ba2e) — not promoted, no keep/revert call
+Live `rounds/sydenham-1856-r16.blend` untouched (md5 1b984fb6…). Script `scripts/intake_muse_1101.py` → `rounds/candidates/sydenham-1856-r16-muse-courts.blend`.
+Vendored unmodified: `vendor/muse-alhambra-lion-fountain/` (+ `textures/fascia_band.png`, packed into the candidate), `vendor/muse-assyrian-lamassu/` (CREDIT.md each).
+- **CP041 lion fountain**: grok `al_lions` + `al_lions_jet` hidden; Muse fountain instanced at their centre (161.04, 25.60 m, floor 0.09 m) in `SY56_alhambra_lion_fountain_muse__dated_c1856` (cp_state SY-EARLY_c1856). Court water kept.
+  Pairs `/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP041_muse_lion_fountain_{alhambra_hold,alhambra_entry}_pair.jpg`.
+  Muse fountain is much larger than ours (3.6 m footprint vs 2.2 m) and dominates the hold shot; its lions read as rounded/cartoon-like at this distance.
+- **CP037 lamassu**: 4 Muse lamassu on the Nineveh Court nave facade per plan 0205 no. 27 (x 683/696 and 722/735 ft, y 60.5 ft, heads toward the entrance at x ≈ 709 ft), in `SY54_court_nineveh_lamassu_muse__1854_lost1866` (opened 1854, lost in the Dec 1866 north-end fire).
+  The Nineveh Court architecture is NOT modelled, so the bulls stand free in the north nave.
+  `CAM_CP037_taller_nave_28mm` shows NO visible change (it looks up into the vault, ~250 m away): pair `…/CANDIDATE_CP037_muse_lamassu_taller_nave_pair.jpg`.
+  Added candidate camera `CAM_CP037_nineveh_facade_28mm` (eye 1.6 m, no roll) to make them judgeable: pair `…/CANDIDATE_CP037_muse_lamassu_nineveh_facade_pair.jpg`. Before = live r16 + that camera only (temp blend outside the repo).
+- Renders: 1280×720, 28 spp, blend lighting, no people env. Live `renders/candidates/live_20261101/r16live_*.png`, candidate `renders/candidates/muse_courts_*.png`.
+- COVERAGE oddity: CP041 is listed against `sydenham-clearance-r15.blend` / `r08bfinal_…insert_spandrel_50mm.png`, but the CP041 Alhambra cameras live in EARLY r16.
+
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
