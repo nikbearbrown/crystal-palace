@@ -152,3 +152,7 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2 keep-lighting: keep CP023; revert CP008/017
+
+## 2026-11-01 HP interior envelope (CP023) still CANDIDATE
+- Oct 27 candidate `rounds/candidates/r11_envelope.blend` rendered blown out (scene exposure 0.4). Review renders at -1.6 and -2.2 (in /workspace/tmp/envjudge/cp023) read well: nave, galleries, OJ columns, locomotive, no sea horizon.
+- Not promoted: the envelope changes all 14 transept cameras, including the exteriors, and the transept pipeline has no per-shot exposure yet. Next step: per-shot exposure (-2.2 for CP023) and a full-camera check before a keep call.
