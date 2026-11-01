@@ -1,0 +1,174 @@
+[
+ {
+  "slug": "fig-03_tea-service",
+  "fig": 3,
+  "source": "fig-03_felix-summerly-tea-service-henry-cole-1846.png",
+  "crop": null,
+  "scale": {
+   "dim": "max",
+   "metres": 0.7,
+   "basis": "estimated"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Whole shelf group (teapot, jug, bowl, two cups, two saucers) is one model; items may be fused on a shared base.",
+   "Back and underside of every piece invented; cup interiors and saucer undersides are interpretation.",
+   "Photograph is a monochrome calotype-style print: all colour is interpretation (bone china assumed off-white)."
+  ],
+  "observed": "All seven pieces (bowl, jug, teapot, two cups, two saucers) are present and separate; the layout and the teapot's animal-head spout read correctly from the front. Back and undersides are invented."
+ },
+ {
+  "slug": "unnumbered_watherston-brogden-vase",
+  "fig": null,
+  "source": "unnumbered_watherston-brogden-ornamental-vase.png",
+  "crop": null,
+  "scale": {
+   "dim": "height",
+   "metres": 1.2,
+   "basis": "estimated"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Engraving shows one view; the other sides of the figure groups are assumed to repeat the visible arrangement.",
+   "Named figures (Nelson, Wellington, Milton, Shakespeare, Newton, Watt) are from adjacent text; individual likenesses are not resolvable.",
+   "Material (silver or electroplate) is not stated in the catalog; model colour is whatever the generator inferred from a greyscale engraving."
+  ],
+  "observed": "Good silhouette: figure on top, finials, caryatid groups round the body and the pedestal feet. Figure detail is soft at this resolution and not identifiable as specific people."
+ },
+ {
+  "slug": "fig-27_indian-elephant-howdah",
+  "fig": 27,
+  "source": "fig-27_john-nash-indian-elephant-howdah.png",
+  "crop": [
+   680,
+   180,
+   1320,
+   1200
+  ],
+  "scale": {
+   "dim": "height",
+   "metres": 5.0,
+   "basis": "estimated"
+  },
+  "azimuth": 40,
+  "assumptions": [
+   "Cropped to the elephant, trappings, howdah and its low stand; the surrounding court, visitors, rope barriers and second howdah are excluded.",
+   "Right (far) side and rear of the elephant and howdah are invented; the elephant's legs are partly hidden behind a visitor and the rope barrier.",
+   "Lithograph colour is hand-coloured; gold and red are indicative, not measured."
+  ],
+  "observed": "Elephant, trappings, tusks and hanging tassels read well. The howdah canopy is wrong: it comes out as a solid helmet-shaped shell on a thin rail rather than the open arched canopy on pillars. Two visitors at the base of the crop are baked into the model and should be removed."
+ },
+ {
+  "slug": "fig-33_model-working-class-home",
+  "fig": 33,
+  "source": "fig-33_prince-albert-model-working-class-home-1851.png",
+  "crop": null,
+  "scale": {
+   "dim": "height",
+   "metres": 8.0,
+   "basis": "estimated"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Engraving shows the front only; sides and rear are invented and may be a flat slab.",
+   "Small figures in the foreground are part of the scene and may be baked into the base.",
+   "Roof, chimneys and window counts follow the engraving at low resolution; interior is not modelled."
+  ],
+  "observed": "Front facade matches the engraving. Flat grey cards (sky/smoke) float above and behind the roof, and foreground figures are fused into the base; both need cleaning. The back is invented."
+ },
+ {
+  "slug": "fig-52_greek-slave",
+  "fig": 52,
+  "source": "fig-52_hiram-powers-greek-slave-1843.png",
+  "crop": null,
+  "scale": {
+   "dim": "height",
+   "metres": 1.65,
+   "basis": "general knowledge, not stated in the scan or catalog; verify"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Single frontal view of a marble statue; back, the chain detail and the drapery over the post are interpretation.",
+   "The scan shows one of several versions of the sculpture; which version is not stated.",
+   "Content moderation may reject this image; if so the chain falls back to the next model."
+  ],
+  "observed": "Closest match of the set: pose, draped post, chain and round plinth all read correctly. Face and hand detail is soft. The reverse is invented."
+ },
+ {
+  "slug": "fig-54_elkington-jewel-cabinet",
+  "fig": 54,
+  "source": "fig-54_louis-gruner-elkington-jewel-cabinet-1851.png",
+  "crop": null,
+  "scale": {
+   "dim": "max",
+   "metres": 1.4,
+   "basis": "estimated"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Front elevation only; the sides and back are invented.",
+   "The two painted portraits are flat panels; the portrait likenesses are not modelled as sculpture.",
+   "A small torn area in the upper-left background of the scan was repaired and is not evidence."
+  ],
+  "observed": "Good match: pagoda roof, two portrait panels, flanking figures and base. The lion-and-cherub finial is simplified into a small group. The portraits are flat texture, not modelled likenesses."
+ },
+ {
+  "slug": "fig-63_tower-conversion-design",
+  "fig": 63,
+  "source": "fig-63_crystal-palace-conversion-tower-design.png",
+  "crop": [
+   0,
+   0,
+   1654,
+   2430
+  ],
+  "scale": {
+   "dim": "height",
+   "metres": 304.8,
+   "basis": "printed design height of 1000 feet (catalog)"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "This is an unbuilt proposal drawn as an engraving, not an existing object.",
+   "Caption strip cropped off; the tower is one elevation view, so its plan (square, round or octagonal) is unknown.",
+   "Surrounding ground, trees and mist in the engraving may be baked into the model; scale assumes the whole model's height equals the printed 1000 ft."
+  ],
+  "observed": "The stepped shaft with clock and corner turrets reads correctly. The ground, trees and path of the engraving are baked into a flat slab and blobs at the base, so the model's footprint (about 184 x 130 m) is not the tower's. Scale applies the printed 1000 ft to the whole model height."
+ },
+ {
+  "slug": "fig-72_brompton-boilers",
+  "fig": 72,
+  "source": "fig-72_brompton-boilers-south-kensington-exhibition-1862.png",
+  "crop": null,
+  "scale": {
+   "dim": "max",
+   "metres": 150.0,
+   "basis": "estimated"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Single long elevation; the far side, roofs and the depth of the building are invented.",
+   "Horse-drawn traffic and figures in the foreground may be baked into the base.",
+   "Overall length is an estimate; no dimension is printed in the scan."
+  ],
+  "observed": "Weak: the very long frontage collapses into a compact L-shaped mass with two domes, and a flat card stands behind it. The plan is invented. Treat as a massing sketch only; manual rebuild recommended."
+ },
+ {
+  "slug": "fig-73_centenary-model",
+  "fig": 73,
+  "source": "fig-73_crystal-palace-centenary-model-festival-of-britain-1951.png",
+  "crop": null,
+  "scale": {
+   "dim": "max",
+   "metres": 6.0,
+   "basis": "estimated"
+  },
+  "azimuth": 90,
+  "assumptions": [
+   "Photograph of a 1951 model of the Crystal Palace transept with visitors on a raised walkway; the model's rear is invented.",
+   "Visitors are part of the photograph and may be baked into the model; they are not evidence of the model's form.",
+   "Glazing is glass: the generators handle transparent ironwork poorly, so expect a solid or fused result."
+  ],
+  "observed": "The vaulted ironwork silhouette and the raised walkway are recognisable, but the glazed vault comes out solid and fused, and visitors on the walkway are baked into the model. Treat as a rough proxy."
+ }
+]

@@ -6,3 +6,10 @@ crystal/crystal-palace.mp3
 references/downes-1852/source-scans/jp2.zip
 references/muse-drive/extra-work/guidetogreatexhi00grea/guidetogreatexhi00grea_jp2.zip
 *.zip
+
+# scan-models: generated GLBs and Blender files stay local until approved
+scan-models/outputs/
+scan-models/glb/
+scan-models/blend/
+scan-models/uploads.json
+scan-models/run.log

@@ -1,0 +1,749 @@
+{
+ "count": 49,
+ "entries": [
+  {
+   "figure_number": 1,
+   "title": "Fair on the Thames, 1683",
+   "source_image": "Scans/images/fig-01_fair-on-the-thames-1683.png",
+   "description": "Historical engraving of a fair on the frozen Thames, with booths, crowds and activities on the river.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Engraved panorama of a fair on the frozen Thames: a crowded scene, not an object."
+  },
+  {
+   "figure_number": 3,
+   "title": "Felix Summerly\u2019s Tea Service",
+   "source_image": "Scans/images/fig-03_felix-summerly-tea-service-henry-cole-1846.png",
+   "description": "Photograph of a bone-china tea service with teapot, cups, saucers, bowl and jug.",
+   "catalog_uncertainties": [],
+   "status": "modeled",
+   "slug": "fig-03_tea-service",
+   "input_image": "scan-models/inputs/fig-03_tea-service.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a1995d-c720-7c70-8328-cde0c289adf6",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-03_tea-service.blend",
+   "glb": "scan-models/glb/fig-03_tea-service.glb",
+   "preview": "scan-models/previews/fig-03_tea-service.png",
+   "comparison": "scan-models/comparisons/fig-03_tea-service.jpg",
+   "triangles": 1400242,
+   "observed_result": "All seven pieces (bowl, jug, teapot, two cups, two saucers) are present and separate; the layout and the teapot's animal-head spout read correctly from the front. Back and undersides are invented.",
+   "scale": {
+    "dim": "max",
+    "metres": 0.7,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Whole shelf group (teapot, jug, bowl, two cups, two saucers) is one model; items may be fused on a shared base.",
+    "Back and underside of every piece invented; cup interiors and saucer undersides are interpretation.",
+    "Photograph is a monochrome calotype-style print: all colour is interpretation (bone china assumed off-white).",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 4,
+   "title": "Royal Commissioners for the Great Exhibition",
+   "source_image": "Scans/images/fig-04_royal-commissioners-great-exhibition-1851.png",
+   "description": "Group portrait of the commissioners gathered around plans for the Great Exhibition.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Group portrait of people around a table: portrait, not an object."
+  },
+  {
+   "figure_number": 6,
+   "title": "Isambard Kingdom Brunel, 1857",
+   "source_image": "Scans/images/fig-06_isambard-kingdom-brunel-robert-howlett-1857.png",
+   "description": "Portrait of Brunel standing before large ship chains. The original print has rounded upper corners.",
+   "catalog_uncertainties": [
+    "Original rounded print corners are retained within a rectangular canvas.",
+    "A narrow strip at the left edge is cropped inward to exclude torn paper/tabletop; the portrait subject is retained."
+   ],
+   "status": "excluded",
+   "reason": "Portrait of a person."
+  },
+  {
+   "figure_number": 21,
+   "title": "Western (British) nave of the Crystal Palace",
+   "source_image": "Scans/images/fig-21_western-british-nave-crystal-palace.png",
+   "description": "Colour view along the nave, with visitors, elaborate exhibits, galleries and the iron-and-glass roof.",
+   "catalog_uncertainties": [
+    "Photographic glare remains in the lower-right area; historical detail has not been synthesized."
+   ],
+   "status": "excluded",
+   "reason": "Interior view of the nave with many exhibits and visitors: a scene with no single principal object."
+  },
+  {
+   "figure_number": 24,
+   "title": "Raw materials outside the west entrance",
+   "source_image": "Scans/images/fig-24_raw-materials-west-entrance-crystal-palace.png",
+   "description": "Colour exterior display of stone slabs, mineral blocks and columns beside the Palace.",
+   "catalog_uncertainties": [
+    "The far right edge meets the source photograph boundary."
+   ],
+   "status": "manual_review",
+   "reason": "Outdoor display of stone blocks and an obelisk with visitors: a scene. The obelisk or a block could be cropped and modelled if wanted."
+  },
+  {
+   "figure_number": 27,
+   "title": "Indian elephant and howdah",
+   "source_image": "Scans/images/fig-27_john-nash-indian-elephant-howdah.png",
+   "description": "Colour exhibition interior with a decorated elephant, suspended howdahs, textiles and visitors.",
+   "catalog_uncertainties": [
+    "IMG_6459 contains a second, cropped photograph of this illustration. The complete view from IMG_6460 is used."
+   ],
+   "status": "modeled",
+   "slug": "fig-27_indian-elephant-howdah",
+   "input_image": "scan-models/inputs/fig-27_indian-elephant-howdah.png",
+   "crop_box": [
+    680,
+    180,
+    1320,
+    1200
+   ],
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a1995f-d7b5-7b61-97a7-0fa8a7776416",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-27_indian-elephant-howdah.blend",
+   "glb": "scan-models/glb/fig-27_indian-elephant-howdah.glb",
+   "preview": "scan-models/previews/fig-27_indian-elephant-howdah.png",
+   "comparison": "scan-models/comparisons/fig-27_indian-elephant-howdah.jpg",
+   "triangles": 1485910,
+   "observed_result": "Elephant, trappings, tusks and hanging tassels read well. The howdah canopy is wrong: it comes out as a solid helmet-shaped shell on a thin rail rather than the open arched canopy on pillars. Two visitors at the base of the crop are baked into the model and should be removed.",
+   "scale": {
+    "dim": "height",
+    "metres": 5.0,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Cropped to the elephant, trappings, howdah and its low stand; the surrounding court, visitors, rope barriers and second howdah are excluded.",
+    "Right (far) side and rear of the elephant and howdah are invented; the elephant's legs are partly hidden behind a visitor and the rope barrier.",
+    "Lithograph colour is hand-coloured; gold and red are indicative, not measured.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 28,
+   "title": "The Tunis Court",
+   "source_image": "Scans/images/fig-28_tunis-court-great-exhibition.png",
+   "description": "Engraved exhibition court displaying textiles, vessels and decorative objects beneath draperies.",
+   "catalog_uncertainties": [
+    "The same page is also photographed in IMG_6460, where this illustration is incomplete. IMG_6459 supplies the complete view."
+   ],
+   "status": "excluded",
+   "reason": "Interior court scene of hangings and vessels: a scene."
+  },
+  {
+   "figure_number": 29,
+   "title": "Hibbert, Platt and Son\u2019s cotton machines",
+   "source_image": "Scans/images/fig-29_hibbert-platt-son-cotton-machines-1851.png",
+   "description": "Visitors observe cotton machinery behind a protective rail under the Palace roof.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Visitors beside cotton machinery under the roof: machinery in a crowded scene."
+  },
+  {
+   "figure_number": 30,
+   "title": "De la Rue\u2019s envelope machine",
+   "source_image": "Scans/images/fig-30_de-la-rue-envelope-machine-demonstration.png",
+   "description": "Visitors watch an attendant demonstrate envelope-making machinery at a colourful stationery stand.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Envelope-machine demonstration at a stationery stand: machinery in a crowded scene."
+  },
+  {
+   "figure_number": 31,
+   "title": "Goods for the home",
+   "source_image": "Scans/images/fig-31_goods-for-home-decorative-furnishings.png",
+   "description": "Colour exhibition view of ornate furnishings, cabinets, chairs, trays and visitors.",
+   "catalog_uncertainties": [],
+   "status": "manual_review",
+   "reason": "Several distinct furnishings (ornate organ or piano, tufted chair, gilt urn, staircase and cabinets) in one view. No single principal object: each would need its own crop. Say which to model."
+  },
+  {
+   "figure_number": 33,
+   "title": "Prince Albert\u2019s model working-class home",
+   "source_image": "Scans/images/fig-33_prince-albert-model-working-class-home-1851.png",
+   "description": "Engraved exterior of model housing; adjacent text credits Henry Roberts and describes homes for four families.",
+   "catalog_uncertainties": [],
+   "status": "modeled",
+   "slug": "fig-33_model-working-class-home",
+   "input_image": "scan-models/inputs/fig-33_model-working-class-home.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a1995f-f856-7b20-862a-edfc694d61f0",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-33_model-working-class-home.blend",
+   "glb": "scan-models/glb/fig-33_model-working-class-home.glb",
+   "preview": "scan-models/previews/fig-33_model-working-class-home.png",
+   "comparison": "scan-models/comparisons/fig-33_model-working-class-home.jpg",
+   "triangles": 1389300,
+   "observed_result": "Front facade matches the engraving. Flat grey cards (sky/smoke) float above and behind the roof, and foreground figures are fused into the base; both need cleaning. The back is invented.",
+   "scale": {
+    "dim": "height",
+    "metres": 8.0,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Engraving shows the front only; sides and rear are invented and may be a flat slab.",
+    "Small figures in the foreground are part of the scene and may be baked into the base.",
+    "Roof, chimneys and window counts follow the engraving at low resolution; interior is not modelled.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": null,
+   "title": "Ornamental vase by Watherston and Brogden",
+   "source_image": "Scans/images/unnumbered_watherston-brogden-ornamental-vase.png",
+   "description": "Sculptural ornamental vase with historical figures and a figure at the top; adjacent text names Nelson, Wellington, Milton, Shakespeare, Newton and Watt.",
+   "catalog_uncertainties": [
+    "Figure number and beginning of caption lie outside the photograph; no figure number is assigned.",
+    "The original illustration has an arched top; blank paper is retained within the rectangle."
+   ],
+   "status": "modeled",
+   "slug": "unnumbered_watherston-brogden-vase",
+   "input_image": "scan-models/inputs/unnumbered_watherston-brogden-vase.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a1995d-c43f-7f30-8eec-d63fb8c3f824",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/unnumbered_watherston-brogden-vase.blend",
+   "glb": "scan-models/glb/unnumbered_watherston-brogden-vase.glb",
+   "preview": "scan-models/previews/unnumbered_watherston-brogden-vase.png",
+   "comparison": "scan-models/comparisons/unnumbered_watherston-brogden-vase.jpg",
+   "triangles": 1426179,
+   "observed_result": "Good silhouette: figure on top, finials, caryatid groups round the body and the pedestal feet. Figure detail is soft at this resolution and not identifiable as specific people.",
+   "scale": {
+    "dim": "height",
+    "metres": 1.2,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Engraving shows one view; the other sides of the figure groups are assumed to repeat the visible arrangement.",
+    "Named figures (Nelson, Wellington, Milton, Shakespeare, Newton, Watt) are from adjacent text; individual likenesses are not resolvable.",
+    "Material (silver or electroplate) is not stated in the catalog; model colour is whatever the generator inferred from a greyscale engraving.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 36,
+   "title": "Pugin\u2019s Medieval Court",
+   "source_image": "Scans/images/fig-36_pugin-medieval-court-gothic-revival.png",
+   "description": "Colour view of visitors in Pugin\u2019s court among richly decorated Gothic furniture and ecclesiastical objects.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Interior view of Pugin's court with visitors: a scene."
+  },
+  {
+   "figure_number": 37,
+   "title": "The Dispersion of the Works of All Nations",
+   "source_image": "Scans/images/fig-37_cruikshank-dispersion-works-all-nations-1851.png",
+   "description": "Fantastical crowded satire showing exhibition objects dispersing around the Crystal Palace.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Fantastical crowded satire: not an object."
+  },
+  {
+   "figure_number": 38,
+   "title": "Workers building the Crystal Palace",
+   "source_image": "Scans/images/fig-38_workers-building-crystal-palace-1850.png",
+   "description": "Engraving of workers operating woodworking machinery during construction.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Workers at woodworking machinery: a scene of people and machinery."
+  },
+  {
+   "figure_number": 39,
+   "title": "Specimens from Mr. Punch\u2019s Industrial Exhibition",
+   "source_image": "Scans/images/fig-39_mr-punch-industrial-exhibition-workers.png",
+   "description": "Cartoon displaying impoverished workers in glass cases; internal title reads Specimens from Mr. Punch\u2019s Industrial Exhibition of 1850 (To be improved in 1851).",
+   "catalog_uncertainties": [
+    "The book caption is partly outside the photograph. Visible wording and date are transcribed; missing text is not supplied as fact."
+   ],
+   "status": "excluded",
+   "reason": "Cartoon of figures in glass cases: caricature scene."
+  },
+  {
+   "figure_number": 40,
+   "title": "Manchester in 1851",
+   "source_image": "Scans/images/fig-40_george-cruikshank-manchester-1851.png",
+   "description": "Satirical view of deserted Manchester streets as residents travel to the exhibition.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Satirical street view: a scene."
+  },
+  {
+   "figure_number": 41,
+   "title": "London in 1851",
+   "source_image": "Scans/images/fig-41_george-cruikshank-london-1851.png",
+   "description": "Crowded London street filled with exhibition visitors, paired with the deserted Manchester scene.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Crowded street scene: a scene."
+  },
+  {
+   "figure_number": 42,
+   "title": "Looking for lodgings",
+   "source_image": "Scans/images/fig-42_george-cruikshank-looking-for-lodgings.png",
+   "description": "A family is shown a cramped cellar lodging containing a bed and hammock; the page links the scene to Henry Mayhew\u2019s Mr. and Mrs. Sandboys.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Interior scene of people in a cellar: a scene."
+  },
+  {
+   "figure_number": 43,
+   "title": "Mary Callinack from Penzance",
+   "source_image": "Scans/images/fig-43_mary-callinack-penzance-1851.png",
+   "description": "Engraved seated portrait of Mary Callinack in a bonnet and dress.",
+   "catalog_uncertainties": [
+    "A torn left edge removes background and reaches the outline of the dress. Missing subject detail cannot be authenticated. Background-only repair is separately documented.",
+    "The repaired left background is approximate; the join may remain visible at high magnification. Review the unrepaired comparison for scholarly reproduction.",
+    "Background hatching in the larger tear is approximate; no missing subject details were reconstructed."
+   ],
+   "status": "excluded",
+   "reason": "Seated portrait of a person."
+  },
+  {
+   "figure_number": 44,
+   "title": "Agricultural workers at the Great Exhibition",
+   "source_image": "Scans/images/fig-44_agricultural-workers-great-exhibition-1851.png",
+   "description": "Group of rural visitors standing among sculpture exhibits, including a lion.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Crowd of visitors; a lion statue on a plinth is visible at the top edge but is a small part of the image. A crop could be modelled if wanted."
+  },
+  {
+   "figure_number": 45,
+   "title": "The Queen and her subjects",
+   "source_image": "Scans/images/fig-45_queen-and-subjects-first-may-punch-1851.png",
+   "description": "Cartoon depicting Victoria and Albert among a friendly crowd, with an ironic subtitle about conspirators and assassins.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Cartoon of a crowd: caricature scene."
+  },
+  {
+   "figure_number": 46,
+   "title": "The Pound and the Shilling",
+   "source_image": "Scans/images/fig-46_pound-and-shilling-punch-1851.png",
+   "description": "Cartoon of social groups encountering each other in the exhibition; its printed subtitle asks Whoever Thought of Meeting You Here?",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Cartoon of social groups: caricature scene."
+  },
+  {
+   "figure_number": 47,
+   "title": "Dinner-Time at the Crystal Palace",
+   "source_image": "Scans/images/fig-47_dinner-time-crystal-palace-punch-1851.png",
+   "description": "Punch cartoon of families resting and eating around a statue, with the phrase One touch of nature makes the whole world kin.",
+   "catalog_uncertainties": [
+    "Original illustration has a stepped silhouette; surrounding blank paper is retained for a rectangular image."
+   ],
+   "status": "excluded",
+   "reason": "Cartoon of people resting around a statue; the statue is a small part of the image. A crop could be modelled if wanted."
+  },
+  {
+   "figure_number": 48,
+   "title": "Agricultural machinery display",
+   "source_image": "Scans/images/fig-48_agricultural-machinery-garrett-leiston-works.png",
+   "description": "Colour view of Garrett & Son\u2019s Leiston Works machinery stand with male visitors.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Machinery stand with visitors: machinery and a display structure in a scene."
+  },
+  {
+   "figure_number": 49,
+   "title": "Bradford Court textile display",
+   "source_image": "Scans/images/fig-49_bradford-court-textile-display.png",
+   "description": "Colour interior of Bradford Court showing striped fabrics, textile cabinets, women and a child.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Interior display of fabrics and cabinets with people: a scene."
+  },
+  {
+   "figure_number": 50,
+   "title": "The Happy Family in Hyde Park",
+   "source_image": "Scans/images/fig-50_happy-family-hyde-park-john-tenniel-1851.png",
+   "description": "Cartoon showing spectators in front of an ornate enclosure, used to discuss national and international relations.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Cartoon of spectators before an enclosure: caricature scene."
+  },
+  {
+   "figure_number": 51,
+   "title": "Peace! A Sketch from the Crystal Palace",
+   "source_image": "Scans/images/fig-51_peace-sketch-crystal-palace-armaments-1851.png",
+   "description": "Cartoon contrasting the language of peace with the display of arms and military figures.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Cartoon contrasting peace and arms: caricature scene."
+  },
+  {
+   "figure_number": 52,
+   "title": "The Greek Slave by Hiram Powers",
+   "source_image": "Scans/images/fig-52_hiram-powers-greek-slave-1843.png",
+   "description": "Photograph of the marble sculpture of a standing chained woman.",
+   "catalog_uncertainties": [],
+   "status": "modeled",
+   "slug": "fig-52_greek-slave",
+   "input_image": "scan-models/inputs/fig-52_greek-slave.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a19962-058c-7ab3-adea-d5773586b19a",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-52_greek-slave.blend",
+   "glb": "scan-models/glb/fig-52_greek-slave.glb",
+   "preview": "scan-models/previews/fig-52_greek-slave.png",
+   "comparison": "scan-models/comparisons/fig-52_greek-slave.jpg",
+   "triangles": 1458679,
+   "observed_result": "Closest match of the set: pose, draped post, chain and round plinth all read correctly. Face and hand detail is soft. The reverse is invented.",
+   "scale": {
+    "dim": "height",
+    "metres": 1.65,
+    "basis": "general knowledge, not stated in the scan or catalog; verify"
+   },
+   "assumptions": [
+    "Single frontal view of a marble statue; back, the chain detail and the drapery over the post are interpretation.",
+    "The scan shows one of several versions of the sculpture; which version is not stated.",
+    "Content moderation may reject this image; if so the chain falls back to the next model.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 53,
+   "title": "Virginian Slave by John Tenniel",
+   "source_image": "Scans/images/fig-53_john-tenniel-virginian-slave-punch-1851.png",
+   "description": "Satirical image of an enslaved woman standing on a pedestal with chains and an American motto.",
+   "catalog_uncertainties": [],
+   "status": "manual_review",
+   "reason": "A satirical drawing of a statue on a pedestal: modellable as an object, but it is a racialised caricature of an enslaved woman. Not modelled without your decision."
+  },
+  {
+   "figure_number": 54,
+   "title": "Jewel cabinet by Louis Gruner for Elkington",
+   "source_image": "Scans/images/fig-54_louis-gruner-elkington-jewel-cabinet-1851.png",
+   "description": "Ornate cabinet with portraits of Victoria and Albert, metal figures, enamel decoration and a lion finial.",
+   "catalog_uncertainties": [
+    "Small torn area in the upper-left background; see repair notes and unrepaired comparison."
+   ],
+   "status": "modeled",
+   "slug": "fig-54_elkington-jewel-cabinet",
+   "input_image": "scan-models/inputs/fig-54_elkington-jewel-cabinet.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a19962-2a62-7a22-aab0-96b1d78d86d4",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-54_elkington-jewel-cabinet.blend",
+   "glb": "scan-models/glb/fig-54_elkington-jewel-cabinet.glb",
+   "preview": "scan-models/previews/fig-54_elkington-jewel-cabinet.png",
+   "comparison": "scan-models/comparisons/fig-54_elkington-jewel-cabinet.jpg",
+   "triangles": 1400627,
+   "observed_result": "Good match: pagoda roof, two portrait panels, flanking figures and base. The lion-and-cherub finial is simplified into a small group. The portraits are flat texture, not modelled likenesses.",
+   "scale": {
+    "dim": "max",
+    "metres": 1.4,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Front elevation only; the sides and back are invented.",
+    "The two painted portraits are flat panels; the portrait likenesses are not modelled as sculpture.",
+    "A small torn area in the upper-left background of the scan was repaired and is not evidence.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 56,
+   "title": "Historical caricature of \u201cCannibal Islanders\u201d",
+   "source_image": "Scans/images/fig-56_cannibal-islanders-historical-caricature.png",
+   "description": "Coloured caricature of a refreshment scene, presented in the book as an example of racialized stereotyping of foreign visitors.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Coloured caricature scene: not an object."
+  },
+  {
+   "figure_number": 57,
+   "title": "Chinese Commission satirical frontispiece",
+   "source_image": "Scans/images/fig-57_chinese-commission-frontispiece-henry-sutherland-edwards.png",
+   "description": "Coloured satirical frontispiece depicting caricatured Chinese figures; the source discusses British prejudice and Orientalism.",
+   "catalog_uncertainties": [
+    "Original rounded top corners are retained."
+   ],
+   "status": "excluded",
+   "reason": "Coloured satirical frontispiece: a document and caricature scene."
+  },
+  {
+   "figure_number": 58,
+   "title": "Opening of the Great Exhibition",
+   "source_image": "Scans/images/fig-58_opening-great-exhibition-hc-selous-1851.png",
+   "description": "Ceremonial group portrait of Queen Victoria, Prince Albert, officials and spectators inside the Crystal Palace.",
+   "catalog_uncertainties": [
+    "Right edge is clipped by the source photograph."
+   ],
+   "status": "excluded",
+   "reason": "Ceremonial group scene inside the building: people and interior."
+  },
+  {
+   "figure_number": 59,
+   "title": "The Exhibition and Foreigners",
+   "source_image": "Scans/images/fig-59_the-exhibition-and-foreigners-broadsheet.png",
+   "description": "Illustrated song broadside titled The Exhibition and Foreigners, using caricatures and verses about overseas visitors.",
+   "catalog_uncertainties": [
+    "Irregular edges belong to the reproduced historical broadside and are retained on a rectangular canvas."
+   ],
+   "status": "excluded",
+   "reason": "Printed song broadside: a document."
+  },
+  {
+   "figure_number": 60,
+   "title": "A Hint to the Commissioners",
+   "source_image": "Scans/images/fig-60_john-leech-hint-to-the-commissioners-1851.png",
+   "description": "Punch cartoon portraying French visitors puzzled by washing equipment; the surrounding discussion identifies its Francophobic framing.",
+   "catalog_uncertainties": [
+    "The far right edge meets the source photograph boundary."
+   ],
+   "status": "excluded",
+   "reason": "Punch cartoon of people with washing equipment: caricature scene."
+  },
+  {
+   "figure_number": 61,
+   "title": "The Opera: crossing boundaries",
+   "source_image": "Scans/images/fig-61_the-opera-crossing-boundaries-cartoon.png",
+   "description": "Historical cartoon of visitors in varied forms of dress at an opera reception, reproduced in a discussion of cultural boundaries.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Cartoon of people at an opera reception: caricature scene."
+  },
+  {
+   "figure_number": 63,
+   "title": "Proposed conversion of the exhibition building into a tower",
+   "source_image": "Scans/images/fig-63_crystal-palace-conversion-tower-design.png",
+   "description": "Engraving proposing a tall stepped tower made from the exhibition building; the printed design identifies a height of 1000 feet.",
+   "catalog_uncertainties": [],
+   "status": "modeled",
+   "slug": "fig-63_tower-conversion-design",
+   "input_image": "scan-models/inputs/fig-63_tower-conversion-design.png",
+   "crop_box": [
+    0,
+    0,
+    1654,
+    2430
+   ],
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a19964-37d8-7b51-9047-29ca442006a4",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-63_tower-conversion-design.blend",
+   "glb": "scan-models/glb/fig-63_tower-conversion-design.glb",
+   "preview": "scan-models/previews/fig-63_tower-conversion-design.png",
+   "comparison": "scan-models/comparisons/fig-63_tower-conversion-design.jpg",
+   "triangles": 1473281,
+   "observed_result": "The stepped shaft with clock and corner turrets reads correctly. The ground, trees and path of the engraving are baked into a flat slab and blobs at the base, so the model's footprint (about 184 x 130 m) is not the tower's. Scale applies the printed 1000 ft to the whole model height.",
+   "scale": {
+    "dim": "height",
+    "metres": 304.8,
+    "basis": "printed design height of 1000 feet (catalog)"
+   },
+   "assumptions": [
+    "This is an unbuilt proposal drawn as an engraving, not an existing object.",
+    "Caption strip cropped off; the tower is one elevation view, so its plan (square, round or octagonal) is unknown.",
+    "Surrounding ground, trees and mist in the engraving may be baked into the model; scale assumes the whole model's height equals the printed 1000 ft.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 65,
+   "title": "North transept at Sydenham",
+   "source_image": "Scans/images/fig-65_north-transept-egyptian-colossi-sydenham.png",
+   "description": "Coloured interior with Egyptian colossi, sphinxes, palms and visitors beneath the glass transept.",
+   "catalog_uncertainties": [
+    "Right edge of the illustration is clipped by the source photograph; no missing architectural detail was invented."
+   ],
+   "status": "excluded",
+   "reason": "Interior scene at Sydenham (not the 1851 building) with colossi and visitors: a scene."
+  },
+  {
+   "figure_number": 67,
+   "title": "Handel Festival at Sydenham, 1857",
+   "source_image": "Scans/images/fig-67_handel-festival-sydenham-crystal-palace-1857.png",
+   "description": "Engraving showing the orchestra, chorus, organ and audience at a Handel festival inside the Crystal Palace.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Festival interior with orchestra and audience at Sydenham: a scene."
+  },
+  {
+   "figure_number": 68,
+   "title": "Queen Victoria and her children",
+   "source_image": "Scans/images/fig-68_queen-victoria-and-children-john-callcott-horsley.png",
+   "description": "Portrait of Queen Victoria and her children with a map or document and a globe.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Portrait of a person and her children."
+  },
+  {
+   "figure_number": 69,
+   "title": "The Crystal Palace fire",
+   "source_image": "Scans/images/fig-69_crystal-palace-fire-1936.png",
+   "description": "Night photograph of the burning Crystal Palace with firefighting streams and a water tower.",
+   "catalog_uncertainties": [
+    "Caption date is transcribed as printed (20 November 1936); it has not been independently verified."
+   ],
+   "status": "excluded",
+   "reason": "Night photograph of the building on fire: an event, not an object."
+  },
+  {
+   "figure_number": 70,
+   "title": "Crystal Palace remains after the fire",
+   "source_image": "Scans/images/fig-70_crystal-palace-remains-after-fire.png",
+   "description": "Photograph of collapsed ironwork, debris and surviving towers after the fire.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Photograph of ruins and debris: not an object."
+  },
+  {
+   "figure_number": 71,
+   "title": "Crystal Palace souvenir blotting-book cover",
+   "source_image": "Scans/images/fig-71_crystal-palace-blotting-book-painted-glass.png",
+   "description": "Decorative souvenir cover with a painted view of the Palace surrounded by gold vine ornament.",
+   "catalog_uncertainties": [
+    "The decorative cover has rounded/irregular edges; a small amount of surrounding paper is retained."
+   ],
+   "status": "manual_review",
+   "reason": "Souvenir blotting-book cover: a real object, but flat. It would model as a thin slab with a painted panel and gilt vine border. Say if you want it."
+  },
+  {
+   "figure_number": 72,
+   "title": "The Brompton Boilers, 1862",
+   "source_image": "Scans/images/fig-72_brompton-boilers-south-kensington-exhibition-1862.png",
+   "description": "Coloured exterior view of the exhibition building and horse-drawn traffic.",
+   "catalog_uncertainties": [],
+   "status": "modeled",
+   "slug": "fig-72_brompton-boilers",
+   "input_image": "scan-models/inputs/fig-72_brompton-boilers.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a19964-d6a8-7082-a8d5-9776c6923a4c",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-72_brompton-boilers.blend",
+   "glb": "scan-models/glb/fig-72_brompton-boilers.glb",
+   "preview": "scan-models/previews/fig-72_brompton-boilers.png",
+   "comparison": "scan-models/comparisons/fig-72_brompton-boilers.jpg",
+   "triangles": 1405977,
+   "observed_result": "Weak: the very long frontage collapses into a compact L-shaped mass with two domes, and a flat card stands behind it. The plan is invented. Treat as a massing sketch only; manual rebuild recommended.",
+   "scale": {
+    "dim": "max",
+    "metres": 150.0,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Single long elevation; the far side, roofs and the depth of the building are invented.",
+    "Horse-drawn traffic and figures in the foreground may be baked into the base.",
+    "Overall length is an estimate; no dimension is printed in the scan.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 73,
+   "title": "Crystal Palace centenary model",
+   "source_image": "Scans/images/fig-73_crystal-palace-centenary-model-festival-of-britain-1951.png",
+   "description": "Photograph of visitors beside a model of the Crystal Palace at the Festival of Britain.",
+   "catalog_uncertainties": [],
+   "status": "modeled",
+   "slug": "fig-73_centenary-model",
+   "input_image": "scan-models/inputs/fig-73_centenary-model.png",
+   "crop_box": null,
+   "generator": "tripo_h31",
+   "attempts": [
+    {
+     "model": "tripo_h31",
+     "status": "completed",
+     "request_id": "01a19965-cf86-75c0-aa9c-ef29f3bfaa9d",
+     "error": null
+    }
+   ],
+   "blend": "scan-models/blend/fig-73_centenary-model.blend",
+   "glb": "scan-models/glb/fig-73_centenary-model.glb",
+   "preview": "scan-models/previews/fig-73_centenary-model.png",
+   "comparison": "scan-models/comparisons/fig-73_centenary-model.jpg",
+   "triangles": 1397789,
+   "observed_result": "The vaulted ironwork silhouette and the raised walkway are recognisable, but the glazed vault comes out solid and fused, and visitors on the walkway are baked into the model. Treat as a rough proxy.",
+   "scale": {
+    "dim": "max",
+    "metres": 6.0,
+    "basis": "estimated"
+   },
+   "assumptions": [
+    "Photograph of a 1951 model of the Crystal Palace transept with visitors on a raised walkway; the model's rear is invented.",
+    "Visitors are part of the photograph and may be baked into the model; they are not evidence of the model's form.",
+    "Glazing is glass: the generators handle transparent ironwork poorly, so expect a solid or fused result.",
+    "Repaired areas in the scan are not historical evidence."
+   ]
+  },
+  {
+   "figure_number": 74,
+   "title": "Festival of Britain official poster, 1951",
+   "source_image": "Scans/images/fig-74_festival-of-britain-official-poster-1951.png",
+   "description": "Poster showing the Festival emblem above a map of Britain; lettering announces 1951, May 3\u2013September 30.",
+   "catalog_uncertainties": [
+    "The torn right edge removes a narrow area of blue sea/background. See repair notes and unrepaired comparison.",
+    "The repaired sea texture is approximate and its join remains slightly visible at high magnification."
+   ],
+   "status": "excluded",
+   "reason": "Printed poster: a document."
+  },
+  {
+   "figure_number": 75,
+   "title": "Huntley & Palmers centenary advertisement",
+   "source_image": "Scans/images/fig-75_huntley-palmers-biscuits-centenary-advertisement-1951.png",
+   "description": "Biscuit advertisement celebrating the 1851 exhibition, with a Crystal Palace exterior and 1951 branding.",
+   "catalog_uncertainties": [],
+   "status": "excluded",
+   "reason": "Printed advertisement: a document."
+  }
+ ]
+}
