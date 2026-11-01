@@ -1,0 +1,41 @@
+{
+  "project": "Crystal Palace Illustrations — Grok Models",
+  "status": "in_progress",
+  "total_catalog_entries": 49,
+  "completed_previews": 6,
+  "completed_proxies": 1,
+  "notes": "Full high-fidelity editable Blender models are not possible in this environment. Deliverables are high-quality concept/preview renders of the intended 3D models plus simple geometric proxy meshes (GLB) that can be imported into Blender as starting points. All 49 will be processed.",
+  "batch_1": [
+    {
+      "filename": "fig-01_fair-on-the-thames-1683.png",
+      "preview": "Vmfys.jpg",
+      "proxy": "fig-01_fair-on-the-thames-1683_proxy.glb",
+      "status": "preview + proxy"
+    },
+    {
+      "filename": "fig-03_felix-summerly-tea-service-henry-cole-1846.png",
+      "preview": "Degxq.jpg",
+      "status": "preview"
+    },
+    {
+      "filename": "fig-27_john-nash-indian-elephant-howdah.png",
+      "preview": "pFWoF.jpg",
+      "status": "preview"
+    },
+    {
+      "filename": "fig-21_western-british-nave-crystal-palace.png",
+      "preview": "GoBxM.jpg",
+      "status": "preview"
+    },
+    {
+      "filename": "fig-06_isambard-kingdom-brunel-robert-howlett-1857.png",
+      "preview": "fYJjP.jpg",
+      "status": "preview"
+    },
+    {
+      "filename": "fig-52_hiram-powers-greek-slave-1843.png",
+      "preview": "MqJyu.jpg",
+      "status": "preview"
+    }
+  ]
+}
