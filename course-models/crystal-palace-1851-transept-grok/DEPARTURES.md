@@ -93,3 +93,8 @@ This lists every simplification or guess in `scripts/build_transept.py`. Status 
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## 2026-11-01 per-shot exposure (candidate pipeline only)
+| ID | Grade | Decision | Why |
+|---|---|---|---|
+| G04 | Grade (cheat) | `render_views.py --shot-exposure` sets CP023_into_nave_start/end to exposure -2.2 (vs look interior_daylit -1.20). Opt-in; live render_round.sh does not use it. No geometry change. | The HP interior envelope candidate (r11_envelope) blows out CP023 at look exposure; -1.6..-2.2 reads (envjudge). Applies only if the envelope is kept. |

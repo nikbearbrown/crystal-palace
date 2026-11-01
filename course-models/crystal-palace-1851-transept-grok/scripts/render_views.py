@@ -1,5 +1,5 @@
 """Render named cameras from a transept .blend.
-blender -b rounds/rNN.blend -P render_views.py -- --cams A,B --outdir renders/rNN --res 960x540 --samples 48 [--portrait A] [--claude path.blend [--no-furrow]]"""
+blender -b rounds/rNN.blend -P render_views.py -- --cams A,B --outdir renders/rNN --res 960x540 --samples 48 [--portrait A] [--shot-exposure] [--claude path.blend [--no-furrow]]"""
 import bpy, sys, os
 
 # crystal-palace-look v1 (shared grade)
@@ -83,11 +83,22 @@ else:
 if arg("--exposure"):
     sc.view_settings.exposure = float(arg("--exposure"))
     print("EXPOSURE_OVERRIDE", sc.view_settings.exposure, flush=True)
+# Per-shot exposure cheat (2026-11-01; pattern from the exhibits folder's per-shot --exposure).
+# Opt-in with --shot-exposure: without the flag every camera renders exactly as before.
+# Cameras absent from the table keep the scene/look/--exposure value unchanged.
+SHOT_EXPOSURE = {
+    "CP023_into_nave_start": -2.2,   # HP interior envelope candidate: reads at -1.6..-2.2 (envjudge)
+    "CP023_into_nave_end": -2.2,
+}
+_use_shot_exp = "--shot-exposure" in argv
+_base_exp = sc.view_settings.exposure
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
     if not cam: print("NO CAM", c); continue
     sc.camera = cam
+    sc.view_settings.exposure = SHOT_EXPOSURE[c] if (_use_shot_exp and c in SHOT_EXPOSURE) else _base_exp
+    if _use_shot_exp and c in SHOT_EXPOSURE: print("SHOT_EXPOSURE", c, sc.view_settings.exposure, flush=True)
     if swap_scene_people is not None and "--no-people" not in argv:
         _pst = swap_scene_people(era=_era, camera=cam)
         print("PEOPLE", _PPL_VER, _pst, flush=True)

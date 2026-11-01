@@ -156,3 +156,15 @@ never git init inside a grok folder; commit from the worktree root
 ## 2026-11-01 HP interior envelope (CP023) still CANDIDATE
 - Oct 27 candidate `rounds/candidates/r11_envelope.blend` rendered blown out (scene exposure 0.4). Review renders at -1.6 and -2.2 (in /workspace/tmp/envjudge/cp023) read well: nave, galleries, OJ columns, locomotive, no sea horizon.
 - Not promoted: the envelope changes all 14 transept cameras, including the exteriors, and the transept pipeline has no per-shot exposure yet. Next step: per-shot exposure (-2.2 for CP023) and a full-camera check before a keep call.
+
+## 2026-11-01 envelope full-camera check (CANDIDATE pairs; no keep/revert call)
+- Per-shot exposure added to `scripts/render_views.py`: table `SHOT_EXPOSURE` = {CP023_into_nave_start: -2.2, CP023_into_nave_end: -2.2}. Opt-in with `--shot-exposure`; without the flag every camera renders exactly as before, and cameras not in the table keep the look/scene/`--exposure` value. `render_round.sh` (live pipeline) unchanged and does not pass the flag. Pattern from the exhibits folder's per-shot `--exposure`.
+- `scripts/render_envelope_check.sh`: 15 cameras (the 14 in render_round.sh + CP008_build_around_start) from live `rounds/r11.blend` (no table) and from `rounds/candidates/r11_envelope.blend` (`--shot-exposure`), both through apply_look interior_daylit, 1280x720, 28 spp, people v3.4, Blender 5.1.2 headless. Output `renders/candidates/envelope_check_20261101/{live,candidate}`. REV_combo not rendered (needs Claude's blend appended).
+- Pairs (`scripts/envelope_pairs.py`): `/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_<CP|REVIEW>_transept_envelope_<cam>_pair.jpg` (15). All CANDIDATE; nothing promoted.
+- "Before" is a fresh live render with the current shared people library, so crowds differ from the committed renders/r11 PNGs (same crowd in both halves of each pair).
+- What changed (executor notes, reviewer decides):
+  - CP023 start/end: open sky east replaced by enclosed nave (glazed roof, blue/yellow ironwork, cream walls), not blown out at -2.2. Ironwork reads saturated yellow; walls flat cream.
+  - Osler fountain (REF_elm_north, REV_int_up, DET_fountain, faint in REF_talbot): candidate fountain reads milky/ghost-pale, losing the dark cut-glass tiers. Cause: `brighten_host_glass()` matches any material with "glass" in its name, including the fountain glass (alpha <= 0.35, transmission >= 0.85). Regression.
+  - Exteriors REV_ext34, REV_south: lawn gone (GROUND_PARK hidden) -> pale grey ground; REV_ext34 also shows the east-nave seal as a plain white box beside the transept. Regression. PLATE_IV ortho: glass slightly paler, otherwise near-identical.
+  - CP008 start/end, CP017 start/end, REF_absolon, OPEN_gallery, REF_talbot: slightly brighter/paler glass and sky beyond, otherwise near-identical; REF_absolon/OPEN_gallery lose some depth in the far nave haze.
+- Live blend md5s unchanged before/after (r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r10 a916795bca80185a0a576c24f41b9f40; candidate c579eb76785ab2bd6b88a157c648d56e unchanged too).
