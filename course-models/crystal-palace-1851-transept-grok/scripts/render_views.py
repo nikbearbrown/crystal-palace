@@ -109,6 +109,18 @@ _base_exp = sc.view_settings.exposure
 SHOT_PEOPLE_GATE_OFF = {"CP023_into_nave_start", "CP023_into_nave_end"}
 _PG = getattr(swap_scene_people, "__globals__", None) if swap_scene_people else None
 _gate_lib = _PG.get("_is_close_up_for_base_mesh") if _PG else None
+# 2026-11-01 CP023 crowd dressing (DEPARTURES PPL-C01..C04): for the two CP023 cameras only,
+# figures above the gate get standing poses and all ladies a back-of-head bonnet (wrappers around
+# the library's pose pick and build_bonnet, private mesh cache, installed only for this call), then cp023_dressing.dress() moves/hides figures cut by the
+# frame edge or within ~3 m of the camera and hides stray hat parts; undone after the render.
+# Shared people_lib unchanged. --no-cp023-dressing renders the previous behaviour.
+SHOT_CROWD_DRESSING = {"CP023_into_nave_start", "CP023_into_nave_end"}
+try:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import cp023_dressing as _cpd
+except ImportError:
+    _cpd = None
+_use_dress = _cpd is not None and "--no-cp023-dressing" not in argv
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
@@ -116,16 +128,30 @@ for c in cams:
     sc.camera = cam
     sc.view_settings.exposure = _shot_tab[c] if (_use_shot_exp and c in _shot_tab) else _base_exp
     if _use_shot_exp and c in _shot_tab: print("SHOT_EXPOSURE", _blend_name, c, sc.view_settings.exposure, flush=True)
+    _dr = False
     if swap_scene_people is not None and "--no-people" not in argv:
         _off = c in SHOT_PEOPLE_GATE_OFF and _gate_lib is not None
+        _dr = _use_dress and c in SHOT_CROWD_DRESSING and _PG is not None
+        if _dr: sc.render.resolution_x, sc.render.resolution_y = W, H   # gate/edge tests at the render frame
         if _off: _PG["_is_close_up_for_base_mesh"] = lambda ob, cam, threshold=None: False
         try:
-            _pst = swap_scene_people(era=_era, camera=cam)
+            if _dr:
+                with _cpd.people_patch(_PG, _gate_lib, cam) as _pp:
+                    _pst = swap_scene_people(era=_era, camera=cam)
+                _pst["pose_replaced"] = _pp["pose_replaced"]
+            else:
+                _pst = swap_scene_people(era=_era, camera=cam)
         finally:
             if _off: _PG["_is_close_up_for_base_mesh"] = _gate_lib
         print("PEOPLE", _PPL_VER, _pst, "gate_off" if _off else "gate_lib", flush=True)
+        if _dr:
+            _dst, _dlog, _undo = _cpd.dress(cam, _PG["_is_figure"])
+            for _l in _dlog: print("CP023_DRESS", c, _l, flush=True)
+            print("CP023_DRESS_STATS", c, _dst, flush=True)
     if c in portrait: sc.render.resolution_x, sc.render.resolution_y = H * 3 // 4, int(H * 1.0)
     else: sc.render.resolution_x, sc.render.resolution_y = W, H
     sc.render.filepath = os.path.join(outdir, c + ".png")
     bpy.ops.render.render(write_still=True)
     print("WROTE", sc.render.filepath, flush=True)
+    if _dr:
+        _undo()

@@ -208,3 +208,19 @@ never git init inside a grok folder; commit from the worktree root
   - CP008 start/end, CP017 start/end, REF_absolon, OPEN_gallery, REV_south, PLATE_IV: no gain.
 - Survey: pairs renamed KEEP_/REJECTED_ in `look/pairs_geo` (README line added), and COVERAGE CP023 updated.
 - md5s unchanged: r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r10 a916795bca80185a0a576c24f41b9f40, r11_envelope c579eb76785ab2bd6b88a157c648d56e, v2 ce5db27df850982d8db63834ebd6fe19.
+
+## 2026-11-01 CP023 crowd dressing CANDIDATE
+- Resumed the stalled 12:50 UTC pass. `scripts/cp023_dressing.py` already had `people_patch`, which render_views.py calls (`pose_patch` is an old alias); the docstring now names it. No code fix was needed. It runs headless in Blender 5.1.2 with no errors. Rows are in DEPARTURES PPL-C01..C04.
+- Live is not promoted. `scripts/render_cp023_v2.sh` now passes `--no-cp023-dressing`, so live CP023 re-renders unchanged. Candidate script: `scripts/render_cp023_dressing.sh [lean|full|both]` (r11_envelope_v2.blend, -0.9, gate off, dressing on).
+- Renders in `renders/candidates/cp023_dressing_20261101/`:
+  - lean (28 spp): `lean/`
+  - full (64 spp, 1280x720, -0.9, 8 threads): `full/CP023_into_nave_{start,end}.png`
+  - Logs: `/workspace/logs/transept_cp023_dress_{lean,full}.log` (`CP023_DRESS`, `CP023_DRESS_STATS`).
+- Dress stats (identical in the lean and full runs):
+  - start: 720 figures, 114 visible before; 17 flagged; 9 moved, 8 hidden (no spot, all gallery CROWD_GN at z 6.99), 1 near/off-frame hidden; 0 orphan hat parts; 106 visible after; pose_replaced 260.
+  - end: 71 visible before; 14 flagged; 9 moved, 5 hidden (all gallery GN), 0 near hidden, 0 orphans; 66 visible after; pose_replaced 130.
+- Pairs (before = live `renders/r11_envelope_v2/cp023_full`): `/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP023_crowd_dressing_CP023_into_nave_{start,end}_pair.jpg` (`scripts/cp023_dressing_pairs.py`). CANDIDATE only; the keep/revert call is not made here.
+- Executor notes (strict):
+  - start: Fixed: no edge-cut or near-lens figures, so the looming bottom-left top hat, the kneeling foreground man and the half-figures at the frame edges are gone, and every visible figure stands. Bonnets read as hoods or hair from behind and in front. Hats: none floating. Boots: none detached, but men's boots are chunky stovepipe shells, clearly wider than the trouser leg, on the mid-ground men. Worse: the crowd now starts about 7 m out, so the bottom third of the frame is empty boards and the shot reads emptier and more staged, with three crinolines and a top-hatted man spaced evenly across the mid-ground. The upper galleries lost 8 figures. Pre-existing and not caused by dressing: a small pale block at the right frame edge (about x 1270, y 600) is in live too and is not a figure. Exposure unchanged (-0.9); mean luma 93.2 to 91.2 (content only).
+  - end: Fixed: edge-cut figures, including the large half-lady on the right and the hatted man cut at the left edge, are gone, and all stand. Hats: none floating. Boots: the man standing at the locomotive plinth (right, pre-existing position) shows a doubled or stacked boot shell; other boots are attached but oversized. Mid-ground is denser and more even, with no foreground figures; the gallery lost 5. Exposure unchanged; luma 96.5 to 97.7.
+- md5 before and after: r11 0d083ae0e2bd09e2b64acdd2ec88e9fb, r11_envelope_v2 ce5db27df850982d8db63834ebd6fe19 (unchanged). No .blend saved.
