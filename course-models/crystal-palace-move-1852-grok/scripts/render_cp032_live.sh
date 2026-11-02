@@ -7,7 +7,9 @@
 # --rebuild regenerates live rounds/m02.blend from the pre-promotion m02 pinned at move commit 9cb8eb5 by running
 # scripts/candidate_cp032_people.py --live on it (the KEEP candidate script, applied in place), then
 # scripts/candidate_cp032_arrival.py --live (arrival hands KEEP 2026-11-02, MV16; touches only STAFF_07..11, so the
-# departure frame is unchanged and the rebuilt m02 equals the live one).
+# departure frame is unchanged and the rebuilt m02 equals the live one), then scripts/candidate_cp032_foreground.py
+# --live (arrival near-foreground KEEP 2026-11-02, MV17; Sydenham-only material + CP032_arrival-only state; departure
+# frame differs from the pre-MV17 m02 by noise only, max 3/255).
 # Note: render_shots.py's render-time people swap imports this folder's people_lib.py; reproduction assumes that file
 # is unchanged since the live render.
 # Since the CP032 arrival KEEP (2026-11-02, MV16) live m02 no longer reproduces the stored departure frame bit for bit:
@@ -25,6 +27,7 @@ if [[ "${1:-}" == "--rebuild" ]]; then
   git show "$BASE_COMMIT:$REL" > "$TMP/m02.blend"
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_people.py -- --live 2>&1 | grep -E "CP032_HANDS_IN_PLACE|Error|Traceback"
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_arrival.py -- --live 2>&1 | grep -E "CP032_ARR_HANDS_IN_PLACE|Error|Traceback"
+  "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_foreground.py -- --live 2>&1 | grep -E "CP032_FG_IN_PLACE|Error|Traceback"
   mv "$TMP/m02.blend" rounds/m02.blend
   rm -rf "$TMP"
 fi

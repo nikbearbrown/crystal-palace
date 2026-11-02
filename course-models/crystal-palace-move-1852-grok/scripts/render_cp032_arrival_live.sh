@@ -7,7 +7,10 @@
 #   scripts/render_cp032_arrival_live.sh [--rebuild]
 # --rebuild regenerates live rounds/m02.blend from the pre-arrival live m02 pinned at move commit 8bfed03 (departure
 # hands DEP_HAND_* already in, MV15) by running scripts/candidate_cp032_arrival.py --live on it. Departure figures
-# are not touched by the arrival script.
+# are not touched by the arrival script. Since the near-foreground KEEP (2026-11-02, MV17) --rebuild also runs
+# scripts/candidate_cp032_foreground.py --live, so the rebuilt m02 equals live and the frames match
+# KEEP_CP032_foreground_{start,end}_after.png (the MV16 KEEP_CP032_arrival_*_after frames predate MV17). Without
+# --rebuild this script is equivalent to render_cp032_foreground_live.sh.
 # Note: render_shots.py's render-time people swap imports this folder's people_lib.py; reproduction assumes that file
 # is unchanged since the live render.
 set -euo pipefail
@@ -19,6 +22,7 @@ if [[ "${1:-}" == "--rebuild" ]]; then
   TMP=$(mktemp -d)
   git show "$BASE_COMMIT:$REL" > "$TMP/m02.blend"
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_arrival.py -- --live 2>&1 | grep -E "CP032_ARR_HANDS_IN_PLACE|Error|Traceback"
+  "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_foreground.py -- --live 2>&1 | grep -E "CP032_FG_IN_PLACE|Error|Traceback"
   mv "$TMP/m02.blend" rounds/m02.blend
   rm -rf "$TMP"
 fi
