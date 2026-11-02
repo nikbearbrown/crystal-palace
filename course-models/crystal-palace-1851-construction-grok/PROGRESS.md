@@ -252,3 +252,9 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   4. A clipped pale box sits at the bottom of the end frame.
   5. The 50 mm joint close-up is missing: no new CP012_joint_insert in this pass (camera and render still c07).
   - Also noted earlier: the front-row column (564,-204) stands close to the girder's east end in the end frame, and at 2x crop the deck men still show bulky people_lib shoulders.
+
+## 2026-11-02 CP012_bay sheer legs raked: CANDIDATE (DEPARTURES CN46), not live
+- `scripts/render_cp012_shears.sh [samples=48] [outdir] [--rebuild]` builds `rounds/candidates/c07_cp012bay_shears.blend` from live `c07_cp012bay.blend` via `scripts/cand_cp012_shears_20261102.py` (rake-dx 8, splay 15, watcher 064 moved). It renders start (frame 1) and end (frame 96) at the live settings (1280x720, 48 spp, look exposure, --no-people) into `renders/candidates/cp012_shears_20261102/`.
+- Pairs: `scripts/cand_cp012_shears_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP012_shears_{start,end}_{before,after,pair}.png` (before = live KEEP renders).
+- Trial: rake-dx -8 (heels west) was rejected. Its north heel stood on tag-line man 007 and its leg covered the left-hand ground man.
+- Honest notes: the centre post is gone from the start frame, and the end frame reads as raked shears with a back guy. But the near leg is still a big pale diagonal crossing the right-hand scaffold in the start frame. The head is off frame in the start frame. Follow-ups 2–5 (unmanned winch, faint tag line, clipped box, no joint insert) are untouched. Waiting for the parent's keep/revert call. Do NOT promote.
