@@ -264,3 +264,8 @@ never git init inside a grok folder; commit from the worktree root
   - Stats: no CP023_FG lines; dressing is identical to live (114 visible, 17 flagged, 9 moved, 8 hidden, 106 after); 356 boot meshes, 22-28 cm. Luma 91.2 -> 91.4. Changed pixels are confined to y 416-591 (feet and legs).
   - Executor note (not a verdict): the men's boots are visibly slimmer and attached, with no other change. The lower third remains empty floor, as in live.
 - md5 unchanged: r11_envelope_v2.blend ce5db27df850982d8db63834ebd6fe19, r11.blend 0d083ae0e2bd09e2b64acdd2ec88e9fb.
+
+## 2026-11-02 render_cp023_v2.sh reproduces the kept boots-only start (executor, Grok Bot)
+- COVERAGE CP023 already lists the live start as `renders/candidates/cp023_boots_20261101/CP023_into_nave_start.png` (boots-only, parent KEEP Nov 1 16:32), but `scripts/render_cp023_v2.sh` still rendered the start without `--cp023-boots`. Fixed: the start runs (lean and full) now pass `XSTART=(--cp023-boots)`, and the end runs are unchanged (`--cp023-boots --cp023-foreground`).
+- Check: the same command as the full start run (r11_envelope_v2.blend, -0.9, 1280x720, 64 spp, 8 threads, `--cp023-boots`) was sent to `/workspace/tmp/cp023_start_check/`. It is **pixel-identical** to the live start (max diff 0, luma 90.43 both). Log: `/workspace/logs/transept_cp023v2_startcheck_20261102.log`. No .blend saved, and live renders were not touched.
+- Still open: the bottom ~10% of the CP023 start is empty floor (not worked this round).
