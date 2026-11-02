@@ -1,0 +1,56 @@
+[
+ {
+  "id": "A1",
+  "check": "5 ARR_HAND_* and no STAFF_07..11",
+  "pass": true,
+  "value": [
+   "ARR_HAND_00_workman",
+   "ARR_HAND_01_workman",
+   "ARR_HAND_02_workman",
+   "ARR_HAND_03_navvy",
+   "ARR_HAND_04_gentleman"
+  ]
+ },
+ {
+  "id": "A2",
+  "check": "feet on the arrival ground (|dz|<0.01 m)",
+  "pass": true,
+  "value": {
+   "ARR_HAND_00_workman": 0.0,
+   "ARR_HAND_01_workman": 0.0,
+   "ARR_HAND_02_workman": 0.0,
+   "ARR_HAND_03_navvy": 0.0,
+   "ARR_HAND_04_gentleman": 0.0
+  }
+ },
+ {
+  "id": "A3",
+  "check": "heights 1.60-1.85 m",
+  "pass": true,
+  "value": {
+   "ARR_HAND_00_workman": 1.717,
+   "ARR_HAND_01_workman": 1.795,
+   "ARR_HAND_02_workman": 1.791,
+   "ARR_HAND_03_navvy": 1.659,
+   "ARR_HAND_04_gentleman": 1.797
+  }
+ },
+ {
+  "id": "A4",
+  "check": "figure core clear of every ARR part/prop AABB",
+  "pass": true,
+  "value": []
+ },
+ {
+  "id": "A5",
+  "check": "departure DEP_HAND_* unchanged count 7",
+  "pass": true,
+  "value": null
+ },
+ {
+  "id": "A6",
+  "check": "ARR collection holds no DEP_/Hyde Park objects",
+  "pass": true,
+  "value": null
+ }
+]
