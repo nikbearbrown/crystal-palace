@@ -100,3 +100,9 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 - Camera moved about 4 ft east, into the bay between the KSCAF_ROOFEDGE standards on the same 24 ft deck at 29.25 ft eye height. Inferred, not from a source.
 - Glazing-wagon wheels given dark iron (GT_CartTyre). Inferred: the Glazing_waggon reference (Muse 0174) doesn't show the wheels.
 - Workers 013, 014 and 027 and panes SLIDING_0 / HELD_0 are hidden in the CP016_wheels-only candidate blend. They are still in CP016_trolley.
+
+## CN43 follow-up — CN44 CP016_wheels v2 (CANDIDATE only, not promoted, 2026-11-02)
+- **Stub axles (inferred, grade C):** the glazing_wagon side frames, bearer, posts and sole beam are moved 3 in inboard (80 verts, `|y-sy|<=2.05 in`, `z<=1.91 ft`) so the 1 ft wheels read as discs outboard of the frame instead of being hidden behind the bearer. No source shows the axle-end detail; we infer stub axles from the gutter-running wheel arrangement.
+- **Glaziers:** two people_lib 1850s workmen (hero LOD, `standing`/`working`; the seated pose is broken in close-up) on the wagon_0 deck, `GLAZIER_CP016W_0/1`, `only_cams=CP016_wheels`.
+- **Far workmen:** the 9 visible `KWORKER_*_CP016` figures (wagons 1-3 and the gutter men) are pre-swapped to people_lib (kneel/work → working, reach → pointing), because at 32 mm they all exceed the 3.4 close-up gate and would otherwise render as block proxies. The kneeling figures now stand, which is a staging departure.
+- **Camera front32:** 32 mm from the north lip of the roof-edge deck. Start (333.5,-208.6,29.25)→(329.8,-194.5,25.4), end slides 3 ft west to (330.5,-208.6,29.25)→(329.6,-194.5,25.4). The camera is set in `rounds/candidates/c06_cp016wheels_v2*.blend` only; `route/camera_route.json` is unchanged (it is still the live KEEP reframe).
