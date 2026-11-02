@@ -166,3 +166,15 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 ## 2026-10-27 Muse gutter REJECT
 - **REJECT** Muse Paxton gutter adopt (MK03b / `k01_gutter`): red teaching-point gutter end disappeared; stray pale beam bottom-left. Keep live KD03. Pair: survey `look/pairs_geo/REJECTED_CP014_gutter_muse_pair.png`.
 - Muse 10½ in sash-bar / gutter notch pitch logged as **departure note only** (MK03c) — do not retarget live this round.
+
+## 2026-11-02 CP016_wheels reframe CANDIDATE: executor notes (not a verdict)
+- Why: in the live c06 CP016_wheels_start, an octagonal KSCAF_ROOFEDGE standard (x 328, y -208) sits 4.3 ft from the lens at frame centre, and the wagon is cut off at the top. You can't see the wheels at all.
+- Script: scripts/cand_cp016_wheels_20261102.py loads rounds/c06.blend (unchanged, md5 e461f024b79c…) and saves rounds/candidates/c06_cp016wheels.blend. Use that blend for CP016_wheels ONLY.
+  - Start camera (332,-212,29.25) aimed at (328.6,-196.1,22.8), 50 mm; end camera (332,-210.5,29.25) aimed at (328.4,-196.1,22.6). Both stand in the bay between standards on the 24 ft deck.
+  - The glazing_wagon wheels get the existing GT_CartTyre material (iron), so they read dark against the timber (CN43).
+  - Hidden for this shot: KWORKER_013/014/027_CP016 (under the people_lib 3.4 close-up gate they would be grey proxies) and KPANE_SLIDING_0 / KPANE_HELD_0 (the panes they hold, which would float without them). The men stay in CP016_trolley.
+  - Tried and rejected: an 85 mm lens (wheels still unreadable, more proxies), people gate off (bald base-mesh men; render_views change reverted), and aiming at x 326 (pushes the wagon into a corner).
+- Renders: renders/candidates/cp016_wheels_20261102/CP016_wheels_{start,end}.png, 1280x720, 48 spp. Log: /workspace/logs/construction_cp016wheels_full_20261102.log.
+- Pairs: look/pairs_geo/CANDIDATE_CP016_wheels_reframe_pair.png (live start vs candidate start) and CANDIDATE_CP016_wheels_reframe_startend.png (candidate start vs end; there's no live end).
+- Honest read: the whole wagon now sits on its gutters with no pole in frame. The dark wheels show only faintly at the lower corners, because the axle bearer and gutter hide most of them. The deck is empty with no glaziers, and the bottom ~40% of the frame is foreground glazing bars. It's legible but not yet a "wheels" shot.
+- Resume: if the renders are missing, run blender -b rounds/c06.blend -P scripts/cand_cp016_wheels_20261102.py, then blender -b rounds/candidates/c06_cp016wheels.blend -P scripts/render_views.py -- --cams CP016_wheels_start,CP016_wheels_end --outdir renders/candidates/cp016_wheels_20261102 --res 1280x720 --samples 48, then python3 scripts/cand_cp016_wheels_pairs.py. Awaiting the parent's keep/revert decision. Do NOT promote.

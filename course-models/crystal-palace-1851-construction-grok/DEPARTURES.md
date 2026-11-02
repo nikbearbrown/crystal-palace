@@ -94,3 +94,8 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 | MK03c | Muse printed sash-bar / gutter notch pitch **10½ in** (Plate XII Fig.3 chain; Muse `paxton-gutter`) vs our staging ~10 in (CN18) / UV 10.5 in glass | **Departure note only** — do not retarget live K-DRAIN/K-ROOF this round. Prefer 10½ in when next rebuilding K-ROOF geometry. |
 | MK01 | Girder depth 3.0 ft vs Muse ~3.17 ft | **Remain departure** — not adopted. |
 | MK04 | Gallery rail H 3.06 ft vs Muse 3 ft 1⅞ in | **Remain departure** — not adopted. |
+
+## CN43 (2026-11-02, CANDIDATE only): CP016_wheels reframe
+- Camera moved about 4 ft east, into the bay between the KSCAF_ROOFEDGE standards on the same 24 ft deck at 29.25 ft eye height. Inferred, not from a source.
+- Glazing-wagon wheels given dark iron (GT_CartTyre). Inferred: the Glazing_waggon reference (Muse 0174) doesn't show the wheels.
+- Workers 013, 014 and 027 and panes SLIDING_0 / HELD_0 are hidden in the CP016_wheels-only candidate blend. They are still in CP016_trolley.
