@@ -81,3 +81,8 @@ never git init inside a grok folder; commit from the worktree root
 - `scripts/polish_cp028_drive_v2_cand.py` → `rounds/candidates/h03_cp028_drive_v2.blend`. FT51–FT53 code identical to v1; FT54 v2: oiler stands on treads 12/13 of the 14 ft steps, facing up them (turned 10 deg), top cap at thigh height, hand + feeder at bearing S' x=16 ft; pale trousers + dark boots on his own mesh copy.
 - `scripts/render_cp028_drive_v2.sh [--rebuild]` → `renders/candidates/cp028_drive_v2_20261102/{before,after}/CP028_louvre_start.png` (camera, 1280x720, 48 spp, --keep-lighting --no-people identical to v1; before pixel-identical to live h03). Pixel-identical on rerun, including --rebuild.
 - `scripts/make_cp028_drive_v2_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP028_drive_v2_{before,after,pair,detail_pair}.png`. No verdict.
+
+## 2026-11-02 KEEP CP028 louvre drive v2 (live h03)
+- Parent verdict KEEP on v2 (oiler clearly stands on the steps; drive matches Downes; exposure matches). FT51–FT54 v2 now live in `rounds/h03.blend`.
+- Live h03 rebuilt reproducibly: `scripts/render_cp028_live.sh --rebuild` takes the pre-promotion h03 pinned at fitout 7b25192, runs `scripts/polish_cp028_drive_v2_cand.py`, writes `rounds/h03.blend`, and renders `renders/h03/CP028_louvre_start.png` (1280x720, 48 spp, --keep-lighting --no-people). Pixel-identical (max diff 0) to `renders/candidates/cp028_drive_v2_20261102/after/CP028_louvre_start.png`, with and without --rebuild.
+- CP028 has no end frame. The other h03 shot, CP026_shilling_ext_start, does not show this wall: an old-h03 vs new-h03 test render differs by at most 3/255 in 1006 pixels (bounce noise), so `renders/h03/CP026_shilling_ext_start.png` was not re-rendered.
