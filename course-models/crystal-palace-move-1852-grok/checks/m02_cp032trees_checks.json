@@ -1,0 +1,1661 @@
+{
+ "date": "2026-11-02",
+ "candidate": "rounds/candidates/m02_cp032trees.blend",
+ "base": "rounds/m02.blend (move d1711db, MV18 live)",
+ "new_objects": 28,
+ "removed_objects": [],
+ "new_only_ARR_HD_or_ARR_SY": true,
+ "hats_hair_in_ARR_SYDENHAM_1852": true,
+ "crate_copies_in_ARR_CrateSY1852": true,
+ "muse_crate_collection_unchanged": true,
+ "no_hydepark_added": true,
+ "transforms_identical": true,
+ "transform_changed": [],
+ "mesh_changed_only_oaks": true,
+ "mesh_changed_count": 83,
+ "oaks": {
+  "ARR_OAK_00": {
+   "h_old": 17.84,
+   "h_new": 18.45,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 16.5,
+   "w_new": 20.2
+  },
+  "ARR_OAK_01": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.9,
+   "w_new": 23.1
+  },
+  "ARR_OAK_02": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.8,
+   "w_new": 16.4
+  },
+  "ARR_OAK_03": {
+   "h_old": 20.97,
+   "h_new": 21.56,
+   "top_dz": 0.0,
+   "base_dz": -0.59,
+   "w_old": 20.9,
+   "w_new": 24.7
+  },
+  "ARR_OAK_04": {
+   "h_old": 17.84,
+   "h_new": 18.45,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 16.8,
+   "w_new": 20.9
+  },
+  "ARR_OAK_05": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.1,
+   "w_new": 20.7
+  },
+  "ARR_OAK_06": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": -0.0,
+   "base_dz": -0.61,
+   "w_old": 12.8,
+   "w_new": 16.4
+  },
+  "ARR_OAK_07": {
+   "h_old": 20.97,
+   "h_new": 21.56,
+   "top_dz": 0.0,
+   "base_dz": -0.59,
+   "w_old": 16.2,
+   "w_new": 19.2
+  },
+  "ARR_OAK_08": {
+   "h_old": 17.84,
+   "h_new": 18.45,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 16.8,
+   "w_new": 21.1
+  },
+  "ARR_OAK_09": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 15.8,
+   "w_new": 20.3
+  },
+  "ARR_OAK_10": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": -0.0,
+   "base_dz": -0.61,
+   "w_old": 11.1,
+   "w_new": 14.3
+  },
+  "ARR_OAK_11": {
+   "h_old": 20.97,
+   "h_new": 21.56,
+   "top_dz": 0.0,
+   "base_dz": -0.59,
+   "w_old": 19.3,
+   "w_new": 22.8
+  },
+  "ARR_OAK_12": {
+   "h_old": 17.84,
+   "h_new": 18.45,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 16.7,
+   "w_new": 20.5
+  },
+  "ARR_OAK_13": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.2,
+   "w_new": 22.1
+  },
+  "ARR_OAK_14": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 9.8,
+   "w_new": 12.8
+  },
+  "ARR_OAK_15": {
+   "h_old": 20.97,
+   "h_new": 21.56,
+   "top_dz": 0.0,
+   "base_dz": -0.59,
+   "w_old": 16.5,
+   "w_new": 19.5
+  },
+  "ARR_OAK_16": {
+   "h_old": 17.84,
+   "h_new": 18.45,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 16.5,
+   "w_new": 20.2
+  },
+  "ARR_OAK_17": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 18.0,
+   "w_new": 23.2
+  },
+  "ARR_OAK_18": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 10.5,
+   "w_new": 13.6
+  },
+  "ARR_OAK_20": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 13.6,
+   "w_new": 15.9
+  },
+  "ARR_OAK_21": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 18.0,
+   "w_new": 23.2
+  },
+  "ARR_OAK_22": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.1,
+   "w_new": 16.0
+  },
+  "ARR_OAK_23": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 20.9,
+   "w_new": 24.8
+  },
+  "ARR_OAK_24": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 16.7,
+   "w_new": 20.9
+  },
+  "ARR_OAK_25": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 14.0,
+   "w_new": 17.9
+  },
+  "ARR_OAK_26": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.7,
+   "w_new": 16.8
+  },
+  "ARR_OAK_27": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.9,
+   "w_new": 19.9
+  },
+  "ARR_OAK_28": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 16.7,
+   "w_new": 20.8
+  },
+  "ARR_OAK_29": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.3,
+   "w_new": 20.9
+  },
+  "ARR_OAK_30": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.2,
+   "w_new": 16.0
+  },
+  "ARR_OAK_31": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 20.9,
+   "w_new": 24.7
+  },
+  "ARR_OAK_32": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 15.6,
+   "w_new": 18.8
+  },
+  "ARR_OAK_33": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 18.0,
+   "w_new": 23.2
+  },
+  "ARR_OAK_34": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.5,
+   "w_new": 16.5
+  },
+  "ARR_OAK_35": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 20.2,
+   "w_new": 23.9
+  },
+  "ARR_OAK_36": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 16.2,
+   "w_new": 19.8
+  },
+  "ARR_OAK_37": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.0,
+   "w_new": 21.9
+  },
+  "ARR_OAK_38": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 10.3,
+   "w_new": 13.5
+  },
+  "ARR_OAK_39": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.9,
+   "w_new": 20.0
+  },
+  "ARR_OAK_40": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 15.1,
+   "w_new": 18.0
+  },
+  "ARR_OAK_41": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 18.0,
+   "w_new": 23.1
+  },
+  "ARR_OAK_42": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 9.5,
+   "w_new": 12.5
+  },
+  "ARR_OAK_43": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 15.7,
+   "w_new": 18.6
+  },
+  "ARR_OAK_44": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 13.2,
+   "w_new": 15.3
+  },
+  "ARR_OAK_45": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 18.0,
+   "w_new": 23.2
+  },
+  "ARR_OAK_46": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 9.8,
+   "w_new": 12.9
+  },
+  "ARR_OAK_47": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 20.8,
+   "w_new": 24.6
+  },
+  "ARR_OAK_49": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 15.2,
+   "w_new": 19.5
+  },
+  "ARR_OAK_50": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": -0.0,
+   "base_dz": -0.61,
+   "w_old": 11.0,
+   "w_new": 14.2
+  },
+  "ARR_OAK_51": {
+   "h_old": 20.97,
+   "h_new": 21.56,
+   "top_dz": 0.0,
+   "base_dz": -0.59,
+   "w_old": 19.5,
+   "w_new": 23.1
+  },
+  "ARR_OAK_52": {
+   "h_old": 17.84,
+   "h_new": 18.45,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 13.6,
+   "w_new": 15.7
+  },
+  "ARR_OAK_53": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.9,
+   "w_new": 23.1
+  },
+  "ARR_OAK_54": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": -0.0,
+   "base_dz": -0.61,
+   "w_old": 10.2,
+   "w_new": 13.3
+  },
+  "ARR_OAK_56": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 15.8,
+   "w_new": 19.1
+  },
+  "ARR_OAK_57": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.9,
+   "w_new": 23.1
+  },
+  "ARR_OAK_58": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 11.6,
+   "w_new": 15.3
+  },
+  "ARR_OAK_59": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 20.8,
+   "w_new": 24.7
+  },
+  "ARR_OAK_60": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 14.0,
+   "w_new": 16.4
+  },
+  "ARR_OAK_61": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.4,
+   "w_new": 21.1
+  },
+  "ARR_OAK_62": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.9,
+   "w_new": 17.1
+  },
+  "ARR_OAK_63": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.1,
+   "w_new": 20.2
+  },
+  "ARR_OAK_64": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 14.7,
+   "w_new": 17.4
+  },
+  "ARR_OAK_65": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 15.4,
+   "w_new": 19.8
+  },
+  "ARR_OAK_66": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.7,
+   "w_new": 16.8
+  },
+  "ARR_OAK_67": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.3,
+   "w_new": 19.3
+  },
+  "ARR_OAK_68": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 16.6,
+   "w_new": 20.5
+  },
+  "ARR_OAK_69": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 14.6,
+   "w_new": 18.7
+  },
+  "ARR_OAK_EDGE_00": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 16.7,
+   "w_new": 20.8
+  },
+  "ARR_OAK_EDGE_01": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 17.9,
+   "w_new": 23.0
+  },
+  "ARR_OAK_EDGE_02": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 10.3,
+   "w_new": 13.6
+  },
+  "ARR_OAK_EDGE_03": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 15.8,
+   "w_new": 18.7
+  },
+  "ARR_OAK_EDGE_04": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 15.8,
+   "w_new": 19.1
+  },
+  "ARR_OAK_EDGE_05": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 15.1,
+   "w_new": 19.4
+  },
+  "ARR_OAK_EDGE_06": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.2,
+   "w_new": 16.1
+  },
+  "ARR_OAK_EDGE_07": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 20.7,
+   "w_new": 24.5
+  },
+  "ARR_OAK_EDGE_08": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 15.3,
+   "w_new": 18.4
+  },
+  "ARR_OAK_EDGE_09": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.6,
+   "w_new": 21.3
+  },
+  "ARR_OAK_EDGE_10": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 9.6,
+   "w_new": 12.6
+  },
+  "ARR_OAK_EDGE_11": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 18.2,
+   "w_new": 21.5
+  },
+  "ARR_OAK_EDGE_12": {
+   "h_old": 17.84,
+   "h_new": 18.44,
+   "top_dz": 0.0,
+   "base_dz": -0.6,
+   "w_old": 16.8,
+   "w_new": 21.1
+  },
+  "ARR_OAK_EDGE_13": {
+   "h_old": 19.4,
+   "h_new": 20.02,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.4,
+   "w_new": 21.0
+  },
+  "ARR_OAK_EDGE_14": {
+   "h_old": 14.24,
+   "h_new": 14.85,
+   "top_dz": 0.0,
+   "base_dz": -0.61,
+   "w_old": 12.5,
+   "w_new": 16.5
+  },
+  "ARR_OAK_EDGE_15": {
+   "h_old": 20.97,
+   "h_new": 21.59,
+   "top_dz": 0.0,
+   "base_dz": -0.62,
+   "w_old": 16.6,
+   "w_new": 19.7
+  }
+ },
+ "oak_heights_kept": true,
+ "oak_polys_old": 60756,
+ "oak_polys_new": 870747,
+ "material_slot_changes": {
+  "ARR_BARS_GUTTERS": [
+   [
+    "GT_SashBarWeathered",
+    "GT_Rope",
+    "GT_GutterTimberWeathered",
+    "GT_OakBearer"
+   ],
+   [
+    "GT_SashBarWeathered",
+    "GT_Rope",
+    "GT_GutterTimberWeathered",
+    "GT_OakBearerWeathered1852"
+   ]
+  ],
+  "ARR_BEARERS_COL": [
+   [
+    "GT_OakBearer"
+   ],
+   [
+    "GT_OakBearerWeathered1852"
+   ]
+  ],
+  "ARR_BEARERS_GIR": [
+   [
+    "GT_OakBearer"
+   ],
+   [
+    "GT_OakBearerWeathered1852"
+   ]
+  ],
+  "ARR_GRASS": [
+   [
+    "GT_Grass1852"
+   ],
+   [
+    "GT_SydenhamMeadow1852"
+   ]
+  ],
+  "ARR_HAND_00_workman": [
+   [
+    "CPL3_skin_0",
+    "CP032C_fustian_blue",
+    "CPL3_trou_2",
+    "CP032C_fustian_blue",
+    "CPL3_hat_1"
+   ],
+   [
+    "CPL3_skin_0",
+    "CP032C_fustian_blue",
+    "CPL3_trou_2",
+    "CP032C_fustian_blue",
+    "GT_CapRetired_CP032"
+   ]
+  ],
+  "ARR_HAND_01_workman": [
+   [
+    "CPL3_skin_3",
+    "CP032C_fustian_grey",
+    "CPL3_trou_1",
+    "CP032C_fustian_grey",
+    "CPL3_hat_3"
+   ],
+   [
+    "CPL3_skin_3",
+    "CP032C_fustian_grey",
+    "CPL3_trou_1",
+    "CP032C_fustian_grey",
+    "GT_CapRetired_CP032"
+   ]
+  ],
+  "ARR_HAND_02_workman": [
+   [
+    "CPL3_skin_2",
+    "CP032C_fustian_drab",
+    "CPL3_trou_1",
+    "CP032C_fustian_drab",
+    "CPL3_hat_3"
+   ],
+   [
+    "CPL3_skin_2",
+    "CP032C_fustian_drab",
+    "CPL3_trou_1",
+    "CP032C_fustian_drab",
+    "GT_CapRetired_CP032"
+   ]
+  ],
+  "ARR_HAND_03_navvy": [
+   [
+    "CPL3_skin_1",
+    "CP032C_fustian_blue",
+    "CPL3_trou_0",
+    "CP032C_fustian_blue",
+    "CPL3_hat_0"
+   ],
+   [
+    "CPL3_skin_1",
+    "CP032C_fustian_blue",
+    "CPL3_trou_0",
+    "CP032C_fustian_blue",
+    "GT_CapRetired_CP032"
+   ]
+  ],
+  "ARR_OAK_00": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_01": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_02": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_03": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_04": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_05": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_06": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_07": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_08": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_09": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_10": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_11": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_12": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_13": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_14": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_15": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_16": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_17": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_18": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_20": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_21": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_22": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_23": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_24": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_25": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_26": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_27": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_28": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_29": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_30": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_31": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_32": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_33": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_34": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_35": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_36": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_37": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_38": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_39": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_40": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_41": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_42": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_43": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_44": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_45": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_46": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_47": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_49": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_50": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_51": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_52": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_53": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_54": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_56": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_57": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_58": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_59": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_60": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_61": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_62": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_63": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_64": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_65": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_66": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_67": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_68": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_69": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_00": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_01": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_02": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_03": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_04": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_05": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_06": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_07": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_08": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_09": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_10": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_11": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_12": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_13": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_14": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ],
+  "ARR_OAK_EDGE_15": [
+   [
+    "GT_Bark",
+    "GT_FoliageOak"
+   ],
+   [
+    "GT_OakBark1852",
+    "GT_OakLeaf1852"
+   ]
+  ]
+ },
+ "slot_changes_allowed": true,
+ "instance_changes": {
+  "ARR_CRATE_0": [
+   "MUSE_Crate_by_Muse",
+   "ARR_CrateSY1852_from_Muse"
+  ],
+  "ARR_CRATE_1": [
+   "MUSE_Crate_by_Muse",
+   "ARR_CrateSY1852_from_Muse"
+  ]
+ },
+ "instance_changes_allowed": true,
+ "dep_objects_touched": [],
+ "hats": {
+  "ARR_HD_HAT_00": {
+   "figure": "ARR_HAND_00_workman",
+   "axis_off_m": 0.0,
+   "base_below_top_m": 0.098,
+   "top_above_head_m": 0.054
+  },
+  "ARR_HD_HAT_01": {
+   "figure": "ARR_HAND_01_workman",
+   "axis_off_m": 0.0,
+   "base_below_top_m": 0.094,
+   "top_above_head_m": 0.053
+  },
+  "ARR_HD_HAT_02": {
+   "figure": "ARR_HAND_02_workman",
+   "axis_off_m": 0.0,
+   "base_below_top_m": 0.096,
+   "top_above_head_m": 0.053
+  },
+  "ARR_HD_HAT_03": {
+   "figure": "ARR_HAND_03_navvy",
+   "axis_off_m": 0.0,
+   "base_below_top_m": 0.092,
+   "top_above_head_m": 0.052
+  }
+ },
+ "hats_on_heads": true,
+ "notes": "Gentleman (ARR_HAND_04) keeps his CP032C top hat. Workmen cap slot is object-linked to GT_CapRetired_CP032 (transparent) so shared CPL3_hat_* (also on DEP figures) are untouched. Wagon keeps GT_OakBearer.",
+ "pass": true
+}

@@ -112,3 +112,27 @@ never git init inside a grok folder; commit from the worktree root
 - Departure spot-check (scratch renders, stored files untouched): CP032_departure_start from live m02 vs the pre-MV18 m02 max 10/255, mean 0.0003, 1500 px (25 px > 1/255); CP032_departure_end max 4/255, mean 0.0003, 1605 px (11 px > 1/255); scattered Cycles noise only. Stored `renders/m02/CP032_departure_start.png` left as is (still the known MV16 noise variant, max 11/255).
 - Next open weaknesses (arrival frames): the background tree line is faceted low-poly "lollipop" trees in a flat lime field, the biggest non-period element at a glance in both frames; then the pale beige oak bearers and plain timber crates, ruts that read as flat dark bands rather than cut grooves, and the hatless workman's bald-looking head.
 - `scripts/people_lib.py` uncommitted working-tree edit (3.3 statue exclusion) left untouched and uncommitted.
+
+## 2026-11-02 CP032 arrival parkland oaks, meadow, timber, workmen hats (CANDIDATE, no verdict; DEPARTURES MV19)
+- `scripts/candidate_cp032_trees.py` builds sibling `rounds/candidates/m02_cp032trees.blend` from live m02 (d1711db, MV18 live). The 83 ARR_OAK_* / ARR_OAK_EDGE_* trees behind the yard swap their mesh data from the 4 low-poly lollipop meshes (cone and icosphere balls) to 8 parametric open-grown oaks (2 per old height, 6.8k–12.3k leaf cards each, bark `GT_OakBark1852`, attribute-driven `GT_OakLeaf1852`). Transforms are unchanged, crown tops are within 5 cm of the old tops, and crowns are 0.85 x the height. ARR_GRASS gets `GT_SydenhamMeadow1852` (rough olive pasture with patch, swathe, tussock and straw-fleck variation). The arrival bearers and bundle bearers get `GT_OakBearerWeathered1852`. ARR_CRATE_0/1 instance an ARR-only copy of Muse's crate collection with weathered materials (Muse's collection and files untouched). The 4 arrival workmen get fitted felt wideawake hats and back/side hair (`ARR_HD_*`), and their flat people_lib cap disc is hidden by an object-linked transparent slot. The clerk keeps his top hat. DEP_* (Hyde Park 1851) objects and materials are unchanged, and so is the wagon.
+- Checks `scripts/check_cp032_trees.py` → `checks/m02_cp032trees_checks.json` PASS:
+  - object set = live + 8 ARR_HD_* + 20 ARR_SY_* crate copies;
+  - no transform changes;
+  - mesh changes only on ARR_OAK_*;
+  - slot changes only on the listed ARR objects;
+  - instance changes only on ARR_CRATE_0/1;
+  - no DEP object touched;
+  - each hat is centred on its skull (0 mm off axis), with its base 9–10 cm below the head top and its top 5 cm above.
+  - Oak polys (sum over objects, instanced data): 60,756 → 450,538.
+- `bash scripts/render_cp032_trees.sh [DIR]` renders before (live m02) and after for CP032_arrival_start and _end. It uses render_shots.py at 1920x1080, 24 spp and look exposure, with each camera in its own session. The before frames are pixel-identical to live `renders/m02/CP032_arrival_*.png` (max diff 0). `scripts/make_cp032_trees_pairs.py` writes `look/pairs_geo/CANDIDATE_CP032_trees_{start,end}_{before,after,pair}.png`, and the afters are copied to `renders/candidates/cp032_trees_20261102/`. Mean luma: start 149.92 → 139.63 (lower 40%: 149.06 → 146.69); end 150.30 → 139.44 (lower 40%: 151.87 → 150.47).
+- Self-score 6/10. Known misses:
+  - The trees now read as broadleaf parkland trees, but at 1:1 the leaf cards show as spotty confetti at the crown edges.
+  - All 83 trees are one species and habit from 8 meshes, in a fairly even row, with a too-uniform dark value and no aerial-perspective falloff on the far ones.
+  - The trunks read a little cool and dark.
+  - The meadow variation is still faint at this distance; it reads mostly as a flat olive plane.
+  - The hats are simple turned shapes, and the hair is barely visible from these angles.
+  - The bearer and crate timber is now grey-brown, but the bearers are still plain cuboids.
+  - The cart ruts (flat bands) were not touched.
+  - Frames are about 10 luma darker overall, mainly from the darker tree band.
+- Promote if kept: `/workspace/blender5/blender -b rounds/m02.blend -P scripts/candidate_cp032_trees.py -- --live`. The live render script and the build_m02.sh hook are not written until a KEEP.
+- Live m02, renders/m02 and `scripts/people_lib.py` (an uncommitted working-tree edit that is not mine) were left untouched.
