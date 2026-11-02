@@ -1,0 +1,11 @@
+# NOTES — Hibbert, Platt & Son's cotton machines (fig. 29) — MUSE VERSION
+
+**Muse version.** Staged locally as `scan-fig29-platt-cotton-machines/`; ships as `scan-fig29-platt-cotton-machines-muse/` under Scans/models/.
+
+- **Source:** `fig-29_hibbert-platt-son-cotton-machines-1851.png` (scan IMG_6458), ILN 23 Aug 1851. Catalog description: "Visitors observe cotton machinery behind a protective rail under the Palace roof." Catalog lists no uncertainties; repair: none (geometric extraction only).
+- **Subject modelled:** a representative cotton-preparation machine row: one principal carding-type machine (large central drum Ø ~1.05 m, end cheek discs, brass/steel feed rollers, lap sheet, side gear wheel) with two simplified repetitions suggesting the row, two arched-cover machines to the left, overhead line shafting with hangers, pulleys and belts, a bobbin spinning frame in the right background, and the protective post-and-rail barrier in front. Three stylised visitors (top-hat man, bonneted woman, second man) stand at the rail.
+- **Scale:** ESTIMATED from the visitors in the engraving (figures 1.63–1.74 m). Principal machine ~1.6 m to drum top; row bay ~2.9 m centres. No dimension is printed in the source.
+- **Assumptions / interpretation:** the engraving shows the machines from the front-left only; drum internals, the rear of the frames and the exact machine type mix (carding vs. scutching/prep) are generalised from period cotton machinery, not confirmed by this image. The spinning frame's bobbin count is schematic. Palace roof structure itself is NOT modelled (only the shafting the machines need). Figures are simplified period-dress forms — no likenesses.
+- **Triangles:** 6,992 (100 mesh objects). Blender 4.5.3, metres, origin at base centre, scale applied. GLB excludes the render ground/lights/camera.
+- **QC:** preview compared against the reference (three-quarter from the visitor aisle, as in the engraving). Two fix rounds: figure neck/head join corrected; a first 48-sample render pass was re-run at 16 samples + denoise for turnaround (flat materials, no visible quality loss). 
+- **Manual review:** machine-type identification (carding engine assumed from the large drum + feed rollers) could be refined by a machinery historian; row length in the original extends well beyond the three bays modelled.
