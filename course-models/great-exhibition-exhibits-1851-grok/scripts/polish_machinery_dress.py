@@ -10,7 +10,8 @@ origin/scans/crystal-palace-illustrations-2026-11-01:
   fig-21 western nave colour (crimson / gilt / green accents).
 Figs 43/54/74 carry generated patches and were not used.
 
-Opens LIVE rounds/e02.blend read-only and saves a NEW candidate blend
+Opens the BASE blend read-only (--base; default rounds/e02.blend.pre_machinery_keep if present,
+else live rounds/e02.blend) and saves a NEW candidate blend
 (default rounds/candidates/e02_machinery_dress.blend). Live is never written.
 The KEEP Nasmyth hammer (EXH_NASMYTH_HAMMER), its barrier/label and the
 envelope are not modified. The rejected 2026-11-01 Muse hammer swap and Muse
@@ -19,7 +20,10 @@ they are and are only dressed around (stand, rail, placard, belt, attendant).
 
   blender -b rounds/e02.blend -P scripts/polish_machinery_dress.py -- \
       [--out rounds/candidates/e02_machinery_dress.blend] [--shaft-z 15.5] \
-      [--no-people] [--no-shafts] [--no-rails] [--no-placards]
+      [--no-people] [--no-shafts] [--no-rails] [--no-placards] [--base rounds/e02.blend.pre_machinery_keep]
+      [--boiler-placard-dx 1.0] [--boiler-placard-yaw 0]
+KEEP 2026-11-02 (approach_start, approach_end, ram_start): promoted to live by
+scripts/promote_machinery_live.py; live renders via scripts/render_cp024_machinery.sh.
 
 Units: feet in the parameter tables (converted by parts1851.finish).
 """
@@ -37,6 +41,11 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 OUT = arg("--out", "rounds/candidates/e02_machinery_dress.blend")
 out = OUT if os.path.isabs(OUT) else os.path.join(ROOT, OUT)
 LIVE = os.path.join(ROOT, "rounds/e02.blend")
+# Base blend to dress. Before the 2026-11-02 KEEP this was live e02; after the KEEP live already carries
+# the dressing, so rebuilds start from the pre-KEEP backup (== git 5c4b55d:rounds/e02.blend, md5 ae5355a5...).
+_bk = os.path.join(ROOT, "rounds/e02.blend.pre_machinery_keep")
+BASE = arg("--base", _bk if os.path.isfile(_bk) else LIVE)
+BASE = BASE if os.path.isabs(BASE) else os.path.join(ROOT, BASE)
 assert os.path.abspath(out) != os.path.abspath(LIVE), "refusing to overwrite live e02"
 os.makedirs(os.path.dirname(out), exist_ok=True)
 SHAFT_Z = float(arg("--shaft-z", "15.5"))      # line-shaft centre height, ft (fig-29: well below gallery)
@@ -44,10 +53,15 @@ DO_PEOPLE = "--no-people" not in argv
 DO_SHAFTS = "--no-shafts" not in argv
 DO_RAILS = "--no-rails" not in argv
 DO_PLACARDS = "--no-placards" not in argv
+# KEEP polish (2026-11-02): boiler CLASS V placard sat 0.8% from the left edge of CP024_approach_start;
+# slide it east (inward in that frame) along the rail front. --boiler-placard-dx 0 restores the candidate.
+BOILER_PLACARD_DX = float(arg("--boiler-placard-dx", "1.0"))   # ft, +x = east
+BOILER_PLACARD_YAW = float(arg("--boiler-placard-yaw", "0"))   # deg about the post, + = turn face toward +x
 CAND = "e02_machinery_dress"
 PREFIX = "MCD_"
 
-bpy.ops.wm.open_mainfile(filepath=LIVE)
+bpy.ops.wm.open_mainfile(filepath=BASE)
+print("MCD_BASE", BASE, flush=True)
 for o in list(bpy.data.objects):
     if o.name.startswith(PREFIX) or o.get("candidate") == CAND:
         bpy.data.objects.remove(o, do_unlink=True)
@@ -299,7 +313,12 @@ for key, S in STANDS.items():
     if DO_PLACARDS:
         # front (aisle, -Y) side, just outside the rail, offset toward the camera-side end
         px = rx0 + 2.2 if key in ("engine", "lathe") else rx1 - 2.2
-        placard(key, px, ry0 - 1.0, S["cls"], S["sub"])
+        face = (0, -1)
+        if key == "boiler":
+            px += BOILER_PLACARD_DX
+            if BOILER_PLACARD_YAW:
+                a = math.radians(BOILER_PLACARD_YAW); face = (math.sin(a), -math.cos(a))
+        placard(key, px, ry0 - 1.0, S["cls"], S["sub"], face=face)
 
 if DO_SHAFTS:
     z = SHAFT_Z

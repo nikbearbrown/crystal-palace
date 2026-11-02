@@ -54,9 +54,16 @@ Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Cont
 | EX_MUSE_HAM_FORM | Standards | Muse standards built as a V (wider at top) because of a rotation-sign error (build script ~l.146); Muse's NOTES and the photo say A-form. Left uncorrected (their folder is read-only). |
 | EX_MUSE_HAM_MOTION | Motion | Muse Tup static at mid-stroke, single-acting; ours animated blow cycle + steam puffs (EX13). |
 | EX_MUSE_DRESS_PLACE | Machinery Court dressing | 1851 portable engines and seed drills stood with agricultural implements (Class IX), not in machinery-in-motion; placing them beside the hammer is a dressing departure. Vacuum sugar apparatus is plausible for the machinery area. |
-| EX_MCD_PLACARD | Machinery Court dressing (CANDIDATE 2026-11-02) | Stand placards carry generic Official Catalogue class headings (CLASS V. Machines for direct use; CLASS VI. Manufacturing machines and tools), not exhibitor names; board size/lettering inferred from fig-29/fig-48 scans (dressing refs, not measurements). |
+| EX_MCD_PLACARD | Machinery Court dressing (KEEP 2026-11-02) | Stand placards carry generic Official Catalogue class headings (CLASS V. Machines for direct use; CLASS VI. Manufacturing machines and tools), not exhibitor names; board size/lettering inferred from fig-29/fig-48 scans (dressing refs, not measurements). |
 | EX_MCD_SHAFT | Machinery Court dressing | Overhead line shafts at 15.5 ft (param `--shaft-z`), drop hangers and column brackets, pulley sizes all inferred from fig-29 (Hibbert, Platt); no measured 1851 shafting layout for these stands. |
 | EX_MCD_BELT | Machinery Court dressing | Belt from the engine block-out's added flywheel to the south shaft, and shaft-to-press/lathe belts, are dressing assumptions: the block-outs are generic, not identified 1851 exhibits. |
 | EX_MCD_RAIL | Machinery Court dressing | Turned stanchion rails with rope on green cloth with crimson kerb (rope colours from fig-30 De la Rue); the boiler block-out is railed as an exhibit. Rails skip posts near columns. |
 | EX_MCD_PEOPLE | Machinery Court dressing | 7 attendants/visitors baked from vendored people_lib (HBM, `cpl_people` tag removed so render-time swap ignores them) beside the older low-poly VIS figures — style mismatch; lady's head reads bare from behind at close range. |
 | EX_MCD_SCOPE | Machinery Court dressing | fig-48 (Garrett & Son) used only for stand/placard treatment, not for its agricultural subject matter; figs 43/54/74 (generated patches) not used. Hyde Park 1851 only. |
+
+## 2026-11-02 CP024 Machinery Court dressing KEEP (parent viewed all pairs)
+| ID | Topic | Departure / note |
+|---|---|---|
+| EX_MCD_KEEP | Status | EX_MCD_PLACARD/SHAFT/BELT/RAIL/PEOPLE/SCOPE now apply to LIVE e02 (CP024 approach_start, approach_end, ram_start). Promoted by `scripts/promote_machinery_live.py`; old live `rounds/e02.blend.pre_machinery_keep`. |
+| EX_MCD_PLACARD_NUDGE | Boiler placard position | Boiler CLASS V placard moved 1.0 ft east along the rail front (`--boiler-placard-dx 1.0`) purely for framing, so it clears the left edge of CP024_approach_start. No source fixes placard positions; still 1 ft outside the rope rail. |
+
