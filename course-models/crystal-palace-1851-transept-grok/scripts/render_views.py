@@ -130,11 +130,16 @@ _use_dress = _cpd is not None and "--no-cp023-dressing" not in argv
 _use_boots = "--cp023-boots" in argv
 _use_fg = "--cp023-foreground" in argv
 _save_dir = arg("--save-blend-dir")
+# 2026-11-02 CP023 floor CANDIDATE alt: --shift-y V adds a vertical lens shift (rise; verticals stay vertical) to every
+# camera in this run, restored after each render. Opt-in; without it nothing changes.
+_shift_y = float(arg("--shift-y", "0") or 0)
 os.makedirs(outdir, exist_ok=True)
 for c in cams:
     cam = bpy.data.objects.get(c)
     if not cam: print("NO CAM", c); continue
     sc.camera = cam
+    _sy0 = cam.data.shift_y   # --shift-y applied before the people swap/dressing so edge tests use the shifted frame
+    if _shift_y: cam.data.shift_y = _sy0 + _shift_y; print("SHIFT_Y", c, cam.data.shift_y, flush=True)
     sc.view_settings.exposure = _shot_tab[c] if (_use_shot_exp and c in _shot_tab) else _base_exp
     if _use_shot_exp and c in _shot_tab: print("SHOT_EXPOSURE", _blend_name, c, sc.view_settings.exposure, flush=True)
     _dr = False
@@ -167,6 +172,7 @@ for c in cams:
     else: sc.render.resolution_x, sc.render.resolution_y = W, H
     sc.render.filepath = os.path.join(outdir, c + ".png")
     bpy.ops.render.render(write_still=True)
+    cam.data.shift_y = _sy0
     print("WROTE", sc.render.filepath, flush=True)
     if _save_dir:
         os.makedirs(_save_dir, exist_ok=True)
