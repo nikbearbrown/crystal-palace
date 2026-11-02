@@ -9,7 +9,9 @@
 # scripts/candidate_cp032_arrival.py --live (arrival hands KEEP 2026-11-02, MV16; touches only STAFF_07..11, so the
 # departure frame is unchanged and the rebuilt m02 equals the live one), then scripts/candidate_cp032_foreground.py
 # --live (arrival near-foreground KEEP 2026-11-02, MV17; Sydenham-only material + CP032_arrival-only state; departure
-# frame differs from the pre-MV17 m02 by noise only, max 3/255).
+# frame differs from the pre-MV17 m02 by noise only, max 3/255), then scripts/candidate_cp032_yard.py --live (arrival
+# yard dressing KEEP 2026-11-02, MV18; ARR_YD_* objects + Sydenham-only materials; asserts CP032_YARD_IN_PLACE True;
+# departure frames differ from the pre-MV18 m02 by noise only).
 # Note: render_shots.py's render-time people swap imports this folder's people_lib.py; reproduction assumes that file
 # is unchanged since the live render.
 # Since the CP032 arrival KEEP (2026-11-02, MV16) live m02 no longer reproduces the stored departure frame bit for bit:
@@ -28,6 +30,8 @@ if [[ "${1:-}" == "--rebuild" ]]; then
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_people.py -- --live 2>&1 | grep -E "CP032_HANDS_IN_PLACE|Error|Traceback"
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_arrival.py -- --live 2>&1 | grep -E "CP032_ARR_HANDS_IN_PLACE|Error|Traceback"
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_foreground.py -- --live 2>&1 | grep -E "CP032_FG_IN_PLACE|Error|Traceback"
+  YD=$("$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_yard.py -- --live 2>&1 | grep -E "CP032_YARD_IN_PLACE|Error|Traceback" || true)
+  echo "$YD"; grep -q "CP032_YARD_IN_PLACE True" <<<"$YD" || { echo "CP032_YARD_IN_PLACE check failed"; rm -rf "$TMP"; exit 3; }
   mv "$TMP/m02.blend" rounds/m02.blend
   rm -rf "$TMP"
 fi
