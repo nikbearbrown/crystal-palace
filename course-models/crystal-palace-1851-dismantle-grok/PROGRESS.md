@@ -61,3 +61,6 @@ never git init inside a grok folder; commit from the worktree root
 
 ## 2026-11-01 HP interior envelope REJECT (CP030)
 - Envelope candidate `rounds/candidates/d04_envelope.blend` on CP030_empty_aisle reviewed: washed out, loses glass, tree and depth vs live. REJECT; live d04 unchanged. Candidate files left in `rounds/candidates/` for reference.
+
+## 2026-11-02 CANDIDATE CP031 key strike (no verdict)
+- Weakest-by-eye after CP028: the live 50 mm hero striker was a hooded robe stand-in with no legs/hands and rod arms. Candidate dresses him (DM24). Pairs: survey `look/pairs_geo/CANDIDATE_CP031_strike_*`. Reproduce: `scripts/render_cp031_strike.sh [--rebuild]` → `renders/candidates/cp031_strike_20261102/`. Not promoted.

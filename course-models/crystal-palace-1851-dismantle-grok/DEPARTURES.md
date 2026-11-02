@@ -38,3 +38,10 @@ d01 CP030_empty_walk_end looked straight into the locomotive packing case at ~6 
 
 ## Look — crystal-palace-look v1 (2026-10-27)
 Shared grade from `/workspace/crystal-palace-survey/look/` (AgX Medium High Contrast, Nishita-family MULTIPLE_SCATTERING sky + haze, era white-balance, mid-grey exposure table, glass/white-iron albedo ceilings). Render scripts import via `cpl_look.py` and call `apply_look` before rendering. Hero tiles re-rendered lean (24 spp, 1280×720). See `look/README.md` for Sydenham adoption.
+
+## DM24 — CANDIDATE CP031 key strike: dressed striker (2026-11-02, Hyde Park dismantling winter 1851–52; no verdict)
+| id | topic | basis | decision | grade |
+|---|---|---|---|---|
+| DM24 | CP031_key_strike / lateral striker | Downes 1852 p.18: wrought-iron keys in 2 in grooves, driven top and bottom between the snugs and the girder ends; wrought keys within 200 ft of each end and of the transept, so the x=180 joint is wrought iron. Girder top 22 ft 2 in. people_lib v3.4 rule: no bald HBM close-up when the figure is >8 % of frame height. | Candidate only (`rounds/candidates/d04_cp031strike.blend`, `scripts/cp031_striker.py`, `scripts/candidate_cp031_strike.py`; live d04 untouched). Replaced the hooded stand-in D_STAFF_STRIKER + D_MAUL with a people_lib v3.4 1850s_workman (1.688 m, 5 ft 6½ in), arms posed by two-bone IK and smooth capsule skinning so both hands close on the helve, hair shell + slate cloth cap with peak (lib disc cap removed), legs drawn in to a 0.30 m stance so both boots stand on the 1.6 × 1.8 ft trestle deck (DM17 staging, unchanged). Figure recentred on the deck at (181.55, −153.0, 16.0 ft), rz −17.3°. Maul: ash helve 31.6 in × 1¼ in dia; cast-iron head 4.8 in dia × 10.5 in + 1.3 in-radius peen (DM21 head was 5 in dia), square to the helve, face on the key's north face at z 22.45 ft (3.4 in above the girder top). | C |
+
+Departures logged: the deck is too small for a real striker (left as staged in DM17); the blow is a raised side-and-down stroke onto a vertical key rather than a vertical drive; leg narrowing is a mesh edit, not a measured stance.
