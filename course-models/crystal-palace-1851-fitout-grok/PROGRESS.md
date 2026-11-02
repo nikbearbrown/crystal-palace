@@ -75,3 +75,9 @@ never git init inside a grok folder; commit from the worktree root
 - `scripts/polish_cp028_drive_cand.py` → `rounds/candidates/h03_cp028_drive.blend` (FT51–FT54: one pulley Q + continuous shafting T, intermediate cranks at x=16/32 ft, stray blind laths removed, oiler on a pair of steps).
 - `scripts/render_cp028_drive.sh [--rebuild]` → `renders/candidates/cp028_drive_20261102/{before,after}/CP028_louvre_start.png` (1280x720, 48 spp, --keep-lighting --no-people; the before is pixel-identical to live `renders/h03/CP028_louvre_start.png`).
 - Survey pairs: `look/pairs_geo/CANDIDATE_CP028_drive_{before,after,pair,detail_pair}.png`. No verdict.
+- **v1 REJECTED 2026-11-02** (parent viewed the pairs): the drive fix FT51–FT53 is right, but the oiler read as floating (steps' top at his waist, legs beside the steps, no foot on a tread). Survey pairs renamed `REJECTED_CP028_drive_v1_*`.
+
+## 2026-11-02 CANDIDATE CP028 louvre drive v2 (FT54 restaged; live h03 untouched)
+- `scripts/polish_cp028_drive_v2_cand.py` → `rounds/candidates/h03_cp028_drive_v2.blend`. FT51–FT53 code identical to v1; FT54 v2: oiler stands on treads 12/13 of the 14 ft steps, facing up them (turned 10 deg), top cap at thigh height, hand + feeder at bearing S' x=16 ft; pale trousers + dark boots on his own mesh copy.
+- `scripts/render_cp028_drive_v2.sh [--rebuild]` → `renders/candidates/cp028_drive_v2_20261102/{before,after}/CP028_louvre_start.png` (camera, 1280x720, 48 spp, --keep-lighting --no-people identical to v1; before pixel-identical to live h03). Pixel-identical on rerun, including --rebuild.
+- `scripts/make_cp028_drive_v2_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP028_drive_v2_{before,after,pair,detail_pair}.png`. No verdict.
