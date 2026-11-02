@@ -14,6 +14,6 @@ def pair(a, b, la, lb, out):
 LIVE = f"{H}/renders/candidates/cp016_wheels_20261102"; V2 = f"{H}/renders/candidates/cp016_wheels_v2_20261102"; NG = f"{H}/renders/candidates/cp016_wheels_v2_noglaziers_20261102"
 for k in ("start", "end"):
     pair(f"{LIVE}/CP016_wheels_{k}.png", f"{V2}/CP016_wheels_{k}.png", f"BEFORE live CP016_wheels_{k} (KEEP reframe)",
-         "AFTER CANDIDATE v2: stub axles, 32 mm deck-lip cam, 2 glaziers", f"{OUT}/CANDIDATE_CP016_wheels_v2_{k}_pair.png")
+         "AFTER CANDIDATE v2: stub axles, 32 mm deck-lip cam, 2 glaziers", f"{OUT}/REJECTED_CP016_wheels_v2_{k}_pair.png")
     pair(f"{LIVE}/CP016_wheels_{k}.png", f"{NG}/CP016_wheels_{k}.png", f"BEFORE live CP016_wheels_{k} (KEEP reframe)",
-         "AFTER CANDIDATE v2 no glaziers: stub axles + 32 mm cam only", f"{OUT}/CANDIDATE_CP016_wheels_v2_noglaziers_{k}_pair.png")
+         "AFTER CANDIDATE v2 no glaziers: stub axles + 32 mm cam only", f"{OUT}/SUPERSEDED_CP016_wheels_v2_noglaziers_{k}_pair.png")

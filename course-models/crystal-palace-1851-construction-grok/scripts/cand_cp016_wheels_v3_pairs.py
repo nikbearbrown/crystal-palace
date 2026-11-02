@@ -11,4 +11,4 @@ for k in ("start", "end"):
     S = Image.new("RGB", (A.width + B.width + 10, max(A.height, B.height) + 40), (20, 20, 20)); S.paste(A, (0, 40)); S.paste(B, (A.width + 10, 40))
     d = ImageDraw.Draw(S); d.text((10, 8), f"BEFORE live CP016_wheels_{k} (KEEP reframe)", fill=(255, 255, 255), font=FN)
     d.text((A.width + 20, 8), "AFTER CANDIDATE v3: stub axles + 32 mm cam, far workmen in fustian", fill=(255, 255, 255), font=FN)
-    out = f"{OUT}/CANDIDATE_CP016_wheels_v3_{k}_pair.png"; S.save(out); print("PAIR", out)
+    out = f"{OUT}/KEEP_CP016_wheels_v3_{k}_pair.png"; S.save(out); print("PAIR", out)

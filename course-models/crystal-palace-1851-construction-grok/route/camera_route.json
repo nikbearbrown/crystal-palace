@@ -334,30 +334,30 @@
     },
     {
       "id": "CP016_wheels",
-      "lens_mm": 50,
-      "note": "c06 close-up of CP016 glazing-wagon wheels from the roof-edge platform (Muse 0174 tyre/spoke). KEEP 2026-11-02 (CN43): reframed into the bay between KSCAF_ROOFEDGE standards; live renders come from rounds/candidates/c06_cp016wheels.blend via scripts/render_cp016_wheels.sh (that blend also hides KWORKER_013/014/027_CP016 + KPANE_SLIDING_0/HELD_0 and gives the wheels GT_CartTyre)",
+      "lens_mm": 32,
+      "note": "c06 close-up of CP016 glazing-wagon wheels from the roof-edge platform (Muse 0174 tyre/spoke). KEEP 2026-11-02 v3 (CN43 reframe + CN44): 32 mm front cameras; live renders come from rounds/candidates/c06_cp016wheels_v3.blend via scripts/render_cp016_wheels.sh (that blend also has stub axles (inferred, grade C), hides KWORKER_013/014/027/028_CP016 + KPANE_SLIDING_0/1/HELD_0, far workmen in dark fustian, wheels GT_CartTyre)",
       "start": {
         "pos_ft": [
-          332.0,
-          -212.0,
+          333.5,
+          -208.6,
           29.25
         ],
         "look_ft": [
-          328.6,
-          -196.1,
-          22.8
+          329.8,
+          -194.5,
+          25.4
         ]
       },
       "end": {
         "pos_ft": [
-          332.0,
-          -210.5,
+          330.5,
+          -208.6,
           29.25
         ],
         "look_ft": [
-          328.4,
-          -196.1,
-          22.6
+          329.6,
+          -194.5,
+          25.4
         ]
       }
     }
