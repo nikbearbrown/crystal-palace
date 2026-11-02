@@ -74,7 +74,7 @@ never git init inside a grok folder; commit from the worktree root
 - Caveat (fixed 2026-11-02, see below): `build_dismantle.py` still lays down the r09 stand-in; `build_round.sh` now re-applies `candidate_cp031_strike.py --contact-dy 0.10`. CP031_joint_detail / lateral_end / REV aerial in renders/d04 were not re-rendered (not live d04 frames).
 
 
-## 2026-11-02 CP031 housekeeping (CANDIDATE, no verdict)
+## 2026-11-02 CP031 housekeeping (KEEP 2026-11-02; parent viewed the pairs; d04 joint_detail, lateral_end (+dusk) and aerial are now current)
 - `scripts/build_round.sh` now ends every round by running `candidate_cp031_strike.py --contact-dy 0.10` on `rounds/dNN_dismantle.blend` (via a temp file, then moved into place) and asserts `D_STAFF_STRIKER_CPL3` present / r09 `D_STAFF_STRIKER` gone (`CP031_STRIKER_IN_PLACE True`). Tested with a throw-away round `dtest` (9 s; files deleted, `_base` restored): its CP031_key_strike_start render is pixel-identical (max diff 0) to live `renders/d04/CP031_key_strike_start.png`.
 - Stale d04 views rendered from live d04 with the live CP031 settings (x05 host, 1280x720, 24 spp, look exposure): `renders/d04/CP031_joint_detail_start.png`, `CP031_lateral_end.png`, `CP031_lateral_end_dusk.png`, `REV_dismantle_aerial_start.png` via `scripts/render_cp031_stale.sh` (`--before DIR` renders the pre-CP031 7b7171a d04 for pairs). Striker visible only in joint_detail (aerial: 28 px; lateral_end + dusk: identical, striker out of frame).
-- Pairs: survey `look/pairs_geo/CANDIDATE_CP031_stale_*` (`scripts/make_cp031_stale_pairs.py`).
+- Pairs: survey `look/pairs_geo/KEEP_CP031_stale_*` (renamed from CANDIDATE_* on KEEP) (`scripts/make_cp031_stale_pairs.py`).
