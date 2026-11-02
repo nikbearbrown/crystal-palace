@@ -11,5 +11,5 @@ def pair(a, b, la, lb, out):
     S.save(out); print("PAIR", out)
 live = f"{H}/renders/c06/CP016_wheels_start.png"; cs = f"{H}/renders/candidates/cp016_wheels_20261102/CP016_wheels_start.png"
 ce = f"{H}/renders/candidates/cp016_wheels_20261102/CP016_wheels_end.png"
-pair(live, cs, "BEFORE live c06 CP016_wheels_start", "AFTER CANDIDATE 2026-11-02 (off scaffold standard, iron wheels)", f"{OUT}/CANDIDATE_CP016_wheels_reframe_pair.png")
-pair(cs, ce, "CANDIDATE start", "CANDIDATE end (1.5 ft push-in; no live end exists)", f"{OUT}/CANDIDATE_CP016_wheels_reframe_startend.png")
+pair(live, cs, "BEFORE live c06 CP016_wheels_start", "AFTER CANDIDATE 2026-11-02 (off scaffold standard, iron wheels)", f"{OUT}/KEEP_CP016_wheels_reframe_pair.png")
+pair(cs, ce, "CANDIDATE start", "CANDIDATE end (1.5 ft push-in; no live end exists)", f"{OUT}/KEEP_CP016_wheels_reframe_startend.png")
