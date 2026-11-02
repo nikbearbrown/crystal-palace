@@ -23,7 +23,7 @@
 | K02 | REV_dismantle_aerial_start no roll (camera X axis z) | 0 | 0.0 | PASS |
 | K06 | rounds/d03_empty.blend size (MB) | < 90 | 18.1 | PASS |
 | K06 | rounds/d03_dismantle.blend size (MB) | < 90 | 18.2 | PASS |
-| K06 | rounds/d04_dismantle.blend size (MB) | < 90 | 18.1 | PASS |
+| K06 | rounds/d04_dismantle.blend size (MB) | < 90 | 18.3 | PASS |
 | K06 | rounds/d04_empty.blend size (MB) | < 90 | 18.1 | PASS |
 | K07 | no Sydenham-named data (Hyde Park 1851 only) | 0 | 0 | PASS |
 | K08 | HP51 dressing 'crowd' visible | 0 | 0 | PASS |
@@ -44,4 +44,4 @@
 | K20 | joint keys at the column head (ft from joint) | < 3 | 0.55 | PASS |
 | K21 | floor seam: exterior boards above transept boards where they overlap (ft) | 0.01-0.05 | 0.03 | PASS |
 | K22 | lowered + stacked girders in red-lead primer | GT_RedLeadPrimer | ['GT_RedLeadPrimer'] | PASS |
-| K23 | key striker within maul reach of the joint (ft, horizontal) | < 4 | 3.47 | PASS |
+| K23 | key striker within maul reach of the joint (ft, horizontal) | < 4 | 3.38 | PASS |

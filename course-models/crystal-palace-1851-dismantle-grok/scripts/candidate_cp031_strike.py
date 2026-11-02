@@ -14,6 +14,7 @@ import cp031_striker as S
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 ap = argparse.ArgumentParser(); ap.add_argument("--out", default="rounds/candidates/d04_cp031strike.blend")
 ap.add_argument("--man", default="181.55,-153.0")  # centre of the live trestle deck (DM17)
+ap.add_argument("--contact-dy", type=float, default=0.0)  # ft; KEEP nudge uses 0.10 (face on, not in, the key)
 a = ap.parse_args(argv)
 here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 out = os.path.join(here, a.out) if not os.path.isabs(a.out) else a.out
@@ -37,7 +38,7 @@ for o in (old_st, old_ma):
 jx, jy = 180.0, -156.0
 key_box = (jx + 0.55, jx + 0.72, jy - 0.07, jy + 0.07, 20.9, 23.0)
 mx, my = (float(v) for v in a.man.split(","))
-st, ma, info = S.build(None, coll_staff, coll_sup, [cast, ash], (mx, my), 16.0, key_box)
+st, ma, info = S.build(None, coll_staff, coll_sup, [cast, ash], (mx, my), 16.0, key_box, contact_dy_ft=a.contact_dy)
 print("CP031_INFO " + json.dumps(info))
 os.makedirs(os.path.dirname(out), exist_ok=True)
 bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True)

@@ -189,7 +189,8 @@ def dress_head(me):
     return dict(crown=round(crown, 3), head_centre=tuple(round(x, 3) for x in hc), hair_faces=len(hair), cap_faces=len(capf))
 
 
-def build(scene_root_coll, coll_staff, coll_support, mats, man_xy_ft, deck_ft, key_box_ft, seed=1852031):
+def build(scene_root_coll, coll_staff, coll_support, mats, man_xy_ft, deck_ft, key_box_ft, seed=1852031,
+          contact_dy_ft=0.0):
     """Create the workman + maul. Returns (striker_obj, maul_obj, info dict)."""
     if SURVEY_PEOPLE not in sys.path:
         sys.path.insert(0, SURVEY_PEOPLE)
@@ -205,6 +206,9 @@ def build(scene_root_coll, coll_staff, coll_support, mats, man_xy_ft, deck_ft, k
     kx0, kx1, ky0, ky1, kz0, kz1 = key_box_ft
     man = Vector((man_xy_ft[0], man_xy_ft[1], deck_ft))
     C = Vector(((kx0 + kx1) / 2, ky1, 22.45))      # contact: N face of the key, 3.4 in above the girder top (22 ft 2 in)
+    # KEEP nudge (2026-11-02): the tilted face disc's lower rim cut ~1.1 in into the key at contact_dy_ft=0;
+    # contact_dy_ft moves the aim point north (toward the striker) so the face sits ON the key.
+    C.y += contact_dy_ft
     g = Vector((C.x - man.x, C.y - man.y, 0)).normalized()          # facing (horizontal)
     rz = math.atan2(g.x, -g.y)                                        # local -Y -> g
     Rw = Matrix.Rotation(rz, 4, 'Z')

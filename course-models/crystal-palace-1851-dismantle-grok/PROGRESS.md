@@ -64,3 +64,12 @@ never git init inside a grok folder; commit from the worktree root
 
 ## 2026-11-02 CANDIDATE CP031 key strike (no verdict)
 - Weakest-by-eye after CP028: the live 50 mm hero striker was a hooded robe stand-in with no legs/hands and rod arms. Candidate dresses him (DM24). Pairs: survey `look/pairs_geo/CANDIDATE_CP031_strike_*`. Reproduce: `scripts/render_cp031_strike.sh [--rebuild]` → `renders/candidates/cp031_strike_20261102/`. Not promoted.
+
+## 2026-11-02 KEEP CP031 key strike (dressed striker DM24 + maul nudge DM25; promoted to live d04)
+- Parent reviewed the CANDIDATE pairs and KEPT them: the dressed workman reads clearly better than the robe stand-in, exposure matches, both boots on the deck.
+- Nudge before promotion (DM25): the maul's tilted face cut ~1.1 in (0.095 ft) into the key's north face; `--contact-dy 0.10` moves the aim point 0.10 ft north so the face sits on the key (0.1 in clear, 0 head verts inside the key box). Figure, stance and boots unchanged at 2x crop.
+- Live: `rounds/d04_dismantle.blend` now carries D_STAFF_STRIKER_CPL3 + D_MAUL_CPL3 (pre-KEEP live d04 pinned at commit 7b7171a). Live renders re-rendered at 1280x720, 24 spp: `renders/d04/CP031_key_strike_start.png`, `renders/d04/CP031_lateral_start.png`, plus `renders/d04/CP031_lateral_start_dusk.png` so the dusk variant is not stale. The pre-nudge candidate blend/renders stay in `rounds/candidates/` and `renders/candidates/cp031_strike_20261102/` for reference.
+- Reproduce: `scripts/render_cp031_live.sh [--rebuild]` (--rebuild regenerates live d04_dismantle from 7b7171a via `candidate_cp031_strike.py --contact-dy 0.10`). Checked pixel-identical (max diff 0) with and without --rebuild, and against an independent build. KEEP pairs: `scripts/make_cp031_keep_pairs.py`.
+- Checks d04_dismantle 43/43 (K23 now finds D_STAFF_STRIKER_CPL3).
+- Caveat: `scripts/build_round.sh` + `build_dismantle.py` still rebuild the r09 stand-in; a fresh d0N round must re-apply `candidate_cp031_strike.py --contact-dy 0.10`. CP031_joint_detail / lateral_end / REV aerial in renders/d04 were not re-rendered (not live d04 frames).
+

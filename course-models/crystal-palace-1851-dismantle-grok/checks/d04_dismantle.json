@@ -160,7 +160,7 @@
    "id": "K06",
    "check": "rounds/d04_dismantle.blend size (MB)",
    "target": "< 90",
-   "measured": "18.1",
+   "measured": "18.3",
    "ok": true
   },
   {
@@ -307,7 +307,7 @@
    "id": "K23",
    "check": "key striker within maul reach of the joint (ft, horizontal)",
    "target": "< 4",
-   "measured": "3.47",
+   "measured": "3.38",
    "ok": true
   }
  ],

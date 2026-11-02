@@ -98,7 +98,7 @@ if fb and eb:
 if state == "dismantle":
     g = bpy.data.objects["D_GIRDER_LOWERING"]; mn = {s.material.name for s in g.material_slots if s.material}
     chk("K22", "lowered + stacked girders in red-lead primer", "GT_RedLeadPrimer", sorted(mn), mn == {"GT_RedLeadPrimer"})
-    st = bpy.data.objects.get("D_STAFF_STRIKER"); keys = bpy.data.objects.get("D_JOINT_KEYS")
+    st = bpy.data.objects.get("D_STAFF_STRIKER") or bpy.data.objects.get("D_STAFF_STRIKER_CPL3"); keys = bpy.data.objects.get("D_JOINT_KEYS")  # CPL3 = CP031 KEEP 2026-11-02
     if st:
         d = ((st.matrix_world.translation.xy - Vector((Z["joint_xy"][0] * FT, Z["joint_xy"][1] * FT))).length) / FT
         chk("K23", "key striker within maul reach of the joint (ft, horizontal)", "< 4", round(d, 2), d < 4)
