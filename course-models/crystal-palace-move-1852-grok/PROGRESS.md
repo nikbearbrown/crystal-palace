@@ -38,3 +38,8 @@ never git init inside a grok folder; commit from the worktree root
 
 ## people v3.2 2026-10-27
 - people v3.2: revert CP032
+
+## 2026-11-02 CP032 departure hands (CANDIDATE, no verdict)
+- `scripts/candidate_cp032_people.py` builds sibling `rounds/candidates/m02_cp032people.blend` from live m02: 7 STAFF_* stand-ins → people_lib v3.4 hero figures `DEP_HAND_NN_<role>` (untagged so the render-time swap leaves them), dark fustian dress, black-coated clerk. DEPARTURES MV15.
+- `bash scripts/render_cp032_people.sh [DIR]` rebuilds the candidate and renders before/after at identical settings (1920×1080, 24 spp); `scripts/make_cp032_people_pairs.py` writes `look/pairs_geo/CANDIDATE_CP032_people_{before,after,pair,detail_pair}.png`. Mean luma 180.95 → 179.11 (darker clothing; settings identical).
+- Known flaws: A-pose arms still a little splayed; workmen's hands carry the trouser slot (read as dark gloves); hero boots are tubes over bare feet (visible only close up); low-poly caps. Live m02 and renders/m02 untouched.
