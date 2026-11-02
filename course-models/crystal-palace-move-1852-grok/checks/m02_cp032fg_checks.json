@@ -1,0 +1,39 @@
+{
+ "date": "2026-11-02",
+ "candidate": "rounds/candidates/m02_cp032fg.blend",
+ "base": "rounds/m02.blend (move d9a9501)",
+ "same_object_set": true,
+ "transforms_identical": true,
+ "material_slot_changes": {
+  "ARR_CLAY": [
+   [
+    "GT_SydenhamClay"
+   ],
+   [
+    "GT_SydenhamClayYard"
+   ]
+  ]
+ },
+ "states_live": {
+  "KJ_exploded": {
+   "hide": [
+    "K_GIRDER_N_oakkeys",
+    "K_KEYS_OAK_N"
+   ]
+  }
+ },
+ "states_candidate": {
+  "KJ_exploded": {
+   "hide": [
+    "K_GIRDER_N_oakkeys",
+    "K_KEYS_OAK_N"
+   ]
+  },
+  "CP032_arrival": {
+   "hide": [
+    "CPL_HorizonGround"
+   ]
+  }
+ },
+ "pass": true
+}
