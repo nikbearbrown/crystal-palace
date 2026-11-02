@@ -1,6 +1,9 @@
-"""CP032 departure candidate (2026-11-02, Grok, no verdict): dressed 1852 dismantling gang.
+"""CP032 departure hands (2026-11-02, Grok; KEEP 2026-11-02, live in m02): dressed 1852 dismantling gang.
 
 blender -b rounds/m02.blend -P scripts/candidate_cp032_people.py -- [--out rounds/candidates/m02_cp032people.blend]
+blender -b ROUND.blend -P scripts/candidate_cp032_people.py -- --live      # apply in place to a move round (KEEP)
+Idempotent: if the round already carries the seven DEP_HAND_* figures and no STAFF_00..06 stand-ins it changes
+nothing. Always ends by printing `CP032_HANDS_IN_PLACE True|False` (build_m02.sh asserts True).
 
 Opens LIVE m02 read-only and replaces the seven Hyde Park departure stand-ins STAFF_00..06 (r-era box/lathe
 mannequins; the shared people swap skips them as close-ups, so they still render as toys) with people_lib v3.4
@@ -22,10 +25,14 @@ import people_lib as P
 
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 ap = argparse.ArgumentParser(); ap.add_argument("--out", default="rounds/candidates/m02_cp032people.blend")
+ap.add_argument("--live", action="store_true", help="KEEP mode: write back into the opened blend (in place)")
 a = ap.parse_args(argv)
 here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-out = os.path.join(here, a.out) if not os.path.isabs(a.out) else a.out
-assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "refusing to overwrite the live blend"
+if a.live:
+    out = os.path.abspath(bpy.data.filepath)
+else:
+    out = os.path.join(here, a.out) if not os.path.isabs(a.out) else a.out
+    assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "refusing to overwrite the opened blend without --live"
 
 # stand-in -> (role, pose, extra yaw rad). Poses kept to standing/working: no load in hand, so no hauling mime.
 CAST = {
@@ -75,8 +82,17 @@ def lower_arms(me, deg=17.0, radius=0.15):
     me.update(); return moved
 
 
+def hands_in_place():
+    hands = [o for o in bpy.data.objects if o.name.startswith("DEP_HAND_")]
+    staff = [n for n in CAST if n in bpy.data.objects]
+    return len(hands) == len(CAST) and not staff and all(abs(o.matrix_world.translation.z - o.location.z) < 1e-6 for o in hands)
+
+
+already = hands_in_place()
+if already:
+    print("CP032 already applied: %d DEP_HAND_* present, no STAFF stand-ins; nothing changed" % len(CAST))
 info = {}
-for i, (nm, (role, pose, dyaw)) in enumerate(CAST.items()):
+for i, (nm, (role, pose, dyaw)) in enumerate([] if already else CAST.items()):
     old = bpy.data.objects[nm]
     coll = old.users_collection[0]
     loc = old.matrix_world.translation.copy(); yaw = old.matrix_world.to_euler().z + dyaw
@@ -113,6 +129,8 @@ for i, (nm, (role, pose, dyaw)) in enumerate(CAST.items()):
     info[ob.name] = {"from": nm, "xy": [round(loc.x, 2), round(loc.y, 2)], "yaw_deg": round(yaw * 57.2958, 1),
                      "height_m": round(hz, 3), "feet_z": 0.0, "arm_verts_lowered": moved}
 print("CP032_INFO " + json.dumps(info))
-os.makedirs(os.path.dirname(out), exist_ok=True)
-bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True)
-print("CP032 saved", out)
+print("CP032_HANDS_IN_PLACE", hands_in_place())
+if not already or not a.live:
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True)
+    print("CP032 saved", out)
