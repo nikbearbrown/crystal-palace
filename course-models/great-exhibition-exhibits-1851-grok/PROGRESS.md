@@ -87,3 +87,11 @@ Renders: 28 spp, 1280×720; CP024_ram_start at frame 25 with `--exposure 0.3` (e
 
 ## 2026-11-01 Muse intake: Grok Bot review
 - All Muse intake candidates REJECTED after viewing the pairs (see survey look/pairs_geo/README.md). Live blends unchanged; candidate files kept for reference.
+
+## 2026-11-02 CP024 Machinery Court stand dressing — CANDIDATE (not promoted, no keep/revert call)
+Live `rounds/e02.blend` untouched (md5 ae5355a5… checked by the render script). Not a repeat of the rejected Muse hammer/dressing intake: hammer and block-outs unmodified; only stand dressing added.
+- Script `scripts/polish_machinery_dress.py` (parametric: `--shaft-z`, `--no-people/--no-shafts/--no-rails/--no-placards`) → `rounds/candidates/e02_machinery_dress.blend`, collection `MCD_MACHINERY_DRESS_1851`, text block `CREDIT_MCD_CAND`.
+- Adds per block-out stand (boiler, engine, press, lathe): green floor cloth + crimson kerb, turned stanchion rails with sagging rope, Catalogue class placards; north + south line shafts with hangers/brackets, pulleys and flat belts to press, lathe and an engine flywheel; 7 baked people_lib attendants/visitors in period dress. Refs: scans fig-21/29/30/48 (dressing/colour only).
+- `scripts/render_machinery_cand.sh` rebuilds from live and renders before (live) and after with identical settings (28 spp, approach f1, ram f25 `--exposure 0.3`) into `renders/candidates/machinery_20261102/{before,after}/` and copies pairs to survey `look/pairs_geo/CANDIDATE_CP024_machinery_{approach_start,approach_end,ram_start_f025}_{before,after}.png`.
+- Self-score 6/10. Approach_start reads most like fig-29 (flywheel+belt, rails, placards). Misses: ram_start change is mostly background (pale north shaft line behind hammer, pulley at left edge, CLASS VI board) — the hammer foreground is unchanged; placard sub-lines illegible at film res; boiler placard large and edge-cut in approach_start; attendants small/dark in wide shots and HBM style differs from VIS figures; block-outs still grey boxes, so the dressing frames placeholders; after frames ~5% darker in mean (added dark iron, same lighting).
+- Departures EX_MCD_* in DEPARTURES.md.
