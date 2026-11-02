@@ -87,8 +87,83 @@
    "catalog_uncertainties": [
     "The far right edge meets the source photograph boundary."
    ],
-   "status": "manual_review",
-   "reason": "Outdoor display of stone blocks and an obelisk with visitors: a scene. The obelisk or a block could be cropped and modelled if wanted."
+   "status": "modeled",
+   "note": "One scan, 2 separate objects, each cropped and modelled on its own. Not modelled: stone slabs, the equestrian statuette, the timber tower and the visitors.",
+   "models": [
+    {
+     "status": "modeled",
+     "slug": "fig-24a_obelisk",
+     "input_image": "scan-models/inputs/fig-24a_obelisk.png",
+     "crop_box": [
+      1239,
+      212,
+      1534,
+      1310
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a14-a6e9-76b2-994b-2aa816441a61",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-24a_obelisk.blend",
+     "glb": "scan-models/glb/fig-24a_obelisk.glb",
+     "preview": "scan-models/previews/fig-24a_obelisk.png",
+     "comparison": "scan-models/comparisons/fig-24a_obelisk.jpg",
+     "triangles": 1470940,
+     "observed_result": "Slender tapered obelisk with a broken top and weathered yellow stone reads correctly, and the scale is plausible. A rough boulder stump is fused onto the foot, so the base is invented.",
+     "scale": {
+      "dim": "height",
+      "metres": 5.5,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Cropped to the obelisk; visitors, slabs and the background are excluded. Its base is hidden behind boulders, so the foot and plinth are invented.",
+      "Height estimated against standing visitors (about 1.75 m) in the same scene, which is uncertain because the obelisk sits further back.",
+      "Stone colour (yellow sandstone) is the hand-coloured print, not measured. Far sides invented.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    },
+    {
+     "status": "modeled",
+     "slug": "fig-24b_boulder-pile",
+     "input_image": "scan-models/inputs/fig-24b_boulder-pile.png",
+     "crop_box": [
+      791,
+      1192,
+      1569,
+      1652
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a14-a90a-7ce0-9e30-f2d292272b16",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-24b_boulder-pile.blend",
+     "glb": "scan-models/glb/fig-24b_boulder-pile.glb",
+     "preview": "scan-models/previews/fig-24b_boulder-pile.png",
+     "comparison": "scan-models/comparisons/fig-24b_boulder-pile.jpg",
+     "triangles": 1462294,
+     "observed_result": "Reads as a heap of rough yellow blocks. A flat green slab and some slab edges from the background are fused into the back of the pile, and the base is a flat brown disc rather than ground. Number and arrangement of blocks do not match the print exactly.",
+     "scale": {
+      "dim": "max",
+      "metres": 3.4,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Cropped to the pile of rough yellow blocks; the obelisk foot, slabs and visitors at the edges are partly in the crop and may be fused in.",
+      "Width estimated against a visitor (1.75 m) in the same scene. Rear and underside invented; the number and shape of the blocks is interpretation.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    }
+   ]
   },
   {
    "figure_number": 27,
@@ -169,8 +244,190 @@
    "source_image": "Scans/images/fig-31_goods-for-home-decorative-furnishings.png",
    "description": "Colour exhibition view of ornate furnishings, cabinets, chairs, trays and visitors.",
    "catalog_uncertainties": [],
-   "status": "manual_review",
-   "reason": "Several distinct furnishings (ornate organ or piano, tufted chair, gilt urn, staircase and cabinets) in one view. No single principal object: each would need its own crop. Say which to model."
+   "status": "modeled",
+   "note": "One scan, 5 separate objects, each cropped and modelled on its own. Not modelled: the fire screen, wall trays, iron crest, pendant lamp, wall plaques, the second cabinet and the visitors.",
+   "models": [
+    {
+     "status": "modeled",
+     "slug": "fig-31a_inlaid-piano-and-stool",
+     "input_image": "scan-models/inputs/fig-31a_inlaid-piano-and-stool.png",
+     "crop_box": [
+      835,
+      789,
+      1740,
+      1613
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a16-bdda-7ca0-91d7-49682cdd0019",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-31a_inlaid-piano-and-stool.blend",
+     "glb": "scan-models/glb/fig-31a_inlaid-piano-and-stool.glb",
+     "preview": "scan-models/previews/fig-31a_inlaid-piano-and-stool.png",
+     "comparison": "scan-models/comparisons/fig-31a_inlaid-piano-and-stool.jpg",
+     "triangles": 1477598,
+     "observed_result": "Upright piano with inlaid case, keyboard, music sheet, stool and scroll feet reads well from the front. The standing man at the left edge of the crop is fused into the model as a full figure and should be deleted; a small post sits to the right. The 1.4 m target is applied with the fused figure included.",
+     "scale": {
+      "dim": "height",
+      "metres": 1.4,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Upright piano with inlaid black case, music stand and stool; the standing couple overlaps the left edge of the crop and may be partly fused in.",
+      "Height estimated for an upright piano of the period (about 1.4 m); not measured. Back and keyboard interior invented.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    },
+    {
+     "status": "modeled",
+     "slug": "fig-31b_tufted-canopy-chair",
+     "input_image": "scan-models/inputs/fig-31b_tufted-canopy-chair.png",
+     "crop_box": [
+      1659,
+      302,
+      2378,
+      1044
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a16-de4e-7561-a6e1-0a25e549b9f4",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-31b_tufted-canopy-chair.blend",
+     "glb": "scan-models/glb/fig-31b_tufted-canopy-chair.glb",
+     "preview": "scan-models/previews/fig-31b_tufted-canopy-chair.png",
+     "comparison": "scan-models/comparisons/fig-31b_tufted-canopy-chair.jpg",
+     "triangles": 1492212,
+     "observed_result": "The tufted, hooded chair with gilt trim and tassels reads correctly. A curtain column and several small props from the background are fused beside and in front of it, and the back is an invented smooth shell. The 1.5 m target is applied to the whole fused group (curtain column included), so the chair itself is somewhat smaller.",
+     "scale": {
+      "dim": "height",
+      "metres": 1.5,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Cropped to the tall hooded chair with tufted upholstery; the gilt urn stand overlaps its lower right and the curtain is behind it.",
+      "Height estimated (about 1.5 m); the seat, legs and back are mostly hidden, so they are invented.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    },
+    {
+     "status": "modeled",
+     "slug": "fig-31c_gilt-urn-stand",
+     "input_image": "scan-models/inputs/fig-31c_gilt-urn-stand.png",
+     "crop_box": [
+      2065,
+      858,
+      2343,
+      1601
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a19-1451-76d2-b832-0dfdf7cc3640",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-31c_gilt-urn-stand.blend",
+     "glb": "scan-models/glb/fig-31c_gilt-urn-stand.glb",
+     "preview": "scan-models/previews/fig-31c_gilt-urn-stand.png",
+     "comparison": "scan-models/comparisons/fig-31c_gilt-urn-stand.jpg",
+     "triangles": 1425302,
+     "observed_result": "The gilt urn on its flared tripod pedestal reads well. A tall flat wall panel with chair details is fused behind it and has to be removed; the rear of that panel is a blank slab.",
+     "scale": {
+      "dim": "height",
+      "metres": 1.3,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Gilt urn on a tall pedestal foot; the tufted chair and a tray behind it overlap the crop.",
+      "Height estimated (about 1.3 m). Rear invented.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    },
+    {
+     "status": "modeled",
+     "slug": "fig-31d_balloon-back-chair",
+     "input_image": "scan-models/inputs/fig-31d_balloon-back-chair.png",
+     "crop_box": [
+      1659,
+      1009,
+      2123,
+      1601
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a19-615a-76e3-861a-8223e9d96fb9",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-31d_balloon-back-chair.blend",
+     "glb": "scan-models/glb/fig-31d_balloon-back-chair.glb",
+     "preview": "scan-models/previews/fig-31d_balloon-back-chair.png",
+     "comparison": "scan-models/comparisons/fig-31d_balloon-back-chair.jpg",
+     "triangles": 1480838,
+     "observed_result": "Balloon-back chair with cabriole legs, dark seat and price card reads well from the front. A flat backing board with part of a gilt frame is fused behind it and has to be removed.",
+     "scale": {
+      "dim": "height",
+      "metres": 0.9,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Balloon-back chair with a price card on the seat; the urn stand and a large tray overlap the right edge.",
+      "Height estimated (about 0.9 m). Rear and legs partly hidden, so invented.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    },
+    {
+     "status": "modeled",
+     "slug": "fig-31e_cast-iron-balustrade",
+     "input_image": "scan-models/inputs/fig-31e_cast-iron-balustrade.png",
+     "crop_box": [
+      673,
+      249,
+      1264,
+      835
+     ],
+     "generator": "tripo_h31",
+     "attempts": [
+      {
+       "model": "tripo_h31",
+       "status": "completed",
+       "request_id": "01a19a1b-478d-7592-acb3-70a01e387b5e",
+       "error": null
+      }
+     ],
+     "blend": "scan-models/blend/fig-31e_cast-iron-balustrade.blend",
+     "glb": "scan-models/glb/fig-31e_cast-iron-balustrade.glb",
+     "preview": "scan-models/previews/fig-31e_cast-iron-balustrade.png",
+     "comparison": "scan-models/comparisons/fig-31e_cast-iron-balustrade.jpg",
+     "triangles": 1438604,
+     "observed_result": "The openwork scrolled balustrade reads well on its front face. It comes out as a box: the wall behind it, a staircase wedge, a hat and gilt knobs are fused in, so it needs manual isolation. Depth and back are invented. The 3.0 m target is applied to the fused box, so the balustrade itself is smaller than stated.",
+     "scale": {
+      "dim": "max",
+      "metres": 3.0,
+      "basis": "estimated"
+     },
+     "assumptions": [
+      "Cast-iron staircase balustrade seen at an angle; the piano top overlaps its lower edge.",
+      "Length estimated (about 3 m). It is a flat openwork panel in the image, so any thickness is invented.",
+      "Repaired areas in the scan are not historical evidence."
+     ]
+    }
+   ]
   },
   {
    "figure_number": 33,

@@ -1,6 +1,6 @@
 # Scan model manifest
 
-49 cataloged scans accounted for: excluded 36, manual_review 4, modeled 9.
+49 cataloged scans accounted for: excluded 36, manual_review 2, modeled 11.
 
 | Fig | Title | Status | Generator | Triangles | Note |
 |---|---|---|---|---|---|
@@ -9,12 +9,19 @@
 | 4 | Royal Commissioners for the Great Exhibition | excluded |  |  | Group portrait of people around a table: portrait, not an object. |
 | 6 | Isambard Kingdom Brunel, 1857 | excluded |  |  | Portrait of a person. |
 | 21 | Western (British) nave of the Crystal Palace | excluded |  |  | Interior view of the nave with many exhibits and visitors: a scene with no single principal object. |
-| 24 | Raw materials outside the west entrance | manual_review |  |  | Outdoor display of stone blocks and an obelisk with visitors: a scene. The obelisk or a block could be cropped and modelled if wanted. |
+| 24 | Raw materials outside the west entrance | modeled | | | One scan, 2 separate objects, each cropped and modelled on its own. Not modelled: stone slabs, the equestrian statuette, the timber tower and the visitors. |
+| 24 | - fig-24a_obelisk | modeled | tripo_h31 | 1470940 | tripo_h31: completed |
+| 24 | - fig-24b_boulder-pile | modeled | tripo_h31 | 1462294 | tripo_h31: completed |
 | 27 | Indian elephant and howdah | modeled | tripo_h31 | 1485910 | tripo_h31: completed |
 | 28 | The Tunis Court | excluded |  |  | Interior court scene of hangings and vessels: a scene. |
 | 29 | Hibbert, Platt and Son’s cotton machines | excluded |  |  | Visitors beside cotton machinery under the roof: machinery in a crowded scene. |
 | 30 | De la Rue’s envelope machine | excluded |  |  | Envelope-machine demonstration at a stationery stand: machinery in a crowded scene. |
-| 31 | Goods for the home | manual_review |  |  | Several distinct furnishings (ornate organ or piano, tufted chair, gilt urn, staircase and cabinets) in one view. No single principal object: each would need its own crop. Say which to model. |
+| 31 | Goods for the home | modeled | | | One scan, 5 separate objects, each cropped and modelled on its own. Not modelled: the fire screen, wall trays, iron crest, pendant lamp, wall plaques, the second cabinet and the visitors. |
+| 31 | - fig-31a_inlaid-piano-and-stool | modeled | tripo_h31 | 1477598 | tripo_h31: completed |
+| 31 | - fig-31b_tufted-canopy-chair | modeled | tripo_h31 | 1492212 | tripo_h31: completed |
+| 31 | - fig-31c_gilt-urn-stand | modeled | tripo_h31 | 1425302 | tripo_h31: completed |
+| 31 | - fig-31d_balloon-back-chair | modeled | tripo_h31 | 1480838 | tripo_h31: completed |
+| 31 | - fig-31e_cast-iron-balustrade | modeled | tripo_h31 | 1438604 | tripo_h31: completed |
 | 33 | Prince Albert’s model working-class home | modeled | tripo_h31 | 1389300 | tripo_h31: completed |
 | - | Ornamental vase by Watherston and Brogden | modeled | tripo_h31 | 1426179 | tripo_h31: completed |
 | 36 | Pugin’s Medieval Court | excluded |  |  | Interior view of Pugin's court with visitors: a scene. |

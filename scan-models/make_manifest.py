@@ -7,7 +7,9 @@ from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
 CAT = json.loads((HERE.parent / "Scans" / "catalog.json").read_text())["images"]
-OBJ = {o["source"]: o for o in json.loads((HERE / "objects.json").read_text())}
+OBJ = {}
+for _o in json.loads((HERE / "objects.json").read_text()):
+    OBJ.setdefault(_o["source"], []).append(_o)
 CHAIN = ["tripo_h31", "trellis2", "rodin_v25", "hunyuan_pro", "meshy_71"]
 
 # figure -> (status, reason) for every catalog entry that is not modelled automatically
@@ -16,11 +18,9 @@ NOT_MODELLED = {
  4: ("excluded", "Group portrait of people around a table: portrait, not an object."),
  6: ("excluded", "Portrait of a person."),
  21: ("excluded", "Interior view of the nave with many exhibits and visitors: a scene with no single principal object."),
- 24: ("manual_review", "Outdoor display of stone blocks and an obelisk with visitors: a scene. The obelisk or a block could be cropped and modelled if wanted."),
  28: ("excluded", "Interior court scene of hangings and vessels: a scene."),
  29: ("excluded", "Visitors beside cotton machinery under the roof: machinery in a crowded scene."),
  30: ("excluded", "Envelope-machine demonstration at a stationery stand: machinery in a crowded scene."),
- 31: ("manual_review", "Several distinct furnishings (ornate organ or piano, tufted chair, gilt urn, staircase and cabinets) in one view. No single principal object: each would need its own crop. Say which to model."),
  36: ("excluded", "Interior view of Pugin's court with visitors: a scene."),
  37: ("excluded", "Fantastical crowded satire: not an object."),
  38: ("excluded", "Workers at woodworking machinery: a scene of people and machinery."),
@@ -72,34 +72,49 @@ def tri_count(path):
     except Exception:
         return None
 
+def model_entry(base, o):
+    slug = o["slug"]
+    built = (HERE / "glb" / f"{slug}.glb").exists() and (HERE / "blend" / f"{slug}.blend").exists()
+    done = [m for m in CHAIN if state.get((m, slug), {}).get("status") == "completed"]
+    e = {**base, "status": "modeled" if built else ("generated_not_built" if done else "failed_all_models"),
+         "slug": slug, "input_image": f"scan-models/inputs/{slug}.png", "crop_box": o["crop"],
+         "generator": done[0] if done else None, "attempts": attempts(slug),
+         "blend": f"scan-models/blend/{slug}.blend" if built else None,
+         "glb": f"scan-models/glb/{slug}.glb" if built else None,
+         "preview": f"scan-models/previews/{slug}.png" if built else None,
+         "comparison": f"scan-models/comparisons/{slug}.jpg" if built else None,
+         "triangles": tri_count(HERE / "glb" / f"{slug}.glb") if built else None,
+         "observed_result": o["observed"], "scale": o["scale"], "assumptions": o["assumptions"] + ["Repaired areas in the scan are not historical evidence."]}
+    if built:
+        ref = Image.open(HERE / "inputs" / f"{slug}.png").convert("RGB"); ref.thumbnail((700, 700))
+        pre = Image.open(HERE / "previews" / f"{slug}.png").convert("RGB"); pre.thumbnail((700, 700))
+        W = ref.width + pre.width + 30; Hh = max(ref.height, pre.height) + 40
+        sheet = Image.new("RGB", (W, Hh), (30, 30, 30)); d = ImageDraw.Draw(sheet)
+        d.text((10, 10), f"{slug}: reference scan (left) | generated model, {done[0]} (right)", fill=(230, 230, 230))
+        sheet.paste(ref, (10, 30)); sheet.paste(pre, (ref.width + 20, 30))
+        (HERE / "comparisons").mkdir(exist_ok=True)
+        sheet.save(HERE / "comparisons" / f"{slug}.jpg", quality=90)
+    return e
+
+
+EXTRA_NOTE = {
+ 24: " Not modelled: stone slabs, the equestrian statuette, the timber tower and the visitors.",
+ 31: " Not modelled: the fire screen, wall trays, iron crest, pendant lamp, wall plaques, the second cabinet and the visitors.",
+}
+
 entries = []
 for c in CAT:
     fig = c["figure_number"]
     base = {"figure_number": fig, "title": c["title"], "source_image": f"Scans/images/{c['filename']}",
             "description": c["description"], "catalog_uncertainties": c.get("uncertainties", [])}
-    o = OBJ.get(c["filename"])
-    if o:
-        slug = o["slug"]
-        built = (HERE / "glb" / f"{slug}.glb").exists() and (HERE / "blend" / f"{slug}.blend").exists()
-        done = [m for m in CHAIN if state.get((m, slug), {}).get("status") == "completed"]
-        e = {**base, "status": "modeled" if built else ("generated_not_built" if done else "failed_all_models"),
-             "slug": slug, "input_image": f"scan-models/inputs/{slug}.png", "crop_box": o["crop"],
-             "generator": done[0] if done else None, "attempts": attempts(slug),
-             "blend": f"scan-models/blend/{slug}.blend" if built else None,
-             "glb": f"scan-models/glb/{slug}.glb" if built else None,
-             "preview": f"scan-models/previews/{slug}.png" if built else None,
-             "comparison": f"scan-models/comparisons/{slug}.jpg" if built else None,
-             "triangles": tri_count(HERE / "glb" / f"{slug}.glb") if built else None,
-             "observed_result": o["observed"], "scale": o["scale"], "assumptions": o["assumptions"] + ["Repaired areas in the scan are not historical evidence."]}
-        if built:
-            ref = Image.open(HERE / "inputs" / f"{slug}.png").convert("RGB"); ref.thumbnail((700, 700))
-            pre = Image.open(HERE / "previews" / f"{slug}.png").convert("RGB"); pre.thumbnail((700, 700))
-            W = ref.width + pre.width + 30; Hh = max(ref.height, pre.height) + 40
-            sheet = Image.new("RGB", (W, Hh), (30, 30, 30)); d = ImageDraw.Draw(sheet)
-            d.text((10, 10), f"{slug}: reference scan (left) | generated model, {done[0]} (right)", fill=(230, 230, 230))
-            sheet.paste(ref, (10, 30)); sheet.paste(pre, (ref.width + 20, 30))
-            (HERE / "comparisons").mkdir(exist_ok=True)
-            sheet.save(HERE / "comparisons" / f"{slug}.jpg", quality=90)
+    objs = OBJ.get(c["filename"])
+    if objs and len(objs) == 1:
+        e = model_entry(base, objs[0])
+    elif objs:
+        subs = [model_entry({}, o) for o in objs]
+        built = sum(1 for m in subs if m["status"] == "modeled")
+        e = {**base, "status": "modeled" if built == len(subs) else ("partial" if built else "failed_all_models"),
+             "note": f"One scan, {len(subs)} separate objects, each cropped and modelled on its own." + EXTRA_NOTE.get(fig, ""), "models": subs}
     else:
         status, reason = NOT_MODELLED[fig]
         e = {**base, "status": status, "reason": reason}
@@ -115,6 +130,12 @@ lines = ["# Scan model manifest", "", f"{len(entries)} cataloged scans accounted
          "| Fig | Title | Status | Generator | Triangles | Note |", "|---|---|---|---|---|---|"]
 for e in entries:
     note = e.get("reason") or "; ".join(f"{a['model']}: {a['status']}" for a in e.get("attempts", []))
+    if "models" in e:
+        lines.append(f"| {e['figure_number']} | {e['title']} | {e['status']} | | | {e['note']} |")
+        for m in e["models"]:
+            lines.append(f"| {e['figure_number']} | - {m['slug']} | {m['status']} | {m.get('generator') or ''} | "
+                         f"{m.get('triangles') or ''} | {'; '.join(a['model'] + ': ' + a['status'] for a in m['attempts'])} |")
+        continue
     lines.append(f"| {e['figure_number'] or '-'} | {e['title']} | {e['status']} | {e.get('generator') or ''} | "
                  f"{e.get('triangles') or ''} | {note} |")
 (HERE / "MANIFEST.md").write_text("\n".join(lines) + "\n")
