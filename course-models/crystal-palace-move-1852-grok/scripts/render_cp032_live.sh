@@ -5,9 +5,16 @@
 # render_shots.py), so a re-run reproduces the live frame pixel-identically.
 #   scripts/render_cp032_live.sh [--rebuild]
 # --rebuild regenerates live rounds/m02.blend from the pre-promotion m02 pinned at move commit 9cb8eb5 by running
-# scripts/candidate_cp032_people.py --live on it (the KEEP candidate script, applied in place).
+# scripts/candidate_cp032_people.py --live on it (the KEEP candidate script, applied in place), then
+# scripts/candidate_cp032_arrival.py --live (arrival hands KEEP 2026-11-02, MV16; touches only STAFF_07..11, so the
+# departure frame is unchanged and the rebuilt m02 equals the live one).
 # Note: render_shots.py's render-time people swap imports this folder's people_lib.py; reproduction assumes that file
 # is unchanged since the live render.
+# Since the CP032 arrival KEEP (2026-11-02, MV16) live m02 no longer reproduces the stored departure frame bit for bit:
+# DEP_HAND_* figures are unchanged (vertex/material/transform hashes identical), but the scene change at Sydenham
+# (render-time swap count 5 -> 1, arrival STAFF stand-ins gone) shifts Cycles noise: max diff 11/255, mean 0.01,
+# 19155 px non-zero. The stored renders/m02/CP032_departure_start.png (= KEEP_CP032_people_after.png) was left as is;
+# running this script will overwrite it with the noise-level variant.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 B=/workspace/blender5/blender
@@ -17,6 +24,7 @@ if [[ "${1:-}" == "--rebuild" ]]; then
   TMP=$(mktemp -d)
   git show "$BASE_COMMIT:$REL" > "$TMP/m02.blend"
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_people.py -- --live 2>&1 | grep -E "CP032_HANDS_IN_PLACE|Error|Traceback"
+  "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_arrival.py -- --live 2>&1 | grep -E "CP032_ARR_HANDS_IN_PLACE|Error|Traceback"
   mv "$TMP/m02.blend" rounds/m02.blend
   rm -rf "$TMP"
 fi
