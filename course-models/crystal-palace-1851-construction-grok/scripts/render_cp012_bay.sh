@@ -1,8 +1,10 @@
 #!/bin/bash
-# CP012_bay CANDIDATE 2026-11-02 (not live; live CP012 stays renders/c07/CP012_bay_start.png). DEPARTURES CN45.
+# Live CP012_bay (KEEP 2026-11-02 start+end, DEPARTURES CN45; parent viewed the pairs). Live renders:
+# renders/candidates/cp012_bay_20261102/CP012_bay_{start,end}.png. Superseded c07 files (rounds/c07.blend, renders/c07/CP012_bay_start.png) are kept.
 # Renders ONLY CP012_bay_start (frame 1: girder hanging, top 19 ft) and CP012_bay_end (frame 96: girder seated, top 22 ft 2 in)
 # from the CP012-only blend rounds/candidates/c07_cp012bay.blend; rebuilt from rounds/c07.blend if missing.
 # Never render other shots from that blend (moved head scaffolds, cameras, gate cart group; hidden KWORKER_005/006/062; animated girder).
+# CP012_joint_insert is NOT rendered here (still c07).
 # usage: scripts/render_cp012_bay.sh [samples=48] [outdir=renders/candidates/cp012_bay_20261102]
 set -e
 cd "$(dirname "$0")/.."

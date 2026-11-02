@@ -108,29 +108,29 @@
     {
       "id": "CP012_bay",
       "lens_mm": 28,
-      "note": "walk beside one 24 ft bay under erection, ending outside the lifting zone (sheer legs at x 552, y -168)",
+      "note": "walk beside one 24 ft bay under erection, ending outside the lifting zone. KEEP 2026-11-02 (CN45, parent viewed start+end pairs): square-on 28 mm 'walk' cameras on bay x540-564 (row y -180); live renders come from rounds/candidates/c07_cp012bay.blend via scripts/render_cp012_bay.sh (start frame 1 girder hanging top 19 ft, end frame 96 girder seated 22 ft 2 in; head scaffolds moved 14 ft north; people_lib workmen in dark fustian; winch men 005/006 and 062 hidden). Superseded c07 camera: start (600,-222,5.25)->(514,-157.2,14), end (580,-232,5.25)->(507.4,-172.8,14); c07 files kept",
       "start": {
         "pos_ft": [
-          600,
-          -222,
+          549.0,
+          -219.0,
           5.25
         ],
         "look_ft": [
-          514.0,
-          -157.2,
-          14
+          551.5,
+          -180.0,
+          13.5
         ]
       },
       "end": {
         "pos_ft": [
-          580,
-          -232,
+          566.0,
+          -232.0,
           5.25
         ],
         "look_ft": [
-          507.4,
-          -172.8,
-          14
+          553.0,
+          -180.0,
+          15.0
         ]
       },
       "note_c05": "yaw 5 deg left (look rotated CCW) to hold the horse haul and the cart; gin pole beyond on the right; end key a further 6 deg CCW so the whole haul horse is in frame (c05 preview)"

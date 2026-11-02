@@ -234,3 +234,21 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 - Tried and dropped (scratch /workspace/tmp/cp012/try1–7): try1 square-on from (566,-221): girder lost against the bays behind, winch men huge in the foreground. try2 inside row -204: scaffolds and a back-facing bald-looking man dominate. try3 from 58 ft: girder lost again, white gate horse in the foreground. try4–6 near camera with the girder raised to read against sky: works, but foreground hauling men at 28–37 ft read as muscle men at 2x crop, so they were moved behind the bay or hidden (try7 = this candidate).
 - Honest notes: the girder hanging on its sling between two column heads with men on the decks now reads at full frame; the end frame's seated girder is legible but less striking, and the front-row column (564,-204) stands close to its east end. The south sheer leg runs almost vertically through the centre of the start frame. Deck men are small (about 5% of frame height) but at 2x crop people_lib's bulky shoulders still show. The ground crew who'd do the hauling are mostly off frame (winch men hidden). No 50 mm joint insert in this pass (CP012 joint insert camera unchanged).
 - Resume: `scripts/render_cp012_bay.sh && python3 scripts/cand_cp012_bay_pairs.py`. Waiting for the parent's keep/revert decision. Do NOT promote.
+  - (Superseded: KEEP verdict and promotion below.)
+
+## 2026-11-02 CP012_bay: KEEP (parent viewed start + end pairs), promoted
+- Verdict: KEEP for start and end. It clearly beats live c07: the lounging man, the white horse blob and the bare-torso look are gone, and the girder now sits between the column heads instead of behind the scaffold.
+- Live CP012_bay start/end: `renders/candidates/cp012_bay_20261102/CP012_bay_{start,end}.png`, from `rounds/candidates/c07_cp012bay.blend` (CP012_bay only; start frame 1, end frame 96). Re-render: `scripts/render_cp012_bay.sh [samples] [outdir]`. The superseded c07 files are kept, not deleted (`rounds/c07.blend` md5 c6189435… unchanged; `renders/c07/CP012_bay_start.png`; `renders/candidates/cp012_bay_20261102/BEFORE_c07_rerender_CP012_bay_end.png`). CP012_joint_insert is unchanged (still c07).
+- Reproduction checks, 48 spp, 1280x720:
+  - From the live blend: `bash scripts/render_cp012_bay.sh 48 /workspace/tmp/cp012_live_check`. Exit 0, start and end **pixel-identical** to live (max diff 0). Log `/workspace/logs/cp012_bay_live_check_20261102.log`.
+  - Rebuild from c07: copied `scripts/`, `route/`, `checks/`, `CREDITS.md`, `DEPARTURES.md` and `rounds/c07.blend` only (no candidate blend) to `/workspace/tmp/cp012_rebuild_test/` and ran `bash scripts/render_cp012_bay.sh 48 /workspace/tmp/cp012_rebuild_test/out`. The script rebuilt `c07_cp012bay.blend` (`SAVED`) and rendered both cameras. Exit 0, start and end **pixel-identical** to live (max diff 0). Log `/workspace/logs/cp012_rebuild_test_20261102.log`.
+  - The blend cameras match the route: 28 mm, start (549,-219,5.25), end (566,-232,5.25).
+- route/camera_route.json CP012_bay: 28 mm `walk`; start (549,-219,5.25)→(551.5,-180,13.5), end (566,-232,5.25)→(553,-180,15). The superseded c07 coordinates are kept in the note.
+- DEPARTURES CN45 → KEEP (camera route, lift height/timing, scaffold position and fustian colours are inferred, grade C). Survey pairs: `CANDIDATE_CP012_bay_{start,end}_pair.png` renamed `KEEP_CP012_bay_{start,end}_pair.png` (`scripts/cand_cp012_bay_pairs.py` now writes the KEEP names). COVERAGE CP012 row updated.
+- Follow-ups (open):
+  1. The pale south sheer leg runs through the centre of the start frame.
+  2. The crank winch is unmanned (winch men KWORKER_005/006 hidden because they read as close-up muscle men at 13–14 ft).
+  3. The tag line is faint and barely reads.
+  4. A clipped pale box sits at the bottom of the end frame.
+  5. The 50 mm joint close-up is missing: no new CP012_joint_insert in this pass (camera and render still c07).
+  - Also noted earlier: the front-row column (564,-204) stands close to the girder's east end in the end frame, and at 2x crop the deck men still show bulky people_lib shoulders.
