@@ -74,3 +74,11 @@ See construction-grok `DEPARTURES.md` MK01–MK05 (lattice girder, Paxton gutter
 | ID | Topic | Call |
 |---|---|---|
 | FT50 | Muse `osler-crystal-fountain` promoted to live o01 (CP021/CP022); also r11 for CP023. Lathe `FOUNTAIN_*` hidden. | **KEEP.** Credit: Muse (Wellcome). See CREDITS.md. |
+
+## CANDIDATE CP028 louvre drive (2026-11-02) — h03_cp028_drive, live h03 unchanged
+| ID | Departure / change | Source / reason | Grade |
+|---|---|---|---|
+| FT51 | **One cord, one pulley per 216 ft run.** Compartments x=16 ft and x=32 ft (LOUVRE_MUSE_0/2) now instance `CP028_Louvre_Intermediate`: Muse compartment without pulley Q, rope R, worm P/worm-wheel O, centre rod N, forks, bearing S and cleat; a copy of Muse's crank U / rod N' / bearing S' station put at the compartment centre (x −0.914 m local). Centre compartment x=24 ft keeps the full Muse pulley/worm station and LOUVRE_ROPE. | Downes/Cowper 1852, LOUVRES (Plate XXVII): one wheel O drives "a length of 108 ft on each side" via 1 in shafting T, intermediate louvres by cranks U and rods N'. Live h03 showed three pulleys in 24 ft. Exact positions of driving stations along the north wall are not recorded; x=24 ft is kept because the floor attendant's rope is there. | B |
+| FT52 | Continuous 1 in shafting T (CP028_SHAFTING_T) x=12.05–35.95 ft at Muse local y −0.218 m, z +0.19 m (world y 61.855 m, z 5.272 m). | Same text: shafting runs the length; live showed three 7.3 ft stubs with gaps. | B |
+| FT53 | Stray closed-state blind pieces (BlindLath_±1, BlindSeam_±1, Muse model_closed leftovers at local x 2.7–5.1 m) unlinked from the in-blend Muse collection copy. Muse's own folder untouched. | Cleanup: they sat in the neighbouring compartment. | A |
+| FT54 | **Staging:** second attendant (ATTEND_OILER, ATTEND mesh + arm copy) on a 14 ft pair of deal steps (CP028_STEPS, top 4.30 m, standing tread 3.65 m, side-on to the wall so the back legs clear the boarding) oiling bearing S' at x=16 ft with a zinc oil feeder; hand 0.16 m from the bearing. | Storyboard CP028 "daily work behind the spectacle". No source shows this man; oiling shafting bearings is ordinary 1850s maintenance. | C |

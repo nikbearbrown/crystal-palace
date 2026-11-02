@@ -70,3 +70,8 @@ never git init inside a grok folder; commit from the worktree root
 
 ## 2026-10-27 KEEP Osler
 - Muse `osler-crystal-fountain` promoted live o01 (CP021/CP022 keep-lighting). CREDITS + DEPARTURES FT50. CP023 via r11.
+
+## 2026-11-02 CANDIDATE CP028 louvre drive (live h03 untouched)
+- `scripts/polish_cp028_drive_cand.py` → `rounds/candidates/h03_cp028_drive.blend` (FT51–FT54: one pulley Q + continuous shafting T, intermediate cranks at x=16/32 ft, stray blind laths removed, oiler on a pair of steps).
+- `scripts/render_cp028_drive.sh [--rebuild]` → `renders/candidates/cp028_drive_20261102/{before,after}/CP028_louvre_start.png` (1280x720, 48 spp, --keep-lighting --no-people; the before is pixel-identical to live `renders/h03/CP028_louvre_start.png`).
+- Survey pairs: `look/pairs_geo/CANDIDATE_CP028_drive_{before,after,pair,detail_pair}.png`. No verdict.
