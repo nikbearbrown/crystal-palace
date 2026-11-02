@@ -1,0 +1,100 @@
+{
+ "date": "2026-11-02",
+ "candidate": "rounds/candidates/m02_cp032yard.blend",
+ "base": "rounds/m02.blend (move b19926f)",
+ "new_objects": [
+  "ARR_YD_BARROW",
+  "ARR_YD_BOARDS",
+  "ARR_YD_PUDDLES",
+  "ARR_YD_RUTS",
+  "ARR_YD_STONES",
+  "ARR_YD_TOOLS"
+ ],
+ "removed_objects": [],
+ "new_only_ARR_YD": true,
+ "new_in_ARR_SYDENHAM_1852": true,
+ "new_tagged": true,
+ "no_hydepark_added": true,
+ "transforms_identical": true,
+ "transform_changed": [],
+ "meshes_identical": true,
+ "mesh_changed": [],
+ "material_slot_changes": {
+  "ARR_BARS_GUTTERS": [
+   [
+    "GT_SashBarBundle",
+    "GT_Rope",
+    "GT_GutterTimber",
+    "GT_OakBearer"
+   ],
+   [
+    "GT_SashBarWeathered",
+    "GT_Rope",
+    "GT_GutterTimberWeathered",
+    "GT_OakBearer"
+   ]
+  ],
+  "ARR_SPOIL": [
+   [
+    "GT_SydenhamClay"
+   ],
+   [
+    "GT_SydenhamSpoil1852"
+   ]
+  ]
+ },
+ "slot_changes_allowed": true,
+ "modifier_changes": {
+  "ARR_SPOIL": [
+   [],
+   [
+    "CP032Y_Subsurf",
+    "CP032Y_Displace"
+   ]
+  ]
+ },
+ "modifier_changes_allowed": true,
+ "figure_feet_checked": [
+  "ARR_HAND_00_workman",
+  "ARR_HAND_01_workman",
+  "ARR_HAND_02_workman",
+  "ARR_HAND_03_navvy",
+  "ARR_HAND_04_gentleman"
+ ],
+ "dressing_on_figure_feet": [],
+ "island_lowest_point_minus_clay_m": {
+  "ARR_YD_BARROW": [
+   -0.011,
+   0.399,
+   13
+  ],
+  "ARR_YD_BOARDS": [
+   -0.013,
+   -0.011,
+   5
+  ],
+  "ARR_YD_PUDDLES": [
+   0.007,
+   0.007,
+   8
+  ],
+  "ARR_YD_RUTS": [
+   0.002,
+   0.006,
+   9
+  ],
+  "ARR_YD_STONES": [
+   -0.057,
+   -0.004,
+   320
+  ],
+  "ARR_YD_TOOLS": [
+   -0.005,
+   0.388,
+   4
+  ]
+ },
+ "grounded_within_12cm": true,
+ "notes": "GT_SydenhamClayYard node tree rebuilt in place (name kept, cp032_yard_v=1) so ARR_CLAY slot is unchanged; DEP_BARS_GUTTERS keeps GT_SashBarBundle/GT_GutterTimber (departure frames unchanged).",
+ "pass": true
+}
