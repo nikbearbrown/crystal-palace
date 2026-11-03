@@ -1,4 +1,4 @@
-"""2026-11-03 CANDIDATE (Grok Bot executor, no verdict, NOT live; DEPARTURES CN48): CP011_yard follow-ups 1-3.
+"""2026-11-03 CANDIDATE v1 (REJECTED by the parent 2026-11-03: floating smoke + 6/9 luma dark; superseded by CN49 v2) (Grok Bot executor, NOT live; DEPARTURES CN48): CP011_yard follow-ups 1-3.
 Base: live rounds/c07.blend (CP011 yard KEEP, CN47, construction 2bdb3ea). Saves rounds/candidates/c07_cp011lattice.blend
 (sibling candidate, CP011_yard cameras only; live c07 is never written).
   1. girder piles: the 33 girder24 members (12/12/9) lay flat, web horizontal, 0.36 ft pitch, so end-on they read as a
@@ -16,6 +16,7 @@ argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 TAG = "cand_cp011lattice_20261103"; SID = "CP011_yard"
 assert "CP011_YARD_CAND" in bpy.data.collections, "base must be the live c07 with the CP011 yard (CN47)"
+assert not bpy.data.collections["CP011_YARD_CAND"].get("cp011_lattice"), "base already carries the CN49 lattice KEEP; use the pre-lattice c07 at 2bdb3ea (render_cp011_lattice.sh)"
 coll = bpy.data.collections["CP011_YARD_CAND"]
 def new_obj(name, data, kind):
     o = bpy.data.objects.new(name, data); coll.objects.link(o)

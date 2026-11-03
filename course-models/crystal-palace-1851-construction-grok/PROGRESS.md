@@ -283,7 +283,7 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   - KYARD_GROUND keeps GT_Spoil in the saved file and has `cam_mat=CP011_yard=CP011C_cinder_yard`. `render_views.py` swaps slot 0 per camera. Swapping it globally (the first live attempt) leaked bounce light into other shots: CP010_extent_end max 3 of 255, CP014_section about 10k pixels at 1 of 255. Bisected to the ground material and fixed.
   - The people_lib figures are tagged `cp011_people`, and their meshes and materials are renamed CP011P_*, so other shots' render-time people swap ignores them.
   - Idempotent: `--live` on a blend that already has the yard only checks it, and `--check` is read-only. Both print `CP011_YARD_IN_PLACE`.
-- Live renders: `renders/c07/CP011_yard_{start,end}.png`. These replace the stale pre-look start, and the end is new. Re-render with `scripts/render_cp011_yard_live.sh [--rebuild] [samples] [outdir]` (each camera runs in its own session at 1280x720, 48 spp, --no-people, exposure 0.95 start / 1.06 end). Never render CP011 with render_round.sh.
+- Live renders: `renders/c07/CP011_yard_{start,end}.png`. These replace the stale pre-look start, and the end is new. Re-render with `scripts/render_cp011_yard_live.sh [--rebuild] [samples] [outdir]` (each camera runs in its own session at 1280x720, 48 spp, --no-people, exposure 0.95 start / 1.06 end). Never render CP011 with render_round.sh. (Superseded 2026-11-03 by the CN49 one-tier lattice KEEP below: live CP011 now renders at 0.97 / 1.00.)
 - Reproduction checks, 48 spp:
   - `--rebuild` (regenerates c07 from f73d09c) gives start and end **pixel-identical** to `renders/candidates/cp011_yard_20261103/after/` (max diff 0).
   - A plain run from the live blend is also pixel-identical (max diff 0).
@@ -327,4 +327,30 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   - The timber bay is still small at the far end, and the deal floor barely reads.
   - The live smoke is back but barely visible, the same as KEEP.
   - Follow-ups 4–6 (flat fence, untextured brick, dark roof underside) are untouched.
-- Waiting for the parent's keep/revert call. Do NOT promote.
+- ~~Waiting for the parent's keep/revert call.~~ **Parent verdict 2026-11-03: one tier KEEP (start + end), promoted to live below. Two-tier REJECTED (it reads as a wall).** v1 (CN48) stays REJECTED.
+
+## 2026-11-03 CP011_yard lattice v2 one tier: KEEP (parent viewed start + end pairs), promoted to LIVE c07 (DEPARTURES CN49)
+- Verdict: one tier KEEP. Two-tier v2 REJECTED (reads as a wall). v1 CN48 REJECTED (floating smoke + 6/9 luma dark).
+- Live: `rounds/c07.blend` now carries the yard (CN47) plus the one-tier lattice, applied in place with `scripts/cand_cp011_lattice_v2_20261103.py --live` on the CN47 live c07 (md5 d91c36a7… → **8cb193fe…**). **Camera-scoped**: every object it adds, removes or moves is a CP011C_* object in CP011_YARD_CAND with `only_cams=CP011_yard` (24 `CP011C_GIR_*` girder24 on edge in rows of 8, `CP011C_GIR_STICKERS` bearer extensions, `CP011C_TIMBER_FLOOR` deal floor; trolley/haulers/clerk/tally board moved). No new smoke; the CN47 smoke is unchanged.
+  - Idempotent: marker `CP011_YARD_CAND["cp011_lattice"] = "CN49 v2 tiers=1"`. `--live` on a blend that already carries it only checks it (the moves are never doubled), `--check` is read-only, both print `CP011_LATTICE_IN_PLACE`. Tested: a second `--live` printed "already applied … not re-saved", `CP011_LATTICE_IN_PLACE True`; the CN47 `--check` still prints `CP011_YARD_IN_PLACE True`.
+- Live renders: `renders/c07/CP011_yard_{start,end}.png` (re-rendered 2026-11-03; = survey `KEEP_CP011_lattice_v2_{start,end}_after.png` = `renders/candidates/cp011_lattice_v2_20261103/after/`). **Per-shot exposure 0.97 start / 1.00 end**, recorded in `EXPOSURES` in `scripts/render_cp011_yard_live.sh`, which the live render reads (was 0.95 / 1.06 for CN47 alone). `scripts/render_cp011_yard_live.sh [--rebuild] [samples] [outdir]` now renders the live CP011 (yard + lattice); `scripts/render_cp011_lattice_live.sh` is an alias. `--rebuild` regenerates c07 from the pre-yard c07 at f73d09c: yard `--live` (asserts CP011_YARD_IN_PLACE True), then lattice `--live` (asserts CP011_LATTICE_IN_PLACE True). Plain runs check both markers first. Never render CP011 with render_round.sh.
+- Reproduction checks, 48 spp, 1280x720, vs the KEEP afters:
+  - `--rebuild`: start **max diff 0**, end **max diff 0** (the rebuilt blend is byte-different, md5 38c4ec83…, but pixel-identical; the committed live is the in-place 8cb193fe…).
+  - Plain run from the committed live blend (into scratch and into `renders/c07/`): start **max diff 0**, end **max diff 0**.
+- Regression checks (pixel diff, same camera list in one session, same render_views.py, which this promotion does not change):
+  - All 19 other c07 cameras (CP010 ×5, CP012 bay/joint ×3, CP013 ×4, CP014_gutter, CP014_section, CP015 ×2, CP016_trolley ×2, REV_site_aerial): pre-lattice live c07 (d91c36a7…) vs new live c07 (8cb193fe…), **max diff 0 on all 19** (0 pixels changed).
+  - All 19 other c07 cameras from the `--rebuild` blend (`/workspace/tmp/cp011lat_live/c07_rebuilt.blend`, md5 38c4ec83…, carries CP011_YARD_IN_PLACE True and CP011_LATTICE_IN_PLACE True) vs the pre-lattice live c07 (d91c36a7…, = commit 2bdb3ea): **max diff 0 on all 19** (0 pixels changed). CP011_yard start/end re-rendered from the same rebuilt blend at 0.97 / 1.00: **max diff 0** vs live `renders/c07/`.
+  - k01 CP014_drain_{base,gutter,roof,whole}_start (`rounds/k01.blend` md5 6f647743…, 1280x720, 48 spp), rendered before (10:43) and after (10:53) the promotion: **max diff 0 on all 4**. Note: this promotion changes neither k01.blend nor render_views.py, so this is a sanity check that nothing shared moved. (The committed `renders/k01/*.png` date from 2026-10-27 and an older render pipeline, so they are not a like-for-like baseline and were not used.)
+- Rebuild scripts:
+  - `scripts/build_c07.sh [OUT]` now runs build_construction.py, then the yard `--live` step (asserts CP011_YARD_IN_PLACE True), then the lattice `--live` step (asserts CP011_LATTICE_IN_PLACE True). Same caution: a fresh build is not guaranteed pixel-identical to the frozen c07; use `render_cp011_yard_live.sh --rebuild`.
+  - The historical candidate scripts `render_cp011_lattice.sh` (v1) and `render_cp011_lattice_v2.sh` now read the pre-lattice live c07 pinned at construction commit 2bdb3ea, because live c07 carries the lattice. `cand_cp011_lattice_20261103.py` (v1) and the v2 candidate mode refuse a base that already carries the lattice marker.
+- Survey: `CANDIDATE_CP011_lattice_v2_{start,end}_*` (one tier) renamed `KEEP_CP011_lattice_v2_*` (pair labels relabelled KEEP; before/after pixels unchanged). The two-tier set is renamed `REJECTED_CP011_lattice_v2_2tier_*` (label relabelled REJECTED) and v1 `CANDIDATE_CP011_lattice_*` is renamed `REJECTED_CP011_lattice_*` (pixels unchanged). COVERAGE and BUILD-PLAN CP011 rows point at the live renders.
+- Follow-ups for CP011 (open, in order; CN47 follow-up 1, the lattice, is done):
+  1. In the start frame the near one-tier pile looks a little light and spindly (pale sunlit flanges on a pale floor; rack-like rather than heavy cast iron).
+  2. The timber bay is still small at the far end, and the deal floor barely reads.
+  3. The smoke is barely visible; the north chimney is off frame and the east chimney is cropped. (No floating plumes; the CN48 volume smoke was rejected.)
+  4. The west fence reads as flat card.
+  5. The brick is untextured, with no variation.
+  6. The shed roof underside is dark and flat.
+  7. Minor: 24 girder members (was 33), and the bearer extensions are plain boxes.
+- Rejected, do not promote: CN49 two-tier (`rounds/candidates/c07_cp011lattice_v2_2tier.blend`, reads as a wall) and CN48 v1 (`rounds/candidates/c07_cp011lattice.blend`, floating smoke + dark). Both stay for the record.

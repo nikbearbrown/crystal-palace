@@ -8,7 +8,17 @@ rounds/candidates/c07_cp011lattice_v2.blend; live c07 is never written).
      the shed columns at x 3015.6), top at 3.5 ft, 24 members: reads as a stockpile, not a wall.
   2. timber bay sightline + deal floor: unchanged from CN48.
   3. smoke: NO new smoke. The live CN47 chimney smoke objects are not touched (only_cams=CP011_yard as live).
-blender -b rounds/c07.blend -P scripts/cand_cp011_lattice_v2_20261103.py -- [--tiers 1|2] [--out PATH] [--no-bay]"""
+blender -b rounds/c07.blend -P scripts/cand_cp011_lattice_v2_20261103.py -- [--tiers 1|2] [--out PATH] [--no-bay]
+  (candidate mode now needs the PRE-lattice live c07 pinned at construction commit 2bdb3ea; see render_cp011_lattice_v2.sh)
+LIVE (KEEP 2026-11-03 for the ONE-TIER v2, parent viewed the pairs; 2-tier REJECTED "reads as a wall"; DEPARTURES CN49):
+blender -b rounds/c07.blend -P scripts/cand_cp011_lattice_v2_20261103.py -- --live [--out PATH]
+  applies exactly the one-tier build (with the timber-bay moves + deal floor, no new smoke) to the live c07 IN PLACE.
+  Camera-scoped by construction: everything it adds, removes or moves is a CP011C_* object in CP011_YARD_CAND with
+  only_cams="CP011_yard" (saved hide_render True), so no other c07 shot changes. Requires the CN47 yard in place.
+  Marks CP011_YARD_CAND["cp011_lattice"] = "CN49 v2 tiers=1". Idempotent: if the marker exists it only checks (never
+  re-applies, so the trolley/people moves are never doubled). --live refuses --tiers 2 / --no-bay.
+  Prints CP011_LATTICE_IN_PLACE True|False.
+  -- --check: read-only check, prints CP011_LATTICE_IN_PLACE and exits (never saves)."""
 import bpy, bmesh, math, os, sys
 from mathutils import Vector, Matrix
 F = 0.3048
@@ -17,6 +27,23 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 TAG = "cand_cp011lattice_v2_20261103"; SID = "CP011_yard"
 assert "CP011_YARD_CAND" in bpy.data.collections, "base must be the live c07 with the CP011 yard (CN47)"
 coll = bpy.data.collections["CP011_YARD_CAND"]
+LIVE = "--live" in argv; MARK = "CN49 v2 tiers=1"
+def in_place():
+    ob = bpy.data.objects; gir = [o for o in ob if o.name.startswith("CP011C_GIR_") and o.name != "CP011C_GIR_STICKERS"]
+    near = lambda o, x, y: abs(o.location.x / F - x) < 1e-3 and abs(o.location.y / F - y) < 1e-3
+    return (coll.get("cp011_lattice") == MARK and len(gir) == 24
+            and all(o.data.name == "girder24" and "tiers=1" in str(o.get(TAG)) for o in gir)
+            and all(n in ob for n in ("CP011C_GIR_STICKERS", "CP011C_TIMBER_FLOOR"))
+            and all(o.get("only_cams") == SID and o.hide_render for o in coll.all_objects)
+            and near(ob["CP011C_P04_clerk"], 3004.6, 10.0) and abs(ob["CP011C_P01_haul"].location.x / F - 2993.5) < 1e-3
+            and not any(o.name.endswith("_PLUME") for o in ob))          # no CN48 v1 smoke
+if "--check" in argv:   # read-only
+    ok = in_place(); print("CP011_LATTICE_IN_PLACE", ok); sys.exit(0 if ok else 3)
+if coll.get("cp011_lattice"):
+    if not LIVE: raise SystemExit("base already carries the CP011 lattice KEEP (CN49); build candidates from the pre-lattice c07 at 2bdb3ea")
+    ok = in_place(); print("CP011_LATTICE already applied (idempotent, not re-saved)"); print("CP011_LATTICE_IN_PLACE", ok)
+    sys.exit(0 if ok else 3)
+if LIVE: assert arg("--tiers", "1") == "1" and "--no-bay" not in argv, "--live applies only the KEEP one-tier build (2-tier REJECTED)"
 def new_obj(name, data, kind):
     o = bpy.data.objects.new(name, data); coll.objects.link(o)
     o["only_cams"] = SID; o.hide_render = True; o[TAG] = True; o["part_kind"] = kind; return o
@@ -74,7 +101,15 @@ if "--no-bay" not in argv:
     fl.data.transform(Matrix.Translation(Vector((3000.0, 106.7, 0)) * F) @ Matrix.Diagonal((38.6 / 32.0, 32.0 / 38.6, 1, 1)) @ Matrix.Translation(-Vector((3000.0, 106.7, 0)) * F))
 
 # ---- 3. smoke: none added; live CN47 CP011C_CHIMNEY_*_SMOKE left exactly as live ----
-out = arg("--out") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rounds", "candidates", "c07_cp011lattice_v2.blend")
-assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "never overwrite live c07"
-bpy.context.preferences.filepaths.save_version = 0
-bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)
+if LIVE:
+    coll["cp011_lattice"] = MARK
+    ok = in_place(); print("CP011_LATTICE_IN_PLACE", ok)
+    if not ok: sys.exit(3)
+    out = arg("--out") or bpy.data.filepath
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, compress=True); print("CP011_LATTICE saved", out)
+else:
+    out = arg("--out") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rounds", "candidates", "c07_cp011lattice_v2.blend")
+    assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "never overwrite live c07"
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)
