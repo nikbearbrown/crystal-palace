@@ -354,3 +354,17 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   6. The shed roof underside is dark and flat.
   7. Minor: 24 girder members (was 33), and the bearer extensions are plain boxes.
 - Rejected, do not promote: CN49 two-tier (`rounds/candidates/c07_cp011lattice_v2_2tier.blend`, reads as a wall) and CN48 v1 (`rounds/candidates/c07_cp011lattice.blend`, floating smoke + dark). Both stay for the record.
+
+## 2026-11-03 CP011_yard near pile + timber bay ("pile" pass): CANDIDATE (DEPARTURES CN50), not live, no verdict
+- Base: live `rounds/c07.blend` (md5 8cb193fe…, HEAD 8ef6c72), read only, never written (md5 unchanged after).
+- `scripts/render_cp011_pile.sh [samples=48] [outdir]` builds sibling `rounds/candidates/c07_cp011pile.blend` via `scripts/cand_cp011_pile_20261103.py` [--no-flanges] [--no-iron] [--no-bay] and renders start/end (1280x720, 48 spp, --no-people, one session per camera) into `renders/candidates/cp011_pile_20261103/after/`. Re-running it reproduces the after frames at max diff 0.
+- Changes: (1) 24 stock girders get 9 in top / 12 in bottom × 1.1 in flanges and all CP011 iron stock takes an as-cast dark iron (object-level links; girder24 and GT_IronPrimer_1850 untouched); (2) the CN49 deal floor (wrong footprint, 6 ft short of the partition) is replaced by a correct floor plus a deal landing through the partition gap, and two sticked Baltic-deal stacks (3×9 in, 5 wide × 15 courses, 5.4 ft) flank the gap; (3) smoke untouched (chimney tops are off frame / behind the roof; no floating plumes).
+- Exposure: 1.09 start / 1.16 end (live 0.97 / 1.00) → mean luma 124.0 / 111.0 vs live 124.0 / 111.1. Upper-left sky crop ~2–3 brighter.
+- Regression (candidate vs live, same pipeline): CP014_section_start, CP010_extent_end, CP012_bay_start max diff 0.
+- Pairs (before = live `renders/c07/CP011_yard_{k}.png`): survey `look/pairs_geo/CANDIDATE_CP011_pile_{start,end}_{before,after,pair}.png` via `scripts/cand_cp011_pile_pairs.py`.
+- Honest notes, self-score 6.5/10:
+  - Near pile now reads as heavy dark cast iron with visible flanges and a still-open web; sunlit top flanges read a little steel-blue-grey rather than black.
+  - The timber area now reads at the far end (pale sticked stacks + plank landing), but it is still small in frame: it sits 115–165 ft from the cameras by the CN47 layout. In the start frame the west stack is partly behind the hauler group.
+  - Exposure +0.12/+0.16 lifts the sky and brick slightly to compensate the darker iron.
+  - Smoke (3), fence (4), brick (5), roof underside (6), 24 members (7) untouched.
+- Waiting for the parent's keep/revert call. Do NOT promote without it. If kept, promotion needs a `--live` mode (marker `cp011_pile`) on the same pattern as CN49 and `EXPOSURES` in `render_cp011_yard_live.sh` set to 1.09 / 1.16.
