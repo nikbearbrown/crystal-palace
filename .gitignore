@@ -7,10 +7,9 @@ references/downes-1852/source-scans/jp2.zip
 references/muse-drive/extra-work/guidetogreatexhi00grea/guidetogreatexhi00grea_jp2.zip
 *.zip
 
-# scan-models: generated GLBs and Blender files stay local until approved
+# scan-models: raw fal outputs and Blender backups stay local; GLBs and .blend files are committed
 scan-models/outputs/
-scan-models/glb/
-scan-models/blend/
+scan-models/blend/*.blend1
 scan-models/uploads.json
 scan-models/run.log
 scan-models/run2.log
