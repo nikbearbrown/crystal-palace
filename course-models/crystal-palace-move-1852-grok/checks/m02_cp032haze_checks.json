@@ -1,0 +1,123 @@
+{
+ "date": "2026-11-03",
+ "candidate": "rounds/candidates/m02_cp032haze.blend",
+ "base": "rounds/m02.blend (move 5b943fa, MV19 live)",
+ "new_objects": 51,
+ "new_by_kind": {
+  "FAR": 46,
+  "THORN": 3,
+  "TRACK": 1,
+  "TUSSOCKS": 1
+ },
+ "removed_objects": [],
+ "new_only_ARR_PK": true,
+ "new_in_ARR_SYDENHAM_1852": true,
+ "no_hydepark_added": true,
+ "muse_crate_collection_unchanged": true,
+ "transform_changed": 83,
+ "transform_changed_not_oak": [],
+ "oak_transform_scale_only": true,
+ "oak_scale_range": [
+  0.80036,
+  1.149601
+ ],
+ "oak_height_range_old": [
+  14.85,
+  21.59
+ ],
+ "oak_height_range_new": [
+  12.44,
+  28.59
+ ],
+ "elm_objects": [
+  "ARR_OAK_01",
+  "ARR_OAK_02",
+  "ARR_OAK_03",
+  "ARR_OAK_05",
+  "ARR_OAK_10",
+  "ARR_OAK_17",
+  "ARR_OAK_22",
+  "ARR_OAK_29",
+  "ARR_OAK_30",
+  "ARR_OAK_35",
+  "ARR_OAK_40",
+  "ARR_OAK_41",
+  "ARR_OAK_47",
+  "ARR_OAK_53",
+  "ARR_OAK_56",
+  "ARR_OAK_62",
+  "ARR_OAK_67",
+  "ARR_OAK_69"
+ ],
+ "mesh_changed": [
+  "ARR_OAK_*",
+  "ARR_YD_RUTS"
+ ],
+ "mesh_changed_count": 84,
+ "mesh_changed_allowed": true,
+ "ruts_polys": [
+  17092,
+  34997
+ ],
+ "tree_polys_old": 870747,
+ "tree_polys_new": 1016850,
+ "new_polys_total": 121643,
+ "material_slot_changes": {
+  "ARR_GRASS": [
+   [
+    "GT_SydenhamMeadow1852"
+   ],
+   [
+    "GT_SydenhamMeadow1852b"
+   ]
+  ],
+  "ARR_YD_RUTS": [
+   [
+    "GT_CartRutClay"
+   ],
+   [
+    "GT_CartRutClay2"
+   ]
+  ]
+ },
+ "oak_slot_changes": 83,
+ "slot_changes_allowed": true,
+ "instance_changes": {},
+ "existing_materials_changed": [],
+ "materials_removed": [
+  "GT_CartRutClay",
+  "GT_OakBark1852",
+  "GT_OakLeaf1852",
+  "GT_SydenhamMeadow1852"
+ ],
+ "materials_new": [
+  "GT_CartRutClay2",
+  "GT_ElmLeaf1852h",
+  "GT_FarWoodLeaf1852h",
+  "GT_MeadowCartTrack1852h",
+  "GT_MeadowTussock1852h",
+  "GT_OakLeaf1852h",
+  "GT_SydenhamMeadow1852b",
+  "GT_ThornBlossom1852h",
+  "GT_ThornLeaf1852h",
+  "GT_TreeBark1852h"
+ ],
+ "camera_data_changed": [],
+ "scene_look_unchanged": true,
+ "scene": {
+  "exposure": -0.4000000059604645,
+  "gamma": 1.0,
+  "view": "AgX",
+  "look": "None",
+  "world": "GT_World",
+  "world_hash": "2c1bd9ccd7127f0849c750427e5e0aa2",
+  "res": [
+   1920,
+   1080
+  ],
+  "states": "{\"KJ_exploded\": {\"hide\": [\"K_GIRDER_N_oakkeys\", \"K_KEYS_OAK_N\"]}, \"CP032_arrival\": {\"hide\": [\"CPL_HorizonGround\"]}}"
+ },
+ "dep_objects_touched": [],
+ "notes": "MV19 GT_OakLeaf1852 / GT_OakBark1852 / GT_SydenhamMeadow1852 / GT_CartRutClay had no users left (ARR_* only) and are dropped on save, as are the orphaned MV19 oak meshes. Haze lives only in the new *_h materials and GT_SydenhamMeadow1852b.",
+ "pass": true
+}
