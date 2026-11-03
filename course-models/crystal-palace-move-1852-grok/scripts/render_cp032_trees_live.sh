@@ -11,6 +11,11 @@
 # scripts/candidate_cp032_trees.py --live on it (lollipop parkland meshes swapped for parametric oaks, Sydenham meadow,
 # ARR-only weathered bearers/crates, ARR_HD_HAT felt hats + hair on the ARR_HAND workmen) and asserting
 # CP032_TREES_IN_PLACE True.
+# Since the parkland haze v2 KEEP (2026-11-03, MV20) --rebuild then runs scripts/candidate_cp032_haze_v2.py --live
+# (asserting CP032_HAZE_IN_PLACE True; layered hazed tree line with elms/far copses/hawthorns, continuous olive-green
+# meadow + fine sward, cart track, cut ruts), so the rebuilt m02 equals live and the arrival frames match
+# KEEP_CP032_haze_v2_{start,end}_after.png (earlier KEEP_*_after frames predate MV20). Without --rebuild this script is
+# equivalent to render_cp032_haze_live.sh.
 # Note: render_shots.py's render-time people swap imports this folder's people_lib.py; reproduction assumes that file
 # is unchanged since the live render.
 set -euo pipefail
@@ -23,6 +28,8 @@ if [[ "${1:-}" == "--rebuild" ]]; then
   git show "$BASE_COMMIT:$REL" > "$TMP/m02.blend"
   TR=$("$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_trees.py -- --live 2>&1 | grep -E "CP032_TREES_IN_PLACE|Error|Traceback" || true)
   echo "$TR"; grep -q "CP032_TREES_IN_PLACE True" <<<"$TR" || { echo "CP032_TREES_IN_PLACE check failed"; rm -rf "$TMP"; exit 3; }
+  HZ=$("$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_haze_v2.py -- --live 2>&1 | grep -E "CP032_HAZE_IN_PLACE|Error|Traceback" || true)
+  echo "$HZ"; grep -q "CP032_HAZE_IN_PLACE True" <<<"$HZ" || { echo "CP032_HAZE_IN_PLACE check failed"; rm -rf "$TMP"; exit 3; }
   mv "$TMP/m02.blend" rounds/m02.blend
   rm -rf "$TMP"
 fi

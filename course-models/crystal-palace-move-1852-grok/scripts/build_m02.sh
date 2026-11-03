@@ -9,7 +9,9 @@
 # yard clay rebuilt, grey-brown spoil, weathered arrival bar bundles; needs MV17 first) and asserts CP032_YARD_IN_PLACE True, then the CP032
 # parkland oaks KEEP (DEPARTURES MV19, candidate_cp032_trees.py --live: parametric oaks replace the lollipop meshes,
 # Sydenham meadow, ARR-only weathered bearers/crates, ARR_HD_HAT felt hats + hair; needs MV17 + MV18 first) and asserts
-# CP032_TREES_IN_PLACE True.
+# CP032_TREES_IN_PLACE True, then the CP032 parkland haze v2 KEEP (DEPARTURES MV20, candidate_cp032_haze_v2.py --live:
+# layered hazed tree line with elms/far copses/hawthorns, continuous olive-green meadow + fine sward, cart track, cut ruts;
+# needs MV17 + MV18 + MV19 first) and asserts CP032_HAZE_IN_PLACE True.
 #   bash scripts/build_m02.sh [OUT]   (default rounds/m02.blend)
 # Caution: build_move.py has grown since m02 was frozen on 2026-10-27 (it now also builds the CP068 legacy region),
 # so a fresh round is NOT byte- or pixel-identical to the live m02; use render_cp032_live.sh --rebuild to reproduce live.
@@ -27,4 +29,6 @@ YD=$("$B" -b "$OUT" -P scripts/candidate_cp032_yard.py -- --live 2>&1 | grep -E 
 echo "$YD"; grep -q "CP032_YARD_IN_PLACE True" <<<"$YD" || { echo "CP032_YARD_IN_PLACE check failed"; exit 3; }
 TR=$("$B" -b "$OUT" -P scripts/candidate_cp032_trees.py -- --live 2>&1 | grep -E "CP032_TREES_IN_PLACE|CP032_TREES saved|Error|Traceback" || true)
 echo "$TR"; grep -q "CP032_TREES_IN_PLACE True" <<<"$TR" || { echo "CP032_TREES_IN_PLACE check failed"; exit 3; }
+HZ=$("$B" -b "$OUT" -P scripts/candidate_cp032_haze_v2.py -- --live 2>&1 | grep -E "CP032_HAZE_IN_PLACE|CP032_HAZE saved|Error|Traceback" || true)
+echo "$HZ"; grep -q "CP032_HAZE_IN_PLACE True" <<<"$HZ" || { echo "CP032_HAZE_IN_PLACE check failed"; exit 3; }
 echo BUILD_DONE
