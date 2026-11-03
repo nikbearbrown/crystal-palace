@@ -16,20 +16,51 @@ Changes (DEPARTURES CN47):
   * handling: low iron-wheeled trolley carrying one column in the aisle with two hauling men; a barrow by the girders.
   * people: CP011 FIGURE stand-ins replaced and new figures added with survey people_lib 1850s_workman (cap, dark matte
     fustian, as CP012/CP016), plus one 1850s_gentleman clerk with a tally board; explicit poses; render with --no-people.
-blender -b rounds/c07.blend -P scripts/cand_cp011_yard_20261103.py -- [--out PATH]"""
+blender -b rounds/c07.blend -P scripts/cand_cp011_yard_20261103.py -- [--out PATH]
+LIVE (KEEP 2026-11-03, parent viewed the pairs; DEPARTURES CN47):
+blender -b rounds/c07.blend -P scripts/cand_cp011_yard_20261103.py -- --live [--out PATH]
+  applies the same build to the live c07 IN PLACE, but camera-scoped so no other c07 shot changes:
+  every new CP011C_* object gets only_cams="CP011_yard" (render_views.py shows it only for CP011_yard_* cameras, saved
+  hide_render True); everything the candidate hid (DETAIL_DRAINAGE incl. the CP014 cutaway backdrop/labels/fill and
+  KSITE_GUTTER_WATER, KYARD_GIR_*/KYARD_COLUMNS/KYARD_TIMBER, KWORKER_024-026_CP011) gets hide_cams="CP011_yard"
+  (hidden only for CP011_yard_* cameras, otherwise untouched); KYARD_GROUND keeps its saved material (GT_Spoil) and gets
+  cam_mat="CP011_yard=CP011C_cinder_yard" (render_views.py swaps the slot for CP011_yard_* cameras only); the people_lib figures are tagged so the render-time
+  people swap of other shots ignores them. Idempotent: if CP011_YARD_CAND exists it only checks. Prints CP011_YARD_IN_PLACE.
+  -- --check: read-only check, prints CP011_YARD_IN_PLACE and exits (never saves)."""
 import bpy, bmesh, math, os, sys, hashlib
 from mathutils import Vector, Matrix
 F = 0.3048; IN = F / 12
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 TAG = "cand_cp011yard_20261103"
+LIVE = "--live" in argv; SID = "CP011_yard"
 sc = bpy.context.scene
+def in_place():
+    c = bpy.data.collections.get("CP011_YARD_CAND")
+    if c is None: return False
+    new = list(c.all_objects); dd = bpy.data.collections.get("DETAIL_DRAINAGE")
+    old = [bpy.data.objects[n] for n in ("KWORKER_024_CP011", "KWORKER_025_CP011", "KWORKER_026_CP011", "KYARD_COLUMNS", "KYARD_TIMBER")]
+    old += [o for o in bpy.data.objects if o.name.startswith("KYARD_GIR_")] + (list(dd.all_objects) if dd else [])
+    return (len(new) >= 40 and all(o.get("only_cams") == SID for o in new)
+            and all(o.get("hide_cams") == SID and not o.hide_render for o in old)
+            and bpy.data.objects["KYARD_GROUND"].get("cam_mat") == SID + "=CP011C_cinder_yard"
+            and bpy.data.objects["KYARD_GROUND"].data.materials[0].name == bpy.data.objects["KYARD_GROUND"].get("base_mat")
+            and "CP011C_cinder_yard" in bpy.data.materials
+            and not any(d.name.startswith("CPL3_") for d in list(bpy.data.meshes) + list(bpy.data.materials)))
+if "--check" in argv:   # read-only: never builds or saves
+    ok = in_place(); print("CP011_YARD_IN_PLACE", ok); sys.exit(0 if ok else 3)
+if LIVE and "CP011_YARD_CAND" in bpy.data.collections:
+    ok = in_place(); print("CP011_YARD already applied (idempotent, not re-saved)"); print("CP011_YARD_IN_PLACE", ok)
+    sys.exit(0 if ok else 3)
+def hide_for_cp011(o, why):
+    if LIVE: o["hide_cams"] = SID; o[TAG] = why + " (hide_cams CP011_yard only)"
+    else: o.hide_render = True; o.hide_viewport = True; o[TAG] = why
 OY = bpy.data.collections["OFFSITE_YARD"]
 coll = bpy.data.collections.new("CP011_YARD_CAND"); OY.children.link(coll)
 
 # ---------------- hide the CP014 cutaway (leaks into CP011 east side) ----------------
 for o in [o for o in bpy.data.objects if o and "DETAIL_DRAINAGE" in [c.name for c in o.users_collection]]:
-    o.hide_render = True; o.hide_viewport = True; o[TAG] = "hidden in CP011-only blend"
+    hide_for_cp011(o, "hidden in CP011-only blend")
 
 # ---------------- materials ----------------
 def pmat(name, col, rough=0.85, fn=None):
@@ -88,7 +119,11 @@ def obj(name, bm, mat, props=None):
 
 # ---------------- ground ----------------
 bm = bmesh.new(); box(bm, 2930, 3075, -140, 230, -0.08, -0.03); obj("CP011C_CINDER_YARD", bm, CINDER, {"part_kind": "ground"})
-bpy.data.objects["KYARD_GROUND"].data.materials[0] = CINDER
+KYG = bpy.data.objects["KYARD_GROUND"]
+if LIVE:   # camera-scoped material: the saved slot keeps the old material (the yard ground bounces light into CP014/CP010/
+    # CP013 frames, max 1-4 of 255 if swapped globally); render_views.py swaps to cam_mat for CP011_yard_* cameras only
+    KYG["base_mat"] = KYG.data.materials[0].name; KYG["cam_mat"] = SID + "=" + CINDER.name; KYG[TAG] = "cinder for CP011_yard only (cam_mat)"
+else: KYG.data.materials[0] = CINDER
 
 # ---------------- brick works range east, north block, chimneys, west fence ----------------
 def gable_range(name, x0, x1, y0, y1, eave, ridge, ridge_axis="y", win_face=None, nwin=0, win_h=(5, 13)):
@@ -152,7 +187,7 @@ obj("CP011C_FENCE_WEST", bm, FENCE, {"part_kind": "fence"})
 
 # ---------------- iron stock: identical girders and columns on bearers ----------------
 for o in [bpy.data.objects[n] for n in bpy.data.objects.keys() if n.startswith("KYARD_GIR_") or n in ("KYARD_COLUMNS", "KYARD_TIMBER")]:
-    o.hide_render = True; o.hide_viewport = True; o[TAG] = "replaced by CP011C stock"
+    hide_for_cp011(o, "replaced by CP011C stock")
 G24 = bpy.data.meshes["girder24"]
 bm_bear = bmesh.new()
 for pile, yc in enumerate((2.0, 34.0, 66.0)):              # girders: 12 high, lying flat, bearers every 8 ft
@@ -235,7 +270,7 @@ for k, c in FUSTIAN.items():
     if "Sheen Weight" in b.inputs: b.inputs["Sheen Weight"].default_value = 0.0
     m.diffuse_color = (*c, 1.0); FM[k] = m
 for n in ("KWORKER_024_CP011", "KWORKER_025_CP011", "KWORKER_026_CP011"):
-    o = bpy.data.objects[n]; o.hide_render = True; o.hide_viewport = True; o[TAG] = "replaced by people_lib figure"
+    hide_for_cp011(bpy.data.objects[n], "replaced by people_lib figure")
 # name, role, pose, x, y, face_deg (0 = front toward -Y = toward the camera)
 CAST = [("CP011C_P01_haul", "1850s_workman", "hauling", 2999.0, 38.6, 0),
         ("CP011C_P02_haul", "1850s_workman", "hauling", 3000.6, 39.4, 10),
@@ -264,5 +299,21 @@ bm = bmesh.new(); box(bm, 3003.3, 3004.1, 11.3, 11.4, 3.3, 4.3); obj("CP011C_TAL
 for r in rows: print("PERSON", *r)
 
 here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-out = arg("--out") or os.path.join(here, "rounds", "candidates", "c07_cp011yard.blend")
-bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)
+if LIVE:
+    for o in coll.all_objects:
+        o["only_cams"] = SID; o.hide_render = True
+        if o.get("cpl_people"):    # keep other shots' render-time people swap (people_lib 3.2) from adopting these
+            o["cp011_people"] = o["cpl_people"]; del o["cpl_people"]; o["part_kind"] = "cp011_fixed_figure"
+    # people_lib caches by datablock name (mesh CPL3_<role>_<pose>_<lod>_<n>, materials CPL3_*): the pre-yard c07 has
+    # none, so rename ours, otherwise other shots' render-time swap (v3.2) would reuse these v3.4 meshes / reset colours.
+    for db in (bpy.data.meshes, bpy.data.materials):
+        for d in list(db):
+            if d.name.startswith("CPL3_"): d.name = "CP011P_" + d.name[5:]
+    ok = in_place(); print("CP011_YARD_IN_PLACE", ok)
+    if not ok: sys.exit(3)
+    out = arg("--out") or bpy.data.filepath
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, compress=True); print("CP011_YARD saved", out)
+else:
+    out = arg("--out") or os.path.join(here, "rounds", "candidates", "c07_cp011yard.blend")
+    bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)

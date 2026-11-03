@@ -273,3 +273,32 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   - The fence reads as flat card, and the brick has no texture or variation.
   - The shed roof underside is dark and flat.
 - Waiting for the parent's keep/revert call. Do NOT promote.
+  - (Superseded: KEEP verdict and promotion below.)
+
+## 2026-11-03 CP011_yard works yard: KEEP (parent viewed start + end pairs), promoted to LIVE c07 (DEPARTURES CN47)
+- Verdict: KEEP for start and end. The white CP014 box is gone, the shot reads as a works yard (brick works, cinder yard, girder and column piles, timber bay, nine people_lib figures), and exposure matches.
+- Live: `rounds/c07.blend` now carries the yard, built with `scripts/cand_cp011_yard_20261103.py --live` from the pre-yard c07 pinned at construction commit f73d09c (md5 c6189435…; new live md5 d91c36a7…). The build is **camera-scoped** so no other c07 shot changes:
+  - The new CP011C_* objects carry `only_cams=CP011_yard`.
+  - DETAIL_DRAINAGE (the CP014 cutaway), the old KYARD_GIR_*/KYARD_COLUMNS/KYARD_TIMBER stock and KWORKER_024–026 carry `hide_cams=CP011_yard`. `render_views.py` hides them only for CP011_yard_* cameras.
+  - KYARD_GROUND keeps GT_Spoil in the saved file and has `cam_mat=CP011_yard=CP011C_cinder_yard`. `render_views.py` swaps slot 0 per camera. Swapping it globally (the first live attempt) leaked bounce light into other shots: CP010_extent_end max 3 of 255, CP014_section about 10k pixels at 1 of 255. Bisected to the ground material and fixed.
+  - The people_lib figures are tagged `cp011_people`, and their meshes and materials are renamed CP011P_*, so other shots' render-time people swap ignores them.
+  - Idempotent: `--live` on a blend that already has the yard only checks it, and `--check` is read-only. Both print `CP011_YARD_IN_PLACE`.
+- Live renders: `renders/c07/CP011_yard_{start,end}.png`. These replace the stale pre-look start, and the end is new. Re-render with `scripts/render_cp011_yard_live.sh [--rebuild] [samples] [outdir]` (each camera runs in its own session at 1280x720, 48 spp, --no-people, exposure 0.95 start / 1.06 end). Never render CP011 with render_round.sh.
+- Reproduction checks, 48 spp:
+  - `--rebuild` (regenerates c07 from f73d09c) gives start and end **pixel-identical** to `renders/candidates/cp011_yard_20261103/after/` (max diff 0).
+  - A plain run from the live blend is also pixel-identical (max diff 0).
+- Regression checks (pixel diff, same camera list, same render_views):
+  - All 19 other c07 cameras (CP010 ×5, CP012 bay/joint ×3, CP013 ×4, CP014_gutter, CP014_section, CP015 ×2, CP016_trolley ×2, REV_site_aerial): live c07 with the new render_views.py vs pre-yard c07 with the old render_views.py, **max diff 0 on all 19**.
+  - k01 CP014_drain_{base,gutter,roof,whole}_start, old vs new render_views.py: **max diff 0 on all 4**.
+  - Note: render-time people swap results depend on the camera list in the session, so compare like with like.
+- Rebuild scripts:
+  - New `scripts/build_c07.sh [OUT]`: build_construction.py, then the yard `--live` step, asserting CP011_YARD_IN_PLACE True. Tested fresh into scratch: a second `--live` run is idempotent, and CP011_yard_start from the fresh build is within max 1 of 255 (656 pixels) of live. Caution: a fresh build is not guaranteed pixel-identical to the frozen c07; use `render_cp011_yard_live.sh --rebuild` to reproduce live.
+  - `render_cp012_bay.sh` (rebuild branch) and `render_cp011_yard.sh` (candidate before/after) now read the pre-yard c07 from f73d09c, because CP012 and the CP011 before were built without the yard.
+- Survey: pairs `CANDIDATE_CP011_yard_*` renamed `KEEP_CP011_yard_{start,end}_{before,after,pair}.png` (pair labels relabelled KEEP; the after pngs are pixel-identical to the live renders). BUILD-PLAN and COVERAGE CP011 rows updated.
+- Follow-ups (open, in order):
+  1. Girder piles lost their lattice and read end-on as plank stacks. The before end frame showed lattice girders, so restore the lattice read first.
+  2. The timber bay is mostly hidden behind figures and pillars, so the separate timber area doesn't read.
+  3. The smoke is weak, the north chimney is off frame and the east chimney is cropped.
+  4. The west fence reads as flat card.
+  5. The brick is untextured, with no variation.
+  6. The shed roof underside is dark and flat.

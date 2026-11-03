@@ -45,6 +45,10 @@ for c in cams:
     sid = c.rsplit("_", 1)[0]
     for o in bpy.data.objects:   # objects tagged only_cams="ID,ID" render only for those shots (diagram backdrops, labels)
         if o.get("only_cams"): o.hide_render = sid not in o["only_cams"].split(",")
+        if o.get("hide_cams"): o.hide_render = sid in o["hide_cams"].split(",")   # hidden only for those shots (CP011 yard KEEP, CN47)
+        if o.get("cam_mat"):   # "ID=MAT,ID=MAT": slot 0 uses MAT for those shots, base_mat otherwise (CP011 yard ground, CN47)
+            mm = dict(kv.split("=", 1) for kv in o["cam_mat"].split(","))
+            o.data.materials[0] = bpy.data.materials[mm.get(sid, o["base_mat"])]
     if ob.get("res"):   # per-shot frame (e.g. portrait diagram), scaled by --res width / 1280
         w, h = map(int, ob["res"].split("x")); k = W / 1280; sc.render.resolution_x, sc.render.resolution_y = int(w * k), int(h * k)
     else: sc.render.resolution_x, sc.render.resolution_y = W, H

@@ -126,7 +126,7 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 - Clearance checked by BVH at frames 1 and 96: nearest is the 564 head scaffold at 1.45 ft. Live c07_cp012bay.blend is unchanged (md5 4c01336d…). No Sydenham geometry touched.
 - Why: CN45 follow-up 1. The pale plumb south leg read as a stray post through the centre of the start frame.
 
-## CN47 CP011_yard works yard dressed 2026-11-03 (CANDIDATE, no verdict, NOT live; `rounds/candidates/c07_cp011yard.blend` only; illustrative OFFSITE works, 1850–51, see CN11)
+## CN47 CP011_yard works yard dressed 2026-11-03 (KEEP for start and end 2026-11-03, parent viewed the pairs; LIVE in `rounds/c07.blend`, camera-scoped to CP011_yard; illustrative OFFSITE works, 1850–51, see CN11)
 
 - **Context**: still illustrative and off site at x ~3000 ft (CN11). Nothing at Hyde Park or Sydenham was touched. Live `rounds/c07.blend` is unchanged.
 - **Backdrop**: the DETAIL_DRAINAGE collection (the CP014 white cutaway box plus KDET_FILL at x ~3124) is hidden in the candidate. It leaked into the east side of the CP011 frame.
@@ -149,3 +149,4 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 - **Handling**: a column on a two-wheel trolley, a barrow, and a tally board for the clerk.
 - **People**: the three KWORKER blocks are hidden. In their place are 9 people_lib v3.4 figures: 8 workmen in fustian (hauling, working, standing and walking poses) and 1 gentleman clerk.
 - **Why**: CP011 was the emptiest unpolished HP/offsite shot, an open shed in a lime field with a white box at the side. The storyboard asks for "identical members prepared and stacked; timber in a separate work area".
+- **Parent verdict 2026-11-03: KEEP start + end.** The white CP014 box is gone, the shot reads as a works yard, and exposure matches. Promoted into live `rounds/c07.blend` with `scripts/cand_cp011_yard_20261103.py --live`, camera-scoped so that no other c07 shot changes. The new CP011C_* objects carry `only_cams=CP011_yard`. DETAIL_DRAINAGE, the old KYARD stock and KWORKER_024–026 carry `hide_cams=CP011_yard`. KYARD_GROUND keeps GT_Spoil and has `cam_mat=CP011_yard=CP011C_cinder_yard`, which `render_views.py` swaps in for CP011_yard_* cameras only. The "Context" line above (live c07 unchanged) describes the candidate stage and is now superseded. The works buildings, chimneys, fence, timber bay layout and fustian colours are all still **assumed, grade C** (mood from fig-38, not measured). Live renders: `renders/c07/CP011_yard_{start,end}.png` (`scripts/render_cp011_yard_live.sh [--rebuild]`). Open follow-ups are in PROGRESS.
