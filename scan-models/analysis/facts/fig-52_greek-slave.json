@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-52_greek-slave.glb",
+ "sha256": "c009fbfe07f1459ebf6d0325b477cdbeca1926fdcbe21ca4b0d455a44ce5933a",
+ "bytes": 44141572,
+ "triangles": 1458679,
+ "vertices": 747870,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.2673,
+  0.0,
+  -0.2793
+ ],
+ "bounds_max": [
+  0.2673,
+  1.65,
+  0.2793
+ ],
+ "dimensions": [
+  0.5347,
+  1.65,
+  0.5585
+ ],
+ "thin_axis": "x",
+ "thin_to_largest_ratio": 0.324,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  0.5347,
+  1.65,
+  0.5585
+ ],
+ "model_height_to_width": 2.9542,
+ "reference_size": [
+  1042,
+  2299
+ ],
+ "reference_height_to_width": 2.2063
+}

@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-31a_inlaid-piano-and-stool.glb",
+ "sha256": "195ae6eb37a89f708ade852ce58d5b0c41cb2dde8024d2704855baba6cf11f21",
+ "bytes": 47235284,
+ "triangles": 1477598,
+ "vertices": 779983,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.6154,
+  0.0,
+  -1.1441
+ ],
+ "bounds_max": [
+  0.6154,
+  1.4,
+  1.1441
+ ],
+ "dimensions": [
+  1.2308,
+  1.4,
+  2.2882
+ ],
+ "thin_axis": "x",
+ "thin_to_largest_ratio": 0.5379,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  1.2308,
+  1.4,
+  2.2882
+ ],
+ "model_height_to_width": 0.6118,
+ "reference_size": [
+  905,
+  824
+ ],
+ "reference_height_to_width": 0.9105
+}

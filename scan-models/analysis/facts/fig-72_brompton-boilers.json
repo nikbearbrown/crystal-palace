@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-72_brompton-boilers.glb",
+ "sha256": "b5851bc4cccdff507fc315d39552b4cd7b56e32687c806a83fadee5bf4a541ee",
+ "bytes": 44643268,
+ "triangles": 1405977,
+ "vertices": 754490,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -58.3451,
+  0.0,
+  -75.0
+ ],
+ "bounds_max": [
+  58.3451,
+  53.8906,
+  75.0
+ ],
+ "dimensions": [
+  116.6901,
+  53.8906,
+  150.0
+ ],
+ "thin_axis": "y",
+ "thin_to_largest_ratio": 0.3593,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  116.6901,
+  53.8906,
+  150.0
+ ],
+ "model_height_to_width": 0.3593,
+ "reference_size": [
+  2663,
+  1282
+ ],
+ "reference_height_to_width": 0.4814
+}

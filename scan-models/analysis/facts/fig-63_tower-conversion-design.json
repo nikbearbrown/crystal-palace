@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-63_tower-conversion-design.glb",
+ "sha256": "4c9ed68a699d3549c33230050a6a4289890446d97372cddcf0cc012c8283ac5a",
+ "bytes": 47789912,
+ "triangles": 1473281,
+ "vertices": 768184,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -91.8428,
+  0.0,
+  -65.1563
+ ],
+ "bounds_max": [
+  91.8428,
+  304.8,
+  65.1563
+ ],
+ "dimensions": [
+  183.6856,
+  304.8,
+  130.3127
+ ],
+ "thin_axis": "z",
+ "thin_to_largest_ratio": 0.4275,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  183.6856,
+  304.8,
+  130.3127
+ ],
+ "model_height_to_width": 1.6594,
+ "reference_size": [
+  1654,
+  2430
+ ],
+ "reference_height_to_width": 1.4692
+}

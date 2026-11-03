@@ -1,0 +1,586 @@
+{
+ "summary": "Of 16 models, five reproduce their reference well (Greek Slave, Watherston and Brogden vase, Elkington jewel cabinet, tea service, obelisk shaft), five are good objects that need a fused background deleted or a part rebuilt (piano, canopy chair, urn stand, balloon-back chair, elephant), five are starting meshes only (boulder pile, balustrade, working-class home, tower, Centenary model), and one (Brompton Boilers) does not reproduce its reference. The deciding factor was not the object but the crop: every model cut out of a crowded or lit scene dragged part of the scene into the mesh.",
+ "models": {
+  "fig-52_greek-slave": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "Contrapposto stance, head turn, the draped post and the round base all line up with the print.",
+     "\u2014"
+    ],
+    [
+     "Detail",
+     "matches",
+     "Hair knot, the chain at the wrists and the folds of the drapery are kept; the surface reads as marble.",
+     "\u2014"
+    ],
+    [
+     "Contamination",
+     "matches",
+     "No background or support from the dark studio plate came through.",
+     "\u2014"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "The back is anatomically coherent but invented; the print shows only the front.",
+     "reference"
+    ],
+    [
+     "Scale",
+     "cannot judge",
+     "1.65 m is an estimate for a life-size marble, not a measurement.",
+     "comparison"
+    ]
+   ],
+   "good_for": "an archival proxy for the statue's front, and a reasonable base for retopology.",
+   "next": [
+    "Check the 1.65 m against a catalogued height for the statue.",
+    "Retopologise before any engine use; 1.46 million triangles is not a game asset."
+   ],
+   "riff": "This is the one where it just works: stance, drapery, chain and base are all there. The back is a guess, and a good one."
+  },
+  "unnumbered_watherston-brogden-vase": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "Statue on the lid, hexagonal drum, flared foot and pinnacles in the right order and proportion.",
+     "\u2014"
+    ],
+    [
+     "Detail and ornament",
+     "partly",
+     "Figure niches and the foot's seated figures are kept; fine ornament (swags, rope bands) is softened to bumps.",
+     "model"
+    ],
+    [
+     "Parts",
+     "matches",
+     "All pinnacles and the four visible figure groups are present.",
+     "\u2014"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "The drum's far faces are invented; they continue the same figures plausibly.",
+     "reference"
+    ]
+   ],
+   "good_for": "an archival proxy for the front; the ornament is impressionistic.",
+   "next": [
+    "Compare the far faces against another engraving of the vase if one exists.",
+    "Re-render at a closer camera to judge how much ornament survived."
+   ],
+   "riff": "A hard object, a lot of figures, and the structure survives; the fine ornament is the casualty."
+  },
+  "fig-54_elkington-jewel-cabinet": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "Pagoda-style blue roof, projecting wings, lion finial and base all match.",
+     "\u2014"
+    ],
+    [
+     "Parts",
+     "matches",
+     "Two framed portraits, the central statuette, two caryatids and the enamel roundels are present.",
+     "\u2014"
+    ],
+    [
+     "Detail",
+     "partly",
+     "The finial group is simplified, and the portraits are only faint paintings: it is not the same pair of faces.",
+     "model"
+    ],
+    [
+     "Surface and colour",
+     "matches",
+     "Gilt, silver and blue read correctly; the plate is coloured, so tone is indicative only.",
+     "comparison"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "The back repeats the front composition with different portraits; that is invention.",
+     "reference"
+    ]
+   ],
+   "good_for": "an archival proxy for the front.",
+   "next": [
+    "Check the portraits against the catalogue description rather than the generated texture.",
+    "Remove the invented back panel if the model is shown from behind."
+   ],
+   "riff": "Layout is right, parts are right; the portraits are paint, not portraits, and the back is a copy of the front."
+  },
+  "fig-03_tea-service": {
+   "rows": [
+    [
+     "Parts",
+     "matches",
+     "All seven pieces are present and separate: bowl, jug, teapot, two cups, two saucers.",
+     "\u2014"
+    ],
+    [
+     "Detail",
+     "matches",
+     "The animal-head spout and lid knop on the teapot read correctly.",
+     "\u2014"
+    ],
+    [
+     "Layout",
+     "partly",
+     "The pieces sit loose on a floor instead of on the two shelves of the photograph.",
+     "model"
+    ],
+    [
+     "Surface and colour",
+     "cannot judge",
+     "The photograph is monochrome, so the off-white is an assumption.",
+     "reference"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "Cup interiors and saucer undersides are invented.",
+     "reference"
+    ]
+   ],
+   "good_for": "an archival proxy for the shapes; the arrangement is not the photograph's.",
+   "next": [
+    "Place the pieces on shelves in Blender if the arrangement matters.",
+    "Generate each piece separately for cleaner meshes."
+   ],
+   "riff": "Every piece is there and the teapot's animal head survives; the shelving does not."
+  },
+  "fig-24a_obelisk": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "Tall tapered shaft with a broken top, the same taper and edge as the print.",
+     "\u2014"
+    ],
+    [
+     "Surface",
+     "matches",
+     "Weathered yellow stone with a vertical grain.",
+     "\u2014"
+    ],
+    [
+     "Base and ground",
+     "partly",
+     "A rough boulder stump is fused onto the foot; the print hides the real base behind boulders.",
+     "reference"
+    ],
+    [
+     "Contamination",
+     "partly",
+     "A slab edge from the left of the crop shows at the foot of the model.",
+     "model"
+    ],
+    [
+     "Scale",
+     "cannot judge",
+     "5.5 m was set against standing visitors, which stand nearer the camera.",
+     "comparison"
+    ]
+   ],
+   "good_for": "an archival proxy for the shaft; the foot is invented.",
+   "next": [
+    "Crop the shaft only, above the boulders, and regenerate.",
+    "Check the height against the known obelisk if the exhibit is identified."
+   ],
+   "riff": "The shaft is right; the foot is whatever the boulders left behind."
+  },
+  "fig-31c_gilt-urn-stand": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "Bell-topped urn on a flared three-footed pedestal with two bowls, as in the print.",
+     "\u2014"
+    ],
+    [
+     "Detail",
+     "matches",
+     "Gilt reliefs on the foot and the fluted bowls are kept.",
+     "\u2014"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "A tall flat wall panel with chair details is fused behind the stand.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "does not",
+     "The back of the panel is a blank slab, so the object has no real back.",
+     "model"
+    ]
+   ],
+   "good_for": "a good front once the panel is deleted.",
+   "next": [
+    "Delete the fused panel in Blender and check what remains.",
+    "Regenerate from a crop with the background painted out."
+   ],
+   "riff": "The urn is exactly what the print shows, standing in front of a wall that is not part of it."
+  },
+  "fig-31d_balloon-back-chair": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "Balloon back, shaped seat and cabriole legs match the print.",
+     "\u2014"
+    ],
+    [
+     "Parts",
+     "matches",
+     "The price card on the seat is carried over.",
+     "\u2014"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "A flat backing board with part of a gilt frame is fused behind the chair.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "does not",
+     "The board's back is a blank brown slab.",
+     "model"
+    ]
+   ],
+   "good_for": "a good chair once the board is deleted.",
+   "next": [
+    "Delete the backing board and check the chair's rear legs.",
+    "Regenerate from a crop with the background painted out."
+   ],
+   "riff": "The chair is right, with a board behind it that was a wall in the print."
+  },
+  "fig-31a_inlaid-piano-and-stool": {
+   "rows": [
+    [
+     "Parts",
+     "matches",
+     "Keyboard, music sheet, stool and scroll feet are present.",
+     "\u2014"
+    ],
+    [
+     "Detail and ornament",
+     "partly",
+     "The inlay on the case is simplified; the heavy ornament of the print is smoother.",
+     "model"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "The standing man from the crop edge is fused to the left of the piano as a full figure, with a slab behind him.",
+     "model"
+    ],
+    [
+     "Proportion",
+     "partly",
+     "The case looks lower and wider than the print's tall upright, partly because of the fused slab.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "The back is a plain panelled box, invented.",
+     "reference"
+    ]
+   ],
+   "good_for": "usable after deleting the figure and the slab.",
+   "next": [
+    "Delete the man and the slab, then re-measure the piano against the 1.4 m estimate.",
+    "Regenerate from a crop that excludes the man."
+   ],
+   "riff": "The piano is there; so is the man leaning on it, which the print does not intend."
+  },
+  "fig-31b_tufted-canopy-chair": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "partly",
+     "The hooded, tufted chair with gilt edge reads, but the seat is shallow and the hood sweeps less than the print.",
+     "model"
+    ],
+    [
+     "Detail",
+     "matches",
+     "Tufting, gilt trim and tassels are kept.",
+     "\u2014"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "A curtain column and small props (a drum, a footstool) are fused beside and in front of the chair.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "does not",
+     "The back is a smooth blank shell.",
+     "reference"
+    ]
+   ],
+   "good_for": "usable after separating the chair from the curtain and props.",
+   "next": [
+    "Select the chair alone in Blender and delete the rest.",
+    "Regenerate from a crop with the curtain painted out."
+   ],
+   "riff": "The chair's upholstery is nailed, but the curtain and floor clutter came with it."
+  },
+  "fig-27_indian-elephant-howdah": {
+   "rows": [
+    [
+     "Parts",
+     "matches",
+     "Elephant, tusks, trunk, head cloth, tassels and the howdah platform are present.",
+     "\u2014"
+    ],
+    [
+     "Openness",
+     "does not",
+     "The howdah canopy is a solid helmet shape instead of an open arched canopy on slim pillars.",
+     "model"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "Two visitors from the crop are fused at the elephant's feet.",
+     "model"
+    ],
+    [
+     "Detail",
+     "matches",
+     "The embroidered caparison and its cross panel are kept.",
+     "\u2014"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "The far side of the elephant and canopy are invented.",
+     "reference"
+    ]
+   ],
+   "good_for": "usable after rebuilding the canopy and removing the visitors.",
+   "next": [
+    "Rebuild the canopy by hand as an open frame.",
+    "Regenerate from a crop that cuts above the visitors."
+   ],
+   "riff": "A beautiful elephant under a canopy that has been filled in like a helmet."
+  },
+  "fig-24b_boulder-pile": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "partly",
+     "A heap of rough blocks, but boxier and flatter than the four big rounded boulders in the print.",
+     "model"
+    ],
+    [
+     "Parts",
+     "does not",
+     "Block count and arrangement differ from the print.",
+     "model"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "A flat green slab and boxy slabs from the background are fused to the back of the heap.",
+     "model"
+    ],
+    [
+     "Base and ground",
+     "does not",
+     "The heap stands on a flat brown disc.",
+     "model"
+    ]
+   ],
+   "good_for": "usable after deleting the slabs and the disc; not faithful to the arrangement.",
+   "next": [
+    "Delete the slabs and disc, then compare again.",
+    "Regenerate from a tighter crop of the pile alone."
+   ],
+   "riff": "Reads as stone, but it is a different heap."
+  },
+  "fig-31e_cast-iron-balustrade": {
+   "rows": [
+    [
+     "Detail and ornament",
+     "matches",
+     "The scrolled cartouche openwork on the diagonal front face is well kept.",
+     "\u2014"
+    ],
+    [
+     "Silhouette and proportion",
+     "does not",
+     "The model is a box: a wall block, a staircase wedge, a hat and gilt knobs are fused around a diagonal panel.",
+     "model"
+    ],
+    [
+     "Scale",
+     "does not",
+     "The 3 m target is applied to the box, so the balustrade is smaller than stated.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "Thickness and back are invented.",
+     "reference"
+    ]
+   ],
+   "good_for": "the front face only; it needs manual isolation before any other use.",
+   "next": [
+    "Cut the diagonal panel out of the box in Blender.",
+    "The balustrade is a flat angled panel, which a single-image generator handles badly: model it by hand as a flat openwork panel."
+   ],
+   "riff": "The ironwork is lovely; the cube it came in is not."
+  },
+  "fig-33_model-working-class-home": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "partly",
+     "The facade with its central porch, gables and chimneys matches; the long side wings are plausible.",
+     "\u2014"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "Flat grey cards float above the roof; visitors from the print are fused into the base.",
+     "model"
+    ],
+    [
+     "Ground",
+     "partly",
+     "A raised stepped plinth appears where the print has a low wall and a gate.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "cannot judge",
+     "The rear and the sides are invented.",
+     "reference"
+    ]
+   ],
+   "good_for": "a starting mesh for the facade.",
+   "next": [
+    "Delete the floating cards and figures, then rebuild the base.",
+    "Regenerate with a second view of the building."
+   ],
+   "riff": "The facade is recognisable; the roof carries a few sheets of cardboard that the print never had."
+  },
+  "fig-63_tower-conversion-design": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "matches",
+     "The shaft with its stacked tiers, clock stage and flag matches the engraving.",
+     "\u2014"
+    ],
+    [
+     "Detail",
+     "partly",
+     "Tier divisions are kept; the arched building at the foot is reduced to a small block.",
+     "model"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "The ground and trees are baked into a flat white slab at the base.",
+     "model"
+    ],
+    [
+     "Scale",
+     "cannot judge",
+     "304.8 m comes from the printed 1000 ft and is the one scale here with a basis.",
+     "comparison"
+    ]
+   ],
+   "good_for": "a starting mesh for the shaft, once the slab is deleted.",
+   "next": [
+    "Delete the slab and rebuild the base as the Crystal Palace nave end.",
+    "Check the tier count against the engraving."
+   ],
+   "riff": "A thousand-foot tower that stands on a paper tablecloth."
+  },
+  "fig-73_centenary-model": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "partly",
+     "A barrel-vault canopy over a raised platform with balustrade is the right idea.",
+     "\u2014"
+    ],
+    [
+     "Openness",
+     "does not",
+     "The glazed vault and the open ironwork come out solid and muddy.",
+     "model"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "Visitors are fused inside and an extra building mass sits behind.",
+     "model"
+    ],
+    [
+     "Scale",
+     "cannot judge",
+     "The 6 m depth is an estimate; the dimensions are driven by the extra mass.",
+     "comparison"
+    ]
+   ],
+   "good_for": "a starting mesh for the vault and platform; not for the glazing.",
+   "next": [
+    "Rebuild the vault ribs and glazing by hand.",
+    "Regenerate from a crop without the visitors."
+   ],
+   "riff": "The idea is right; the glass is not glass."
+  },
+  "fig-72_brompton-boilers": {
+   "rows": [
+    [
+     "Silhouette and proportion",
+     "does not",
+     "A very long arcaded building collapses into a compact L-shaped mass.",
+     "reference"
+    ],
+    [
+     "Parts",
+     "partly",
+     "Two domes and an arcaded front are present, but the dome count and the arcade rhythm differ.",
+     "model"
+    ],
+    [
+     "Contamination",
+     "does not",
+     "A flat brown billboard slab is fused behind the domes.",
+     "model"
+    ],
+    [
+     "Unseen sides",
+     "does not",
+     "The plan behind the facade is entirely invented.",
+     "reference"
+    ]
+   ],
+   "good_for": "not usable as a likeness; proportions are wrong.",
+   "next": [
+    "Build the facade by hand from the print's bay rhythm.",
+    "Do not feed an oblique view of a long building to a single-image generator."
+   ],
+   "riff": "A long street front became a little L-shaped box; one oblique view cannot give a plan."
+  }
+ },
+ "pattern": "Every failure that cost likeness came from one of three causes. (1) The crop was not clean: walls, boards, curtains, figures and ground planes were fused into the mesh (fig 24b, 27, 31a-e, 33, 63, 72). (2) Open structure came out solid (the elephant canopy, the Centenary vault). (3) The reference could not support the claim: a long building seen at an angle (fig 72) and the back of every object. The successes (3, 52, 54, the vase, the obelisk shaft) were isolated objects against a plain or dark ground. So the cheapest improvement is upstream: paint the background out of the crop, or give the generator a second view, before generating. Triangle count and file size were no help: all 16 are about 1.4 million triangles and none is watertight."
+}

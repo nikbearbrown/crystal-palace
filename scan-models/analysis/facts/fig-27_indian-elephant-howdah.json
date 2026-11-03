@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-27_indian-elephant-howdah.glb",
+ "sha256": "4cdb21be1f78a47356171d129fd3b0085b5eccd790e7f21137adf0454a20c352",
+ "bytes": 47450384,
+ "triangles": 1485910,
+ "vertices": 778857,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -2.1702,
+  0.0,
+  -1.7244
+ ],
+ "bounds_max": [
+  2.1702,
+  5.0,
+  1.7244
+ ],
+ "dimensions": [
+  4.3404,
+  5.0,
+  3.4487
+ ],
+ "thin_axis": "z",
+ "thin_to_largest_ratio": 0.6897,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  4.3404,
+  5.0,
+  3.4487
+ ],
+ "model_height_to_width": 1.152,
+ "reference_size": [
+  640,
+  1020
+ ],
+ "reference_height_to_width": 1.5938
+}

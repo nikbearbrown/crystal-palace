@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-73_centenary-model.glb",
+ "sha256": "3bf22ef82d73af74c4ba9540048fc6b9b33218b1585155cb19a5cf25cd4e1293",
+ "bytes": 43591688,
+ "triangles": 1397789,
+ "vertices": 779434,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -1.6992,
+  0.0,
+  -3.0
+ ],
+ "bounds_max": [
+  1.6992,
+  2.1204,
+  3.0
+ ],
+ "dimensions": [
+  3.3984,
+  2.1204,
+  6.0
+ ],
+ "thin_axis": "y",
+ "thin_to_largest_ratio": 0.3534,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  3.3984,
+  2.1204,
+  6.0
+ ],
+ "model_height_to_width": 0.3534,
+ "reference_size": [
+  2609,
+  2010
+ ],
+ "reference_height_to_width": 0.7704
+}

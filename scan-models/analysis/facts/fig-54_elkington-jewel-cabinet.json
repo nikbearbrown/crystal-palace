@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-54_elkington-jewel-cabinet.glb",
+ "sha256": "baa481215e3dfb7a72ea378a2a42ca3b6b7ddf749f4668ef0bc370f6fad4a6f3",
+ "bytes": 45380204,
+ "triangles": 1400627,
+ "vertices": 751026,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.4748,
+  0.0,
+  -0.7
+ ],
+ "bounds_max": [
+  0.4748,
+  1.0168,
+  0.7
+ ],
+ "dimensions": [
+  0.9496,
+  1.0168,
+  1.4
+ ],
+ "thin_axis": "x",
+ "thin_to_largest_ratio": 0.6783,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  0.9496,
+  1.0168,
+  1.4
+ ],
+ "model_height_to_width": 0.7263,
+ "reference_size": [
+  2895,
+  2174
+ ],
+ "reference_height_to_width": 0.7509
+}

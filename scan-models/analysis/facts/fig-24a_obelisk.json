@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-24a_obelisk.glb",
+ "sha256": "5407e1d5531f6715de0f3289fef610209f10dbf55d99227377ee193eaac0eb74",
+ "bytes": 48129076,
+ "triangles": 1470940,
+ "vertices": 749236,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -1.0144,
+  0.0,
+  -0.5603
+ ],
+ "bounds_max": [
+  1.0144,
+  5.5,
+  0.5603
+ ],
+ "dimensions": [
+  2.0287,
+  5.5,
+  1.1206
+ ],
+ "thin_axis": "z",
+ "thin_to_largest_ratio": 0.2038,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  2.0287,
+  5.5,
+  1.1206
+ ],
+ "model_height_to_width": 2.711,
+ "reference_size": [
+  295,
+  1098
+ ],
+ "reference_height_to_width": 3.722
+}

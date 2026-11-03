@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-31d_balloon-back-chair.glb",
+ "sha256": "a8ddef5983bc1a2fa0fb0fd94b1bae2c680b4a3cea26f39695d125d210a1c7b9",
+ "bytes": 45094604,
+ "triangles": 1480838,
+ "vertices": 761373,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.3415,
+  0.0,
+  -0.3313
+ ],
+ "bounds_max": [
+  0.3415,
+  0.9,
+  0.3313
+ ],
+ "dimensions": [
+  0.6829,
+  0.9,
+  0.6625
+ ],
+ "thin_axis": "z",
+ "thin_to_largest_ratio": 0.7362,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  0.6829,
+  0.9,
+  0.6625
+ ],
+ "model_height_to_width": 1.3179,
+ "reference_size": [
+  464,
+  592
+ ],
+ "reference_height_to_width": 1.2759
+}

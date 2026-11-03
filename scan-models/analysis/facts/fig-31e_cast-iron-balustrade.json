@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-31e_cast-iron-balustrade.glb",
+ "sha256": "b5b4643034d8fb6e15541be01429bc0b82445471bf36740584708aa303efb427",
+ "bytes": 44911364,
+ "triangles": 1438604,
+ "vertices": 747922,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -1.5,
+  0.0,
+  -1.1165
+ ],
+ "bounds_max": [
+  1.5,
+  2.3804,
+  1.1165
+ ],
+ "dimensions": [
+  3.0,
+  2.3804,
+  2.233
+ ],
+ "thin_axis": "z",
+ "thin_to_largest_ratio": 0.7443,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  3.0,
+  2.3804,
+  2.233
+ ],
+ "model_height_to_width": 0.7935,
+ "reference_size": [
+  591,
+  586
+ ],
+ "reference_height_to_width": 0.9915
+}

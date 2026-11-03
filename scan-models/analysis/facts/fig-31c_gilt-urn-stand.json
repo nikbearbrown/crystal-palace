@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-31c_gilt-urn-stand.glb",
+ "sha256": "cd0eabceba4e9f84b882b1f1e80ab106370e77a3a66753e0594e50c4706fc758",
+ "bytes": 43859488,
+ "triangles": 1425302,
+ "vertices": 734558,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.3501,
+  0.0,
+  -0.2433
+ ],
+ "bounds_max": [
+  0.3501,
+  1.3,
+  0.2433
+ ],
+ "dimensions": [
+  0.7003,
+  1.3,
+  0.4866
+ ],
+ "thin_axis": "z",
+ "thin_to_largest_ratio": 0.3743,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  0.7003,
+  1.3,
+  0.4866
+ ],
+ "model_height_to_width": 1.8564,
+ "reference_size": [
+  278,
+  743
+ ],
+ "reference_height_to_width": 2.6727
+}

@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-33_model-working-class-home.glb",
+ "sha256": "9c6b4d860841176d9d36f1c31da894ddbcedeb23efc5b2d52f19363f2c56756d",
+ "bytes": 44865596,
+ "triangles": 1389300,
+ "vertices": 745092,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -3.2845,
+  0.0,
+  -7.198
+ ],
+ "bounds_max": [
+  3.2845,
+  8.0,
+  7.198
+ ],
+ "dimensions": [
+  6.569,
+  8.0,
+  14.3959
+ ],
+ "thin_axis": "x",
+ "thin_to_largest_ratio": 0.4563,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  6.569,
+  8.0,
+  14.3959
+ ],
+ "model_height_to_width": 0.5557,
+ "reference_size": [
+  2621,
+  1485
+ ],
+ "reference_height_to_width": 0.5666
+}

@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-03_tea-service.glb",
+ "sha256": "024832f5c417845552714c9947f26d1f506697bd3be26f7f91a56887531fe15d",
+ "bytes": 42131144,
+ "triangles": 1400242,
+ "vertices": 714418,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.1882,
+  0.0,
+  -0.35
+ ],
+ "bounds_max": [
+  0.1882,
+  0.4017,
+  0.35
+ ],
+ "dimensions": [
+  0.3765,
+  0.4017,
+  0.7
+ ],
+ "thin_axis": "x",
+ "thin_to_largest_ratio": 0.5378,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  0.3765,
+  0.4017,
+  0.7
+ ],
+ "model_height_to_width": 0.5739,
+ "reference_size": [
+  2303,
+  1555
+ ],
+ "reference_height_to_width": 0.6752
+}

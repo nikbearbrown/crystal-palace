@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/unnumbered_watherston-brogden-vase.glb",
+ "sha256": "c4410ae2bb0dad4f5cd2f49b2e2b0d00d233070059ea72b6bda4adf30c56aaa2",
+ "bytes": 46738912,
+ "triangles": 1426179,
+ "vertices": 748334,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -0.2459,
+  0.0,
+  -0.2742
+ ],
+ "bounds_max": [
+  0.2459,
+  1.2,
+  0.2742
+ ],
+ "dimensions": [
+  0.4918,
+  1.2,
+  0.5484
+ ],
+ "thin_axis": "x",
+ "thin_to_largest_ratio": 0.4098,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  0.4918,
+  1.2,
+  0.5484
+ ],
+ "model_height_to_width": 2.188,
+ "reference_size": [
+  1354,
+  2132
+ ],
+ "reference_height_to_width": 1.5746
+}

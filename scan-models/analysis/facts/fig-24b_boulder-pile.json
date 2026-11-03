@@ -1,0 +1,47 @@
+{
+ "file": "scan-models/glb/fig-24b_boulder-pile.glb",
+ "sha256": "7e4d5c5c81867c97d40d5661ffb68913b1134f8155b8f47d4cf535672fa4b6bc",
+ "bytes": 45234264,
+ "triangles": 1462294,
+ "vertices": 758173,
+ "mesh_nodes": 1,
+ "bounds_min": [
+  -1.7,
+  0.0,
+  -1.1177
+ ],
+ "bounds_max": [
+  1.7,
+  1.5117,
+  1.1177
+ ],
+ "dimensions": [
+  3.4,
+  1.5117,
+  2.2354
+ ],
+ "thin_axis": "y",
+ "thin_to_largest_ratio": 0.4446,
+ "watertight": false,
+ "materials": 1,
+ "texture_sizes": [
+  [
+   2048,
+   2048
+  ]
+ ],
+ "notes": [
+  "Facts about the file only. Not a likeness measure; compare by eye against the reference."
+ ],
+ "gltf_y_up_width_height_depth": [
+  3.4,
+  1.5117,
+  2.2354
+ ],
+ "model_height_to_width": 0.4446,
+ "reference_size": [
+  778,
+  460
+ ],
+ "reference_height_to_width": 0.5913
+}
