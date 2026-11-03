@@ -302,3 +302,16 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   4. The west fence reads as flat card.
   5. The brick is untextured, with no variation.
   6. The shed roof underside is dark and flat.
+
+## 2026-11-03 CP011_yard girder lattice + timber-bay sightline + smoke: CANDIDATE (DEPARTURES CN48), not live, no verdict
+- `scripts/render_cp011_lattice.sh [samples=48] [outdir]` builds `rounds/candidates/c07_cp011lattice.blend` from live `rounds/c07.blend` (never written; md5 d91c36a7… unchanged) via `scripts/cand_cp011_lattice_20261103.py` [--no-bay] [--no-smoke] [--smoke-density 2.0]. It renders start and end at the live settings (1280x720, 48 spp, --no-people, exposure 0.95 start / 1.06 end, one session per camera) into `renders/candidates/cp011_lattice_20261103/after/`.
+- Before = live KEEP renders (`KEEP_CP011_yard_{k}_after.png`, max diff 0 vs `renders/c07/CP011_yard_{k}.png`). Pairs: `scripts/cand_cp011_lattice_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP011_lattice_{start,end}_{before,after,pair}.png`.
+- Mean luma at the same exposure: start 123.8 → 117.8, end 110.7 → 101.8. The drop comes from the taller dark-iron girder rows replacing the pale flat stacks and the lit floor beside them; exposure was not re-tuned.
+- Honest notes, self-score 6/10:
+  - Follow-up 1 is fixed: the girder piles now read clearly as open-web lattice girders, especially in the end frame. But at 2 tiers × 6 on edge they read as a 7 ft lattice wall/rack more than a stockpile, and the end-on stacking depth hardly reads.
+  - Follow-up 2 is only partly fixed: the aisle centre is clear, and the benches and bench men are visible at the far end, but they are small. The new plank floor is barely visible at the 5.3 ft eye height, so the "separate area" beat is still weak. The pillars are unchanged.
+  - Follow-up 3 is partly fixed: grey coal smoke now shows in the upper-left sky in both frames, but no chimney is visible as its source (the north chimney is still off frame above the roof). The plume edges show faint beaded sphere scallops, and the downwash path is artistic.
+  - Luma is 6 and 9 points darker.
+  - Follow-ups 4–6 (flat fence, untextured brick, dark roof underside) are untouched.
+- Waiting for the parent's keep/revert call. Do NOT promote.
+
