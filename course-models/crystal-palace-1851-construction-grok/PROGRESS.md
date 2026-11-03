@@ -272,7 +272,7 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   - The smoke is barely visible, the north chimney is off frame, and the east chimney is cropped.
   - The fence reads as flat card, and the brick has no texture or variation.
   - The shed roof underside is dark and flat.
-- Waiting for the parent's keep/revert call. Do NOT promote.
+- ~~Waiting for the parent's keep/revert call.~~ **Parent verdict 2026-11-03: REJECTED** as it stands. The floating plume with no chimney read as a stain, and the frames were 6/9 luma dark. The lattice idea is kept and carried into v2 (CN49). Do NOT promote.
   - (Superseded: KEEP verdict and promotion below.)
 
 ## 2026-11-03 CP011_yard works yard: KEEP (parent viewed start + end pairs), promoted to LIVE c07 (DEPARTURES CN47)
@@ -303,7 +303,7 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   5. The brick is untextured, with no variation.
   6. The shed roof underside is dark and flat.
 
-## 2026-11-03 CP011_yard girder lattice + timber-bay sightline + smoke: CANDIDATE (DEPARTURES CN48), not live, no verdict
+## 2026-11-03 CP011_yard girder lattice + timber-bay sightline + smoke: CANDIDATE v1 (DEPARTURES CN48), **REJECTED** (smoke + exposure), superseded by CN49 v2
 - `scripts/render_cp011_lattice.sh [samples=48] [outdir]` builds `rounds/candidates/c07_cp011lattice.blend` from live `rounds/c07.blend` (never written; md5 d91c36a7… unchanged) via `scripts/cand_cp011_lattice_20261103.py` [--no-bay] [--no-smoke] [--smoke-density 2.0]. It renders start and end at the live settings (1280x720, 48 spp, --no-people, exposure 0.95 start / 1.06 end, one session per camera) into `renders/candidates/cp011_lattice_20261103/after/`.
 - Before = live KEEP renders (`KEEP_CP011_yard_{k}_after.png`, max diff 0 vs `renders/c07/CP011_yard_{k}.png`). Pairs: `scripts/cand_cp011_lattice_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP011_lattice_{start,end}_{before,after,pair}.png`.
 - Mean luma at the same exposure: start 123.8 → 117.8, end 110.7 → 101.8. The drop comes from the taller dark-iron girder rows replacing the pale flat stacks and the lit floor beside them; exposure was not re-tuned.
@@ -315,3 +315,16 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   - Follow-ups 4–6 (flat fence, untextured brick, dark roof underside) are untouched.
 - Waiting for the parent's keep/revert call. Do NOT promote.
 
+## 2026-11-03 CP011_yard lattice v2: CANDIDATE (DEPARTURES CN49), not live, no verdict
+- `scripts/render_cp011_lattice_v2.sh [samples=48] [outroot]` builds two sibling blends from live `rounds/c07.blend` (never written; md5 d91c36a7… unchanged): `rounds/candidates/c07_cp011lattice_v2.blend` (`--tiers 1`, recommended) and `c07_cp011lattice_v2_2tier.blend` (`--tiers 2`, comparison). It renders start and end at 1280x720, 48 spp, --no-people, one session per camera, into `renders/candidates/cp011_lattice_v2_20261103/{after,after_2tier}/`.
+- Changes from v1: no new smoke (live CN47 smoke left exactly as it was), exposure re-matched, and the girders lowered to one tier (~3.5 ft, 8 per row, 24 members). The timber-bay moves and deal floor are kept.
+- Exposure → mean luma (target start 123.8 / end 110.7). 1-tier: 0.97 → 124.0, 1.00 → 111.1. 2-tier: 1.08 → 123.9, 1.30 → 111.4.
+- Pairs (before = live KEEP): survey `look/pairs_geo/CANDIDATE_CP011_lattice_v2_{start,end}_{before,after,pair}.png` (1-tier) and `CANDIDATE_CP011_lattice_v2_2tier_{start,end}_{before,after,pair}.png` (2-tier).
+- Honest notes, self-score 7/10:
+  - The 1-tier piles keep the open diagonal web clearly in both frames and now read as a low stockpile with the far yard visible over them. I judge this better than 2-tier.
+  - The 1-tier near pile in the start frame looks a little light and spindly (pale sunlit flanges on a pale floor, rack-like rather than heavy cast iron).
+  - The member count dropped from 33 to 24, and the bearer extensions are plain boxes.
+  - The timber bay is still small at the far end, and the deal floor barely reads.
+  - The live smoke is back but barely visible, the same as KEEP.
+  - Follow-ups 4–6 (flat fence, untextured brick, dark roof underside) are untouched.
+- Waiting for the parent's keep/revert call. Do NOT promote.
