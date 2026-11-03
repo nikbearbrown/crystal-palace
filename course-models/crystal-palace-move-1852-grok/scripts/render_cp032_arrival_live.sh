@@ -14,6 +14,10 @@
 # MV18) --rebuild also runs scripts/candidate_cp032_yard.py --live (asserting CP032_YARD_IN_PLACE True), so the rebuilt
 # m02 equals live and the frames match KEEP_CP032_yard_{start,end}_after.png; without --rebuild this script is
 # equivalent to render_cp032_yard_live.sh.
+# Since the parkland oaks KEEP (2026-11-02, MV19) --rebuild then runs scripts/candidate_cp032_trees.py --live (asserting
+# CP032_TREES_IN_PLACE True; parametric oaks, Sydenham meadow, ARR-only weathered bearers/crates, ARR_HD_HAT hats + hair),
+# so the rebuilt m02 equals live and the arrival frames match KEEP_CP032_trees_{start,end}_after.png (earlier KEEP_*_after
+# frames predate MV19). Without --rebuild this script is equivalent to render_cp032_trees_live.sh.
 # Note: render_shots.py's render-time people swap imports this folder's people_lib.py; reproduction assumes that file
 # is unchanged since the live render.
 set -euo pipefail
@@ -28,6 +32,8 @@ if [[ "${1:-}" == "--rebuild" ]]; then
   "$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_foreground.py -- --live 2>&1 | grep -E "CP032_FG_IN_PLACE|Error|Traceback"
   YD=$("$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_yard.py -- --live 2>&1 | grep -E "CP032_YARD_IN_PLACE|Error|Traceback" || true)
   echo "$YD"; grep -q "CP032_YARD_IN_PLACE True" <<<"$YD" || { echo "CP032_YARD_IN_PLACE check failed"; rm -rf "$TMP"; exit 3; }
+  TR=$("$B" -b "$TMP/m02.blend" -P scripts/candidate_cp032_trees.py -- --live 2>&1 | grep -E "CP032_TREES_IN_PLACE|Error|Traceback" || true)
+  echo "$TR"; grep -q "CP032_TREES_IN_PLACE True" <<<"$TR" || { echo "CP032_TREES_IN_PLACE check failed"; rm -rf "$TMP"; exit 3; }
   mv "$TMP/m02.blend" rounds/m02.blend
   rm -rf "$TMP"
 fi

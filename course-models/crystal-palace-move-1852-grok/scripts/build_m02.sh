@@ -6,7 +6,10 @@
 # near-foreground KEEP (DEPARTURES MV17, candidate_cp032_foreground.py --live: grok_states hides CPL_HorizonGround for
 # CP032_arrival* cams, ARR_CLAY -> GT_SydenhamClayYard) and asserts CP032_FG_IN_PLACE True, then the CP032 arrival
 # yard dressing KEEP (DEPARTURES MV18, candidate_cp032_yard.py --live: ARR_YD_* ruts/puddles/stones/boards/barrow/tools,
-# yard clay rebuilt, grey-brown spoil, weathered arrival bar bundles; needs MV17 first) and asserts CP032_YARD_IN_PLACE True.
+# yard clay rebuilt, grey-brown spoil, weathered arrival bar bundles; needs MV17 first) and asserts CP032_YARD_IN_PLACE True, then the CP032
+# parkland oaks KEEP (DEPARTURES MV19, candidate_cp032_trees.py --live: parametric oaks replace the lollipop meshes,
+# Sydenham meadow, ARR-only weathered bearers/crates, ARR_HD_HAT felt hats + hair; needs MV17 + MV18 first) and asserts
+# CP032_TREES_IN_PLACE True.
 #   bash scripts/build_m02.sh [OUT]   (default rounds/m02.blend)
 # Caution: build_move.py has grown since m02 was frozen on 2026-10-27 (it now also builds the CP068 legacy region),
 # so a fresh round is NOT byte- or pixel-identical to the live m02; use render_cp032_live.sh --rebuild to reproduce live.
@@ -22,4 +25,6 @@ FG=$("$B" -b "$OUT" -P scripts/candidate_cp032_foreground.py -- --live 2>&1 | gr
 echo "$FG"; grep -q "CP032_FG_IN_PLACE True" <<<"$FG" || { echo "CP032_FG_IN_PLACE check failed"; exit 3; }
 YD=$("$B" -b "$OUT" -P scripts/candidate_cp032_yard.py -- --live 2>&1 | grep -E "CP032_YARD_IN_PLACE|CP032_YARD saved|Error|Traceback" || true)
 echo "$YD"; grep -q "CP032_YARD_IN_PLACE True" <<<"$YD" || { echo "CP032_YARD_IN_PLACE check failed"; exit 3; }
+TR=$("$B" -b "$OUT" -P scripts/candidate_cp032_trees.py -- --live 2>&1 | grep -E "CP032_TREES_IN_PLACE|CP032_TREES saved|Error|Traceback" || true)
+echo "$TR"; grep -q "CP032_TREES_IN_PLACE True" <<<"$TR" || { echo "CP032_TREES_IN_PLACE check failed"; exit 3; }
 echo BUILD_DONE
