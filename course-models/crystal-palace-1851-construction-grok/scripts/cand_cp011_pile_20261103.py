@@ -14,7 +14,18 @@ materials such as GT_IronPrimer_1850 are NOT edited), so no other c07 shot can c
      of fresh Baltic deals (3 in x 9 in, 12 ft west / 8 ft cut lengths east, 1 in stickers, ~5.5 ft high) stand in front of the
      partition either side of the gap, clear of the aisle sightline.
   3. smoke: unchanged (live CN47 chimney smoke; no new plumes). --smoke is not implemented on purpose.
-blender -b rounds/c07.blend -P scripts/cand_cp011_pile_20261103.py -- [--out PATH] [--no-flanges] [--no-iron] [--no-bay]"""
+blender -b rounds/c07.blend -P scripts/cand_cp011_pile_20261103.py -- [--out PATH] [--no-flanges] [--no-iron] [--no-bay]
+  (candidate mode now needs the PRE-pile live c07 pinned at construction commit 8ef6c72; see render_cp011_pile.sh)
+LIVE (KEEP 2026-11-03, parent viewed the start + end pairs; DEPARTURES CN50):
+blender -b rounds/c07.blend -P scripts/cand_cp011_pile_20261103.py -- --live [--out PATH]
+  applies exactly the full candidate build (flanges + as-cast iron + timber bay; no flags) to the live c07 IN PLACE,
+  after the CN47 yard and the CN49 one-tier lattice (both required). Camera-scoped by construction: every object it adds
+  is a CP011C_* object in CP011_YARD_CAND with only_cams="CP011_yard"; the CN49 CP011C_TIMBER_FLOOR is retagged
+  only_cams="NONE_CN50" (never renders); material changes are object-level links on CP011C_GIR_* and single-user meshes
+  CP011C_COLUMNS / CP011C_TROLLEY_COLUMN. Marks CP011_YARD_CAND["cp011_pile"] = "CN50 KEEP". Idempotent: if the marker
+  exists it only checks (never re-applies). --live refuses --no-flanges / --no-iron / --no-bay. Prints
+  CP011_PILE_IN_PLACE True|False.
+  -- --check: read-only check, prints CP011_PILE_IN_PLACE and exits (never saves)."""
 import bpy, bmesh, math, os, sys
 from mathutils import Vector, Matrix
 F = 0.3048
@@ -23,7 +34,24 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 TAG = "cand_cp011pile_20261103"; SID = "CP011_yard"
 coll = bpy.data.collections["CP011_YARD_CAND"]
 assert coll.get("cp011_lattice") == "CN49 v2 tiers=1", "base must be the live c07 with the CN49 one-tier lattice"
-assert not coll.get("cp011_pile"), "base already carries the pile pass"
+LIVE = "--live" in argv; MARK = "CN50 KEEP"
+def in_place():
+    ob = bpy.data.objects; gir = [o for o in ob if o.name.startswith("CP011C_GIR_") and o.name not in ("CP011C_GIR_STICKERS", "CP011C_GIR_FLANGES")]
+    new = ("CP011C_GIR_FLANGES", "CP011C_TIMBER_FLOOR2", "CP011C_DEAL_STACKS_A", "CP011C_DEAL_STACKS_B", "CP011C_DEAL_STICKERS")
+    return (coll.get("cp011_pile") == MARK and len(gir) == 24 and all(n in ob and ob[n].name in coll.all_objects for n in new)
+            and all(o.data.name == "girder24" and o.material_slots[0].link == 'OBJECT'
+                    and o.material_slots[0].material.name == "CP011C_iron_ascast" for o in gir)
+            and all(ob[n].data.materials[0].name == "CP011C_iron_ascast" for n in ("CP011C_COLUMNS", "CP011C_TROLLEY_COLUMN", "CP011C_GIR_FLANGES"))
+            and ob["CP011C_TIMBER_FLOOR"].get("only_cams") == "NONE_CN50"
+            and all(o.hide_render and o.get("only_cams") == (SID if o.name != "CP011C_TIMBER_FLOOR" else "NONE_CN50") for o in coll.all_objects)
+            and bpy.data.materials["GT_IronPrimer_1850"].name in [m.name for m in bpy.data.meshes["girder24"].materials])
+if "--check" in argv:   # read-only
+    ok = in_place(); print("CP011_PILE_IN_PLACE", ok); sys.exit(0 if ok else 3)
+if coll.get("cp011_pile"):
+    if not LIVE: raise SystemExit("base already carries the CP011 pile KEEP (CN50); build candidates from the pre-pile c07 at 8ef6c72")
+    ok = in_place(); print("CP011_PILE already applied (idempotent, not re-saved)"); print("CP011_PILE_IN_PLACE", ok)
+    sys.exit(0 if ok else 3)
+if LIVE: assert not any(f in argv for f in ("--no-flanges", "--no-iron", "--no-bay")), "--live applies only the full KEEP build"
 def new_obj(name, data, kind):
     o = bpy.data.objects.new(name, data); coll.objects.link(o)
     o["only_cams"] = SID; o.hide_render = True; o[TAG] = True; o["part_kind"] = kind; return o
@@ -90,9 +118,17 @@ if "--no-bay" not in argv:
     new_obj("CP011C_DEAL_STICKERS", mesh("CP011C_DEAL_STICKERS", bms, BEAR), "bearer")
     print("DEAL stacks top ft", round(z, 2))
 
-coll["cp011_pile"] = "CN50 candidate"
 for o in coll.all_objects: assert o.get("only_cams"), o.name
-out = arg("--out") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rounds", "candidates", "c07_cp011pile.blend")
-assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "never overwrite live c07"
-bpy.context.preferences.filepaths.save_version = 0
-bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)
+if LIVE:
+    coll["cp011_pile"] = MARK
+    ok = in_place(); print("CP011_PILE_IN_PLACE", ok)
+    if not ok: sys.exit(3)
+    out = arg("--out") or bpy.data.filepath
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, compress=True); print("CP011_PILE saved", out)
+else:
+    coll["cp011_pile"] = "CN50 candidate"
+    out = arg("--out") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rounds", "candidates", "c07_cp011pile.blend")
+    assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "never overwrite live c07"
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)

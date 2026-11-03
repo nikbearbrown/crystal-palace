@@ -1,7 +1,9 @@
 """2026-11-03 pairs for the CP011_yard near pile + timber bay CANDIDATE (DEPARTURES CN50; no verdict, NOT live).
-before = live renders/c07/CP011_yard_{k}.png (= survey KEEP_CP011_lattice_v2_{k}_after.png), exposure 0.97 / 1.00.
+before = pre-pile live CP011 = survey KEEP_CP011_lattice_v2_{k}_after.png (was renders/c07/CP011_yard_{k}.png until the CN50
+         KEEP promotion 2026-11-03; renders/c07 now carries the pile), exposure 0.97 / 1.00.
 after  = renders/candidates/cp011_pile_20261103/after/CP011_yard_{k}.png, exposure 1.09 / 1.16.
--> survey look/pairs_geo/CANDIDATE_CP011_pile_{start,end}_{before,after,pair}.png"""
+-> survey look/pairs_geo/CANDIDATE_CP011_pile_{start,end}_{before,after,pair}.png (historical: renamed KEEP_CP011_pile_* and
+   relabelled KEEP after the parent's verdict 2026-11-03; re-running writes fresh CANDIDATE_* files)"""
 from PIL import Image, ImageDraw, ImageFont, ImageStat
 import os, shutil
 H = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT = "/workspace/crystal-palace-survey/look/pairs_geo"
@@ -11,7 +13,7 @@ LB = "BEFORE live c07 (KEEP CN47 + CN49)"
 LA = "AFTER CANDIDATE CN50: flanged as-cast girders, deal stacks + floor"
 EXP = {"start": (0.97, 1.09), "end": (1.00, 1.16)}
 for k in ("start", "end"):
-    a, b = f"{H}/renders/c07/CP011_yard_{k}.png", f"{H}/renders/candidates/cp011_pile_20261103/after/CP011_yard_{k}.png"
+    a, b = f"{OUT}/KEEP_CP011_lattice_v2_{k}_after.png", f"{H}/renders/candidates/cp011_pile_20261103/after/CP011_yard_{k}.png"
     shutil.copy(a, f"{OUT}/CANDIDATE_CP011_pile_{k}_before.png"); shutil.copy(b, f"{OUT}/CANDIDATE_CP011_pile_{k}_after.png")
     A, B = Image.open(a).convert("RGB"), Image.open(b).convert("RGB")
     la, lb = ImageStat.Stat(A.convert("L")).mean[0], ImageStat.Stat(B.convert("L")).mean[0]

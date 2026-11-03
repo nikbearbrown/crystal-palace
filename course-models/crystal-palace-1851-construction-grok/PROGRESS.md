@@ -367,4 +367,27 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   - The timber area now reads at the far end (pale sticked stacks + plank landing), but it is still small in frame: it sits 115–165 ft from the cameras by the CN47 layout. In the start frame the west stack is partly behind the hauler group.
   - Exposure +0.12/+0.16 lifts the sky and brick slightly to compensate the darker iron.
   - Smoke (3), fence (4), brick (5), roof underside (6), 24 members (7) untouched.
-- Waiting for the parent's keep/revert call. Do NOT promote without it. If kept, promotion needs a `--live` mode (marker `cp011_pile`) on the same pattern as CN49 and `EXPOSURES` in `render_cp011_yard_live.sh` set to 1.09 / 1.16.
+- ~~Waiting for the parent's keep/revert call.~~ **Parent verdict 2026-11-03: KEEP** (flanged dark as-cast girders read as heavy iron; exposure matched). Promotion to live below.
+
+## 2026-11-03 CP011_yard near pile + timber bay: KEEP (parent viewed start + end pairs), promoted to LIVE c07 (DEPARTURES CN50)
+- Verdict: KEEP (start + end). The flanged dark as-cast girders read as heavy iron instead of pale timber-like stock; exposure matched (1.09 / 1.16 → mean luma 124.0 / 111.0).
+- Live: `rounds/c07.blend` now carries yard (CN47) + one-tier lattice (CN49) + pile (CN50), applied in place with `scripts/cand_cp011_pile_20261103.py --live` on the CN49 live c07 (md5 **8cb193fe… → 6920b1e9…**). **Camera-scoped**: added objects `CP011C_GIR_FLANGES`, `CP011C_TIMBER_FLOOR2`, `CP011C_DEAL_STACKS_A/B`, `CP011C_DEAL_STICKERS` carry `only_cams=CP011_yard`; the CN49 `CP011C_TIMBER_FLOOR` is retagged `only_cams=NONE_CN50` (never renders); as-cast iron is an object-level link on the 24 `CP011C_GIR_*` plus the single-user CP011C_COLUMNS / CP011C_TROLLEY_COLUMN meshes (`girder24`, `GT_IronPrimer_1850` untouched).
+  - Idempotent: marker `CP011_YARD_CAND["cp011_pile"] = "CN50 KEEP"`. `--live` on a blend that already carries it only checks (prints "already applied … not re-saved"), `--check` is read-only, both print `CP011_PILE_IN_PLACE`. `--live` refuses `--no-flanges/--no-iron/--no-bay`; candidate mode refuses a base with the marker (needs the pre-pile c07 at 8ef6c72).
+  - The yard and lattice `in_place()` checks now accept the CN50-retagged floor (`NONE_CN50`, only when `cp011_pile` is set) and exclude `CP011C_GIR_FLANGES` from the girder count. On live: CP011_YARD_IN_PLACE True, CP011_LATTICE_IN_PLACE True, CP011_PILE_IN_PLACE True.
+- Live renders: `renders/c07/CP011_yard_{start,end}.png` (re-rendered 2026-11-03 = survey `KEEP_CP011_pile_{start,end}_after.png` = `renders/candidates/cp011_pile_20261103/after/`). **Per-shot exposure 1.09 start / 1.16 end** in `EXPOSURES` in `scripts/render_cp011_yard_live.sh` (was 0.97 / 1.00). The script's plain run checks all three markers; `--rebuild` regenerates c07 from f73d09c: yard → lattice → pile `--live`, asserting each marker. `render_cp011_lattice_live.sh` alias unchanged.
+- Reproduction checks, 48 spp, 1280x720:
+  - Plain live run (`scripts/render_cp011_yard_live.sh` into `renders/c07/`) vs candidate afters and survey afters: start **max diff 0**, end **max diff 0**.
+  - `--rebuild` steps run into scratch (`/workspace/tmp/cp011pile_live/c07_rebuilt.blend`, md5 c3b4a549…, byte-different but all three markers True), CP011 start/end at 1.09 / 1.16 vs live `renders/c07/`: **max diff 0** both.
+- Regression checks (same render_views.py, which this promotion does not change; 19 cams in one session, default exposure; scratch `/workspace/tmp/cp011pile_live/`):
+  - All 19 other c07 cameras (CP010 ×5, CP012 bay/joint ×3, CP013 ×4, CP014_gutter, CP014_section, CP015 ×2, CP016_trolley ×2, REV_site_aerial): pre-pile live (8cb193fe…) vs new live (6920b1e9…) **max diff 0 on all 19**; vs the rebuilt blend **max diff 0 on all 19**. (The pre-pile baseline also equals the CN49 post-promotion renders, max 0 on all 19.)
+  - k01 CP014_drain_{base,gutter,roof,whole}_start (`rounds/k01.blend` md5 6f647743…, unchanged): before vs after **max diff 0 on all 4**.
+- Rebuild scripts: `scripts/build_c07.sh [OUT]` = build_construction.py → yard `--live` → lattice `--live` → pile `--live`, asserting each marker (same caution: a fresh build is not guaranteed pixel-identical; use `render_cp011_yard_live.sh --rebuild`). `render_cp011_pile.sh` (candidate) now reads the pre-pile c07 pinned at 8ef6c72; `cand_cp011_pile_pairs.py` takes its before from survey `KEEP_CP011_lattice_v2_*_after.png`.
+- Survey: `CANDIDATE_CP011_pile_*` renamed `KEEP_CP011_pile_{start,end}_{before,after,pair}.png` (pair labels relabelled KEEP; before/after pixels unchanged). BUILD-PLAN CP011 row + status line and COVERAGE row + note updated.
+- Follow-ups for CP011 (open, in order):
+  1. Timber bay is small in frame (115–165 ft from the cameras by the CN47 layout).
+  2. Smoke barely visible; chimneys off frame / cropped (no floating plumes; CN48 rejected).
+  3. West fence reads as flat card.
+  4. Brick untextured, no variation.
+  5. Shed roof underside dark and flat.
+  6. Minor: 24 girder members, plain bearer extensions.
+  7. Minor: sunlit top flanges read slightly steel-grey rather than black.

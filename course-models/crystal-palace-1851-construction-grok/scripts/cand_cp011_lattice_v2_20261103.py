@@ -29,12 +29,13 @@ assert "CP011_YARD_CAND" in bpy.data.collections, "base must be the live c07 wit
 coll = bpy.data.collections["CP011_YARD_CAND"]
 LIVE = "--live" in argv; MARK = "CN49 v2 tiers=1"
 def in_place():
-    ob = bpy.data.objects; gir = [o for o in ob if o.name.startswith("CP011C_GIR_") and o.name != "CP011C_GIR_STICKERS"]
+    ob = bpy.data.objects; gir = [o for o in ob if o.name.startswith("CP011C_GIR_") and o.name not in ("CP011C_GIR_STICKERS", "CP011C_GIR_FLANGES")]   # FLANGES = CN50
     near = lambda o, x, y: abs(o.location.x / F - x) < 1e-3 and abs(o.location.y / F - y) < 1e-3
     return (coll.get("cp011_lattice") == MARK and len(gir) == 24
             and all(o.data.name == "girder24" and "tiers=1" in str(o.get(TAG)) for o in gir)
             and all(n in ob for n in ("CP011C_GIR_STICKERS", "CP011C_TIMBER_FLOOR"))
-            and all(o.get("only_cams") == SID and o.hide_render for o in coll.all_objects)
+            and all((o.get("only_cams") == SID or (o.name == "CP011C_TIMBER_FLOOR" and o.get("only_cams") == "NONE_CN50" and coll.get("cp011_pile")))
+                    and o.hide_render for o in coll.all_objects)                  # CN50 pile KEEP retags the CN49 floor
             and near(ob["CP011C_P04_clerk"], 3004.6, 10.0) and abs(ob["CP011C_P01_haul"].location.x / F - 2993.5) < 1e-3
             and not any(o.name.endswith("_PLUME") for o in ob))          # no CN48 v1 smoke
 if "--check" in argv:   # read-only
