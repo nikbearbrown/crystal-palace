@@ -258,3 +258,18 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 - Pairs: `scripts/cand_cp012_shears_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP012_shears_{start,end}_{before,after,pair}.png` (before = live KEEP renders).
 - Trial: rake-dx -8 (heels west) was rejected. Its north heel stood on tag-line man 007 and its leg covered the left-hand ground man.
 - Honest notes: the centre post is gone from the start frame, and the end frame reads as raked shears with a back guy. But the near leg is still a big pale diagonal crossing the right-hand scaffold in the start frame. The head is off frame in the start frame. Follow-ups 2–5 (unmanned winch, faint tag line, clipped box, no joint insert) are untouched. Waiting for the parent's keep/revert call. Do NOT promote.
+
+## 2026-11-03 CP011_yard works yard dressed: CANDIDATE (DEPARTURES CN47), not live
+- `scripts/render_cp011_yard.sh` builds `rounds/candidates/c07_cp011yard.blend` from live `rounds/c07.blend` via `scripts/cand_cp011_yard_20261103.py`.
+- Before: c07 re-rendered with the current pipeline (default look and people swap). The COVERAGE file `renders/c07/CP011_yard_start.png` is stale and pre-look (luma ~104).
+- After: `--no-people` at exposure 0.95 (start) and 1.06 (end), 1280x720, 48 spp, in `renders/candidates/cp011_yard_20261103/{before,after}/`.
+- Mean luma: start 124.5 → 123.8, end 111.5 → 110.7.
+- Pairs: `scripts/cand_cp011_yard_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP011_yard_{start,end}_{before,after,pair}.png`.
+- Honest notes, self-score 6/10:
+  - It now reads as a works yard: brick ranges, cinder, a crew and stacked stock, with no white CP014 box.
+  - The girder piles read end-on as plank stacks, because the lattice is lost.
+  - The timber bay (benches and racks) is mostly hidden behind the figures and pillars, so the "separate timber area" beat is weak.
+  - The smoke is barely visible, the north chimney is off frame, and the east chimney is cropped.
+  - The fence reads as flat card, and the brick has no texture or variation.
+  - The shed roof underside is dark and flat.
+- Waiting for the parent's keep/revert call. Do NOT promote.

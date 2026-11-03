@@ -125,3 +125,27 @@ Floor check (muse-round2 S25 / Catalogue p.62; Berlyn p.37):
 - **Watcher KWORKER_064_CP012** moved from (559,-168) to (556,-171) because the new north heel stood on him (3.3 ft clear now). Cosmetic.
 - Clearance checked by BVH at frames 1 and 96: nearest is the 564 head scaffold at 1.45 ft. Live c07_cp012bay.blend is unchanged (md5 4c01336d…). No Sydenham geometry touched.
 - Why: CN45 follow-up 1. The pale plumb south leg read as a stray post through the centre of the start frame.
+
+## CN47 CP011_yard works yard dressed 2026-11-03 (CANDIDATE, no verdict, NOT live; `rounds/candidates/c07_cp011yard.blend` only; illustrative OFFSITE works, 1850–51, see CN11)
+
+- **Context**: still illustrative and off site at x ~3000 ft (CN11). Nothing at Hyde Park or Sydenham was touched. Live `rounds/c07.blend` is unchanged.
+- **Backdrop**: the DETAIL_DRAINAGE collection (the CP014 white cutaway box plus KDET_FILL at x ~3124) is hidden in the candidate. It leaked into the east side of the CP011 frame.
+- **Works buildings (assumed, generic 1850 Midlands ironworks)**:
+  - East brick range at x 3030–3062: eave 22 ft, ridge 33 ft, slate roof, 11 windows.
+  - North block at y 176–214, with a door on the aisle axis.
+  - Two square brick chimneys, 78 ft and 64 ft, each with a smoke blob that casts no shadow.
+  - A tarred board fence on the west at x 2960.
+  - Mood and dress only, from fig-38 (Fox Henderson's works). These are not measured buildings.
+- **Ground**: cinder yard in place of the lime field.
+- **Iron stock**:
+  - Three girder piles of 12/12/9 using the existing `girder24` mesh (24 ft cast girder, CN11 sizes), laid on timber bearers.
+  - Columns stacked in 5-4-3-2 pyramids: 8 in diameter, 18 ft 8 in long, with flanges (BUILD-PLAN column size).
+  - These replace the old KYARD_GIR/COLUMNS stock, which is hidden, not deleted.
+- **Timber bay**:
+  - A partition at y 87.
+  - Sash-bar racks on both sides at y 94–124.
+  - A stack of Paxton gutters (24 ft) at x 3017.
+  - Two 16 ft trestle benches with shavings.
+- **Handling**: a column on a two-wheel trolley, a barrow, and a tally board for the clerk.
+- **People**: the three KWORKER blocks are hidden. In their place are 9 people_lib v3.4 figures: 8 workmen in fustian (hauling, working, standing and walking poses) and 1 gentleman clerk.
+- **Why**: CP011 was the emptiest unpolished HP/offsite shot, an open shed in a lime field with a white box at the side. The storyboard asks for "identical members prepared and stacked; timber in a separate work area".
