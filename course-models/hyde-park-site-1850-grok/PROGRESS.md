@@ -38,3 +38,6 @@ never git init inside a grok folder; commit from the worktree root
 
 ## s02 w02 (2026-10-27)
 KEEP CP007: committee study model glass ridge roofs + drafting tools (compass/ink/quill/weight). Best path → `CP007_start` (end cam is tree insert, near-identity). Pair `look/pairs_geo/CP007_start_pair.png`.
+
+## CP009 geo polish CANDIDATE "contract" (2026-11-04, NOT live — awaiting review)
+`scripts/cand_cp009_contract_20261104.py` on live `rounds/s02.blend` (unchanged, md5 0a987ca7) → `rounds/candidates/s02_cp009contract.blend`; render `scripts/render_cp009_contract.sh` (1920×1080, 96 spp, --keep-lighting --no-people, exposure 0.68 / 0.22 luma-matched). Pairs `scripts/cand_cp009_contract_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP009_contract_{start,end}_*`. DEPARTURES SD28–SD31. Luma start 123.52 → 123.21, end 120.44 → 120.29. Self-score 5/10.
