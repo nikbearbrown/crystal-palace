@@ -392,7 +392,7 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   6. Minor: 24 girder members, plain bearer extensions.
   7. Minor: sunlit top flanges read slightly steel-grey rather than black.
 
-## 2026-11-03 CP011_yard "yard2" pass (smoke on a visible chimney, west fence, brick coursing, shed roof underside): CANDIDATE (DEPARTURES CN51), not live, no verdict — DONE (awaiting parent review)
+## 2026-11-03 CP011_yard "yard2" pass (smoke on a visible chimney, west fence, brick coursing, shed roof underside): CANDIDATE (DEPARTURES CN51) — **parent verdict KEEP 2026-11-03**, promotion below
 - Base: live `rounds/c07.blend` (md5 6920b1e9…, HEAD 49ae701), read only. Sibling `rounds/candidates/c07_cp011yard2.blend` via `scripts/cand_cp011_yard2_20261103.py`; render `scripts/render_cp011_yard2.sh`; pairs `scripts/cand_cp011_yard2_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP011_yard2_{start,end}_{before,after,pair}.png` (before = live `renders/c07/CP011_yard_{k}.png`, 1.09 / 1.16).
 - Findings: existing chimneys N/E tops sit above frame / behind the shed roof (CN50). The open sky is only the west (left) side above the fence, so the plan is a new boiler-house chimney + low boiler house beyond the west fence at about 18–20° left, with the plume rising from its mouth. Brick material `CP011C_brick_sooted` already had a Brick node but on Object coords of unit-cube boxes scaled by the object, so the courses were ~hundreds of times too big (reads untextured); its noise mix was unconnected. Fence `CP011C_FENCE_WEST` is a 1.2 ft slab, dark tar 0.06 but front-lit by the east sun, so it reads as a flat tan card. Shed roof = shared `KYARD_SHED` flat slab underside at 18.6 ft with tie beams at 17.2 ft.
 - Steps: [x] script [x] candidate blend [x] renders + exposure match [x] regression (CP014_section_start, CP010_extent_end, CP012_bay_start) [x] pairs [x] survey notes [x] commits
@@ -401,3 +401,26 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 - Regression: CP014_section_start, CP010_extent_end, CP012_bay_start rendered from candidate vs live c07: max diff 0. Live c07 md5 6920b1e9… unchanged.
 - Self-score 6/10. Chimney + attached soft plume now reads (fixes the "no smoke" miss without floating plumes); fence reads as boards and posts with depth; ceiling has visible joists/binders/boarding. Misses: plume small (one puff + fading trail, not a long drifting smoke stream); fence still pale (sun-lit east face); brick coursing only legible on the near east wall, far north block still reads as flat pink; roof underside not actually lighter in mean luma; lower exposure darkens sunlit brick slightly; timber bay small; 24 girders; flange tops steel-grey.
 
+
+## 2026-11-03 CP011_yard "yard2": KEEP (parent viewed start + end pairs), promoted to LIVE c07 (DEPARTURES CN51)
+- Verdict: KEEP (start + end). Boarded shed ceiling, board fence and boiler-house chimney with smoke clearly better; exposure matched (0.83 start / 0.88 end → mean luma 124.07 / 111.33 vs CN50 live 124.01 / 111.00).
+- Live: `rounds/c07.blend` now carries yard (CN47) + one-tier lattice (CN49) + pile (CN50) + yard2 (CN51), applied in place with `scripts/cand_cp011_yard2_20261103.py --live` on the CN50 live c07 (md5 **6920b1e9… → 199a9688…**). **Camera-scoped**: added objects `CP011C_BOILER_BRICK/ROOF/FLUE`, `CP011C_BOILER_SMOKE_00..43`, `CP011C_FENCE_WEST2`, `CP011C_SHED_CEILING`, `CP011C_SHED_BOUNCE` carry `only_cams=CP011_yard`; the CN47 slab `CP011C_FENCE_WEST` is retagged `only_cams=NONE_CN51` (never renders); coursed brick `CP011C_brick_coursed` is an object-level link on the works east/north walls and chimneys N/E.
+  - Idempotent: marker `CP011_YARD_CAND["cp011_yard2"] = "CN51 KEEP"`. `--live` on a blend that already carries it only checks (prints "already applied … not re-saved"), `--check` is read-only, both print `CP011_YARD2_IN_PLACE`. `--live` refuses `--no-smoke/--no-fence/--no-brick/--no-roof/--bounce/--smoke-density`; candidate mode refuses a base with the marker (needs the pre-yard2 c07 at 49ae701).
+  - The yard and lattice `in_place()` checks accept the CN51-retagged fence (`NONE_CN51`, only when `cp011_yard2` is set); the pile check likewise. On live: CP011_YARD_IN_PLACE True, CP011_LATTICE_IN_PLACE True, CP011_PILE_IN_PLACE True, CP011_YARD2_IN_PLACE True.
+- Live renders: `renders/c07/CP011_yard_{start,end}.png` (re-rendered 2026-11-03 = survey `KEEP_CP011_yard2_{start,end}_after.png` = `renders/candidates/cp011_yard2_20261103/after/`). **Per-shot exposure 0.83 start / 0.88 end** in `EXPOSURES` in `scripts/render_cp011_yard_live.sh` (was 1.09 / 1.16). The script's plain run checks all four markers; `--rebuild` regenerates c07 from f73d09c: yard → lattice → pile → yard2 `--live`, asserting each marker. `render_cp011_lattice_live.sh` alias unchanged.
+- Reproduction checks, 48 spp, 1280x720:
+  - Plain live run (`scripts/render_cp011_yard_live.sh` into `renders/c07/`) vs candidate afters and survey KEEP afters: start **max diff 0**, end **max diff 0**.
+  - `--rebuild` steps run into scratch (`/workspace/tmp/cp011yard2_live/c07_rebuilt.blend`, md5 fbd5533e…, byte-different but all four markers True), CP011 start/end at 0.83 / 0.88 vs live `renders/c07/`: **max diff 0** both.
+- Regression checks (same render_views.py, which this promotion does not change; 19 cams in one session, default exposure; scratch `/workspace/tmp/cp011yard2_live/`):
+  - All 19 other c07 cameras (CP010 ×5, CP012 bay/joint ×3, CP013 ×4, CP014_gutter, CP014_section, CP015 ×2, CP016_trolley ×2, REV_site_aerial): pre-yard2 live (6920b1e9…) vs new live (199a9688…) **max diff 0 on all 19**; vs the rebuilt blend **max diff 0 on all 19**.
+  - k01 CP014_drain_{base,gutter,roof,whole}_start (`rounds/k01.blend` md5 6f647743…, unchanged): after vs the CN50-pass renders (`/workspace/tmp/cp011pile_live/k01_new`, themselves = CN50 before) **max diff 0 on all 4**. (The committed `renders/k01/CP014_drain_*` are older renders at different settings and differ from any fresh render_views.py render, max 141–202; not a regression.)
+- Rebuild scripts: `scripts/build_c07.sh [OUT]` = build_construction.py → yard `--live` → lattice `--live` → pile `--live` → yard2 `--live`, asserting each marker (same caution: a fresh build is not guaranteed pixel-identical; use `render_cp011_yard_live.sh --rebuild`). `render_cp011_yard2.sh` (candidate) reads the pre-yard2 c07 pinned at 49ae701; `cand_cp011_yard2_pairs.py` takes its before from survey `KEEP_CP011_pile_*_after.png`.
+- Survey: `CANDIDATE_CP011_yard2_*` renamed `KEEP_CP011_yard2_{start,end}_{before,after,pair}.png` (pair labels relabelled KEEP; before/after pixels unchanged). BUILD-PLAN CP011 row + status line and COVERAGE row + note updated.
+- Follow-ups for CP011 (open, in order):
+  1. Smoke small: a single puff that reads a bit blobby in the start frame.
+  2. West fence pale in direct sun.
+  3. Far north block brick still flat.
+  4. Shed underside not lighter in mean luma.
+  5. Timber bay small in frame.
+  6. Minor: 24 girder members.
+  7. Minor: sunlit flange tops read steel-grey rather than black.

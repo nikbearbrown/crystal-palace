@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# CP011 "yard2" CANDIDATE 2026-11-03 (DEPARTURES CN51; not live, no verdict). Builds rounds/candidates/c07_cp011yard2.blend
-# from live c07 pinned at construction commit 49ae701 (CN47 yard + CN49 lattice + CN50 pile, md5 6920b1e9...; live c07 is
+# CP011 "yard2" CANDIDATE 2026-11-03 (DEPARTURES CN51; KEEP 2026-11-03, now LIVE via --live, see render_cp011_yard_live.sh). Builds rounds/candidates/c07_cp011yard2.blend
+# from the PRE-yard2 live c07 pinned at construction commit 49ae701 (CN47 yard + CN49 lattice + CN50 pile, md5 6920b1e9...; live c07 is
 # never written) via scripts/cand_cp011_yard2_20261103.py, then renders CP011_yard_start/_end at the live settings
 # (render_views.py, 1280x720, 48 spp, --no-people, one session per camera) with exposure re-matched to the live mean luma
 # (start 124.0, end 111.0); the shed bounce light lifts the frame, so EXP_START/EXP_END default below live 1.09 / 1.16.

@@ -43,7 +43,8 @@ def in_place():
                     and o.material_slots[0].material.name == "CP011C_iron_ascast" for o in gir)
             and all(ob[n].data.materials[0].name == "CP011C_iron_ascast" for n in ("CP011C_COLUMNS", "CP011C_TROLLEY_COLUMN", "CP011C_GIR_FLANGES"))
             and ob["CP011C_TIMBER_FLOOR"].get("only_cams") == "NONE_CN50"
-            and all(o.hide_render and o.get("only_cams") == (SID if o.name != "CP011C_TIMBER_FLOOR" else "NONE_CN50") for o in coll.all_objects)
+            and all(o.hide_render and o.get("only_cams") == {"CP011C_TIMBER_FLOOR": "NONE_CN50",
+                    "CP011C_FENCE_WEST": "NONE_CN51" if coll.get("cp011_yard2") else SID}.get(o.name, SID) for o in coll.all_objects)   # CN51 yard2 KEEP retags the fence
             and bpy.data.materials["GT_IronPrimer_1850"].name in [m.name for m in bpy.data.meshes["girder24"].materials])
 if "--check" in argv:   # read-only
     ok = in_place(); print("CP011_PILE_IN_PLACE", ok); sys.exit(0 if ok else 3)

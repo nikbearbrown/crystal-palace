@@ -42,7 +42,8 @@ def in_place():
     old = [bpy.data.objects[n] for n in ("KWORKER_024_CP011", "KWORKER_025_CP011", "KWORKER_026_CP011", "KYARD_COLUMNS", "KYARD_TIMBER")]
     old += [o for o in bpy.data.objects if o.name.startswith("KYARD_GIR_")] + (list(dd.all_objects) if dd else [])
     cn50 = lambda o: o.name == "CP011C_TIMBER_FLOOR" and o.get("only_cams") == "NONE_CN50" and c.get("cp011_pile")   # CN50 pile KEEP retags the CN49 floor
-    return (len(new) >= 40 and all(o.get("only_cams") == SID or cn50(o) for o in new)
+    cn51 = lambda o: o.name == "CP011C_FENCE_WEST" and o.get("only_cams") == "NONE_CN51" and c.get("cp011_yard2")   # CN51 yard2 KEEP retags the fence
+    return (len(new) >= 40 and all(o.get("only_cams") == SID or cn50(o) or cn51(o) for o in new)
             and all(o.get("hide_cams") == SID and not o.hide_render for o in old)
             and bpy.data.objects["KYARD_GROUND"].get("cam_mat") == SID + "=CP011C_cinder_yard"
             and bpy.data.objects["KYARD_GROUND"].data.materials[0].name == bpy.data.objects["KYARD_GROUND"].get("base_mat")

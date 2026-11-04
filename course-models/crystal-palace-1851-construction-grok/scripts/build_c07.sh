@@ -7,7 +7,10 @@
 #   2. the CP011 one-tier girder lattice v2 KEEP (2026-11-03, DEPARTURES CN49, cand_cp011_lattice_v2_20261103.py --live:
 #      only CP011C_* only_cams=CP011_yard objects added/moved), asserting CP011_LATTICE_IN_PLACE True;
 #   3. the CP011 near pile + timber bay KEEP (2026-11-03, DEPARTURES CN50, cand_cp011_pile_20261103.py --live: flanges,
-#      as-cast iron, deal floor/landing/stacks; only CP011C_* objects, only_cams=CP011_yard), asserting CP011_PILE_IN_PLACE True.
+#      as-cast iron, deal floor/landing/stacks; only CP011C_* objects, only_cams=CP011_yard), asserting CP011_PILE_IN_PLACE True;
+#   4. the CP011 yard2 KEEP (2026-11-03, DEPARTURES CN51, cand_cp011_yard2_20261103.py --live: boiler chimney + smoke,
+#      board fence, coursed brick, shed ceiling + bounce; only CP011C_* objects, only_cams=CP011_yard; old fence NONE_CN51),
+#      asserting CP011_YARD2_IN_PLACE True.
 # Idempotent: each --live step on a blend that already carries it only checks it.
 #   bash scripts/build_c07.sh [OUT]   (default rounds/c07.blend)
 # Caution: a fresh build is not guaranteed byte- or pixel-identical to the frozen live c07 (the exterior prelude it
@@ -22,4 +25,6 @@ LT=$("$B" -b "$OUT" -P scripts/cand_cp011_lattice_v2_20261103.py -- --live 2>&1 
 echo "$LT"; grep -q "CP011_LATTICE_IN_PLACE True" <<<"$LT" || { echo "CP011_LATTICE_IN_PLACE check failed"; exit 3; }
 PL=$("$B" -b "$OUT" -P scripts/cand_cp011_pile_20261103.py -- --live 2>&1 | grep -E "DEAL|CP011_PILE|Error|Traceback" || true)
 echo "$PL"; grep -q "CP011_PILE_IN_PLACE True" <<<"$PL" || { echo "CP011_PILE_IN_PLACE check failed"; exit 3; }
+Y2=$("$B" -b "$OUT" -P scripts/cand_cp011_yard2_20261103.py -- --live 2>&1 | grep -E "SMOKE|CP011_YARD2|Error|Traceback" || true)
+echo "$Y2"; grep -q "CP011_YARD2_IN_PLACE True" <<<"$Y2" || { echo "CP011_YARD2_IN_PLACE check failed"; exit 3; }
 echo BUILD_DONE

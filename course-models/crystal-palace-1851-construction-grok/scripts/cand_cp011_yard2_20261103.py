@@ -18,7 +18,15 @@ other c07 shot can change. The KEEP lattice, near pile and timber bay are untouc
      3 x 6 in joists at 2 ft centres, plus a weak upward-facing warm area light at 3 ft (stand-in for cinder-yard bounce;
      camera-invisible).
 blender -b rounds/c07.blend -P scripts/cand_cp011_yard2_20261103.py -- [--out PATH] [--no-smoke] [--no-fence] [--no-brick]
-        [--no-roof] [--bounce W]"""
+        [--no-roof] [--bounce W]
+  (candidate mode needs the PRE-yard2 live c07 pinned at construction commit 49ae701; see render_cp011_yard2.sh)
+blender -b rounds/c07.blend -P scripts/cand_cp011_yard2_20261103.py -- --live [--out PATH]
+  KEEP 2026-11-03 (parent viewed the pairs; DEPARTURES CN51): applies exactly the full candidate build (smoke + fence +
+  brick + roof, default bounce 1700 W and smoke density 7; no flags) to the live c07 IN PLACE. Camera-scoped as above: every
+  added object is CP011C_* only_cams="CP011_yard"; CP011C_FENCE_WEST is retagged only_cams="NONE_CN51" (kept, never renders).
+  Marks CP011_YARD_CAND["cp011_yard2"] = "CN51 KEEP". Idempotent: if the marker exists it only checks (never re-applies).
+  --live refuses --no-smoke / --no-fence / --no-brick / --no-roof / --bounce / --smoke-density. Prints CP011_YARD2_IN_PLACE.
+  -- --check: read-only check, prints CP011_YARD2_IN_PLACE and exits (never saves)."""
 import bpy, bmesh, math, os, sys, random
 from mathutils import Vector, Matrix
 F = 0.3048
@@ -27,7 +35,26 @@ def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 TAG = "cand_cp011yard2_20261103"; SID = "CP011_yard"
 coll = bpy.data.collections["CP011_YARD_CAND"]
 assert coll.get("cp011_pile") == "CN50 KEEP", "base must be the live c07 with the CN50 pile KEEP"
-assert not coll.get("cp011_yard2"), "base already carries yard2"
+LIVE = "--live" in argv; MARK = "CN51 KEEP"
+BRICK_OBJS = ("CP011C_WORKS_EAST_BRICK", "CP011C_WORKS_NORTH_BRICK", "CP011C_CHIMNEY_N", "CP011C_CHIMNEY_E")
+def in_place():
+    ob = bpy.data.objects
+    new = ["CP011C_BOILER_BRICK", "CP011C_BOILER_ROOF", "CP011C_BOILER_FLUE", "CP011C_FENCE_WEST2", "CP011C_SHED_CEILING",
+           "CP011C_SHED_BOUNCE"] + [f"CP011C_BOILER_SMOKE_{i:02d}" for i in range(44)]
+    retag = {"CP011C_TIMBER_FLOOR": "NONE_CN50", "CP011C_FENCE_WEST": "NONE_CN51"}
+    return (coll.get("cp011_yard2") == MARK and all(n in ob and ob[n].name in coll.all_objects for n in new)
+            and not any(o.name.startswith("CP011C_BOILER_SMOKE_") and o.name not in new for o in ob)
+            and ob["CP011C_FENCE_WEST"].get("only_cams") == "NONE_CN51"
+            and all(s.link == 'OBJECT' and s.material.name == "CP011C_brick_coursed" for n in BRICK_OBJS for s in ob[n].material_slots)
+            and all(o.hide_render and o.get("only_cams") == retag.get(o.name, SID) for o in coll.all_objects))
+if "--check" in argv:   # read-only
+    ok = in_place(); print("CP011_YARD2_IN_PLACE", ok); sys.exit(0 if ok else 3)
+if coll.get("cp011_yard2"):
+    if not LIVE: raise SystemExit("base already carries yard2; build candidates from the pre-yard2 c07 at 49ae701")
+    ok = in_place(); print("CP011_YARD2 already applied (idempotent, not re-saved)"); print("CP011_YARD2_IN_PLACE", ok)
+    sys.exit(0 if ok else 3)
+if LIVE: assert not any(f in argv for f in ("--no-smoke", "--no-fence", "--no-brick", "--no-roof", "--bounce", "--smoke-density")), \
+    "--live applies only the full KEEP build"
 rng = random.Random(51)
 def new_obj(name, data, kind):
     o = bpy.data.objects.new(name, data); coll.objects.link(o)
@@ -71,7 +98,7 @@ def brick_mat():
     return m
 BRICK = brick_mat() if "--no-brick" not in argv else bpy.data.materials["CP011C_brick_sooted"]
 if "--no-brick" not in argv:
-    for n in ("CP011C_WORKS_EAST_BRICK", "CP011C_WORKS_NORTH_BRICK", "CP011C_CHIMNEY_N", "CP011C_CHIMNEY_E"):
+    for n in BRICK_OBJS:
         o = bpy.data.objects[n]
         for s in o.material_slots: s.link = 'OBJECT'; s.material = BRICK
 
@@ -191,8 +218,16 @@ if "--no-roof" not in argv:
         lo.visible_camera = False; lo.visible_glossy = False
 
 for o in coll.all_objects: assert o.get("only_cams"), o.name
-coll["cp011_yard2"] = "CN51 candidate"
-out = arg("--out") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rounds", "candidates", "c07_cp011yard2.blend")
-assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "never overwrite live c07"
-bpy.context.preferences.filepaths.save_version = 0
-bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)
+if LIVE:
+    coll["cp011_yard2"] = MARK
+    ok = in_place(); print("CP011_YARD2_IN_PLACE", ok)
+    if not ok: sys.exit(3)
+    out = arg("--out") or bpy.data.filepath
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, compress=True); print("CP011_YARD2 saved", out)
+else:
+    coll["cp011_yard2"] = "CN51 candidate"
+    out = arg("--out") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rounds", "candidates", "c07_cp011yard2.blend")
+    assert os.path.abspath(out) != os.path.abspath(bpy.data.filepath), "never overwrite live c07"
+    bpy.context.preferences.filepaths.save_version = 0
+    bpy.ops.wm.save_as_mainfile(filepath=out, copy=True, compress=True); print("SAVED", out)
