@@ -431,3 +431,12 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
 - Renders `scripts/render_cp015_canvas.sh`: before = live c04 re-rendered at −0.85, after = candidate at −1.73; mean luma 84.85 → 84.97; 1280x720, 48 spp, --no-people (no figures in frame). Pairs: survey `look/pairs_geo/CANDIDATE_CP015_canvas_start_{before,after,pair}.png`.
 - Self-score 5/10. The open louvre band is the clear win. The roof is only marginally better: at matched exposure the cloth shows cream between the bars instead of grey, but the bars still read pale and the ceiling doesn't read as a glowing canvas.
 - Misses: canvas glow weak from 1.6 m eye height at 28 mm (grazing view through the bars); thin sun stripes still cross the floor; wall darker after the exposure match; louvres in primer, not galvanized grey; no louvre gear (worm wheel, cord, handle) or person working it; CP015_louvre insert not re-rendered.
+
+## 2026-11-09 CP015_blinds canvas KEEP (CN52), promoted to LIVE c04
+- Verdict: KEEP (viewed by me at 20:20 UTC). Louvres read open across three bays, exposure matched; canvas change subtle. Self-score 5/10.
+- Live `rounds/c04.blend` = candidate `rounds/candidates/c04_cp015canvas.blend` byte-copy (md5 7810ed1f… -> 415e5100…); pre-promotion copy kept as `rounds/c04.blend.pre_cp015canvas_keep` (untracked backup).
+- Live render `renders/c04/CP015_blinds_start.png` (exposure -1.73) vs survey CANDIDATE after: max diff 0.
+- Louvre insert `renders/c04/CP015_louvre_start_f{001,048}.png` re-rendered from live (louvres now animate with bays 264/288); f1 slightly more open and warmer, f48 near-identical in layout.
+- Regressions, 17 c04 cams at default exposure (scratch /workspace/tmp/cp015keep/regress.txt): CP010_base_insert, CP011 ×2, CP014_section max ≤1; CP012 ×3, CP014_gutter, CP016_trolley max ≤51, luma ±0.2%; CP010_foundations ×2 and REV_site_aerial max 93–123 on ≤2.2k px (distant roof canvas); CP013_platform max 159 on 9.5k px (distant roof canvas, -0.09% luma) and CP013_sash ×2 max 43–46, luma +0.2–0.5% (roof sun stripes shift under the shared roof_canvas). Viewed side by side: expected consequences of the shared canvas, not visible as errors. The committed CP013/CP010 PNGs are no longer pixel-identical to live.
+- The promotion executor died after the regression renders; I finished the checks and commits myself.
+- Open misses: roof canvas glow barely reads at eye height; wall darker after exposure match; louvres in primer not galvanized grey; no louvre gear (worm wheel, cord, handle) or operator.
