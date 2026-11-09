@@ -1,0 +1,8 @@
+EX_osler_start: max 34 px>0 1619188 px>12 1116 mean 1.0731 luma 107.78->107.81
+CP024_approach_start: max 39 px>0 1764767 px>12 2805 mean 1.4945 luma 44.40->44.42
+CP024_approach_end: max 41 px>0 1673070 px>12 2140 mean 1.3196 luma 36.51->36.57
+CP025_july_start: max 130 px>0 1614272 px>12 19055 mean 1.8172 luma 16.59->16.62
+CP025_case_start: max 98 px>0 1638686 px>12 19532 mean 1.9770 luma 21.62->21.64
+CP024_ram_start_f025: max 52 px>0 1908204 px>12 12070 mean 2.0239 luma 69.88->69.91
+CP025_july_start: max 130 px>0 1615414 px>12 19032 mean 1.8183 luma 16.59->16.62
+CP025_case_start: max 98 px>0 1638684 px>12 19532 mean 1.9770 luma 21.62->21.64

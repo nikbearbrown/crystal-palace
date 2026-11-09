@@ -1,0 +1,6 @@
+CP025_visitors_start: max 1 px>0 97 px>12 0 mean 0.0000 luma 24.57->24.57
+CP025_visitors_end: max 1 px>0 76 px>12 0 mean 0.0000 luma 19.50->19.50
+EX_lineup_start: max 1 px>0 127 px>12 0 mean 0.0001 luma 54.96->54.96
+CP025_july_start: max 1 px>0 47 px>12 0 mean 0.0000 luma 16.62->16.62
+CP025_case_start: max 1 px>0 76 px>12 0 mean 0.0000 luma 21.64->21.64
+determinism floor: same-file rerender max 1 (v1 det/, 2026-11-09)
