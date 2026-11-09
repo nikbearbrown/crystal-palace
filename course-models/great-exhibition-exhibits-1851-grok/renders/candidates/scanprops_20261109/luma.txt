@@ -1,0 +1,5 @@
+CP025_visitors_start: luma before 25.07 after 24.74 (-1.30%) max_diff 156 | outside prop mask (95.5% of frame) 25.47 -> 25.12 (-1.40%)
+CP025_visitors_end: luma before 19.92 after 19.75 (-0.87%) max_diff 158 | outside prop mask (95.7% of frame) 20.05 -> 19.86 (-0.97%)
+EX_lineup_start: luma before 56.01 after 53.47 (-4.54%) max_diff 224 | outside prop mask (95.7% of frame) 54.63 -> 54.39 (-0.45%)
+CP025_july_start: luma before 16.64 after 16.59 (-0.29%) max_diff 21 | outside prop mask (99.9% of frame) 16.60 -> 16.56 (-0.27%)
+CP025_case_start: luma before 21.70 after 21.62 (-0.35%) max_diff 23 | outside prop mask (100.0% of frame) 21.66 -> 21.58 (-0.34%)
