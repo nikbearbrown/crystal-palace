@@ -424,3 +424,10 @@ KEEP CP015: hanging canvas flaps, thicker louvre blades, plank grooves/battens, 
   5. Timber bay small in frame.
   6. Minor: 24 girder members.
   7. Minor: sunlit flange tops read steel-grey rather than black.
+
+## 2026-11-09 CP015_blinds "canvas" CANDIDATE: executor notes (not a verdict, NOT live; DEPARTURES CN52)
+- Why CP015: an unpolished HP shot, and the only c09 attempt (2026-10-27) was REVERTED. In live c04, the CN09 canvas didn't read: you saw cream sash bars over grey gaps, the louvre wall was shut, and nothing on screen said "canvas shading" or "openings move air".
+- Script `scripts/cand_cp015_canvas_20261109.py` loads live `rounds/c04.blend` (md5 7810ed1f…, untouched) and saves `rounds/candidates/c04_cp015canvas.blend`, for CP015_blinds_start ONLY. Changes: Downes p. 44 canvas drape (nailed to the ridges, two breadths, centre seam over the Paxton gutter); calico shader; clearer glass in the canvas units only; louvre bays 264/288 animated with 240 (one shafting run, Pl. XXVII), candidate frame 36 = 62° open.
+- Renders `scripts/render_cp015_canvas.sh`: before = live c04 re-rendered at −0.85, after = candidate at −1.73; mean luma 84.85 → 84.97; 1280x720, 48 spp, --no-people (no figures in frame). Pairs: survey `look/pairs_geo/CANDIDATE_CP015_canvas_start_{before,after,pair}.png`.
+- Self-score 5/10. The open louvre band is the clear win. The roof is only marginally better: at matched exposure the cloth shows cream between the bars instead of grey, but the bars still read pale and the ceiling doesn't read as a glowing canvas.
+- Misses: canvas glow weak from 1.6 m eye height at 28 mm (grazing view through the bars); thin sun stripes still cross the floor; wall darker after the exposure match; louvres in primer, not galvanized grey; no louvre gear (worm wheel, cord, handle) or person working it; CP015_louvre insert not re-rendered.
