@@ -56,3 +56,8 @@ Why CP006: weakest phase-2 beat on a visual pass of the live renders not polishe
 Render `scripts/render_cp006_winterpark.sh [--no-build]` (1920×1080, 96 spp, --no-people; start --keep-lighting exposure 0.14, end look v1.1 exposure -0.50; each the recipe that reproduces its live frame, luma-matched). Log `/workspace/logs/cp006_winterpark_render.log`, ends `CP006_WINTERPARK_DONE`.
 Pairs `python3 scripts/cand_cp006_winterpark_pairs.py` → survey `look/pairs_geo/CANDIDATE_CP006_winterpark_{start,end}_{before,after,pair}.png`.
 Resume: if the after PNGs exist but no pairs, run the pairs script; if no after PNGs, rerun the render script with --no-build (candidate .blend kept). Then commit site (grok-site-1850) + survey (pairs) locally; no push, no promotion.
+
+## CP006 winterpark KEEP → live s02 (2026-11-09)
+Parent viewed the CANDIDATE pairs (survey 28230d6) and KEPT start and end: bare winter crowns replace the lollipop trees, the five-figure 1850 survey party is in frame, the pale slab is gone, exposure matched. Promoted with `scripts/promote_cp006_winterpark.sh`: byte copy of reviewed candidate `rounds/candidates/s02_cp006park.blend` (md5 fc771aba) over live `rounds/s02.blend` (ab2d25d4 → fc771aba; old live kept untracked at `rounds/s02.blend.pre_cp006park_keep`). Live `renders/s02_png/CP006_{start,end}.png/.jpg` re-rendered (1920×1080, 96 spp, --no-people; start keep-lighting 0.14, end look v1.1 -0.50).
+Checks: live CP006 start/end vs KEEP afters max 0 / 0; live CP009 full-res at live recipe vs renders/s02_png max 0; pre-KEEP vs live CP007–CP009 (7 shots, 32 spp 50 %) keep-lighting and look paths all max 0. Self-score 6/10.
+Remaining misses: start/end colour mismatch, blue-grey start grass, knee-cropped survey party on the end frame, stiff figures.
