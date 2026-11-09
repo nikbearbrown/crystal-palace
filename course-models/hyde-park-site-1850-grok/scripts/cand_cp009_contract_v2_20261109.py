@@ -226,7 +226,12 @@ def worn_patch():
     a = me.attributes.new("w", "FLOAT", "POINT")
     for i, v in enumerate(me.vertices): a.data[i].value = w_at(v.co)
     me.materials.append(EARTH)
-    o = bpy.data.objects.new("ST_C9_GROUND_WORN", me); link(o); return len(me.vertices)
+    o = bpy.data.objects.new("ST_C9_GROUND_WORN", me); link(o)
+    # crystal_palace_look._ensure_horizon_ground matches "ground"/"earth" in any object name (hidden or not) and would lift
+    # CPL_HorizonGround to this patch top (a pale disk over every s02 shot on the look path). render_shots.py hides objects
+    # tagged cpl_not_ground from that scan (temporary rename around apply_look). Name kept: renaming shifts Cycles noise.
+    o["cpl_not_ground"] = True
+    return len(me.vertices)
 print("CP009C worn patch verts", worn_patch())
 
 # ---------------- SD32 (v2) period figures: c9_figures_v2 (HBM head + modelled 1850 dress, hats that sit) ----------------

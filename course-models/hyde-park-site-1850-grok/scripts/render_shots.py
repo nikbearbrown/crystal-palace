@@ -38,7 +38,12 @@ if "--keep-lighting" in argv:
     exp0 = float(sc.view_settings.exposure)
     _look = {"exposure": exp0}
 else:
+    # objects tagged cpl_not_ground (e.g. s02 ST_C9_GROUND_WORN, a CP009-only worn-earth patch) are renamed while the look
+    # runs so its horizon-ground scan ignores them, then renamed back before any render (names feed Cycles sampling).
+    _ng = [(o, o.name) for o in bpy.data.objects if o.get("cpl_not_ground")]
+    for o, n in _ng: o.name = "CPLSKIP_" + n.replace("GROUND", "G_").replace("EARTH", "E_").lower().replace("ground", "g_").replace("earth", "e_")
     _look = apply_look(era=_era, time_of_day=_tod)
+    for o, n in _ng: o.name = n
     exp0 = _look["exposure"]
 if arg("--exposure"):
     exp0 = float(arg("--exposure"))

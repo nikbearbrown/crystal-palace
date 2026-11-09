@@ -4,7 +4,7 @@ Head = CC0 HBM realistic head from the survey people_lib vendor bases (cut at th
 everything below the collar is modelled dress: lathe-ellipse coat/jacket, waistcoat, collar + neckerchief/cravat,
 sleeved arms posed per role, mitten hands, trousers, laced ankle boots; hats SIT on the head (band at the brow line).
 Faces -y in local space (same convention as the s01/s02 lathe figures it replaces). Subdivided once, smooth shaded."""
-import bpy, bmesh, math, sys, random
+import bpy, bmesh, math, sys, random, zlib
 from mathutils import Vector, Matrix
 sys.path.insert(0, "/workspace/crystal-palace-survey/people")
 import people_lib as PL
@@ -239,7 +239,11 @@ def palette(tag, kind):
         "carter":    dict(coat=(0.40, 0.38, 0.30), trou=(0.16, 0.14, 0.10), waist=(0.36, 0.34, 0.27), neck=(0.25, 0.07, 0.05), hat=(0.08, 0.07, 0.055), band=(0.03, 0.028, 0.025)),
     }[kind]
     out = {}
-    out["skin"] = _mat(f"C9V2_skin_{tag}", P["skin"][hash(tag) % 3], 0.55)
+    # skin tone index: was hash(tag) % 3 (Python string hashing is salted per process, so rebuilds drifted). Pinned on
+    # 2026-11-09 to the tones of the reviewed KEEP candidate (rounds/candidates/s02_cp009contract_v2.blend, site 7ee5d75);
+    # other tags fall back to a stable crc32.
+    SKIN_PIN = {"c9_0": 2, "c9_1": 2, "c9_2": 0, "c9_3": 2, "c9_4": 1, "c9_5": 0}
+    out["skin"] = _mat(f"C9V2_skin_{tag}", P["skin"][SKIN_PIN.get(tag, zlib.crc32(tag.encode()) % 3)], 0.55)
     out["hair"] = _mat("C9V2_hair", P["hair"], 0.6)
     out["shirt"] = _mat("C9V2_shirt_linen", P["shirt"], 0.8, noise_s=6)
     out["boot"] = _mat("C9V2_boot_leather", P["boot"], 0.45)
