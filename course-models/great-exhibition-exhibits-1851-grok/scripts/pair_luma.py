@@ -4,6 +4,8 @@ import sys, os
 from PIL import Image, ImageChops, ImageDraw
 import numpy as np
 O, PAIRS = sys.argv[1], sys.argv[2]
+TAG = sys.argv[sys.argv.index("--tag") + 1] if "--tag" in sys.argv else "scanprops"
+LABEL = sys.argv[sys.argv.index("--label") + 1] if "--label" in sys.argv else "AFTER CANDIDATE e02_scanprops (Greek Slave, Elkington cabinet, W&B vase)"
 def luma(im):
     a = np.asarray(im.convert("RGB")).astype(np.float64); return float((0.2126 * a[..., 0] + 0.7152 * a[..., 1] + 0.0722 * a[..., 2]).mean())
 for shot in ["CP025_visitors_start", "CP025_visitors_end", "EX_lineup_start", "CP025_july_start", "CP025_case_start"]:
@@ -20,5 +22,5 @@ for shot in ["CP025_visitors_start", "CP025_visitors_end", "EX_lineup_start", "C
     w, h = b.size; pair = Image.new("RGB", (w * 2 + 16, h + 64), (20, 20, 20)); pair.paste(b, (0, 64)); pair.paste(a, (w + 16, 64))
     d = ImageDraw.Draw(pair)
     d.text((16, 20), f"BEFORE live e02  {shot}  luma {lb:.1f}", fill=(230, 230, 230))
-    d.text((w + 32, 20), f"AFTER CANDIDATE e02_scanprops (Greek Slave, Elkington cabinet, W&B vase)  luma {la:.1f}  - not live", fill=(230, 230, 230))
-    pair.save(os.path.join(PAIRS, f"CANDIDATE_{shot}_scanprops_pair.png"))
+    d.text((w + 32, 20), f"{LABEL}  luma {la:.1f}  - not live" + ("" if TAG == "scanprops" else ", no verdict"), fill=(230, 230, 230))
+    pair.save(os.path.join(PAIRS, f"CANDIDATE_{shot}_{TAG}_pair.png"))
