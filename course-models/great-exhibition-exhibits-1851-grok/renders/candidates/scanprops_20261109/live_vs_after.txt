@@ -1,0 +1,4 @@
+CP025_visitors_start max 1 (1080, 1920, 3)
+CP025_visitors_end max 1 (1080, 1920, 3)
+EX_lineup_start max 1 (1080, 1920, 3)
+determinism control: candidate e02_scanprops.blend re-rendered (CP025_visitors_start alone) vs live/: max 1 (58 px); vs after/: max 1 (47 px)

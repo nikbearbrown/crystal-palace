@@ -1,0 +1,6 @@
+EX_osler_start: max 15 px>0 224577 px>12 1 mean 0.0400 luma 107.80->107.78
+CP024_approach_start: max 9 px>0 171239 px>12 0 mean 0.0299 luma 44.41->44.40
+CP024_approach_end: max 7 px>0 139755 px>12 0 mean 0.0242 luma 36.51->36.51
+CP025_july_start: max 21 px>0 418093 px>12 446 mean 0.0840 luma 16.64->16.59
+CP025_case_start: max 23 px>0 473121 px>12 470 mean 0.1115 luma 21.70->21.62
+CP024_ram_start_f025: max 9 px>0 232323 px>12 0 mean 0.0424 luma 69.89->69.88
