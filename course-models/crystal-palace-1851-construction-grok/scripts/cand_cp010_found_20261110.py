@@ -34,6 +34,15 @@ argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 def arg(n, d=None): return argv[argv.index(n) + 1] if n in argv else d
 OUT = arg("--out", "rounds/candidates/c06_cp010found.blend"); OUT = OUT if os.path.isabs(OUT) else os.path.join(ROOT, OUT)
 sc = bpy.context.scene; SID = "CP010_foundations"; TAG = "cand_cp010found_20261110"
+# --live (KEEP 2026-11-10): write the live blend in place, people scoped by camera (copies only_cams, originals hide_cams),
+# originals' transforms untouched so CP010_extent / CP010_base_insert / CP016 and every other c06 shot render as before.
+# --check: print CP010_FOUND_IN_PLACE True/False and exit. --fix-digger: also move the ORIGINAL KWORKER_000 into his pit.
+LIVE = "--live" in argv; MARK = "CP010_FOUND_IN_PLACE"
+if "--check" in argv:
+    print(MARK, bool(sc.get(MARK)), flush=True); sys.exit(0)
+if LIVE and sc.get(MARK):
+    print(MARK, "True (already applied, nothing done)", flush=True); sys.exit(0)
+if LIVE and "--out" not in argv: OUT = bpy.data.filepath
 CAMS = [bpy.data.objects["CP010_foundations_start"], bpy.data.objects["CP010_foundations_end"]]
 coll = bpy.data.collections.get("CP010F") or bpy.data.collections.new("CP010F")
 if coll.name not in sc.collection.children: sc.collection.children.link(coll)
@@ -234,9 +243,12 @@ MOVE = {"KWORKER_003_CP010": (hx - 3.0, hy + 5.4, 0.0, 200.0, "standing"),
         # live c06 bug: the pit digger stood at y -186, 2 ft outside the pit (y -184..-176), buried to the waist in solid ground,
         # so he read as a man sitting on the ground. Moved onto the pit floor (tier-1 pad top 1.2 + 1.25 = 2.45 ft down).
         "KWORKER_000_CP010": (826.5, -181.0, -2.45, 330.0, "working")}
+_SAVED = {}
 for nm, (x, y, z, r, p) in MOVE.items():
     o = bpy.data.objects.get(nm)
-    if o: o.location = (ft(x), ft(y), ft(z)); o.rotation_euler.z = math.radians(r); o["pose"] = "stand"
+    if o:
+        _SAVED[nm] = (o.matrix_world.copy(), o.get("pose"))
+        o.location = (ft(x), ft(y), ft(z)); o.rotation_euler.z = math.radians(r); o["pose"] = "stand"
 def in_view(ob, cam, margin=0.06):
     p = ob.matrix_world.translation
     for dz in (0.2, 1.0, 1.7):
@@ -251,14 +263,30 @@ for o in sorted([o for o in bpy.data.objects if PL._is_figure(o) and not o.hide_
     lod = "hero" if d < 60 else ("mid" if d < 250 else "crowd")
     seed = int(hashlib.md5(o.name.encode()).hexdigest()[:6], 16)
     tmp = PL._build_person("1850s_workman", pose, lod, seed)
-    mw = o.matrix_world.copy(); o.data = tmp.data; bpy.data.objects.remove(tmp, do_unlink=True)
-    o.matrix_world = mw; o.scale = (1, 1, 1); o["cpl_people"] = PL.PEOPLE_TAG
+    mw = o.matrix_world.copy()
+    if LIVE:   # camera-scoped copy; name/props chosen so people_lib._is_figure() ignores it (no swap, no LOD ranking)
+        orig = o; o = bpy.data.objects.new("CP010F_HAND_" + orig.name.split("_")[1], tmp.data); bpy.data.objects.remove(tmp, do_unlink=True)
+        o.matrix_world = mw; o.scale = (1, 1, 1); scoped(o); o["cp010f_from"] = orig.name
+        hc = orig.get("hide_cams"); orig["hide_cams"] = (hc + "," if hc else "") + SID
+    else:
+        o.data = tmp.data; bpy.data.objects.remove(tmp, do_unlink=True)
+        o.matrix_world = mw; o.scale = (1, 1, 1); o["cpl_people"] = PL.PEOPLE_TAG
     k = ("grey", "drab")[n % 2] if lod == "hero" else list(FUSTIAN)[n % 3]   # the blue fustian read as a tight bodysuit at 20-30 ft
     for si, m in enumerate(o.data.materials):
         if m and (m.name.startswith("CPL3_smock") or m.name.startswith("CPL3_waist")): o.data.materials[si] = FM[k]
     o[TAG] = f"people_lib {PL.PEOPLE_VERSION} 1850s_workman {pose} {lod} fustian {k}"; n += 1
     print("PERSON", o.name, pose, lod, k, f"d={d:.0f}ft", flush=True)
 print("PEOPLE_SWAPPED", n, flush=True)
+if LIVE:   # put the originals back exactly as they were (they still render for every other c06 shot)
+    for nm, (mw0, pose0) in _SAVED.items():
+        o = bpy.data.objects[nm]; o.matrix_world = mw0
+        if pose0 is None: del o["pose"]
+        else: o["pose"] = pose0
+    if "--fix-digger" in argv:   # live c06 bug: KWORKER_000 sunk 2.45 ft into solid ground 2 ft outside his pit
+        o = bpy.data.objects["KWORKER_000_CP010"]; x, y, z, r, p = MOVE["KWORKER_000_CP010"]
+        o.location = (ft(x), ft(y), ft(z)); o.rotation_euler.z = math.radians(r); print("DIGGER_FIXED original", flush=True)
+    for nm in _SAVED: print("ORIG", nm, tuple(round(v, 4) for v in bpy.data.objects[nm].matrix_world.translation), bpy.data.objects[nm].get("hide_cams"), flush=True)
+    sc[MARK] = True
 
-sc[TAG] = "CN53 CANDIDATE (CP010_foundations only)"
+sc[TAG] = "CN53 KEEP LIVE (CP010_foundations camera-scoped)" if LIVE else "CN53 CANDIDATE (CP010_foundations only)"
 bpy.ops.wm.save_as_mainfile(filepath=OUT, copy=True, compress=True); print("SAVED", OUT, flush=True)
