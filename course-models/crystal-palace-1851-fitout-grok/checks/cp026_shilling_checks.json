@@ -1,0 +1,121 @@
+[
+ {
+  "id": "P.C26_PEDESTAL_A5_X+01.top",
+  "desc": "pedestal a5 top of band 57.0 in (Downes 4 ft 9 in printed), bell to 60.8 in",
+  "pass": true,
+  "value": [
+   true,
+   60.8
+  ]
+ },
+ {
+  "id": "P.C26_PEDESTAL_A5_X+01.plinth",
+  "desc": "plinth 20.2 in across flats (vertex-to-vertex <= 21.9 in)",
+  "pass": true,
+  "value": 20.79
+ },
+ {
+  "id": "P.C26_PEDESTAL_A5_X+01.floor",
+  "desc": "pedestal stands on the floor (z0 within 1 in of 0)",
+  "pass": true,
+  "value": 0.0
+ },
+ {
+  "id": "P.C26_PEDESTAL_A5_X-01.top",
+  "desc": "pedestal a5 top of band 57.0 in (Downes 4 ft 9 in printed), bell to 60.8 in",
+  "pass": true,
+  "value": [
+   true,
+   60.8
+  ]
+ },
+ {
+  "id": "P.C26_PEDESTAL_A5_X-01.plinth",
+  "desc": "plinth 20.2 in across flats (vertex-to-vertex <= 21.9 in)",
+  "pass": true,
+  "value": 20.79
+ },
+ {
+  "id": "P.C26_PEDESTAL_A5_X-01.floor",
+  "desc": "pedestal stands on the floor (z0 within 1 in of 0)",
+  "pass": true,
+  "value": 0.0
+ },
+ {
+  "id": "P.count",
+  "desc": "two pedestals, placeholder boxes hidden",
+  "pass": true,
+  "value": 2
+ },
+ {
+  "id": "F.replace",
+  "desc": "every C26 figure sits exactly on a hidden original",
+  "pass": true,
+  "value": [
+   147,
+   []
+  ]
+ },
+ {
+  "id": "F.height.man",
+  "desc": "man overall height (incl. hat/bonnet) within (1.55, 1.95) m",
+  "pass": true,
+  "value": [
+   1.634,
+   1.928,
+   73
+  ]
+ },
+ {
+  "id": "F.height.woman",
+  "desc": "woman overall height (incl. hat/bonnet) within (1.45, 1.8) m",
+  "pass": true,
+  "value": [
+   1.554,
+   1.721,
+   62
+  ]
+ },
+ {
+  "id": "F.height.woman_child",
+  "desc": "woman_child overall height (incl. hat/bonnet) within (1.05, 1.45) m",
+  "pass": true,
+  "value": [
+   1.198,
+   1.375,
+   10
+  ]
+ },
+ {
+  "id": "F.height.man_child",
+  "desc": "man_child overall height (incl. hat/bonnet) within (1.1, 1.5) m",
+  "pass": true,
+  "value": [
+   1.271,
+   1.334,
+   2
+  ]
+ },
+ {
+  "id": "F.noswap",
+  "desc": "no C26 figure is picked up by the people_lib v3.1 render-time swap (_is_figure False)",
+  "pass": true,
+  "value": []
+ },
+ {
+  "id": "G.apron",
+  "desc": "apron uses C26_gravel_hoggin",
+  "pass": true,
+  "value": "C26_gravel_hoggin"
+ },
+ {
+  "id": "W.boarding",
+  "desc": "south-end boarding objects use C26_south_boarding",
+  "pass": true,
+  "value": [
+   "SOUTH_DOORS_OPEN",
+   "WALLF_SE1_-36_0",
+   "WALLF_SE1_12_0"
+  ]
+ }
+]
