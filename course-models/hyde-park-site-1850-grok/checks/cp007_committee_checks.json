@@ -1,0 +1,108 @@
+{
+ "date": "2026-11-10",
+ "state": "Hyde Park spring 1850 (Building Committee design, June 1850)",
+ "checks": [
+  {
+   "check": "length between end walls (ft)",
+   "value": 2200.0,
+   "range": [
+    2150,
+    2250
+   ],
+   "pass": true,
+   "source": "about 2,200 ft (Bogue 1851)"
+  },
+  {
+   "check": "body width incl. north pavilion (ft)",
+   "value": 435.2,
+   "range": [
+    400,
+    450
+   ],
+   "pass": true,
+   "source": "greatest width nearly 450 ft incl. projections"
+  },
+  {
+   "check": "greatest width incl. pavilions/pent roof (ft)",
+   "value": 460.4,
+   "range": [
+    420,
+    470
+   ],
+   "pass": true,
+   "source": "nearly 450 ft"
+  },
+  {
+   "check": "dome top incl. lantern (ft)",
+   "value": 166.5,
+   "range": [
+    160,
+    175
+   ],
+   "pass": true,
+   "source": "cupola more than 160 ft"
+  },
+  {
+   "check": "drum height (ft)",
+   "value": 60.2,
+   "range": [
+    57,
+    61
+   ],
+   "pass": true,
+   "source": "drum about 60 ft"
+  },
+  {
+   "check": "rotunda diameter at drum top (ft)",
+   "value": 201.21,
+   "range": [
+    196,
+    204
+   ],
+   "pass": true,
+   "source": "200 ft"
+  },
+  {
+   "check": "main avenue crown incl. 0.9 ft rib bands (ft)",
+   "value": 52.9,
+   "range": [
+    51,
+    54
+   ],
+   "pass": true,
+   "source": "52 ft"
+  },
+  {
+   "check": "side avenue ridge incl. skylight (ft)",
+   "value": 36.9,
+   "range": [
+    35,
+    38
+   ],
+   "pass": true,
+   "source": "36 ft"
+  },
+  {
+   "check": "dome shell spring minus drum top (ft) [live model: dome floated above its drum]",
+   "value": -0.2,
+   "range": [
+    -1.0,
+    0.5
+   ],
+   "pass": true,
+   "source": "dome rests on the drum"
+  },
+  {
+   "check": "model scale denominator",
+   "value": 600.0,
+   "range": [
+    599.5,
+    600.5
+   ],
+   "pass": true,
+   "source": "SD43 1:600"
+  }
+ ],
+ "passed": 10,
+ "total": 10
+}
