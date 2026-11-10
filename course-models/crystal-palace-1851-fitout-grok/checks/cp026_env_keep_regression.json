@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-10",
+  "pre_keep_h03_md5": "df1e46cf311d2358891164a4d94178b5",
+  "live_h03_md5": "0a1da8f271d50b3c02f878cd8f7d86e4",
+  "live_vs_candidate_after_CP026_shilling_ext_start": {"max": 0, "mean": 0.0},
+  "pre_vs_live": {
+    "CP026_turnstiles_start": {"max": 201, "mean": 4.77, "px_gt3": 148070, "px_gt20": 24237, "verdict": "legit: SOUTH_PEDESTALS box gone (open sky/gravel left of the pay box), gravel apron outside right, vertical boarding upper left; figures untouched; no live renders/h03 frame"},
+    "CP027_gallery_rail_start": {"max": 10, "mean": 0.0345, "px_gt3": 23, "px_gt20": 0, "verdict": "noise"},
+    "CP027_stair_foot_start": {"max": 175, "mean": 0.147, "px_gt3": 3303, "px_gt20": 183, "verdict": "legit: far south boarding reads vertical; right-edge doorway sliver now open (pale box gone); no live renders/h03 frame"},
+    "CP028_watering_start": {"max": 5, "mean": 0.0115, "px_gt3": 2, "px_gt20": 0, "verdict": "noise"},
+    "CP028_louvre_start": {"max": 19, "mean": 0.0301, "px_gt3": 22, "px_gt20": 0, "verdict": "noise (22 scattered px); pre render pixel-identical to live renders/h03 PNG; not re-rendered"}
+  },
+  "recipes": {
+    "CP026_*": "render_views_ppl31.py 1280x720 24 spp --era 1851 --tod exterior_midday --exposure -0.7",
+    "CP027_*, CP028_watering": "render_views_ppl31.py 1280x720 24 spp --era 1851 (default tod interior_daylit)",
+    "CP028_louvre": "render_views.py 1280x720 48 spp --no-people --keep-lighting"
+  }
+}
