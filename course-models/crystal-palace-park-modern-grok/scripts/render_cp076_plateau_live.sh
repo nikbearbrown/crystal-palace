@@ -9,7 +9,8 @@
 # 35 mm lens copied in-session from rounds/parknow-r17.blend by scripts/cp073_r17cam.py; the blend is not modified), exposure -0.8,
 # CP073 look (present / exterior_afternoon). Pre-keep frame renders/r17k_parknow_CAM_CP073_sphinx_steps_50mm.png is left in place.
 # Recipe = scripts/render_cp076_look.py (dud-fix v4: look v1.1 present/exterior_afternoon, 1280x720, 32 spp, exposure -0.8),
-# one camera per Blender session.
+# one camera per Blender session. CP073 renders at 1920x1080, 24 spp (film 1080p delivery; 24 spp = what the pre-KEEP r17k
+# CP073 hero was rendered with, per its PNG metadata). CP076 cams stay 1280x720, 32 spp.
 #   scripts/render_cp076_plateau_live.sh [--rebuild] [outdir=renders]
 # --rebuild regenerates rounds/parknow-r21_cp076.blend from parknow-r02.blend (md5-checked) with candidate_cp076_plateau.py.
 set -euo pipefail
@@ -32,5 +33,5 @@ for CAM in CAM_CP076_empty_plateau_35mm CAM_CP076_hold_35mm; do
   "$B" -b rounds/parknow-r21_cp076.blend -P scripts/render_cp076_look.py -- "$OUT/r21_parknow_${CAM}.png" "$CAM" CP076 -0.8 2>&1 | grep -E "RENDERED|Error|Traceback" || true
 done
 [[ $(md5sum < rounds/parknow-r17.blend | cut -c1-8) == a4d2ed90 ]] || { echo "parknow-r17.blend md5 mismatch (expected a4d2ed90; CP073 camera source)"; exit 3; }
-"$B" -b rounds/parknow-r21_cp076.blend -P scripts/cp073_r17cam.py -P scripts/render_cp076_look.py -- "$OUT/r21_parknow_CAM_CP073_sphinx_steps_50mm.png" CAM_CP073_sphinx_steps_50mm CP073 -0.8 2>&1 | grep -E "R17CAM|RENDERED|Error|Traceback" || true
+"$B" -b rounds/parknow-r21_cp076.blend -P scripts/cp073_r17cam.py -P scripts/render_cp076_look.py -- "$OUT/r21_parknow_CAM_CP073_sphinx_steps_50mm.png" CAM_CP073_sphinx_steps_50mm CP073 -0.8 1920x1080 24 2>&1 | grep -E "R17CAM|RENDERED|Error|Traceback" || true
 echo "done: $OUT/r21_parknow_CAM_CP076_{empty_plateau,hold}_35mm.png $OUT/r21_parknow_CAM_CP073_sphinx_steps_50mm.png"

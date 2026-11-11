@@ -65,3 +65,11 @@ never git init inside a grok folder; commit from the worktree root
 - Manifest `scripts/parknow_live_heroes.json`: CP073 -> r21 (camera_from parknow-r17). `scripts/render_cp076_plateau_live.sh [--rebuild] [outdir]` now renders CP076 x2 + CP073.
 - Regression: every other live hero and every blend byte-unchanged (47-file md5 list); CP076 x2 re-rendered max diff 0. `--rebuild` (to a scratch outdir) reproduces all three r21 heroes at max diff 0 (rebuilt blend md5 differs only by save-time packing; the committed byte copy was restored). Pre-KEEP pinned by local tag `pre_cp073_keep` (= 90223ae).
 - NOT pushed.
+
+## CP073 live hero back to 1080p (2026-11-11 Grok)
+- Fix: the CP073 KEEP hero had dropped to 1280x720 (CP076 recipe default). Re-rendered at 1920x1080 for the film's 1080p delivery, same camera (live r17 cam on `rounds/parknow-r21_cp076.blend`, md5 bc62d275 unchanged), same look (present / exterior_afternoon), exposure -0.8.
+- Samples: 24 spp = what the pre-KEEP r17k CP073 hero was actually rendered with (its PNG metadata `cycles.ViewLayer.samples` = 24; the r17 blend's scene setting is 48, overridden at render time by the lean r17k pass). Adaptive sampling 0.01 + OpenImageDenoise as before. A 48 spp test render differed from 24 spp by mean 0.42/255 with no visible difference.
+- `scripts/render_cp076_look.py` takes optional `[WxH] [SAMPLES]` args (defaults 1280x720 / 32 spp unchanged). `scripts/render_cp076_plateau_live.sh` passes `1920x1080 24` for CP073 only; manifest CP073 entry records `resolution` 1920x1080, `samples` 24. CP076 cams unchanged (1280x720, 32 spp).
+- Hero `renders/r21_parknow_CAM_CP073_sphinx_steps_50mm.png` replaced: 1920x1080, md5 1f53a8ac845d1d668cd3e7993ad543a9, mean luma 189.15 (720p version 189.34). Viewed: same content and framing as the 720p frame, sharper, no new noise or artifacts (downscaled to 720p: mean abs diff 1.1/255, only on edges).
+- Live script reproduces all three r21 heroes at max diff 0; `--rebuild` (scratch outdir) reproduces all three at max diff 0 (rebuilt blend differs only by save-time packing; the committed byte copy bc62d275 was restored). Every other hero and blend byte-unchanged (70-file md5 list, only the CP073 hero changed).
+- NOT pushed.
