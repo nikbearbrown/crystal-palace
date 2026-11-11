@@ -1,0 +1,190 @@
+{
+ "state": "opening",
+ "checks": [
+  {
+   "id": "CP021_dais_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP021_dais_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP021_dais_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP021_dais_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP021_dais_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 2.87,
+   "pass": true
+  },
+  {
+   "id": "CP021_doors_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP021_doors_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP021_doors_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP021_doors_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP021_doors_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 3.03,
+   "pass": true
+  },
+  {
+   "id": "CP022_crossing_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP022_crossing_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 3.0,
+   "pass": true
+  },
+  {
+   "id": "CP022_crossing_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP022_crossing_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP022_crossing_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 1.89,
+   "pass": true
+  },
+  {
+   "id": "CP022_fountain_start.eye",
+   "check": "eye height over its floor plane (gallery 22.92 / floor 0)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP022_fountain_start.floorhit",
+   "check": "surface below the eye within 0.6 ft of that floor plane (unboarded patch: joists/earth allowed)",
+   "target": "0.0",
+   "measured": 0.01,
+   "pass": true
+  },
+  {
+   "id": "CP022_fountain_start.roll",
+   "check": "no roll (camera x-axis horizontal)",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP022_fountain_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail)",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP022_fountain_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.24,
+   "pass": true
+  },
+  {
+   "id": "O.dais",
+   "check": "opening dais / canopy / chair",
+   "target": "",
+   "measured": "",
+   "pass": true
+  },
+  {
+   "id": "O.fountain",
+   "check": "fountain present",
+   "target": "",
+   "measured": "",
+   "pass": true
+  },
+  {
+   "id": "O.crowd",
+   "check": "ceremony crowd >= 500 floor + 150 gallery",
+   "target": "",
+   "measured": [
+    620,
+    260
+   ],
+   "pass": true
+  },
+  {
+   "id": "O.leaf",
+   "check": "spring leaf (opening, not autumn)",
+   "target": "",
+   "measured": "spring green (opening)",
+   "pass": true
+  },
+  {
+   "id": "O.dais_people",
+   "check": "commissioners on the dais",
+   "target": "",
+   "measured": 27,
+   "pass": true
+  },
+  {
+   "id": "FILE.size",
+   "check": "round .blend under 90 MB",
+   "target": "< 90 MB",
+   "measured": 23.4,
+   "pass": true
+  }
+ ]
+}
