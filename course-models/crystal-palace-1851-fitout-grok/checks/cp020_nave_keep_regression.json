@@ -1,0 +1,39 @@
+{
+ "CP018_cradle_start": {
+  "max": 203,
+  "mean": 37.792,
+  "px_gt10": 609270,
+  "px_gt40": 315823,
+  "luma_pre": 203.4,
+  "luma_live": 177.1,
+  "classification": "VISIBLE CHANGE, expected: open park horizon/sky behind the cradle replaced by the new nave galleries, columns and roof; frame darker. Live PNG NOT updated (pending reviewer); pair saved."
+ },
+ "CP018_paint_start": {
+  "max": 192,
+  "mean": 11.675,
+  "px_gt10": 151908,
+  "px_gt40": 76090,
+  "luma_pre": 90.97,
+  "luma_live": 85.17,
+  "classification": "VISIBLE CHANGE, expected: sky/park at left and the far end replaced by nave structure; roof shades the frame. Live PNG NOT updated (pending reviewer); pair saved."
+ },
+ "CP019_doors_start": {
+  "max": 21,
+  "mean": 1.49,
+  "px_gt10": 316,
+  "px_gt40": 0,
+  "luma_pre": 69.78,
+  "luma_live": 68.66,
+  "classification": "noise / slight indirect-light drop (1 px > 20). Not re-rendered."
+ },
+ "CP019_dray_start": {
+  "max": 206,
+  "mean": 0.894,
+  "px_gt10": 13512,
+  "px_gt40": 2683,
+  "luma_pre": 205.72,
+  "luma_live": 205.11,
+  "classification": "expected background-only: distant nave structure now seen through the doorway in place of park/sky; foreground identical. Live PNG UPDATED (recipe reproduces the old live PNG with max diff 0)."
+ },
+ "_recipe": "scripts/render_f03_others_live.sh (1280x720, 48 spp); same recipe both sides; pre = rounds/f03.blend.pre_cp020nave_keep (18d4107f), live = rounds/f03.blend (3e80da59). Recipe vs stored live PNG: cradle/dray max 0; paint max 53 mean 2.35; doors max 67 mean 1.16."
+}

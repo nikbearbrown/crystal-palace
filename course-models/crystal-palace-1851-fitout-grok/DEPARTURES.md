@@ -104,7 +104,7 @@ Script `scripts/cand_cp026_env_20261110.py` (rebuild: `scripts/render_cp026_live
 | FT57 | **KEEP, live.** South-end vertical boarding as described above (also visible far off in CP026_turnstiles and CP027_stair_foot). | Downes Plate IV | B / C |
 | FT59 | **KEEP, live.** Downes pedestal a5 at COL_END_X±012_Y-204; SOUTH_PEDESTALS hidden (it also no longer blocks the doorway in CP026_turnstiles and CP027_stair_foot). | Downes pp. 38–39, Pl. XXVI figs 26–27, Pl. IV | A / C |
 
-## CANDIDATE CP020 nave (2026-11-11) — f03_cp020nave, live f03 unchanged (md5 18d4107f)
+## KEEP CP020 nave (2026-11-11) — f03_cp020nave, KEPT 2026-11-11 and live in f03 (18d4107f -> 3e80da59; pre-keep pinned rounds/f03.blend.pre_cp020nave_keep)
 State: HP-FITOUT, Jan-Apr 1851 (Hyde Park only; nothing Sydenham). Script `scripts/cand_cp020_nave_20261111.py`; same rules as the transept folder's KEEP envelope v2 (`apply_envelope_v2.py`, ENV2-02..10), mirrored west. Checks `checks/cp020_nave_checks.json` 15/15, dims 40/40 (`checks/cp020_nave_dims.md`), state 48/48 (`checks/cp020_nave_state.md`).
 | ID | Departure / change | Source / reason | Grade |
 |---|---|---|---|

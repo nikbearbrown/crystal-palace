@@ -27,6 +27,7 @@ SRC, OUT = arg("--src"), arg("--out")
 assert os.path.abspath(SRC) != os.path.abspath(OUT), "refusing to overwrite the source blend"
 assert not os.path.abspath(OUT).endswith("rounds/f03.blend"), "refusing to overwrite live f03"
 bpy.ops.wm.open_mainfile(filepath=SRC)
+assert not any(o.name.startswith("C20_") for o in bpy.data.objects), "source already has the CP020 nave (C20_*): use rounds/f03.blend.pre_cp020nave_keep or a fresh build_transept f03"
 try: bpy.context.preferences.filepaths.save_version = 0
 except Exception: pass
 sc = bpy.context.scene
