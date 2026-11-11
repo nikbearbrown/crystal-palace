@@ -40,3 +40,11 @@
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## CP076 plateau CANDIDATE (2026-11-11 Grok; candidate only, no verdict)
+- Scene: CP076 "Turn back toward the empty site" (closing shot). Live hero `renders/r01_parknow_CAM_CP076_empty_plateau_35mm.png` re-rendered from live `rounds/parknow-r02.blend` with `scripts/render_cp076_look.py` (dud-fix v4 recipe): max diff 0, so the before is the live frame.
+- Weaknesses fixed: lollipop trees and stick visitors floating 7-34 m in the sky above the arcade (hidden dud-fix plateau); no upper-terrace ground; no present-day landmark.
+- Candidate `rounds/candidates/parknow-r02_cp076plateau.blend` (`scripts/candidate_cp076_plateau.py`, DEPARTURES D-PM-26..31): trimmed Upper Palace Terrace grass, grounded trees/visitors, parametric trees + embankment scrub, 1956 transmitter lattice.
+- Renders `renders/candidates/cp076_plateau_20261111/{before,after}_<cam>.png`, one camera per Blender session for both sides, exposure -0.8 both. Luma CP076 199.49 -> 187.22 (hold cam identical). Side effects: CP070 210.29 -> 208.10, CP072 194.87 -> 180.25 (foundations now under grass), CP073 191.44 -> 183.00, CP075 201.77 -> 200.56. Unchanged (noise only, max <= 10, <= 1 px > 8): CP066 nsc_wide, CP067, CP071, CP074.
+- Pairs: survey `look/pairs_geo/CANDIDATE_CP076_plateau_start_{before,after,pair,detail_pair}.png`, `CANDIDATE_CP076_plateau_sidefx_{CP070,CP072,CP073,CP075}_{before,after,pair}.png` (`scripts/make_cp076_pairs.py`).
+- Candidate md5 bc62d275 (compressed; rebuild is deterministic, object signature checked twice). Live `rounds/parknow-r02.blend` untouched (md5 48fc01ec). Not promoted; NOT pushed.
