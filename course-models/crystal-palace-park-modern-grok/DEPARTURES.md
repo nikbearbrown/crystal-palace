@@ -58,4 +58,7 @@ Candidate `rounds/candidates/parknow-r02_cp076plateau.blend` built from live `ro
 ## CP076 plateau KEEP, scoped (2026-11-11)
 - D-PM-26..31 are KEPT for CP076 only (both cams), carried by `rounds/parknow-r21_cp076.blend` (md5 bc62d275). They are NOT in `rounds/parknow-r02.blend` (md5 48fc01ec, unchanged), so CP067/CP070/CP072/CP074/CP075 stay as before.
 - Rejected side effects (parent verdict 2026-11-11): CP072 footprint (the 1937-40 cleared foundations go under the D-PM-26 terrace grass, which is the point of the shot); CP070 begin walk (the foundation edge stops reading); CP075 layered NSC (a D-PM-28/29 tree cuts the right edge). These cams must never render from r21.
-- CP073: held, not kept. Its live hero comes from parknow-r17 (D-PM-19 cam), and the viewed pair used the r02 cam. Waiting for a verdict on the true pair.
+- CP073: held, not kept. Its live hero comes from parknow-r17 (D-PM-19 cam), and the viewed pair used the r02 cam. Waiting for a verdict on the true pair. **Superseded 2026-11-11: KEPT on r21 with the live r17 camera (D-PM-32).**
+
+## CP073 KEEP on r21 with the live camera (2026-11-11)
+- **D-PM-32 I** CP073 (sphinx steps) now renders from `rounds/parknow-r21_cp076.blend`, so D-PM-26..31 (terrace grass, grounded trees/visitors, parametric trees + scrub, transmitter) are KEPT for CP073 too, seen through the unchanged live r17 camera (D-PM-19 along-terrace cam, 35 mm, copied in-session from parknow-r17 by `scripts/cp073_r17cam.py`), exposure -0.8. The r02 50 mm cam stored in r21 is NOT used (option 2 rejected). Output now 1280x720 per the r21 recipe (was 1920x1080 at r17k). CP070/CP072/CP075 remain rejected and must never render from r21.
