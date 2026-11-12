@@ -212,3 +212,11 @@ never git init inside a grok folder; commit from the worktree root
   - check_state: 48/48 (checks/cp018_east_state.json).
   - Both check_dims and check_state ran on copies in /workspace/tmp/cp018/dimsrun. Live f03 also scores 40/40 and 48/48.
 - Not done: promotion, the KEEP label, any live PNG change and the COVERAGE row. rounds/f03.blend is unchanged (md5 3e80da59).
+
+## 2026-11-12 KEEP CP018 east nave (scoped, FT88-FT94)
+- Verdict (viewed the pairs myself, 22:39 UTC): KEEP for CP018_paint_start (hero) and the CP018_paint_end side effect (lawn and open sky replaced by the long east nave; clearly better). REJECT the CP020_floor_start side effect (no new structure, only darker): CP020_floor_start stays on live f03. CP019_dray_start: no visible change, so it stays on its live f03 blend.
+- Live: new rounds/f04.blend (md5 5d238d1c1a1f811b42fd544093f51937 = approved candidate rounds/candidates/f03_cp018east.blend), routed in scripts/fitout_live_heroes.json for CP018_paint_start and CP018_paint_end only; render via scripts/render_cp018_live.sh [--rebuild] (resumable: existing blend/PNGs skipped unless --force; rv2 recipe set recreated if missing).
+- CP018_paint_end had no f03 PNG or manifest entry before this keep; its live PNG was the old renders/f01/CP018_paint_end.png (1280x720), which stays in place as its pre-keep frame. renders/f03/CP018_paint_start.png stays as the hero's pre-keep frame.
+- Live renders renders/f04/CP018_paint_{start,end}.png (1920x1080, 48 spp, live CP018_paint "rv2" recipe) = the candidate after/ PNGs copied. Rebuild from script (/workspace/tmp/cp018keep/f04_rebuild.blend, chain /workspace/tmp/cp018keep/chain.sh) re-rendered with scripts/render_cp018_live.sh matches live, max pixel diff 0 on both cams.
+- rounds/f03.blend (3e80da59), rounds/f01.blend (c2eef723) and every PNG in renders/f03/ and renders/f01/ unchanged (md5 before = after). Pre-keep tag pre_cp018east_keep (local).
+- Survey pairs renamed: KEEP_CP018_paint_start_*, KEEP_CP018_paint_end_*, REJECTED_CP018_sidefx_CP020_floor_start_*; CANDIDATE_CP018_sidefx_dray_* left as is (no change, not promoted). checks/cp018_east_pairs.json keeps the candidate-era paths as a record.
