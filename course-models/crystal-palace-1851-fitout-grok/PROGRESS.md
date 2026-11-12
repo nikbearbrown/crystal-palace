@@ -156,3 +156,10 @@ never git init inside a grok folder; commit from the worktree root
 - Checks: scripts/check_cp027_east.py -> checks/cp027_east_checks.json 17/17; check_dims 39/39 (checks/cp027_east_dims.json, run on a copy in /workspace/tmp/cp027/dimsrun); check_state 38/38 (checks/cp027_east_state.json; live h01 38/38).
 - Resume: if DONE is missing, re-run `nohup scripts/render_cp027_east.sh --no-build &` (or with --no-before if before/ has both PNGs), then the pairs script.
 - Not done: promotion, KEEP label, COVERAGE row change (only a CANDIDATE note). CP026/CP028 are live on h03, not h01, so no other hero is affected.
+
+## 2026-11-12 08:15 UTC: CP027 east nave KEEP live (scoped)
+- rounds/h04.blend (md5 cc938620 = approved candidate rounds/candidates/h01_cp027east.blend; FT74-FT80) is live ONLY for CP027_stair_foot_start (hero), routed by scripts/fitout_live_heroes.json; recipe scripts/render_cp027_live.sh [--rebuild].
+- renders/h04/CP027_stair_foot_start.png = candidate after/ PNG (max diff 0); --rebuild check (/workspace/tmp/cp027keep, ALL_DONE 06:09) pixel-identical (max diff 0).
+- rounds/h01.blend unchanged (73c09039); h01 PNGs byte-unchanged (md5 before = after). CP027_gallery_rail_start stays on h01 (side effect REJECTED: only darker, west lawn stays). Pre-keep hero stays in renders/h01/.
+- Verdict (my own view of the pair): kept because the lawn and open sky left of the stair foot are replaced by the roofed east nave; frame is darker overall. Pre-keep tag: pre_cp027east_keep. Local commit only, not pushed.
+- Note: the promotion chain restarted roughly every two hours (same pattern as CP022) before finishing; outputs were correct.
