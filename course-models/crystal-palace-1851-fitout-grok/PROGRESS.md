@@ -141,3 +141,9 @@ never git init inside a grok folder; commit from the worktree root
   - Wins: the open-sky left third of CP022 is now the roofed, glazed west nave with galleries; the floating gallery visitors are gone (also in CP022_crossing).
   - Misses / concerns (executor, not a verdict): the left third is now a busy, pale white lattice with no people in the near side gallery and an empty west nave (FT72); every frame is darker at matched exposure; in CP021_dais (and slightly CP021_doors) the foreground people_lib figures are re-dealt (different clothes/colours) because hiding the 46 figures shifts the people_lib mesh-cache order, not because of a deliberate change; the fountain itself is untouched (still the dark chrome-looking Muse glass).
   - Not done: promotion, KEEP label, COVERAGE row change (only a CANDIDATE note added).
+
+## 2026-11-12 00:15 UTC: CP022 envelope KEEP live (scoped)
+- rounds/o02.blend (md5 2cd47f23 = approved candidate o01_cp022envelope.blend; FT67-FT73) is live ONLY for CP022_fountain_start (hero) and CP022_crossing_start, routed by scripts/fitout_live_heroes.json; recipe scripts/render_cp022_live.sh [--rebuild].
+- renders/o02/ CP022 PNGs re-rendered; --rebuild check pixel-identical (max diff 0).
+- rounds/o01.blend unchanged (4776f618); CP021 doors/dais stay on o01. Regression render of o01 with people v3.3 differs from the Oct 27 committed PNGs only by people_lib figure reshuffle (no geometry change); reviewed, not better, committed CP021 PNGs NOT updated.
+- Pre-keep tag: pre_cp022envelope_keep. Local commit only, not pushed.
