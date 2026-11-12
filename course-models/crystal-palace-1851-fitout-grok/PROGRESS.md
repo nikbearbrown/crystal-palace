@@ -173,3 +173,9 @@ never git init inside a grok folder; commit from the worktree root
 - What changed (description, not a verdict): dais: top-right sky -> east-nave roof glazing and girders, right-edge lawn -> dim interior/boarding, the two figures on air above the gallery gone; the rest of the frame (dais, crowd, elm) shows only render noise/slightly darker light. Gallery (side effect): the row of visitors standing on air across the far crossing gone, the green lawn beyond -> east nave interior, and the group of large figures on air in the left foreground gone (the frame now looks down past the gallery end to the floor).
 - Checks: scripts/check_cp029_east.py -> checks/cp029_east_checks.json 19/19; check_dims 35/35 (checks/cp029_east_dims.json, run on a copy in /workspace/tmp/cp029/dimsrun); check_state 15/15 (checks/cp029_east_state.json; live c02 35/35 + 15/15).
 - Not done: promotion, KEEP label, COVERAGE row change (only a CANDIDATE note). No other storyboard hero renders from c02 (CP029 cams only).
+
+## 2026-11-12 KEEP CP029 east nave (scoped, FT81-FT87)
+- Verdict (viewed myself 10:55 UTC): KEEP for CP029_dais_start (hero) and the CP029_gallery_start side effect. Floating figures gone; lawn and open sky beyond the closing dais replaced by east-nave structure.
+- Live: new rounds/c03.blend (md5 0651925d = approved candidate rounds/candidates/c02_cp029east.blend), routed in scripts/fitout_live_heroes.json; render via scripts/render_cp029_live.sh [--rebuild].
+- Live renders renders/c03/CP029_{dais,gallery}_start.png (1920x1080, 48 spp, people v3.1, look era 1851). Rebuild from script (/workspace/tmp/cp029keep/c03_rebuild.blend) matches live, max pixel diff 0 on both.
+- rounds/c02.blend unchanged (c0be5fff) and its renders/c02 PNGs unchanged (md5 before = after); they stay as pre-keep frames. Pre-keep tag pre_cp029east_keep.
