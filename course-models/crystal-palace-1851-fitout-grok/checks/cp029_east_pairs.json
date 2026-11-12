@@ -1,0 +1,34 @@
+{
+ "CP029_dais_start": {
+  "luma_before": 57.45,
+  "luma_after": 50.52,
+  "max_diff": 200,
+  "mean_diff": 11.6,
+  "px_gt20": 332711,
+  "bbox_gt20": [
+   0,
+   0,
+   1919,
+   996
+  ],
+  "px_gt20_left_half": 46650,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP029_pair.png",
+  "small_pair": "/workspace/tmp/cp029/CP029_dais_start_pair_small.png"
+ },
+ "CP029_gallery_start": {
+  "luma_before": 72.63,
+  "luma_after": 67.79,
+  "max_diff": 210,
+  "mean_diff": 13.678,
+  "px_gt20": 397449,
+  "bbox_gt20": [
+   0,
+   0,
+   1919,
+   1067
+  ],
+  "px_gt20_left_half": 105175,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP029_sidefx_gallery_pair.png",
+  "small_pair": "/workspace/tmp/cp029/CP029_gallery_start_pair_small.png"
+ }
+}

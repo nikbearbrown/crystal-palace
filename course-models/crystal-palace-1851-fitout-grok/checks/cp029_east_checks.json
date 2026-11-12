@@ -1,0 +1,173 @@
+[
+ {
+  "id": "N01",
+  "check": "east end column line x (ft); transept at the middle of 1,848 ft",
+  "target": 924.0,
+  "tol": 0.01,
+  "measured": 924.0,
+  "pass": true,
+  "source": "SURVEY: length 1,848 ft (column centres)"
+ },
+ {
+  "id": "N02",
+  "check": "length between end column centres if mirrored west (ft)",
+  "target": 1848.0,
+  "tol": 0.01,
+  "measured": 1848.0,
+  "pass": true,
+  "source": "SURVEY 1,848 ft"
+ },
+ {
+  "id": "N03",
+  "check": "largest new column-line step along the nave, east 84..924 run (ft)",
+  "target": 24.0,
+  "tol": 0.01,
+  "measured": 24.0,
+  "pass": true,
+  "source": "Downes 24 ft grid"
+ },
+ {
+  "id": "N04",
+  "check": "smallest new column-line step along the nave, same runs (ft)",
+  "target": 24.0,
+  "tol": 0.01,
+  "measured": 24.0,
+  "pass": true,
+  "source": "Downes 24 ft grid"
+ },
+ {
+  "id": "N05",
+  "check": "tier-1 width east block (ft)",
+  "target": 408.0,
+  "tol": 0.01,
+  "measured": 408.0,
+  "pass": true,
+  "source": "SURVEY tier widths 408/264/120"
+ },
+ {
+  "id": "N06",
+  "check": "tier-2 width east block (ft)",
+  "target": 264.0,
+  "tol": 0.01,
+  "measured": 264.0,
+  "pass": true,
+  "source": "SURVEY tier widths"
+ },
+ {
+  "id": "N07",
+  "check": "tier-3 width east block (ft)",
+  "target": 120.0,
+  "tol": 0.01,
+  "measured": 120.0,
+  "pass": true,
+  "source": "SURVEY tier widths"
+ },
+ {
+  "id": "N08",
+  "check": "nave clear width between column centres (ft)",
+  "target": 72.0,
+  "tol": 0.01,
+  "measured": 72.0,
+  "pass": true,
+  "source": "Downes: nave 72 ft"
+ },
+ {
+  "id": "N09_1",
+  "check": "tier-1 girder top (ft)",
+  "target": 22.166666666666668,
+  "tol": 0.01,
+  "measured": 22.167,
+  "pass": true,
+  "source": "D11a-c (build_transept.py)"
+ },
+ {
+  "id": "N09_2",
+  "check": "tier-2 girder top (ft)",
+  "target": 42.166666666666664,
+  "tol": 0.01,
+  "measured": 42.167,
+  "pass": true,
+  "source": "D11a-c (build_transept.py)"
+ },
+ {
+  "id": "N09_3",
+  "check": "tier-3 girder top (ft)",
+  "target": 62.166666666666664,
+  "tol": 0.01,
+  "measured": 62.167,
+  "pass": true,
+  "source": "D11a-c (build_transept.py)"
+ },
+ {
+  "id": "N10",
+  "check": "nave truss top (ft) = tier-3 girder top",
+  "target": 62.166666666666664,
+  "tol": 0.01,
+  "measured": 62.167,
+  "pass": true,
+  "source": "D19 / transept trusses"
+ },
+ {
+  "id": "N11",
+  "check": "east floor top equals live floor top (ft difference)",
+  "target": 0.0,
+  "tol": 0.001,
+  "measured": 0.0,
+  "pass": true,
+  "source": "FT83"
+ },
+ {
+  "id": "N12",
+  "check": "figures inside a new column (count)",
+  "target": 0,
+  "tol": 0,
+  "measured": 0,
+  "pass": true,
+  "source": "staging"
+ },
+ {
+  "id": "N13",
+  "check": "new columns duplicating an existing column position (count)",
+  "target": 0,
+  "tol": 0,
+  "measured": 0,
+  "pass": true,
+  "source": "no double columns"
+ },
+ {
+  "id": "N14",
+  "check": "visible gallery-level crowd figures not over a gallery deck (count)",
+  "target": 0,
+  "tol": 0,
+  "measured": 0,
+  "pass": true,
+  "source": "FT85 (= FT71)"
+ },
+ {
+  "id": "N15a",
+  "check": "walls hidden by FT84 (count)",
+  "target": 18,
+  "tol": 0,
+  "measured": 18,
+  "pass": true,
+  "source": "FT84 (= FT77)"
+ },
+ {
+  "id": "N15b",
+  "check": "objects hidden other than FT84 walls and FT85 floating CROWD figures at z ~ 22.9 ft (count)",
+  "target": 0,
+  "tol": 0,
+  "measured": 0,
+  "pass": true,
+  "source": "FT85: only floating gallery figures"
+ },
+ {
+  "id": "N15c",
+  "check": "floating gallery figures hidden by FT85 (count, report)",
+  "target": 36,
+  "tol": 0,
+  "measured": 36,
+  "pass": true,
+  "source": "FT85"
+ }
+]

@@ -1,0 +1,2 @@
+c0be5fff332040d906d148fb60c36f35  rounds/c02.blend
+0651925dbe74cd2ea0cdb1df334a04fb  rounds/candidates/c02_cp029east.blend
