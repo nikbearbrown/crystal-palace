@@ -179,3 +179,36 @@ never git init inside a grok folder; commit from the worktree root
 - Live: new rounds/c03.blend (md5 0651925d = approved candidate rounds/candidates/c02_cp029east.blend), routed in scripts/fitout_live_heroes.json; render via scripts/render_cp029_live.sh [--rebuild].
 - Live renders renders/c03/CP029_{dais,gallery}_start.png (1920x1080, 48 spp, people v3.1, look era 1851). Rebuild from script (/workspace/tmp/cp029keep/c03_rebuild.blend) matches live, max pixel diff 0 on both.
 - rounds/c02.blend unchanged (c0be5fff) and its renders/c02 PNGs unchanged (md5 before = after); they stay as pre-keep frames. Pre-keep tag pre_cp029east_keep.
+
+## 2026-11-12 CP018_paint_start "east nave" CANDIDATE: executor notes (not a verdict, NOT live; DEPARTURES FT88-FT94)
+- State: Hyde Park FIT-OUT, Jan-Apr 1851 (f03). Nothing Sydenham.
+- Why CP018: build-plan phase order (Hyde Park, HP-FITOUT first). A contact sheet of the live fit-out hero renders (/workspace/tmp/cpnext/contact.png; CP018-CP031, avoid list CP029/CP027/CP022/CP021/CP073/CP076/CP023/CP014/CP009/CP016 skipped) showed the clearest at-a-glance miss in CP018_paint_start (live renders/f03/CP018_paint_start.png, re-rendered from live f03 at a1bbb11). The camera stands at (-22, -116) ft looking 16 deg north of east down the south aisles. f03 stops at x = +132 ft on the east side (the KEPT CP020 nave was added west only), so the middle band of the frame between the floor and the gallery undersides showed a flat green lawn and open hazy sky, with the far gallery ending in mid-air.
+- Script: scripts/cand_cp018_east_20261112.py on live rounds/f03.blend (unchanged, md5 3e80da59b1cf3bb3cf133d15edcc69e9) -> rounds/candidates/f03_cp018east.blend (untracked like the other candidate blends; md5 changes per save by metadata only). It applies the CP027/CP029 east-nave rules east of x = +132 only (f03 already has the FT60 tier-3 strip x 60..132):
+  - 530 columns, 1,797 girders, 33 trusses, 1,683 roof units, 231 wall bays, 198 railings, gallery slabs and the floor.
+  - The 18 x = +132 tier-2 walls are hidden. No figures are hidden.
+  - The script refuses any rounds/*.blend as output, and refuses a source without C20_* or with an existing east extension.
+- Render: scripts/render_cp018_east.sh [--no-build] (nohup; log /workspace/logs/cp018_east_render.log; done marker renders/candidates/cp018_east_20261112/DONE) -> renders/candidates/cp018_east_20261112/{before,after}/. Cameras: hero CP018_paint_start plus the side-effect cams CP019_dray_start, CP018_paint_end and CP020_floor_start, all 1920x1080 48 spp, each with its own live recipe on both sides (FT94). A 480x270 test of all six f03 cams showed CP018_cradle_start and CP019_doors_start change only by noise (px>20: 50 and 2), so they were not rendered.
+- RESUME (if DONE is missing after a snapshot/restore): `cd /workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok && nohup scripts/render_cp018_east.sh --no-build > /workspace/logs/cp018_east_render.log 2>&1 &`. Finished PNGs are skipped, and each render is moved in only when it is complete. Then run `python3 scripts/cand_cp018_east_pairs.py`.
+- Renders finished 2026-11-12 22:28 UTC (DONE marker present; about 18 min for all eight PNGs).
+- Pairs: `python3 scripts/cand_cp018_east_pairs.py` -> survey look/pairs_geo/CANDIDATE_CP018_paint_start_{before,after,pair,detail_pair}.png plus CANDIDATE_CP018_sidefx_{paint_end,dray,floor}_{before,after,pair}.png. Small side-by-sides are in /workspace/tmp/cp018/<cam>_pair_small.png. Numbers are in checks/cp018_east_pairs.json.
+- Mean luma (Rec.709, same recipe and exposure both sides):
+
+  | Camera | Role | Before | After |
+  |---|---|---|---|
+  | CP018_paint_start | hero | 84.53 | 67.27 |
+  | CP018_paint_end | side effect | 98.85 | 77.35 |
+  | CP019_dray_start | side effect | 204.37 | 203.70 |
+  | CP020_floor_start | side effect | 105.36 | 84.60 |
+
+- What changed (a description, not a verdict):
+  - **CP018_paint_start:** in the middle band, the lawn and the open hazy sky beyond the stair and under the galleries are replaced by the east nave: rows of columns, galleries and roof running to a far end screen. The near floor and the galleries are darker because the new roof shades them. The cradles, painters, trolley and foreground figures are unchanged. The green seen through the upper roof glazing at the top of the frame is still there.
+  - **CP018_paint_end (not the hero cam):** the same change, with the lawn and sky at the left and middle replaced by the nave and the frame darker. Note that the committed paint_end PNG is still the f01 one; this pair compares live f03 against the candidate.
+  - **CP019_dray_start:** only the background seen through the doorway and the upper glazing on the right changes (more distant structure).
+  - **CP020_floor_start (the KEPT nave hero):** no new structure is in view. The new east roof over and behind the camera puts the foreground boards and figures into shade, so the frame is darker by about 21 luma.
+- Not rendered: CP018_cradle_start and CP019_doors_start. In the 480x270 test their only differences were noise.
+- Checks:
+  - scripts/check_cp018_east.py -> checks/cp018_east_checks.json: 21/21.
+  - check_dims: 40/40 (checks/cp018_east_dims.json).
+  - check_state: 48/48 (checks/cp018_east_state.json).
+  - Both check_dims and check_state ran on copies in /workspace/tmp/cp018/dimsrun. Live f03 also scores 40/40 and 48/48.
+- Not done: promotion, the KEEP label, any live PNG change and the COVERAGE row. rounds/f03.blend is unchanged (md5 3e80da59).

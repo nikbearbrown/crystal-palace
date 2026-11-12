@@ -1,0 +1,2 @@
+3e80da59b1cf3bb3cf133d15edcc69e9  rounds/f03.blend
+5d238d1c1a1f811b42fd544093f51937  rounds/candidates/f03_cp018east.blend

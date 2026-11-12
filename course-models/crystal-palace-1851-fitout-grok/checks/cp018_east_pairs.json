@@ -1,0 +1,66 @@
+{
+ "CP018_paint_start": {
+  "luma_before": 84.53,
+  "luma_after": 67.27,
+  "max_diff": 191,
+  "mean_diff": 23.654,
+  "px_gt20": 601845,
+  "bbox_gt20": [
+   0,
+   0,
+   1919,
+   984
+  ],
+  "px_gt20_middle_band": 434107,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP018_paint_start_pair.png",
+  "small_pair": "/workspace/tmp/cp018/CP018_paint_start_pair_small.png"
+ },
+ "CP018_paint_end": {
+  "luma_before": 98.85,
+  "luma_after": 77.35,
+  "max_diff": 193,
+  "mean_diff": 29.281,
+  "px_gt20": 754163,
+  "bbox_gt20": [
+   0,
+   7,
+   1919,
+   979
+  ],
+  "px_gt20_middle_band": 457532,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP018_sidefx_paint_end_pair.png",
+  "small_pair": "/workspace/tmp/cp018/CP018_paint_end_pair_small.png"
+ },
+ "CP019_dray_start": {
+  "luma_before": 204.37,
+  "luma_after": 203.7,
+  "max_diff": 216,
+  "mean_diff": 1.11,
+  "px_gt20": 19943,
+  "bbox_gt20": [
+   607,
+   0,
+   1919,
+   721
+  ],
+  "px_gt20_middle_band": 19006,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP018_sidefx_dray_pair.png",
+  "small_pair": "/workspace/tmp/cp018/CP019_dray_start_pair_small.png"
+ },
+ "CP020_floor_start": {
+  "luma_before": 105.36,
+  "luma_after": 84.6,
+  "max_diff": 101,
+  "mean_diff": 22.649,
+  "px_gt20": 918559,
+  "bbox_gt20": [
+   0,
+   0,
+   1919,
+   1079
+  ],
+  "px_gt20_middle_band": 505740,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP018_sidefx_floor_pair.png",
+  "small_pair": "/workspace/tmp/cp018/CP020_floor_start_pair_small.png"
+ }
+}
