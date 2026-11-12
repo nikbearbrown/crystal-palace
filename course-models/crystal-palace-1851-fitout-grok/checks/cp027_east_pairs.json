@@ -1,0 +1,18 @@
+{
+ "CP027_stair_foot_start": {
+  "luma_before": 97.2,
+  "luma_after": 76.77,
+  "max_diff": 207,
+  "mean_diff": 30.182,
+  "px_gt20": 914955,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP027_pair.png"
+ },
+ "CP027_gallery_rail_start": {
+  "luma_before": 85.92,
+  "luma_after": 75.08,
+  "max_diff": 167,
+  "mean_diff": 15.072,
+  "px_gt20": 262664,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP027_sidefx_gallery_rail_pair.png"
+ }
+}

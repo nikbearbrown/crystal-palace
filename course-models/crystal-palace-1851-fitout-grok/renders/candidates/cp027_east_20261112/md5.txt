@@ -1,0 +1,2 @@
+73c09039f67f61267b78ba2735ea81ce  rounds/h01.blend
+cc9386207f3a063384da6fa14be9de69  rounds/candidates/h01_cp027east.blend
