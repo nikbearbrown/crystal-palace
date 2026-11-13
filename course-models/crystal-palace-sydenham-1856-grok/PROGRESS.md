@@ -166,3 +166,13 @@ Resume notes: /workspace/tmp/cp044/PROGRESS.md. Live `rounds/sydenham-1856-r16.b
 - Mean luma: pay_desks live 58.08 -> 139.11 (reframe; same-camera before 198.91 = empty glazed wing end); maintenance same-camera 200.35 -> 153.34; side effect CP064_skyline (r16 only) 207.46 -> 207.45.
 - Side effects: visibility test over all r16 cameras -> only CAM_CP064_skyline_50mm sees the change (live CP064 hero is on ruins-r17, so no live effect); CP037/CP041/CP042 r16 heroes: none. Rebuild from script = candidate, max diff 0 over all 48 cams (320x180).
 - Live hero note: the r16 CP044 hero (Oct 27, people v3.1) no longer re-renders byte-exact (people_lib now v3.4: mean diff 0.51), so the "before" is the current recipe.
+
+## 2026-11-13 16:30 UTC — CP063 clearance CANDIDATE (in progress, no verdict)
+- Scene picked: CP063 "Reassembly is no longer an option" (weakest remaining: crane_lift hero reads as giant orange crates + cone men).
+- Live round untouched: `rounds/sydenham-clearance-r17.blend` (md5 055ef338). Candidate script `scripts/candidate_cp063_scrap_clearance.py` -> `rounds/candidates/sydenham-clearance-r17_cp063scrap.blend`.
+- Renders: `scripts/render_cp063_candidate.sh` (resumable per PNG) -> `renders/candidates/cp063_scrap_20261113/{before,after}`; log `/workspace/logs/cp063_scrap_render.log`.
+- Departures D-SY-CP063-01.. in DEPARTURES.md. Do not promote; parent views the pairs.
+- 16:25 UTC: candidate built `rounds/candidates/sydenham-clearance-r17_cp063scrap.blend` (md5 5ec53dd9); dated collection `SY37_clearance_scrap_sorting_remnant__1937`; 56 rust boxes + 28 cone stand-ins hidden (not deleted). Last standing central-transept bay (x=-60, y 36..60; 8 in x 18'11 3/4" columns, 3 x 23'3 1/4" trellis girder) racked 9 deg, 2 ropes to 9 haulers; sorted column/girder stacks on bearers, broken girder heap, cullet/ash/rib heaps, 42 low plateau piles; 17 people_lib 1930s men (nearest ~44 ft). DEPARTURES D-SY-CP063-01..10.
+- Renders done (1920x1080 48 spp, render.py, blend lighting, NO_PEOPLE both sides; md5.txt): luma crane_lift 135.71->133.66 (33.6 % px changed); side effects scrap_gang 157.57->157.64 (2.4 %), clearance_perimeter 168.34->168.35 (0.03 %), terrace_edge 150.79->150.79 (none, max diff 1).
+- Frustum test: no other live hero renders from clearance-r17 (CP062/CP064 live on ruins-r17, CP001/CP072 elsewhere), so side effects are limited to the 4 CP063 cams. Rebuild from script = candidate, max diff 0 (4 cams, 320x180).
+- Survey pairs `look/pairs_geo/CANDIDATE_CP063_*`. COVERAGE CP063 row unchanged. NOT promoted, no verdict. Untracked s67c files in this folder are not mine; left alone.
