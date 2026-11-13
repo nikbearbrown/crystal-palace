@@ -78,3 +78,17 @@ Fixes before promote (CP043b + shared scene cleanup):
 Live: `rounds/dinosaurs-1854-r05.blend` (= fixed r05b-cand).
 Pairs: `compare/r05b_cand/pair_CP043.jpg`, `pair_CP043b.jpg`, `pair_CP043_vs_r03.jpg`.
 Renders: `renders/r05b_cand/`.
+
+## r06 CANDIDATE CP034b dinner (2026-11-13; not live, no verdict) — D-DN-26..D-DN-33
+Source: ILN 7 Jan 1854 woodcut (`refs/ILN1854_dinner_in_the_iguanodon_PD.jpg`) + period accounts. All in `DN53_iguanodon_dinner__31Dec1853` (dated 31 Dec 1853); new objects `DN53c_*`.
+| # | Item | Model | Source / reasoning | Grade |
+|---|------|-------|--------------------|-------|
+| D-DN-26 | Marquee enclosed by boarded hoarding (back + both ends) 0-21 ft, 68 x 44 ft footprint of the existing canopy; front (camera side) left open | boards 0.72 ft, three rails | Print shows boarded walls behind the mould under the tent; height and footprint are by eye / reuse of the r01 canopy | I |
+| D-DN-27 | Red/cream striped valance 21-26 ft under the canopy springing | 1.5 ft stripes | Print: striped tent cloth; colours as r01 marquee mats (U) | I/U |
+| D-DN-28 | 21 diners seated inside the mould, 10 a side + Owen at the head, bare-headed, chest/head above the rim; ~1.4 ft elbow room each | seated figures | 21 diners and Owen at the head (accounts, R); bare heads and seated-in-mould view (print, R); elbow room is forced by the 10 m statue mould (statue size R, interior I) | R/I |
+| D-DN-29 | Mould floor and table rebuilt inside the measured interior (per-1-ft slice), table 1.7 ft wide at the rim 10.2 ft | | Old plank poked out of the narrow neck as a floating bench (geometry bug). Table width I | I |
+| D-DN-30 | Name boards lettered BUCKLAND, CUVIER, OWEN, MANTELL on the back wall at 18.2 ft (were blank at 22-24.5 ft, out of frame) | ovals 9.2 x 2.8 ft | Print shows these four names R; heights/positions I (in the print Buckland is on the left wall) | R/I |
+| D-DN-31 | Chandelier lowered to 16.5 ft, 10 gas globes, warm point light 1500 W | | Print: chandelier over the table R (form I); evening gaslight D-DN-24 R | I |
+| D-DN-32 | Evergreen festoons on the back wall and over the table; folding screen behind Owen's end at x +16 | | Print: garland strung over the diners and a folding screen behind the head of the table R; sizes I | I |
+| D-DN-33 | Three waiters with trays on the deck (aprons) | | Print: waiters carrying dishes on the deck and stairs R; dress I | I |
+Not changed: mould mesh (still the statue body cut flat at 10 ft; no head/eye, the print shows the head intact), daylight sun + marquee glow (D-21 unchanged), camera.

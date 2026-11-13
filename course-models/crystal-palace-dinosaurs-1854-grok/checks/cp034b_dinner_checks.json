@@ -1,0 +1,169 @@
+{
+ "date": "2026-11-13",
+ "pass": 27,
+ "total": 27,
+ "rows": [
+  {
+   "pass": true,
+   "check": "mould length 35.8 ft ~ statue 10 m (35.8 ft model, unchanged)",
+   "source": "cpdinosaurs.org 10 m R",
+   "value": 35.78206059813829
+  },
+  {
+   "pass": true,
+   "check": "diner head clusters (coarse) 17",
+   "source": "info",
+   "value": 17
+  },
+  {
+   "pass": true,
+   "check": "seated diner vertex count 3297 divisible by 21 (21 identical figures)",
+   "source": "Wikipedia / period accounts: 21 diners in the mould R",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "diners show chest/head above rim: top 11.32 vs rim 10.18",
+   "source": "ILN print: diners visible from the chest up above the mould side R",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "diners lowest point 8.60 ft is inside the mould above its belly floor (no legs under the belly)",
+   "source": "fix of r01 miss",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "diners within mould length x -8.5..6.9",
+   "source": "geometry",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "table top 10.20 ft at the rim 10.18 (print: cloth at the rim)",
+   "source": "ILN print I",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "floor/table width 6.94 ft inside mould width 8.97",
+   "source": "geometry",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "elbow room 1.45 ft per diner (packed; 21 in a 10 m statue)",
+   "source": "I (tight by necessity)",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "hoarding walls 0..21.0 ft under canopy springing 26 ft",
+   "source": "ILN print: boarded walls to the tent eaves I",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "valance top meets existing canopy springing 26.0 ft",
+   "source": "r01 marquee canopy (build.py) I",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "marquee walls on the existing 68 x 44 ft canopy footprint",
+   "source": "build.py marquee I",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "name boards lettered ['BUCKLAND', 'CUVIER', 'MANTELL', 'OWEN']",
+   "source": "ILN print shows Buckland, Cuvier, Owen, Mantell R",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "chandelier bottom 15.8 ft clears diners heads 11.3 ft by >3 ft",
+   "source": "ILN print: chandelier over the table I",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "waiters stand on deck (z 4.00) height 5.53 ft",
+   "source": "ILN print: waiters on deck/stairs I; deck 4 ft (build.py)",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "waiters inside the deck railings (y -16..-4)",
+   "source": "geometry",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "objects outside DN53_iguanodon_dinner__31Dec1853 unchanged vs live r05 (37 compared)",
+   "source": "scope",
+   "value": []
+  },
+  {
+   "pass": true,
+   "check": "16 added objects, all DN53c_ in the dinner collection",
+   "source": "scope",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "no live object deleted",
+   "source": "scope",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "changed dinner objects: ['dinner_deck_marquee_table', 'dinner_guests_21'] (deck mesh: old plank/table/legs/chandelier/blank boards removed; old guests hidden)",
+   "source": "scope",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN-1854_crystal_palace_park_geological_illustration",
+   "source": "every state dated",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN53_hawkins_studio__1853",
+   "source": "every state dated",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN53_iguanodon_dinner__31Dec1853",
+   "source": "every state dated",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN54_geological_strata__1854",
+   "source": "every state dated",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN54_lake_islands__1854",
+   "source": "every state dated",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN54_secondary_island_sculptures__1854",
+   "source": "every state dated",
+   "value": null
+  },
+  {
+   "pass": true,
+   "check": "collection dated: DN54_tertiary_island_mammals__1854",
+   "source": "every state dated",
+   "value": null
+  }
+ ]
+}
