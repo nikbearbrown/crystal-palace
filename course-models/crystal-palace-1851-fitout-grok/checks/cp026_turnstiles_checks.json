@@ -1,0 +1,314 @@
+{
+ "checks": [
+  {
+   "id": "T01",
+   "check": "door openings in the central bay at 7 ft (count)",
+   "target": 3,
+   "tol": 0,
+   "measured": 3,
+   "pass": true,
+   "source": "FT06: three 6 ft door openings"
+  },
+  {
+   "id": "T02_0",
+   "check": "door opening 0 clear width at 7 ft (ft)",
+   "target": 6.0,
+   "tol": 0.03,
+   "measured": 6.0,
+   "pass": true,
+   "source": "FT06 (6 ft openings; leaves 2 x 3 ft)"
+  },
+  {
+   "id": "T02_1",
+   "check": "door opening 1 clear width at 7 ft (ft)",
+   "target": 6.0,
+   "tol": 0.03,
+   "measured": 5.99,
+   "pass": true,
+   "source": "FT06 (6 ft openings; leaves 2 x 3 ft)"
+  },
+  {
+   "id": "T02_2",
+   "check": "door opening 2 clear width at 7 ft (ft)",
+   "target": 6.0,
+   "tol": 0.03,
+   "measured": 5.99,
+   "pass": true,
+   "source": "FT06 (6 ft openings; leaves 2 x 3 ft)"
+  },
+  {
+   "id": "T03",
+   "check": "door opening pitch (ft) = 8 ft compartments between wood columns B",
+   "target": 8.0,
+   "tol": 0.03,
+   "measured": 8.002,
+   "pass": true,
+   "source": "Downes p.34, Plate XXI: 24 ft bays in three 8 ft compartments"
+  },
+  {
+   "id": "T04",
+   "check": "no opening through the frame at 14.0-14.5 ft (door head) -> free intervals at 14.25 ft",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "Downes Plate XXII Fig 18: door head 6 in square"
+  },
+  {
+   "id": "T05",
+   "check": "door head underside (ft) = FT06 leaf top",
+   "target": 13.99999997747226,
+   "tol": 0.01,
+   "measured": 14.0,
+   "pass": true,
+   "source": "FT06 leaves 14 ft"
+  },
+  {
+   "id": "T06",
+   "check": "frame top (ft) = flanking WALL_SE1 frame top (16.67)",
+   "target": 16.666666416358446,
+   "tol": 0.01,
+   "measured": 16.667,
+   "pass": true,
+   "source": "build_transept.py wall_run (19.17 - 2.5 louvre)"
+  },
+  {
+   "id": "T07",
+   "check": "frame depth in y (ft) = wall-frame depth 6 in (+ 1 in sill nosing each side)",
+   "target": 0.6,
+   "tol": 0.01,
+   "measured": 0.6,
+   "pass": true,
+   "source": "mesh_wall_bay +-3 in; sill 4.3 x 6.5 in (Plate XXII Fig 18)"
+  },
+  {
+   "id": "T08",
+   "check": "frame stays on the wall line: centre y (ft)",
+   "target": -204.0,
+   "tol": 0.01,
+   "measured": -204.0,
+   "pass": true,
+   "source": "south end column line y = -204"
+  },
+  {
+   "id": "T09a",
+   "check": "louvre band bottom (ft) = flanking WLOUV_SE1",
+   "target": 16.945835173599363,
+   "tol": 0.001,
+   "measured": 16.946,
+   "pass": true,
+   "source": "FT96"
+  },
+  {
+   "id": "T09b",
+   "check": "louvre band top (ft) = flanking WLOUV_SE1",
+   "target": 18.97083179844333,
+   "tol": 0.001,
+   "measured": 18.971,
+   "pass": true,
+   "source": "FT96"
+  },
+  {
+   "id": "T09c",
+   "check": "louvre band x span (ft) = central bay 24",
+   "target": 24.0,
+   "tol": 0.01,
+   "measured": 24.006,
+   "pass": true,
+   "source": "FT96"
+  },
+  {
+   "id": "T10",
+   "check": "solid runs at 7 ft between the frame posts at +-12 (2 end door posts + 2 post/column/post runs)",
+   "target": 4,
+   "tol": 0,
+   "measured": 4,
+   "pass": true,
+   "source": "FT95"
+  },
+  {
+   "id": "T11",
+   "check": "end door post width (ft); Downes door posts 1 ft x 6 in, here 9.5 in (FT99)",
+   "target": 1.0,
+   "tol": 0.25,
+   "measured": 0.79,
+   "pass": true,
+   "source": "Downes Plate XXII Fig 17 (door posts 1 ft x 6 in)"
+  },
+  {
+   "id": "T12",
+   "check": "door post + wood column B + door post run (ft) = 2 ft between openings",
+   "target": 2.0,
+   "tol": 0.03,
+   "measured": 2.005,
+   "pass": true,
+   "source": "FT06 openings at 8 ft pitch"
+  },
+  {
+   "id": "T13",
+   "check": "leaf hinge lines (xc +- 2.88 ft) inside the clear openings: blocked count",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "FT06 leaves swing inside the opening"
+  },
+  {
+   "id": "T14",
+   "check": "figures standing inside the new frame (count)",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "staging"
+  },
+  {
+   "id": "T15a",
+   "check": "Kensington Road side trees (count, x -700..700)",
+   "target": 11,
+   "tol": 0,
+   "measured": 11,
+   "pass": true,
+   "source": "FT97"
+  },
+  {
+   "id": "T15b",
+   "check": "tree row mean y (ft); exterior EX31 row y = -520",
+   "target": -520.0,
+   "tol": 12.0,
+   "measured": -521.206,
+   "pass": true,
+   "source": "exterior EX31"
+  },
+  {
+   "id": "T15c",
+   "check": "max |y - (-520)| (ft) <= 12",
+   "target": 0.0,
+   "tol": 12.0,
+   "measured": 11.332,
+   "pass": true,
+   "source": "EX22 jitter +-12"
+  },
+  {
+   "id": "T15d",
+   "check": "min tree spacing (ft) >= 115",
+   "target": 132.5,
+   "tol": 17.5,
+   "measured": 120.549,
+   "pass": true,
+   "source": "EX31 115-150 ft"
+  },
+  {
+   "id": "T15e",
+   "check": "max tree spacing (ft) <= 150",
+   "target": 132.5,
+   "tol": 17.5,
+   "measured": 143.906,
+   "pass": true,
+   "source": "EX31 115-150 ft"
+  },
+  {
+   "id": "T15f",
+   "check": "lowest tree top (ft) within the exterior 62-86 ft range +-10 %",
+   "target": 74.0,
+   "tol": 18.2,
+   "measured": 59.714,
+   "pass": true,
+   "source": "EX22 62/74/86 ft"
+  },
+  {
+   "id": "T15g",
+   "check": "highest tree top (ft) within the exterior 62-86 ft range +-10 %",
+   "target": 74.0,
+   "tol": 18.2,
+   "measured": 85.277,
+   "pass": true,
+   "source": "EX22 62/74/86 ft"
+  },
+  {
+   "id": "T15h",
+   "check": "nearest tree to the south front (ft) > 300 (outside the apron, beyond the queue)",
+   "target": 316.0,
+   "tol": 16.0,
+   "measured": 304.668,
+   "pass": true,
+   "source": "apron to y = -320"
+  },
+  {
+   "id": "T16a",
+   "check": "objects removed from live h03 (count)",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "FT98"
+  },
+  {
+   "id": "T16b",
+   "check": "live h03 objects moved / hidden / re-meshed (count)",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "FT98"
+  },
+  {
+   "id": "T16c",
+   "check": "objects added that are not C26T_* (count)",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "FT98"
+  },
+  {
+   "id": "T16d",
+   "check": "hidden objects: candidate minus live (count)",
+   "target": 0,
+   "tol": 0,
+   "measured": 0,
+   "pass": true,
+   "source": "FT98: nothing hidden"
+  }
+ ],
+ "added": [
+  "C26T_TREE_00",
+  "C26T_TREE_00_LEAVES",
+  "C26T_TREE_00_WOOD",
+  "C26T_TREE_01",
+  "C26T_TREE_01_LEAVES",
+  "C26T_TREE_01_WOOD",
+  "C26T_TREE_02",
+  "C26T_TREE_02_LEAVES",
+  "C26T_TREE_02_WOOD",
+  "C26T_TREE_03",
+  "C26T_TREE_03_LEAVES",
+  "C26T_TREE_03_WOOD",
+  "C26T_TREE_04",
+  "C26T_TREE_04_LEAVES",
+  "C26T_TREE_04_WOOD",
+  "C26T_TREE_05",
+  "C26T_TREE_05_LEAVES",
+  "C26T_TREE_05_WOOD",
+  "C26T_TREE_06",
+  "C26T_TREE_06_LEAVES",
+  "C26T_TREE_06_WOOD",
+  "C26T_TREE_07",
+  "C26T_TREE_07_LEAVES",
+  "C26T_TREE_07_WOOD",
+  "C26T_TREE_08",
+  "C26T_TREE_08_LEAVES",
+  "C26T_TREE_08_WOOD",
+  "C26T_TREE_09",
+  "C26T_TREE_09_LEAVES",
+  "C26T_TREE_09_WOOD",
+  "C26T_TREE_10",
+  "C26T_TREE_10_LEAVES",
+  "C26T_TREE_10_WOOD",
+  "C26T_WALL_SE1_mid_frame",
+  "C26T_WALL_SE1_mid_sash",
+  "C26T_WLOUV_SE1_mid"
+ ],
+ "changed": [],
+ "removed": []
+}

@@ -1,0 +1,52 @@
+{
+ "CP026_turnstiles_start": {
+  "luma_before": 86.32,
+  "luma_after": 66.55,
+  "max_diff": 235,
+  "mean_diff": 23.441,
+  "px_gt20": 389182,
+  "bbox_gt20": [
+   328,
+   0,
+   1919,
+   996
+  ],
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP026_turnstiles_start_pair.png",
+  "small_pair": "/workspace/tmp/cp026cand/CP026_turnstiles_start_pair_small.png"
+ },
+ "CP026_shilling_ext_start": {
+  "luma_before": 161.88,
+  "luma_after": 166.01,
+  "max_diff": 239,
+  "mean_diff": 8.076,
+  "px_gt20": 134564,
+  "bbox_gt20": [
+   533,
+   111,
+   1713,
+   765
+  ],
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP026_sidefx_shilling_ext_pair.png",
+  "small_pair": "/workspace/tmp/cp026cand/CP026_shilling_ext_start_pair_small.png"
+ },
+ "CP028_watering_start": {
+  "luma_before": 50.09,
+  "luma_after": 50.03,
+  "max_diff": 7,
+  "mean_diff": 0.158,
+  "px_gt20": 0,
+  "bbox_gt20": null,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP026_sidefx_watering_pair.png",
+  "small_pair": "/workspace/tmp/cp026cand/CP028_watering_start_pair_small.png"
+ },
+ "CP028_louvre_start": {
+  "luma_before": 87.54,
+  "luma_after": 86.73,
+  "max_diff": 18,
+  "mean_diff": 1.061,
+  "px_gt20": 0,
+  "bbox_gt20": null,
+  "pair": "/workspace/crystal-palace-survey/look/pairs_geo/CANDIDATE_CP026_sidefx_louvre_pair.png",
+  "small_pair": "/workspace/tmp/cp026cand/CP028_louvre_start_pair_small.png"
+ }
+}
