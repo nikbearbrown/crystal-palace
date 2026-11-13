@@ -1,0 +1,9 @@
+80efcd46b9b6ccf40ab64f74b30eec83  before/CAM_CP064_skyline_50mm.png
+6e7b19d0918d3ac45baf67361817af96  before/live_CAM_CP044_pay_desks_35mm.png
+abbce2ca5d4eb458c7a9a6be29380b95  before/samecam_CAM_CP044_maintenance_50mm.png
+6add99980ec624767ee0c0ed6a5fbff5  before/samecam_CAM_CP044_pay_desks_35mm.png
+fc1dc57dfa7b6a7abb387cbb4c1bdf73  after/CAM_CP044_maintenance_50mm.png
+160111891e4cf6df1ada16e4566b9a20  after/CAM_CP044_pay_desks_35mm.png
+1b94b8d94321e44bfdf98d0766d72326  after/CAM_CP064_skyline_50mm.png
+1b984fb69d41f52e812910852cca2e20  rounds/sydenham-1856-r16.blend
+70f5ef98ff05d3b045e963a266343fac  rounds/candidates/sydenham-1856-r16_cp044gate.blend

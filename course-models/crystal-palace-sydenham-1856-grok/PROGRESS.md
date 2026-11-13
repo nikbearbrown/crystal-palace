@@ -155,3 +155,14 @@ never git init inside a grok folder; commit from the worktree root
 
 ## 2026-11-01 Muse intake: Grok Bot review
 - All Muse intake candidates REJECTED after viewing the pairs (see survey look/pairs_geo/README.md). Live blends unchanged; candidate files kept for reference.
+
+## 2026-11-13 CP044 railway-entrance admission CANDIDATE — not live, no verdict
+Resume notes: /workspace/tmp/cp044/PROGRESS.md. Live `rounds/sydenham-1856-r16.blend` untouched (1b984fb6).
+- Why CP044: weakest live frame on the Sydenham contact sheets — the nave "pay desks" sit inside the palm-garden tubs (ray probe: PLACEHOLDER_nave_tubs, black-faced slab), two dark stand-ins, no gate or family; storyboard wants a family at an admission point (no tariff) + staff tending plants / repairing glazing.
+- Script `scripts/candidate_cp044_railway_entrance.py` (on live r16) -> `rounds/candidates/sydenham-1856-r16_cp044gate.blend` (70f5ef98). Dated collection `SY56_railway_entrance_admission__c1856`.
+  Plan 0205 "ENTRANCE FROM RAILWAY STATION" cross at the end of the South Wing (98 x 48 ft arms, 48 ft neck/stub, glazed), the wing staircase drawn just north of it (side flights, landing, central flight to an upper floor at zb+18), admission barrier with 3 cast-iron turnstiles, closed centre gate, 2 oak pay boxes with blank fascia boards, collector's desk; family of four at the left turnstile (backs to lens), money-taker, collector, 10 visitors, glazier on a ladder with a pane, gardener with a can, 10 orange tubs. DEPARTURES D-SY-CP044-01..18.
+  CAM_CP044_pay_desks_35mm MOVED (reframe) to the entrance; new CAM_CP044_maintenance_50mm. Old nave desks left in place.
+- Render chain `scripts/render_cp044_candidate.sh` (live recipe render.py PEOPLE_ERA=1850s SEED=81, 1920x1080 48 spp, both sides) -> `renders/candidates/cp044_gate_20261113/` (md5.txt). Before-side helper `scripts/cp044_link_cams.py` (candidate cameras into live r16, in memory).
+- Mean luma: pay_desks live 58.08 -> 139.11 (reframe; same-camera before 198.91 = empty glazed wing end); maintenance same-camera 200.35 -> 153.34; side effect CP064_skyline (r16 only) 207.46 -> 207.45.
+- Side effects: visibility test over all r16 cameras -> only CAM_CP064_skyline_50mm sees the change (live CP064 hero is on ruins-r17, so no live effect); CP037/CP041/CP042 r16 heroes: none. Rebuild from script = candidate, max diff 0 over all 48 cams (320x180).
+- Live hero note: the r16 CP044 hero (Oct 27, people v3.1) no longer re-renders byte-exact (people_lib now v3.4: mean diff 0.51), so the "before" is the current recipe.

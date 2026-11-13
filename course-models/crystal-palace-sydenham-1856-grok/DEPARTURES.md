@@ -423,3 +423,28 @@ Pairs: `compare/s67b_cand/pair_CP047.jpg`, `pair_CP048.jpg`.
 | Lamassu x4 on Nineveh facade, plan 0205 no. 27 | R/I | x/y read off the gridded plan (±5 ft); orientation along the facade, heads to the entrance is **I** |
 | Nineveh Court building not modelled; bulls free-standing | I | dated SY54 to lost 1866 |
 | Extra camera CAM_CP037_nineveh_facade_28mm | R | storyboard CP037 cam cannot see the Nineveh facade |
+
+## 2026-11-13 CP044 railway-entrance admission CANDIDATE (`rounds/candidates/sydenham-1856-r16_cp044gate.blend`, script `scripts/candidate_cp044_railway_entrance.py`) — not live, no verdict
+Dated collection `SY56_railway_entrance_admission__c1856` (cp_state SY-EARLY_c1856). Live `rounds/sydenham-1856-r16.blend` untouched (1b984fb6).
+Dimension check against plan 0205 (`/workspace/crystal-palace-workshop/models/sy-egyptian-column-pair/refs/guide-1856-ground-plan-0205.jpg`, full-res px, 2.887 px/ft):
+
+| ID | Item | Grade | Source value | Model value | Departure |
+|---|---|---|---|---|---|
+| D-SY-CP044-01 | "ENTRANCE FROM RAILWAY STATION" cross at the end of the South Wing | R | plan 0205 label + outline | cross built at the modelled wing end | — |
+| D-SY-CP044-02 | Cross arms width | R | 282 px = 97.7 ft | 98 ft | +0.3 ft |
+| D-SY-CP044-03 | Arm depth (N-S) | R | 139 px = 48.1 ft | 48 ft (y -601..-649) | -0.1 ft |
+| D-SY-CP044-04 | Neck/stub width | R | 138 px = 47.8 ft | 48 ft | +0.2 ft |
+| D-SY-CP044-05 | Neck 23.6 ft / stub 24.6 ft long | R | 68 / 71 px | 23 / 25 ft | ±0.6 ft |
+| D-SY-CP044-06 | Cross position | R/I | plan registration puts the stub end at y = -663 ft | -674 ft (= WING_Y0 - WING_LEN, guide 574 ft) | **11 ft south**: tied to the modelled wing end, not re-registered |
+| D-SY-CP044-07 | Wing width in the plan neck | R | 92 px = 31.9 ft | 36 ft (existing WING_W) | +4 ft, inherited, not changed |
+| D-SY-CP044-08 | Entrance walls glazed, 24 ft high, flat glazed roofs; 8 ft mullions, sill/transom/plate | I | plan shows dotted (glazed/columned) walls; height not evidenced | 24 ft | U height |
+| D-SY-CP044-09 | Colonnade arrives through the west arm's south wall; 12 ft doorway in the stub | I | colonnade route already U in build.py | opening 24 ft at the colonnade axis | — |
+| D-SY-CP044-10 | Admission barrier across the neck, 3 turnstiles, closed centre gate, 2 pay boxes, collector's desk | I | inferred: the Company took money at the doors and published daily attendance counts; no fittings drawing in the repo | timber dado 3 ft 6 in, turnstiles 4-arm cast iron | fittings designed, not copied; **no Hyde Park part reused** |
+| D-SY-CP044-11 | Pay-box fascia boards left blank (no tariff, no lettering) | B | storyboard CP044: no fabricated tariff, no single price for the whole period | blank green board, gilt lines | — |
+| D-SY-CP044-12 | Orange trees in square tubs in the arms and along the wing | I | company plants (narration); orange trees in tubs are an inference for the wing | 10 tubs | U species/placement |
+| D-SY-CP044-13 | Glazier on a deal ladder offering up a pane; gardener with a zinc can | U | storyboard asks for staff tending plants and repairing glazing | people_lib v3.4 workmen | staged, not documented |
+| D-SY-CP044-14 | Family of four + 9 other visitors + collector (company police uniform) + money-taker | U | storyboard "a family reaches an admission point" | people_lib v3.4, baked meshes (not template-swapped), backs to the lens | — |
+| D-SY-CP044-15 | Wing south glazing faces split at the cross; boarded floor laid over the entrance and the wing to y = -300 ft | I | wing interior floor finish not evidenced | boards_gapped | — |
+| D-SY-CP044-17 | Wing staircase just north of the entrance (plan 0205: two 8 ft side flights 21.8 ft long either side of a 7 ft spine, 7.6 x 22.5 ft landing, 8.7 ft central flight 20 ft long) | R | plan px 23/20/63/22/65/25/58 | as measured, shifted -11 ft with the cross | — |
+| D-SY-CP044-18 | Stair rise and direction: side flights up northward to the landing (+9 ft), central flight up to an upper wing floor at zb+18 (-15.6 ft, the existing frame band) | I | plan shows treads, not levels; guide: 3 storeys in the South Wing | upper floor boards y -505..-100 ft with a balustrade at the stair head | U floor extent |
+| D-SY-CP044-16 | CAM_CP044_pay_desks_35mm moved from the nave palm garden (x -380 ft) to the entrance (x -865, y -636 ft, eye 1.6 m); new CAM_CP044_maintenance_50mm | R | storyboard: hold family at the gate, cut to 50 mm maintenance | reframe — the old nave desks are left in place (sit inside the palm-garden tubs, unchanged) | camera move |
