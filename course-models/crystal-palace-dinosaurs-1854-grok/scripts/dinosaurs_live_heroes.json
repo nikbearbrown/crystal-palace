@@ -1,0 +1,17 @@
+{
+ "date": "2026-11-13",
+ "note": "Per-camera live routing for the dinosaurs-1854 build. Cameras not listed render from the live round rounds/dinosaurs-1854-r05.blend (f879da99). COVERAGE.md (survey) row CP034 points at the CAM_CP034b entry below.",
+ "default_live_round": "rounds/dinosaurs-1854-r05.blend",
+ "cams": {
+  "CAM_CP034b_iguanodon_dinner_28mm": {
+   "blend": "rounds/dinosaurs-1854-r06.blend",
+   "md5": "2707897bac47a2349517394dbf5e038f",
+   "png": "renders/r06/r06_CAM_CP034b_iguanodon_dinner_28mm.png",
+   "recipe": "scripts/render.py -- renders/r06 r06 100 48 CAM_CP034b_iguanodon_dinner_28mm (1920x1080, 48 spp)",
+   "keep": "2026-11-13 CP034b Iguanodon dinner KEEP (D-DN-26..33); pre-keep frame renders/r01/r01_CAM_CP034b_iguanodon_dinner_28mm.png; tag pre_cp034b_keep"
+  }
+ },
+ "not_promoted": {
+  "CAM_CP034_hawkins_studio_28mm": "r06 side effect showed no visible change (luma 147.13->147.12); stays on rounds/dinosaurs-1854-r05.blend"
+ }
+}

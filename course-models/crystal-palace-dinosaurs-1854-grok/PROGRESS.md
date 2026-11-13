@@ -43,3 +43,14 @@ never git init inside a grok folder; commit from the worktree root
 - Pairs python3 scripts/cand_cp034b_dinner_pairs.py -> survey look/pairs_geo/CANDIDATE_CP034b_iguanodon_dinner_{before,after,pair}.png (pair has the ILN woodcut as a third tile) and CANDIDATE_CP034b_sidefx_CP034_hawkins_studio_{before,after,pair}.png; numbers checks/cp034b_dinner_pairs.json.
 - Checks: checks/check_cp034b_dinner.py -> checks/cp034b_dinner_checks.json (dims vs print/accounts + scope/state vs live r05: nothing outside the dinner collection changed, all added objects DN53c_, nothing deleted, collections dated); checks/dimension_check.py on the candidate -> checks/cp034b_dinner_dims_r06cand.txt 13 PASS / 1 FAIL, identical to live r05 (the FAIL is the pre-existing park Iguanodon height, 9.89 vs 8.86 ft, not in this scene).
 - Not done: promotion, KEEP, COVERAGE row change, any live PNG. r05 and its renders unchanged.
+
+## 2026-11-13 CP034b Iguanodon dinner KEEP (scoped promotion, r06)
+- Verdict (pairs viewed by the lead): KEEP the r06 CANDIDATE for the CP034b hero only. The open ground and horizon become an enclosed marquee with the diners seated inside the mould. The CP034_hawkins_studio side effect showed no visible change, so it is NOT promoted and stays on live r05.
+- Live blend `rounds/dinosaurs-1854-r06.blend` = byte copy of the approved `rounds/dinosaurs-1854-r06-cand.blend`, md5 2707897bac47a2349517394dbf5e038f (both).
+- Routing: `scripts/dinosaurs_live_heroes.json` routes ONLY `CAM_CP034b_iguanodon_dinner_28mm` to r06; every other camera stays on r05 (f879da99). Survey COVERAGE row CP034 now names r06 and the new live PNG (fixes the old inconsistency: the row said r02 blend + the 1280x720 r01 PNG).
+- Live PNG `renders/r06/r06_CAM_CP034b_iguanodon_dinner_28mm.png` (1920x1080, scripts/render.py 100% 48 spp, md5 2e06d687).
+- Rebuild from `scripts/cand_cp034b_dinner_20261113.py` (only OUT redirected) into /workspace/tmp/cp034bkeep: live vs rebuild max pixel diff 0; live vs candidate after PNG max pixel diff 0.
+- r05, r02, r01 blends and all renders/r01, r02, r05_cand, r05b_cand PNGs: md5 identical before/after (15 files). Pre-keep frame kept: `renders/r01/r01_CAM_CP034b_iguanodon_dinner_28mm.png`. Tag `pre_cp034b_keep` -> e2914f8 (local).
+- Checks rerun on r06: `checks/cp034b_keep_checks_r06.json` 27/27; `checks/cp034b_keep_dims_r06.txt` 13 PASS / 1 FAIL, identical to the candidate and r05 (pre-existing park Iguanodon height).
+- Chain: `scripts/promote_cp034b_keep.sh` (resumable; log /workspace/tmp/cp034bkeep).
+- Survey pairs: `look/pairs_geo/KEEP_CP034b_iguanodon_dinner_*`; `CANDIDATE_CP034b_sidefx_CP034_hawkins_studio_*` left as is (not promoted).
