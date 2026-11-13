@@ -1,0 +1,13 @@
+STATE  root collection = PARK-NOW_present_day
+PASS  Sydenham ruins shell appended                                [rule]
+PASS  High Level / subway geometry present                         [G-STATION]
+PASS  NSC stadium infield + sports hall block-outs                 [opened 1964 R; forms U]
+PASS  CP066 NSC cameras present                                    [storyboard]
+PASS  footprint overlay present (interpretive)                     [CP072]
+PASS  dinosaurs appended read-only                                 [G-DINO]
+PASS  PPL-NOW visitors present                                     [PPL-NOW]
+PASS  CP071/072/073 cameras present                                [storyboard]
+PASS  CP074/075/076 cameras present                                [storyboard]
+PASS  all 18 cameras on 36 mm sensor                               [rule]
+PASS  no camera roll                                               [rule]
+INFO  objects=541 cameras=18

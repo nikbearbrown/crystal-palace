@@ -1,0 +1,46 @@
+{
+ "CAM_CP070_begin_walk_35mm": {
+  "luma_before": 212.14,
+  "luma_after": 148.44,
+  "max_diff": 252,
+  "mean_diff": 66.123,
+  "px_gt8": 2065050,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP070_park_entry_35mm": {
+  "luma_before": 212.14,
+  "luma_after": 142.46,
+  "max_diff": 249,
+  "mean_diff": 77.051,
+  "px_gt8": 2067943,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP075_layered_nsc_35mm": {
+  "luma_before": 201.62,
+  "luma_after": 201.16,
+  "max_diff": 213,
+  "mean_diff": 0.633,
+  "px_gt8": 18796,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP067_dino_conservation_35mm": {
+  "luma_before": 165.8,
+  "luma_after": 165.81,
+  "max_diff": 35,
+  "mean_diff": 0.005,
+  "px_gt8": 88,
+  "size": [
+   1920,
+   1080
+  ]
+ }
+}

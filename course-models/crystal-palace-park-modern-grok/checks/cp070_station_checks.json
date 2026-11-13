@@ -1,0 +1,67 @@
+[
+ {
+  "ok": true,
+  "check": "nothing deleted (every live object still present)",
+  "src": "scope"
+ },
+ {
+  "ok": true,
+  "check": "all 53 new objects tagged cp070_now",
+  "src": "scope"
+ },
+ {
+  "ok": true,
+  "check": "new objects inside PARKNOW_CP070_lowlevel_station__present",
+  "src": "scope"
+ },
+ {
+  "ok": true,
+  "check": "new collection nested under the dated PARK-NOW_present_day root",
+  "src": "dating"
+ },
+ {
+  "ok": true,
+  "check": "only the two CP070 cameras moved/changed: ['CAM_CP070_begin_walk_35mm', 'CAM_CP070_park_entry_35mm']",
+  "src": "scope"
+ },
+ {
+  "ok": true,
+  "check": "47 live objects hidden (render only), none un-hidden",
+  "src": "scope"
+ },
+ {
+  "ok": true,
+  "check": "hidden set = placeholder trees + 1854 colonnade only",
+  "src": "scope"
+ },
+ {
+  "ok": true,
+  "check": "no Hyde Park / 1851 objects added",
+  "src": "rule: never blend HP and Sydenham"
+ },
+ {
+  "ok": true,
+  "check": "every new collection is dated (present / 1875 building as today)",
+  "src": "dating"
+ },
+ {
+  "ok": true,
+  "check": "walk between CP070 cams = 8.00 m (storyboard 8 m)",
+  "src": "storyboard CP070"
+ },
+ {
+  "ok": true,
+  "check": "35 mm both CP070 cams",
+  "src": "storyboard CP070"
+ },
+ {
+  "ok": true,
+  "check": "36 new visitors/trees grounded: none floating (>3 cm), visitors' soles within 3 cm, tree bases sunk <= 0.30 m []",
+  "src": "no floating"
+ },
+ {
+  "ok": true,
+  "check": "visitor heights 1.62-1.8 m in adult range 1.55-1.90",
+  "src": "PPL-NOW"
+ }
+]

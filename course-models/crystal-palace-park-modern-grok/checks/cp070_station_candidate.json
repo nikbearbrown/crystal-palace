@@ -1,0 +1,493 @@
+{
+ "version": "cp070_now_v1",
+ "src": "/workspace/crystal-palace-park-modern/course-models/crystal-palace-park-modern-grok/rounds/parknow-r02.blend",
+ "hidden": [
+  [
+   "PLACEHOLDER_park_tree_10_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_10_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_11_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_11_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_12_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_12_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_13_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_13_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_21_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_21_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_27_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_27_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_29_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_29_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_35_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_35_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_41_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_41_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_45_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_45_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_47_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_47_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_48_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_48_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_50_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_50_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_51_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_51_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_62_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_62_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_66_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_66_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_70_crown",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "PLACEHOLDER_park_tree_70_trunk",
+   "lollipop placeholder replaced by a parametric tree"
+  ],
+  [
+   "colonnade_roof",
+   "1854 covered way, not standing today"
+  ],
+  [
+   "colonnade_frame",
+   "1854 covered way, not standing today"
+  ],
+  [
+   "PLACEHOLDER_park_tree_08_crown",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_08_trunk",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_34_crown",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_34_trunk",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_39_crown",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_39_trunk",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_61_crown",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_61_trunk",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_68_crown",
+   "inside the new station/road footprint"
+  ],
+  [
+   "PLACEHOLDER_park_tree_68_trunk",
+   "inside the new station/road footprint"
+  ],
+  [
+   "ppl_now_061",
+   "inside the new station/road footprint"
+  ]
+ ],
+ "objects": 55,
+ "dims": {
+  "frontage_m": 47.0,
+  "left_pavilion_w_m": 13.0,
+  "central_w_m": 22.0,
+  "right_pavilion_w_m": 12.0,
+  "left_eaves_m": 9.2,
+  "central_parapet_m": 6.8,
+  "right_eaves_m": 8.6,
+  "left_roof_rise_m": 6.6,
+  "left_roof_pitch_deg": 68.0,
+  "right_roof_pitch_deg": 35.0
+ },
+ "cams": {
+  "CAM_CP070_begin_walk_35mm": {
+   "loc": [
+    -281.055,
+    -387.87,
+    -27.418
+   ],
+   "look": [
+    -247.555,
+    -402.07,
+    -20.818
+   ],
+   "lens": 35
+  },
+  "CAM_CP070_park_entry_35mm": {
+   "loc": [
+    -273.055,
+    -387.87,
+    -27.418
+   ],
+   "look": [
+    -269.455,
+    -346.67,
+    -25.818
+   ],
+   "lens": 35
+  },
+  "walk_m": 8.0
+ },
+ "station_ngr_model": [
+  -260.05,
+  -407.07
+ ],
+ "layout": {
+  "FY": -401.07,
+  "BX0": -283.55462457701935,
+  "BX1": -236.55462457701935,
+  "ZR": -29.138,
+  "ROAD": [
+   -397.07,
+   -389.67
+  ],
+  "WALL_Y": -386.67,
+  "DOOR_X": -266.05
+ },
+ "visitors": [
+  [
+   "cp70_ppl_emerging",
+   -265.95,
+   -400.07,
+   -29.02,
+   1.74
+  ],
+  [
+   "cp70_ppl_forecourt_phone",
+   -259.95,
+   -398.97,
+   -29.02,
+   1.66
+  ],
+  [
+   "cp70_ppl_forecourt_walk",
+   -254.05,
+   -399.47,
+   -29.02,
+   1.8
+  ],
+  [
+   "cp70_ppl_forecourt_2",
+   -247.05,
+   -398.67,
+   -29.02,
+   1.7
+  ],
+  [
+   "cp70_ppl_gate_in",
+   -271.55,
+   -373.67,
+   -27.29,
+   1.62
+  ],
+  [
+   "cp70_ppl_gate_in2",
+   -272.75,
+   -367.17,
+   -26.53,
+   1.78
+  ],
+  [
+   "cp70_ppl_parkpath_far",
+   -266.25,
+   -353.07,
+   -26.07,
+   1.72
+  ],
+  [
+   "cp70_ppl_northpav",
+   -294.45,
+   -387.87,
+   -29.02,
+   1.68
+  ],
+  [
+   "cp70_ppl_northpav2",
+   -258.45,
+   -388.07,
+   -29.02,
+   1.76
+  ]
+ ],
+ "trees": [
+  [
+   "cp70_tree_00",
+   "oak",
+   15.0,
+   -281.5,
+   -380.2
+  ],
+  [
+   "cp70_tree_01",
+   "elm",
+   17.0,
+   -264.0,
+   -381.2
+  ],
+  [
+   "cp70_tree_02",
+   "oak",
+   14.0,
+   -296.5,
+   -379.7
+  ],
+  [
+   "cp70_tree_03",
+   "oak",
+   16.0,
+   -248.5,
+   -378.7
+  ],
+  [
+   "cp70_tree_04",
+   "elm",
+   18.0,
+   -275.5,
+   -360.7
+  ],
+  [
+   "cp70_tree_05",
+   "oak",
+   15.0,
+   -254.5,
+   -356.7
+  ],
+  [
+   "cp70_tree_06",
+   "elm",
+   15.0,
+   -312.5,
+   -377.7
+  ],
+  [
+   "cp70_tree_07",
+   "oak",
+   14.0,
+   -230.5,
+   -376.7
+  ],
+  [
+   "cp70_tree_08",
+   "oak",
+   17.0,
+   -290.5,
+   -348.7
+  ],
+  [
+   "cp70_tree_09",
+   "elm",
+   16.0,
+   -239.5,
+   -342.7
+  ]
+ ],
+ "replaced_trees": [
+  [
+   "PLACEHOLDER_park_tree_10_crown",
+   -227.3,
+   -233.2,
+   16.8
+  ],
+  [
+   "PLACEHOLDER_park_tree_11_crown",
+   -281.6,
+   -226.1,
+   19.0
+  ],
+  [
+   "PLACEHOLDER_park_tree_12_crown",
+   -178.9,
+   -379.1,
+   14.1
+  ],
+  [
+   "PLACEHOLDER_park_tree_13_crown",
+   -355.0,
+   -252.3,
+   15.0
+  ],
+  [
+   "PLACEHOLDER_park_tree_21_crown",
+   -221.5,
+   -325.5,
+   13.0
+  ],
+  [
+   "PLACEHOLDER_park_tree_27_crown",
+   -336.5,
+   -270.4,
+   16.1
+  ],
+  [
+   "PLACEHOLDER_park_tree_29_crown",
+   -242.3,
+   -370.4,
+   16.6
+  ],
+  [
+   "PLACEHOLDER_park_tree_35_crown",
+   -275.2,
+   -254.2,
+   15.9
+  ],
+  [
+   "PLACEHOLDER_park_tree_41_crown",
+   -285.0,
+   -302.5,
+   18.3
+  ],
+  [
+   "PLACEHOLDER_park_tree_45_crown",
+   -303.5,
+   -334.7,
+   19.0
+  ],
+  [
+   "PLACEHOLDER_park_tree_47_crown",
+   -173.3,
+   -222.9,
+   19.0
+  ],
+  [
+   "PLACEHOLDER_park_tree_48_crown",
+   -293.4,
+   -356.5,
+   16.7
+  ],
+  [
+   "PLACEHOLDER_park_tree_50_crown",
+   -255.0,
+   -271.1,
+   14.1
+  ],
+  [
+   "PLACEHOLDER_park_tree_51_crown",
+   -342.3,
+   -226.1,
+   14.1
+  ],
+  [
+   "PLACEHOLDER_park_tree_62_crown",
+   -92.5,
+   -299.9,
+   17.9
+  ],
+  [
+   "PLACEHOLDER_park_tree_66_crown",
+   -354.6,
+   -289.4,
+   14.3
+  ],
+  [
+   "PLACEHOLDER_park_tree_70_crown",
+   -350.6,
+   -338.8,
+   13.8
+  ]
+ ]
+}
