@@ -231,3 +231,8 @@ never git init inside a grok folder; commit from the worktree root
 - Checks: scripts/check_cp026_turnstiles.py -> checks/cp026_turnstiles_checks.json 30/30; check_dims 39/39 (checks/cp026_turnstiles_dims.json, run on a copy in /workspace/tmp/cp026cand/dimsrun); check_state 38/38 (checks/cp026_turnstiles_state.json). Live h03 also 39/39 and 38/38.
 - Survey pairs (grok-survey): look/pairs_geo/CANDIDATE_CP026_turnstiles_start_{before,after,pair,detail_pair}.png and CANDIDATE_CP026_sidefx_{shilling_ext,watering,louvre}_{before,after,pair}.png; numbers in checks/cp026_turnstiles_pairs.json.
 - Not done: promotion, KEEP, any live PNG, manifest or COVERAGE change. rounds/h03.blend and renders/h03/* unchanged.
+
+## 2026-11-13 KEEP CP026 turnstiles (scoped, FT95-FT100) — live in rounds/h05.blend
+- Parent viewed the pairs: KEEP for CP026_turnstiles_start (open sky/lawn hole -> three framed doorways with elms on the skyline). CP026_shilling_ext side effect REJECTED (black rectangles on the new door posts at the door-head line, FT99e); CP028_watering and CP028_louvre no visible change, not promoted.
+- rounds/h05.blend = byte copy of approved candidate rounds/candidates/h03_cp026turnstiles.blend (md5 c1fe13bc). h05 because h04 is the CP027 stair-foot live blend (cc938620). rounds/h03.blend (0a1da8f2) and renders/h03/* unchanged.
+- Live render renders/h05/CP026_turnstiles_start.png via scripts/render_cp026turnstiles_live.sh [--rebuild]; live vs rebuild max diff 0, live vs candidate after max diff 0. Manifest scripts/fitout_live_heroes.json routes CP026_turnstiles_start to h05; pre-keep frame stays renders/h01/CP026_turnstiles_start.png. Checks dims/state rerun on h05. Pre-keep tag pre_cp026turnstiles_keep (local).
