@@ -1,0 +1,94 @@
+[
+ {
+  "ok": true,
+  "check": "frontage width (two pavilions + 1-storey link)",
+  "value": 47.0,
+  "src": "HE 1064353 composition; width I (no measured elevation)"
+ },
+ {
+  "ok": true,
+  "check": "building centred on HE NGR TQ 34123 70553 via D-PM-31 grid",
+  "value": [
+   -260.05,
+   -407.07,
+   -260.05,
+   -407.07
+  ],
+  "src": "HE 1064353 NGR; D-PM-31 grid"
+ },
+ {
+  "ok": true,
+  "check": "registered point at the head of the Sydenham build's 1854 Low Level shed (x -344..-198, y -411..-439 m)",
+  "value": [
+   -260.05,
+   -407.07
+  ],
+  "src": "sydenham D-R14-S2 (independent placement)"
+ },
+ {
+  "ok": true,
+  "check": "left pavilion is the tallest element ('very steep hipped slate roof')",
+  "value": 16.25,
+  "src": "HE 1064353"
+ },
+ {
+  "ok": true,
+  "check": "both pavilions 2 storeys (4.0-5.0 m per Victorian storey)",
+  "value": [
+   9.2,
+   8.6
+  ],
+  "src": "HE 1064353 '2 storeys'; storey height I"
+ },
+ {
+  "ok": true,
+  "check": "central ticket-office section 1 storey, lower than both pavilions",
+  "value": 6.8,
+  "src": "HE 1064353 '1 storey'"
+ },
+ {
+  "ok": true,
+  "check": "left roof 'very steep', right roof ordinary hipped",
+  "value": [
+   68.0,
+   35.0
+  ],
+  "src": "HE 1064353"
+ },
+ {
+  "ok": true,
+  "check": "2 round-headed doorcases with fanlights + 4 windows in the central section (WDWWDW)",
+  "value": "WDWWDW",
+  "src": "HE 1064353"
+ },
+ {
+  "ok": true,
+  "check": "no canopy over the entrance ('canopy now missing')",
+  "value": "none",
+  "src": "HE 1064353"
+ },
+ {
+  "ok": true,
+  "check": "carriageway width",
+  "value": 7.4,
+  "src": "UK single carriageway 7.3 m (DMRB CD 127) I"
+ },
+ {
+  "ok": true,
+  "check": "Rail Symbol 2 outline proportion 38:23",
+  "value": 1.652,
+  "src": "Network Rail 'Rail Symbol 2' guidelines 1.2"
+ },
+ {
+  "ok": true,
+  "check": "totem name 'Crystal Palace' readable width > 1 m",
+  "value": 1.68,
+  "src": "station sign I"
+ },
+ {
+  "ok": true,
+  "check": "park railings/piers height above pavement",
+  "value": 3.12,
+  "src": "typical park boundary I"
+ }
+]

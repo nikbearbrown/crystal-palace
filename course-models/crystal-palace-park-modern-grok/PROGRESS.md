@@ -82,3 +82,12 @@ never git init inside a grok folder; commit from the worktree root
 - Luma: CP070 begin_walk 212.14 -> 148.44; CP070 park_entry 212.14 -> 142.46; side effects CP075 201.62 -> 201.16 (station roof on far right horizon + replaced trees), CP067 165.80 -> 165.81 (one 9x10 px patch at the right edge).
 - Checks: `checks/check_cp070_station.py` 13/13 (scope/state/grounding/walk 8.00 m/35 mm), `checks/check_cp070_station_dims.py` 13/13, `checks/dimension_check.py` on the candidate 11 PASS identical to live r02.
 - Pre-candidate tag `pre_cp070station_cand` (= 0b1ecf3, local). Not done: promotion, manifest change, COVERAGE row change, any live PNG. NOT pushed.
+
+## CP070 Low Level station KEEP, scoped promotion (2026-11-13 Grok; parent viewed the pairs)
+- Verdict: KEEP for both CP070 cams (begin_walk, park_entry); the reframe is accepted (the old frame was an empty road slab). REJECT the CP075 and CP067 side effects: they stay on live parknow-r02.
+- Scoped: new live blend `rounds/parknow-r22_cp070.blend` (md5 22ee900ffa91caa7494c0e8c4f2a35fc, byte copy of the approved candidate `rounds/candidates/parknow-r02_cp070station.blend`), used ONLY by CAM_CP070_begin_walk_35mm and CAM_CP070_park_entry_35mm. `rounds/parknow-r02.blend` unchanged (48fc01ec) and still serves CP067/072/074/075. Pre-KEEP state pinned by local tag `pre_cp070station_keep` (= 7c17249).
+- Manifest `scripts/parknow_live_heroes.json` (CP070 x2 -> r22; `not_promoted_cp070_station` lists CP075/CP067). Live render `scripts/render_cp070_station_live.sh [--rebuild] [outdir]` (plateau shown + render_cp076_look.py CP070, exposure -0.8, 1920x1080, 48 spp, one cam per session); `--rebuild` builds from r02 into a temp blend and never overwrites r22.
+- Live heroes: `renders/r22_parknow_CAM_CP070_begin_walk_35mm.png` (2267ba17), `renders/r22_parknow_CAM_CP070_park_entry_35mm.png` (c1e222e4). Rebuild from script max diff 0 on both; live = candidate after max diff 0 on both (`checks/cp070_keep_diffs_r22.json`). Pre-KEEP frames `renders/r02/r02_CAM_CP070_*.png` left in place.
+- Checks on r22: `check_cp070_station.py` 13/13 (`checks/cp070_keep_checks_r22.json`), dims 13/13 (`checks/cp070_keep_dims_r22.json`), `dimension_check.py` 11 PASS identical to the candidate/live r02 (`checks/cp070_keep_dimcheck_r22.txt`).
+- Regression: parknow-r02.blend and all renders/r02/*.png + renders/r01_*.png md5-unchanged; every pre-existing blend byte-unchanged.
+- NOT pushed.

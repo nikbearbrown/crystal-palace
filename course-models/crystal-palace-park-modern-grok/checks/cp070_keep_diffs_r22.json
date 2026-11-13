@@ -1,0 +1,11 @@
+{
+ "date": "2026-11-13",
+ "round": "rounds/parknow-r22_cp070.blend",
+ "round_md5": "22ee900ffa91caa7494c0e8c4f2a35fc",
+ "candidate_md5": "22ee900ffa91caa7494c0e8c4f2a35fc",
+ "byte_identical_to_candidate": true,
+ "recipe": "scripts/render_cp070_station_live.sh (plateau shown + render_cp076_look.py CP070, exposure -0.8, 1920x1080, 48 spp)",
+ "CAM_CP070_begin_walk_35mm": {"live": "renders/r22_parknow_CAM_CP070_begin_walk_35mm.png", "md5": "2267ba17cda69734c09375ed088794b7", "rebuild_from_script_max_diff": 0, "live_vs_candidate_after_max_diff": 0},
+ "CAM_CP070_park_entry_35mm": {"live": "renders/r22_parknow_CAM_CP070_park_entry_35mm.png", "md5": "c1e222e4a707162d03aa75c90592ebee", "rebuild_from_script_max_diff": 0, "live_vs_candidate_after_max_diff": 0},
+ "unchanged": "rounds/parknow-r02.blend 48fc01ec and renders/r02/*.png, renders/r01_*.png md5-identical to before the promotion"
+}
