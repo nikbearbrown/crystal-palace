@@ -1,0 +1,181 @@
+{
+ "version": "cp066_nsc64_v1",
+ "src": "/workspace/crystal-palace-park-modern/course-models/crystal-palace-park-modern-grok/rounds/park60-r17.blend",
+ "date_range": "1964-05 .. 1968-05 (cinder track; pre-Tartan, pre-Jubilee Stand)",
+ "hidden": [
+  [
+   "nsc_bank_E",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_E_mid",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_E_seats",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_N",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_N_mid",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_N_seats",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_S",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_S_mid",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_S_seats",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_W",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_W_mid",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_bank_W_seats",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_flood_pole_0",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_flood_pole_1",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_flood_pole_2",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_flood_pole_3",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_infield",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_sports_hall",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_sports_hall_glazing",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_sports_hall_roof",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_track_E",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_track_N",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_track_S",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ],
+  [
+   "nsc_track_W",
+   "r17 NSC block-out replaced by the 1964-67 build"
+  ]
+ ],
+ "objects": 22,
+ "dims": {
+  "lap_m": 402.336,
+  "bend_r": 36.5,
+  "straight": 85.557,
+  "lanes": 8,
+  "lane_w": 1.2192,
+  "track_outer_len": 178.06,
+  "track_outer_w": 92.51,
+  "jump_pit_m": [
+   9.0,
+   2.8
+  ],
+  "west_stand": {
+   "rows": 34,
+   "tread": 0.8,
+   "rise": 0.38,
+   "front_d": 13.0,
+   "back_d": 40.5,
+   "back_row_h": 14.12,
+   "wrap_deg": 30.6,
+   "seats_est": 10372
+  },
+  "canopy": {
+   "cantilever_m": 14.1,
+   "length_m": 85.56,
+   "front_clear_over_tread": 7.37
+  },
+  "terraces": {
+   "steps": 14,
+   "tread": 0.75,
+   "rise": 0.25,
+   "top_h": 4.5
+  },
+  "sports_centre": {
+   "footprint": [
+    128.0,
+    55.0
+   ],
+   "area_m2": 7040.0,
+   "acres": 1.74,
+   "plinth_h": 5.25,
+   "glazed_h": 9.5,
+   "vent_tower_h_above_roof": 15.0
+  },
+  "mast_0": {
+   "x": -135.0,
+   "y": -605.0,
+   "base": -46.76,
+   "top": -12.0,
+   "h": 34.76
+  },
+  "mast_1": {
+   "x": 35.0,
+   "y": -605.0,
+   "base": -46.76,
+   "top": -12.0,
+   "h": 34.76
+  },
+  "mast_2": {
+   "x": -135.0,
+   "y": -495.0,
+   "base": -43.26,
+   "top": -12.0,
+   "h": 31.26
+  },
+  "mast_3": {
+   "x": 35.0,
+   "y": -495.0,
+   "base": -43.26,
+   "top": -12.0,
+   "h": 31.26
+  }
+ },
+ "people": {
+  "athletes": 14,
+  "spectators": 88
+ }
+}

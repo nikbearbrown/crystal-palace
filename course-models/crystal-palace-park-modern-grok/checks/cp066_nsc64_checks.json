@@ -1,0 +1,102 @@
+[
+ {
+  "check": "no live object removed",
+  "pass": true,
+  "info": "0 missing"
+ },
+ {
+  "check": "only tagged cp066 objects added",
+  "pass": true,
+  "info": "new=22 extra=[]"
+ },
+ {
+  "check": "cameras unchanged (transform + lens)",
+  "pass": true,
+  "info": "[]"
+ },
+ {
+  "check": "lights unchanged (incl. the 4 nsc flood lights)",
+  "pass": true,
+  "info": "[]"
+ },
+ {
+  "check": "only the 24 r17 nsc_ block-out meshes hidden",
+  "pass": true,
+  "info": "24 hidden"
+ },
+ {
+  "check": "nothing un-hidden",
+  "pass": true,
+  "info": "[]"
+ },
+ {
+  "check": "no live object moved",
+  "pass": true,
+  "info": "[]"
+ },
+ {
+  "check": "scene exposure/look/world/res/spp unchanged in file",
+  "pass": true,
+  "info": ""
+ },
+ {
+  "check": "mast_0 grounded",
+  "pass": true,
+  "info": "base -46.76 ground -45.96"
+ },
+ {
+  "check": "mast_1 grounded",
+  "pass": true,
+  "info": "base -46.76 ground -45.96"
+ },
+ {
+  "check": "mast_2 grounded",
+  "pass": true,
+  "info": "base -43.26 ground -42.46"
+ },
+ {
+  "check": "mast_3 grounded",
+  "pass": true,
+  "info": "base -43.26 ground -42.46"
+ },
+ {
+  "check": "no terrain/path pokes through the arena floor (Z0 -43.1)",
+  "pass": true,
+  "info": "highest -43.23 (central_walk.002)"
+ },
+ {
+  "check": "sports centre plinth grounded",
+  "pass": true,
+  "info": "{'footprint': [128.0, 55.0], 'area_m2': 7040.0, 'acres': 1.74, 'plinth_h': 5.25, 'glazed_h': 9.5, 'vent_tower_h_above_roof': 15.0}"
+ },
+ {
+  "check": "lap 440 yd on the measurement line",
+  "pass": true,
+  "info": "402.336"
+ },
+ {
+  "check": "8 lanes x 4 ft",
+  "pass": true,
+  "info": ""
+ },
+ {
+  "check": "sports centre = 1.75 acres (+-2%)",
+  "pass": true,
+  "info": "1.74"
+ },
+ {
+  "check": "stand seats in a 12,000 order (8k-14k benches at 0.5 m)",
+  "pass": true,
+  "info": "10372"
+ },
+ {
+  "check": "canopy clear height over covered front row 5-9 m",
+  "pass": true,
+  "info": "7.37"
+ },
+ {
+  "check": "no east stand (Jubilee Stand is 1977)",
+  "pass": true,
+  "info": ""
+ }
+]

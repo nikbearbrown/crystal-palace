@@ -1,0 +1,62 @@
+{
+ "CAM_CP066_nsc_stadium_35mm": {
+  "luma_before": 167.02,
+  "luma_after": 195.41,
+  "max_diff": 247,
+  "mean_diff": 38.372,
+  "px_gt8": 1093018,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP066_nsc1964_stadium_pair.png"
+ },
+ "CAM_CP066_nsc_wide_35mm": {
+  "luma_before": 169.3,
+  "luma_after": 176.2,
+  "max_diff": 228,
+  "mean_diff": 21.519,
+  "px_gt8": 752709,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP066_sidefx_nsc_wide_pair.png"
+ },
+ "CAM_CP066_nsc_hall_35mm": {
+  "luma_before": 32.17,
+  "luma_after": 0.08,
+  "max_diff": 228,
+  "mean_diff": 30.213,
+  "px_gt8": 532941,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP066_sidefx_nsc_hall_pair.png"
+ },
+ "CAM_CP065_hl_closed_35mm": {
+  "luma_before": 183.79,
+  "luma_after": 183.79,
+  "max_diff": 2,
+  "mean_diff": 0.005,
+  "px_gt8": 0,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "none (no visible change: 0 px > 8)"
+ },
+ "CAM_CP065_subway_threshold_35mm": {
+  "luma_before": 91.54,
+  "luma_after": 91.5,
+  "max_diff": 13,
+  "mean_diff": 0.162,
+  "px_gt8": 40,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP066_sidefx_CP065_subway_threshold_park60_pair.png"
+ }
+}
