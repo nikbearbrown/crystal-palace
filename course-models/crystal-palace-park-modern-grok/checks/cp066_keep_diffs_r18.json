@@ -1,0 +1,16 @@
+{
+ "live": "renders/r18_park60_CAM_CP066_nsc_stadium_35mm.png",
+ "live_md5": "06729548e35d9dde00bdd44425cb2863",
+ "size": [
+  1920,
+  1080
+ ],
+ "luma": 195.41,
+ "candidate_after": "renders/candidates/cp066_nsc64_20261114/after/CAM_CP066_nsc_stadium_35mm.png",
+ "candidate_after_md5": "f50c509b96b6fc86bc72d4cc6685f8e7",
+ "max_diff_live_vs_candidate": 0,
+ "rebuild_md5": "6354e6323b3d772b3907343abf8ec231",
+ "max_diff_rebuild_vs_live": 1,
+ "blend": "rounds/park60-r18_cp066.blend",
+ "blend_md5": "19af4411de9b598499c1f9ffe04c021b"
+}

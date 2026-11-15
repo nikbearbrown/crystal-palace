@@ -1,0 +1,21 @@
+PASS no live object removed 0 missing
+PASS only tagged cp066 objects added new=22 extra=[]
+PASS cameras unchanged (transform + lens) []
+PASS lights unchanged (incl. the 4 nsc flood lights) []
+PASS only the 24 r17 nsc_ block-out meshes hidden 24 hidden
+PASS nothing un-hidden []
+PASS no live object moved []
+PASS scene exposure/look/world/res/spp unchanged in file 
+PASS mast_0 grounded base -46.76 ground -45.96
+PASS mast_1 grounded base -46.76 ground -45.96
+PASS mast_2 grounded base -43.26 ground -42.46
+PASS mast_3 grounded base -43.26 ground -42.46
+PASS no terrain/path pokes through the arena floor (Z0 -43.1) highest -43.23 (central_walk.002)
+PASS sports centre plinth grounded {'footprint': [128.0, 55.0], 'area_m2': 7040.0, 'acres': 1.74, 'plinth_h': 5.25, 'glazed_h': 9.5, 'vent_tower_h_above_roof': 15.0}
+PASS lap 440 yd on the measurement line 402.336
+PASS 8 lanes x 4 ft 
+PASS sports centre = 1.75 acres (+-2%) 1.74
+PASS stand seats in a 12,000 order (8k-14k benches at 0.5 m) 10372
+PASS canopy clear height over covered front row 5-9 m 7.37
+PASS no east stand (Jubilee Stand is 1977) 
+CHECKS 20 / 20

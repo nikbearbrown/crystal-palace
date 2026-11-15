@@ -91,3 +91,7 @@ Candidate `rounds/candidates/park60-r17_cp066nsc64.blend` built from live `round
 - **D-PM-48 I** People for scale (generic 1960s stand-ins, not portraits): 12 athletes in white vests / navy shorts on the track and 2 in tracksuits in the infield; 70 seated spectators scattered on the West Stand and 18 standing on the terraces (a training-day crowd, I).
 - **D-PM-49 R/I** Hidden (hide_render only, nothing deleted): the 24 r17 NSC block-out meshes (infield, 4 track strips, 4 banks + seats + mid tiers, sports hall box / roof / glazing, 4 poles). Kept: `nsc_access_road`, the 4 flood lights, everything outside G_NSC. World, look, exposure, sun, every camera unchanged.
 - Side effects at the live recipe (other cameras stored in park60-r17; none is a live hero): see PROGRESS.
+
+## CP066 NSC 1964-67 KEEP, scoped (2026-11-16)
+- D-PM-42..49 are KEPT for CAM_CP066_nsc_stadium_35mm only, carried by `rounds/park60-r18_cp066.blend` (md5 19af4411). They are NOT in `rounds/park60-r17.blend` (md5 9ea1c796, unchanged).
+- Rejected side effects (parent verdict 2026-11-16): CP066 nsc_wide, CP066 nsc_hall (fully black), park60 CP065 hl_closed and subway_threshold. All stay on park60-r17 and must never render from r18.
