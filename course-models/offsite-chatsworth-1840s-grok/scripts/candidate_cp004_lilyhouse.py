@@ -6,7 +6,7 @@ blender -b rounds/ch02.blend -P scripts/candidate_cp004_lilyhouse.py -- --out ro
 Runs on the LIVE round rounds/ch02.blend (md5 59eca5d7, never written) and saves a sibling candidate.
 Hero camera CP004_lily_tank_start is NOT moved; no camera, world, sun, fill light, exposure or existing
 material is edited. Changes, all inside LILY_HOUSE (x = 200 ft offset):
-  * old lily shell (dwarf wall + 20 iron columns on a 12 ft grid, 4 of them standing in the tank water), old
+  * old lily shell (dwarf wall + 14 iron columns on a 12 ft grid, 4 of them standing in the tank water), old
     part-width roof (ridges stop 6.5 ft short of the side walls), old box-segment tank ring and the 10 old pads
     (radius 3.8-5.2 ft = 7.6-10.4 ft leaves, floating 0.7-0.85 ft above the water) are hidden, not deleted;
   * rebuilt per the sources: 61 x 49 ft house on a 37 in masonry base with 30 low-level vent openings; walls
