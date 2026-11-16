@@ -1,0 +1,26 @@
+{
+ "CP050_bank_1895_start": {
+  "luma_before": 226.16,
+  "luma_after": 219.73,
+  "max_diff": 254,
+  "mean_diff": 12.014,
+  "px_gt8": 549946,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP050_cup_final_1895_bank_pair.png"
+ },
+ "CP050_pavilion_1895_start": {
+  "luma_before": 223.13,
+  "luma_after": 162.72,
+  "max_diff": 254,
+  "mean_diff": 64.397,
+  "px_gt8": 1039709,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP050_sidefx_pavilion_pair.png"
+ }
+}

@@ -14,3 +14,10 @@
 ## Repo hygiene
 
 never git init inside a grok folder; commit from the worktree root
+
+## CP050 CANDIDATE 2026-11-16: FA Cup Final 20 April 1895 (not live, no verdict)
+- `rounds/candidates/fb02_1895_cp050cup.blend` on live `rounds/fb02_1895.blend` (d8b263c0, unchanged); D-FB-CP050-01..10.
+- Box crowd -> 42,560 people_lib 1890s spectators; goals onto the 70 m lines (the pitch is now within the 1891 law); 1892 markings; nets; 22 players (Villa v WBA), referee, 2 linesmen, ball.
+- Live recipe both sides (render_views.py, file exposure 0.0, no people swap), 1920x1080 48 spp: `renders/candidates/cp050_cupfinal_20261116/`.
+- Hero CP050_bank luma 226.16 -> 219.73; side effect CP050_pavilion 223.13 -> 162.72. Checks 20/20 (`checks/cp050_cupfinal_checks.json`); rebuild renders with max diff 0.
+- CP050 row and live renders unchanged; nothing routed.
