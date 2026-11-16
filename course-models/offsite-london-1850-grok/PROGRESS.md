@@ -38,3 +38,7 @@ never git init inside a grok folder; commit from the worktree root
 
 ## ln03 w04 (2026-10-27)
 KEEP CP069 street+rah: London planes with trunk/branches + small leaf clusters + darker underside; arched windows as near-black glazing with sash bars; exposure matched to before. Pairs in survey `look/pairs_geo/`.
+
+## CP002 polish CANDIDATE (2026-11-16) — not live, no verdict
+- `scripts/build_cp002_street.py` opens live `rounds/ln02.blend` (unchanged) and saves `rounds/candidates/ln03_cp002.blend`. It replaces the INDUSTRY set with an 1850 London railway lane: an L&G-pattern viaduct (20 ft c/c, 18 ft span, 22 ft crown) with arches let as workshops, smithy, stable and store; setts, flags and kerbs; gas lamps; two horse drays; a Jenny Lind-type train; a continuous terrace; a 5-storey mill and chimneys; volumetric smoke and thin smog; 17 modelled 1850 figures (`scripts/cp002_figures.py`). The CP005 room is untouched (except the fireplace swap fix, D-LN-CP002-12). DEPARTURES D-LN-CP002-01..12. check_set 29/29 (`checks/ln03_cp002_CANDIDATE_checks.md`).
+- Renders: `scripts/render_cp002_candidate.py` uses the live recipe: enhance + `--keep-lighting`, era 1840s, 1280×720, 28 spp, exposure −0.10 on both sides. Pairs are built by `scripts/make_cp002_pairs.py` into `renders/candidates/cp002_20261116/` (hero CP002_lane, plus side effects CP002_terrace, CP002_factory, CP005_room, CP005_table).

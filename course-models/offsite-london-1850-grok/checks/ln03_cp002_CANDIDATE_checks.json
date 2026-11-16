@@ -1,0 +1,208 @@
+{
+ "set": "O-LONDON ln03_cp002 CANDIDATE (CP002 1850 railway lane)",
+ "checks": [
+  {
+   "id": "CP002_factory_start.eye",
+   "check": "eye 5.25 over the surface below (LN2_Puddle_58)",
+   "target": "5.25 ft",
+   "measured": 5.22,
+   "pass": true
+  },
+  {
+   "id": "CP002_factory_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP002_factory_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP002_factory_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.22,
+   "pass": true
+  },
+  {
+   "id": "CP002_lane_start.eye",
+   "check": "eye 5.25 over the surface below (LN2_Ground)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP002_lane_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP002_lane_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 35,
+   "measured": 35.0,
+   "pass": true
+  },
+  {
+   "id": "CP002_lane_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP002_terrace_start.eye",
+   "check": "eye 5.25 over the surface below (LN2_Ground)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP002_terrace_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP002_terrace_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP002_terrace_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 2.0,
+   "pass": true
+  },
+  {
+   "id": "CP005_room_start.eye",
+   "check": "eye 5.25 over the surface below (LN_Room_shell)",
+   "target": "5.25 ft",
+   "measured": 5.25,
+   "pass": true
+  },
+  {
+   "id": "CP005_room_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": -0.0,
+   "pass": true
+  },
+  {
+   "id": "CP005_room_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 28,
+   "measured": 28.0,
+   "pass": true
+  },
+  {
+   "id": "CP005_room_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 1.0,
+   "pass": true
+  },
+  {
+   "id": "CP005_table_start.eye",
+   "check": "eye 5.25 over the surface below (LN_Room_shell)",
+   "target": "5.25 ft",
+   "measured": 5.2,
+   "pass": true
+  },
+  {
+   "id": "CP005_table_start.roll",
+   "check": "no roll",
+   "target": "0",
+   "measured": 0.0,
+   "pass": true
+  },
+  {
+   "id": "CP005_table_start.lens",
+   "check": "lens in grammar (28 interior / 35 approach / 50 detail) and = route",
+   "target": 50,
+   "measured": 50.0,
+   "pass": true
+  },
+  {
+   "id": "CP005_table_start.clear",
+   "check": "clearance to nearest mesh (82-ray sphere)",
+   "target": ">= 1 ft",
+   "measured": 2.16,
+   "pass": true
+  },
+  {
+   "id": "LN.viaduct",
+   "check": "brick railway viaduct arches",
+   "target": ">= 6",
+   "measured": 17,
+   "pass": true
+  },
+  {
+   "id": "LN.chimneys",
+   "check": "factory chimneys",
+   "target": ">= 3",
+   "measured": 6,
+   "pass": true
+  },
+  {
+   "id": "LN.terrace",
+   "check": "terraced house fronts",
+   "target": ">= 8",
+   "measured": 13,
+   "pass": true
+  },
+  {
+   "id": "LN.train",
+   "check": "train on the viaduct",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "LN.table",
+   "check": "commission table",
+   "target": ">= 1",
+   "measured": 1,
+   "pass": true
+  },
+  {
+   "id": "LN.plans",
+   "check": "plan sheets on table/walls",
+   "target": ">= 4",
+   "measured": 6,
+   "pass": true
+  },
+  {
+   "id": "LN.samples",
+   "check": "glass / sash / column samples",
+   "target": ">= 3",
+   "measured": 3,
+   "pass": true
+  },
+  {
+   "id": "LN.figures",
+   "check": "figures across both sets",
+   "target": ">= 10",
+   "measured": 22,
+   "pass": true
+  },
+  {
+   "id": "FILE.size",
+   "check": "round .blend under 90 MB",
+   "target": "< 90 MB",
+   "measured": 3.5,
+   "pass": true
+  }
+ ]
+}
