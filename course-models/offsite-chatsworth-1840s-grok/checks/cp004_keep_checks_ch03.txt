@@ -1,0 +1,11 @@
+CP004 lily house KEEP (scoped) checks — 2026-11-16
+tag pre_cp004lily_keep (local) = state before promotion (HEAD ce66eaf)
+PASS rounds/ch03_cp004lily.blend md5 bdccb859ffeaee63d5a8788d251f6abb == rounds/candidates/ch02_cp004lily.blend (byte copy)
+PASS rounds/ch02.blend md5 59eca5d7c034e79febfe2955867a7b52 unchanged
+PASS routing scripts/chatsworth_live_heroes.json: only CP004_lily_tank_start -> ch03_cp004lily; CP004_learning, CP004_lily_underside, CP003_stove_nave, CP003_stove_rib -> ch02
+PASS ch03 carries the KEEP (CP4_LILY_HOUSE_1850 collection present, 15 CP4_ objects)
+PASS live hero renders/ch03/CP004_lily_tank_start.png 1920x1080 48 spp, md5 cbf7fdfcf459f1d1243ce3bf84b60fd1, luma 120.21
+PASS live vs candidate after (renders/candidates/cp004_lilyhouse_20261116/after/CP004_lily_tank_start.png): max diff 0, 0 px differ
+PASS scripts/render_cp004_lily_live.sh --rebuild (ch02 -> candidate_cp004_lilyhouse.py -> temp blend) vs live: max diff 0, 0 px differ
+PASS all 27 pre-existing blends/PNGs under rounds/ and renders/ md5-unchanged (incl. renders/ch02/* pre-keep heroes)
+numbers: checks/cp004_keep_diffs_ch03.json
