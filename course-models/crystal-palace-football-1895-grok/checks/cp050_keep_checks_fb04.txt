@@ -1,0 +1,11 @@
+CP050 FA Cup Final 1895 KEEP (scoped) checks — 2026-11-16
+tag pre_cp050cup_keep (local) = state before promotion (HEAD 007ba2d)
+PASS rounds/fb04_1895_cp050cup.blend md5 27e0525d2e97bc2c37da9af9f61c40a4 == rounds/candidates/fb02_1895_cp050cup.blend (byte copy)
+PASS rounds/fb02_1895.blend md5 d8b263c09e77fc0ed208286b3e7569fc unchanged
+PASS routing scripts/football_live_heroes.json: only CP050_bank_1895_start -> fb04_1895_cp050cup; CP050_pavilion_1895_start -> fb02_1895; CP055_bank_1913, CP055_pitch_1913 -> fb02
+PASS fb04 carries the KEEP (FB95_cup_final__1895-04-20 collection present, 80 objects)
+PASS live hero renders/fb04_1895/CP050_bank_1895_start.png 1920x1080 48 spp, md5 1e2fd824295d1fd3f0d8ea91363bab61, luma 219.73
+PASS live vs candidate after (renders/candidates/cp050_cupfinal_20261116/after/CP050_bank_1895_start.png): max diff 0, 0 px differ
+PASS scripts/render_cp050_cup_live.sh --rebuild (fb02_1895 -> candidate_cp050_cupfinal1895.py -> temp blend) vs live: max diff 0, 0 px differ
+PASS all 27 pre-existing blends/PNGs under rounds/ and renders/ md5-unchanged (incl. renders/fb02_1895/* pre-keep heroes, renders/fb02/* CP055, fb03/fb03b reverted rounds)
+numbers: checks/cp050_keep_diffs_fb04.json

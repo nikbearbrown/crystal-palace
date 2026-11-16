@@ -1,0 +1,20 @@
+{
+ "live_size": [
+  1080,
+  1920,
+  3
+ ],
+ "live_vs_candidate_after": {
+  "max": 0,
+  "mean": 0.0,
+  "px_gt0": 0,
+  "px_gt8": 0
+ },
+ "rebuild_vs_live": {
+  "max": 0,
+  "mean": 0.0,
+  "px_gt0": 0,
+  "px_gt8": 0
+ },
+ "live_luma": 219.73
+}
