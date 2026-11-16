@@ -1,0 +1,10 @@
+CP005 planning room CANDIDATE — DONE 2026-11-16 (not live, no verdict; every pair is a CANDIDATE for the lead to keep/reject)
+blend: rounds/candidates/ln03_cp005.blend (md5 06b106670c83b1f4768f9722f24929b0), built by scripts/build_cp005_room.py on live rounds/ln02.blend (md5 56e47151da2b529d220fd8d80b62caa6, unchanged)
+recipe: scripts/render_cp005_candidate.py = enhance_offsite_materials + render_views.py --keep-lighting, era 1850 (CP002_terrace: 1840s), exterior_midday, exposure -0.10, 1280x720, 28 spp, 8 threads; same on both sides
+hero: CANDIDATE_CP005_room_{before,after,pair} (before = live renders/ln02/CP005_room_start.png byte copy) luma 109.47 -> 108.35
+hero like-for-like ref: CANDIDATE_CP005_room_vs_rerender_* (ln02 re-rendered today through the same recipe; people_lib 3.4 no longer swaps these room figures) luma 112.44 -> 108.35
+side effect: CANDIDATE_CP005_sidefx_table_* luma 215.22 -> 142.07 (intended content change: glass slab + Palace drawings gone, goods + 1849-50 plans in)
+side effect: CANDIDATE_CP005_sidefx_CP002_terrace_* luma 36.84 -> 36.73, mean abs diff 0.37 (no change)
+not rendered: CP002_lane_start / CP002_factory_start (they render live from rounds/ln04_cp002lane.blend, not ln02; the INDUSTRY set is untouched here)
+checks: checks/ln03_cp005_CANDIDATE_checks.md 29/29
+departures: DEPARTURES.md D-LN-CP005-01..10
