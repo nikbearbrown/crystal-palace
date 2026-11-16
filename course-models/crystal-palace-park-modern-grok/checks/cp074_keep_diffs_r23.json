@@ -1,0 +1,17 @@
+{
+ "live": "renders/r23_parknow_CAM_CP074_dinosaurs_35mm.png",
+ "live_md5": "e78c7a5966b6d92fb72399167788b11f",
+ "size": [
+  1920,
+  1080
+ ],
+ "candidate_after": "renders/candidates/cp074_geocourt_20261116/after/CAM_CP074_dinosaurs_35mm.png",
+ "candidate_after_md5": "d37c04101210394e27ba5f029e2d3a91",
+ "max_diff_live_vs_candidate": 0,
+ "rebuild_md5": "21d0c259cf5c69e844a2737ddae493af",
+ "max_diff_rebuild_vs_live": 0,
+ "blend": "rounds/parknow-r23_cp074.blend",
+ "blend_md5": "2e9ad6a62a7fb74fa01a290866033086",
+ "r23_check_vs_candidate_check": "cams, scene, dims, cand, sculpture_slots, hidden_render all identical (checks/cp074_keep_check_r23.json vs checks/cp074_geocourt_check_cand.json)",
+ "note": "PNG md5s differ only in metadata (File path); pixels identical"
+}

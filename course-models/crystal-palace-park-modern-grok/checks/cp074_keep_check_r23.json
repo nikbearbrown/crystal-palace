@@ -1,0 +1,403 @@
+{
+ "blend": "/workspace/crystal-palace-park-modern/course-models/crystal-palace-park-modern-grok/rounds/parknow-r23_cp074.blend",
+ "cams": {
+  "CAM_CP065_hl_closed_35mm": [
+   0.0,
+   94.44,
+   0.9904,
+   1.37619,
+   0.0,
+   3.14159,
+   35.0,
+   36.0
+  ],
+  "CAM_CP065_subway_threshold_35mm": [
+   0.0,
+   81.248,
+   0.9904,
+   1.4321,
+   0.0,
+   3.14159,
+   35.0,
+   36.0
+  ],
+  "CAM_CP066_nsc_hall_35mm": [
+   40.0,
+   -520.0,
+   -40.0,
+   1.70989,
+   0.0,
+   -2.2143,
+   35.0,
+   36.0
+  ],
+  "CAM_CP066_nsc_stadium_35mm": [
+   -50.0,
+   -450.0,
+   -40.0,
+   -1.52084,
+   3.14159,
+   0.0,
+   35.0,
+   36.0
+  ],
+  "CAM_CP066_nsc_wide_35mm": [
+   -50.0,
+   -380.0,
+   -20.0,
+   1.48014,
+   0.0,
+   3.14159,
+   35.0,
+   36.0
+  ],
+  "CAM_CP070_park_entry_35mm": [
+   -243.84,
+   -365.76001,
+   -40.0,
+   1.71479,
+   0.0,
+   -0.7854,
+   35.0,
+   36.0
+  ],
+  "CAM_CP071_subway_interior_28mm": [
+   0.0,
+   69.7992,
+   -2.6672,
+   1.56238,
+   0.0,
+   3.14159,
+   28.0,
+   36.0
+  ],
+  "CAM_CP071_subway_vault_50mm": [
+   1.3716,
+   76.6864,
+   -2.6672,
+   -1.41444,
+   3.14159,
+   -0.15506,
+   50.0,
+   36.0
+  ],
+  "CAM_CP072_footprint_35mm": [
+   -128.01601,
+   -85.344,
+   28.0,
+   1.39708,
+   -0.0,
+   -0.98279,
+   35.0,
+   36.0
+  ],
+  "CAM_CP073_sphinx_steps_50mm": [
+   -24.384,
+   -102.4176,
+   -5.28718,
+   1.52436,
+   -0.0,
+   -1.1265,
+   50.0,
+   36.0
+  ],
+  "CAM_CP073_steps_35mm": [
+   -27.432,
+   -124.0536,
+   -11.68318,
+   1.74612,
+   -0.0,
+   -0.84513,
+   35.0,
+   36.0
+  ],
+  "CAM_CP074_dinosaurs_35mm": [
+   -10.0,
+   -860.0,
+   -44.0,
+   1.4964,
+   0.0,
+   2.03444,
+   35.0,
+   36.0
+  ],
+  "CAM_CP074_iguanodon_50mm": [
+   20.0,
+   -870.0,
+   -45.0,
+   1.51371,
+   0.0,
+   1.8805,
+   50.0,
+   36.0
+  ],
+  "CAM_CP075_layered_nsc_35mm": [
+   -50.0,
+   -300.0,
+   -10.0,
+   1.45137,
+   0.0,
+   3.14159,
+   35.0,
+   36.0
+  ],
+  "CAM_CP076_empty_plateau_35mm": [
+   60.96,
+   -121.92,
+   15.0,
+   1.49757,
+   0.0,
+   0.46365,
+   35.0,
+   36.0
+  ],
+  "CAM_CP076_hold_35mm": [
+   60.96,
+   -121.92,
+   15.0,
+   1.46538,
+   -0.0,
+   0.51915,
+   35.0,
+   36.0
+  ]
+ },
+ "scene": {
+  "exposure": -0.15000000596046448,
+  "view": "AgX",
+  "world": "sky",
+  "samples": 48,
+  "res": [
+   1920,
+   1080
+  ],
+  "sun": [
+   [
+    0.0,
+    56.412,
+    -1.0096,
+    0.0,
+    0.0,
+    0.0,
+    350.0
+   ],
+   [
+    0.0,
+    61.912,
+    -1.0096,
+    0.0,
+    0.0,
+    0.0,
+    600.0
+   ],
+   [
+    0.0,
+    67.412,
+    -1.0096,
+    0.0,
+    0.0,
+    0.0,
+    600.0
+   ],
+   [
+    0.0,
+    72.912,
+    -1.0096,
+    0.0,
+    0.0,
+    0.0,
+    600.0
+   ],
+   [
+    0.0,
+    78.412,
+    -1.0096,
+    0.0,
+    0.0,
+    0.0,
+    600.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.01229,
+    0.0,
+    3.49066,
+    2.2
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.87266,
+    0.0,
+    3.66519,
+    2.5
+   ]
+  ]
+ },
+ "dims": {
+  "iguanodon_standing": {
+   "L_m": 10.91,
+   "H_m": 2.96,
+   "src_L": 10.0,
+   "src_H": 2.7,
+   "source": "cpdinosaurs.org: c.10 m long, 2.7 m high",
+   "pass": true
+  },
+  "iguanodon_recumbent": {
+   "L_m": 10.91,
+   "H_m": 2.28,
+   "src_L": 10.0,
+   "src_H": 2.1336,
+   "source": "length as standing; 7.0 ft high (dinosaurs-1854 DEPARTURES 4, I)",
+   "pass": true
+  },
+  "megalosaurus": {
+   "L_m": 10.6,
+   "H_m": 3.57,
+   "src_L": 10.0,
+   "src_H": 3.5,
+   "source": "Historic England / cpdinosaurs: c.10 m x 3.5 m",
+   "pass": true
+  },
+  "hylaeosaurus": {
+   "L_m": 7.44,
+   "H_m": 2.51,
+   "src_L": 7.4,
+   "src_H": null,
+   "source": "24.4 ft / 7.4 m by eye (dinosaurs-1854 DEPARTURES 6, I)",
+   "pass": true
+  }
+ },
+ "cand": {
+  "n": 303,
+  "undated": [],
+  "not_parknow": [],
+  "hyde_park_or_1851_objects_added": [],
+  "tree_H_m": [
+   17.0,
+   17.9,
+   17.9,
+   "...",
+   23.7,
+   23.8,
+   23.8
+  ],
+  "taxodium_H_m": [
+   20.0,
+   19.8,
+   23.2,
+   23.6
+  ],
+  "cycas_H_m": [
+   1.27,
+   1.03,
+   0.98,
+   1.03,
+   0.86,
+   1.15
+  ],
+  "fern_spread_m": [
+   2.01,
+   1.2,
+   1.84,
+   1.66,
+   1.52,
+   1.43
+  ],
+  "gravel_LxW_m": {
+   "cp74_gravel_hylaeosaurus": [
+    9.5,
+    14.6
+   ],
+   "cp74_gravel_iguanodon_recumbent": [
+    17.2,
+    11.6
+   ],
+   "cp74_gravel_iguanodon_standing": [
+    16.1,
+    12.2
+   ],
+   "cp74_gravel_megalosaurus": [
+    17.1,
+    10.4
+   ]
+  },
+  "rock_max_m": 1.75
+ },
+ "sculpture_slots": {
+  "iguanodon_standing": [
+   [
+    "OBJECT",
+    "paint_now_iguanodon"
+   ]
+  ],
+  "iguanodon_recumbent": [
+   [
+    "OBJECT",
+    "paint_now_iguanodon"
+   ]
+  ],
+  "megalosaurus": [
+   [
+    "OBJECT",
+    "paint_now_megalosaurus"
+   ]
+  ],
+  "hylaeosaurus": [
+   [
+    "OBJECT",
+    "paint_now_hylaeosaurus"
+   ]
+  ],
+  "ichthyosaur_1": [
+   [
+    "OBJECT",
+    "paint_now_ichthyosaur"
+   ],
+   [
+    "OBJECT",
+    "paint_now_ichthyosaur"
+   ]
+  ],
+  "ichthyosaur_2": [
+   [
+    "OBJECT",
+    "paint_now_ichthyosaur"
+   ],
+   [
+    "OBJECT",
+    "paint_now_ichthyosaur"
+   ]
+  ],
+  "ichthyosaur_3": [
+   [
+    "OBJECT",
+    "paint_now_ichthyosaur"
+   ]
+  ],
+  "plesiosaur_1": [
+   [
+    "OBJECT",
+    "paint_now_plesiosaur"
+   ]
+  ],
+  "plesiosaur_2": [
+   [
+    "OBJECT",
+    "paint_now_plesiosaur"
+   ]
+  ],
+  "plesiosaur_3": [
+   [
+    "OBJECT",
+    "paint_now_plesiosaur"
+   ]
+  ]
+ },
+ "hidden_render": [
+  "trees_parkland_and_young_island_planting"
+ ]
+}
