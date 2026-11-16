@@ -1,0 +1,33 @@
+{
+ "size": [
+  1920,
+  1080
+ ],
+ "live_vs_candidate_after": {
+  "max": 0,
+  "mean": 0.0,
+  "px_gt0": 0,
+  "px_gt20": 0
+ },
+ "rebuild_vs_live": {
+  "max": 0,
+  "mean": 0.0,
+  "px_gt0": 0,
+  "px_gt20": 0
+ },
+ "luma_live": 65.97,
+ "luma_cand": 65.97,
+ "luma_rebuild": 65.97,
+ "live_blend": "rounds/f04_cp019cases.blend",
+ "live_blend_md5": "8dc7a27ae8e79870b2b1189209f04aa5",
+ "candidate_md5": "8dc7a27ae8e79870b2b1189209f04aa5",
+ "live_png": "renders/f04_cp019cases/CP019_doors_start.png",
+ "live_png_md5": "403cf113c43513fe228c8507ec126886",
+ "candidate_after_png_md5": "285d9b5bdb0c60f9c578753b4ade2c88 (PNG metadata only; pixels identical)",
+ "rebuild_blend_md5": "70824aa5d08069e9881d3e6a8ab06ed8 (scratch /workspace/tmp/cp019keep_rb, metadata differs per save)",
+ "pre_keep_hero_luma_note": "candidate pair luma before (live f03 re-render, same recipe) 68.26 -> after 65.97",
+ "f03_md5": "3e80da59b1cf3bb3cf133d15edcc69e9 unchanged",
+ "other_live_blends_unchanged": 16,
+ "other_live_pngs_unchanged": 44,
+ "side_effect_CP019_dray_start": "NOT promoted (noise-level, 204.37->204.21), stays on f03"
+}

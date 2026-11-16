@@ -247,3 +247,10 @@ never git init inside a grok folder; commit from the worktree root
   - **CP019_dray_start:** essentially unchanged; a few new cases show through the doorway.
 - Checks: scripts/check_cp019_cases.py -> checks/cp019_cases_checks.json 39/39; check_dims 40/40 and check_state 48/48 (checks/cp019_cases_dims.*, cp019_cases_state.*; run on a copy in /workspace/tmp/cp019/dimsrun).
 - Not done: promotion, KEEP, live PNGs, the manifest and COVERAGE. rounds/f03.blend and renders/f03/* are unchanged (md5 before = after).
+
+## 2026-11-16 KEEP CP019 cases (scoped, FT101-FT108) — live in rounds/f04_cp019cases.blend
+- Parent viewed the pairs: KEEP for CP019_doors_start (cases, bales, sculpture case, flywheel, bare elms; luma 68.26->65.97). CP019_dray_start side effect NOT promoted (noise-level change, 204.37->204.21); it stays on live f03.
+- rounds/f04_cp019cases.blend = byte copy of approved candidate rounds/candidates/f03_cp019cases.blend (md5 8dc7a27ae8e79870b2b1189209f04aa5). Named f04_cp019cases because rounds/f04.blend is the live CP018 east-nave blend (5d238d1c). rounds/f03.blend (3e80da59) and renders/f03/* unchanged.
+- Live render renders/f04_cp019cases/CP019_doors_start.png (md5 403cf113, 1920x1080 48 spp, luma 65.97) via scripts/render_cp019_cases_live.sh [--rebuild] (live "rv2" CP019_doors recipe, FT107). Live vs candidate after: max diff 0 (md5 differs by PNG metadata only). --rebuild (scratch /workspace/tmp/cp019keep_rb, blend md5 70824aa5) vs live: max diff 0. Numbers in checks/cp019_cases_keep_diffs_f04.json.
+- Manifest scripts/fitout_live_heroes.json routes CP019_doors_start to f04_cp019cases; CP019_dray_start note updated (stays f03). Pre-keep frame stays renders/f03/CP019_doors_start.png.
+- Checks on live f04_cp019cases: check_cp019_cases 39/39 (checks/cp019_cases_keep_checks_f04.json), check_dims 40/40, check_state 48/48 (checks/cp019_cases_keep_{dims,state}_f04.*; run on a copy in /workspace/tmp/cp019keep_checks). All 16 pre-existing live blends and 44 live PNGs md5 unchanged; textures/cp019_mark_*.png unchanged after the rebuild. Pre-keep tag pre_cp019cases_keep (local, = 177f12d). Not pushed.

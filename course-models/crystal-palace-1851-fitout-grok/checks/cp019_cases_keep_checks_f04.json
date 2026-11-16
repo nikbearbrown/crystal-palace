@@ -1,0 +1,359 @@
+{
+ "candidate": "rounds/candidates/f03_cp019cases.blend",
+ "live": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/rounds/f03.blend",
+ "passed": 39,
+ "total": 39,
+ "checks": [
+  {
+   "id": "S_C19_CASE_E1",
+   "check": "C19_CASE_E1 footprint/height within a two-man to crane-lift case range (2.4-5.5 ft, h 2.4-3.8 ft)",
+   "target": "2.4-5.5 / 2.4-3.8",
+   "measured": [
+    4.4,
+    3.0,
+    3.0
+   ],
+   "pass": true,
+   "source": "Muse crate NOTES 3.7x2.4x2.4 ft (guessed, two-man lift); larger cases guessed for crane"
+  },
+  {
+   "id": "S_C19_CASE_E2",
+   "check": "C19_CASE_E2 footprint/height within a two-man to crane-lift case range (2.4-5.5 ft, h 2.4-3.8 ft)",
+   "target": "2.4-5.5 / 2.4-3.8",
+   "measured": [
+    3.6,
+    2.6,
+    2.6
+   ],
+   "pass": true,
+   "source": "Muse crate NOTES 3.7x2.4x2.4 ft (guessed, two-man lift); larger cases guessed for crane"
+  },
+  {
+   "id": "S_C19_CASE_E3",
+   "check": "C19_CASE_E3 footprint/height within a two-man to crane-lift case range (2.4-5.5 ft, h 2.4-3.8 ft)",
+   "target": "2.4-5.5 / 2.4-3.8",
+   "measured": [
+    3.4,
+    2.5,
+    2.5
+   ],
+   "pass": true,
+   "source": "Muse crate NOTES 3.7x2.4x2.4 ft (guessed, two-man lift); larger cases guessed for crane"
+  },
+  {
+   "id": "S_C19_CASE_E4",
+   "check": "C19_CASE_E4 footprint/height within a two-man to crane-lift case range (2.4-5.5 ft, h 2.4-3.8 ft)",
+   "target": "2.4-5.5 / 2.4-3.8",
+   "measured": [
+    5.2,
+    3.4,
+    3.6
+   ],
+   "pass": true,
+   "source": "Muse crate NOTES 3.7x2.4x2.4 ft (guessed, two-man lift); larger cases guessed for crane"
+  },
+  {
+   "id": "M01",
+   "check": "flywheel overall height (9 ft wheel + 1 ft cradle)",
+   "target": "10.0 +-0.1",
+   "measured": 10.0,
+   "pass": true,
+   "source": "FT102: 9 ft wheel, cradle 1 ft"
+  },
+  {
+   "id": "M02",
+   "check": "flywheel fits a 6 ft x 14 ft south door edgewise (thickness <= 6 ft incl. hub, height <= 14 ft)",
+   "target": "<=6, <=14",
+   "measured": [
+    3.16,
+    10.0
+   ],
+   "pass": true,
+   "source": "FT06 door 6 ft wide, 14 ft high"
+  },
+  {
+   "id": "SC01",
+   "check": "statue height (6 ft 6 in figure, metaball surface)",
+   "target": "6.5 +-0.5",
+   "measured": 6.527,
+   "pass": true,
+   "source": "FT102"
+  },
+  {
+   "id": "SC02",
+   "check": "statue inside its case (x/z bbox inside case bbox, top below the lid)",
+   "target": "case [-19.65, -198.78, 0.0, -15.55, -195.29, 8.68]",
+   "measured": [
+    -19.09,
+    -197.99,
+    0.19,
+    -16.0,
+    -195.58,
+    6.71
+   ],
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_BALE_1",
+   "check": "C19_BALE_1 rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": -0.01,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_BALE_2",
+   "check": "C19_BALE_2 rests on its support",
+   "target": "on C19_BALE_1 top 2.41",
+   "measured": 2.41,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_BALE_3",
+   "check": "C19_BALE_3 rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": -0.01,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_CASE_E1",
+   "check": "C19_CASE_E1 rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_CASE_E2",
+   "check": "C19_CASE_E2 rests on its support",
+   "target": "on C19_CASE_E1 top 3.08",
+   "measured": 3.08,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_CASE_E3",
+   "check": "C19_CASE_E3 rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_CASE_E4",
+   "check": "C19_CASE_E4 rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_DRAY_Q",
+   "check": "C19_DRAY_Q rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_DRAY_Q_CASE_0",
+   "check": "C19_DRAY_Q_CASE_0 rests on its support",
+   "target": "dray deck 4.0",
+   "measured": 4.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_DRAY_Q_CASE_1",
+   "check": "C19_DRAY_Q_CASE_1 rests on its support",
+   "target": "dray deck 4.0",
+   "measured": 4.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_DRAY_Q_CASE_2",
+   "check": "C19_DRAY_Q_CASE_2 rests on its support",
+   "target": "dray deck 4.0",
+   "measured": 4.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_DRAY_Q_CASE_3",
+   "check": "C19_DRAY_Q_CASE_3 rests on its support",
+   "target": "on the 2.5 ft cases on the deck, 6.5",
+   "measured": 6.5,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_DRAY_Q_HORSE",
+   "check": "C19_DRAY_Q_HORSE rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.002,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_FLYWHEEL",
+   "check": "C19_FLYWHEEL rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_SCULPT_CASE",
+   "check": "C19_SCULPT_CASE rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_SCULPT_FIGURE",
+   "check": "C19_SCULPT_FIGURE rests on its support",
+   "target": "case bottom 0.25",
+   "measured": 0.186,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_SCULPT_FRONT",
+   "check": "C19_SCULPT_FRONT rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.01,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_SCULPT_STRAW",
+   "check": "C19_SCULPT_STRAW rests on its support",
+   "target": "case bottom 0.25",
+   "measured": 0.25,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_SCULPT_STRAW_OUT",
+   "check": "C19_SCULPT_STRAW_OUT rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "Z_C19_STRAW_E",
+   "check": "C19_STRAW_E rests on its support",
+   "target": "floor 0 +-0.12",
+   "measured": 0.0,
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "L01",
+   "check": "no interior C19 prop in the door lanes / truck route (|x| < 12.5 ft)",
+   "target": "[]",
+   "measured": [],
+   "pass": true,
+   "source": "FT06 doors x -12..12; FT07 truck lane"
+  },
+  {
+   "id": "L02",
+   "check": "interior props inside the south wall face (y >= -203.6)",
+   "target": "[]",
+   "measured": [],
+   "pass": true,
+   "source": ""
+  },
+  {
+   "id": "L03",
+   "check": "every camera >= 3 ft from the nearest C19 prop (centre distance minus half extent)",
+   "target": ">= 3",
+   "measured": [
+    25.75,
+    "CP019_doors_start",
+    "C19_SCULPT_FRONT"
+   ],
+   "pass": true,
+   "source": "check_state 1 ft clearance, with margin"
+  },
+  {
+   "id": "T01",
+   "check": "tree row y = -520 +- 12 ft",
+   "target": "-532..-508",
+   "measured": [
+    -531.6,
+    -513.9
+   ],
+   "pass": true,
+   "source": "exterior EX31 rule (as FT97)"
+  },
+  {
+   "id": "T02",
+   "check": "tree spacing 115-150 ft",
+   "target": "115-150",
+   "measured": [
+    116.7,
+    146.0
+   ],
+   "pass": true,
+   "source": "EX31"
+  },
+  {
+   "id": "T03",
+   "check": "trees are bare (no leaf cards), Feb-Mar 1851",
+   "target": "[]",
+   "measured": [],
+   "pass": true,
+   "source": "FT105"
+  },
+  {
+   "id": "K01",
+   "check": "consignment mark materials in use, images packed in the blend",
+   "target": ">= 7, packed",
+   "measured": [
+    7,
+    true
+   ],
+   "pass": true,
+   "source": "FT104"
+  },
+  {
+   "id": "A01",
+   "check": "only C19_* objects added",
+   "target": "all C19_*",
+   "measured": 42,
+   "pass": true,
+   "source": "FT106"
+  },
+  {
+   "id": "A02",
+   "check": "no live object removed",
+   "target": "[]",
+   "measured": [],
+   "pass": true,
+   "source": "FT106"
+  },
+  {
+   "id": "A03",
+   "check": "no live object moved, re-meshed or hidden",
+   "target": "[]",
+   "measured": [],
+   "pass": true,
+   "source": "FT106"
+  },
+  {
+   "id": "A04",
+   "check": "state stays fitout (Hyde Park, early 1851)",
+   "target": "fitout",
+   "measured": "fitout",
+   "pass": true,
+   "source": "Hyde Park and Sydenham never blended"
+  }
+ ]
+}
