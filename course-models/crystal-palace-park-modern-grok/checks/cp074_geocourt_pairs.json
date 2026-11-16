@@ -1,0 +1,57 @@
+{
+ "CAM_CP074_dinosaurs_35mm": {
+  "luma_before": 169.12,
+  "luma_after": 109.46,
+  "max_diff": 221,
+  "mean_diff": 67.931,
+  "px_gt8": 1708787,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP074_iguanodon_50mm": {
+  "luma_before": 159.98,
+  "luma_after": 124.82,
+  "max_diff": 212,
+  "mean_diff": 42.384,
+  "px_gt8": 1298276,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP075_layered_nsc_35mm": {
+  "luma_before": 194.37,
+  "luma_after": 191.63,
+  "max_diff": 220,
+  "mean_diff": 3.068,
+  "px_gt8": 85340,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP066_nsc_wide_35mm": {
+  "luma_before": 191.04,
+  "luma_after": 187.93,
+  "max_diff": 219,
+  "mean_diff": 3.476,
+  "px_gt8": 90056,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "CAM_CP072_footprint_35mm": {
+  "luma_before": 195.47,
+  "luma_after": 195.47,
+  "max_diff": 2,
+  "mean_diff": 0.001,
+  "px_gt8": 0,
+  "size": [
+   1920,
+   1080
+  ]
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "cams_equal": true,
+ "scene_equal": true,
+ "sculpture_dims_equal": true,
+ "dims_pass": true,
+ "newly_hidden": [
+  "trees_parkland_and_young_island_planting"
+ ],
+ "unhidden": [],
+ "undated": [],
+ "not_in_parknow_cp074_collection": [],
+ "n_new": 303
+}
