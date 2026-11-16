@@ -1,0 +1,12 @@
+CP005 1849-50 planning room KEEP (scoped) checks — 2026-11-16
+tag pre_cp005room_keep (local) = candidate commit before promotion (bfd3ef5)
+PASS rounds/ln05_cp005room.blend md5 06b106670c83b1f4768f9722f24929b0 == rounds/candidates/ln03_cp005.blend (byte copy)
+PASS rounds/ln02.blend md5 56e47151da2b529d220fd8d80b62caa6 unchanged
+PASS rounds/ln04_cp002lane.blend md5 33262e1fb94f1540dd2e7c60ab856051 unchanged
+PASS routing scripts/london_live_heroes.json: only CP005_room_start -> ln05_cp005room; CP002_lane_start, CP002_factory_start -> ln04_cp002lane (unchanged); CP002_terrace_start, CP005_table_start -> ln02; CP069 x3 -> ln03_southken
+PASS ln05 carries the KEEP (36 LN3_ objects, ln02 LN_CommissionTable gone)
+PASS live hero renders/ln05_cp005room/CP005_room_start.png (dd251840384041daf85742a75d9afcdc) 1280x720 28 spp, rendered by scripts/render_cp005_room_live.sh from ln05: max diff 0, 0 px differ (RGBA) vs candidate after KEEP_CP005_room_after.png (84bba37a6761074f5db1db7a096846e1; md5 differs only in PNG text metadata)
+NOTE scripts/render_cp005_room_live.sh --rebuild (ln02 -> build_cp005_room.py -> temp blend) vs live: max 2 / 202 px>0 / 0 px>8 / mean 0.000058 (RGBA) (rebuild noise)
+PASS pre-keep frame renders/ln02/CP005_room_start.png (c881e904b48224c3f955a0d57a256e91) kept
+PASS all 31 pre-existing blends/PNGs/JPGs (rounds/, renders/ln01, ln01_prev, ln02, ln03, ln04_cp002lane, textures/) md5-unchanged
+numbers: checks/cp005_keep_diffs_ln05.json

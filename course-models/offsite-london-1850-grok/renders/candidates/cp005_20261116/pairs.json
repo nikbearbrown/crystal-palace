@@ -2,57 +2,57 @@
  {
   "cam": "CP005_room_start",
   "kind": "hero",
-  "before": "CANDIDATE_CP005_room_before.png",
-  "after": "CANDIDATE_CP005_room_after.png",
-  "pair": "CANDIDATE_CP005_room_pair.jpg",
+  "before": "KEEP_CP005_room_before.png",
+  "after": "KEEP_CP005_room_after.png",
+  "pair": "KEEP_CP005_room_pair.jpg",
   "luma_before": 109.47,
   "luma_after": 108.35,
   "mean_abs_diff": 56.41,
   "before_src": "renders/ln02/CP005_room_start.png",
   "md5_before": "c881e904b48224c3f955a0d57a256e91",
   "md5_after": "84bba37a6761074f5db1db7a096846e1",
-  "verdict": "CANDIDATE (no verdict)"
+  "verdict": "KEEP 2026-11-16 (scoped): live from rounds/ln05_cp005room.blend -> renders/ln05_cp005room/CP005_room_start.png"
  },
  {
   "cam": "CP005_room_start",
   "kind": "hero (like-for-like reference)",
-  "before": "CANDIDATE_CP005_room_vs_rerender_before.png",
-  "after": "CANDIDATE_CP005_room_vs_rerender_after.png",
-  "pair": "CANDIDATE_CP005_room_vs_rerender_pair.jpg",
+  "before": "KEEP_CP005_room_vs_rerender_before.png",
+  "after": "KEEP_CP005_room_vs_rerender_after.png",
+  "pair": "KEEP_CP005_room_vs_rerender_pair.jpg",
   "luma_before": 112.44,
   "luma_after": 108.35,
   "mean_abs_diff": 56.77,
   "before_src": "/tmp/cp005_before/CP005_room_start.png",
   "md5_before": "74b3b1e65de08de603dd39b95372943f",
   "md5_after": "84bba37a6761074f5db1db7a096846e1",
-  "verdict": "CANDIDATE (no verdict)"
+  "verdict": "KEEP 2026-11-16 (scoped): reference pair for the CP005_room hero; live from rounds/ln05_cp005room.blend"
  },
  {
   "cam": "CP005_table_start",
   "kind": "side effect",
-  "before": "CANDIDATE_CP005_sidefx_table_before.png",
-  "after": "CANDIDATE_CP005_sidefx_table_after.png",
-  "pair": "CANDIDATE_CP005_sidefx_table_pair.jpg",
+  "before": "REJECTED_CP005_sidefx_table_before.png",
+  "after": "REJECTED_CP005_sidefx_table_after.png",
+  "pair": "REJECTED_CP005_sidefx_table_pair.jpg",
   "luma_before": 215.22,
   "luma_after": 142.07,
   "mean_abs_diff": 78.46,
   "before_src": "/tmp/cp005_before/CP005_table_start.png",
   "md5_before": "35f949881e9ef45f1d60e534fb553383",
   "md5_after": "82fbc86a091d3efd69f7387b63ce569d",
-  "verdict": "CANDIDATE (no verdict)"
+  "verdict": "REJECTED 2026-11-16: luma 215 -> 142 not exposure-matched, and the close-up exposes faceted low-poly jug/decanter/plates; stays on ln02"
  },
  {
   "cam": "CP002_terrace_start",
   "kind": "side effect (check)",
-  "before": "CANDIDATE_CP005_sidefx_CP002_terrace_before.png",
-  "after": "CANDIDATE_CP005_sidefx_CP002_terrace_after.png",
-  "pair": "CANDIDATE_CP005_sidefx_CP002_terrace_pair.jpg",
+  "before": "NOTE_CP005_sidefx_CP002_terrace_before.png",
+  "after": "NOTE_CP005_sidefx_CP002_terrace_after.png",
+  "pair": "NOTE_CP005_sidefx_CP002_terrace_pair.jpg",
   "luma_before": 36.84,
   "luma_after": 36.73,
   "mean_abs_diff": 0.37,
   "before_src": "/tmp/cp005_before/CP002_terrace_start.png",
   "md5_before": "a708fa6b1412175ccb18dbcd7eed3d42",
   "md5_after": "ef4be19ddcc5c0766a54b65b721cc419",
-  "verdict": "CANDIDATE (no verdict)"
+  "verdict": "NOTE 2026-11-16: no change (mean abs diff 0.37); stays on ln02"
  }
 ]

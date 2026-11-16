@@ -8,3 +8,5 @@ side effect: CANDIDATE_CP005_sidefx_CP002_terrace_* luma 36.84 -> 36.73, mean ab
 not rendered: CP002_lane_start / CP002_factory_start (they render live from rounds/ln04_cp002lane.blend, not ln02; the INDUSTRY set is untouched here)
 checks: checks/ln03_cp005_CANDIDATE_checks.md 29/29
 departures: DEPARTURES.md D-LN-CP005-01..10
+
+VERDICT 2026-11-16 (lead viewed the pairs): KEEP (scoped) CP005_room_start only -> rounds/ln05_cp005room.blend, renders/ln05_cp005room/CP005_room_start.png; CP005_table_start REJECTED (stays on ln02); CP002_terrace_start no change. Pairs renamed KEEP_/REJECTED_/NOTE_ (pairs.json). DEPARTURES D-LN-CP005-11.

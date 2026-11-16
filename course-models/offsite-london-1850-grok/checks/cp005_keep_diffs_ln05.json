@@ -1,0 +1,25 @@
+{
+ "CP005_room_start": {
+  "live_vs_candidate_after": {
+   "max": 0,
+   "mean": 0.0,
+   "px_gt0": 0,
+   "px_gt8": 0
+  },
+  "rebuild_vs_live": {
+   "max": 2,
+   "mean": 5.7779947916666666e-05,
+   "px_gt0": 202,
+   "px_gt8": 0
+  },
+  "live_size": [
+   720,
+   1280,
+   4
+  ],
+  "live_md5": "dd251840384041daf85742a75d9afcdc",
+  "candidate_after_md5": "84bba37a6761074f5db1db7a096846e1",
+  "rebuild_md5": "3637e1bc405aecb099e042faf5bdbe18",
+  "live_luma": 108.35
+ }
+}
