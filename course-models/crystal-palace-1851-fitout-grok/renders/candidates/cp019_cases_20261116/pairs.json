@@ -1,0 +1,40 @@
+{
+ "CP019_doors_start": {
+  "before": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/before/CP019_doors_start.png",
+  "after": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/after/CP019_doors_start.png",
+  "luma_before": 68.26,
+  "luma_after": 65.97,
+  "max_diff": 201,
+  "mean_diff": 5.667,
+  "px_gt20": 137559,
+  "bbox_gt20": [
+   0,
+   0,
+   1919,
+   899
+  ],
+  "pair": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/CANDIDATE_CP019_doors_start_pair.jpg",
+  "details": {
+   "left_cases": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/CANDIDATE_CP019_doors_start_detail_left_cases_pair.jpg",
+   "right_sculpture": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/CANDIDATE_CP019_doors_start_detail_right_sculpture_pair.jpg",
+   "doors_trees": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/CANDIDATE_CP019_doors_start_detail_doors_trees_pair.jpg"
+  }
+ },
+ "CP019_dray_start": {
+  "before": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/before/CP019_dray_start.png",
+  "after": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/after/CP019_dray_start.png",
+  "luma_before": 204.37,
+  "luma_after": 204.21,
+  "max_diff": 215,
+  "mean_diff": 0.438,
+  "px_gt20": 1079,
+  "bbox_gt20": [
+   414,
+   126,
+   1876,
+   729
+  ],
+  "pair": "/workspace/crystal-palace-fitout/course-models/crystal-palace-1851-fitout-grok/renders/candidates/cp019_cases_20261116/CANDIDATE_CP019_dray_start_pair.jpg",
+  "details": {}
+ }
+}
