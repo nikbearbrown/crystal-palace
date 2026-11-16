@@ -1,0 +1,11 @@
+CP002 1850 railway lane KEEP (scoped) checks — 2026-11-16
+tag pre_cp002lane_keep (local) = candidate commit before promotion (8415cc4)
+PASS rounds/ln04_cp002lane.blend md5 33262e1fb94f1540dd2e7c60ab856051 == rounds/candidates/ln03_cp002.blend (byte copy)
+PASS rounds/ln02.blend md5 56e47151da2b529d220fd8d80b62caa6 unchanged
+PASS routing scripts/london_live_heroes.json: only CP002_lane_start, CP002_factory_start -> ln04_cp002lane; CP002_terrace_start, CP005_room_start, CP005_table_start -> ln02; CP069 x3 -> ln03_southken
+PASS ln04 carries the KEEP (114 LN2_ objects, ln02 LN_Viaduct gone); ln02 does not (0 LN2_ objects)
+PASS live heroes renders/ln04_cp002lane/CP002_lane_start.png (8657f41c5d96fd7dde7c8219cc0aaf5f) + CP002_factory_start.png (b854abed087e0c6a8b5229e452e7d7c9) 1280x720 28 spp = byte copies of the candidate after PNGs
+PASS scripts/render_cp002_lane_live.sh (from ln04) vs live: max diff 0, 0 px differ (both cams)
+NOTE scripts/render_cp002_lane_live.sh --rebuild (ln02 -> build_cp002_street.py -> temp blend) vs live: lane max 14 / 3790 px>0 / 4 px>8 / mean 0.0019; factory max 1 / 206 px>0. Face-order nondeterminism in 20 rebuilt meshes (same verts, face sets and materials; order differs run to run), so this is Cycles noise, not a content change
+PASS all 25 pre-existing blends/PNGs/JPGs (rounds/, renders/ln01, ln01_prev, ln02, ln03, textures/) md5-unchanged
+numbers: checks/cp002_keep_diffs_ln04.json

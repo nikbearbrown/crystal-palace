@@ -2,66 +2,71 @@
  {
   "cam": "CP002_lane_start",
   "kind": "hero",
-  "before": "CANDIDATE_CP002_lane_before.png",
-  "after": "CANDIDATE_CP002_lane_after.png",
-  "pair": "CANDIDATE_CP002_lane_pair.jpg",
+  "before": "KEEP_CP002_lane_before.png",
+  "after": "KEEP_CP002_lane_after.png",
+  "pair": "KEEP_CP002_lane_pair.jpg",
   "luma_before": 151.25,
   "luma_after": 135.15,
   "mean_abs_diff": 62.29,
   "before_src": "renders/ln02/CP002_lane_start.png",
   "md5_before": "0c03bbd4d239596d6dc7f40590f69b47",
-  "md5_after": "8657f41c5d96fd7dde7c8219cc0aaf5f"
+  "md5_after": "8657f41c5d96fd7dde7c8219cc0aaf5f",
+  "verdict": "KEEP 2026-11-16 (hero): live from rounds/ln04_cp002lane.blend"
  },
  {
   "cam": "CP002_terrace_start",
   "kind": "side effect",
-  "before": "CANDIDATE_CP002_sidefx_terrace_before.png",
-  "after": "CANDIDATE_CP002_sidefx_terrace_after.png",
-  "pair": "CANDIDATE_CP002_sidefx_terrace_pair.jpg",
+  "before": "REJECTED_CP002_sidefx_terrace_before.png",
+  "after": "REJECTED_CP002_sidefx_terrace_after.png",
+  "pair": "REJECTED_CP002_sidefx_terrace_pair.jpg",
   "luma_before": 36.65,
   "luma_after": 91.7,
   "mean_abs_diff": 59.91,
   "before_src": "/tmp/cp002_before/CP002_terrace_start.png",
   "md5_before": "3dd5e32b8b351513f726ba1fd3bc74b4",
-  "md5_after": "a4cefef349c0b2cbfb9a19835ee01458"
+  "md5_after": "a4cefef349c0b2cbfb9a19835ee01458",
+  "verdict": "REJECTED 2026-11-16: exposure not matched (luma 37 -> 92); stays on ln02"
  },
  {
   "cam": "CP002_factory_start",
   "kind": "side effect",
-  "before": "CANDIDATE_CP002_sidefx_factory_before.png",
-  "after": "CANDIDATE_CP002_sidefx_factory_after.png",
-  "pair": "CANDIDATE_CP002_sidefx_factory_pair.jpg",
+  "before": "KEEP_CP002_sidefx_factory_before.png",
+  "after": "KEEP_CP002_sidefx_factory_after.png",
+  "pair": "KEEP_CP002_sidefx_factory_pair.jpg",
   "luma_before": 116.71,
   "luma_after": 105.66,
   "mean_abs_diff": 71.41,
   "before_src": "/tmp/cp002_before/CP002_factory_start.png",
   "md5_before": "cc2728440c49e99c5eaaaf34d3c1a34e",
-  "md5_after": "b854abed087e0c6a8b5229e452e7d7c9"
+  "md5_after": "b854abed087e0c6a8b5229e452e7d7c9",
+  "verdict": "KEEP 2026-11-16: live from rounds/ln04_cp002lane.blend"
  },
  {
   "cam": "CP005_room_start",
   "kind": "side effect (check)",
-  "before": "CANDIDATE_CP002_sidefx_CP005_room_before.png",
-  "after": "CANDIDATE_CP002_sidefx_CP005_room_after.png",
-  "pair": "CANDIDATE_CP002_sidefx_CP005_room_pair.jpg",
+  "before": "NOTE_CP002_sidefx_CP005_room_before.png",
+  "after": "NOTE_CP002_sidefx_CP005_room_after.png",
+  "pair": "NOTE_CP002_sidefx_CP005_room_pair.jpg",
   "luma_before": 107.12,
   "luma_after": 105.38,
   "mean_abs_diff": 2.05,
   "before_src": "/tmp/cp002_before/CP005_room_start.png",
   "md5_before": "75868f2473c5e520d895541acb4fbd51",
-  "md5_after": "e86148b8bdb0c369f94a41d41f779a90"
+  "md5_after": "e86148b8bdb0c369f94a41d41f779a90",
+  "verdict": "no change; stays on ln02"
  },
  {
   "cam": "CP005_table_start",
   "kind": "side effect (check)",
-  "before": "CANDIDATE_CP002_sidefx_CP005_table_before.png",
-  "after": "CANDIDATE_CP002_sidefx_CP005_table_after.png",
-  "pair": "CANDIDATE_CP002_sidefx_CP005_table_pair.jpg",
+  "before": "REJECTED_CP002_sidefx_CP005_table_before.png",
+  "after": "REJECTED_CP002_sidefx_CP005_table_after.png",
+  "pair": "REJECTED_CP002_sidefx_CP005_table_pair.jpg",
   "luma_before": 215.22,
   "luma_after": 214.28,
   "mean_abs_diff": 1.12,
   "before_src": "/tmp/cp002_before/CP005_table_start.png",
   "md5_before": "2bb082e1cdd9da19a7daaf6dbf3166dc",
-  "md5_after": "800cefe7b1aa454ae7fb20afb6a44263"
+  "md5_after": "800cefe7b1aa454ae7fb20afb6a44263",
+  "verdict": "REJECTED 2026-11-16: a stray pale figure enters top right; stays on ln02"
  }
 ]
