@@ -1,0 +1,181 @@
+[
+ {
+  "id": "SCOPE.nothing_deleted",
+  "check": "every live object still in the candidate",
+  "target": "0 missing",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.new_prefixed",
+  "check": "all new objects are CP4_ and in CP4_LILY_HOUSE_1850",
+  "target": "all",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.cameras",
+  "check": "all 5 cameras byte-identical transform + lens",
+  "target": "0 changed",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.lights",
+  "check": "sun + lily fill unchanged",
+  "target": "0 changed",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.scene",
+  "check": "exposure / look / world unchanged",
+  "target": {
+   "exposure": -0.15000000596046448,
+   "look": "AgX - Medium High Contrast",
+   "world": "CH_World"
+  },
+  "measured": {
+   "exposure": -0.15000000596046448,
+   "look": "AgX - Medium High Contrast",
+   "world": "CH_World"
+  },
+  "pass": true
+ },
+ {
+  "id": "SCOPE.live_materials",
+  "check": "every live material unchanged",
+  "target": "0 changed",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.changed_only_expected",
+  "check": "changed live objects = 4 moved lily figures + 14 hidden lily meshes + 2 only_cams tags",
+  "target": [
+   "CH_Boy_lily",
+   "CH_Lily_glass",
+   "CH_Lily_roof_bars",
+   "CH_Lily_shell",
+   "CH_Lily_tank",
+   "CH_Pad_0",
+   "CH_Pad_1",
+   "CH_Pad_2",
+   "CH_Pad_3",
+   "CH_Pad_4",
+   "CH_Pad_5",
+   "CH_Pad_6",
+   "CH_Pad_7",
+   "CH_Pad_8",
+   "CH_Pad_9",
+   "CH_Paxton_lily",
+   "CH_Trestle",
+   "CH_UndersideLeaf",
+   "CH_Visitor_lily_m",
+   "CH_Visitor_lily_w"
+  ],
+  "measured": [
+   "CH_Boy_lily",
+   "CH_Lily_glass",
+   "CH_Lily_roof_bars",
+   "CH_Lily_shell",
+   "CH_Lily_tank",
+   "CH_Pad_0",
+   "CH_Pad_1",
+   "CH_Pad_2",
+   "CH_Pad_3",
+   "CH_Pad_4",
+   "CH_Pad_5",
+   "CH_Pad_6",
+   "CH_Pad_7",
+   "CH_Pad_8",
+   "CH_Pad_9",
+   "CH_Paxton_lily",
+   "CH_Trestle",
+   "CH_UndersideLeaf",
+   "CH_Visitor_lily_m",
+   "CH_Visitor_lily_w"
+  ],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.stove_untouched",
+  "check": "no GREAT_STOVE / stove figure / CAMERAS object changed",
+  "target": "0",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "SCOPE.hidden_not_deleted",
+  "check": "superseded lily meshes hidden_render, still present",
+  "target": 14,
+  "measured": 14,
+  "pass": true
+ },
+ {
+  "id": "SCOPE.look_horizon_keywords",
+  "check": "no new object name triggers crystal_palace_look._ensure_horizon_ground (would re-tint the horizon for every cam)",
+  "target": "0",
+  "measured": [],
+  "pass": true
+ },
+ {
+  "id": "DIM.house_plan",
+  "check": "house 61 x 49 ft outside (Gardeners' Chronicle 1850 via DN100071 [10])",
+  "target": "61 x 49 (+-0.5)",
+  "measured": [
+   61.42,
+   49.4
+  ],
+  "pass": true
+ },
+ {
+  "id": "DIM.tank",
+  "check": "circular Victoria tank 33 ft diameter",
+  "target": "33 (+-0.3)",
+  "measured": 33.04,
+  "pass": true
+ },
+ {
+  "id": "DIM.base",
+  "check": "masonry base 37 in (3.08 ft) + 3 in sill",
+  "target": "3.33 ft top of sill",
+  "measured": 3.333,
+  "pass": true
+ },
+ {
+  "id": "COUNT.vents",
+  "check": "30 low-level openings in the base",
+  "target": 30,
+  "measured": 30,
+  "pass": true
+ },
+ {
+  "id": "COUNT.columns",
+  "check": "only 8 hollow cast-iron columns (Chadwick)",
+  "target": 8,
+  "measured": 8,
+  "pass": true
+ },
+ {
+  "id": "CLEAR.columns_tank",
+  "check": "every column clear of the tank coping (outer r 17.65 ft)",
+  "target": "> 18.5",
+  "measured": 20.89,
+  "pass": true
+ },
+ {
+  "id": "PAD.on_water",
+  "check": "leaves lie on the water (min z - water z)",
+  "target": "0..0.05 ft",
+  "measured": 0.015,
+  "pass": true
+ },
+ {
+  "id": "PAD.old_gap_note",
+  "check": "(info) old pads' lowest point above the old water top 2.0 ft (ribs hang 0.05-0.1 below the leaf)",
+  "target": "info",
+  "measured": 0.56,
+  "pass": true
+ }
+]

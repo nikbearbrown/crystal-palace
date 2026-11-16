@@ -1,0 +1,12 @@
+2b530157bdeed7eea49176fe70d90b47  before/CP003_stove_nave_start.png
+c8d02964dd810ff5626e65045e874180  before/CP003_stove_rib_start.png
+6a00e4efbe0340721a3cb884159384ca  before/CP004_learning_start.png
+e2aa8a41896e36bbd7f2674e40b4dd62  before/CP004_lily_tank_start.png
+472506ef46e80eed2efa421ddcdcbab2  before/CP004_lily_underside_start.png
+d9cb33ea026a181d551534d0f87f49d4  after/CP003_stove_nave_start.png
+50ea342fe4ba4f788bb91caf9d17f2d2  after/CP003_stove_rib_start.png
+52bb222121b43c87654e1135adc1070c  after/CP004_learning_start.png
+12218ea766c3fddad9ba301c5b2a2ce4  after/CP004_lily_tank_start.png
+2535cbcd9420d0d48142ecd1ef1b7afb  after/CP004_lily_underside_start.png
+59eca5d7c034e79febfe2955867a7b52  rounds/ch02.blend
+bdccb859ffeaee63d5a8788d251f6abb  rounds/candidates/ch02_cp004lily.blend

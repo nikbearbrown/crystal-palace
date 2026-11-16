@@ -1,0 +1,62 @@
+{
+ "CP004_lily_tank_start": {
+  "luma_before": 184.04,
+  "luma_after": 120.21,
+  "max_diff": 225,
+  "mean_diff": 76.916,
+  "px_gt8": 2026243,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP004_lily_house_tank_pair.png"
+ },
+ "CP004_learning_start": {
+  "luma_before": 180.65,
+  "luma_after": 130.77,
+  "max_diff": 248,
+  "mean_diff": 65.655,
+  "px_gt8": 2054090,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP004_sidefx_learning_pair.png"
+ },
+ "CP004_lily_underside_start": {
+  "luma_before": 169.23,
+  "luma_after": 108.71,
+  "max_diff": 240,
+  "mean_diff": 70.908,
+  "px_gt8": 1910117,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP004_sidefx_lily_underside_pair.png"
+ },
+ "CP003_stove_nave_start": {
+  "luma_before": 191.87,
+  "luma_after": 191.87,
+  "max_diff": 137,
+  "mean_diff": 0.056,
+  "px_gt8": 1046,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP004_sidefx_CP003_stove_nave_pair.png"
+ },
+ "CP003_stove_rib_start": {
+  "luma_before": 195.97,
+  "luma_after": 195.98,
+  "max_diff": 134,
+  "mean_diff": 0.06,
+  "px_gt8": 1598,
+  "size": [
+   1920,
+   1080
+  ],
+  "pair": "CANDIDATE_CP004_sidefx_CP003_stove_rib_pair.png"
+ }
+}
