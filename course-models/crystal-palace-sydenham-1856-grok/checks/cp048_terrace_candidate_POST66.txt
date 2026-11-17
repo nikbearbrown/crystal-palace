@@ -1,0 +1,23 @@
+CP048 upper-terrace north walk candidate check: 15 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS camera not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS camera lens: model 35.000 mm vs source 35.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; the look v1.1 recipe overrides to -0.8 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS front walk breadth (1854 Guide / c.1853 report: terrace walk '48 ft broad'): model 48.000 ft vs source 48.0 ft (tol 0.05)
+PASS new surfaces sit on the model terrace (front walk above gravel top): model 0.012 m vs source 0.012 m (tol 0.002)
+PASS nearest new figure to the hero lens >= 8 m: model 16.16 m vs source >= 8.0 m
+INFO people_lib v3.4 1850s visitors 49; nearest 16.2 m; heights 1.21-1.93 m incl. hats/children
+PASS every new object carries the dated state: model 61.000 objects vs source 61 objects (tol 0)
+PASS all new geometry inside the north half of the upper terrace (x 20..255.2 m, y -101.75..-48.1 m): model 1.000  vs source 1  (tol 0)
+PASS nothing hidden or deleted by the candidate: model 0.000 objects vs source 0 objects (tol 0)
+PASS base object wings_glass still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object water_tower_north still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object terrace_gravel still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object basement_brick still rendered: model 1.000  vs source 1  (tol 0)
+PASS no Hyde Park objects in the round: model 0.000 objects vs source 0 objects (tol 0)
+INFO dated collection SY68_upper_terrace_north_walk_bedding_visitors__summer1868 (61 objects) under SY-POST66_c1868; beds 4 bedding objects, vases in cp048_tazza_vases
+DEPARTURE turf band + bed panels laid flat on the model terrace (source: 50 ft grass slope below the walk; model terrace 171 ft deep, D-SY-CP033-10 kept) I
+DEPARTURE ribbon bedding pattern (blue edge / yellow band / scarlet centre), plants and colours I; massed bedding on the terraces R in general
+DEPARTURE tazza vases on pedestals at the panel corners I (forms and spacing not traced from a source)
+DEPARTURE visitors in people_lib 1850s dress for c.1868 I (crinoline-era silhouettes still worn); numbers and positions I
+DEPARTURE dressing confined to the north half of the upper terrace (x 20..255 m); the south half keeps the base gravel (scope of the CP048 shot)

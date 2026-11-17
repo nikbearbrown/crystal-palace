@@ -1,0 +1,7 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_24spp	CAM_CP048_terrace_hold_35mm	177.61	172.70	220	23.43
+1920x1080_48spp	CAM_CP048_terrace_hold_35mm	176.75	171.77	227	23.28
+sidefx_1280x720_48spp_keeplight	CAM_CP047_north_end_35mm	193.35	191.14	159	16.62
+sidefx_1280x720_48spp_keeplight	CAM_CP048_terrace_walk_35mm	195.19	191.78	197	21.99
+sidefx_1280x720_48spp_keeplight	CAM_ext_elevated_overview	197.62	196.60	132	5.53
+sidefx_1280x720_48spp_keeplight	CAM_ext_garden_34_terrace	194.30	194.22	90	0.25
