@@ -1,0 +1,7 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_24spp	CAM_CP042_cascade_50mm	194.06	202.05	246	37.12
+1920x1080_48spp	CAM_CP042_cascade_50mm	193.27	201.41	247	36.89
+sidefx_1280x720_48spp	CAM_CP042_great_basins_35mm	204.30	0.08	255	100.00
+sidefx_1280x720_48spp	CAM_CP042_terrace_basin_35mm	201.99	201.99	10	0.00
+sidefx_1280x720_48spp	CAM_CP042_terrace_overlook_35mm	211.76	211.71	133	0.38
+sidefx_1280x720_48spp	CAM_ext_elevated_overview	197.02	197.02	57	0.04
