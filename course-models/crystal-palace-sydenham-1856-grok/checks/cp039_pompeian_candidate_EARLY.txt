@@ -1,0 +1,25 @@
+CP039 Pompeian peristyle candidate check: 15 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS camera not moved (position): model 0.00 ft vs source 0.0 ft (tol 0.01)
+PASS camera not rotated (sum |d euler| rad): model 0.00 rad vs source 0.0 rad (tol 1e-05)
+PASS camera lens: model 28.00 mm vs source 28.0 mm (tol 0.0)
+PASS exposure unchanged (Filmic, r13 -1.0 EV): model -1.00 EV vs source -1.0 EV (tol 0.0)
+PASS peristyle columns with Ionic capitals (volute bolsters + abacus): model 14.00 cols vs source 14 cols (tol 0)
+PASS fluted shaft from the top of the red unfluted third (Scharf: lower part not fluted, red): model 4.50 ft vs source 4.5 ft (tol 0.01)
+PASS r13 red lower thirds kept (pompeian_red rendered): model 1.00  vs source 1  (tol 0)
+INFO ambulatory ceiling plane at 15.20 ft (between the architrave soffit 14.3 and its top 15.6 ft, I); beams 0.55 ft deep on the column bays
+PASS end wall No. 23 'general colour is white' (main zone outside the central compartments + lararium panel, share of white px): model 90.39 % vs source >= 60.0 %
+PASS end wall No. 23 'Dado red and yellow' (share of red or yellow px in the dado): model 86.08 % vs source >= 60.0 %
+INFO end wall: three central compartments (lyrist under a high canopy on thin gilt columns + yellow Victory biga on its architrave; priestess in blue with pitcher left; youth in purple with green wreath right), three dado recesses with the seated lyre girl centre (R content, drawing I)
+INFO lararium aedicula (pedestal, red niche, pilasters, pediment, 2 bronze Lares) centred x -551.4 ft on the end wall; 'rich Pompeian red, with a yellow ornament' panel behind (R form, position I)
+PASS court footprint unchanged: stucco walls x-extent (D-R13-F1, plan 0205 -562..-494 + wall thickness): model 69.20 ft vs source 69.2 ft (tol 0.05)
+PASS court footprint unchanged: stucco walls y-extent: model 93.65 ft vs source 93.7 ft (tol 0.05)
+PASS nearest new figure to the hero lens >= 8 m (left foreground kept clear): model 10.25 m vs source >= 8.0 m
+INFO people_lib 1850s visitors 11; pv57 points kept in the court copy 21 of 33 (peristyle + tablinum + <7 m from the lens dropped)
+PASS every new object carries the dated state: model 17.00 objects vs source 17 objects (tol 0)
+INFO dated collection SY54_pompeian_peristyle_painted__1854_1856 objects 17; court opened with the Palace 10 Jun 1854 (R), Scharf handbook 1854 (R); scheme held to 1856 (round EARLY) I
+PASS cp039 textures packed in the blend: model 6.00 images vs source 6 images (tol 0)
+INFO hidden (not deleted): ['pompeian_grn', 'pompeian_stucco', 'ppl57_pompeian_visitors']
+PASS no Hyde Park objects in the round: model 0.00 objects vs source 0 objects (tol 0)
+DEPARTURE ambulatory floor pattern (red signinum with white tessera net + black/white meander border) I: Scharf records Minton imitation mosaic for the atrium, not this pavement
+DEPARTURE peristyle garden planting (box-edged compartments, bay standards, roses, lilies, acanthus, one krater) I: Scharf only says laid out with plants like a garden, bordered with columns
+DEPARTURE west and tablinum-side wall schemes I (Scharf rule: black dado -> red/yellow walls); figures and vignettes are simplified paintings, not the Abbate tracings

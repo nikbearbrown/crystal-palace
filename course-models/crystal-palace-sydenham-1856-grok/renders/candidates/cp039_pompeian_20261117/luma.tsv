@@ -1,0 +1,8 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_32spp	CAM_CP039_pompeian_peristyle_28mm	37.30	36.62	223	62.30
+1920x1080_48spp	CAM_CP039_pompeian_peristyle_28mm	37.30	36.54	223	62.39
+sidefx_1280x720_32spp_expo1.5	CAM_CP039_pompeian_atrium_28mm	45.06	44.86	216	9.51
+sidefx_1280x720_32spp_expo1.5	CAM_CP039_pompeian_wall_50mm	25.72	24.80	21	0.12
+sidefx_1280x720_48spp	CAM_CP042_cascade_50mm	205.58	205.58	55	0.03
+sidefx_1280x720_48spp	CAM_compare_0007	211.61	211.62	46	0.09
+sidefx_1280x720_48spp	CAM_ext_elevated_overview	197.02	197.03	86	0.09
