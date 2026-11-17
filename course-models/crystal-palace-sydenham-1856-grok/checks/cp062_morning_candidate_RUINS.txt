@@ -1,0 +1,28 @@
+CP062 morning-after candidate check: 19 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS camera not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS camera lens: model 35.000 mm vs source 35.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (AgX MHC -0.7 EV, saved by the dud-fix v4 look pass; recipe re-applies -0.7 on both sides): model -0.700 EV vs source -0.7 EV (tol 1e-06)
+PASS view transform / look unchanged (AgX, AgX - Medium High Contrast): model 1.000  vs source 1  (tol 0)
+PASS world unchanged (sky, 9 nodes): model 1.000  vs source 1  (tol 0)
+PASS sun unchanged (energy 1.6, rot x 1.0821 z 1.6): model 0.000  vs source 0.0  (tol 1e-05)
+PASS no lights added: model 1.000 lights vs source 1 lights (tol 0)
+PASS nothing deleted (base object count): model 206.000 objects vs source 206 objects (tol 0)
+PASS nothing hidden (base hide_render count: horizon_haze_r17, horizon_fill_r17, REF plan, as in the base): model 3.000 objects vs source 3 objects (tol 0)
+PASS every new object carries the dated state: model 75.000 objects vs source 75 objects (tol 0)
+PASS South Tower unchanged (lantern top z, model): model 86.563 m vs source 86.563 m (tol 0.001)
+PASS Baird mast height above the lantern (repo r11 'lattice mast 50 ft'; HE R existence, U height): model 50.028 ft vs source 50.0 ft (tol 1.0)
+PASS Baird mast sits on the South Tower: model 1.000  vs source 1  (tol 0)
+PASS every smoke plume rises from the burnt-out south end of the footprint (x -246..-150, y +-48.3 m): model 1.000  vs source 1  (tol 0)
+PASS no smoke volume intersects the South Tower: model 0.000 volumes vs source 0 volumes (tol 0)
+PASS in-frame smoke puff centres right of the tower silhouette (hero frame, px): model 1.000  vs source 1  (tol 0)
+INFO tower right edge 747 px; leftmost in-frame puff centre 748 px; 45 of 70 puffs in frame
+PASS appended wreck field low, as in 0587 (max height above the main floor, AFTER state): model 16.229 m vs source 16.2 m (tol 0.1)
+PASS no Hyde Park objects in the round: model 0.000 objects vs source 0 objects (tol 0)
+INFO dated collection SY36_morning_after_smoke_wreck_TL__1Dec1936 (75 objects: 70 smoke puffs in 5 plumes, 2 haze volumes, 3 appended AFTER-state objects) under SY-RUINS_c1937-40
+INFO bottom frame edge at the south end of the footprint is ~18-25 m above the main floor (camera z 28 m, 11 deg up-tilt, 16.1 deg half v-FOV): the wreck field (<= 16.2 m) and the mast (above the frame top) are state-correct but not seen in the hero
+DEPARTURE smoke drifts NE on the model grid (as the repo FIRE state, wind U); London Walks gives the wind of the night as NW (would carry smoke SE / towards the garden) - morning wind not researched; lean chosen to keep the tower clear I
+DEPARTURE smoke volumes are absorption + matched emission (no scattering) so they converge at the live 32 spp; tone/density I (0587 shows pale smoke/steam haze)
+DEPARTURE plume count (5), heights (up to ~100 m) and positions on the south end I; that the south end was burnt out R (London Walks: fire blown down through the south-west wing)
+DEPARTURE cleared c.1937-40 footing pads / footprint ground of the base round stay under the appended 1 Dec 1936 wreck (below the hero sightline; not hidden)
+DEPARTURE Baird mast form/height U (repo r11 stand-in); above the hero frame top, not seen
