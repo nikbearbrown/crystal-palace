@@ -1,0 +1,17 @@
+CP036 colonnade candidate check: 8 PASS, 0 FAIL
+PASS colonnade length (south wing to station end): model 720.00 ft vs source 720 ft (tol 1.0)
+PASS clear width between glass lines: model 17.00 ft vs source 17 ft (tol 0.25)
+PASS floor to ridge (bay 11): model 18.00 ft vs source 18 ft (tol 0.3)
+INFO eave above floor (bay 11) 13.00 ft (I)
+PASS glass area (sides + roof + steps): model 29850.74 sq ft vs source 30000 sq ft (tol 3000)
+INFO floor area 720 x 17 = 12240 sq ft; Guide superficial area 15,500 sq ft (implies ~21.5 ft overall incl. walls/eaves; U)
+PASS floor width: model 17.00 ft vs source 17 ft (tol 0.25)
+INFO rise station end -> south wing 58.9 ft (r14 levels, I)
+INFO people_lib visitors 131; heights incl. hats 4.0-6.3 ft
+PASS nearest new figure to the hero lens >= 9 m: model 13.73 m vs source 9.0 m (tol 1000000000.0)
+INFO nearest new figure 13.73 m
+INFO plants top -32.1 ft abs; plants x -898.3..-881.8 ft (glass lines -898.5/-881.5)
+PASS plants stay inside the glass: model 1.00 bool vs source 1.0 bool (tol 0.0)
+PASS camera not moved (x, y ft): model 0.00 ft^2 vs source 0.0 ft^2 (tol 0.01)
+INFO dated collection SY54_railway_colonnade_avenue__1854_1856 cp_state SY54-56_railway_colonnade_avenue__1854_1856 objects 134
+INFO hidden (not deleted): ['covered_way_dado', 'covered_way_floor_steps', 'covered_way_ironwork', 'covered_way_roof_glass', 'covered_way_side_glass', 'ppl54_station_visitors']
