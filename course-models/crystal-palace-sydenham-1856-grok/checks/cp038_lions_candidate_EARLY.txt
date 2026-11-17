@@ -1,0 +1,43 @@
+CP038 Egyptian Court lion-avenue candidate check: 31 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS camera not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS camera lens: model 28.000 mm vs source 28.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; look v1.1 recipe sets -1.2 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS world unchanged (sky): model 1.000  vs source 1  (tol 0)
+PASS base objects all present (292 in r08) + new: model 292.000 objects vs source 292 objects (tol 0)
+PASS nothing hidden (r08 has 1 hide_render object): model 1.000 objects vs source 1 objects (tol 0)
+PASS lion casts: model 6.000 lions vs source 6 lions (tol 0)
+PASS lion length incl. base (BM EA2 216 cm = 7.09 ft): model 7.145 ft vs source 7.09 ft (tol 0.15)
+PASS lion width incl. base (BM EA2 99 cm = 3.25 ft): model 3.250 ft vs source 3.25 ft (tol 0.15)
+PASS lion height incl. base (BM EA2 115 cm = 3.77 ft): model 3.770 ft vs source 3.77 ft (tol 0.2)
+INFO lion L 7.15-7.15 ft, W 3.25-3.25 ft, H above plinth 3.77-3.77 ft; plinth top 1.47 ft
+PASS lion bases sit on the plinth tops (min z = plinth top): model 1.470 ft vs source 1.4699999428796642 ft (tol 0.01)
+PASS plinths sit on the court floor (eg_floor top 0.12 ft): model 0.120 ft vs source 0.12 ft (tol 0.01)
+PASS plinths clear of the portico screen face (110.71 ft): model 5.41 ft vs source >= 2.0 ft
+PASS plinths clear of the nave front wall (61.0 ft): model 16.70 ft vs source >= 2.0 ft
+PASS walk width (I, 10 ft): model 10.000 ft vs source 10.0 ft (tol 0.01)
+PASS walk on the bay axis (KX[3..4] centre 241.81 ft): model 241.806 ft vs source 241.81 ft (tol 0.02)
+PASS walk reaches the portico face (gap): model 0.047 ft vs source 0.05 ft (tol 0.02)
+PASS walk sits on the floor: model 0.120 ft vs source 0.12 ft (tol 0.005)
+PASS clear avenue between plinth feet >= walk width: model 11.40 ft vs source >= 10.0 ft
+PASS winged globe centred on the open centre bay: model 241.806 ft vs source 241.81 ft (tol 0.05)
+PASS winged globe within the architrave band (z >= 17.6 ft): model 17.78 ft vs source >= 17.6 ft
+PASS winged globe within the architrave band (19.4 - top >= 0): model 0.13 ft vs source >= 0.0 ft
+PASS winged globe attached to the architrave face (110.11 ft): back face within +-0.06 ft (negative = keyed in): model -0.023 ft vs source 0.0 ft (tol 0.06)
+INFO winged globe span 9.80 ft, height 1.49 ft (form I)
+PASS relief panels on the portico screen walls: model 6.000 panels vs source 6 panels (tol 0)
+PASS relief panels flush on the screen face (gap): model 0.027 ft vs source 0.03 ft (tol 0.005)
+PASS relief panels below the screen coping (7.5 ft): model 0.00 ft vs source >= 0.0 ft
+PASS nearest new figure to the hero lens >= 7.5 m: model 8.04 m vs source >= 7.5 m
+INFO people_lib v3.4 1850s visitors 5; nearest 8.0 m
+PASS every new object carries the dated state: model 21.000 objects vs source 21 objects (tol 0)
+PASS all new geometry inside the Egyptian Court outer court (x 180..276, y 60..111.6 ft): model 1.000  vs source 1  (tol 0)
+PASS no Hyde Park objects in the round: model 0.000 objects vs source 0 objects (tol 0)
+INFO new materials procedural only; external unpacked images in file: 1 (pre-existing)
+INFO dated collection SY54_egyptian_outer_court_lion_avenue__1854_1856 (21 objects) under ['SY-EARLY_c1856']
+DEPARTURE avenue laid inside the model outer court on the axis of the portico open centre bay (sources: avenue on the approach from the nave to the Ptolemaic portico; the r08 model puts that portico at the lower facade of the Hall of Columns) I
+DEPARTURE 3 pairs of lions (count not in the sources) on 1.35 ft painted sandstone pedestals I; casts coloured red granite I/U
+DEPARTURE lion heads frontal toward the nave; EA1/EA2 have the head turned (BM) - simplified for readability I; form a smooth stand-in, not a scan
+DEPARTURE relief drawing (king with offering bowl before a blue Amun with was-sceptre and plumes, glyph column, starred sky band) generic, not traced from the Sydenham walls U; subject R (Phillips 1854)
+DEPARTURE winged globe with two uraei: form/colours I; position over the main entrance R (Wyatt 1854)
+DEPARTURE 10 ft flagged walk I; 1850s visitors (5) positions I

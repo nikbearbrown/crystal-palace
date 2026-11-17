@@ -1,0 +1,16 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_24spp	CAM_CP038_egyptian_hold_28mm	80.02	71.44	206	28.11
+1920x1080_48spp	CAM_CP038_egyptian_hold_28mm	79.84	71.24	208	28.00
+sidefx_1280x720_48spp_keeplight	CAM_CP038_egyptian_entry_28mm	88.26	87.20	211	5.00
+sidefx_1280x720_48spp_keeplight	CAM_CP041_alhambra_entry_28mm	91.30	91.30	8	0.00
+sidefx_1280x720_48spp_keeplight	CAM_CP041_alhambra_hold_28mm	82.55	82.54	14	0.00
+sidefx_1280x720_48spp_keeplight	CAM_CP041_insert_spandrel_50mm	81.91	81.91	16	0.00
+sidefx_1280x720_48spp_keeplight	CAM_central_transept_straight	194.75	194.67	68	0.35
+sidefx_1280x720_48spp_keeplight	CAM_compare_0007	211.20	211.19	46	0.07
+sidefx_1280x720_48spp_keeplight	CAM_compare_0074	199.09	199.03	66	0.34
+sidefx_1280x720_48spp_keeplight	CAM_compare_0108_alhambra	69.55	69.54	16	0.00
+sidefx_1280x720_48spp_keeplight	CAM_ext_elevated_overview	197.32	197.31	78	0.11
+sidefx_1280x720_48spp_keeplight	CAM_ext_garden_34_terrace	194.20	194.22	120	0.16
+sidefx_1280x720_48spp_keeplight	CAM_nave_interior_28mm	75.60	75.61	102	0.05
+sidefx_1280x720_48spp_keeplight	CAM_plan_overlay_top	168.45	168.47	157	0.93
+sidefx_1280x720_48spp_keeplight	CAM_section_cut_x-300	200.25	200.25	5	0.00
