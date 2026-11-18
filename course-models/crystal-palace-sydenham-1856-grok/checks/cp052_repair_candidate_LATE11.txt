@@ -1,0 +1,35 @@
+CP052 glaziers + painters CANDIDATE checks (30 PASS, 0 FAIL) - /workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/rounds/candidates/sydenham-late11-r16_cp052repair.blend
+PASS hero camera CAM_CP052_scaffold_reglaze_35mm not moved (position, dud-fix v4 framing): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS hero camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS hero camera lens: model 35.000 mm vs source 35.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; the look v1.1 recipe sets -0.8 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS ONE dated collection holds every new object (base 385 objects + collection): model 409.000  vs source 409  (tol 0)
+PASS nothing hidden / unhidden (hide_render count as base): model 1.000  vs source 1  (tol 0)
+PASS collection is dated and tagged
+PASS every new object carries cp_state = the dated state: 24 objects
+PASS every cp052_ material carries cp_state: 14 materials
+PASS no Hyde Park / 1851 collection or object mixed in
+PASS base r16 repair collection untouched (SY-LATE_repair_scaffold__dated: 2 objects)
+INFO 5 people_lib workmen: cp052_glazier_at_glass, cp052_glazier_with_pane, cp052_painter_cradle_w, cp052_painter_cradle_e, cp052_painter_on_ladder
+PASS nearest new figure >= 20 m from the lens (no figure dominates the frame): 22.80 m
+PASS workman heights min (adult c.1900 incl. cap, 1.55-1.85 m): model 1.682 m vs source range 1.5..1.9 m
+PASS workman heights max: model 1.801 m vs source range 1.5..1.9 m
+PASS workmen only (no bonnet / crinoline / top-hat materials): 0 offenders
+PASS standard diameter (fir pole c. 5 in, R in general): model 5.000 in vs source 5.0 in (tol 0.2)
+PASS standard spacing along the face (6-10 ft, R in general; here on the 8 ft mullion lines): model 7.972 ft vs source range 6.0..10.0 ft
+PASS standard spacing max: model 8.005 ft vs source range 6.0..10.0 ft
+PASS inner-to-outer standard rows (4-5 board scaffold, c. 3 ft 6 in-4 ft 6 in): model 3.675 ft vs source range 3.4..4.6 ft
+PASS ledger lifts at 4 ft 6 in (R in general: lifts 4-5 ft): lifts 1.372 / 2.743 / 4.115 m
+PASS scaffold board width (9 in, R in general): model 9.000 in vs source 9.0 in (tol 0.05)
+PASS scaffold board thickness (2 in): model 2.000 in vs source 2.0 in (tol 0.05)
+INFO platform board top z 4.293 m (top panes of the ground storey reach 5.85 m)
+PASS platform height below the band so a man reaches the top panes (top pane 5.85 m - platform in 1.3-1.9 m): model 1.557 m vs source range 1.3..1.9 m
+PASS scaffold ladder width (14-18 in stiles c. 1900, R in general): model 18.000 in vs source range 14.0..19.5 in
+PASS painters ladder width: model 18.000 in vs source range 14.0..19.5 in
+PASS painters cradle stage length (13 ft, I; period stages 10-20 ft): model 13.000 ft vs source 13.0 ft (tol 0.1)
+PASS carried pane 49 in long (Paxton 49 x 10 in pane module, I for the Sydenham vertical glazing): model 49.016 in vs source 49.0 in (tol 0.2)
+PASS weathered-paint plates 6 mm in front of the mullion / pier faces (-62.225/-62.316/-59.787/-59.878): [-62.322, -62.231, -59.884, -59.793]
+PASS weathered bays only west of the painters (x < -11.1 m): max x -10.82 m
+PASS every standard stands on a sole board on the base stair / cheek surface: []
+DEPARTURE D-SY-CP052-03 workmen are people_lib v3.4 1850s_workman meshes (cloth cap) re-coloured: glaziers dark waistcoat, painters pale overalls; c.1900 dress I
+DEPARTURE D-SY-CP052-06 weathered paint = overlay plates (dulled pale paint) + rust runs on the west bays; which bays and how dirty: I

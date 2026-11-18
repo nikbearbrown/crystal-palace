@@ -1,0 +1,9 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_32spp	CAM_CP052_scaffold_reglaze_35mm	119.69	121.57	213	17.87
+1920x1080_48spp	CAM_CP052_scaffold_reglaze_35mm	118.37	120.23	211	17.25
+sidefx_1280x720_48spp_keeplight	CAM_CP049_worn_garden_front_35mm	174.19	174.11	181	0.63
+sidefx_1280x720_48spp_keeplight	CAM_CP053_empire_pavilions_wide_35mm	201.87	201.86	92	0.07
+sidefx_1280x720_48spp_keeplight	CAM_CP061_transept_collapse_35mm	168.22	168.23	192	3.09
+sidefx_1280x720_48spp_keeplight	CAM_CP064_skyline_50mm	205.60	205.59	68	0.04
+sidefx_1280x720_48spp_keeplight	CAM_ext_elevated_overview	187.41	187.40	100	0.10
+sidefx_1280x720_48spp_keeplight	CAM_section_cut_x-300	199.96	199.96	3	0.00
