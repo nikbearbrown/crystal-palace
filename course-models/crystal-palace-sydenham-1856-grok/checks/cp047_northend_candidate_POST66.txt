@@ -1,0 +1,31 @@
+CP047 north-end terrace candidate check: 24 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS hero camera CAM_CP047_north_end_35mm not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS hero camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS hero camera lens: model 35.000 mm vs source 35.0 mm (tol 0.0)
+PASS CAM_CP048_terrace_hold_35mm not moved either: model 0.000  vs source 0.0  (tol 0.0001)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; the look v1.1 recipe overrides to -0.8 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS front walk breadth (1854 Guide / c.1853 report: terrace walk '48 ft broad'): model 48.000 ft vs source 48.0 ft (tol 0.05)
+PASS new surfaces sit on the model terrace (front walk above gravel top): model 0.012 m vs source 0.012 m (tol 0.002)
+PASS cross walk breadth (12 ft, I; D-SY-CP048-04): model 12.000 ft vs source 12.0 ft (tol 0.05)
+PASS CP048-layout objects identical to the approved CP048 candidate (count, mesh verts, location / rotation / scale): model 61.000 objects vs source 61 objects (tol 0)
+PASS   ... and the count matches the approved 61: model 61.000 objects vs source 61 objects (tol 0)
+INFO max vertex / transform offset vs the approved CP048 layout 0.00e+00 m
+PASS nearest new figure to the CP047 lens >= 19 m: model 19.81 m vs source >= 19.0 m
+PASS CP047-only figures behind or >= 14 m in front of the CP048 lens: model 0.000 figures vs source 0 figures (tol 0)
+INFO people_lib 1850s visitors: 28 CP047-only + 49 from the CP048 layout; CP047-only heights 1.23-1.93 m incl. hats/children
+PASS every new object carries the dated state: model 89.000 objects vs source 89 objects (tol 0)
+PASS new objects = base 295 + collection only: model 384.000 objects vs source 384 objects (tol 0)
+PASS one dated collection (no leftover CP048 collection name): model 1.000  vs source 1  (tol 0)
+PASS all new geometry inside the north half of the upper terrace (x 20..255.2 m, y -101.75..-48.1 m): model 1.000  vs source 1  (tol 0)
+PASS nothing hidden by the candidate (hide_render count = base): model 1.000 objects vs source 1 objects (tol 0)
+PASS base object wings_glass still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object water_tower_north still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object terrace_gravel still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object basement_brick still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object glazed_walls still rendered: model 1.000  vs source 1  (tol 0)
+PASS base object facade_ironwork still rendered: model 1.000  vs source 1  (tol 0)
+PASS no Hyde Park objects in the round: model 0.000 objects vs source 0 objects (tol 0)
+INFO dated collection SY68_north_end_terrace_walk_bedding_visitors__summer1868 (89 objects) under ['SY-POST66_c1868']
+DEPARTURE the summer-1868 terrace layout is the approved CP048 design reproduced unchanged (D-SY-CP048-02..10 apply: turf laid flat, ribbon pattern / vases I)
+DEPARTURE CP047-only visitors in people_lib 1850s dress for c.1868 I; numbers and positions I; nearest 19.8 m, none in the near foreground
+DEPARTURE dressing confined to the north half of the upper terrace (x 20..255 m), as CP048; south half keeps the base gravel (visible from ext_elevated_overview / plan_overlay_top)
