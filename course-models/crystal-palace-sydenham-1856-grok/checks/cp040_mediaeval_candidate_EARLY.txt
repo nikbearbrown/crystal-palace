@@ -1,0 +1,38 @@
+CP040 English Mediaeval Court candidate check: 29 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS camera not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS camera lens: model 28.000 mm vs source 28.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; look v1.1 recipe sets -1.2 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS world unchanged (sky): model 1.000  vs source 1  (tol 0)
+PASS base objects all present (1052 in r14): model 1052.000 objects vs source 1052 objects (tol 0)
+PASS nothing hidden (r14 has 1 hide_render object): model 1.000 objects vs source 1 objects (tol 0)
+PASS every new object carries the dated state: model 11.000 objects vs source 11 objects (tol 0)
+PASS all new geometry inside the English Mediaeval Court (x >= west face 393.0 ft): model 0.001 ft vs source >= 0.0 ft
+PASS all new geometry west of the English/German screen (x <= 456 - 1.2 ft): model 13.300 ft vs source >= 0.0 ft
+PASS all new geometry in front of the back (garden) wall face (y >= -115.0 ft): model 0.001 ft vs source >= 0.0 ft
+PASS all new geometry behind the nave-front arcade (y <= -47.2 ft): model 0.730 ft vs source >= 0.0 ft
+PASS new geometry on/above the tile floor (z >= 0.05 ft): model 0.001 ft vs source >= 0.0 ft
+PASS all new work below the palace glazing line that crosses the court at ~22.3 ft: model 0.550 ft vs source >= 0.0 ft
+PASS west wall under the lancets: new work below the dark surround sill 5.5 ft: model 0.300 ft vs source >= 0.0 ft
+PASS west wall under the lancets: projection <= 1.2 ft (does not crowd the glass): model 0.180 ft vs source >= 0.0 ft
+INFO back-wall ground row max z 12.66 ft (shelf 12.75)
+PASS Rochester door opening left clear (no new geometry in x 428.5-435.5, z < 8.2, y < -112): model 0.000 verts vs source 0 verts (tol 0)
+PASS Rochester door: painted jamb faces on all five orders (both sides): model 20.000 verts/order vs source >= 8 verts/order
+INFO Rochester jamb paint verts per order [20, 20, 20, 20, 20]
+PASS Queen Eleanor tomb length incl. top slab (Westminster Abbey 3.02 m = 9.91 ft; plinth step +0.14 ft): model 10.050 ft vs source 10.05 ft (tol 0.05)
+PASS Queen Eleanor tomb width incl. top slab (1.10 m = 3.61 ft; plinth step +0.14 ft): model 3.750 ft vs source 3.75 ft (tol 0.05)
+PASS Queen Eleanor overall height (1.65 m = 5.41 ft): model 5.294 ft vs source 5.41 ft (tol 0.35)
+PASS Queen Eleanor effigy length (V&A cast 213.5 cm = 7.00 ft; lions at the feet +~0.5 ft): model 7.450 ft vs source 7.4 ft (tol 0.5)
+PASS Queen Eleanor effigy width (V&A cast 77 cm = 2.53 ft): model 2.530 ft vs source 2.53 ft (tol 0.25)
+INFO Black Prince chest 8.50 x 4.00 ft incl. plinth step, top 4.00 ft (I)
+PASS Black Prince escutcheons (will: twelve, each the breadth of a foot): model 12.000 shields vs source 12 shields (tol 0)
+PASS nearest new geometry to the hero lens >= 20 ft (no foreground props): model 38.513 ft vs source >= 20.0 ft
+PASS Black Prince tomb clear of the r14 pv57 visitors: model 3.944 ft vs source >= 1.5 ft
+PASS Queen Eleanor tomb clear of the r14 pv57 visitors: model 5.055 ft vs source >= 1.5 ft
+PASS no Hyde Park objects in the round: model 0.000 objects vs source 0 objects (tol 0)
+PASS no image textures added (procedural / flat materials only): model 0.000  vs source 0  (tol 0)
+INFO dated collection SY54_english_mediaeval_court_dressed__1854_1856 (11 objects) under ['SY54_fine_arts_courts_II_r13__dated']
+DEPARTURE Rochester doorway colour scheme (orders red / blue / green / red / blue, gilt chevrons, capitals and pellets, blue tympanum, white-and-gilt apostles) I; that it was coloured R (Phillips 1854)
+DEPARTURE niches and canopies round the walls: one generic Decorated bay design (cusp-less pointed niches, crocketed gables, Purbeck colonnettes, red / blue grounds) at 4.5 ft pitch; Southwell / Ely / Beverley originals not individually modelled U
+DEPARTURE upper tier: 8 generic robed statues (king / bishop / queen) 6.3 ft under canopies; Wells facade figures not individually modelled U; Lincoln spandrel angels NOT modelled
+DEPARTURE floor monuments: 2 of the 4 named (Queen Eleanor, Black Prince); Edward II (Gloucester) and William of Wykeham NOT modelled; positions I; Black Prince chest size I; tester NOT modelled; effigies simplified massing

@@ -1,0 +1,6 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_24spp	CAM_CP040_mediaeval_court_28mm	76.42	69.63	203	21.14
+1920x1080_48spp	CAM_CP040_mediaeval_court_28mm	76.05	69.25	204	20.76
+sidefx_1280x720_48spp_keeplight	CAM_CP040_mediaeval_front_28mm	83.19	81.19	209	5.61
+sidefx_1280x720_48spp_keeplight	CAM_CP040_rochester_door_50mm	88.72	68.96	116	64.58
+sidefx_1280x720_48spp_keeplight	CAM_compare_0108_alhambra	56.17	56.16	83	0.05
