@@ -1,0 +1,6 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1920x1080_48spp	CAM_CP041_insert_spandrel_50mm	81.10	79.09	209	79.38
+sidefx_1280x720_48spp_keeplight	CAM_CP041_alhambra_entry_28mm	88.89	84.92	229	42.03
+sidefx_1280x720_48spp_keeplight	CAM_CP041_alhambra_hold_28mm	74.16	73.72	233	46.42
+sidefx_1280x720_48spp_keeplight	CAM_compare_0108_alhambra	89.24	83.83	234	45.54
+sidefx_1280x720_48spp_keeplight	CAM_section_cut_x-300	200.25	200.25	0	0.00

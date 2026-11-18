@@ -1,0 +1,34 @@
+CP041 Alhambra Court OJ polychromy + stilted imposts CANDIDATE checks (rounds/candidates/sydenham-1856-r08b_cp041polychromy.blend) 2026-11-18: 28 PASS 0 FAIL
+PASS hero camera CAM_CP041_insert_spandrel_50mm not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS hero camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS hero camera lens: model 50.000 mm vs source 50.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; render.py live recipe does not touch it): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS view transform unchanged (Filmic)
+PASS render resolution unchanged (1920x1080, the live hero size)
+PASS ONE dated collection holds every new object (base 292 objects + collection): model 294.000  vs source 294  (tol 0)
+PASS nothing hidden / unhidden (hide_render count as base): model 1.000  vs source 1  (tol 0)
+PASS collection is dated and tagged
+PASS every new object carries cp_state = the dated state: 2 objects
+PASS every cp041_ material carries cp_state; only those are new: 1 materials
+PASS generated textures packed in the blend and tagged: cp041_oj_inscription_band_tile 2048x512, cp041_oj_sebka_tile 1024x1024
+PASS Sydenham only: collection not under any Hyde Park / 1851 collection, no HP/1851 objects in it
+PASS r08b stucco untouched (material, face count, identity transform): 7190 faces, al_stucco_diaper_OJ
+PASS skin = every r08b stucco face, both sides: model 14380.000 faces vs source 14380 faces (tol 0)
+PASS skin 6 mm proud of the stucco face (paint/plaster skin, I): model 6.001 mm vs source 6.0 mm (tol 0.05)
+PASS sebka diamond width (workshop prop, from guide p.66): model 0.450 m vs source 0.45 m (tol 0.001)
+PASS sebka diamond height (workshop prop, from guide p.66): model 0.485 m vs source 0.485 m (tol 0.001)
+PASS sebka diamond width/height ratio (measured proportion): model 0.928  vs source 0.9278350515463918  (tol 0.002)
+PASS dado-cap band starts at the r08b dado top (4 ft 6 in): model 1.372 m vs source 1.3716000000000002 m (tol 0.005)
+PASS dado-cap band height (woodcut: inscription band capping the dado; workshop 0.18 m on a 3.6 m panel, scaled court): model 9.370 in vs source range 6.0..10.0 in
+PASS arcade frieze ends under the r08b screen eaves (5.33 m): model 5.330 m vs source 5.33 m (tol 0.01)
+PASS wall frieze ends under the r08b wall eaves (7.32 m): model 7.320 m vs source 7.32 m (tol 0.01)
+INFO 32 stilted imposts (columns whose abacus has the arcade pier above it; the side colonnades carry no r08b screen above the capitals and get none)
+PASS every stilt stands on an r08b abacus top (3.231 m): 32 stilts
+PASS every stilt top reaches into the arcade pier above it (4 cm into the pier underside): []
+PASS stilt height (capital to arch springing; Court of the Lions stilted arches, R type): model 2.359 ft vs source range 2.0..4.5 ft
+INFO stilt heights 0.719..1.246 m; springing now 3.95 m (12.96 ft) on the main screens = r08b pier underside (DEPARTURES r08 row gives springing 11 ft: r08b already sat higher)
+PASS stilt footprint width = r08b abacus 0.52 m less 1 cm each side: model 0.498 m vs source range 0.49..0.51 m
+PASS stilt footprint depth = r08b abacus 0.52 m less 1 cm each side: model 0.498 m vs source range 0.49..0.51 m
+DEPARTURE D-SY-CP041-02 painted-stucco skin over the r08b court stucco: copies 6 mm proud on both sides, grown 4 mm in plane; the r08b polka-dot material stays on al_stucco underneath
+DEPARTURE D-SY-CP041-03 motifs procedural (lobed sebka net, rosettes, filigree), hues muted OJ blue/red/gold: R for type and scheme, I for every motif and hue
+DEPARTURE D-SY-CP041-04 inscription-style bands are abstract knotwork + star roundels, NOT letterforms (no text invented)
