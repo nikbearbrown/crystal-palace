@@ -1,0 +1,39 @@
+CP038 v2 Egyptian Court portico-reliefs candidate check: 29 PASS, 0 FAIL (DEPARTURE lines are logged departures, not checks)
+PASS camera not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS camera lens: model 28.000 mm vs source 28.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; look v1.1 recipe sets -1.2 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS world unchanged (sky): model 1.000  vs source 1  (tol 0)
+PASS base objects all present (292 in r08) + new: model 292.000 objects vs source 292 objects (tol 0)
+PASS nothing hidden (r08 has 1 hide_render object): model 1.000 objects vs source 1 objects (tol 0)
+PASS walk width (I, 10 ft): model 10.000 ft vs source 10.0 ft (tol 0.01)
+PASS walk on the bay axis (KX[3..4] centre 241.81 ft): model 241.806 ft vs source 241.81 ft (tol 0.02)
+PASS walk reaches the portico face (gap): model 0.047 ft vs source 0.05 ft (tol 0.02)
+PASS walk sits on the floor: model 0.120 ft vs source 0.12 ft (tol 0.005)
+PASS winged disc centred on the open centre bay: model 241.806 ft vs source 241.81 ft (tol 0.05)
+PASS winged disc within the architrave band (z >= 17.6 ft): model 17.61 ft vs source >= 17.6 ft
+PASS winged disc within the architrave band (19.4 - top >= 0): model 0.03 ft vs source >= 0.0 ft
+PASS winged disc attached to the architrave face (110.11 ft): back face within +-0.06 ft (negative = keyed in): model -0.023 ft vs source 0.0 ft (tol 0.06)
+INFO winged disc span 13.80 ft, height 1.76 ft (form I)
+PASS relief panels on the portico screen walls: model 6.000 panels vs source 6 panels (tol 0)
+PASS relief panels flush on the screen face (gap): model 0.027 ft vs source 0.03 ft (tol 0.005)
+PASS relief panels below the screen coping (7.5 ft): model 0.10 ft vs source >= 0.0 ft
+PASS nearest new figure to the hero lens >= 7.5 m: model 11.18 m vs source >= 7.5 m
+INFO people_lib v3.4 1850s visitors 4; nearest 11.2 m
+PASS every new object carries the dated state: model 16.000 objects vs source 16 objects (tol 0)
+PASS all new geometry inside the Egyptian Court outer court (x 180..276, y 60..111.6 ft): model 1.000  vs source 1  (tol 0)
+PASS no Hyde Park objects in the round: model 0.000 objects vs source 0 objects (tol 0)
+INFO new materials procedural only; external unpacked images in file: 1 (pre-existing)
+INFO dated collection SY54_egyptian_outer_court_portico_reliefs__1854_1856 (16 objects) under ['SY-EARLY_c1856']
+PASS nearest new figure to the hero lens >= 10 m (v2: visitors kept out of the foreground): model 11.18 m vs source >= 10.0 m
+PASS no lion casts in v2 (v1 rejected; r08 Alhambra al_lions/al_lions_jet excluded): model 0.000 objects vs source 0 objects (tol 0)
+PASS people_lib visitors (a few): model 4.000 figures vs source 4 figures (tol 0)
+PASS relief panel height larger than v1 (6.60 ft): model 6.95 ft vs source >= 6.9 ft
+PASS relief panel width larger than v1 (W - 2.8 ft -> W - 2.5 ft): model 5.24 ft vs source >= 5.2 ft
+PASS relief panels clear of the floor (z0 >= floor top 0.12 ft): model 0.33 ft vs source >= 0.0 ft
+PASS winged disc span larger than v1 (9.8 ft): model 13.80 ft vs source >= 13.0 ft
+INFO relief panels W 5.24-5.76 ft x H 6.95 ft; figures ~5.4 ft (K 1.30 x 4.15 ft)
+DEPARTURE Prudhoe-lion avenue (R: Wyatt 1854 Plate V, Phillips 1854) deliberately NOT modelled in v2 - v1 casts rejected at review as toy-like/dominant
+DEPARTURE relief drawing (king with offering bowl before a standing god with was-sceptre, ankh and plumes; caption glyph column; cartouche; star band) generic, not traced from the Sydenham walls U; subject R (Phillips 1854); one register per screen, figures scaled to ~5.4 ft I
+DEPARTURE winged disc with two uraei, span 13.8 ft across the centre bay architrave: form/colours/span I; position over the main entrance R (Wyatt 1854)
+DEPARTURE 10 ft flagged walk I; 4 people_lib 1850s visitors, positions I (couple in the centre bay, two in line with columns 2 and 5)
