@@ -1,0 +1,9 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_24spp	CAM_CP057_1936_lower_terrace_35mm	181.02	179.74	238	3.38
+1920x1080_48spp	CAM_CP057_1936_lower_terrace_35mm	179.44	178.14	240	3.26
+sidefx_1280x720_48spp_keeplight	CAM_CP073_steps_35mm	208.74	207.45	237	2.10
+sidefx_1280x720_48spp_keeplight	CAM_central_transept_straight	194.83	194.36	177	1.39
+sidefx_1280x720_48spp_keeplight	CAM_compare_0007	211.55	211.52	78	0.14
+sidefx_1280x720_48spp_keeplight	CAM_compare_0074	199.32	199.15	152	0.60
+sidefx_1280x720_48spp_keeplight	CAM_ext_elevated_overview	197.92	197.88	138	0.24
+sidefx_1280x720_48spp_keeplight	CAM_ext_garden_34_terrace	194.12	193.96	163	0.52

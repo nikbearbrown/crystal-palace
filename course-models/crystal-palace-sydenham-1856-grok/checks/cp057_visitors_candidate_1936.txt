@@ -1,0 +1,26 @@
+CP057 interwar visitors CANDIDATE checks (21 PASS, 0 FAIL) - /workspace/crystal-palace-sydenham/course-models/crystal-palace-sydenham-1856-grok/rounds/candidates/sydenham-1936-r11_cp057visitors.blend
+PASS hero camera CAM_CP057_1936_lower_terrace_35mm not moved (position): model 0.000 m vs source 0.0 m (tol 0.0001)
+PASS hero camera not rotated (sum |d euler|): model 0.000 rad vs source 0.0 rad (tol 1e-06)
+PASS hero camera lens: model 35.000 mm vs source 35.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; the look v1.1 recipe overrides to -0.8 on both sides): model -1.000 EV vs source -1.0 EV (tol 0.0)
+PASS ONE dated collection holds every new object (base 306 objects + collection): model 455.000  vs source 455  (tol 0)
+PASS nothing hidden / unhidden (hide_render count as base): model 1.000  vs source 1  (tol 0)
+PASS collection is dated and tagged
+PASS every new object carries cp_state = the dated state: 149 objects
+PASS every cp057_ material carries cp_state: 19 materials
+PASS no Hyde Park / 1851 collection or object mixed in
+INFO 82 people_lib 1930s figures, 31 added skirts, 18 deck chairs
+PASS all visitors in 1930s dress (no 1850s bonnet/crinoline/skirt materials): 0 offenders
+PASS nearest new figure >= 28 m from the lens (no figure dominates the foreground): 29.33 m
+PASS deck chairs >= 22 m from the lens (the two near clusters are empty): 22.04 m
+PASS chairs nearer than 28 m are unoccupied (no figure within 1.5 m of them): 5 near chairs
+PASS standing adult heights min (1930s adults ~1.50-1.85 m): model 1.544 m vs source range 1.45..1.9 m
+PASS standing adult heights max: model 1.866 m vs source range 1.45..1.9 m
+PASS deck chair frame width (folding deck chair c. 22-26 in, I): model 24.724 in vs source range 22.0..26.0 in
+PASS deck chair top-bar height (c. 36-40 in, I): model 37.953 in vs source range 35.0..40.0 in
+PASS 1930s day-dress hem above ground (mid-calf, c. 10-14 in): model 11.549 in vs source range 9.0..15.0 in
+PASS hem above ground, tallest woman: model 12.361 in vs source range 9.0..15.0 in
+PASS every figure stands/sits on lawn, walk or bank turf (not in the basin, within 0.2 m of the surface): 0 offenders []
+DEPARTURE D-SY-CP057-02 people_lib 1930s figures are low-poly stand-ins; summer recolour of the coat/bodice slots (frock / suit colours I)
+DEPARTURE D-SY-CP057-04 skirts are simple elliptical frustums parented to each standing/walking woman (the library shell reads as trousers)
+DEPARTURE D-SY-CP057-06 seated figures on the bank use the library seated pose (legs straight forward); torso does not recline in deck chairs
