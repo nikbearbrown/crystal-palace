@@ -1,0 +1,31 @@
+CP059 nave planting burning CANDIDATE checks (SY36_nave_planting_burning__30Nov1936) - 26 PASS 0 FAIL
+PASS hero camera CAM_CP059_nave_fire_28mm not moved (position): model 0.0000 m vs source 0.0 m (tol 0.0001)
+PASS hero camera not rotated (sum |d euler|): model 0.0000 rad vs source 0.0 rad (tol 1e-06)
+PASS hero camera lens: model 28.0000 mm vs source 28.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -0.5 EV; the live render.py recipe does not touch it): model -0.5000 EV vs source -0.5 EV (tol 0.0)
+PASS view transform unchanged (Filmic)
+PASS blend render settings unchanged (1920x1080, 48 spp; live hero recipe overrides to 960x540 32 spp)
+PASS ONE dated collection holds every new object (base 321 objects + collection): model 325.0000  vs source 325  (tol 0)
+PASS nothing hidden / unhidden (hide_render count as base): model 1.0000  vs source 1  (tol 0)
+PASS collection is dated and tagged
+PASS every new object carries cp_state = the dated state: 4 objects: cp059_charred_limbs, cp059_crown_flames, cp059_leaf_canopy, cp059_smouldering_leaves
+PASS every cp059_ material carries cp_state; only those are new (base 41 incl. the 0-user orphan fountain_jet_spray, which Blender drops on save - no render effect): 3 materials
+PASS Sydenham only: no Hyde Park / 1851 collection or object involved
+PASS r03 placeholder crowns untouched (12 x 720 faces, foliage material, visible)
+PASS round flame material reused unedited (18 nodes, 18 links, emission 6.0)
+PASS new flame tongues use the round flame material and carry hfac
+PASS new flames cast no shadow (as r11b fire_flames)
+PASS foliage + limbs stay inside the nave column lines (|y| <= 36 ft; params.NAVE_SPAN 72 ft, R) - no leaf through a gallery: model 35.074 ft vs source range 0..36.0 ft
+PASS lowest leaf above the r03 tub tops (3.5 ft) - no foliage on the floor: model 9.575 ft vs source range 3.5..40 ft
+PASS tree top (foliage) below the nave vault springing (74.25 ft; guide p.35 crown 110 ft 3 in, B): model 41.465 ft vs source range 15..74.25 ft
+PASS tree height on its 3.5 ft tub: tub-grown conservatory tree (I: 20-45 ft): model 37.965 ft vs source range 20..45 ft
+PASS flame tongue tops below the nave vault springing (74.25 ft): model 49.090 ft vs source range 15..74.25 ft
+PASS leaf blade length, median (broadleaf ornamental trees: 5-35 cm, I): model 22.241 cm vs source range 5..35 cm
+PASS leaf blade length, max: model 35.123 cm vs source range 5..40 cm
+PASS every placeholder crown dressed (>= 10000 blades each): -217ft:16404, -312ft:14601, -410ft:16074, -589ft:14940, -706ft:15421, 176ft:15150, 607ft:17448, -303ft:16739, -404ft:16881, -720ft:17837, 248ft:14895, 637ft:15742
+PASS flame tongues follow the r11b nave burn weight (more tongues where w is higher): -217ft w0.966 t11, -312ft w0.872 t10, -410ft w0.733 t8, -589ft w0.443 t5, -706ft w0.281 t3, 176ft w0.723 t8, 607ft w0.142 t2, -303ft w0.883 t10, -404ft w0.742 t8, -720ft w0.265 t3, 248ft w0.607 t7, 637ft w0.12 t1
+PASS limb base radius not larger than the r03 trunk top (0.5 ft): model 0.427 ft vs source range 0.2..0.5 ft
+INFO blades 192132 canopy + 7269 smouldering; tongues 76; limbs 2856 verts
+DEPARTURE D-SY-CP059-02 leaf canopy hugs the r03 placeholder crowns (icosphere unions) - crown shape/size I; placeholders stay underneath, visible through gaps as inner foliage mass
+DEPARTURE D-SY-CP059-03 foliage trimmed at y = +-35 ft (nave column lines); the r03 crowns themselves reach |y| 39.7 ft and stay bare on their gallery side
+DEPARTURE D-SY-CP059-05 which crowns burn and how hard follows the r11b nave flame-density weight (states.py), I

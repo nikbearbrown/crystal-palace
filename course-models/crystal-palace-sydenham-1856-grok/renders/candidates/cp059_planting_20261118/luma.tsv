@@ -1,0 +1,10 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_960x540_32spp	CAM_CP059_nave_fire_28mm	70.72	67.72	237	14.14
+1920x1080_48spp	CAM_CP059_nave_fire_28mm	70.09	66.96	243	13.59
+sidefx_1280x720_48spp_keeplight	CAM_CP001_prologue_distant_35mm	19.44	19.44	175	0.19
+sidefx_1280x720_48spp_keeplight	CAM_CP061_transept_collapse_35mm	62.06	61.99	48	0.15
+sidefx_1280x720_48spp_keeplight	CAM_central_transept_straight	37.09	37.03	173	0.49
+sidefx_1280x720_48spp_keeplight	CAM_ext_elevated_overview	20.19	20.18	209	0.34
+sidefx_1280x720_48spp_keeplight	CAM_nave_interior_28mm	147.07	146.24	156	4.08
+sidefx_1280x720_48spp_keeplight	CAM_plan_overlay_top	29.69	29.57	203	1.40
+sidefx_1280x720_48spp_keeplight	CAM_section_cut_x-300	25.36	25.68	247	0.92
