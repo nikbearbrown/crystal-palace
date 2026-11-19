@@ -2,3 +2,11 @@ set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
 live_1280x720_24spp_lookv1.1	CAM_CP053_empire_pavilions_wide_35mm	195.99	192.12	225	5.59
 rebuild_vs_after	CAM_CP053_empire_pavilions_wide_35mm	192.12	192.12	0	0.00
 live_hero_vs_before	r14_late11_CAM_CP053_empire_pavilions_wide_35mm	195.99	195.99	0	0.00
+sidefx_1280x720_48spp_keeplight	CAM_CP001_prologue_distant_35mm	208.55	207.06	209	3.81
+sidefx_1280x720_48spp_keeplight	CAM_CP053_festival_of_empire_35mm	204.94	203.50	215	2.17
+sidefx_1280x720_48spp_keeplight	CAM_CP060_crowd_watching_35mm	174.66	174.66	17	0.00
+sidefx_1280x720_48spp_keeplight	CAM_CP062_morning_between_towers_35mm	208.77	206.38	226	4.13
+sidefx_1280x720_48spp_keeplight	CAM_CP064_skyline_50mm	210.82	210.00	217	1.66
+sidefx_1280x720_48spp_keeplight	CAM_compare_0007	208.95	206.86	217	3.48
+sidefx_1280x720_48spp_keeplight	CAM_compare_0108_alhambra	17.95	17.95	5	0.00
+sidefx_1280x720_48spp_keeplight	CAM_ext_elevated_overview	195.09	194.90	168	0.33
