@@ -1,0 +1,6 @@
+2a81762e698c557fc1e58d5603718faf  after/CAM_CP053_empire_pavilions_wide_35mm.png
+b8de5df547ef785eab2f46260de36d44  before/CAM_CP053_empire_pavilions_wide_35mm.png
+9aee6f17b88f1de74a96c57f629a5706  rebuild/CAM_CP053_empire_pavilions_wide_35mm.png
+9f90df235bddb20d11a10b66bffb7cda  rounds/sydenham-late11-r14.blend
+dba3f65bd2b983d20e9fded033f1890d  rounds/candidates/sydenham-late11-r14_cp053trees.blend
+9236eda7cb456bf0a11d047978d86e58  renders/r14_late11_CAM_CP053_empire_pavilions_wide_35mm.png

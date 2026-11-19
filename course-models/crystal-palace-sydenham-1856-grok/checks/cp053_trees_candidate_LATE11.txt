@@ -1,0 +1,32 @@
+CP053 lower-park trees in leaf, summer 1911 CANDIDATE checks (SY11_lower_park_trees_in_leaf__summer1911) - 27 PASS 0 FAIL
+PASS hero camera CAM_CP053_empire_pavilions_wide_35mm not moved (position): model 0.0000 m vs source 0.0 m (tol 0.0001)
+PASS hero camera not rotated (sum |d euler|): model 0.0000 rad vs source 0.0 rad (tol 1e-06)
+PASS hero camera lens: model 35.0000 mm vs source 35.0 mm (tol 0.0)
+PASS exposure unchanged in the blend (Filmic -1.0 EV; the live look v1.1 recipe sets its own -0.8 at render time): model -1.0000 EV vs source -1.0 EV (tol 0.0)
+PASS view transform unchanged (Filmic)
+PASS blend render settings unchanged (1920x1080, 48 spp; live recipe renders 1280x720 24 spp)
+PASS ONE dated collection holds every new object (base 364 objects + collection): model 366.0000  vs source 366  (tol 0)
+PASS nothing hidden / unhidden (hide_render count as base): model 1.0000  vs source 1  (tol 0)
+PASS collection is dated and tagged
+PASS every new object carries cp_state = the dated state: 2 objects: cp053_leaf_canopy, cp053_limbs
+PASS the only new material is cp053_ and tagged: 1 material
+PASS the only new node group is the tagged geometry-nodes spray
+PASS Sydenham only: no Hyde Park / 1851 collection or object involved
+PASS r03 park placeholder crowns untouched (70 x 720 faces, foliage material, visible)
+PASS round bark material reused unedited (2 nodes, 1 link, base colour 0.20/0.15/0.10)
+PASS canopy = point cloud + geometry-nodes sprays (no faces of its own)
+PASS limbs use the round bark material
+PASS leaf blade length min (broadleaf park trees: lime / plane / sycamore / horse-chestnut leaflet 5-35 cm, I): model 14.000 cm vs source range 5..35 cm
+PASS leaf blade length max: model 30.000 cm vs source range 5..35 cm
+PASS leaves per twig spray: model 8.0000  vs source 8  (tol 0)
+PASS every dressed crown is in / near the hero frame (bbox corner or centre within 12 % of the frame): 16 of 70 crowns
+PASS every park crown in / near the hero frame is dressed
+PASS tallest dressed tree, crown top incl. spray radius + leaf (mature park tree c.55 years after the 1856 planting: 12-30 m, I): model 22.465 m vs source range 12..30 m
+PASS shortest dressed tree: model 15.932 m vs source range 12..30 m
+PASS widest crown spread (mature lime / plane / chestnut 8-22 m, I): model 19.964 m vs source range 8..22 m
+PASS lowest spray centre above the ground (head-room under the crown >= 3 m): model 3.085 m vs source range 3.0..30 m
+PASS every dressed crown has sprays (>= 5000 each): 05:15394, 07:24147, 10:16201, 14:14967, 16:19589, 23:17637, 38:24265, 39:16439, 44:10632, 46:12202, 47:24014, 55:15375, 62:22371, 64:24766, 65:19436, 69:25341
+INFO sprays 302776 -> leaves 2422208; limbs 3876 verts; dressed 16 of 70 park crowns
+DEPARTURE D-SY-CP053-02 foliage hugs the r03 placeholder crowns (icosphere unions) - crown shape/size I; placeholders stay underneath as the inner mass
+DEPARTURE D-SY-CP053-04 only the 16 park crowns in/near the CAM_CP053_empire_pavilions_wide_35mm frame are dressed; the other 54 park placeholders in the round stay bare (seen only from other cameras)
+DEPARTURE D-SY-CP053-03 one 8-leaf spray (same leaf layout) instanced at every point with a random rotation / scale - repetition is below pixel size at >= 110 m

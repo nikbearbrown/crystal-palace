@@ -1,0 +1,4 @@
+set	camera	luma_before	luma_after	max_diff	pct_px_changed_gt8
+live_1280x720_24spp_lookv1.1	CAM_CP053_empire_pavilions_wide_35mm	195.99	192.12	225	5.59
+rebuild_vs_after	CAM_CP053_empire_pavilions_wide_35mm	192.12	192.12	0	0.00
+live_hero_vs_before	r14_late11_CAM_CP053_empire_pavilions_wide_35mm	195.99	195.99	0	0.00
